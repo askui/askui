@@ -1,0 +1,68 @@
+{
+  "name": "askui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
+  "workspaces": [
+    "./docs",
+    "./examples/*",
+    "./packages/*"
+  ],
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/vqa4gui/mvp/askui.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/vqa4gui/mvp/askui/issues"
+  },
+  "homepage": "https://gitlab.com/vqa4gui/mvp/askui#readme",
+  "engines": {
+    "npm": "^8.1.2",
+    "node": "~16.13.2"
+  },
+  "keywords": [
+    "test",
+    "testing",
+    "automated-testing",
+    "e2e-testing",
+    "rpa",
+    "askui",
+    "function-testing",
+    "ui-testing",
+    "automation",
+    "ui-automation"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspace=@vqa4gui/askui",
+    "postinstall": "husky install",
+    "postpublish": "pinst --enable",
+    "prepublishOnly": "pinst --disable"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "~16.1.0",
+    "@commitlint/config-conventional": "~16.0.0",
+    "commitizen": "~4.2.4",
+    "husky": "~7.0.4",
+    "is-ci": "~3.0.1",
+    "jira-prepare-commit-msg": "~1.6.2",
+    "lint-staged": "~12.3.2",
+    "pinst": "~2.1.6"
+  },
+  "jira-prepare-commit-msg": {
+    "isConventionalCommit": true,
+    "messagePattern": "$M ($J)"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"
+  }
+}

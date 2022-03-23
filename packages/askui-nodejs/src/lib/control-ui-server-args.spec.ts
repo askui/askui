@@ -5,7 +5,7 @@ describe('createCliFlagsFromArgs()', () => {
     const expected = ['-d 0'];
     const argsWithDefaults = createArgsWithDefaults();
     const actual = createCliFlagsFromArgs(argsWithDefaults);
-    expect(actual).toStrictEqual(expected);
+    expect(actual).toEqual(expected);
   });
 
   test('test createCliFlagsFromArgs  output should include -d 0 when no display was selected', () => {
@@ -13,13 +13,13 @@ describe('createCliFlagsFromArgs()', () => {
     const argsWithDefaults = createArgsWithDefaults({ port: 6777, host: '0.0.0.0' });
     const actual = createCliFlagsFromArgs(argsWithDefaults);
 
-    expect(actual).toStrictEqual(expected);
+    expect(actual).toEqual(expected);
   });
 
   test('test createCliFlagsFromArgs  output should include the display that was selected ', () => {
     const expected = ['-d 99', '-p 6777', '--host 0.0.0.0'];
     const argsWithDefaults = createArgsWithDefaults({ port: 6777, host: '0.0.0.0', display: 99 });
     const actual = createCliFlagsFromArgs(argsWithDefaults);
-    expect(actual).toStrictEqual(expected);
+    expect(actual).toEqual(expected);
   });
 });

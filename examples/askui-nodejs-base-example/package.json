@@ -1,8 +1,7 @@
 {
     "name": "askui-nodejs-lib-example",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "type": "module",
-    "description": "",
     "scripts": {
         "test": "npm run build && jasmine --config=jasmine.json",
         "build": "tsc -p tsconfig.json",
