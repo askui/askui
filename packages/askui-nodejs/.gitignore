@@ -1,0 +1,6 @@
+.eslintcache
+.huskyrc
+.npmrc
+
+dist
+node_modules
