@@ -1,0 +1,34 @@
+{
+    "name": "askui-nodejs-lib-example",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "",
+    "scripts": {
+        "test": "npm run build && jasmine --config=jasmine.json",
+        "build": "tsc -p tsconfig.json",
+        "lint": "eslint --cache --fix --max-warnings 0 \"src/**/*.ts\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@vqa4gui/askui": "1.2.0",
+        "jasmine": "4.0.2"
+    },
+    "devDependencies": {
+        "@types/jasmine": "~3.10.3",
+        "@types/node": "~17.0.10",
+        "@typescript-eslint/eslint-plugin": "~5.10.0",
+        "@typescript-eslint/parser": "~5.10.0",
+        "eslint": "~8.7.0",
+        "eslint-config-airbnb-base": "~15.0.0",
+        "eslint-config-airbnb-typescript": "~16.1.0",
+        "eslint-plugin-import": "~2.25.4",
+        "jasmine-browser-runner": "^1.0.0",
+        "jasmine-core": "^4.0.0",
+        "jasmine-spec-reporter": "~7.0.0",
+        "jasmine-ts": "~0.4.0",
+        "testcontainers": "~8.2.0",
+        "ts-node": "~10.4.0",
+        "typescript": "~4.5.4"
+    }
+}

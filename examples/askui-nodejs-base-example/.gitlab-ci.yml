@@ -1,0 +1,50 @@
+#############
+# VARIABLES #
+#############
+variables:
+  NPM_TOKEN: ${CI_JOB_TOKEN}
+
+############
+# PIPELINE #
+############
+stages:
+  - lint
+  - build
+  - test
+
+default:
+  image: node:16.13
+  before_script:
+    - |
+      {
+        echo "@vqa4gui:registry=https://gitlab.com/api/v4/projects/32725616/packages/npm/"
+        echo "//gitlab.com/api/v4/projects/32725616/packages/npm/:_authToken=\${NPM_TOKEN}"
+      } | tee -a .npmrc
+    - npm ci --cache .npm --prefer-offline
+
+  tags:
+    - local
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .npm/
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
+
+build:
+  stage: build
+  script:
+    - npm run build
+
+test:
+  stage: test
+  services:
+    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/runner/chrome:f740495a-feature
+      alias: chrome-runner
+  variables:
+    WAIT_AFTER_EXECUTION: 'true'
+  script:
+    - npm run test
