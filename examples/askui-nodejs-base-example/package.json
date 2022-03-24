@@ -16,12 +16,6 @@
     "devDependencies": {
         "@types/jasmine": "~3.10.3",
         "@types/node": "~17.0.10",
-        "@typescript-eslint/eslint-plugin": "~5.10.0",
-        "@typescript-eslint/parser": "~5.10.0",
-        "eslint": "~8.7.0",
-        "eslint-config-airbnb-base": "~15.0.0",
-        "eslint-config-airbnb-typescript": "~16.1.0",
-        "eslint-plugin-import": "~2.25.4",
         "jasmine-browser-runner": "^1.0.0",
         "jasmine-core": "^4.0.0",
         "jasmine-spec-reporter": "~7.0.0",

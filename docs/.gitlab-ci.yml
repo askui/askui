@@ -1,52 +1,23 @@
-#############
-# WORKFLOWS #
-#############
+.docs:
+  extends: 
+    - .workspace
+  variables:
+    WORKDIR: docs
 
-.workflow:main:
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'main'
-
-.workflow:build:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == 'main'
-
-############
-# PIPELINE #
-############
-
-stages:
-  - build
-  - deploy
-
-default:
-  image: node:16.13
-  before_script:
-    - npm ci --cache .npm --prefer-offline
-  cache:
-    key: $CI_COMMIT_REF_SLUG
-    paths:
-      - .npm/
-
-build:
+build:docs:
   extends:
-    - .workflow:build
-  stage: build
-  script:
-    - npm run build
-  artifacts:
-    paths:
-      - build
+    - .build:with-artifacts
+    - .docs
 
 pages:
   extends:
     - .workflow:main
-  stage: deploy
+    - .docs
+  stage: release
   dependencies:
-    - build
+    - build:docs
   script:
-    - mv build public
+    - mv $WORKDIR/dist public
   artifacts:
     paths:
       - public

@@ -1,102 +1,36 @@
-#############
-# VARIABLES #
-#############
+.packages:askui-nodejs:
+  extends: 
+    - .workspace
+  variables:
+    WORKDIR: packages/askui-nodejs
 
-variables:
-  NPM_TOKEN: ${CI_JOB_TOKEN}
-
-#############
-# WORKFLOWS #
-#############
-
-.workflow:default:
-  rules: &workflow_default_rules
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-.workflow:mr:
-  rules: &workflow_mr_rules
-    - if: $CI_MERGE_REQUEST_IID
-
-.workflow:main:
-  rules: &workflow_main_rules
-    - if: $CI_COMMIT_BRANCH == 'main'
-
-.workflow:quality:
-  rules:
-    - *workflow_default_rules
-    - *workflow_mr_rules
-    - *workflow_main_rules
-
-.workflow:feature:
-  rules:
-    - if: $CI_COMMIT_BRANCH != 'main'
-  when: manual
-
-############
-# PIPELINE #
-############
-
-stages:
-  - lint
-  - test
-  - build
-  - release
-
-default:
-  image: node:16.13
-  tags:
-    - local
-  before_script:
-    - npm ci --cache .npm --prefer-offline
-  cache:
-    key: $CI_COMMIT_REF_SLUG
-    paths:
-      - .npm/
-
-lint:
+build:packages:askui-nodejs:
   extends:
-    - .workflow:quality
-  stage: lint
-  script:
-    - npm run lint
+    - .build
+    - .packages:askui-nodejs
 
-test:
-  extends:
-    - .workflow:quality
-  stage: test
-  script:
-    - npm run test
-
-build:
+release:packages:askui-nodejs:
   extends:
     - .workflow:main
-  stage: build
-  script:
-    - npm run build
-  artifacts:
-    paths:
-      - dist
-
-release:main:
-  extends:
-    - .workflow:main
+    - .packages:askui-nodejs
   stage: release
   script:
-    - |
-      {
-        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
-        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${NPM_TOKEN}"
-      } | tee -a .npmrc
     - npm run semantic-release
 
-release:feature:
-  extends:
-      - .workflow:feature
-  stage: release
-  script:
-    - apt-get update && apt-get install -y jq
-    - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
-    - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
-    - npm run build
-    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}">.npmrc
-    - npm publish
+# TODO Enable feature builds, ideally with semantic-release
+
+# .workflow:feature:
+#   rules:
+#     - if: $CI_COMMIT_BRANCH != 'main'
+#   when: manual
+
+# release:feature:
+#   extends:
+#       - .workflow:feature
+#   stage: release
+#   script:
+#     - apt-get update && apt-get install -y jq
+#     - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
+#     - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
+#     - npm run build
+#     - npm publish

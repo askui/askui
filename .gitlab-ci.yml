@@ -1,0 +1,66 @@
+include:
+  - local: docs/.gitlab-ci.yml
+  - local: examples/askui-nodejs-base-example/.gitlab-ci.yml
+  - local: packages/askui-nodejs/.gitlab-ci.yml
+
+variables:
+  NPM_TOKEN: ${CI_JOB_TOKEN}
+
+.workflow:main: 
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
+
+.workflow:mr-and-main:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == 'main'
+
+.workspace:
+  variables:
+    WORKDIR: $CI_PROJECT_DIR
+  rules:
+    - changes: ["$WORKDIR/**/*"]
+  before_script:
+    - cd $WORKDIR
+
+.build:
+  extends:
+    - .workflow:mr-and-main
+  stage: build
+  script:
+    - npm run build
+
+.build:with-artifacts:
+  extends:
+    - .build
+  artifacts:
+    paths:
+      - $WORKDIR/dist
+
+stages:
+  - build
+  - quality
+  - release
+
+default:
+  image: node:16.13
+  before_script:
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${NPM_TOKEN}"
+      } | tee -a .npmrc
+    - npm ci --cache .npm --prefer-offline
+  tags:
+    - local
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .npm/
+
+lint:
+  extends:
+    - .workflow:mr-and-main
+  stage: quality
+  script:
+    - npm run lint
