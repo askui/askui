@@ -12,7 +12,7 @@ build:docs:
     - .build:with-artifacts
     - .docs
   variables:
-    DOCUSAURUS_BASE_URL: /mvp/askui
+    DOCUSAURUS_BASE_URL: /mvp/askui/
 
 pages:
   extends:
