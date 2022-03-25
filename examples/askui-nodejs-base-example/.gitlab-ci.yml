@@ -1,3 +1,6 @@
+include:
+  - local: /.gitlab/default.yml
+
 .examples:askui-nodejs-base-example:
   extends: 
     - .workspace

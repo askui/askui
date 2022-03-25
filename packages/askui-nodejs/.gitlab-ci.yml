@@ -1,3 +1,6 @@
+include:
+  - local: /.gitlab/default.yml
+
 .packages:askui-nodejs:
   extends: 
     - .workspace

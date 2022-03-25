@@ -1,3 +1,6 @@
+include:
+  - local: /.gitlab/default.yml
+
 .docs:
   extends: 
     - .workspace
