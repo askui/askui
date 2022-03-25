@@ -20,6 +20,7 @@ variables:
   variables:
     WORKDIR: $CI_PROJECT_DIR
   before_script:
+    - !reference [default, before_script]
     - cd $WORKDIR
   # TODO Reenable
   # rules:
