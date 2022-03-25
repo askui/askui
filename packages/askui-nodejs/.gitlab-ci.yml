@@ -20,20 +20,16 @@ release:packages:askui-nodejs:
   script:
     - npm run semantic-release
 
-# TODO Enable feature builds, ideally with semantic-release
-
-# .workflow:feature:
-#   rules:
-#     - if: $CI_COMMIT_BRANCH != 'main'
-#   when: manual
-
-# release:feature:
-#   extends:
-#       - .workflow:feature
-#   stage: release
-#   script:
-#     - apt-get update && apt-get install -y jq
-#     - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
-#     - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
-#     - npm run build
-#     - npm publish
+release:packages:askui-nodejs:feature:
+  extends:
+    - .packages:askui-nodejs
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'main'
+  when: manual
+  stage: release
+  script:
+    - apt-get update && apt-get install -y jq
+    - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
+    - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
+    - npm run build
+    - npm publish
