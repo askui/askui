@@ -5,38 +5,53 @@
 
 // TODO: Split this in multiple files
 
-import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
+import { CustomElementJson } from '../core/model/test-case-dto';
 import { TestStepResultDto } from '../core/model/test-case-result-dto';
 
 enum Timeunit { }
 
 // LITERALS
-type PC_KEYS = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
-type ANDROID_KEYS = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
-type MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
-type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
-type PC_AND_MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+type PC_KEYS = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ' ;
+type ANDROID_KEYS = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh' ;
+type MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' ;
+type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue' ;
+type PC_AND_MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ' ;
+
+function addParams(
+  paramsList: Map<string, unknown[]>,
+  params: Map<string, unknown>,
+): Map<string, unknown[]> {
+  params.forEach((value: unknown, key: string) => {
+    if (!paramsList.has(key)) {
+      paramsList.set(key, []);
+    }
+    paramsList.set(key, [value, ...paramsList.get(key) as unknown[]]);
+  });
+  return paramsList;
+}
 
 // Helper
 function commandStringBuilder(
   elm: FluentCommand | FluentFilters | FluentFiltersCondition,
   currentInstruction = '',
-  oldCustomElement: CustomElementJson[] = [],
+  paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
 ): Promise<TestStepResultDto> {
   const newCurrentInstruction = `${elm.textStr} ${currentInstruction}`;
+  let newParamsList = paramsList;
   if ((elm instanceof FluentFilters
     || elm instanceof FluentFiltersCondition)
-    && elm.customElements !== undefined) {
-    oldCustomElement.push(elm.customElements);
+    && elm.params !== undefined) {
+    newParamsList = addParams(paramsList, elm.params);
   }
   if (elm instanceof FluentCommand) {
-    return elm.exec(newCurrentInstruction, oldCustomElement);
+    const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+    return elm.exec(newCurrentInstruction, customElements);
   }
-  return commandStringBuilder(elm.prev, newCurrentInstruction, oldCustomElement);
+  return commandStringBuilder(elm.prev, newCurrentInstruction, newParamsList);
 }
 
 class Exec {
-  constructor(private prev: FluentCommand | FluentFiltersOrRelationsCondition) { }
+  constructor(public prev: FluentCommand | FluentFiltersOrRelationsCondition) { }
 
   exec(): Promise<TestStepResultDto> {
     return commandStringBuilder(this.prev);
@@ -48,376 +63,452 @@ class Exec {
 export class FluentFilters {
   textStr = '';
 
-  customElements?: CustomElementJson;
+  params = new Map<string, unknown>();
 
   constructor(public prev: FluentCommand | FluentFilters | FluentFiltersOrRelations) { }
 
-  customElement(customElement: CustomElementJson) {
-    this.textStr = 'custom element';
-    if (customElement.name !== undefined) {
-      this.textStr = `custom element with text "${customElement.name}"`;
-    }
-    this.customElements = customElement;
-    return new FluentFiltersOrRelations(this);
-  }
-
-  wizardItemActive() {
+  wizardItemActive(): FluentFiltersOrRelations {
     this.textStr = 'wizard item active';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  wizardItem() {
+  wizardItem(): FluentFiltersOrRelations {
     this.textStr = 'wizard item';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  wizard() {
+  wizard(): FluentFiltersOrRelations {
     this.textStr = 'wizard';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  windowsBar() {
+  windowsBar(): FluentFiltersOrRelations {
     this.textStr = 'windows bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  window() {
+  window(): FluentFiltersOrRelations {
     this.textStr = 'window';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  video() {
+  video(): FluentFiltersOrRelations {
     this.textStr = 'video';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  url() {
+  url(): FluentFiltersOrRelations {
     this.textStr = 'url';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tooltip() {
+  tooltip(): FluentFiltersOrRelations {
     this.textStr = 'tooltip';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  textfield() {
+  textfield(): FluentFiltersOrRelations {
     this.textStr = 'textfield';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  textarea() {
+  textarea(): FluentFiltersOrRelations {
     this.textStr = 'textarea';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  text() {
-    this.textStr = 'text';
-    return new FluentFiltersOrRelations(this);
-  }
-
-  tableRow() {
+  tableRow(): FluentFiltersOrRelations {
     this.textStr = 'table row';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tableHeader() {
+  tableHeader(): FluentFiltersOrRelations {
     this.textStr = 'table header';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tableColumn() {
+  tableColumn(): FluentFiltersOrRelations {
     this.textStr = 'table column';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  table() {
+  table(): FluentFiltersOrRelations {
     this.textStr = 'table';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tabSelected() {
+  tabSelected(): FluentFiltersOrRelations {
     this.textStr = 'tab selected';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tabBar() {
+  tabBar(): FluentFiltersOrRelations {
     this.textStr = 'tab bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tabActive() {
+  tabActive(): FluentFiltersOrRelations {
     this.textStr = 'tab active';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  tab() {
+  tab(): FluentFiltersOrRelations {
     this.textStr = 'tab';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  switchEnabled() {
+  switchEnabled(): FluentFiltersOrRelations {
     this.textStr = 'switch enabled';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  switchDisabled() {
+  switchDisabled(): FluentFiltersOrRelations {
     this.textStr = 'switch disabled';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  statusBar() {
+  statusBar(): FluentFiltersOrRelations {
     this.textStr = 'status bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  sliderIndicator() {
+  sliderIndicator(): FluentFiltersOrRelations {
     this.textStr = 'slider indicator';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  slider() {
+  slider(): FluentFiltersOrRelations {
     this.textStr = 'slider';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  sidebar() {
+  sidebar(): FluentFiltersOrRelations {
     this.textStr = 'sidebar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  scrollBar() {
+  scrollBar(): FluentFiltersOrRelations {
     this.textStr = 'scroll bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  rect() {
+  rect(): FluentFiltersOrRelations {
     this.textStr = 'rect';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  recaptcha() {
+  recaptcha(): FluentFiltersOrRelations {
     this.textStr = 'recaptcha';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  rate() {
+  rate(): FluentFiltersOrRelations {
     this.textStr = 'rate';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  radioButtonUnselected() {
+  radioButtonUnselected(): FluentFiltersOrRelations {
     this.textStr = 'radio button unselected';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  radioButtonSelected() {
+  radioButtonSelected(): FluentFiltersOrRelations {
     this.textStr = 'radio button selected';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  progressbar() {
+  progressbar(): FluentFiltersOrRelations {
     this.textStr = 'progressbar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  progressBar() {
+  progressBar(): FluentFiltersOrRelations {
     this.textStr = 'progress bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  popover() {
+  popover(): FluentFiltersOrRelations {
     this.textStr = 'popover';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  pil() {
+  pil(): FluentFiltersOrRelations {
     this.textStr = 'pil';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  password() {
+  password(): FluentFiltersOrRelations {
     this.textStr = 'password';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  pager() {
+  pager(): FluentFiltersOrRelations {
     this.textStr = 'pager';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  navigationBar() {
+  navigationBar(): FluentFiltersOrRelations {
     this.textStr = 'navigation bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  mouseText() {
+  mouseText(): FluentFiltersOrRelations {
     this.textStr = 'mouse text';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  mousePointer() {
+  mousePointer(): FluentFiltersOrRelations {
     this.textStr = 'mouse pointer';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  mouseCursor() {
+  mouseCursor(): FluentFiltersOrRelations {
     this.textStr = 'mouse cursor';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  modal() {
+  modal(): FluentFiltersOrRelations {
     this.textStr = 'modal';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  messageBox() {
+  messageBox(): FluentFiltersOrRelations {
     this.textStr = 'message box';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  map() {
+  map(): FluentFiltersOrRelations {
     this.textStr = 'map';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  logo() {
+  logo(): FluentFiltersOrRelations {
     this.textStr = 'logo';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  link() {
+  link(): FluentFiltersOrRelations {
     this.textStr = 'link';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  keyboard() {
+  keyboard(): FluentFiltersOrRelations {
     this.textStr = 'keyboard';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  image() {
+  image(): FluentFiltersOrRelations {
     this.textStr = 'image';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  icon() {
+  icon(): FluentFiltersOrRelations {
     this.textStr = 'icon';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  header() {
+  header(): FluentFiltersOrRelations {
     this.textStr = 'header';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  footer() {
+  footer(): FluentFiltersOrRelations {
     this.textStr = 'footer';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  flag() {
+  flag(): FluentFiltersOrRelations {
     this.textStr = 'flag';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  dropdownMenu() {
+  dropdownMenu(): FluentFiltersOrRelations {
     this.textStr = 'dropdown menu';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  dropdown() {
-    this.textStr = 'dropdown';
-    return new FluentFiltersOrRelations(this);
-  }
-
-  divider() {
+  divider(): FluentFiltersOrRelations {
     this.textStr = 'divider';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  circle() {
+  circle(): FluentFiltersOrRelations {
     this.textStr = 'circle';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  checkboxUnchecked() {
+  checkboxUnchecked(): FluentFiltersOrRelations {
     this.textStr = 'checkbox unchecked';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  checkboxChecked() {
+  checkboxChecked(): FluentFiltersOrRelations {
     this.textStr = 'checkbox checked';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  chartPie() {
+  chartPie(): FluentFiltersOrRelations {
     this.textStr = 'chart pie';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  chart() {
+  chart(): FluentFiltersOrRelations {
     this.textStr = 'chart';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  card() {
+  card(): FluentFiltersOrRelations {
     this.textStr = 'card';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  button() {
-    this.textStr = 'button';
-    return new FluentFiltersOrRelations(this);
-  }
-
-  browserBar() {
+  browserBar(): FluentFiltersOrRelations {
     this.textStr = 'browser bar';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  breadcrumb() {
+  breadcrumb(): FluentFiltersOrRelations {
     this.textStr = 'breadcrumb';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  banner() {
+  banner(): FluentFiltersOrRelations {
     this.textStr = 'banner';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  badge() {
+  badge(): FluentFiltersOrRelations {
     this.textStr = 'badge';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  alert() {
+  alert(): FluentFiltersOrRelations {
     this.textStr = 'alert';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  unknown() {
+  unknown(): FluentFiltersOrRelations {
     this.textStr = 'unknown';
+
     return new FluentFiltersOrRelations(this);
   }
 
-  withText(text: string) {
+  button(): FluentFiltersOrRelations {
+    this.textStr = 'button';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  text(): FluentFiltersOrRelations {
+    this.textStr = 'text';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  dropdown(): FluentFiltersOrRelations {
+    this.textStr = 'dropdown';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
+    this.textStr = 'custom element';
+    this.params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  checkbox(): FluentFiltersOrRelations {
+    this.textStr = 'checkbox';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  withText(text: string): FluentFiltersOrRelations {
     this.textStr = `with text "${text}"`;
+
     return new FluentFiltersOrRelations(this);
   }
 
-  equalsText(text: string) {
+  equalsText(text: string): FluentFiltersOrRelations {
     this.textStr = `equals text "${text}"`;
+
     return new FluentFiltersOrRelations(this);
   }
 
-  containsText(text: string) {
+  containsText(text: string): FluentFiltersOrRelations {
     this.textStr = `contain text "${text}"`;
+
     return new FluentFiltersOrRelations(this);
   }
 
-  withColor(color: COLOR) {
+  colored(color: COLOR): FluentFiltersOrRelations {
     this.textStr = `with color ${color}`;
+
     return new FluentFiltersOrRelations(this);
   }
 }
@@ -427,36 +518,43 @@ export class FluentFilters {
 export class FluentFiltersOrRelations extends FluentFilters {
   in(): FluentFilters {
     this.textStr = 'in';
+
     return new FluentFilters(this);
   }
 
   rightOf(): FluentFilters {
     this.textStr = 'right of';
+
     return new FluentFilters(this);
   }
 
   leftOf(): FluentFilters {
     this.textStr = 'left of';
+
     return new FluentFilters(this);
   }
 
   belowOf(): FluentFilters {
     this.textStr = 'below of';
+
     return new FluentFilters(this);
   }
 
   aboveOf(): FluentFilters {
     this.textStr = 'above of';
+
     return new FluentFilters(this);
   }
 
   nearestOf(): FluentFilters {
-    this.textStr = 'nearest';
+    this.textStr = 'nearest of';
+
     return new FluentFilters(this);
   }
 
   contains(): FluentFilters {
     this.textStr = 'contains';
+
     return new FluentFilters(this);
   }
 
@@ -470,376 +568,452 @@ export class FluentFiltersOrRelations extends FluentFilters {
 export class FluentFiltersCondition {
   textStr = '';
 
-  customElements?: CustomElementJson;
+  params = new Map<string, unknown>();
 
   constructor(public prev: FluentCommand | FluentFiltersCondition) { }
 
-  customElement(customElement: CustomElementJson) {
-    this.textStr = 'custom element';
-    if (customElement.name !== undefined) {
-      this.textStr = `custom element with text "${customElement.name}"`;
-    }
-    this.customElements = customElement;
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  wizardItemActive() {
+  wizardItemActive(): FluentFiltersOrRelationsCondition {
     this.textStr = 'wizard item active';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  wizardItem() {
+  wizardItem(): FluentFiltersOrRelationsCondition {
     this.textStr = 'wizard item';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  wizard() {
+  wizard(): FluentFiltersOrRelationsCondition {
     this.textStr = 'wizard';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  windowsBar() {
+  windowsBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'windows bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  window() {
+  window(): FluentFiltersOrRelationsCondition {
     this.textStr = 'window';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  video() {
+  video(): FluentFiltersOrRelationsCondition {
     this.textStr = 'video';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  url() {
+  url(): FluentFiltersOrRelationsCondition {
     this.textStr = 'url';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tooltip() {
+  tooltip(): FluentFiltersOrRelationsCondition {
     this.textStr = 'tooltip';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  textfield() {
+  textfield(): FluentFiltersOrRelationsCondition {
     this.textStr = 'textfield';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  textarea() {
+  textarea(): FluentFiltersOrRelationsCondition {
     this.textStr = 'textarea';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  text() {
-    this.textStr = 'text';
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  tableRow() {
+  tableRow(): FluentFiltersOrRelationsCondition {
     this.textStr = 'table row';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tableHeader() {
+  tableHeader(): FluentFiltersOrRelationsCondition {
     this.textStr = 'table header';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tableColumn() {
+  tableColumn(): FluentFiltersOrRelationsCondition {
     this.textStr = 'table column';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  table() {
+  table(): FluentFiltersOrRelationsCondition {
     this.textStr = 'table';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tabSelected() {
+  tabSelected(): FluentFiltersOrRelationsCondition {
     this.textStr = 'tab selected';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tabBar() {
+  tabBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'tab bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tabActive() {
+  tabActive(): FluentFiltersOrRelationsCondition {
     this.textStr = 'tab active';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  tab() {
+  tab(): FluentFiltersOrRelationsCondition {
     this.textStr = 'tab';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  switchEnabled() {
+  switchEnabled(): FluentFiltersOrRelationsCondition {
     this.textStr = 'switch enabled';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  switchDisabled() {
+  switchDisabled(): FluentFiltersOrRelationsCondition {
     this.textStr = 'switch disabled';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  statusBar() {
+  statusBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'status bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  sliderIndicator() {
+  sliderIndicator(): FluentFiltersOrRelationsCondition {
     this.textStr = 'slider indicator';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  slider() {
+  slider(): FluentFiltersOrRelationsCondition {
     this.textStr = 'slider';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  sidebar() {
+  sidebar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'sidebar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  scrollBar() {
+  scrollBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'scroll bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  rect() {
+  rect(): FluentFiltersOrRelationsCondition {
     this.textStr = 'rect';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  recaptcha() {
+  recaptcha(): FluentFiltersOrRelationsCondition {
     this.textStr = 'recaptcha';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  rate() {
+  rate(): FluentFiltersOrRelationsCondition {
     this.textStr = 'rate';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  radioButtonUnselected() {
+  radioButtonUnselected(): FluentFiltersOrRelationsCondition {
     this.textStr = 'radio button unselected';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  radioButtonSelected() {
+  radioButtonSelected(): FluentFiltersOrRelationsCondition {
     this.textStr = 'radio button selected';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  progressbar() {
+  progressbar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'progressbar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  progressBar() {
+  progressBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'progress bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  popover() {
+  popover(): FluentFiltersOrRelationsCondition {
     this.textStr = 'popover';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  pil() {
+  pil(): FluentFiltersOrRelationsCondition {
     this.textStr = 'pil';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  password() {
+  password(): FluentFiltersOrRelationsCondition {
     this.textStr = 'password';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  pager() {
+  pager(): FluentFiltersOrRelationsCondition {
     this.textStr = 'pager';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  navigationBar() {
+  navigationBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'navigation bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  mouseText() {
+  mouseText(): FluentFiltersOrRelationsCondition {
     this.textStr = 'mouse text';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  mousePointer() {
+  mousePointer(): FluentFiltersOrRelationsCondition {
     this.textStr = 'mouse pointer';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  mouseCursor() {
+  mouseCursor(): FluentFiltersOrRelationsCondition {
     this.textStr = 'mouse cursor';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  modal() {
+  modal(): FluentFiltersOrRelationsCondition {
     this.textStr = 'modal';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  messageBox() {
+  messageBox(): FluentFiltersOrRelationsCondition {
     this.textStr = 'message box';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  map() {
+  map(): FluentFiltersOrRelationsCondition {
     this.textStr = 'map';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  logo() {
+  logo(): FluentFiltersOrRelationsCondition {
     this.textStr = 'logo';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  link() {
+  link(): FluentFiltersOrRelationsCondition {
     this.textStr = 'link';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  keyboard() {
+  keyboard(): FluentFiltersOrRelationsCondition {
     this.textStr = 'keyboard';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  image() {
+  image(): FluentFiltersOrRelationsCondition {
     this.textStr = 'image';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  icon() {
+  icon(): FluentFiltersOrRelationsCondition {
     this.textStr = 'icon';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  header() {
+  header(): FluentFiltersOrRelationsCondition {
     this.textStr = 'header';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  footer() {
+  footer(): FluentFiltersOrRelationsCondition {
     this.textStr = 'footer';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  flag() {
+  flag(): FluentFiltersOrRelationsCondition {
     this.textStr = 'flag';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  dropdownMenu() {
+  dropdownMenu(): FluentFiltersOrRelationsCondition {
     this.textStr = 'dropdown menu';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  dropdown() {
-    this.textStr = 'dropdown';
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  divider() {
+  divider(): FluentFiltersOrRelationsCondition {
     this.textStr = 'divider';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  circle() {
+  circle(): FluentFiltersOrRelationsCondition {
     this.textStr = 'circle';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  checkboxUnchecked() {
+  checkboxUnchecked(): FluentFiltersOrRelationsCondition {
     this.textStr = 'checkbox unchecked';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  checkboxChecked() {
+  checkboxChecked(): FluentFiltersOrRelationsCondition {
     this.textStr = 'checkbox checked';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  chartPie() {
+  chartPie(): FluentFiltersOrRelationsCondition {
     this.textStr = 'chart pie';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  chart() {
+  chart(): FluentFiltersOrRelationsCondition {
     this.textStr = 'chart';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  card() {
+  card(): FluentFiltersOrRelationsCondition {
     this.textStr = 'card';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  button() {
-    this.textStr = 'button';
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  browserBar() {
+  browserBar(): FluentFiltersOrRelationsCondition {
     this.textStr = 'browser bar';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  breadcrumb() {
+  breadcrumb(): FluentFiltersOrRelationsCondition {
     this.textStr = 'breadcrumb';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  banner() {
+  banner(): FluentFiltersOrRelationsCondition {
     this.textStr = 'banner';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  badge() {
+  badge(): FluentFiltersOrRelationsCondition {
     this.textStr = 'badge';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  alert() {
+  alert(): FluentFiltersOrRelationsCondition {
     this.textStr = 'alert';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  unknown() {
+  unknown(): FluentFiltersOrRelationsCondition {
     this.textStr = 'unknown';
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  withText(text: string) {
+  button(): FluentFiltersOrRelationsCondition {
+    this.textStr = 'button';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  text(): FluentFiltersOrRelationsCondition {
+    this.textStr = 'text';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  dropdown(): FluentFiltersOrRelationsCondition {
+    this.textStr = 'dropdown';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  customElement(customElement: CustomElementJson): FluentFiltersOrRelationsCondition {
+    this.textStr = 'custom element';
+    this.params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  checkbox(): FluentFiltersOrRelationsCondition {
+    this.textStr = 'checkbox';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  withText(text: string): FluentFiltersOrRelationsCondition {
     this.textStr = `with text "${text}"`;
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  equalsText(text: string) {
+  equalsText(text: string): FluentFiltersOrRelationsCondition {
     this.textStr = `equals text "${text}"`;
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  containsText(text: string) {
+  containsText(text: string): FluentFiltersOrRelationsCondition {
     this.textStr = `contain text "${text}"`;
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  withColor(color: COLOR) {
+  colored(color: COLOR): FluentFiltersOrRelationsCondition {
     this.textStr = `with color ${color}`;
+
     return new FluentFiltersOrRelationsCondition(this);
   }
 }
@@ -847,48 +1021,57 @@ export class FluentFiltersCondition {
 // Relations
 
 export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
-  in() {
+  in(): FluentFiltersCondition {
     this.textStr = 'in';
+
     return new FluentFiltersCondition(this);
   }
 
-  rightOf() {
+  rightOf(): FluentFiltersCondition {
     this.textStr = 'right of';
+
     return new FluentFiltersCondition(this);
   }
 
-  leftOf() {
+  leftOf(): FluentFiltersCondition {
     this.textStr = 'left of';
+
     return new FluentFiltersCondition(this);
   }
 
-  belowOf() {
+  belowOf(): FluentFiltersCondition {
     this.textStr = 'below of';
+
     return new FluentFiltersCondition(this);
   }
 
-  aboveOf() {
+  aboveOf(): FluentFiltersCondition {
     this.textStr = 'above of';
+
     return new FluentFiltersCondition(this);
   }
 
-  nearestOf() {
-    this.textStr = 'nearest';
+  nearestOf(): FluentFiltersCondition {
+    this.textStr = 'nearest of';
+
     return new FluentFiltersCondition(this);
   }
 
-  contains() {
+  contains(): FluentFiltersCondition {
     this.textStr = 'contains';
+
     return new FluentFiltersCondition(this);
   }
 
   exists(): ExecCondition {
     this.textStr = 'exists';
+
     return new ExecCondition(this);
   }
 
   notExists(): ExecCondition {
     this.textStr = 'not exists';
+
     return new ExecCondition(this);
   }
 }
@@ -898,6 +1081,11 @@ class ExecCondition extends Exec { }
 // Commands
 export abstract class FluentCommand {
   textStr = '';
+
+  expect() {
+    this.textStr = 'Expect';
+    return new FluentFiltersCondition(this);
+  }
 
   click() {
     this.textStr = 'Click on';
@@ -914,21 +1102,6 @@ export abstract class FluentCommand {
     return new FluentFilters(this);
   }
 
-  type(text: string) {
-    this.textStr = `Type "${text}"`;
-    return new Exec(this);
-  }
-
-  expect() {
-    this.textStr = 'Expect';
-    return new FluentFiltersCondition(this);
-  }
-
-  waitFor(timeValue: number, timeUnit: Timeunit) {
-    this.textStr = `Wait for ${timeValue} ${timeUnit}`;
-    return new Exec(this);
-  }
-
   scrollElement(x_offset: number, y_offset: number) {
     this.textStr = `Scroll x ${x_offset} y ${y_offset} in`;
     return new FluentFilters(this);
@@ -939,8 +1112,23 @@ export abstract class FluentCommand {
     return new FluentFilters(this);
   }
 
+  type(text: string) {
+    this.textStr = `Type "${text}"`;
+    return new Exec(this);
+  }
+
+  waitFor(timeValue: number, timeUnit: Timeunit) {
+    this.textStr = `Wait for ${timeValue} ${timeUnit}`;
+    return new Exec(this);
+  }
+
   scroll(x_offset: number, y_offset: number) {
     this.textStr = `Scroll x ${x_offset} y ${y_offset}`;
+    return new Exec(this);
+  }
+
+  executeShellCommand(shell_command: string) {
+    this.textStr = `Execute shell command "${shell_command}"`;
     return new Exec(this);
   }
 
@@ -1015,6 +1203,5 @@ export abstract class FluentCommand {
   }
 
   abstract exec(instruction: string,
-    customElements?: CustomElementJson[]
-  ): Promise<TestStepResultDto>;
+    customElements: CustomElementJson[]): Promise<TestStepResultDto>;
 }
