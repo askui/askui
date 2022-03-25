@@ -20,7 +20,7 @@ pages:
   dependencies:
     - build:docs
   script:
-    - mv $WORKDIR/dist public
+    - mv dist $CI_PROJECT_DIR/public
   artifacts:
     paths:
       - public
