@@ -41,9 +41,17 @@ variables:
       - $WORKDIR/dist
 
 stages:
+  - prep
   - build
   - quality
   - release
+
+cache:
+  extends:
+    - .workflow:mr-and-main
+  stage: prep
+  script:
+    - echo "Cache successfully prepared"
 
 lint:
   extends:
