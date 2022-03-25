@@ -46,7 +46,7 @@ stages:
   - quality
   - release
 
-cache:
+prep-cache:
   extends:
     - .workflow:mr-and-main
   stage: prep
