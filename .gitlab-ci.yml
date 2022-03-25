@@ -4,9 +4,6 @@ include:
   - local: /examples/askui-nodejs-base-example/.gitlab-ci.yml
   - local: /packages/askui-nodejs/.gitlab-ci.yml
 
-variables:
-  NPM_TOKEN: ${CI_JOB_TOKEN}
-
 .workflow:main: 
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
