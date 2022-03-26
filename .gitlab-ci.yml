@@ -1,5 +1,5 @@
 include:
-  - local: /.gitlab/default.yml
+  - local: /.gitlab/.gitlab-ci.default.yml
   - local: /docs/.gitlab-ci.yml
   - local: /examples/askui-nodejs-base-example/.gitlab-ci.yml
   - local: /packages/askui-nodejs/.gitlab-ci.yml
