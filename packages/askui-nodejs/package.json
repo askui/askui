@@ -18,9 +18,6 @@
         "dist/bin/",
         "dist/example_projects_templates/"
     ],
-    "publishConfig": {
-        "@vqa4gui:registry": "https://gitlab.com/api/v4/projects/32725616/packages/npm/"
-    },
     "dependencies": {
         "commander": "~8.3.0",
         "fs-extra": "~10.0.0",
