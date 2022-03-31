@@ -9,7 +9,6 @@
         "copyTemplate": "shx cp -r src/core/annotation/template.html dist/cjs/core/annotation/ && shx cp -r src/core/annotation/template.html dist/esm/core/annotation/",
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"src/**/*.ts\"",
-        "semantic-release": "semantic-release",
         "test": "jest '/src'"
     },
     "files": [
