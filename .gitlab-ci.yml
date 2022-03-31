@@ -1,7 +1,6 @@
 include:
   - local: /.gitlab/.gitlab-ci.default.yml
   - local: /docs/.gitlab-ci.yml
-  - local: /examples/askui-nodejs-base-example/.gitlab-ci.yml
   - local: /packages/askui-nodejs/.gitlab-ci.yml
 
 .workflow:main: 
@@ -38,7 +37,6 @@ include:
       - $WORKDIR/dist
 
 stages:
-  - prep
   - build
   - quality
   - release
@@ -46,7 +44,7 @@ stages:
 prep-cache:
   extends:
     - .workflow:mr-and-main
-  stage: prep
+  stage: .pre
   script:
     - echo "Cache successfully prepared"
 

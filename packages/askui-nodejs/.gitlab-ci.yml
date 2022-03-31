@@ -19,14 +19,6 @@ build:packages:askui-nodejs:
     - .build
     - .packages:askui-nodejs
 
-release:packages:askui-nodejs:
-  extends:
-    - .workflow:main
-    - .packages:askui-nodejs
-  stage: release
-  script:
-    - npm run semantic-release
-
 release:packages:askui-nodejs:feature:
   extends:
     - .packages:askui-nodejs
