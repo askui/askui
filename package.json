@@ -57,7 +57,9 @@
     "is-ci": "~3.0.1",
     "jira-prepare-commit-msg": "~1.6.2",
     "lint-staged": "~12.3.2",
-    "pinst": "~2.1.6"
+    "pinst": "~2.1.6",
+    "standard-version": "~9.3.2",
+    "zx": "~6.0.7"
   },
   "jira-prepare-commit-msg": {
     "isConventionalCommit": true,
