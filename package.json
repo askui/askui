@@ -61,7 +61,7 @@
   },
   "jira-prepare-commit-msg": {
     "isConventionalCommit": true,
-    "messagePattern": "$M ($J)"
+    "messagePattern": "$M (#$J)"
   },
   "config": {
     "commitizen": {
