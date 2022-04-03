@@ -1,7 +1,6 @@
 {
   "name": "askui",
-  "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0-next.0",
   "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
   "workspaces": [
     "./docs",
@@ -20,6 +19,9 @@
     "url": "https://gitlab.com/vqa4gui/mvp/askui/issues"
   },
   "homepage": "https://gitlab.com/vqa4gui/mvp/askui#readme",
+  "publishConfig": {
+    "@vqa4gui:registry": "https://gitlab.com/api/v4/projects/34584527/packages/npm/"
+  },
   "engines": {
     "npm": "^8.1.2",
     "node": "~16.13.2"
@@ -47,6 +49,8 @@
   "devDependencies": {
     "@commitlint/cli": "~16.1.0",
     "@commitlint/config-conventional": "~16.0.0",
+    "@release-it/bumper": "^3.0.1",
+    "@release-it/conventional-changelog": "^4.2.2",
     "@typescript-eslint/eslint-plugin": "~5.10.0",
     "@typescript-eslint/parser": "~5.10.0",
     "commitizen": "~4.2.4",

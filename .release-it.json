@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "after:bump": [
+      "npm run -w docs version -- ${version}", 
+      "npm run build -w packages/askui-nodejs"
+    ],
+    "before:npm:release": "! npx is-ci && echo //gitlab.com/projects/34584527/packages/npm/:_authToken=$NPM_TOKEN >> .npmrc"
+  },
+  "git": {
+    "addUntrackedFiles": true,
+    "commitMessage": "chore: release ${version} [skip-ci]",
+    "requireBranch": ["main", "*.*.x"],
+    "requireCommits": true
+  },
+  "gitlab": {
+    "release": true,
+    "releaseName": "${version}"
+  },
+  "npm": {
+    "publishPath": "./packages/askui-nodejs",
+    "skipChecks": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "header": "# Changelog",
+      "preset": "conventionalcommits",
+      "infile": "CHANGELOG.md",
+      "strictSemVer": true
+    },
+    "@release-it/bumper": {
+      "out": ["docs/package.json", "packages/askui-nodejs/package.json"]
+    }
+  }
+}
