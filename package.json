@@ -41,7 +41,8 @@
     "test": "npm run test --workspace=@vqa4gui/askui",
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
-    "prepublishOnly": "pinst --disable"
+    "prepublishOnly": "pinst --disable",
+    "release": "release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "~16.1.0",
@@ -59,6 +60,7 @@
     "jira-prepare-commit-msg": "~1.6.2",
     "lint-staged": "~12.3.2",
     "pinst": "~2.1.6",
+    "release-it": "^14.14.0",
     "standard-version": "~9.3.2",
     "zx": "~6.0.7"
   },
