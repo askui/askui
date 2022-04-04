@@ -1,8 +1,7 @@
 {
   "hooks": {
     "after:bump": [
-      "npm run -w docs version -- ${version}", 
-      "npm run build -w packages/askui-nodejs"
+      "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; npm run build -w packages/askui-nodejs; fi"
     ],
     "before:npm:release": "! npx is-ci && echo //gitlab.com/projects/34584527/packages/npm/:_authToken=$NPM_TOKEN >> .npmrc"
   },
