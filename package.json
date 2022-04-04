@@ -64,7 +64,8 @@
     "jira-prepare-commit-msg": "~1.6.2",
     "lint-staged": "~12.3.2",
     "pinst": "~2.1.6",
-    "release-it": "^14.14.0",
+    "release-it": "~14.14.0",
+    "release-it-yarn-workspaces": "~2.0.1",
     "standard-version": "~9.3.2",
     "zx": "~6.0.7"
   },

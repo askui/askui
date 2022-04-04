@@ -3,7 +3,7 @@
     "after:bump": [
       "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; npm run build -w packages/askui-nodejs; fi"
     ],
-    "before:npm:release": "! npx is-ci && echo //gitlab.com/projects/34584527/packages/npm/:_authToken=$NPM_TOKEN >> .npmrc"
+    "before:npm:release": "echo //gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken=$NPM_TOKEN >> .npmrc"
   },
   "git": {
     "addUntrackedFiles": true,
@@ -26,8 +26,18 @@
       "infile": "CHANGELOG.md",
       "strictSemVer": true
     },
-    "@release-it/bumper": {
-      "out": ["docs/package.json", "packages/askui-nodejs/package.json"]
+    "release-it-yarn-workspaces": {
+      "skipChecks": true,
+      "workspaces": [
+        "packages/askui-nodejs"
+      ],
+      "additionalManifests": {
+        "versionUpdates": [
+          "package.json",
+          "docs/package.json", 
+          "packages/askui-nodejs/package.json"
+        ]
+      }
     }
   }
 }
