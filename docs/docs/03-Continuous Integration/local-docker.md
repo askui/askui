@@ -2,6 +2,7 @@
 custom_edit_url: null
 sidebar_position: 2
 ---
+import ClipboardButton from '@site/src/components/ClipboardButton';
 
 # Local Docker
 
@@ -19,20 +20,21 @@ docker login registry.gitlab.com -u <username> -p <token>
 
 The images can be downloaded from
 
-`registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:<release_version>-<browser_version>-<plattform>`
+`registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:v0.8.0-<browser_version>-<plattform>`
 
 The following list shows the prebuild images we currently provide:
 
-| browser | browser version | release version | platform|
-|---|---|---|---|
-| chrome | 99.0.4844.51 |   | amd64 |
-| chrome | 97.0.4692.71 |   | amd64 |
-| chrome | 90.0.4430.212 |   | amd64 |
-| chrome | 80.0.3987.116 |   | amd64 |
-| chrome | 75.0.3770.100 |   | amd64 |
-| firefox | 97.0.1 |   | amd64 |
-| firefox | 96.0.3 |   | amd64 |
-| firefox | 82.0.3 |   | amd64 |
+| browser | browser version | release version | platform| |
+|---|---|---|---|---|
+| chrome | 100.0.4896.60 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-100.0.4896.60-amd64"></ClipboardButton> |
+| chrome | 99.0.4844.51 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-99.0.4844.51-amd64"></ClipboardButton> |
+| chrome | 97.0.4692.71 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-97.0.4692.71-amd64"></ClipboardButton> |
+| chrome | 90.0.4430.212 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-90.0.4430.212-amd64"></ClipboardButton> |
+| firefox | 98.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-98.0.2-amd64"></ClipboardButton> |
+| firefox | 97.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-97.0.2-amd64"></ClipboardButton> |
+| firefox | 96.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-96.0.3-amd64"></ClipboardButton> |
+| firefox | 82.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-82.0.3-amd64"></ClipboardButton> |
+
 
 :::caution
 
@@ -53,8 +55,7 @@ When starting a container the following environment variables can be used to con
 | Env | type | default value | description |
 |---|---|---|---|
 | ENABLE_VNC | boolean | false | Start VNC so that you can connect and observe whats happening in the container. |
-| SCREEN_RESOLUTION | string | 1920x1080x24 | Define the screen resolution of the testcontainer in the format *width* x *height* x *color depth* |
-| WAIT_AFTER_EXECUTION | boolean | false | Keeps the container running after execution. |
+| SCREEN_RESOLUTION | string | 1920x1080 | Define the screen resolution of the testcontainer in the format *width* x *height* |
 
 
 ## Start Container in Jasmin Test Suite
@@ -80,14 +81,13 @@ describe('jasmine demo with askui', () => {
 
   beforeAll(async () => {
     const browser = 'chrome';
-    const releaseVersion = '<TODO>';
-    const browserVersion = '97.0.4692.71';
+    const releaseVersion = 'v0.8.0';
+    const browserVersion = '99.0.4844.51';
     const containerPath = `registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
 
     const container: StartedTestContainer = await new GenericContainer(containerPath)
-      .withEnv('WAIT_AFTER_EXECUTION', 'true')
       .withEnv('ENABLE_VNC', 'true')
-      .withEnv('SCREEN_RESOLUTION', '1920x1080x24')
+      .withEnv('SCREEN_RESOLUTION', '1920x1080')
       .withExposedPorts(6769, 5900)
       .start();
 
@@ -105,3 +105,10 @@ describe('jasmine demo with askui', () => {
 Testcontainers maps the specified ports to some random available ports to prevent collision of ports. Therefore to connect via VNC you need to connect to the port logged to the console and not to port 5900.
 
 :::
+
+## Connect via VNC
+
+To check what is happening inside a running testcontainer you can connect via VNC. For this you need a VNC client like [Remmina](https://remmina.org/). When running the example code from the previous chapter, the containers VNC port will be logged to the console. Use this port to connect. When connecting enter the password `askui` when asked.
+
+![VNC Example](./vnc-example.png)
+Example of a VNC connection with a chrome browser running inside a container.

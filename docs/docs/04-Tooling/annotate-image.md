@@ -12,7 +12,7 @@ This command takes as optional input:
   - If this argument is defined, then the image will be loaded, annotated
   - If this argument is not defined, then a screenshot of your specified screen will be taken and annotated
 - outputPath: This is the output folder path. In which the HTML reports will be saved. If it's not defined then a folder called report will be created.
-- customElements: A list of custom eLements that when defined, the AI model will use them to detect similar elements to them. TODO define the custom elements(why we have it and how to define them) and link it here
+- customElements: A list of custom eLements that when defined, the AI model will use them to detect similar elements to them.
 
 ## How to use
 

@@ -8,10 +8,16 @@ The example below is basic CI setup and job using GitLab CI/CD to run [jasmine t
 This GitLab CI configuration is placed within `.gitlab-ci.yml`.
 
 ```yml
+#############
+# VARIABLES #
+#############
 variables:
   DEPLOY_TOKEN: ${<DEPLOY_TOKEN_VALUE>}
   USER_NAME: ${<USER_NAME_VALUE>} 
 
+############
+# PIPELINE #
+############
 stages:
   - test
 
@@ -21,16 +27,14 @@ test:
   before_script:
     - |
       {
-        echo "@vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/"
-        echo "//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken=\${NPM_TOKEN}"
+        echo "@vqa4gui:registry=https://gitlab.com/api/v4/projects/32725616/packages/npm/"
+        echo "//gitlab.com/api/v4/projects/32725616/packages/npm/:_authToken=\${NPM_TOKEN}"
       } | tee -a .npmrc
     - docker login registry.gitlab.com -u ${USER_NAME}  -p ${DEPLOY_TOKEN} 
     - npm ci
   services:
     - name: <docker_image_path>
       alias: <alias_name>
-  variables:
-    WAIT_AFTER_EXECUTION: 'true'
   script:
     - npx jasmine --config=jasmine.json
 
