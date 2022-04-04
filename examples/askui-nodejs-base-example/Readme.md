@@ -1,5 +1,7 @@
 # Askui Node.js Lib Example
+
 ## description
+
  TODO
 
 ## Usage
@@ -9,56 +11,45 @@
 1 - add the chrome docker image as a service in the Gitlab CI, give an alias_name name to the service
 
 ```yml
-services:
-  - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/runner/chrome:333e93a8-feature 
-    alias: <alias_name>
+parallel:
+    matrix:
+    - BROWSER: chrome
+      BROWSER_VERSIONS: [100.0.4896.60, 99.0.4844.51, 97.0.4692.71, 90.0.4430.212]
+    - BROWSER: firefox
+      BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
+  services:
+    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
+      alias: <alias_name>
 ```
-2 - Write your tests with jasmine. Please note, that you have to use alias_name that you defined in step 1 for the controlServerUrl : `http://<alias_name>:6769 `
 
-```typescript
-import * as askui from '@vqa4gui/askui';
+2 - Write your tests with jasmine. Please note, that you have to use alias_name that you defined in step 1 for the controlServerUrl : `http://<alias_name>:6769`
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
-
-describe('Jasmine demo with askui', () => {
-  let newClient: askui.Client;
-
-  beforeAll(async () => {
-    newClient = new askui.Client(
-      'http://<alias_name>:6769',
-      'https://controlui-api-dev.askui.com/upload',
-    );
-    await newClient.start();
-  });
-
-  it('Should click on text', async () => {
-    const result = await newClient.exec(newClient.click().text().exec());
-    expect(result.state).toBe('PASSED');
-  });
-
-  it('Should fail', async () => {
-    const result = await newClient.exec(newClient.expect().text().withText('NO such text exits').exists()
-      .exec());
-    expect(result.state).toBe('FAILED');
-  });
-  afterAll(async () => {
-    await newClient.close();
-  });
-});
-```
-3- write a test stage in the CI pibline.
+3- write a test stage in the CI pipeline.
 
 **example test stage in Gitlab CI**
 
 ```yml
 test:
   stage: test
+  parallel:
+    matrix:
+    - BROWSER: chrome
+      BROWSER_VERSIONS: [100.0.4896.60, 99.0.4844.51, 97.0.4692.71, 90.0.4430.212]
+    - BROWSER: firefox
+      BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
   services:
-    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/runner/chrome:333e93a8-feature 
-      alias: chrome-runner
+    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
+      alias: askui-runner
   script:
     - npm run test
+  artifacts:
+      paths:
+        - report/
+      expire_in: 
+        - 1 week
 ```
+
+4- the variable RELEASE_VERSION is set to the actual version "v0.8.0", for future releases this can be overwritten, by starting the ci pipeline with the new value  
 
 ## Contributing
 

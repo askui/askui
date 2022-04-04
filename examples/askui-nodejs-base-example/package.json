@@ -3,9 +3,9 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "test": "npm run build && jasmine --config=jasmine.json",
+        "test": "npx jasmine --config=specs/support/jasmine.json",
         "build": "tsc -p tsconfig.json",
-        "lint": "eslint --cache --fix --max-warnings 0 \"src/**/*.ts\""
+        "lint": "eslint --cache --fix --max-warnings 0 \"specs/**/*.ts\""
     },
     "author": "",
     "license": "ISC",

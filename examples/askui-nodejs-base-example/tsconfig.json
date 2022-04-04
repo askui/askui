@@ -1,15 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "module": "ES2020",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "skipLibCheck": true
-  },
-  "include": [
-    "./src", 
-  ]
+  }
 }
