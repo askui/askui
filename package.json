@@ -44,6 +44,7 @@
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
     "prepublishOnly": "pinst --disable",
+    "prerelease": "release-it --preRelease next",
     "release": "release-it"
   },
   "devDependencies": {

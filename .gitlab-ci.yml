@@ -1,63 +1,140 @@
-include:
-  - local: /.gitlab/.gitlab-ci.default.yml
-  - local: /docs/.gitlab-ci.yml
-  - local: /packages/askui-nodejs/.gitlab-ci.yml
+#############
+# VARIABLES #
+#############
 
-.workflow:main: 
-  rules:
-    - if: $CI_COMMIT_BRANCH == 'main'
+variables:
+  RELEASE_TYPE: 
+    value: no_release
+    description: |
+      The release type. Change this variable to 
+        - "release" to release version x.x.x to @latest distribution channel, 
+        - "prerelease" to release x.x.x-next.x to @next distribution channel,
+        - "feature" to release only npm package with spacial name, version and tag for testing.
+  RELEASE_FLAGS:
+    description: 'Flags (space-separated) to be passed to the release command, e.g., "--no-increment --no-npm".'
+  NPM_TOKEN: $GITLAB_TOKEN
+  WORKDIR: $CI_PROJECT_DIR
 
-.workflow:mr-and-main:
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == 'main'
-
-.workspace:
-  variables:
-    WORKDIR: $CI_PROJECT_DIR
-  before_script:
-    - !reference [default, before_script]
-    - cd $WORKDIR
-  # TODO Reenable
-  # rules:
-  #   - changes: ["$WORKDIR/**/*"]
-
-.build:
-  extends:
-    - .workflow:mr-and-main
-  stage: build
-  script:
-    - npm run build
-
-.build:with-artifacts:
-  extends:
-    - .build
-  artifacts:
-    paths:
-      - $WORKDIR/dist
+##########
+# STAGES #
+##########
 
 stages:
   - build
   - quality
   - release
+  - build-docs
+  - release-docs
+
+###########
+# DEFAULT #
+###########
+
+default:
+  image: node:16.13
+  before_script:
+    - |
+      {
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+        echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}"
+      } | tee -a .npmrc
+    - npm ci --cache .npm --prefer-offline
+    - cd $WORKDIR
+  tags:
+    - local
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .npm/
+
+#########
+# RULES #
+#########
+
+.rules:mr-and-main: &rules-mr-and-main
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == 'main'
+
+.rules:release: &rules-release
+  - if: $RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'prerelease'
+
+.rules:release:feature: &rules-release-feature
+  - if: $RELEASE_TYPE == 'feature'
+
+########
+# JOBS #
+########
 
 prep-cache:
-  extends:
-    - .workflow:mr-and-main
+  rules: 
+    - *rules-mr-and-main
+    - *rules-release
+    - *rules-release-feature
   stage: .pre
   script:
     - echo "Cache successfully prepared"
 
+build:
+  rules: *rules-mr-and-main
+  variables:
+    WORKDIR: packages/askui-nodejs
+  stage: build
+  script:
+    - npm run build
+
 lint:
-  extends:
-    - .workflow:mr-and-main
+  rules: *rules-mr-and-main
   stage: quality
   script:
     - npm run lint
 
 test:
-  extends:
-    - .workflow:mr-and-main
+  rules: *rules-mr-and-main
   stage: quality
   script:
     - npm run test
+
+release:
+  rules: *rules-release
+  stage: release
+  script:
+    - npm run $RELEASE_TYPE -- $RELEASE_FLAGS
+
+release:feature:
+  stage: release
+  rules: *rules-release-feature
+  variables:
+    WORKDIR: packages/askui-nodejs
+  script:
+    - apt-get update && apt-get install -y jq
+    - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
+    - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
+    - npm run build
+    - npm publish
+
+docs:build:
+  stage: build-docs
+  rules: 
+    - *rules-mr-and-main
+    - *rules-release
+  variables:
+    DOCS_BASE_URL: /mvp/askui/
+    WORKDIR: docs
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - $WORKDIR/dist
+
+pages:
+  rules: *rules-release
+  stage: release-docs
+  variables:
+    WORKDIR: docs
+  dependencies:
+    - docs:build
+  script:
+    - mv dist $CI_PROJECT_DIR/public
+  artifacts:
+    paths:
+      - public
