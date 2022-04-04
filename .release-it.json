@@ -8,7 +8,6 @@
   "git": {
     "addUntrackedFiles": true,
     "commitMessage": "chore: release ${version} [skip-ci]",
-    "requireBranch": ["main", "*.*.x"],
     "requireCommits": true
   },
   "gitlab": {
