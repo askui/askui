@@ -1,10 +1,62 @@
 # askui
 
-Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on
 
-### Installation
+![askui logo](./docs/static/img/askui_logo-horizontal_negative_rgb.svg)
 
-```
+*Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on*
+
+## Disclaimer
+
+This repo is a [monorepo](https://en.wikipedia.org/wiki/Monorepo#:~:text=In%20version%20control%20systems%2C%20a,as%20a%20'shared%20codebase'.) consisting mainly of npm packages. We use [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) to managing the different npm packages etc. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of askui available to non-typescript/-javascript developers as well.
+
+## Installation
+
+Simply run an `npm install` inside the root directory.
+
+```sh
 $ npm install
-$ npm install --workspaces
 ```
+
+## Contributing
+
+### Branching
+
+Your branch name should conform to the format `<issue id>-<issue title lower-cased and kebab-cased>`, e.g., let's say you have an issue named *Hello World* with id *AS-101*, the the branch name would be `AS-101-hello-world`. We use the issue id prefix to prepend a link to the issue to the commit message header. In some cases, when doing a quick fix of a typo etc. when there is no issue, feel free to just use a descriptive name of what you are doing, e.g., `fix-typo-in-example-readme`.
+
+### Commit Message Standard
+
+Commit messages should conform to [Conventional Commits Message Standard](https://www.conventionalcommits.org/en/v1.0.0/). Exceptions to this rule may be merge commits.
+
+### Adding Dependencies
+
+The [one version rule](https://opensource.google/documentation/reference/thirdparty/oneversion#:~:text=There%20may%20only%20be%20one,several%20reasons%20for%20this%20restriction.) should be followed as much as possible. In practice, this mean checking if a dependency to be added is already used by another package or meant to be used by multiple packages. If not, install it inside the corresponding package's root directory, e.g., `./packages/askui-nodejs`. If it is shared, install it in the project's root directory and make sure that you only need to depend on this single version in all packages. 
+
+### Githooks
+
+This monorepo uses [githooks](https://git-scm.com/docs/githooks) wrapped by [husky](https://github.com/typicode/husky) to lint and test the code, to help you stick to the commit message standard by opening up a cli for constructing the commit message on each commit, prepending the commit message with the issue number or linting the commit message etc. In some cases, e.g., when using a Git client such as [Git Tower](https://www.git-tower.com/) or [GitKraken](https://www.gitkraken.com/), cherry-picking, rebasing or in a ci pipeline, you may want to disable githooks, especially the interactive cli.
+
+For skipping the interactive cli when commiting, set the environment variable `SKIP_CZ_CLI` to `true`.
+```sh
+$ export SKIP_CZ_CLI=true
+```
+
+For skipping all githooks, set the environment variable `HUSKY_SKIP_HOOKS` to `true`.
+```sh
+$ export HUSKY_SKIP_HOOKS=true
+```
+
+In a ci pipeline, the githooks are skipped by default.
+
+### Releasing
+
+Releases should be created using the pipeline, e.g., from the web ui, and setting the ci variable `RELEASE_TYPE`. The variable can take one among 4 values depending on which kind of release you are going for:
+
+- `no_release` (default): used when pipeline is run for other purposes than releasing 
+- `prerelease`:
+  - meant to be run from trunk, e.g., `main` branch
+  - runs [release-it](https://github.com/release-it/release-it) with `--preRelease next` for version bumping confirming to SemVer (`x.y.z-next.w`), writing CHANGELOG, publishing npm package, creating actual (Gitlab) release etc. (have a look at the documentation and our [.release-it.json](./.release-it.json))
+  - you can pass flags to `release-it` using the ci variable `RELEASE_FLAGS`
+- `release`:
+  - like `prerelease` but bumps version to proper version (`x.y.z`) and version documentation under `docs` accordingly and publishes new documentation
+- `feature`:
+  - (only) builds & publishes a new package meant for testing with a unique name (suffix) and version including branch name and git commit sha
