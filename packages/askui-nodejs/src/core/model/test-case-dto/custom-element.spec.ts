@@ -19,7 +19,7 @@ describe('CustomElement', () => {
         imageCompareFormat: 'RGB',
         mask: [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
       });
-      expect(actual).toEqual(expected);
+      expect(actual).toStrictEqual(expected);
     });
 
     test('should throw ValidationError if threshold is invalid', () => {

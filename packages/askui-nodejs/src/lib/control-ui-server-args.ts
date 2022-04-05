@@ -3,7 +3,7 @@ export interface ControlUiServerArgs {
   readonly binaryVersion?: string,
   readonly port?: number;
   readonly host?: string;
-  readonly minimize?: true;
+  readonly minimize?: boolean;
   readonly overWriteBinary?: boolean;
 }
 
@@ -20,6 +20,7 @@ export function createArgsWithDefaults(
     binaryVersion: 'latest',
     display: 0,
     overWriteBinary: false,
+    minimize: true,
   };
   return Object.assign(defaults, args);
 }

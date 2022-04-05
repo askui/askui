@@ -21,7 +21,7 @@ describe('DSL', () => {
       await underTest.click().button()
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on button ',
+        'Click on button',
         [],
       );
     });
@@ -37,7 +37,7 @@ describe('DSL', () => {
       }).button()
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on custom element button ',
+        'Click on custom element button',
         [{
           customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
           imageCompareFormat: 'grayscale',
@@ -63,7 +63,7 @@ describe('DSL', () => {
         })
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on custom element button custom element ',
+        'Click on custom element button custom element',
         [{
           customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
           imageCompareFormat: 'grayscale',

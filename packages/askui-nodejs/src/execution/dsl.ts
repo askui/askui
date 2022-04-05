@@ -8,506 +8,511 @@
 import { CustomElementJson } from '../core/model/test-case-dto';
 import { TestStepResultDto } from '../core/model/test-case-result-dto';
 
-enum Timeunit { }
+export enum Timeunit {
+  MILLISECONDS = 'millisecond',
+  SECONDS = 'seconds',
+  MINUTES = 'minutes',
+}
 
 // LITERALS
-type PC_KEYS = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ' ;
-type ANDROID_KEYS = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh' ;
-type MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' ;
-type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue' ;
-type PC_AND_MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ' ;
+export type PC_KEYS = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+export type ANDROID_KEYS = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
+export type MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
+export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
+export type PC_AND_MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 
-function addParams(
-  paramsList: Map<string, unknown[]>,
-  params: Map<string, unknown>,
-): Map<string, unknown[]> {
-  params.forEach((value: unknown, key: string) => {
-    if (!paramsList.has(key)) {
-      paramsList.set(key, []);
+abstract class FluentBase {
+  constructor(protected prev?: FluentBase) { }
+
+  protected _textStr = '';
+
+  protected _params = new Map<string, unknown>();
+
+  protected static addParams(
+    paramsList: Map<string, unknown[]>,
+    params: Map<string, unknown>,
+  ): Map<string, unknown[]> {
+    params.forEach((value: unknown, key: string) => {
+      if (!paramsList.has(key)) {
+        paramsList.set(key, []);
+      }
+      paramsList.set(key, [value, ...paramsList.get(key) as unknown[]]);
+    });
+    return paramsList;
+  }
+
+  protected commandStringBuilder(
+    currentInstruction = '',
+    paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
+  ): Promise<TestStepResultDto> {
+    const newCurrentInstruction = `${this.textStr} ${currentInstruction}`;
+    const newParamsList = FluentBase.addParams(paramsList, this._params);
+    if (this instanceof FluentCommand) {
+      const fluentCommand = this as FluentCommand;
+      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      return fluentCommand.exec(newCurrentInstruction.trim(), customElements);
     }
-    paramsList.set(key, [value, ...paramsList.get(key) as unknown[]]);
-  });
-  return paramsList;
+    if (!this.prev) {
+      throw new Error('Prev element not defined');
+    }
+    return this.prev.commandStringBuilder(newCurrentInstruction, newParamsList);
+  }
+
+  protected get textStr() { return this._textStr; }
+
+  protected get params() { return this._params; }
 }
 
-// Helper
-function commandStringBuilder(
-  elm: FluentCommand | FluentFilters | FluentFiltersCondition,
-  currentInstruction = '',
-  paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
-): Promise<TestStepResultDto> {
-  const newCurrentInstruction = `${elm.textStr} ${currentInstruction}`;
-  let newParamsList = paramsList;
-  if ((elm instanceof FluentFilters
-    || elm instanceof FluentFiltersCondition)
-    && elm.params !== undefined) {
-    newParamsList = addParams(paramsList, elm.params);
-  }
-  if (elm instanceof FluentCommand) {
-    const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-    return elm.exec(newCurrentInstruction, customElements);
-  }
-  return commandStringBuilder(elm.prev, newCurrentInstruction, newParamsList);
-}
-
-class Exec {
-  constructor(public prev: FluentCommand | FluentFiltersOrRelationsCondition) { }
-
+class Exec extends FluentBase {
   exec(): Promise<TestStepResultDto> {
-    return commandStringBuilder(this.prev);
+    return this.commandStringBuilder();
   }
 }
 
 // Filters
 
-export class FluentFilters {
-  textStr = '';
-
-  params = new Map<string, unknown>();
-
-  constructor(public prev: FluentCommand | FluentFilters | FluentFiltersOrRelations) { }
-
+export class FluentFilters extends FluentBase {
   wizardItemActive(): FluentFiltersOrRelations {
-    this.textStr = 'wizard item active';
+    this._textStr = 'wizard item active';
 
     return new FluentFiltersOrRelations(this);
   }
 
   wizardItem(): FluentFiltersOrRelations {
-    this.textStr = 'wizard item';
+    this._textStr = 'wizard item';
 
     return new FluentFiltersOrRelations(this);
   }
 
   wizard(): FluentFiltersOrRelations {
-    this.textStr = 'wizard';
+    this._textStr = 'wizard';
 
     return new FluentFiltersOrRelations(this);
   }
 
   windowsBar(): FluentFiltersOrRelations {
-    this.textStr = 'windows bar';
+    this._textStr = 'windows bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   window(): FluentFiltersOrRelations {
-    this.textStr = 'window';
+    this._textStr = 'window';
 
     return new FluentFiltersOrRelations(this);
   }
 
   video(): FluentFiltersOrRelations {
-    this.textStr = 'video';
+    this._textStr = 'video';
 
     return new FluentFiltersOrRelations(this);
   }
 
   url(): FluentFiltersOrRelations {
-    this.textStr = 'url';
+    this._textStr = 'url';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tooltip(): FluentFiltersOrRelations {
-    this.textStr = 'tooltip';
+    this._textStr = 'tooltip';
 
     return new FluentFiltersOrRelations(this);
   }
 
   textfield(): FluentFiltersOrRelations {
-    this.textStr = 'textfield';
+    this._textStr = 'textfield';
 
     return new FluentFiltersOrRelations(this);
   }
 
   textarea(): FluentFiltersOrRelations {
-    this.textStr = 'textarea';
+    this._textStr = 'textarea';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tableRow(): FluentFiltersOrRelations {
-    this.textStr = 'table row';
+    this._textStr = 'table row';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tableHeader(): FluentFiltersOrRelations {
-    this.textStr = 'table header';
+    this._textStr = 'table header';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tableColumn(): FluentFiltersOrRelations {
-    this.textStr = 'table column';
+    this._textStr = 'table column';
 
     return new FluentFiltersOrRelations(this);
   }
 
   table(): FluentFiltersOrRelations {
-    this.textStr = 'table';
+    this._textStr = 'table';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tabSelected(): FluentFiltersOrRelations {
-    this.textStr = 'tab selected';
+    this._textStr = 'tab selected';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tabBar(): FluentFiltersOrRelations {
-    this.textStr = 'tab bar';
+    this._textStr = 'tab bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tabActive(): FluentFiltersOrRelations {
-    this.textStr = 'tab active';
+    this._textStr = 'tab active';
 
     return new FluentFiltersOrRelations(this);
   }
 
   tab(): FluentFiltersOrRelations {
-    this.textStr = 'tab';
+    this._textStr = 'tab';
 
     return new FluentFiltersOrRelations(this);
   }
 
   switchEnabled(): FluentFiltersOrRelations {
-    this.textStr = 'switch enabled';
+    this._textStr = 'switch enabled';
 
     return new FluentFiltersOrRelations(this);
   }
 
   switchDisabled(): FluentFiltersOrRelations {
-    this.textStr = 'switch disabled';
+    this._textStr = 'switch disabled';
 
     return new FluentFiltersOrRelations(this);
   }
 
   statusBar(): FluentFiltersOrRelations {
-    this.textStr = 'status bar';
+    this._textStr = 'status bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   sliderIndicator(): FluentFiltersOrRelations {
-    this.textStr = 'slider indicator';
+    this._textStr = 'slider indicator';
 
     return new FluentFiltersOrRelations(this);
   }
 
   slider(): FluentFiltersOrRelations {
-    this.textStr = 'slider';
+    this._textStr = 'slider';
 
     return new FluentFiltersOrRelations(this);
   }
 
   sidebar(): FluentFiltersOrRelations {
-    this.textStr = 'sidebar';
+    this._textStr = 'sidebar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   scrollBar(): FluentFiltersOrRelations {
-    this.textStr = 'scroll bar';
+    this._textStr = 'scroll bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   rect(): FluentFiltersOrRelations {
-    this.textStr = 'rect';
+    this._textStr = 'rect';
 
     return new FluentFiltersOrRelations(this);
   }
 
   recaptcha(): FluentFiltersOrRelations {
-    this.textStr = 'recaptcha';
+    this._textStr = 'recaptcha';
 
     return new FluentFiltersOrRelations(this);
   }
 
   rate(): FluentFiltersOrRelations {
-    this.textStr = 'rate';
+    this._textStr = 'rate';
 
     return new FluentFiltersOrRelations(this);
   }
 
   radioButtonUnselected(): FluentFiltersOrRelations {
-    this.textStr = 'radio button unselected';
+    this._textStr = 'radio button unselected';
 
     return new FluentFiltersOrRelations(this);
   }
 
   radioButtonSelected(): FluentFiltersOrRelations {
-    this.textStr = 'radio button selected';
+    this._textStr = 'radio button selected';
 
     return new FluentFiltersOrRelations(this);
   }
 
   progressbar(): FluentFiltersOrRelations {
-    this.textStr = 'progressbar';
+    this._textStr = 'progressbar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   progressBar(): FluentFiltersOrRelations {
-    this.textStr = 'progress bar';
+    this._textStr = 'progress bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   popover(): FluentFiltersOrRelations {
-    this.textStr = 'popover';
+    this._textStr = 'popover';
 
     return new FluentFiltersOrRelations(this);
   }
 
   pil(): FluentFiltersOrRelations {
-    this.textStr = 'pil';
+    this._textStr = 'pil';
 
     return new FluentFiltersOrRelations(this);
   }
 
   password(): FluentFiltersOrRelations {
-    this.textStr = 'password';
+    this._textStr = 'password';
 
     return new FluentFiltersOrRelations(this);
   }
 
   pager(): FluentFiltersOrRelations {
-    this.textStr = 'pager';
+    this._textStr = 'pager';
 
     return new FluentFiltersOrRelations(this);
   }
 
   navigationBar(): FluentFiltersOrRelations {
-    this.textStr = 'navigation bar';
+    this._textStr = 'navigation bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   mouseText(): FluentFiltersOrRelations {
-    this.textStr = 'mouse text';
+    this._textStr = 'mouse text';
 
     return new FluentFiltersOrRelations(this);
   }
 
   mousePointer(): FluentFiltersOrRelations {
-    this.textStr = 'mouse pointer';
+    this._textStr = 'mouse pointer';
 
     return new FluentFiltersOrRelations(this);
   }
 
   mouseCursor(): FluentFiltersOrRelations {
-    this.textStr = 'mouse cursor';
+    this._textStr = 'mouse cursor';
 
     return new FluentFiltersOrRelations(this);
   }
 
   modal(): FluentFiltersOrRelations {
-    this.textStr = 'modal';
+    this._textStr = 'modal';
 
     return new FluentFiltersOrRelations(this);
   }
 
   messageBox(): FluentFiltersOrRelations {
-    this.textStr = 'message box';
+    this._textStr = 'message box';
 
     return new FluentFiltersOrRelations(this);
   }
 
   map(): FluentFiltersOrRelations {
-    this.textStr = 'map';
+    this._textStr = 'map';
 
     return new FluentFiltersOrRelations(this);
   }
 
   logo(): FluentFiltersOrRelations {
-    this.textStr = 'logo';
+    this._textStr = 'logo';
 
     return new FluentFiltersOrRelations(this);
   }
 
   link(): FluentFiltersOrRelations {
-    this.textStr = 'link';
+    this._textStr = 'link';
 
     return new FluentFiltersOrRelations(this);
   }
 
   keyboard(): FluentFiltersOrRelations {
-    this.textStr = 'keyboard';
+    this._textStr = 'keyboard';
 
     return new FluentFiltersOrRelations(this);
   }
 
   image(): FluentFiltersOrRelations {
-    this.textStr = 'image';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  icon(): FluentFiltersOrRelations {
-    this.textStr = 'icon';
+    this._textStr = 'image';
 
     return new FluentFiltersOrRelations(this);
   }
 
   header(): FluentFiltersOrRelations {
-    this.textStr = 'header';
+    this._textStr = 'header';
 
     return new FluentFiltersOrRelations(this);
   }
 
   footer(): FluentFiltersOrRelations {
-    this.textStr = 'footer';
+    this._textStr = 'footer';
 
     return new FluentFiltersOrRelations(this);
   }
 
   flag(): FluentFiltersOrRelations {
-    this.textStr = 'flag';
+    this._textStr = 'flag';
 
     return new FluentFiltersOrRelations(this);
   }
 
   dropdownMenu(): FluentFiltersOrRelations {
-    this.textStr = 'dropdown menu';
+    this._textStr = 'dropdown menu';
 
     return new FluentFiltersOrRelations(this);
   }
 
   divider(): FluentFiltersOrRelations {
-    this.textStr = 'divider';
+    this._textStr = 'divider';
 
     return new FluentFiltersOrRelations(this);
   }
 
   circle(): FluentFiltersOrRelations {
-    this.textStr = 'circle';
+    this._textStr = 'circle';
 
     return new FluentFiltersOrRelations(this);
   }
 
   checkboxUnchecked(): FluentFiltersOrRelations {
-    this.textStr = 'checkbox unchecked';
+    this._textStr = 'checkbox unchecked';
 
     return new FluentFiltersOrRelations(this);
   }
 
   checkboxChecked(): FluentFiltersOrRelations {
-    this.textStr = 'checkbox checked';
+    this._textStr = 'checkbox checked';
 
     return new FluentFiltersOrRelations(this);
   }
 
   chartPie(): FluentFiltersOrRelations {
-    this.textStr = 'chart pie';
+    this._textStr = 'chart pie';
 
     return new FluentFiltersOrRelations(this);
   }
 
   chart(): FluentFiltersOrRelations {
-    this.textStr = 'chart';
+    this._textStr = 'chart';
 
     return new FluentFiltersOrRelations(this);
   }
 
   card(): FluentFiltersOrRelations {
-    this.textStr = 'card';
+    this._textStr = 'card';
 
     return new FluentFiltersOrRelations(this);
   }
 
   browserBar(): FluentFiltersOrRelations {
-    this.textStr = 'browser bar';
+    this._textStr = 'browser bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
   breadcrumb(): FluentFiltersOrRelations {
-    this.textStr = 'breadcrumb';
+    this._textStr = 'breadcrumb';
 
     return new FluentFiltersOrRelations(this);
   }
 
   banner(): FluentFiltersOrRelations {
-    this.textStr = 'banner';
+    this._textStr = 'banner';
 
     return new FluentFiltersOrRelations(this);
   }
 
   badge(): FluentFiltersOrRelations {
-    this.textStr = 'badge';
+    this._textStr = 'badge';
 
     return new FluentFiltersOrRelations(this);
   }
 
   alert(): FluentFiltersOrRelations {
-    this.textStr = 'alert';
+    this._textStr = 'alert';
 
     return new FluentFiltersOrRelations(this);
   }
 
   unknown(): FluentFiltersOrRelations {
-    this.textStr = 'unknown';
+    this._textStr = 'unknown';
 
     return new FluentFiltersOrRelations(this);
   }
 
   button(): FluentFiltersOrRelations {
-    this.textStr = 'button';
+    this._textStr = 'button';
 
     return new FluentFiltersOrRelations(this);
   }
 
   text(): FluentFiltersOrRelations {
-    this.textStr = 'text';
+    this._textStr = 'text';
 
     return new FluentFiltersOrRelations(this);
   }
 
   dropdown(): FluentFiltersOrRelations {
-    this.textStr = 'dropdown';
+    this._textStr = 'dropdown';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  icon(): FluentFiltersOrRelations {
+    this._textStr = 'icon';
 
     return new FluentFiltersOrRelations(this);
   }
 
   customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
-    this.textStr = 'custom element';
-    this.params.set('customElement', customElement);
+    this._textStr = 'custom element';
+    this._params.set('customElement', customElement);
 
     return new FluentFiltersOrRelations(this);
   }
 
   checkbox(): FluentFiltersOrRelations {
-    this.textStr = 'checkbox';
+    this._textStr = 'checkbox';
 
     return new FluentFiltersOrRelations(this);
   }
 
   withText(text: string): FluentFiltersOrRelations {
-    this.textStr = `with text "${text}"`;
+    this._textStr = `with text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
   equalsText(text: string): FluentFiltersOrRelations {
-    this.textStr = `equals text "${text}"`;
+    this._textStr = `equals text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
   containsText(text: string): FluentFiltersOrRelations {
-    this.textStr = `contain text "${text}"`;
+    this._textStr = `contain text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
   colored(color: COLOR): FluentFiltersOrRelations {
-    this.textStr = `with color ${color}`;
+    this._textStr = `with color ${color}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -517,502 +522,496 @@ export class FluentFilters {
 
 export class FluentFiltersOrRelations extends FluentFilters {
   in(): FluentFilters {
-    this.textStr = 'in';
+    this._textStr = 'in';
 
     return new FluentFilters(this);
   }
 
   rightOf(): FluentFilters {
-    this.textStr = 'right of';
+    this._textStr = 'right of';
 
     return new FluentFilters(this);
   }
 
   leftOf(): FluentFilters {
-    this.textStr = 'left of';
+    this._textStr = 'left of';
 
     return new FluentFilters(this);
   }
 
   belowOf(): FluentFilters {
-    this.textStr = 'below of';
+    this._textStr = 'below of';
 
     return new FluentFilters(this);
   }
 
   aboveOf(): FluentFilters {
-    this.textStr = 'above of';
+    this._textStr = 'above of';
 
     return new FluentFilters(this);
   }
 
   nearestOf(): FluentFilters {
-    this.textStr = 'nearest of';
+    this._textStr = 'nearest of';
 
     return new FluentFilters(this);
   }
 
   contains(): FluentFilters {
-    this.textStr = 'contains';
+    this._textStr = 'contains';
 
     return new FluentFilters(this);
   }
 
   exec(): Promise<TestStepResultDto> {
-    return commandStringBuilder(this.prev);
+    return this.commandStringBuilder();
   }
 }
 
 // Filters
 
-export class FluentFiltersCondition {
-  textStr = '';
-
-  params = new Map<string, unknown>();
-
-  constructor(public prev: FluentCommand | FluentFiltersCondition) { }
-
+export class FluentFiltersCondition extends FluentBase {
   wizardItemActive(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'wizard item active';
+    this._textStr = 'wizard item active';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   wizardItem(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'wizard item';
+    this._textStr = 'wizard item';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   wizard(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'wizard';
+    this._textStr = 'wizard';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   windowsBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'windows bar';
+    this._textStr = 'windows bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   window(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'window';
+    this._textStr = 'window';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   video(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'video';
+    this._textStr = 'video';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   url(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'url';
+    this._textStr = 'url';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tooltip(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'tooltip';
+    this._textStr = 'tooltip';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   textfield(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'textfield';
+    this._textStr = 'textfield';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   textarea(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'textarea';
+    this._textStr = 'textarea';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tableRow(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'table row';
+    this._textStr = 'table row';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tableHeader(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'table header';
+    this._textStr = 'table header';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tableColumn(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'table column';
+    this._textStr = 'table column';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   table(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'table';
+    this._textStr = 'table';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tabSelected(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'tab selected';
+    this._textStr = 'tab selected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tabBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'tab bar';
+    this._textStr = 'tab bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tabActive(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'tab active';
+    this._textStr = 'tab active';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   tab(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'tab';
+    this._textStr = 'tab';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   switchEnabled(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'switch enabled';
+    this._textStr = 'switch enabled';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   switchDisabled(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'switch disabled';
+    this._textStr = 'switch disabled';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   statusBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'status bar';
+    this._textStr = 'status bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   sliderIndicator(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'slider indicator';
+    this._textStr = 'slider indicator';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   slider(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'slider';
+    this._textStr = 'slider';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   sidebar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'sidebar';
+    this._textStr = 'sidebar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   scrollBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'scroll bar';
+    this._textStr = 'scroll bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   rect(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'rect';
+    this._textStr = 'rect';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   recaptcha(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'recaptcha';
+    this._textStr = 'recaptcha';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   rate(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'rate';
+    this._textStr = 'rate';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   radioButtonUnselected(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'radio button unselected';
+    this._textStr = 'radio button unselected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   radioButtonSelected(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'radio button selected';
+    this._textStr = 'radio button selected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   progressbar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'progressbar';
+    this._textStr = 'progressbar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   progressBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'progress bar';
+    this._textStr = 'progress bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   popover(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'popover';
+    this._textStr = 'popover';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   pil(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'pil';
+    this._textStr = 'pil';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   password(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'password';
+    this._textStr = 'password';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   pager(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'pager';
+    this._textStr = 'pager';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   navigationBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'navigation bar';
+    this._textStr = 'navigation bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   mouseText(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'mouse text';
+    this._textStr = 'mouse text';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   mousePointer(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'mouse pointer';
+    this._textStr = 'mouse pointer';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   mouseCursor(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'mouse cursor';
+    this._textStr = 'mouse cursor';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   modal(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'modal';
+    this._textStr = 'modal';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   messageBox(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'message box';
+    this._textStr = 'message box';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   map(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'map';
+    this._textStr = 'map';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   logo(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'logo';
+    this._textStr = 'logo';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   link(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'link';
+    this._textStr = 'link';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   keyboard(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'keyboard';
+    this._textStr = 'keyboard';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   image(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'image';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  icon(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'icon';
+    this._textStr = 'image';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   header(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'header';
+    this._textStr = 'header';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   footer(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'footer';
+    this._textStr = 'footer';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   flag(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'flag';
+    this._textStr = 'flag';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   dropdownMenu(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'dropdown menu';
+    this._textStr = 'dropdown menu';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   divider(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'divider';
+    this._textStr = 'divider';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   circle(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'circle';
+    this._textStr = 'circle';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   checkboxUnchecked(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'checkbox unchecked';
+    this._textStr = 'checkbox unchecked';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   checkboxChecked(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'checkbox checked';
+    this._textStr = 'checkbox checked';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   chartPie(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'chart pie';
+    this._textStr = 'chart pie';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   chart(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'chart';
+    this._textStr = 'chart';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   card(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'card';
+    this._textStr = 'card';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   browserBar(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'browser bar';
+    this._textStr = 'browser bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   breadcrumb(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'breadcrumb';
+    this._textStr = 'breadcrumb';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   banner(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'banner';
+    this._textStr = 'banner';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   badge(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'badge';
+    this._textStr = 'badge';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   alert(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'alert';
+    this._textStr = 'alert';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   unknown(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'unknown';
+    this._textStr = 'unknown';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   button(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'button';
+    this._textStr = 'button';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   text(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'text';
+    this._textStr = 'text';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   dropdown(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'dropdown';
+    this._textStr = 'dropdown';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  icon(): FluentFiltersOrRelationsCondition {
+    this._textStr = 'icon';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   customElement(customElement: CustomElementJson): FluentFiltersOrRelationsCondition {
-    this.textStr = 'custom element';
-    this.params.set('customElement', customElement);
+    this._textStr = 'custom element';
+    this._params.set('customElement', customElement);
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   checkbox(): FluentFiltersOrRelationsCondition {
-    this.textStr = 'checkbox';
+    this._textStr = 'checkbox';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   withText(text: string): FluentFiltersOrRelationsCondition {
-    this.textStr = `with text "${text}"`;
+    this._textStr = `with text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   equalsText(text: string): FluentFiltersOrRelationsCondition {
-    this.textStr = `equals text "${text}"`;
+    this._textStr = `equals text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   containsText(text: string): FluentFiltersOrRelationsCondition {
-    this.textStr = `contain text "${text}"`;
+    this._textStr = `contain text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   colored(color: COLOR): FluentFiltersOrRelationsCondition {
-    this.textStr = `with color ${color}`;
+    this._textStr = `with color ${color}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1022,55 +1021,55 @@ export class FluentFiltersCondition {
 
 export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   in(): FluentFiltersCondition {
-    this.textStr = 'in';
+    this._textStr = 'in';
 
     return new FluentFiltersCondition(this);
   }
 
   rightOf(): FluentFiltersCondition {
-    this.textStr = 'right of';
+    this._textStr = 'right of';
 
     return new FluentFiltersCondition(this);
   }
 
   leftOf(): FluentFiltersCondition {
-    this.textStr = 'left of';
+    this._textStr = 'left of';
 
     return new FluentFiltersCondition(this);
   }
 
   belowOf(): FluentFiltersCondition {
-    this.textStr = 'below of';
+    this._textStr = 'below of';
 
     return new FluentFiltersCondition(this);
   }
 
   aboveOf(): FluentFiltersCondition {
-    this.textStr = 'above of';
+    this._textStr = 'above of';
 
     return new FluentFiltersCondition(this);
   }
 
   nearestOf(): FluentFiltersCondition {
-    this.textStr = 'nearest of';
+    this._textStr = 'nearest of';
 
     return new FluentFiltersCondition(this);
   }
 
   contains(): FluentFiltersCondition {
-    this.textStr = 'contains';
+    this._textStr = 'contains';
 
     return new FluentFiltersCondition(this);
   }
 
   exists(): ExecCondition {
-    this.textStr = 'exists';
+    this._textStr = 'exists';
 
     return new ExecCondition(this);
   }
 
   notExists(): ExecCondition {
-    this.textStr = 'not exists';
+    this._textStr = 'not exists';
 
     return new ExecCondition(this);
   }
@@ -1079,126 +1078,143 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
 class ExecCondition extends Exec { }
 
 // Commands
-export abstract class FluentCommand {
-  textStr = '';
+export abstract class FluentCommand extends FluentBase {
+  constructor() {
+    super(undefined);
+  }
 
   expect() {
-    this.textStr = 'Expect';
+    this._textStr = 'Expect';
     return new FluentFiltersCondition(this);
   }
 
   click() {
-    this.textStr = 'Click on';
+    this._textStr = 'Click on';
     return new FluentFilters(this);
   }
 
   moveMouseTo() {
-    this.textStr = 'Move mouse to';
+    this._textStr = 'Move mouse to';
     return new FluentFilters(this);
   }
 
   typeIn(text: string) {
-    this.textStr = `Type "${text}" in`;
+    this._textStr = `Type "${text}" in`;
     return new FluentFilters(this);
   }
 
   scrollElement(x_offset: number, y_offset: number) {
-    this.textStr = `Scroll x ${x_offset} y ${y_offset} in`;
+    this._textStr = `Scroll x ${x_offset} y ${y_offset} in`;
+    return new FluentFilters(this);
+  }
+
+  moveMouseRelativelyTo(x_offset: number, y_offset: number) {
+    this._textStr = `Move mouse x ${x_offset} y ${y_offset} relatively to`;
     return new FluentFilters(this);
   }
 
   swipe(x_offset: number, y_offset: number) {
-    this.textStr = `Swipe x ${x_offset} y ${y_offset}`;
+    this._textStr = `Swipe x ${x_offset} y ${y_offset}`;
     return new FluentFilters(this);
   }
 
   type(text: string) {
-    this.textStr = `Type "${text}"`;
+    this._textStr = `Type "${text}"`;
     return new Exec(this);
   }
 
   waitFor(timeValue: number, timeUnit: Timeunit) {
-    this.textStr = `Wait for ${timeValue} ${timeUnit}`;
+    this._textStr = `Wait for ${timeValue} ${timeUnit}`;
+    return new Exec(this);
+  }
+
+  moveMouseRelatively(x_offset: number, y_offset: number) {
+    this._textStr = `Move mouse from current position with  x ${x_offset} y ${y_offset}`;
+    return new Exec(this);
+  }
+
+  moveMouse(x_coordinate: number, y_coordinate: number) {
+    this._textStr = `Move mouse to  x ${x_coordinate} y ${y_coordinate}`;
     return new Exec(this);
   }
 
   scroll(x_offset: number, y_offset: number) {
-    this.textStr = `Scroll x ${x_offset} y ${y_offset}`;
+    this._textStr = `Scroll x ${x_offset} y ${y_offset}`;
     return new Exec(this);
   }
 
   executeShellCommand(shell_command: string) {
-    this.textStr = `Execute shell command "${shell_command}"`;
+    this._textStr = `Execute shell command "${shell_command}"`;
     return new Exec(this);
   }
 
   mouseLeftClick() {
-    this.textStr = 'Mouse left click';
+    this._textStr = 'Mouse left click';
     return new Exec(this);
   }
 
   mouseRightClick() {
-    this.textStr = 'Mouse right click';
+    this._textStr = 'Mouse right click';
     return new Exec(this);
   }
 
   mouseMiddleClick() {
-    this.textStr = 'Mouse middle click';
+    this._textStr = 'Mouse middle click';
     return new Exec(this);
   }
 
   mouseDoubleLeftClick() {
-    this.textStr = 'Mouse double left click';
+    this._textStr = 'Mouse double left click';
     return new Exec(this);
   }
 
   mouseDoubleRightClick() {
-    this.textStr = 'Mouse double right click';
+    this._textStr = 'Mouse double right click';
     return new Exec(this);
   }
 
   mouseDoubleMiddleClick() {
-    this.textStr = 'Mouse double middle click';
+    this._textStr = 'Mouse double middle click';
     return new Exec(this);
   }
 
   mouseToggleDown() {
-    this.textStr = 'Mouse toggle down';
+    this._textStr = 'Mouse toggle down';
     return new Exec(this);
   }
 
   mouseToggleUp() {
-    this.textStr = 'Mouse toggle up';
+    this._textStr = 'Mouse toggle up';
     return new Exec(this);
   }
 
   pressThreeKeys(first_key: MODIFIER_KEYS, second_key: MODIFIER_KEYS, third_key: PC_KEYS) {
-    this.textStr = `Press key ${first_key} ${second_key} ${third_key}`;
+    this._textStr = `Press key ${first_key} ${second_key} ${third_key}`;
     return new Exec(this);
   }
 
   pressTwoKeys(first_key: MODIFIER_KEYS, second_key: PC_KEYS) {
-    this.textStr = `Press key ${first_key} ${second_key}`;
+    this._textStr = `Press key ${first_key} ${second_key}`;
     return new Exec(this);
   }
 
   pressKey(key: PC_AND_MODIFIER_KEYS) {
-    this.textStr = `Press key ${key}`;
+    this._textStr = `Press key ${key}`;
     return new Exec(this);
   }
 
   pressAndroidThirdKey(first_key: ANDROID_KEYS, second_key: ANDROID_KEYS, third_key: ANDROID_KEYS) {
-    this.textStr = `Press android key ${first_key} ${second_key} ${third_key}`;
+    this._textStr = `Press android key ${first_key} ${second_key} ${third_key}`;
     return new Exec(this);
   }
 
   pressAndroidTwoKey(first_key: ANDROID_KEYS, second_key: ANDROID_KEYS) {
-    this.textStr = `Press android key ${first_key} ${second_key}`;
+    this._textStr = `Press android key ${first_key} ${second_key}`;
     return new Exec(this);
   }
 
   pressAndroidKey(key: ANDROID_KEYS) {
-    this.textStr = `Press android key ${key}`;
+    this._textStr = `Press android key ${key}`;
     return new Exec(this);
   }
 

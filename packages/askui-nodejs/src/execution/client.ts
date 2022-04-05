@@ -13,6 +13,7 @@ import { AnnotationRequest } from '../core/model/annotation-result/annotation-in
 import { logger } from '../lib/logger';
 import { TestStepState } from '../core/model/test-case-result-dto';
 import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
+import { AnnotationLevel } from './annotation-level';
 
 export class Client extends FluentCommand {
   private httpClient = new HttpClientGot();
@@ -38,7 +39,7 @@ export class Client extends FluentCommand {
     const defaults = {
       controlServerUrl: 'http://localhost:6769',
       controlYourUiApi: 'https://controlui-api-dev.askui.com',
-      annotationLevel: 'disabled',
+      annotationLevel: AnnotationLevel.DISABLED,
     };
     return Object.assign(defaults, this.clientArgs);
   }
@@ -55,27 +56,18 @@ export class Client extends FluentCommand {
     testStepState: TestStepState,
     customElements: CustomElement[] = [],
   ) {
-    switch (testStepState) {
-      case 'PASSED':
-        if (this.clientArgsWithDefaults.annotationLevel === 'all') {
-          await this.annotate(
-            { customElements },
-          );
-        }
-        return;
-      case 'FAILED':
-        if (this.clientArgsWithDefaults.annotationLevel !== 'disabled') {
-          await this.annotate(
-            {
-              customElements,
-              fileNamePrefix: 'failed_testStep_annotation',
-            },
-          );
-        }
-        return;
-      default:
-        throw new Error(`"${testStepState}" not supported.`);
+    if ((testStepState === TestStepState.FAILED
+      && this.clientArgsWithDefaults.annotationLevel === AnnotationLevel.DISABLED)
+        || (testStepState === TestStepState.PASSED
+      && this.clientArgsWithDefaults.annotationLevel !== AnnotationLevel.ALL)) {
+      return;
     }
+    await this.annotate(
+      {
+        customElements,
+        fileNamePrefix: `${testStepState.toLowerCase()}_testStep_annotation`,
+      },
+    );
   }
 
   async start(): Promise<ClientConnectionState> {
