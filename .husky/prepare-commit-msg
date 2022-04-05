@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx is-ci && exit 0
+(npx is-ci || [ "$SKIP_CZ_CLI" = "true" ]) && exit 0
 exec < /dev/tty && npx --no -- cz --hook || true
