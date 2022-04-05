@@ -2,8 +2,7 @@
   "hooks": {
     "after:bump": [
       "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; npm run build -w packages/askui-nodejs; fi; npm install"
-    ],
-    "before:npm:release": "echo //gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken=$NPM_TOKEN >> .npmrc"
+    ]
   },
   "git": {
     "addUntrackedFiles": true,

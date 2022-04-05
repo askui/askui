@@ -57,7 +57,7 @@ default:
     - if: $CI_COMMIT_BRANCH == 'main'
 
 .rules:release: &rules-release
-  - if: $RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'prerelease'
+  - if: $CI_COMMIT_BRANCH == 'main' && ($RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'prerelease')
 
 .rules:release:feature: &rules-release-feature
   - if: $RELEASE_TYPE == 'feature'
