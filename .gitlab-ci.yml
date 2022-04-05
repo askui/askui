@@ -129,6 +129,7 @@ release:
   before_script:
     - !reference [default, before_script]
     - 'which ssh-agent || ( apt-get update -qy && apt-get install openssh-client -qqy )'
+    - eval `ssh-agent -s`
     - cat "${SSH_PRIVATE_KEY}" | ssh-add - > /dev/null
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
     - echo -e "Host $CI_SERVER_HOST\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
