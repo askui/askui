@@ -96,7 +96,7 @@ test:
     - npm run test
 
 test:examples:
-  stage: test
+  stage: quality
   rules:
     - changes: ["$WORKDIR/**/*"]
   variables:
