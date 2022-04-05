@@ -122,6 +122,7 @@ release:
   rules: *rules-release
   stage: release
   script:
+    - git checkout main
     - npm run $RELEASE_TYPE -- $RELEASE_FLAGS
 
 release:feature:
