@@ -13,11 +13,11 @@ Setup private npm repository:
 1. Create auth token with `read_api` under [your gitlab profile](https://gitlab.com/-/profile/personal_access_tokens)
 2. Set your auth token with: 
 ```bash
-npm config set -- '//gitlab.com/api/v4/projects/32725616/packages/npm/:_authToken' "<your_token>"
+npm config set -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<your_token>"
 ```
 3. Set
 ```bash
-npm config set @vqa4gui:registry https://gitlab.example.com/api/v4/projects/32725616/packages/npm/
+npm config set @vqa4gui:registry https://gitlab.example.com/api/v4/projects/34584527/packages/npm/
 ```
 
 ### Install
