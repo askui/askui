@@ -1,5 +1,5 @@
 {
-    "name": "askui-nodejs-lib-example",
+    "name": "askui-nodejs-base-example",
     "type": "module",
     "private": true,
     "scripts": {
