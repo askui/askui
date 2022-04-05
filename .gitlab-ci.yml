@@ -3,18 +3,20 @@
 #############
 
 variables:
+  CI_EMAIL: ${GITLAB_USER_EMAIL}
+  CI_USERNAME: ${GITLAB_USER_LOGIN}
+  CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION: v0.8.0
+  NPM_TOKEN: ${GITLAB_TOKEN}
+  RELEASE_FLAGS:
+    description: 'Flags (space-separated) to be passed to the release command, e.g., "--no-increment --no-npm".'
   RELEASE_TYPE: 
     value: no_release
     description: |
-      The release type. Change this variable to 
+      The release type. Change this variable to
         - "release" to release version x.x.x to @latest distribution channel, 
         - "prerelease" to release x.x.x-next.x to @next distribution channel,
         - "feature" to release only npm package with spacial name, version and tag for testing.
-  RELEASE_FLAGS:
-    description: 'Flags (space-separated) to be passed to the release command, e.g., "--no-increment --no-npm".'
-  CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION: v0.8.0
-  NPM_TOKEN: $GITLAB_TOKEN
-  WORKDIR: $CI_PROJECT_DIR
+  WORKDIR: ${CI_PROJECT_DIR}
 
 ##########
 # STAGES #
@@ -40,11 +42,11 @@ default:
         echo "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}"
       } | tee -a .npmrc
     - npm ci --cache .npm --prefer-offline
-    - cd $WORKDIR
+    - cd ${WORKDIR}
   tags:
     - local
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
 
@@ -95,11 +97,11 @@ test:
   script:
     - npm run test
 
-# TODO Reenable after first release
+# TODO Reenable after first release & fix of install
 # test:examples:
 #   stage: quality
 #   rules:
-#     - changes: ["$WORKDIR/**/*"]
+#     - changes: ["${WORKDIR}/**/*"]
 #   variables:
 #     WORKDIR: examples/askui-nodejs-base-example
 #   parallel:
@@ -109,7 +111,7 @@ test:
 #     - BROWSER: firefox
 #       BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
 #   services:
-#     - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/$BROWSER:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-$BROWSER_VERSIONS-amd64
+#     - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${BROWSER}:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-${BROWSER_VERSIONS}-amd64
 #       alias: askui-runner
 #   script:
 #     - npm run test
@@ -121,9 +123,21 @@ test:
 release:
   rules: *rules-release
   stage: release
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+  before_script:
+    - !reference [default, before_script]
+    - 'which ssh-agent || ( apt-get update -qy && apt-get install openssh-client -qqy )'
+    - cat "${SSH_PRIVATE_KEY}" | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo -e "Host $CI_SERVER_HOST\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
   script:
-    - git checkout main
-    - npm run $RELEASE_TYPE -- $RELEASE_FLAGS
+    - git remote set-url origin "git@gitlab.com:${CI_PROJECT_PATH}.git"
+    - git config --global user.name "${CI_USERNAME}"
+    - git config --global user.email "${CI_EMAIL}"
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - npm run ${RELEASE_TYPE} -- ${RELEASE_FLAGS}
 
 release:feature:
   stage: release
@@ -149,7 +163,7 @@ docs:build:
     - npm run build
   artifacts:
     paths:
-      - $WORKDIR/dist
+      - ${WORKDIR}/dist
 
 pages:
   rules: *rules-release
@@ -159,7 +173,7 @@ pages:
   dependencies:
     - docs:build
   script:
-    - mv dist $CI_PROJECT_DIR/public
+    - mv dist ${CI_PROJECT_DIR}/public
   artifacts:
     paths:
       - public
