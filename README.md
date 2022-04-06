@@ -40,9 +40,9 @@ For skipping the interactive cli when commiting, set the environment variable `S
 $ export SKIP_CZ_CLI=true
 ```
 
-For skipping all githooks, set the environment variable `HUSKY_SKIP_HOOKS` to `true`.
+For skipping all githooks, set the environment variable `HUSKY` to `0`.
 ```sh
-$ export HUSKY_SKIP_HOOKS=true
+$ export HUSKY=0
 ```
 
 In a ci pipeline, the githooks are skipped by default.
