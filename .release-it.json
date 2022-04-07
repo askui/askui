@@ -1,7 +1,7 @@
 {
   "hooks": {
     "after:bump": [
-      "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; npm run build -w packages/askui-nodejs; fi; npm install"
+      "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; fi; npm install; npm run build -w packages/askui-nodejs;"
     ]
   },
   "git": {
