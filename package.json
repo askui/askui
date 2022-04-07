@@ -4,7 +4,6 @@
   "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
   "workspaces": [
     "./docs",
-    "./examples/*",
     "./packages/*"
   ],
   "directories": {
@@ -40,6 +39,7 @@
   ],
   "scripts": {
     "lint": "npm run lint --workspaces --if-present",
+    "lint:staged": "npm run lint:staged --workspaces --if-present",
     "test": "npm run test --workspace=@vqa4gui/askui",
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
@@ -77,8 +77,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "lint-staged": {
-    "./src/**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"
   }
 }

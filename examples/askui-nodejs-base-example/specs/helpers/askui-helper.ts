@@ -1,5 +1,5 @@
 import * as askui from '@vqa4gui/askui';
-import { AnnotationLevel } from '@vqa4gui/askui/dist/cjs/execution/annotation-level'; 
+import { AnnotationLevel } from '@vqa4gui/askui/dist/cjs/execution/annotation-level';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 

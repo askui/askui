@@ -2,5 +2,8 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx is-ci && exit 0
-npm run lint
+npm run lint:staged
 npm test
+
+cd ./examples/askui-nodejs-base-example || exit
+npm run lint:staged
