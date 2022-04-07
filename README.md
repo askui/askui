@@ -52,11 +52,11 @@ In a ci pipeline, the githooks are skipped by default.
 Releases should be created using the pipeline, e.g., from the web ui, and setting the ci variable `RELEASE_TYPE`. The variable can take one among 4 values depending on which kind of release you are going for:
 
 - `no_release` (default): used when pipeline is run for other purposes than releasing 
-- `prerelease`:
+- `release:prerelease`:
   - meant to be run from trunk, e.g., `main` branch
   - runs [release-it](https://github.com/release-it/release-it) with `--preRelease next` for version bumping confirming to SemVer (`x.y.z-next.w`), writing CHANGELOG, publishing npm package, creating actual (Gitlab) release etc. (have a look at the documentation and our [.release-it.json](./.release-it.json))
   - you can pass flags to `release-it` using the ci variable `RELEASE_FLAGS`
 - `release`:
-  - like `prerelease` but bumps version to proper version (`x.y.z`) and version documentation under `docs` accordingly and publishes new documentation
+  - like `release:prerelease` but bumps version to proper version (`x.y.z`) and version documentation under `docs` accordingly and publishes new documentation
 - `feature`:
   - (only) builds & publishes a new package meant for testing with a unique name (suffix) and version including branch name and git commit sha

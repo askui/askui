@@ -14,7 +14,7 @@ variables:
     description: |
       The release type. Change this variable to
         - "release" to release version x.x.x to @latest distribution channel, 
-        - "prerelease" to release x.x.x-next.x to @next distribution channel,
+        - "release:prerelease" to release x.x.x-next.x to @next distribution channel,
         - "feature" to release only npm package with spacial name, version and tag for testing.
   WORKDIR: ${CI_PROJECT_DIR}
 
@@ -59,7 +59,7 @@ default:
     - if: $CI_COMMIT_BRANCH == 'main'
 
 .rules:release: &rules-release
-  - if: $CI_COMMIT_BRANCH == 'main' && ($RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'prerelease')
+  - if: $CI_COMMIT_BRANCH == 'main' && ($RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'release:prerelease')
 
 .rules:release:feature: &rules-release-feature
   - if: $RELEASE_TYPE == 'feature'
