@@ -2,6 +2,7 @@ import * as askui from '@vqa4gui/askui';
 
 describe('jasmine demo with askui', () => {
   let newClient : askui.Client;
+
   beforeAll(function init() {
     newClient = this.askuiClient;
   });
