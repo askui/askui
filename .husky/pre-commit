@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx is-ci && exit 0
-npx lint-staged
+npm run lint
 npm test

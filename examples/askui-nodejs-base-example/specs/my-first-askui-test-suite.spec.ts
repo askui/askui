@@ -14,7 +14,7 @@ describe('jasmine demo with askui', () => {
     expect(result.state).toBe('PASSED');
   });
 
-  it('Should fail', async () => {
+  xit('Should fail', async () => {
     const result = await newClient
       .expect()
       .text()
