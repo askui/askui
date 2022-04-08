@@ -8,18 +8,18 @@
 import { CustomElementJson } from '../core/model/test-case-dto';
 import { TestStepResultDto } from '../core/model/test-case-result-dto';
 
-export enum Timeunit {
-  MILLISECONDS = 'millisecond',
-  SECONDS = 'seconds',
-  MINUTES = 'minutes',
+export enum TimeUnit {
+  MS = 'millisecond',
+  S = 'seconds',
+  MIN = 'minutes',
 }
 
 // LITERALS
-export type PC_KEYS = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
-export type ANDROID_KEYS = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
-export type MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
+export type PC_KEY = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+export type ANDROID_KEY = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
+export type MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
 export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
-export type PC_AND_MODIFIER_KEYS = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+export type PC_AND_MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 
 abstract class FluentBase {
   constructor(protected prev?: FluentBase) { }
@@ -72,414 +72,764 @@ class Exec extends FluentBase {
 // Filters
 
 export class FluentFilters extends FluentBase {
+  /**
+   * Filters for a UI element 'wizard item active'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   wizardItemActive(): FluentFiltersOrRelations {
     this._textStr = 'wizard item active';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'wizard item'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   wizardItem(): FluentFiltersOrRelations {
     this._textStr = 'wizard item';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'wizard'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   wizard(): FluentFiltersOrRelations {
     this._textStr = 'wizard';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'windows bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   windowsBar(): FluentFiltersOrRelations {
     this._textStr = 'windows bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'window'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   window(): FluentFiltersOrRelations {
     this._textStr = 'window';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'video'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   video(): FluentFiltersOrRelations {
     this._textStr = 'video';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'url'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   url(): FluentFiltersOrRelations {
     this._textStr = 'url';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'tooltip'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tooltip(): FluentFiltersOrRelations {
     this._textStr = 'tooltip';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   textfield(): FluentFiltersOrRelations {
     this._textStr = 'textfield';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'textarea'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   textarea(): FluentFiltersOrRelations {
     this._textStr = 'textarea';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'table row'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tableRow(): FluentFiltersOrRelations {
     this._textStr = 'table row';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'table header'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tableHeader(): FluentFiltersOrRelations {
     this._textStr = 'table header';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'table column'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tableColumn(): FluentFiltersOrRelations {
     this._textStr = 'table column';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   table(): FluentFiltersOrRelations {
     this._textStr = 'table';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'tab selected'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tabSelected(): FluentFiltersOrRelations {
     this._textStr = 'tab selected';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'tab bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tabBar(): FluentFiltersOrRelations {
     this._textStr = 'tab bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'tab active'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tabActive(): FluentFiltersOrRelations {
     this._textStr = 'tab active';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'tab'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   tab(): FluentFiltersOrRelations {
     this._textStr = 'tab';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'switch enabled'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   switchEnabled(): FluentFiltersOrRelations {
     this._textStr = 'switch enabled';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'switch disabled'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   switchDisabled(): FluentFiltersOrRelations {
     this._textStr = 'switch disabled';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'status bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   statusBar(): FluentFiltersOrRelations {
     this._textStr = 'status bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'slider indicator'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   sliderIndicator(): FluentFiltersOrRelations {
     this._textStr = 'slider indicator';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'slider'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   slider(): FluentFiltersOrRelations {
     this._textStr = 'slider';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'sidebar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   sidebar(): FluentFiltersOrRelations {
     this._textStr = 'sidebar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'scroll bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   scrollBar(): FluentFiltersOrRelations {
     this._textStr = 'scroll bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'rect'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   rect(): FluentFiltersOrRelations {
     this._textStr = 'rect';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'recaptcha'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   recaptcha(): FluentFiltersOrRelations {
     this._textStr = 'recaptcha';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'rate'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   rate(): FluentFiltersOrRelations {
     this._textStr = 'rate';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'radio button unselected'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   radioButtonUnselected(): FluentFiltersOrRelations {
     this._textStr = 'radio button unselected';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'radio button selected'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   radioButtonSelected(): FluentFiltersOrRelations {
     this._textStr = 'radio button selected';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'progressbar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   progressbar(): FluentFiltersOrRelations {
     this._textStr = 'progressbar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'progress bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   progressBar(): FluentFiltersOrRelations {
     this._textStr = 'progress bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'popover'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   popover(): FluentFiltersOrRelations {
     this._textStr = 'popover';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'pil'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   pil(): FluentFiltersOrRelations {
     this._textStr = 'pil';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'password'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   password(): FluentFiltersOrRelations {
     this._textStr = 'password';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'pager'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   pager(): FluentFiltersOrRelations {
     this._textStr = 'pager';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'navigation bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   navigationBar(): FluentFiltersOrRelations {
     this._textStr = 'navigation bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse text'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   mouseText(): FluentFiltersOrRelations {
     this._textStr = 'mouse text';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse pointer'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   mousePointer(): FluentFiltersOrRelations {
     this._textStr = 'mouse pointer';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse cursor'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   mouseCursor(): FluentFiltersOrRelations {
     this._textStr = 'mouse cursor';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'modal'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   modal(): FluentFiltersOrRelations {
     this._textStr = 'modal';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'message box'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   messageBox(): FluentFiltersOrRelations {
     this._textStr = 'message box';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'map'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   map(): FluentFiltersOrRelations {
     this._textStr = 'map';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'logo'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   logo(): FluentFiltersOrRelations {
     this._textStr = 'logo';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'link'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   link(): FluentFiltersOrRelations {
     this._textStr = 'link';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'keyboard'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   keyboard(): FluentFiltersOrRelations {
     this._textStr = 'keyboard';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   image(): FluentFiltersOrRelations {
     this._textStr = 'image';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'header'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   header(): FluentFiltersOrRelations {
     this._textStr = 'header';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'footer'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   footer(): FluentFiltersOrRelations {
     this._textStr = 'footer';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'flag'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   flag(): FluentFiltersOrRelations {
     this._textStr = 'flag';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'dropdown menu'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   dropdownMenu(): FluentFiltersOrRelations {
     this._textStr = 'dropdown menu';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'divider'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   divider(): FluentFiltersOrRelations {
     this._textStr = 'divider';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'circle'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   circle(): FluentFiltersOrRelations {
     this._textStr = 'circle';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox unchecked'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   checkboxUnchecked(): FluentFiltersOrRelations {
     this._textStr = 'checkbox unchecked';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox checked'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   checkboxChecked(): FluentFiltersOrRelations {
     this._textStr = 'checkbox checked';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'chart pie'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   chartPie(): FluentFiltersOrRelations {
     this._textStr = 'chart pie';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'chart'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   chart(): FluentFiltersOrRelations {
     this._textStr = 'chart';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'card'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   card(): FluentFiltersOrRelations {
     this._textStr = 'card';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'browser bar'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   browserBar(): FluentFiltersOrRelations {
     this._textStr = 'browser bar';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'breadcrumb'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   breadcrumb(): FluentFiltersOrRelations {
     this._textStr = 'breadcrumb';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'banner'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   banner(): FluentFiltersOrRelations {
     this._textStr = 'banner';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'badge'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   badge(): FluentFiltersOrRelations {
     this._textStr = 'badge';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'alert'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   alert(): FluentFiltersOrRelations {
     this._textStr = 'alert';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'unknown'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   unknown(): FluentFiltersOrRelations {
     this._textStr = 'unknown';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for an UI element 'button'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   button(): FluentFiltersOrRelations {
     this._textStr = 'button';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for an UI element 'text'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   text(): FluentFiltersOrRelations {
     this._textStr = 'text';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for an UI element 'dropdown'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   dropdown(): FluentFiltersOrRelations {
     this._textStr = 'dropdown';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for an UI element 'icon'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   icon(): FluentFiltersOrRelations {
     this._textStr = 'icon';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a custom UI element (see {@link CustomElementJson}).
+   *
+   * **Important**: This increases the runtime quite a bit. So
+   *  only use it when absolutely necessary.
+   *
+   * @param {CustomElementJson} customElement - The custom element to filter for.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
     this._textStr = 'custom element';
     this._params.set('customElement', customElement);
@@ -487,30 +837,88 @@ export class FluentFilters extends FluentBase {
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox' checked or unchecked.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   checkbox(): FluentFiltersOrRelations {
     this._textStr = 'checkbox';
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for similar (doesn't need to be a 100% equal) text.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withText('text') => true
+   * 'test' === withText('text') => true
+   * 'other' === withText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   withText(text: string): FluentFiltersOrRelations {
     this._textStr = `with text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
-  equalsText(text: string): FluentFiltersOrRelations {
+  /**
+   * Filters for equal text.
+   *
+   * **Note:** This should be only used in cases where the similarity
+   *  comparison of {@link FluentFilters.withText()} allows not for
+   *  specific enough filtering (too many elements).
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withExactText('text') => true
+   * 'test' === withExactText('text') => false
+   * 'other' === withExactText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  withExactText(text: string): FluentFiltersOrRelations {
     this._textStr = `equals text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for text containing the text provided as an argument.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'This is an text' === containsText('text') => true
+   * 'This is an text' === containsText('other text') => false
+   * 'This is an text' === containsText('other') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   containsText(text: string): FluentFiltersOrRelations {
     this._textStr = `contain text "${text}"`;
 
     return new FluentFiltersOrRelations(this);
   }
 
+  /**
+   * Filters for elements having a specific color.
+   *
+   * @param {COLOR} color - A color to match
+   *
+   * @return {FluentFiltersOrRelations}
+   */
   colored(color: COLOR): FluentFiltersOrRelations {
     this._textStr = `with color ${color}`;
 
@@ -521,42 +929,182 @@ export class FluentFilters extends FluentBase {
 // Relations
 
 export class FluentFiltersOrRelations extends FluentFilters {
+  /**
+   * Filters for an element inside another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns innerEl because innerEl is inside outerEl
+   * ...innerEl().in().outerEl()
+   * // Returns nothing because innerEl is not inside outerEl
+   * ...outerEl().in().innerEl()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
   in(): FluentFilters {
     this._textStr = 'in';
 
     return new FluentFilters(this);
   }
 
+  /**
+   * Filters for an element right of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns rightEl because rightEl is right of leftEl
+   * ...rightEl().rightOf().leftEl()
+   * // Returns no element because leftEl is left of rightEl
+   * ...leftEl().rightOf().rightEl()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
   rightOf(): FluentFilters {
     this._textStr = 'right of';
 
     return new FluentFilters(this);
   }
 
+  /**
+   * Filters for an element left of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns leftEl because leftEl is left of rightEl
+   * ...leftEl().leftOf().rightEl()
+   * // Returns no element because rightEl is left of leftEl
+   * ...rightEl().leftOf().leftEl()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
   leftOf(): FluentFilters {
     this._textStr = 'left of';
 
     return new FluentFilters(this);
   }
 
-  belowOf(): FluentFilters {
-    this._textStr = 'below of';
+  /**
+   * Filters for an element below another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns button because button is below text
+   * ...button().below().text()
+   * // Returns no element because text is above button
+   * ...text().below().button()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
+  below(): FluentFilters {
+    this._textStr = 'below';
 
     return new FluentFilters(this);
   }
 
-  aboveOf(): FluentFilters {
-    this._textStr = 'above of';
+  /**
+   * Filters for an element above another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns text because text is above button
+   * ...text().above().button()
+   * // Returns no element because button is below text
+   * ...button().above().text()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
+  above(): FluentFilters {
+    this._textStr = 'above';
 
     return new FluentFilters(this);
   }
 
-  nearestOf(): FluentFilters {
-    this._textStr = 'nearest of';
+  /**
+   * Filters for an element nearest to another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |  button 1  |
+   * --------------
+   * --------------
+   * |   text     |
+   * --------------
+   *
+   *
+   *
+   * --------------
+   * |  button 2  |
+   * --------------
+   *
+   * // Returns button 1 because button 1 is nearer to the text than button 2
+   * ...button().nearestTo().text()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
+  nearestTo(): FluentFilters {
+    this._textStr = 'nearest to';
 
     return new FluentFilters(this);
   }
 
+  /**
+   * Filters for an element containing another element.
+   *
+   * **Example:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns outerEl because outerEl contains innerEl
+   * ...outerEl().contains().innerEl()
+   * //  Returns no element because innerEl contains no outerEl
+   * ...innerEl().contains().outerEl()
+   * ```
+   *
+   * @return {FluentFilters}
+   */
   contains(): FluentFilters {
     this._textStr = 'contains';
 
@@ -571,414 +1119,764 @@ export class FluentFiltersOrRelations extends FluentFilters {
 // Filters
 
 export class FluentFiltersCondition extends FluentBase {
+  /**
+   * Filters for a UI element 'wizard item active'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   wizardItemActive(): FluentFiltersOrRelationsCondition {
     this._textStr = 'wizard item active';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'wizard item'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   wizardItem(): FluentFiltersOrRelationsCondition {
     this._textStr = 'wizard item';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'wizard'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   wizard(): FluentFiltersOrRelationsCondition {
     this._textStr = 'wizard';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'windows bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   windowsBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'windows bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'window'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   window(): FluentFiltersOrRelationsCondition {
     this._textStr = 'window';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'video'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   video(): FluentFiltersOrRelationsCondition {
     this._textStr = 'video';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'url'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   url(): FluentFiltersOrRelationsCondition {
     this._textStr = 'url';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'tooltip'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tooltip(): FluentFiltersOrRelationsCondition {
     this._textStr = 'tooltip';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   textfield(): FluentFiltersOrRelationsCondition {
     this._textStr = 'textfield';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'textarea'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   textarea(): FluentFiltersOrRelationsCondition {
     this._textStr = 'textarea';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'table row'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tableRow(): FluentFiltersOrRelationsCondition {
     this._textStr = 'table row';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'table header'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tableHeader(): FluentFiltersOrRelationsCondition {
     this._textStr = 'table header';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'table column'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tableColumn(): FluentFiltersOrRelationsCondition {
     this._textStr = 'table column';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   table(): FluentFiltersOrRelationsCondition {
     this._textStr = 'table';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'tab selected'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tabSelected(): FluentFiltersOrRelationsCondition {
     this._textStr = 'tab selected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'tab bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tabBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'tab bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'tab active'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tabActive(): FluentFiltersOrRelationsCondition {
     this._textStr = 'tab active';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'tab'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   tab(): FluentFiltersOrRelationsCondition {
     this._textStr = 'tab';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'switch enabled'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   switchEnabled(): FluentFiltersOrRelationsCondition {
     this._textStr = 'switch enabled';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'switch disabled'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   switchDisabled(): FluentFiltersOrRelationsCondition {
     this._textStr = 'switch disabled';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'status bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   statusBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'status bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'slider indicator'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   sliderIndicator(): FluentFiltersOrRelationsCondition {
     this._textStr = 'slider indicator';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'slider'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   slider(): FluentFiltersOrRelationsCondition {
     this._textStr = 'slider';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'sidebar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   sidebar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'sidebar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'scroll bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   scrollBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'scroll bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'rect'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   rect(): FluentFiltersOrRelationsCondition {
     this._textStr = 'rect';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'recaptcha'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   recaptcha(): FluentFiltersOrRelationsCondition {
     this._textStr = 'recaptcha';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'rate'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   rate(): FluentFiltersOrRelationsCondition {
     this._textStr = 'rate';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'radio button unselected'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   radioButtonUnselected(): FluentFiltersOrRelationsCondition {
     this._textStr = 'radio button unselected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'radio button selected'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   radioButtonSelected(): FluentFiltersOrRelationsCondition {
     this._textStr = 'radio button selected';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'progressbar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   progressbar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'progressbar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'progress bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   progressBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'progress bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'popover'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   popover(): FluentFiltersOrRelationsCondition {
     this._textStr = 'popover';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'pil'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   pil(): FluentFiltersOrRelationsCondition {
     this._textStr = 'pil';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'password'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   password(): FluentFiltersOrRelationsCondition {
     this._textStr = 'password';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'pager'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   pager(): FluentFiltersOrRelationsCondition {
     this._textStr = 'pager';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'navigation bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   navigationBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'navigation bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse text'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   mouseText(): FluentFiltersOrRelationsCondition {
     this._textStr = 'mouse text';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse pointer'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   mousePointer(): FluentFiltersOrRelationsCondition {
     this._textStr = 'mouse pointer';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'mouse cursor'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   mouseCursor(): FluentFiltersOrRelationsCondition {
     this._textStr = 'mouse cursor';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'modal'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   modal(): FluentFiltersOrRelationsCondition {
     this._textStr = 'modal';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'message box'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   messageBox(): FluentFiltersOrRelationsCondition {
     this._textStr = 'message box';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'map'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   map(): FluentFiltersOrRelationsCondition {
     this._textStr = 'map';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'logo'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   logo(): FluentFiltersOrRelationsCondition {
     this._textStr = 'logo';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'link'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   link(): FluentFiltersOrRelationsCondition {
     this._textStr = 'link';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'keyboard'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   keyboard(): FluentFiltersOrRelationsCondition {
     this._textStr = 'keyboard';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   image(): FluentFiltersOrRelationsCondition {
     this._textStr = 'image';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'header'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   header(): FluentFiltersOrRelationsCondition {
     this._textStr = 'header';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'footer'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   footer(): FluentFiltersOrRelationsCondition {
     this._textStr = 'footer';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'flag'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   flag(): FluentFiltersOrRelationsCondition {
     this._textStr = 'flag';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'dropdown menu'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   dropdownMenu(): FluentFiltersOrRelationsCondition {
     this._textStr = 'dropdown menu';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'divider'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   divider(): FluentFiltersOrRelationsCondition {
     this._textStr = 'divider';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'circle'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   circle(): FluentFiltersOrRelationsCondition {
     this._textStr = 'circle';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox unchecked'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   checkboxUnchecked(): FluentFiltersOrRelationsCondition {
     this._textStr = 'checkbox unchecked';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox checked'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   checkboxChecked(): FluentFiltersOrRelationsCondition {
     this._textStr = 'checkbox checked';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'chart pie'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   chartPie(): FluentFiltersOrRelationsCondition {
     this._textStr = 'chart pie';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'chart'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   chart(): FluentFiltersOrRelationsCondition {
     this._textStr = 'chart';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'card'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   card(): FluentFiltersOrRelationsCondition {
     this._textStr = 'card';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'browser bar'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   browserBar(): FluentFiltersOrRelationsCondition {
     this._textStr = 'browser bar';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'breadcrumb'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   breadcrumb(): FluentFiltersOrRelationsCondition {
     this._textStr = 'breadcrumb';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'banner'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   banner(): FluentFiltersOrRelationsCondition {
     this._textStr = 'banner';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'badge'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   badge(): FluentFiltersOrRelationsCondition {
     this._textStr = 'badge';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'alert'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   alert(): FluentFiltersOrRelationsCondition {
     this._textStr = 'alert';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'unknown'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   unknown(): FluentFiltersOrRelationsCondition {
     this._textStr = 'unknown';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for an UI element 'button'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   button(): FluentFiltersOrRelationsCondition {
     this._textStr = 'button';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for an UI element 'text'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   text(): FluentFiltersOrRelationsCondition {
     this._textStr = 'text';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for an UI element 'dropdown'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   dropdown(): FluentFiltersOrRelationsCondition {
     this._textStr = 'dropdown';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for an UI element 'icon'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   icon(): FluentFiltersOrRelationsCondition {
     this._textStr = 'icon';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a custom UI element (see {@link CustomElementJson}).
+   *
+   * **Important**: This increases the runtime quite a bit. So
+   *  only use it when absolutely necessary.
+   *
+   * @param {CustomElementJson} customElement - The custom element to filter for.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   customElement(customElement: CustomElementJson): FluentFiltersOrRelationsCondition {
     this._textStr = 'custom element';
     this._params.set('customElement', customElement);
@@ -986,30 +1884,88 @@ export class FluentFiltersCondition extends FluentBase {
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for a UI element 'checkbox' checked or unchecked.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   checkbox(): FluentFiltersOrRelationsCondition {
     this._textStr = 'checkbox';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for similar (doesn't need to be a 100% equal) text.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withText('text') => true
+   * 'test' === withText('text') => true
+   * 'other' === withText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   withText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `with text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  equalsText(text: string): FluentFiltersOrRelationsCondition {
+  /**
+   * Filters for equal text.
+   *
+   * **Note:** This should be only used in cases where the similarity
+   *  comparison of {@link FluentFilters.withText()} allows not for
+   *  specific enough filtering (too many elements).
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withExactText('text') => true
+   * 'test' === withExactText('text') => false
+   * 'other' === withExactText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  withExactText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `equals text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for text containing the text provided as an argument.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'This is an text' === containsText('text') => true
+   * 'This is an text' === containsText('other text') => false
+   * 'This is an text' === containsText('other') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   containsText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `contain text "${text}"`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
+  /**
+   * Filters for elements having a specific color.
+   *
+   * @param {COLOR} color - A color to match
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
   colored(color: COLOR): FluentFiltersOrRelationsCondition {
     this._textStr = `with color ${color}`;
 
@@ -1020,54 +1976,204 @@ export class FluentFiltersCondition extends FluentBase {
 // Relations
 
 export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
+  /**
+   * Filters for an element inside another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns innerEl because innerEl is inside outerEl
+   * ...innerEl().in().outerEl()
+   * // Returns nothing because innerEl is not inside outerEl
+   * ...outerEl().in().innerEl()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
   in(): FluentFiltersCondition {
     this._textStr = 'in';
 
     return new FluentFiltersCondition(this);
   }
 
+  /**
+   * Filters for an element right of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns rightEl because rightEl is right of leftEl
+   * ...rightEl().rightOf().leftEl()
+   * // Returns no element because leftEl is left of rightEl
+   * ...leftEl().rightOf().rightEl()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
   rightOf(): FluentFiltersCondition {
     this._textStr = 'right of';
 
     return new FluentFiltersCondition(this);
   }
 
+  /**
+   * Filters for an element left of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns leftEl because leftEl is left of rightEl
+   * ...leftEl().leftOf().rightEl()
+   * // Returns no element because rightEl is left of leftEl
+   * ...rightEl().leftOf().leftEl()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
   leftOf(): FluentFiltersCondition {
     this._textStr = 'left of';
 
     return new FluentFiltersCondition(this);
   }
 
-  belowOf(): FluentFiltersCondition {
-    this._textStr = 'below of';
+  /**
+   * Filters for an element below another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns button because button is below text
+   * ...button().below().text()
+   * // Returns no element because text is above button
+   * ...text().below().button()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
+  below(): FluentFiltersCondition {
+    this._textStr = 'below';
 
     return new FluentFiltersCondition(this);
   }
 
-  aboveOf(): FluentFiltersCondition {
-    this._textStr = 'above of';
+  /**
+   * Filters for an element above another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns text because text is above button
+   * ...text().above().button()
+   * // Returns no element because button is below text
+   * ...button().above().text()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
+  above(): FluentFiltersCondition {
+    this._textStr = 'above';
 
     return new FluentFiltersCondition(this);
   }
 
-  nearestOf(): FluentFiltersCondition {
-    this._textStr = 'nearest of';
+  /**
+   * Filters for an element nearest to another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |  button 1  |
+   * --------------
+   * --------------
+   * |   text     |
+   * --------------
+   *
+   *
+   *
+   * --------------
+   * |  button 2  |
+   * --------------
+   *
+   * // Returns button 1 because button 1 is nearer to the text than button 2
+   * ...button().nearestTo().text()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
+  nearestTo(): FluentFiltersCondition {
+    this._textStr = 'nearest to';
 
     return new FluentFiltersCondition(this);
   }
 
+  /**
+   * Filters for an element containing another element.
+   *
+   * **Example:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns outerEl because outerEl contains innerEl
+   * ...outerEl().contains().innerEl()
+   * //  Returns no element because innerEl contains no outerEl
+   * ...innerEl().contains().outerEl()
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
   contains(): FluentFiltersCondition {
     this._textStr = 'contains';
 
     return new FluentFiltersCondition(this);
   }
 
+  /**
+   * Expects that filtered element exists.
+   *
+   * @return {ExecCondition}
+   */
   exists(): ExecCondition {
     this._textStr = 'exists';
 
     return new ExecCondition(this);
   }
 
+  /**
+   * Expects that filtered element does not exist.
+   *
+   * @return {ExecCondition}
+   */
   notExists(): ExecCondition {
     this._textStr = 'not exists';
 
@@ -1083,138 +2189,353 @@ export abstract class FluentCommand extends FluentBase {
     super(undefined);
   }
 
-  expect() {
+  /**
+   * Expects a condition, e.g., `exists()` or `notExits()`,
+   *  e.g., `...expect().text().withText('Login').exists()`.
+   *
+   * @return {FluentFiltersCondition}
+   */
+  expect(): FluentFiltersCondition {
     this._textStr = 'Expect';
+
     return new FluentFiltersCondition(this);
   }
 
-  click() {
+  /**
+   * Clicks on the filtered element.
+   *
+   * @return {FluentFilters}
+   */
+  click(): FluentFilters {
     this._textStr = 'Click on';
+
     return new FluentFilters(this);
   }
 
-  moveMouseTo() {
+  /**
+   * Move mouse over the filtered element.
+   *
+   * @return {FluentFilters}
+   */
+  moveMouseTo(): FluentFilters {
     this._textStr = 'Move mouse to';
+
     return new FluentFilters(this);
   }
 
-  typeIn(text: string) {
+  /**
+   * Types a text inside the filtered element.
+   *
+   * @param {string} text - A text to type
+   *
+   * @return {FluentFilters}
+   */
+  typeIn(text: string): FluentFilters {
     this._textStr = `Type "${text}" in`;
+
     return new FluentFilters(this);
   }
 
-  scrollElement(x_offset: number, y_offset: number) {
+  /**
+   * Scrolls in the x and y direction, e.g., until an element is visible.
+   *
+   * @param {number} x_offset - A (positive/negative) x direction.
+   * @param {number} y_offset - A (positive/negative) y direction.
+   *
+   * @return {FluentFilters}
+   */
+  scrollUntil(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = `Scroll x ${x_offset} y ${y_offset} in`;
+
     return new FluentFilters(this);
   }
 
-  moveMouseRelativelyTo(x_offset: number, y_offset: number) {
+  /**
+   * Moves the mouse relatively to an element in the direction.
+   * This can be used when the mouse should not hover over on an element anymore.
+   *
+   * @param {number} x_offset - A (positive/negative) x direction.
+   * @param {number} y_offset - A (positive/negative) y direction.
+   *
+   * @return {FluentFilters}
+   */
+  moveMouseRelativelyTo(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = `Move mouse x ${x_offset} y ${y_offset} relatively to`;
+
     return new FluentFilters(this);
   }
 
-  swipe(x_offset: number, y_offset: number) {
+  /**
+   * Swipe an element in the x and y direction
+   *
+   * @param {number} x_offset - A x direction. positive an negative values are accepted
+   * @param {number} y_offset - A y direction. positive an negative values are accepted
+   *
+   * @return {FluentFilters}
+   */
+  swipe(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = `Swipe x ${x_offset} y ${y_offset}`;
+
     return new FluentFilters(this);
   }
 
-  type(text: string) {
+  /**
+   * Types a text at the current position.
+   *
+   * @param {string} text - A text to type
+   *
+   * @return {Exec}
+   */
+  type(text: string): Exec {
     this._textStr = `Type "${text}"`;
+
     return new Exec(this);
   }
 
-  waitFor(timeValue: number, timeUnit: Timeunit) {
+  /**
+   * Waits for `<timeValue> <timeUnit>`, e.g., 10 seconds.
+   *
+   * @param {number} timeValue - A number of time unit, e.g., ms or min, to wait for.
+   * @param {TimeUnit} timeUnit - A time unit, e.g., ms, s or min.
+   *
+   * @return {Exec}
+   */
+  waitFor(timeValue: number, timeUnit: TimeUnit): Exec {
     this._textStr = `Wait for ${timeValue} ${timeUnit}`;
+
     return new Exec(this);
   }
 
-  moveMouseRelatively(x_offset: number, y_offset: number) {
-    this._textStr = `Move mouse from current position with  x ${x_offset} y ${y_offset}`;
+  /**
+   * Moves the mouse from the current position (relative) in x and y direction.
+   *
+   * @param {number} x_offset - A (positive/negative) x direction.
+   * @param {number} y_offset - A (positive/negative) y direction.
+   *
+   * @return {Exec}
+   */
+  moveMouseRelatively(x_offset: number, y_offset: number): Exec {
+    this._textStr = `Move mouse from current position with x ${x_offset} y ${y_offset}`;
+
     return new Exec(this);
   }
 
-  moveMouse(x_coordinate: number, y_coordinate: number) {
+  /**
+   * Moves the mouse to the absolute x and y coordinates.
+   *
+   * @param {number} x_coordinate - A (positive/negative) x coordinate.
+   * @param {number} y_coordinate - A (positive/negative) y coordinate.
+   *
+   * @return {Exec}
+   */
+  moveMouse(x_coordinate: number, y_coordinate: number): Exec {
     this._textStr = `Move mouse to  x ${x_coordinate} y ${y_coordinate}`;
+
     return new Exec(this);
   }
 
-  scroll(x_offset: number, y_offset: number) {
+  /**
+   * Scrolls based on the current mouse position in the x and y direction.
+   *
+   * **Important**: Mouse must be positioned in a scrollable area.
+   *
+   * @param {number} x_offset - A (positive/negative) x direction.
+   * @param {number} y_offset - A (positive/negative) y direction.
+   *
+   * @return {Exec}
+   */
+  scroll(x_offset: number, y_offset: number): Exec {
     this._textStr = `Scroll x ${x_offset} y ${y_offset}`;
+
     return new Exec(this);
   }
 
-  executeShellCommand(shell_command: string) {
+  /**
+   * Executes a shell command.
+   *
+   * @param {string} shell_command - A shell command which is executed.
+   *
+   * @return {Exec}
+   */
+  execOnShell(shell_command: string): Exec {
     this._textStr = `Execute shell command "${shell_command}"`;
+
     return new Exec(this);
   }
 
-  mouseLeftClick() {
+  /**
+   * Clicks with left mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseLeftClick(): Exec {
     this._textStr = 'Mouse left click';
+
     return new Exec(this);
   }
 
-  mouseRightClick() {
+  /**
+   * Clicks with right mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseRightClick(): Exec {
     this._textStr = 'Mouse right click';
+
     return new Exec(this);
   }
 
-  mouseMiddleClick() {
+  /**
+   * Clicks with middle mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseMiddleClick(): Exec {
     this._textStr = 'Mouse middle click';
+
     return new Exec(this);
   }
 
-  mouseDoubleLeftClick() {
+  /**
+   * Double-clicks with left mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleLeftClick(): Exec {
     this._textStr = 'Mouse double left click';
+
     return new Exec(this);
   }
 
-  mouseDoubleRightClick() {
+  /**
+   * Double-clicks with right mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleRightClick(): Exec {
     this._textStr = 'Mouse double right click';
+
     return new Exec(this);
   }
 
-  mouseDoubleMiddleClick() {
+  /**
+   * Double-clicks with middle mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleMiddleClick(): Exec {
     this._textStr = 'Mouse double middle click';
+
     return new Exec(this);
   }
 
-  mouseToggleDown() {
+  /**
+   * Toggles mouse down.
+   *
+   * @return {Exec}
+   */
+  mouseToggleDown(): Exec {
     this._textStr = 'Mouse toggle down';
+
     return new Exec(this);
   }
 
-  mouseToggleUp() {
+  /**
+   * Toggles mouse up.
+   *
+   * @return {Exec}
+   */
+  mouseToggleUp(): Exec {
     this._textStr = 'Mouse toggle up';
+
     return new Exec(this);
   }
 
-  pressThreeKeys(first_key: MODIFIER_KEYS, second_key: MODIFIER_KEYS, third_key: PC_KEYS) {
+  /**
+   * Press three keys like `CTRL+ALT+DEL`
+   *
+   * @param {MODIFIER_KEY} first_key - A modifier key
+   * @param {MODIFIER_KEY} second_key - A modifier key
+   * @param {PC_KEY} third_key - A key
+   *
+   * @return {Exec}
+   */
+  pressThreeKeys(first_key: MODIFIER_KEY, second_key: MODIFIER_KEY, third_key: PC_KEY): Exec {
     this._textStr = `Press key ${first_key} ${second_key} ${third_key}`;
+
     return new Exec(this);
   }
 
-  pressTwoKeys(first_key: MODIFIER_KEYS, second_key: PC_KEYS) {
+  /**
+   * Press two keys like `ALT+F4`
+   *
+   * @param {MODIFIER_KEY} first_key - A modifier key
+   * @param {PC_KEY} second_key - A key
+   *
+   * @return {Exec}
+   */
+  pressTwoKeys(first_key: MODIFIER_KEY, second_key: PC_KEY): Exec {
     this._textStr = `Press key ${first_key} ${second_key}`;
+
     return new Exec(this);
   }
 
-  pressKey(key: PC_AND_MODIFIER_KEYS) {
+  /**
+   * Press one keys like `DEL`
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - A key
+   *
+   * @return {Exec}
+   */
+  pressKey(key: PC_AND_MODIFIER_KEY): Exec {
     this._textStr = `Press key ${key}`;
+
     return new Exec(this);
   }
 
-  pressAndroidThirdKey(first_key: ANDROID_KEYS, second_key: ANDROID_KEYS, third_key: ANDROID_KEYS) {
+  /**
+   * Press three Android keys like `CTRL+ALT+DEL`
+   *
+   * @param {ANDROID_KEY} first_key - A Android key
+   * @param {ANDROID_KEY} second_key - A Android key
+   * @param {ANDROID_KEY} third_key - A Android key
+   *
+   * @return {Exec}
+   */
+  pressAndroidThirdKey(
+    first_key: ANDROID_KEY,
+    second_key: ANDROID_KEY,
+    third_key: ANDROID_KEY,
+  ): Exec {
     this._textStr = `Press android key ${first_key} ${second_key} ${third_key}`;
+
     return new Exec(this);
   }
 
-  pressAndroidTwoKey(first_key: ANDROID_KEYS, second_key: ANDROID_KEYS) {
+  /**
+   * Press two Android keys like `ALT+F4`
+   *
+   * @param {ANDROID_KEY} first_key - A Android key
+   * @param {ANDROID_KEY} second_key - A Android key
+   *
+   * @return {Exec}
+   */
+  pressAndroidTwoKey(first_key: ANDROID_KEY, second_key: ANDROID_KEY): Exec {
     this._textStr = `Press android key ${first_key} ${second_key}`;
+
     return new Exec(this);
   }
 
-  pressAndroidKey(key: ANDROID_KEYS) {
+  /**
+   * Press one Android keys like `DEL`
+   *
+   * @param {ANDROID_KEY} key - A Android key
+   *
+   * @return {Exec}
+   */
+  pressAndroidKey(key: ANDROID_KEY): Exec {
     this._textStr = `Press android key ${key}`;
+
     return new Exec(this);
   }
 
