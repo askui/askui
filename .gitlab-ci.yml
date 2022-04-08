@@ -15,7 +15,8 @@ variables:
       The release type. Change this variable to
         - "release" to release version x.x.x to @latest distribution channel, 
         - "release:prerelease" to release x.x.x-next.x to @next distribution channel,
-        - "feature" to release only npm package with spacial name, version and tag for testing.
+        - "release:docs" to release (only) current documentation,
+        - "release:feature" to release (only) npm package with spacial name, version and tag for testing.
   WORKDIR: ${CI_PROJECT_DIR}
 
 ##########
@@ -62,7 +63,10 @@ default:
   - if: $CI_COMMIT_BRANCH == 'main' && ($RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'release:prerelease')
 
 .rules:release:feature: &rules-release-feature
-  - if: $RELEASE_TYPE == 'feature'
+  - if: $RELEASE_TYPE == 'release:feature'
+
+.rules:release:docs: &rules-release-docs
+  - if: $RELEASE_TYPE == 'release:docs'
 
 ########
 # JOBS #
@@ -181,6 +185,7 @@ docs:build:
     - if: $CI_COMMIT_BRANCH == 'main'
       changes: ['docs/**/*']
     - *rules-release
+    - *rules-release-docs
   variables:
     DOCS_BASE_URL: /mvp/askui/
     WORKDIR: docs
@@ -196,6 +201,7 @@ pages:
         $CI_COMMIT_BRANCH == 'main' && 
         ($RELEASE_TYPE == 'release' || $RELEASE_TYPE == 'release:prerelease') &&
         $RELEASE_FLAGS !~ /.*--dry-run.*/
+    - *rules-release-docs
   stage: release-docs
   variables:
     WORKDIR: docs
