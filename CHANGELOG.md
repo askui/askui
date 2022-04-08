@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.0.1-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/1.0.0-next.0...1.0.1-next.0) (2022-04-08)
+
+
+### Bug Fixes
+
+* examples ([dcb1fbb](https://gitlab.com/vqa4gui/mvp/askui/commit/dcb1fbb3853f8e3ed76726f13d5cbb8b4adc4a32))
+
 ## 1.0.0-next.0 (2022-04-07)
 
 
