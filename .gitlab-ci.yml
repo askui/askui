@@ -119,26 +119,27 @@ examples:askui-nodejs-base-example:lint:
   script:
     - npm run lint
 
-examples:askui-nodejs-base-example:test:
-  extends:
-    - .examples:askui-nodejs-base-example
-  parallel:
-    matrix:
-      - BROWSER: chrome
-        BROWSER_VERSIONS: [100.0.4896.60, 99.0.4844.51, 97.0.4692.71, 90.0.4430.212]
-        SCREEN_RESOLUTION: ['3840x2160', '1920x1080', '1280x720', '852x480']
-      - BROWSER: firefox
-        BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
-        SCREEN_RESOLUTION: ['3840x2160', '1920x1080', '1280x720', '852x480']
-  services:
-    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${BROWSER}:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-${BROWSER_VERSIONS}-amd64
-      alias: askui-runner
-  script:
-    - npm run test
-  artifacts:
-      paths:
-        - report/
-      expire_in: 1 week
+# TODO: Reenable after enough space has been created on the runner machine
+# examples:askui-nodejs-base-example:test:
+#   extends:
+#     - .examples:askui-nodejs-base-example
+#   parallel:
+#     matrix:
+#       - BROWSER: chrome
+#         BROWSER_VERSIONS: [100.0.4896.60, 99.0.4844.51, 97.0.4692.71, 90.0.4430.212]
+#         SCREEN_RESOLUTION: ['3840x2160', '1920x1080', '1280x720', '852x480']
+#       - BROWSER: firefox
+#         BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
+#         SCREEN_RESOLUTION: ['3840x2160', '1920x1080', '1280x720', '852x480']
+#   services:
+#     - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${BROWSER}:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-${BROWSER_VERSIONS}-amd64
+#       alias: askui-runner
+#   script:
+#     - npm run test
+#   artifacts:
+#       paths:
+#         - report/
+#       expire_in: 1 week
 
 release:
   rules: *rules-release
