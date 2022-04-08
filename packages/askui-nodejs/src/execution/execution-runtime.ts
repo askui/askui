@@ -1,5 +1,4 @@
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
-import { TestStepResultDto, TestStepState } from '../core/model/test-case-result-dto';
 import { CustomElement, TestStep } from '../core/model/test-case-dto';
 import { ControlYourUiClient } from './control-your-ui-client';
 import { RepeatError } from './repeat-error';
@@ -17,18 +16,9 @@ export class ExecutionRuntime {
     private api: ControlYourUiApi,
   ) { }
 
-  async executeTestStep(step: TestStep): Promise<TestStepResultDto> {
-    const createDate = new Date();
-    try {
-      logger.debug(step.instruction);
-      await this.executeCommand(step);
-      return new TestStepResultDto(TestStepState.PASSED, '', createDate);
-    } catch (error) {
-      const resultComment = error instanceof RepeatError || error instanceof ControlCommandError
-        ? error.message : `Failed because of an internal error: ${error}`;
-      logger.error(resultComment);
-      return new TestStepResultDto(TestStepState.FAILED, resultComment, createDate);
-    }
+  async executeTestStep(step: TestStep): Promise<void> {
+    logger.debug(step.instruction);
+    await this.executeCommand(step);
   }
 
   /**

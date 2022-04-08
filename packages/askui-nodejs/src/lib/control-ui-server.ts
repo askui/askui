@@ -60,11 +60,15 @@ export abstract class ControlUiServer {
   }
 
   private async startWithDefaults(args: ControlUiServerArgsWithDefaults) {
-    logger.debug('Starting the Control UI Server...');
-    const process = spawn(this.getStartingCommand(), createCliFlagsFromArgs(args), { shell: true });
     try {
+      logger.debug('Starting the Control UI Server...');
+      const process = spawn(
+        this.getStartingCommand(),
+        createCliFlagsFromArgs(args),
+        { shell: true },
+      );
       await this.hasStarted(process);
-      logger.debug('The Control UI Server has been started.');
+      logger.info('The Control UI Server has been started.');
     } catch (err) {
       throw new Error(`The Control UI Server could not be started. Reason: ${err}`);
     }

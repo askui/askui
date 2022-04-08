@@ -1,14 +1,12 @@
 import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
-import { TestStepResultDto } from '../core/model/test-case-result-dto';
 import { FluentCommand } from './dsl';
 
 class TestCommand extends FluentCommand {
   // eslint-disable-next-line class-methods-use-this
-  async exec(instruction: string, customElements: CustomElementJson[]): Promise<TestStepResultDto> {
+  async exec(instruction: string, customElements: CustomElementJson[]): Promise<void> {
     // eslint-disable-next-line no-console
     console.log(`${instruction} ${customElements}`);
-    const testCaseResult = ({} as TestStepResultDto);
-    return Promise.resolve(testCaseResult);
+    return Promise.resolve();
   }
 }
 

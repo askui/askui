@@ -22,6 +22,7 @@ import { ControlCommand } from '../core/ui-control-commands';
 import { logger } from '../lib/logger';
 import { ClientConnectionState } from './client-connection-state';
 import { ReadRecordingResponseStreamHandler } from './read-recording-response-stream-handler';
+import { ControlUiClientError } from './client-error';
 
 export class ControlYourUiClient {
   private static readonly EMPTY_REJECT = (_reason?: unknown) => { };
@@ -68,20 +69,29 @@ export class ControlYourUiClient {
   openConnectionToServer(): Promise<ClientConnectionState> {
     this.connectionState = ClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
-      this.ws = new WebSocket(this.controlServerUrl);
-      this.ws.on('message', (data) => { this.onMessage(data); });
-      this.ws.on('open', () => {
-        this.connectionState = ClientConnectionState.CONNECTED;
-        resolve(this.connectionState);
-      });
-      this.ws.on('error', (error: WebSocket.ErrorEvent) => {
-        this.connectionState = ClientConnectionState.ERROR;
-        reject(new Error(`Connection to Control UI Server cannot be established, ${error.message}`));
-      });
+      try {
+        this.ws = new WebSocket(this.controlServerUrl);
+        this.ws.on('message', (data) => { this.onMessage(data); });
+        this.ws.on('open', () => {
+          this.connectionState = ClientConnectionState.CONNECTED;
+          resolve(this.connectionState);
+        });
+        this.ws.on('error', (error: WebSocket.ErrorEvent) => {
+          this.connectionState = ClientConnectionState.ERROR;
+          reject(new ControlUiClientError(`Connection to Control UI Server cannot be established,
+          Probably it was not started. Makse sure you started the server with this 
+          Url ${this.controlServerUrl}. Error message  ${error.message}`));
+        });
+      } catch (error) {
+        reject(new ControlUiClientError(`Connection to Control UI Server cannot be established. Reason: ${error}`));
+      }
     });
   }
 
   closeConnectionToServer() {
+    if (!(this.ws)) {
+      throw new ControlUiClientError("Please connect to the controlui-server first with 'start' before you try to close it");
+    }
     this.ws.close();
   }
 
@@ -92,11 +102,16 @@ export class ControlYourUiClient {
     return new Promise((resolve, reject) => {
       this.currentResolve = resolve;
       this.currentReject = reject;
-      this.send(msg, requestTimeout);
-      this.timeout = setTimeout(
-        () => this.currentReject('Request to Control UI Server timed out.'),
-        ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
-      );
+      try {
+        this.send(msg, requestTimeout);
+        this.timeout = setTimeout(
+          () => this.currentReject(`Request to Control UI Server timed out.
+          it seems that the server is down, Please make sure the server is up`),
+          ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+        );
+      } catch (error) {
+        this.currentReject(`The communication to the ControlUI Server is broken. Reason: ${error}`);
+      }
     });
   }
 

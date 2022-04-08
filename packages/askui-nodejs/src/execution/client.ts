@@ -2,7 +2,6 @@ import process from 'process';
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import { FluentCommand } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
-import { TestStepResultDto } from '../core/model/test-case-result-dto/test-step-result-dto';
 import { ClientConnectionState } from './client-connection-state';
 import { ControlYourUiClient } from './control-your-ui-client';
 import { ExecutionRuntime } from './execution-runtime';
@@ -14,6 +13,7 @@ import { logger } from '../lib/logger';
 import { TestStepState } from '../core/model/test-case-result-dto';
 import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
 import { AnnotationLevel } from './annotation-level';
+import { ControlUiClientError } from './client-error';
 
 export class Client extends FluentCommand {
   private httpClient = new HttpClientGot();
@@ -58,8 +58,8 @@ export class Client extends FluentCommand {
   ) {
     if ((testStepState === TestStepState.FAILED
       && this.clientArgsWithDefaults.annotationLevel === AnnotationLevel.DISABLED)
-        || (testStepState === TestStepState.PASSED
-      && this.clientArgsWithDefaults.annotationLevel !== AnnotationLevel.ALL)) {
+      || (testStepState === TestStepState.PASSED
+        && this.clientArgsWithDefaults.annotationLevel !== AnnotationLevel.ALL)) {
       return;
     }
     await this.annotate(
@@ -102,17 +102,22 @@ export class Client extends FluentCommand {
   async exec(
     instruction: string,
     customElementJson?: CustomElementJson[],
-  ): Promise<TestStepResultDto> {
+  ): Promise<void> {
     let customElements: CustomElement[] = [];
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }
-    const testCaseResult = await this.executionRuntime.executeTestStep({
-      instruction,
-      customElements,
-    });
-    await this.annotateByDefault(testCaseResult.state, customElements);
-    return Promise.resolve(testCaseResult);
+    try {
+      await this.executionRuntime.executeTestStep({
+        instruction,
+        customElements,
+      });
+      await this.annotateByDefault(TestStepState.PASSED, customElements);
+      return await Promise.resolve();
+    } catch (error) {
+      await this.annotateByDefault(TestStepState.FAILED, customElements);
+      return Promise.reject(new ControlUiClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`));
+    }
   }
 
   /**
@@ -127,7 +132,7 @@ export class Client extends FluentCommand {
   */
   stopServer(): void {
     if (!(this.serverPidNumber)) {
-      throw new Error('An error occurred during the closing of the controlui server');
+      throw new ControlUiClientError('An error occurred during the closing of the controlui server');
     }
     process.kill(this.serverPidNumber);
   }

@@ -6,7 +6,6 @@
 // TODO: Split this in multiple files
 
 import { CustomElementJson } from '../core/model/test-case-dto';
-import { TestStepResultDto } from '../core/model/test-case-result-dto';
 
 export enum TimeUnit {
   MS = 'millisecond',
@@ -44,7 +43,7 @@ abstract class FluentBase {
   protected commandStringBuilder(
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
-  ): Promise<TestStepResultDto> {
+  ): Promise<void> {
     const newCurrentInstruction = `${this.textStr} ${currentInstruction}`;
     const newParamsList = FluentBase.addParams(paramsList, this._params);
     if (this instanceof FluentCommand) {
@@ -64,7 +63,7 @@ abstract class FluentBase {
 }
 
 class Exec extends FluentBase {
-  exec(): Promise<TestStepResultDto> {
+  exec(): Promise<void> {
     return this.commandStringBuilder();
   }
 }
@@ -1111,7 +1110,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
     return new FluentFilters(this);
   }
 
-  exec(): Promise<TestStepResultDto> {
+  exec(): Promise<void> {
     return this.commandStringBuilder();
   }
 }
@@ -2540,5 +2539,5 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   abstract exec(instruction: string,
-    customElements: CustomElementJson[]): Promise<TestStepResultDto>;
+    customElements: CustomElementJson[]): Promise<void>;
 }
