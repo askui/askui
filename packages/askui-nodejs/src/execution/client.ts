@@ -1,4 +1,3 @@
-import process from 'process';
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import { FluentCommand } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
@@ -15,12 +14,10 @@ import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { ControlUiClientError } from './client-error';
 
-export class Client extends FluentCommand {
+export class AskuiClient extends FluentCommand {
   private httpClient = new HttpClientGot();
 
-  private _client?: ControlYourUiClient;
-
-  private serverPidNumber?: number;
+  private _controlYourUiClient?: ControlYourUiClient;
 
   constructor(
     private clientArgs?: ClientArgs,
@@ -28,11 +25,13 @@ export class Client extends FluentCommand {
     super();
   }
 
-  private get client(): ControlYourUiClient {
-    if (!this._client) {
-      this._client = new ControlYourUiClient(this.clientArgsWithDefaults.controlServerUrl);
+  private get controlYourUiClient(): ControlYourUiClient {
+    if (!this._controlYourUiClient) {
+      this._controlYourUiClient = new ControlYourUiClient(
+        this.clientArgsWithDefaults.controlServerUrl,
+      );
     }
-    return this._client;
+    return this._controlYourUiClient;
   }
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
@@ -49,7 +48,7 @@ export class Client extends FluentCommand {
   }
 
   private get executionRuntime(): ExecutionRuntime {
-    return new ExecutionRuntime(this.client, this.api);
+    return new ExecutionRuntime(this.controlYourUiClient, this.api);
   }
 
   private async annotateByDefault(
@@ -70,9 +69,8 @@ export class Client extends FluentCommand {
     );
   }
 
-  async start(): Promise<ClientConnectionState> {
-    const connectionState: ClientConnectionState = await this.client.openConnectionToServer();
-    this.serverPidNumber = (await this.client.getServerPid()).data.pidNumber;
+  async connect(): Promise<ClientConnectionState> {
+    const connectionState: ClientConnectionState = await this.controlYourUiClient.connect();
     return connectionState;
   }
 
@@ -123,25 +121,7 @@ export class Client extends FluentCommand {
   /**
   * closes the connection to the controlui-server`.
   */
-  closeConnectionToServer(): void {
-    this.client.closeConnectionToServer();
-  }
-
-  /**
-  * stops the controlui-server`.
-  */
-  stopServer(): void {
-    if (!(this.serverPidNumber)) {
-      throw new ControlUiClientError('An error occurred during the closing of the controlui server');
-    }
-    process.kill(this.serverPidNumber);
-  }
-
-  /**
-  * Stops the controlui-server and closes the connection to the controlui-server
-  */
-  stop(): void {
-    this.stopServer();
-    this.closeConnectionToServer();
+  close(): void {
+    this.controlYourUiClient.close();
   }
 }

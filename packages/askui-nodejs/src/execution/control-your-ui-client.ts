@@ -66,7 +66,7 @@ export class ControlYourUiClient {
     this.clearResponse();
   }
 
-  openConnectionToServer(): Promise<ClientConnectionState> {
+  connect(): Promise<ClientConnectionState> {
     this.connectionState = ClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
       try {
@@ -88,11 +88,8 @@ export class ControlYourUiClient {
     });
   }
 
-  closeConnectionToServer() {
-    if (!(this.ws)) {
-      throw new ControlUiClientError("Please connect to the controlui-server first with 'start' before you try to close it");
-    }
-    this.ws.close();
+  close() {
+    this.ws?.close();
   }
 
   private sendAndReceive<T extends RunnerProtocolResponse>(

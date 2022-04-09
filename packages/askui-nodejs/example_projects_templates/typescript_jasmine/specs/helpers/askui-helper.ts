@@ -1,28 +1,29 @@
-import * as askui from '@vqa4gui/askui';
+import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
 beforeAll(async function init() {
-
+  this.askuiServer = new AskuiControlServer();
   /**
-  * this function will start the askui controlui-server before all the test suites
-  * and select screen 0, on which the test will be executed
+  * Starts the askui controlui-server
   */
-  await askui.startAskuiServer({
-    display: 0,
-    minimize: true,
-  });
+  await this.askuiServer.start();
 
-  this.askuiClient = new askui.Client();
+  this.askuiClient = new AskuiClient();
   /**
-  * this function will start the connection to the askui controlui-server
-  */
-  await this.askuiClient.start();
+   * Starts the connection to the askui controlui-server
+   */
+  await this.askuiClient.connect();
 });
 
-afterAll(function clean() {
+afterAll(async function clean() {
   /**
-  * Stops the askui controlui-server and closes the connection to the askui controlui-server
+  * Stops the askui controlui-server
   */
-  this.askuiClient.stop();
+  await this.askuiServer.stop();
+
+  /**
+  * Closes the connection to the askui controlui-server
+  */
+  this.askuiClient.close();
 });

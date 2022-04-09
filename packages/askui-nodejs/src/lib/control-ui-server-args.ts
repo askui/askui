@@ -11,6 +11,9 @@ export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
   readonly display: number;
   readonly binaryVersion: string;
   readonly overWriteBinary: boolean;
+  readonly port: number;
+  readonly host: string;
+
 }
 
 export function createArgsWithDefaults(
@@ -21,6 +24,8 @@ export function createArgsWithDefaults(
     display: 0,
     overWriteBinary: false,
     minimize: true,
+    port: 6769,
+    host: '127.0.0.1',
   };
   return Object.assign(defaults, args);
 }

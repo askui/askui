@@ -2,7 +2,7 @@ import { createArgsWithDefaults, createCliFlagsFromArgs } from './control-ui-ser
 
 describe('createCliFlagsFromArgs()', () => {
   test('test createCliFlagsFromArgs should return -d 0 as default output', () => {
-    const expected = ['-d 0', '-m '];
+    const expected = ['-d 0', '-p 6769', '--host 127.0.0.1', '-m '];
     const argsWithDefaults = createArgsWithDefaults();
     const actual = createCliFlagsFromArgs(argsWithDefaults);
     expect(actual).toStrictEqual(expected);

@@ -1,0 +1,116 @@
+import { spawn } from 'child_process';
+import fs from 'fs-extra';
+import waitPort from 'wait-port';
+import fkill from 'fkill';
+import {
+  ControlUiServerArgs,
+  ControlUiServerArgsWithDefaults,
+  createArgsWithDefaults,
+  createCliFlagsFromArgs,
+} from './control-ui-server-args';
+import { downloadServerBinaries, getBinaryPath } from './download-binaries';
+import { logger } from './logger';
+import { TimeoutError } from './timeout-error';
+import { UnkownError } from './unkown-error';
+
+export abstract class ControlUiServerFacade {
+  protected binaryPath = getBinaryPath('latest');
+
+  protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
+
+  async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
+    const argsWithDefaults = createArgsWithDefaults(args);
+    this.binaryPath = getBinaryPath(argsWithDefaults.binaryVersion);
+    await this.getBinary(argsWithDefaults.binaryVersion, argsWithDefaults.overWriteBinary);
+    this.makeBinaryExecutable();
+    await this.startWithDefaults(argsWithDefaults, maxWaitingForStartingInSeconds);
+  }
+
+  async stop(args?: ControlUiServerArgs, forceStop?: boolean): Promise<void> {
+    try {
+      const argsWithDefaults = createArgsWithDefaults(args);
+      await this.killPort(argsWithDefaults.port, forceStop);
+    } catch (err) {
+      throw new Error(`An unknown error occured while closing of the askui server: ${err}`);
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected killPort(port: number, forceStop?: boolean): Promise<void> {
+    return fkill(
+      `:${port}`,
+      {
+        force: forceStop || false,
+        silent: true,
+      },
+    );
+  }
+
+  protected getStartingCommand(): string {
+    return this.binaryPath;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected makeBinaryExecutable() {
+    /* Executable out of the box */
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected waitUntilStarted(
+    args: ControlUiServerArgsWithDefaults,
+    maxWaitingForStartingInSeconds?: number,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        const timeoutInMs = maxWaitingForStartingInSeconds
+          ? maxWaitingForStartingInSeconds * 1000 : this.DefaultmaxWaitingForStartingInMs;
+        waitPort({
+          host: args.host,
+          port: args.port,
+          timeout: timeoutInMs,
+          output: process?.env['LOG_LEVEL'] === 'verbose' ? 'dots' : 'silent',
+        }).then((open: boolean) => {
+          if (open) {
+            logger.info('The Control UI Server has been started.');
+            return resolve();
+          }
+          return reject(new TimeoutError('Starting time limit has been reached'));
+        });
+      } catch (err) {
+        reject(new UnkownError(`An unknown error occured while waiting for the askui server: ${err}`));
+      }
+    });
+  }
+
+  private isBinaryValid(): boolean {
+    const sizeThresholdInMB = 100;
+    const binarysizeInMB = fs.statSync(this.binaryPath).size / (1024 * 1024);
+    return binarysizeInMB > sizeThresholdInMB;
+  }
+
+  private async getBinary(binaryVersion: string, overWriteBinary = false): Promise<void> {
+    if (!fs.existsSync(this.binaryPath) || overWriteBinary || !this.isBinaryValid()) {
+      logger.debug(`Currently, no binary of the Control UI Server is available at "${this.binaryPath}"`);
+      await downloadServerBinaries(binaryVersion);
+    } else {
+      logger.debug(`Binary of Control UI Server is already present at "${this.binaryPath}".`);
+    }
+  }
+
+  private async startWithDefaults(
+    args: ControlUiServerArgsWithDefaults,
+    maxWaitingForStartingInSeconds?:number,
+  ) {
+    try {
+      logger.debug('Starting the Control UI Server...');
+      spawn(
+        this.getStartingCommand(),
+        createCliFlagsFromArgs(args),
+        { shell: true },
+      );
+      await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
+    } catch (err) {
+      throw new Error(`The Control UI Server could not be started. Reason: ${err}`);
+    }
+  }
+}
