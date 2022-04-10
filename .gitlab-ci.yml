@@ -175,7 +175,8 @@ release:feature:
     - echo $(cat package.json | jq '.name="@vqa4gui/askui-dev"') > package.json
     - npm version $(node -e "console.log(require('./package.json').version);")-${CI_COMMIT_BRANCH}${CI_COMMIT_SHORT_SHA} --no-git-tag-version
     - npm run build
-    - npm publish
+    - cd ${CI_PROJECT_DIR}
+    - npm publish -w ${WORKDIR}
 
 docs:build:
   stage: build-docs
