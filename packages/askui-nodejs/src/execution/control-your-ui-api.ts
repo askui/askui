@@ -4,6 +4,7 @@ import { ControlCommand } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/test-case-dto';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationJson } from '../core/annotation/annotation-json';
+import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 
 export class ControlYourUiApi {
   constructor(
@@ -16,14 +17,15 @@ export class ControlYourUiApi {
     instruction: string,
     customElements: CustomElement[],
   ): Promise<ControlCommand> {
+    const resizedImage = await resizeBase64ImageWithSameRatio(image);
     const httpBody = {
-      image,
+      image: resizedImage.base64Image,
       instruction,
       customElements,
     };
     const url = urljoin(this.apiEndpointUrl, 'upload');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
-    return ControlCommand.fromJson(httpResponse);
+    return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
   }
 
   async predictImageAnnotation(
