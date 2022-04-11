@@ -90,7 +90,7 @@ describe('jasmine demo with askui', () => {
   let newClient: askui.Client;
 
   beforeAll(async () => {
-    const container: StartedTestContainer = await new GenericContainer('registry.gitlab.com/vqa4gui/mvp/control-your-ui/runner/chrome:f740495a-feature')
+    const container: StartedTestContainer = await new GenericContainer('registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-100.0.4896.60-amd64')
       .withEnv('WAIT_AFTER_EXECUTION', 'true')
       .withEnv('ENABLE_VNC', 'true')
       .withExposedPorts(6769, 5900)
