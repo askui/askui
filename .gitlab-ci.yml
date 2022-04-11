@@ -136,7 +136,7 @@ examples:askui-nodejs-base-example:lint:
 #         BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
 #         SCREEN_RESOLUTION: ['3840x2160', '1920x1080', '1280x720', '852x480']
 #   services:
-#     - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${BROWSER}:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-${BROWSER_VERSIONS}-amd64
+#     - name: registry.gitlab.com/vqa4gui/mvp/askui/browser/${BROWSER}:${CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION}-${BROWSER_VERSIONS}-amd64
 #       alias: askui-runner
 #   script:
 #     - npm run test
