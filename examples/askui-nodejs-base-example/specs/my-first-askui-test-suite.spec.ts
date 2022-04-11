@@ -8,6 +8,7 @@ describe('jasmine demo with askui', () => {
   });
 
   it('Should click on text', async () => {
+    
     const result = await newClient
       .click()
       .text()
