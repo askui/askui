@@ -23,10 +23,10 @@ export class Annotation {
     return template;
   }
 
-  static fromJson(json: AnnotationJson): Annotation {
+  static fromJson(json: AnnotationJson, resizeRatio = 1): Annotation {
     return new Annotation(
       json.image,
-      json.objects,
+      json.objects.map((object) => DetectedElement.fromJson(object, resizeRatio)),
     );
   }
 

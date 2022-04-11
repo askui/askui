@@ -11,8 +11,8 @@ export class Action {
     return new Action(
       InputEvent[action.inputEvent],
       {
-        x: action.position.x / resizeRatio,
-        y: action.position.y / resizeRatio,
+        x: action.position.x * resizeRatio,
+        y: action.position.y * resizeRatio,
       },
       action.text,
     );

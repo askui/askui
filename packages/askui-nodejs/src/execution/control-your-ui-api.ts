@@ -17,27 +17,40 @@ export class ControlYourUiApi {
     instruction: string,
     customElements: CustomElement[],
   ): Promise<ControlCommand> {
-    const resizedImage = await resizeBase64ImageWithSameRatio(image);
+    let imageString = image;
+    let resizeRatio = 1;
+    if (!(customElements.length > 0)) {
+      const resizedImage = await resizeBase64ImageWithSameRatio(image);
+      imageString = resizedImage.base64Image;
+      resizeRatio = resizedImage.resizeRatio;
+    }
     const httpBody = {
-      image: resizedImage.base64Image,
+      image: imageString,
       instruction,
       customElements,
     };
     const url = urljoin(this.apiEndpointUrl, 'upload');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
-    return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
+    return ControlCommand.fromJson(httpResponse, resizeRatio);
   }
 
   async predictImageAnnotation(
     image: string,
     customElements: CustomElement[] = [],
   ): Promise<Annotation> {
+    let imageString = image;
+    let resizeRatio = 1;
+    if (!(customElements.length > 0)) {
+      const resizedImage = await resizeBase64ImageWithSameRatio(image);
+      imageString = resizedImage.base64Image;
+      resizeRatio = resizedImage.resizeRatio;
+    }
     const httpBody = {
-      image,
+      image: imageString,
       customElements,
     };
     const url = urljoin(this.apiEndpointUrl, 'annotate', '?format=json');
     const httpResponse = await this.httpClient.post<AnnotationJson>(url, httpBody);
-    return Annotation.fromJson({ ...httpResponse, image });
+    return Annotation.fromJson({ ...httpResponse, image }, resizeRatio);
   }
 }
