@@ -26,7 +26,7 @@ export async function toBase64ImageIfNeeded(pngPathOrBase64Image: string): Promi
   * @param {string} base64ImageString Base64 image string
   * @param {number} maxEdge Max height or width, if excceded, the image will be resized
   * @returns {Promise<ResizedImage>} ResiziedImage Interface,
-  * the true pixel values = controlui-api response / resizeRatio.
+  * the true pixel values = controlui-api response * resizeRatio.
   */
 export async function resizeBase64ImageWithSameRatio(
   base64ImageString: string,
