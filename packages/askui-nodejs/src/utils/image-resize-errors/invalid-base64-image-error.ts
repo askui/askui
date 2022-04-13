@@ -1,8 +1,3 @@
-export class InvalidBase64Image extends Error {
-  contructorName: string = this.constructor.name;
+import { ImageResizingError } from './image-resizing-base-error';
 
-  constructor(message: string) {
-    super(message);
-    this.name = this.contructorName;
-  }
-}
+export class InvalidBase64Image extends ImageResizingError { }

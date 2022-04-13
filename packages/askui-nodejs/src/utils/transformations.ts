@@ -23,8 +23,10 @@ export async function toBase64ImageIfNeeded(pngPathOrBase64Image: string): Promi
 /**
   * Resizes a base64image only when the height or the width is bigger than the maxEdge Param,so that
   * the returned image keeps the same aspect ratio but have a max size equal to the threshold.
-  * @param {string} base64ImageString Base64 image string
-  * @param {number} maxEdge Max height or width, if excceded, the image will be resized
+  *
+  * @param {string} base64ImageString - A base64 encoded image
+  * @param {number} maxEdge - A max image height or width, if excceded, the image will be resized
+  *
   * @returns {Promise<ResizedImage>} ResiziedImage Interface,
   * the true pixel values = controlui-api response * resizeRatio.
   */
@@ -41,21 +43,20 @@ export async function resizeBase64ImageWithSameRatio(
     const orignalImage = await read(Buffer.from(base64ImageString.replace(/^data:image\/png;base64,/, ''), 'base64'));
     const imageHeight = orignalImage.getHeight();
     const imageWidth = orignalImage.getWidth();
-    if (Math.min(imageWidth, imageHeight) <= 0) {
-      Promise.reject(new InvalidBase64Image(`Invalid image sizes, width: ${imageWidth}, height: ${imageHeight}`));
-    }
+
     if (Math.max(imageHeight, imageWidth) <= maxEdge) {
       return await Promise.resolve({ base64Image: base64ImageString, resizeRatio });
     }
-    const heightWidthRatio = imageHeight / imageWidth;
+
     resizeRatio = imageWidth / maxEdge;
-    if (heightWidthRatio > 1) {
+    if (imageHeight > imageWidth) {
       resizeRatio = imageHeight / maxEdge;
     }
     const newImage = orignalImage.resize(imageWidth / resizeRatio, imageHeight / resizeRatio);
     const newImageBase64 = await newImage.getBase64Async('image/png');
+
     return await Promise.resolve({ base64Image: newImageBase64, resizeRatio });
   } catch (error) {
-    return Promise.reject(new ImageResizingError(`a Problem has occured during the resizeing of the image. Error: ${error}`));
+    return Promise.reject(new ImageResizingError(`A Problem has occured during the resizeing of the image. Error: ${error}`));
   }
 }
