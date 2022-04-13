@@ -48,11 +48,12 @@ export async function resizeBase64ImageWithSameRatio(
       return await Promise.resolve({ base64Image: base64ImageString, resizeRatio });
     }
 
-    resizeRatio = imageWidth / maxEdge;
-    if (imageHeight > imageWidth) {
-      resizeRatio = imageHeight / maxEdge;
-    }
-    const newImage = orignalImage.resize(imageWidth / resizeRatio, imageHeight / resizeRatio);
+    const imageRatio = imageHeight / imageWidth;
+    const isHeigthBiggerThanWidth = imageRatio > 1;
+    const newHeigh = isHeigthBiggerThanWidth ? maxEdge : maxEdge * imageRatio;
+    const newWidth = isHeigthBiggerThanWidth ? maxEdge / imageRatio : maxEdge;
+    const newImage = orignalImage.resize(newWidth, newHeigh);
+    resizeRatio = imageHeight / newHeigh;
     const newImageBase64 = await newImage.getBase64Async('image/png');
 
     return await Promise.resolve({ base64Image: newImageBase64, resizeRatio });
