@@ -18,7 +18,6 @@ export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
   readonly port: number;
   readonly host: string;
   readonly logLevel: LogLevels;
-  readonly logPath: string;
 }
 
 export function createArgsWithDefaults(
@@ -32,7 +31,6 @@ export function createArgsWithDefaults(
     port: 6769,
     host: '127.0.0.1',
     logLevel: 'info',
-    logPath: './logs.log',
   };
   return Object.assign(defaults, args);
 }
