@@ -2,6 +2,8 @@ import { spawn } from 'child_process';
 import fs from 'fs-extra';
 import waitPort from 'wait-port';
 import fkill from 'fkill';
+import os from 'os';
+import path from 'path';
 import {
   ControlUiServerArgs,
   ControlUiServerArgsWithDefaults,
@@ -16,14 +18,18 @@ import { UnkownError } from './unkown-error';
 export abstract class ControlUiServerFacade {
   protected binaryPath = getBinaryPath('latest');
 
+  protected serverLogFile!: string;
+
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
   async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
     const argsWithDefaults = createArgsWithDefaults(args);
-    this.binaryPath = getBinaryPath(argsWithDefaults.binaryVersion);
-    await this.getBinary(argsWithDefaults.binaryVersion, argsWithDefaults.overWriteBinary);
+    const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
+    this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
+    await this.getBinary(argsWithLogPath.binaryVersion, argsWithLogPath.overWriteBinary);
     this.makeBinaryExecutable();
-    await this.startWithDefaults(argsWithDefaults, maxWaitingForStartingInSeconds);
+    logger.debug(`AskuiServer log path "${this.serverLogFile}"`);
+    await this.startWithDefaults(argsWithLogPath, maxWaitingForStartingInSeconds);
   }
 
   async stop(args?: ControlUiServerArgs, forceStop?: boolean): Promise<void> {
@@ -31,8 +37,21 @@ export abstract class ControlUiServerFacade {
       const argsWithDefaults = createArgsWithDefaults(args);
       await this.killPort(argsWithDefaults.port, forceStop);
     } catch (err) {
-      throw new Error(`An unknown error occured while closing of the askui server: ${err}`);
+      throw new Error(`An unknown error occured while closing of the askui server. Log file: "${this.serverLogFile}". ErrorReason: ${err}`);
     }
+  }
+
+  protected serverLogFilePath(
+    args?: ControlUiServerArgsWithDefaults,
+  ): ControlUiServerArgsWithDefaults {
+    if (args?.logFilePath) {
+      this.serverLogFile = args.logFilePath;
+      return args;
+    }
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'askui'));
+    this.serverLogFile = path.join(tmpDir, 'askui-server.log');
+    const argPath = { logFilePath: this.serverLogFile };
+    return Object.assign(argPath, args);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -99,7 +118,7 @@ export abstract class ControlUiServerFacade {
 
   private async startWithDefaults(
     args: ControlUiServerArgsWithDefaults,
-    maxWaitingForStartingInSeconds?:number,
+    maxWaitingForStartingInSeconds?: number,
   ) {
     try {
       logger.debug('Starting the Control UI Server...');
@@ -110,7 +129,7 @@ export abstract class ControlUiServerFacade {
       );
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
-      throw new Error(`The Control UI Server could not be started. Reason: ${err}`);
+      throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}`);
     }
   }
 }
