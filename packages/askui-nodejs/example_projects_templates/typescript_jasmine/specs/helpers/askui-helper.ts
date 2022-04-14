@@ -3,7 +3,13 @@ import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
 beforeAll(async function init() {
-  this.askuiServer = new AskuiControlServer();
+  this.askuiServer = new AskuiControlServer({
+    /**
+     * Select the display you want to run your tests on, display 0 is your main display;
+     * ignore if you have only one display
+     */
+    display: 0,
+  });
   /**
   * Starts the askui controlui-server
   */
