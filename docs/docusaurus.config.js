@@ -46,9 +46,15 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'Introduction/why-askui',
+            docId: 'general/Introduction/why-askui',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            type: 'doc',
+            docId: 'api/API/table-of-contents',
+            position: 'left',
+            label: 'API',
           },
           {
             type: 'docsVersionDropdown',
