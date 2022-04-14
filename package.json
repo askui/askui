@@ -1,8 +1,8 @@
 {
   "name": "askui",
-  "license" : "MIT",
+  "license": "MIT",
   "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
-  "version": "1.0.1-next.0",
+  "version": "2.0.0-next.0",
   "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
   "workspaces": [
     "./docs",
