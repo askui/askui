@@ -8,7 +8,7 @@ export interface ControlUiServerArgs {
   readonly minimize?: boolean;
   readonly overWriteBinary?: boolean;
   readonly logLevel?: LogLevels;
-  readonly logPath?: string;
+  readonly logFilePath?: string;
 }
 
 export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
@@ -17,7 +17,8 @@ export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
   readonly overWriteBinary: boolean;
   readonly port: number;
   readonly host: string;
-  readonly logLevel: LogLevels;
+  readonly logLevel?: LogLevels;
+
 }
 
 export function createArgsWithDefaults(
@@ -30,7 +31,7 @@ export function createArgsWithDefaults(
     minimize: true,
     port: 6769,
     host: '127.0.0.1',
-    logLevel: 'info',
+    logLevel: 'debug',
   };
   return Object.assign(defaults, args);
 }
@@ -42,6 +43,6 @@ export function createCliFlagsFromArgs(args: ControlUiServerArgsWithDefaults): s
     args?.host ? `--host ${args.host}` : '',
     args?.minimize ? '-m ' : '',
     args?.logLevel ? `--logLevel ${args.logLevel}` : '',
-    args?.logPath ? `--log-file=${args.logPath}` : '',
+    args?.logFilePath ? `--logFilePath ${args.logFilePath}` : '',
   ].filter((arg) => !!arg);
 }
