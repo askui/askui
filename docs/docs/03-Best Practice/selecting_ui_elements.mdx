@@ -1,61 +1,66 @@
-# Selecting UI elements relaible
+---
+custom_edit_url: null
+---
 
-UI testing is all about interacting with UI elements. UIs are build as a human interface and not as a machine interface. During the development process the underlying source code get extended, refactored or deleted. This leads ununderstandable, unstable and unreliable element selectors. Askui enables to select UI elements based on the visual features.  
+# Selecting UI Elements
 
-Hovering over the red bounding boxes in Fig. 1 shows a tooltip with the detected UI element and the detected text. As you can see, the <i>login button</i> was detected as an UI element <i>button</i> containing an UI element <i>text</i> with the text 'Login'. Additonally the main three colors are detected.
+UI testing is all about interacting with UI elements. UIs are build as a human interface and not as a machine interface. During the development process the underlying source code get extended, refactored or deleted. This leads to hard to understand, unstable and unreliable element selectors. Askui enables to select UI elements based on the visual features.  
 
-If we not want to click on the login button, we can write the following: `await aui.click().button().withText('Login').exec()`
+Hovering over the red bounding boxes in Figure 1 shows a tooltip with the detected UI element and the detected text. As you can see, the <i>login button</i> was detected as an UI element <i>button</i> containing an UI element <i>text</i> with the text 'Login'. Additionally the main three colors are detected.
+
+If we want to click on the login button, we can write the following:
+
+`await aui.click().button().withText('Login').exec()`
 
 
-<iframe src='/annotations/selecting_ui_elements.html' width='100%' height='500px'></iframe> 
-<center>Figure 1:Interactive Annotation</center>
+<iframe src='/annotations/selecting_ui_elements.html' width='100%' height='450px'></iframe> 
+<center>Figure 1: Interactive Annotation</center>
 
-In the following chapters we want to explain how you can write with askui relaible UI tests.
 
-## 1. Generalisation vs. Specialisation
+## 1. Generalization vs. Specialization
 
-A selector should be as specialized as needed and as generalized as possible. This helps a selector to be relaible against source code changes. But what does this means?
+A selector should be as specialized as needed and as generalized as possible. This helps a selector to be reliable against source code changes.
 
-Let's assume we want to click on any button, then we can write following:
+Let's assume we want to click on any button, then we can write the following:
 ```javascript
 await aui.click().button().exec();
 ```
-But the test is to general, because multiple buttons are visible and it would click sometimes on the login button and sometimes on the 'Sign in with Google' button.
+In many cases the given instruction is to general. In the example from above where multiple buttons are visible, sometimes the 'Login' button and sometimes the 'Sign in with Google' button would be clicked.
 
-We could now make the test more specialized by clicking on the text 'Login'
+We could make the instruction more specialized by making it click the text 'Login'.
 ```javascript
 await aui.click().text().withText('Login').exec();
 ```
-But if the text 'Sign in' text get renamed to login, the test step would fail either. Therefore, we need to further specialize it.
+But if the text 'Sign in' is renamed to 'Login', the test step would fail again. Therefore, we need to further specialize it.
 
-Now we filter for the login button.
+Now we filter for the login button:
 ```javascript
 await aui.click().button().withText('Login').exec();
 ```
-This is a almost perfect mix between generalistaion and specialistaion. The login button can now moved to the right or somewhere else on the page and the test step would click it. 
+This is an almost perfect mix between generalization and specialization. The login button can now be moved to the right or somewhere else on the page and the test step would click it. 
 
-An example for an over specialization would be to add an relation to the Sign in text above.
+The following instruction is an example for too much specialization. The dependency between the position of the two buttons can easily lead to a failing instruction when the buttons are positioned differently.
 ```javascript
 await aui.click().button().withText('Login').below().text().withText('Sign in').exec();
 ```
 
 ## 2. Selecting with Text
 
-A human usually needs only the written text or visual properties of elements to use a user interface. The askui library provides multiple methodes to interact with text on the UI. 
+A human usually needs only the written text or visual properties of elements to use a UI. The askui library provides multiple methods to interact with text on the UI. 
 
-The OCR model that converts the image to text, like a human, sometimes makes spelling mistakes. To implement an reliable text selector, we have implemented several text filter methods. 
+The OCR model that converts the image to text, like a human, sometimes makes spelling mistakes. To implement a reliable text selector, we have implemented several text filtering methods. 
 
-The `withText('text')` method is based on a [fuzzy matching algorithm](https://en.wikipedia.org/wiki/Approximate_string_matching) and also forgiv small spelling mistakes. This method should be used by <b>default</b>.
+The `withText('text')` method is based on a [fuzzy matching algorithm](https://en.wikipedia.org/wiki/Approximate_string_matching) and therefore forgives minor spelling mistakes. This method should be used by <b>default</b>.
 ```javascript
 await aui.click().withText('Login').exec();
 ```
 
-Sometimes two words are so simialar, e.g. 'text' and 'test', that the previous method are selecting the worng text. In this cases the `withExactTest('text')`-method can be used.
+Sometimes two words are so similar, e.g. 'text' and 'test', that the previous method is selecting the wrong text. In this cases the `withExactTest('text')` method can be used.
 ```javascript
 await aui.click().withExactText('Login').exec();
 ```
 
-If you have an article number, e.g. 'AN-8463', which contains of a dynamic part and an static part, then you can use the `containsText('AN-')` methode.
+If you have an article number, e.g. 'AN-8463', which consists of a dynamic part and a static part, then you can use the `containsText('AN-')` method.
 ```javascript
 await aui.click().withExactText('AN-').exec();
 ```
@@ -63,7 +68,7 @@ await aui.click().withExactText('AN-').exec();
 
 ## 3. Visual Relations
 
-UIs are designed the same across websites to make the design concepts easier to understand. E.g. a relation between a textfield and a label are visual categorized in 3 classed:
+UIs are designed the same across websites to make the design concepts easier to understand. E.g. a relation between a textfield and a label are visually categorized in 3 classes:
 
 
 <center>
@@ -72,17 +77,17 @@ UIs are designed the same across websites to make the design concepts easier to 
 Figure 2: textfield label relation
 </center>
 
-1. Label is above the textifeld
-2. Label left of the textifeld
-3. Label in the textifeld
+1. Label is above the textfield
+2. Label is left of the textfield
+3. Label is in the textfield
 
 The askui has following visual relation selectors: `nearest()`, `above()`, `below()`, `rightOf()`, `leftOf()`, `contains()`and `in()`.
 
-To fillout the form, the nearest relation should be used by default:
+To fill out the form, the nearest relation should be used by default:
 ```javascript
 await aui.typeIn('text to type').textfield().nearest().text().withText('One').exec();
 ```
-This avoids that the tests step fails, when the developer decide to change from the left to the above relation. 
+This prevents that the instruction fails, when the developer decides to change the position of the label. 
 
 As an alternative for the first example, the below relation could be used.
 ```javascript
@@ -99,14 +104,14 @@ The third example is more tricky, because the textfield contains the label and i
 await aui.typeIn('text to type').textfield().contains().text().withText('Third').exec();
 ```
 
-The in relation can be used e.g. for Fig. 1 to click on the 'Home' text in the header.
+The in relation can be used e.g. for Figure 1 to click on the 'Home' text in the header.
 ```javascript
 await aui.click().text().withText('Home').in().header().exec();
 ```
 
-## 4. Selecting not detected elements
+## 4. Selecting Undetected Elements
 
-Sometimes elements are not detected or classified well. If you hover over the discord icon left of the 'Get Early Access' button then you will see that the icon is not classified as discord. 
+Sometimes elements are not detected or classified well. If you hover over the discord icon left of the 'Get Early Access' button, you will see that the icon is not classified as discord. 
 
 <iframe src='/annotations/not_detected_element.html' width='100%' height='550px'></iframe> 
 <center>Figure 3: Custom Elements</center>
