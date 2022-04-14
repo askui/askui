@@ -29,12 +29,12 @@ const newClient = new askui.Client();
 await newClient.start();
 
 /**
-* Takes a screenshot of your selected display and produces an HTML report file inside the default output path `<project_root>/report`.
+* Takes a screenshot of your selected display and produces an HTML report file inside the default output path <project_root>/report.
 */
 await newClient.annotate();
 
 /**
-* Loads the image from `<image_path>  and produces an HTML report file inside the default output path  <output_path>
+* Loads the image from <image_path> and produces an HTML report file inside the default output path <output_path>
 */
 await newClient.annotate(
     {
@@ -43,7 +43,7 @@ await newClient.annotate(
     });
 
 /**
-* Loads the image from <image_path>  and the customelemts and produces an HTML report file inside the default output path  <output_path>
+* Loads the image from <image_path> and the custom elements and produces an HTML report file inside the default output path <output_path>
 */
 await newClient.annotate(
     {

@@ -12,17 +12,17 @@ To download the package, you need to copy the .npmrc file and replace ${GITLAB_A
 Setup private npm repository:
 1. Create auth token with `read_api` under [your gitlab profile](https://gitlab.com/-/profile/personal_access_tokens)
 2. Set your auth token with: 
-```bash
+```shell
 npm config set -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<your_token>"
 ```
 3. Set
-```bash
+```shell
 npm config set @vqa4gui:registry https://gitlab.example.com/api/v4/projects/34584527/packages/npm/
 ```
 
 ### Install
 
-```bash
+```shell
 npm i @vqa4gui/askui
 ```
 
@@ -69,7 +69,7 @@ describe('Jasmine demo with askui', () => {
 
 <a href="https://docs.gitlab.com/ee/user/packages/container_registry/" target="_blank">How to use GitLab Container Registry</a>
 
-```bash
+```shell
 docker login registry.gitlab.com -u <username> -p <token>
 ```
 The chrome-runner is a docker image contains Askui-Server and chrome browser. It gives the user, the abiablity to excute the tests inside it.
@@ -121,11 +121,11 @@ The development section describes everthing related to setup the project for dev
 ## Setup Dev Env
 
 Project can be installed by: 
-```bash
+```shell
 npm install
 ```
 To exectute all tests use following command:
-```bash
+```shell
 npm test
 ```
 

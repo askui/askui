@@ -9,7 +9,7 @@ sidebar_position: 3
 
 To create your first test suite, enter
 
-```bash
+```shell
 npx askui init
 ```
 
@@ -23,7 +23,7 @@ This is going to create
 
 To execute the test suite, enter
 
-```bash
+```shell
 npx jasmine --config=specs/support/jasmine.json
 ```
 
@@ -80,7 +80,7 @@ describe('Jasmine demo with askui', () => {
 
 Now, just execute the following command in order to run the test suite:
 
-```bash
+```shell
 npx jasmine --config=jasmine.json
 ```
 

@@ -25,7 +25,7 @@ test:
         echo "@vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/"
         echo "//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken=\${NPM_TOKEN}"
       } | tee -a .npmrc
-    - docker login registry.gitlab.com -u ${DOCKER_USER}  -p ${DOCKER_PASSWORD} 
+    - docker login registry.gitlab.com -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} 
     - npm ci
   services:
     - name: <docker_image_path>

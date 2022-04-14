@@ -4,6 +4,6 @@
 
 this test can be executed with the following command:
 
-```bash
+```shell
 npx jasmine --config=specs/support/jasmine.json
 ```

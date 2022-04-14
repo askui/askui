@@ -11,9 +11,9 @@ The askui library provides you with an API that allows you to automate the inter
 
 Our typical users are developers or QA engineers building and testing web, native desktop or mobile applications.
 
-askui enables you to write all types of tests:
+The askui library enables you to write all types of tests:
 
 - End-to-end tests
 - Integration tests
 
-askui can test anything that runs on an OS including both native and browser based applications. Additionally, you can open two applications next to each other to test their interaction.
+With askui you can test anything that runs on an OS including both native and browser based applications. Additionally, you can open two applications next to each other to test their interaction.
