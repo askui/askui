@@ -9,4 +9,16 @@ export class DetectedElement {
     public colors: string[],
     public bndbox: BoundingBox,
   ) { }
+
+  static fromJson(detectedElement: DetectedElement, resizeRatio = 1) {
+    return new DetectedElement(
+      detectedElement.name,
+      detectedElement.truncated,
+      detectedElement.difficult,
+      detectedElement.text,
+      detectedElement.colors,
+      BoundingBox.fromJson(detectedElement.bndbox, resizeRatio),
+
+    );
+  }
 }
