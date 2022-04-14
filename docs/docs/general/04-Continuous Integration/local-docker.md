@@ -20,7 +20,7 @@ docker login registry.gitlab.com -u <username> -p <token>
 
 The images can be downloaded from
 
-`registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:v0.8.0-<browser_version>-<platform>`
+`registry.gitlab.com/vqa4gui/mvp/askui/browser/<browser>:v0.8.0-<browser_version>-<platform>`
 
 whereby `<browser>`, `<browser_version>` and `<platform>` need to be replaced with concrete values.
 
@@ -28,14 +28,14 @@ The following list shows the images we currently provide:
 
 | Browser | Browser Version | Release Version | Platform| |
 |---|---|---|---|---|
-| chrome | 100.0.4896.60 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-100.0.4896.60-amd64"></ClipboardButton> |
-| chrome | 99.0.4844.51 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-99.0.4844.51-amd64"></ClipboardButton> |
-| chrome | 97.0.4692.71 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-97.0.4692.71-amd64"></ClipboardButton> |
-| chrome | 90.0.4430.212 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-90.0.4430.212-amd64"></ClipboardButton> |
-| firefox | 98.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-98.0.2-amd64"></ClipboardButton> |
-| firefox | 97.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-97.0.2-amd64"></ClipboardButton> |
-| firefox | 96.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-96.0.3-amd64"></ClipboardButton> |
-| firefox | 82.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/firefox:v0.8.0-82.0.3-amd64"></ClipboardButton> |
+| chrome | 100.0.4896.60 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.8.0-100.0.4896.60-amd64"></ClipboardButton> |
+| chrome | 99.0.4844.51 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.8.0-99.0.4844.51-amd64"></ClipboardButton> |
+| chrome | 97.0.4692.71 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.8.0-97.0.4692.71-amd64"></ClipboardButton> |
+| chrome | 90.0.4430.212 |  v0.8.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.8.0-90.0.4430.212-amd64"></ClipboardButton> |
+| firefox | 98.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.8.0-98.0.2-amd64"></ClipboardButton> |
+| firefox | 97.0.2 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.8.0-97.0.2-amd64"></ClipboardButton> |
+| firefox | 96.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.8.0-96.0.3-amd64"></ClipboardButton> |
+| firefox | 82.0.3 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.8.0-82.0.3-amd64"></ClipboardButton> |
 
 
 :::caution
@@ -47,7 +47,7 @@ Currently, we do not offer images for **ARM**.
 Pull the image using
 
 ```shell
-docker pull registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:<releaseVersion>-<browserVersion>-amd64
+docker pull registry.gitlab.com/vqa4gui/mvp/askui/browser/<browser>:<releaseVersion>-<browserVersion>-amd64
 ```
 
 or use something like [Testcontainers](https://www.npmjs.com/package/testcontainers) (see [Start Container in Jasmine Test Suite](#start-container-in-jasmin-test-suite) as an example) to pull the image from inside your test suite.
@@ -87,7 +87,7 @@ describe('jasmine demo with askui', () => {
     const browser = 'chrome';
     const releaseVersion = 'v0.8.0';
     const browserVersion = '99.0.4844.51';
-    const containerPath = `registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
+    const containerPath = `registry.gitlab.com/vqa4gui/mvp/askui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
 
     const container = await new GenericContainer(containerPath)
       .withEnv('ENABLE_VNC', 'true')
