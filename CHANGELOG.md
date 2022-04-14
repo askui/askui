@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.0.0-next.0...2.1.0-next.0) (2022-04-14)
+
+
+### Features
+
+* server log level support (#AS-907) ([0bbe002](https://gitlab.com/vqa4gui/mvp/askui/commit/0bbe0025f8ef099c40dddac292f21a8fe7864bd1)), closes [#AS-907](https://gitlab.com/vqa4gui/mvp/askui/issues/AS-907)
+
 ## [2.0.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/1.0.1-next.0...2.0.0-next.0) (2022-04-14)
 
 
