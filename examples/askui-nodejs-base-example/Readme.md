@@ -18,7 +18,7 @@ parallel:
     - BROWSER: firefox
       BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
   services:
-    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
+    - name: registry.gitlab.com/vqa4gui/mvp/askui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
       alias: <alias_name>
 ```
 
@@ -38,7 +38,7 @@ test:
     - BROWSER: firefox
       BROWSER_VERSIONS: [98.0.2, 97.0.2, 96.0.3, 82.0.3]
   services:
-    - name: registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
+    - name: registry.gitlab.com/vqa4gui/mvp/askui/browser/$BROWSER:${RELEASE_VERSION}-$BROWSER_VERSIONS-amd64
       alias: askui-runner
   script:
     - npm run test
