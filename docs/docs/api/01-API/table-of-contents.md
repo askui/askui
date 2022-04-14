@@ -9,57 +9,57 @@ custom_edit_url: null
 
 -  [click](../commands/click)
 
--  [execOnShell](../commands/execOnShell)
+-  [execOnShell](../commands/execonshell)
 
 -  [expect](../commands/expect)
 
--  [mouseDoubleLeftClick](../commands/mouseDoubleLeftClick)
+-  [mouseDoubleLeftClick](../commands/mousedoubleleftclick)
 
--  [mouseDoubleMiddleClick](../commands/mouseDoubleMiddleClick)
+-  [mouseDoubleMiddleClick](../commands/mousedoublemiddleclick)
 
--  [mouseDoubleRightClick](../commands/mouseDoubleRightClick)
+-  [mouseDoubleRightClick](../commands/mousedoublerightclick)
 
--  [mouseLeftClick](../commands/mouseLeftClick)
+-  [mouseLeftClick](../commands/mouseleftclick)
 
--  [mouseMiddleClick](../commands/mouseMiddleClick)
+-  [mouseMiddleClick](../commands/mousemiddleclick)
 
--  [mouseRightClick](../commands/mouseRightClick)
+-  [mouseRightClick](../commands/mouserightclick)
 
--  [mouseToggleDown](../commands/mouseToggleDown)
+-  [mouseToggleDown](../commands/mousetoggledown)
 
--  [mouseToggleUp](../commands/mouseToggleUp)
+-  [mouseToggleUp](../commands/mousetoggleup)
 
--  [moveMouse](../commands/moveMouse)
+-  [moveMouse](../commands/movemouse)
 
--  [moveMouseRelatively](../commands/moveMouseRelatively)
+-  [moveMouseRelatively](../commands/movemouserelatively)
 
--  [moveMouseRelativelyTo](../commands/moveMouseRelativelyTo)
+-  [moveMouseRelativelyTo](../commands/movemouserelativelyto)
 
--  [moveMouseTo](../commands/moveMouseTo)
+-  [moveMouseTo](../commands/movemouseto)
 
--  [pressAndroidKey](../commands/pressAndroidKey)
+-  [pressAndroidKey](../commands/pressandroidkey)
 
--  [pressAndroidThirdKey](../commands/pressAndroidThirdKey)
+-  [pressAndroidThirdKey](../commands/pressandroidthirdkey)
 
--  [pressAndroidTwoKey](../commands/pressAndroidTwoKey)
+-  [pressAndroidTwoKey](../commands/pressandroidtwokey)
 
--  [pressKey](../commands/pressKey)
+-  [pressKey](../commands/presskey)
 
--  [pressThreeKeys](../commands/pressThreeKeys)
+-  [pressThreeKeys](../commands/pressthreekeys)
 
--  [pressTwoKeys](../commands/pressTwoKeys)
+-  [pressTwoKeys](../commands/presstwokeys)
 
 -  [scroll](../commands/scroll)
 
--  [scrollUntil](../commands/scrollUntil)
+-  [scrollUntil](../commands/scrolluntil)
 
 -  [swipe](../commands/swipe)
 
 -  [type](../commands/type)
 
--  [typeIn](../commands/typeIn)
+-  [typeIn](../commands/typein)
 
--  [waitFor](../commands/waitFor)
+-  [waitFor](../commands/waitfor)
 
 ## filters
 
@@ -71,7 +71,7 @@ custom_edit_url: null
 
 -  [breadcrumb](../filters/breadcrumb)
 
--  [browserBar](../filters/browserBar)
+-  [browserBar](../filters/browserbar)
 
 -  [button](../filters/button)
 
@@ -79,27 +79,27 @@ custom_edit_url: null
 
 -  [chart](../filters/chart)
 
--  [chartPie](../filters/chartPie)
+-  [chartPie](../filters/chartpie)
 
 -  [checkbox](../filters/checkbox)
 
--  [checkboxChecked](../filters/checkboxChecked)
+-  [checkboxChecked](../filters/checkboxchecked)
 
--  [checkboxUnchecked](../filters/checkboxUnchecked)
+-  [checkboxUnchecked](../filters/checkboxunchecked)
 
 -  [circle](../filters/circle)
 
 -  [colored](../filters/colored)
 
--  [containsText](../filters/containsText)
+-  [containsText](../filters/containstext)
 
--  [customElement](../filters/customElement)
+-  [customElement](../filters/customelement)
 
 -  [divider](../filters/divider)
 
 -  [dropdown](../filters/dropdown)
 
--  [dropdownMenu](../filters/dropdownMenu)
+-  [dropdownMenu](../filters/dropdownmenu)
 
 -  [flag](../filters/flag)
 
@@ -119,17 +119,17 @@ custom_edit_url: null
 
 -  [map](../filters/map)
 
--  [messageBox](../filters/messageBox)
+-  [messageBox](../filters/messagebox)
 
 -  [modal](../filters/modal)
 
--  [mouseCursor](../filters/mouseCursor)
+-  [mouseCursor](../filters/mousecursor)
 
--  [mousePointer](../filters/mousePointer)
+-  [mousePointer](../filters/mousepointer)
 
--  [mouseText](../filters/mouseText)
+-  [mouseText](../filters/mousetext)
 
--  [navigationBar](../filters/navigationBar)
+-  [navigationBar](../filters/navigationbar)
 
 -  [pager](../filters/pager)
 
@@ -139,13 +139,13 @@ custom_edit_url: null
 
 -  [popover](../filters/popover)
 
--  [progressBar](../filters/progressBar)
+-  [progressBar](../filters/progressbar)
 
 -  [progressbar](../filters/progressbar)
 
--  [radioButtonSelected](../filters/radioButtonSelected)
+-  [radioButtonSelected](../filters/radiobuttonselected)
 
--  [radioButtonUnselected](../filters/radioButtonUnselected)
+-  [radioButtonUnselected](../filters/radiobuttonunselected)
 
 -  [rate](../filters/rate)
 
@@ -153,35 +153,35 @@ custom_edit_url: null
 
 -  [rect](../filters/rect)
 
--  [scrollBar](../filters/scrollBar)
+-  [scrollBar](../filters/scrollbar)
 
 -  [sidebar](../filters/sidebar)
 
 -  [slider](../filters/slider)
 
--  [sliderIndicator](../filters/sliderIndicator)
+-  [sliderIndicator](../filters/sliderindicator)
 
--  [statusBar](../filters/statusBar)
+-  [statusBar](../filters/statusbar)
 
--  [switchDisabled](../filters/switchDisabled)
+-  [switchDisabled](../filters/switchdisabled)
 
--  [switchEnabled](../filters/switchEnabled)
+-  [switchEnabled](../filters/switchenabled)
 
 -  [tab](../filters/tab)
 
--  [tabActive](../filters/tabActive)
+-  [tabActive](../filters/tabactive)
 
--  [tabBar](../filters/tabBar)
+-  [tabBar](../filters/tabbar)
 
--  [tabSelected](../filters/tabSelected)
+-  [tabSelected](../filters/tabselected)
 
 -  [table](../filters/table)
 
--  [tableColumn](../filters/tableColumn)
+-  [tableColumn](../filters/tablecolumn)
 
--  [tableHeader](../filters/tableHeader)
+-  [tableHeader](../filters/tableheader)
 
--  [tableRow](../filters/tableRow)
+-  [tableRow](../filters/tablerow)
 
 -  [text](../filters/text)
 
@@ -199,17 +199,17 @@ custom_edit_url: null
 
 -  [window](../filters/window)
 
--  [windowsBar](../filters/windowsBar)
+-  [windowsBar](../filters/windowsbar)
 
--  [withExactText](../filters/withExactText)
+-  [withExactText](../filters/withexacttext)
 
--  [withText](../filters/withText)
+-  [withText](../filters/withtext)
 
 -  [wizard](../filters/wizard)
 
--  [wizardItem](../filters/wizardItem)
+-  [wizardItem](../filters/wizarditem)
 
--  [wizardItemActive](../filters/wizardItemActive)
+-  [wizardItemActive](../filters/wizarditemactive)
 
 ## relations
 
@@ -221,15 +221,15 @@ custom_edit_url: null
 
 -  [in](../relations/in)
 
--  [leftOf](../relations/leftOf)
+-  [leftOf](../relations/leftof)
 
--  [nearestTo](../relations/nearestTo)
+-  [nearestTo](../relations/nearestto)
 
--  [rightOf](../relations/rightOf)
+-  [rightOf](../relations/rightof)
 
 ## checks
 
 -  [exists](../checks/exists)
 
--  [notExists](../checks/notExists)
+-  [notExists](../checks/notexists)
 

@@ -2,6 +2,7 @@
 displayed_sidebar: apiSidebar
 custom_edit_url: null
 ---
+# swipe
 
 Swipe an element in the x and y direction
 
