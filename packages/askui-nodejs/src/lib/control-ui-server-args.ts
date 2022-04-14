@@ -42,7 +42,7 @@ export function createCliFlagsFromArgs(args: ControlUiServerArgsWithDefaults): s
     args?.port ? `-p ${args.port.toString()}` : '',
     args?.host ? `--host ${args.host}` : '',
     args?.minimize ? '-m ' : '',
-    args?.logLevel ? `--logLevel ${args.logLevel}` : '',
-    args?.logFilePath ? `--logFilePath ${args.logFilePath}` : '',
+    args?.logLevel ? `--log-level ${args.logLevel}` : '',
+    args?.logFilePath ? `--log-file ${args.logFilePath}` : '',
   ].filter((arg) => !!arg);
 }
