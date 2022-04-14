@@ -6,11 +6,11 @@ import ClipboardButton from '@site/src/components/ClipboardButton';
 
 # Local Docker
 
-We maintain Docker Images for running askui tests locally and in CI piplines. The images contain the askui-Server and a specified browser with a specified browser version. The askui library can connect to the docker container and execute the defined test steps inside it.
+We maintain Docker Images for running askui tests locally and in CI pipelines. The images contain the askui server and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library can connect to the server inside the Docker container to execute the test steps inside it.
 
-## Authentication
+## Authentication & Authorization
 
-Currently the images are not public so you need to authenticate to access them. The username and token will be provided by your contact person at askui. The token is the one you also use for downloading the library.
+Currently, the images are hosted on a private registry. You need to authenticate and authorize yourself in order a to access them. The username and token are going to be provided by your contact person at askui. The token is the one you also use for downloading the library.
 
 ```shell
 docker login registry.gitlab.com -u <username> -p <token>
@@ -20,11 +20,13 @@ docker login registry.gitlab.com -u <username> -p <token>
 
 The images can be downloaded from
 
-`registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:v0.8.0-<browser_version>-<plattform>`
+`registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:v0.8.0-<browser_version>-<platform>`
 
-The following list shows the prebuild images we currently provide:
+whereby `<browser>`, `<browser_version>` and `<platform>` need to be replaced with concrete values.
 
-| browser | browser version | release version | platform| |
+The following list shows the images we currently provide:
+
+| Browser | Browser Version | Release Version | Platform| |
 |---|---|---|---|---|
 | chrome | 100.0.4896.60 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-100.0.4896.60-amd64"></ClipboardButton> |
 | chrome | 99.0.4844.51 | v0.8.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/chrome:v0.8.0-99.0.4844.51-amd64"></ClipboardButton> |
@@ -38,41 +40,43 @@ The following list shows the prebuild images we currently provide:
 
 :::caution
 
-We do not currently offer images for **ARM**.
+Currently, we do not offer images for **ARM**.
 
 :::
 
-You can either use testcontainers to download an image as shown in the next chapter or download a container manually with the following command:
+Pull the image using
 
 ```shell
 docker pull registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/<browser>:<releaseVersion>-<browserVersion>-amd64
 ```
 
+or use something like [Testcontainers](https://www.npmjs.com/package/testcontainers) (see [Start Container in Jasmine Test Suite](#start-container-in-jasmin-test-suite) as an example) to pull the image from inside your test suite.
+
 ## Configure a Container
 
-When starting a container the following environment variables can be used to configure it:
+When starting a container, the following environment variables can be used to configure it:
 
-| Env | type | default value | description |
-|---|---|---|---|
-| ENABLE_VNC | boolean | false | Start VNC so that you can connect and observe whats happening in the container. |
-| SCREEN_RESOLUTION | string | 1920x1080 | Define the screen resolution of the testcontainer in the format *width* x *height* |
+| Variable | Default Value | Description |
+|---|---|---|
+| ENABLE_VNC | false | `true` if VNC is enabled so that you can connect and observe whats happening inside the container. |
+| SCREEN_RESOLUTION | 1920x1080 | The screen resolution used inside the container in the format `<width>x<height>`. |
 
 
-## Start Container in Jasmin Test Suite
+## Start a Container from Inside a Jasmine Test Suite
 
-The following example shows how to use the containers locally in a jasmine test suite.
+The following example shows how to use the containers inside a Jasmine test suite without needing to pull and start the container beforehand.
 
-First install [testcontainers](https://github.com/testcontainers/testcontainers-node), a NodeJS library that supports tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+First, install [Testcontainers](https://github.com/testcontainers/testcontainers-node), a Node.js library that supports tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
 
 ```shell
-npm i testcontainers
+npm i -D testcontainers
 ```
 
-Then to run your tests inside one of the prebuild containers, use the following example of the `beforeAll` function:
+Then, to run your tests inside a container, include a `beforeAll` setup function like in the following example. It is going to pull and start the container with the askui server and browser mapping the ports exposed by the container to free ports on your machine (randomly chose out of the free ports available at runtime to prevent collision) which you and the askui library can use to connect to the container.
 
-```js
+```typescript
 import * as askui from '@vqa4gui/askui';
-import { StartedTestContainer, GenericContainer } from 'testcontainers';
+import { GenericContainer } from 'testcontainers';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
@@ -85,7 +89,7 @@ describe('jasmine demo with askui', () => {
     const browserVersion = '99.0.4844.51';
     const containerPath = `registry.gitlab.com/vqa4gui/mvp/control-your-ui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
 
-    const container: StartedTestContainer = await new GenericContainer(containerPath)
+    const container = await new GenericContainer(containerPath)
       .withEnv('ENABLE_VNC', 'true')
       .withEnv('SCREEN_RESOLUTION', '1920x1080')
       .withExposedPorts(6769, 5900)
@@ -100,15 +104,10 @@ describe('jasmine demo with askui', () => {
 });
 ```
 
-:::caution
-
-Testcontainers maps the specified ports to some random available ports to prevent collision of ports. Therefore to connect via VNC you need to connect to the port logged to the console and not to port 5900.
-
-:::
-
 ## Connect via VNC
 
-To check what is happening inside a running testcontainer you can connect via VNC. For this you need a VNC client like [Remmina](https://remmina.org/). When running the example code from the previous chapter, the containers VNC port will be logged to the console. Use this port to connect. When connecting enter the password `askui` when asked.
+To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When running the example code from the previous chapter, the container's VNC port will be logged to the console. Use this port to connect. When connecting, enter the password `askui` when asked.
+
+Example of a VNC connection with a Chrome browser running inside a container:
 
 ![VNC Example](./vnc-example.png)
-Example of a VNC connection with a chrome browser running inside a container.

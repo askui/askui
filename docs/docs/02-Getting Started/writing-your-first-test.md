@@ -7,30 +7,30 @@ sidebar_position: 3
 
 ## Quickstart
 
-You can generate your first test using askui by running this command:
+To create your first test suite, enter
 
 ```bash
 npx askui init
 ```
 
-this command will generate for you:
+This is going to create
 
-- `tsconfig.json`: [a json file specifies the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+- a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
 - a folder called `specs` which includes:
-  - `specs/my-first-askui-test-suite.spec.ts` an example test with askui.
-  - `specs/support/jasmine.json`: config file for jasmine.
-  - `specs/helpers/askui-helper.ts` where you can initialize your environment for all test suites e.g on which display you want to perform your tests, Default 0.
+  - `specs/my-first-askui-test-suite.spec.ts`: an example test with askui,
+  - `specs/support/jasmine.json`: configuration of Jasmine,
+  - `specs/helpers/askui-helper.ts`: initializes the environment of all test suites, e.g, on which display the tests are executed (tests can only be run on one display meaning everything you want to test needs to be opened on that display, the default is `0` which is your main display).
 
-Now, you just execute the following command in order to run the just created test suite:
+To execute the test suite, enter
 
 ```bash
 npx jasmine --config=specs/support/jasmine.json
 ```
 
-You should now see the test being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test using the askui library.
+You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
 
 ## Manual
-Create a spec (test) file inside the `spec_dir`, you specified inside your `jasmine.json` and make sure it matches up with the pattern you specified under `spec_files`, e.g., `specs/my-first-askui-test-suite.spec.ts` in our example.
+Create a spec file inside the `spec_dir` you specified inside your `jasmine.json` and make sure it matches up with the pattern you specified under `spec_files`, e.g., `specs/my-first-askui-test-suite.spec.ts`.
 
 Copy the following over into that file:
 
@@ -78,10 +78,10 @@ describe('Jasmine demo with askui', () => {
 
 ```
 
-Now, just execute the following command in order to run the just created test suite:
+Now, just execute the following command in order to run the test suite:
 
 ```bash
 npx jasmine --config=jasmine.json
 ```
 
-You should now see the test being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. Congratulations! You just executed your first test using the askui library.
+You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.

@@ -1,20 +1,20 @@
-# Annotate image
+# Annotate Image
 
-the askui client offers an annotation tool, which helps with the test creation and debugging failed tests.
+The askui client offers an annotation tool which helps with the test creation and debugging of failed tests.
 
-## How it works
+## How It Works
 
-The annotation command annotates an image with our AI model. And it produces a single HTML report file, which contains the model results. This file can be easily shared.
+The annotation command annotates an image with our AI model producing a single report as an HTML file. This file can easily be shared.
 
 This command takes as optional input:
 
-- imagePath:
-  - If this argument is defined, then the image will be loaded, annotated
-  - If this argument is not defined, then a screenshot of your specified screen will be taken and annotated
-- outputPath: This is the output folder path. In which the HTML reports will be saved. If it's not defined then a folder called report will be created.
-- customElements: A list of custom eLements that when defined, the AI model will use them to detect similar elements to them.
+- `imagePath`:
+  - If this argument is defined, the image at the path is loaded and annotated
+  - If this argument is not defined, a screenshot of your specified screen is taken and annotated
+- `outputPath`: This is the output folder path in which the HTML reports are going to be saved. If it's not defined then a folder called `report` will be created.
+- `customElements`: A list of custom elements. The AI model will use them to detect elements similar to them.
 
-## How to use
+## How to Use
 
 ```typescript
 import * as askui from "@vqa4gui/askui";
@@ -29,12 +29,12 @@ const newClient = new askui.Client();
 await newClient.start();
 
 /**
-* Takes a screenshot of your selected display and produces an HTML report file inside the default output path ~/report
+* Takes a screenshot of your selected display and produces an HTML report file inside the default output path `<project_root>/report`.
 */
 await newClient.annotate();
 
 /**
-* Loads the image from <image_path>  and produces an HTML report file inside the default output path  <output_path>
+* Loads the image from `<image_path>  and produces an HTML report file inside the default output path  <output_path>
 */
 await newClient.annotate(
     {

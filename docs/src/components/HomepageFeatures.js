@@ -8,7 +8,7 @@ const FeatureList = [
     Svg: require('../../static/img/icons/engineering_white.svg').default,
     description: (
       <>
-        askui James enables the automation of all possible UI commands by simulating real interactions. Drag & drop, swipe commands and even color verifications are no longer a problem.
+        askui enables the automation of all possible UI commands by simulating real interactions. Drag & drop, swipe commands and even color verifications are no longer a problem.
       </>
     ),
   },

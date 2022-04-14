@@ -9,8 +9,8 @@ sidebar_position: 2
 
 - Node.js version 16 or above
 - npm version 7.10 or above
-- as the askui library is not yet publicly available but instead hosted on a private registry, you are going to need a [deploy token](https://docs.gitlab.com/ee/user/project/deploy_tokens/) to be able to authenticate and authorize yourself with the registry (if you haven't yet received one from us, please reach out to us at info@askui.com)
-- :warning: **Linux**: Currently, the windowing system Wayland is not supported. [How to Switch to Xorg from Wayland](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)
+- as the askui library is not yet publicly available but instead hosted on a private registry, you need a [deploy token](https://docs.gitlab.com/ee/user/project/deploy_tokens/) to be able to authenticate and authorize yourself with the registry (if you haven't yet received one from us, please reach out to us at <info@askui.com>)
+- :warning: **Linux**: Currently, the windowing system Wayland is not supported. You can switch to Xorg to make askui work with your Linux distribution (see [How to Switch to Xorg from Wayland](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)).
 
 ## Installation
 
@@ -23,8 +23,8 @@ Replace  `<DEPLOY_TOKEN>` with your deploy token.
 :::
 
 ```bash
-  npm config set  @vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/
-  npm config set  -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<DEPLOY_TOKEN>"
+npm config set  @vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/
+npm config set  -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<DEPLOY_TOKEN>"
 ```
 
 Now, you are ready to install the askui library.
@@ -33,13 +33,18 @@ Now, you are ready to install the askui library.
 npm i -D @vqa4gui/askui
 ```
 
-While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of writing up the actual test, writing up assertions to test wether an expectation holds true and, last but not least, a way to execute the tests, i.e., a test runner. One framework which provides all of this out of the box is [Jasmine](https://jasmine.github.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jest](https://jestjs.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.
+While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of 
+- writing up the actual test, 
+- writing up assertions to test wether an expectation holds true and, last but not least, 
+- a way to execute the tests, i.e., a test runner.
+
+One framework which provides all of this out of the box is [Jasmine](https://jasmine.github.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jest](https://jestjs.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.
 
 ```bash
 npm i -D jasmine
 ```
 
-We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types for Jasmine and Node.js itself.
+We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jasmine and Node.js.
 
 ```bash
 npm i -D typescript @types/jasmine @types/node ts-node
