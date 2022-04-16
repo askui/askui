@@ -5,6 +5,7 @@ import { CustomElement } from '../core/model/test-case-dto';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationJson } from '../core/annotation/annotation-json';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
+import { IsImageRequired } from './is-image-required-interface';
 
 export class ControlYourUiApi {
   constructor(
@@ -12,17 +13,31 @@ export class ControlYourUiApi {
     public httpClient: HttpClientGot,
   ) { }
 
+  async isImageRequired(
+    instruction: string,
+  ): Promise<boolean> {
+    const url = urljoin(this.apiEndpointUrl, 'instruction', 'is-image-required');
+    const httpBody = {
+      instruction,
+    };
+    const httpResponse = await this.httpClient.post<IsImageRequired>(url, httpBody);
+    return httpResponse.requrieImage;
+  }
+
   async predictControlCommand(
-    image: string,
     instruction: string,
     customElements: CustomElement[],
+    image?: string,
   ): Promise<ControlCommand> {
-    let imageString = image;
+    let imageString = '';
     let resizeRatio = 1;
-    if (!(customElements.length > 0)) {
-      const resizedImage = await resizeBase64ImageWithSameRatio(image);
-      imageString = resizedImage.base64Image;
-      resizeRatio = resizedImage.resizeRatio;
+    if (image) {
+      imageString = image;
+      if (!(customElements.length > 0)) {
+        const resizedImage = await resizeBase64ImageWithSameRatio(image);
+        imageString = resizedImage.base64Image;
+        resizeRatio = resizedImage.resizeRatio;
+      }
     }
     const httpBody = {
       image: imageString,
