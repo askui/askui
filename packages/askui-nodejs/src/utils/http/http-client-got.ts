@@ -11,8 +11,28 @@ export class HttpClientGot {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private get envHeaders() {
+    const envToken = process.env['ASKUI_TOKEN'];
+    const envTenant = process.env['ASKUI_TENANT'];
+    const envEmail = process.env['ASKUI_EMAIL'];
+    if (envToken && envTenant && envEmail) {
+      const envCredential = new Credentials(envTenant, envEmail, envToken);
+      return {
+        Authorization: `Basic ${envCredential.base64Encoded}`,
+      };
+    }
+    return undefined;
+  }
+
   private injectAuthHeader(options: OptionsOfJSONResponseBody) {
-    return this.credentials ? { ...options, headers: this.headers } : options;
+    if (this.credentials) {
+      return { ...options, headers: this.headers };
+    }
+    if (this.envHeaders) {
+      return { ...options, headers: this.envHeaders };
+    }
+    return options;
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
