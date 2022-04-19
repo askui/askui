@@ -15,8 +15,6 @@ import { AnnotationLevel } from './annotation-level';
 import { ControlUiClientError } from './client-error';
 
 export class AskuiClient extends FluentCommand {
-  private httpClient = new HttpClientGot();
-
   private _controlYourUiClient?: ControlYourUiClient;
 
   constructor(
@@ -32,6 +30,10 @@ export class AskuiClient extends FluentCommand {
       );
     }
     return this._controlYourUiClient;
+  }
+
+  private get httpClient(): HttpClientGot {
+    return new HttpClientGot(this.clientArgs?.credentials);
   }
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
