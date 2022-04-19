@@ -1,3 +1,7 @@
+---
+custom_edit_url: null
+---
+
 # Annotate Image
 
 The askui client offers an annotation tool which helps with the test creation and debugging of failed tests.
@@ -17,26 +21,15 @@ This command takes as optional input:
 ## How to Use
 
 ```typescript
-import * as askui from "@vqa4gui/askui";
-
-await askui.startAskuiServer({
-      port: 6769,
-      minimize: true
-    });
-
-const newClient = new askui.Client();
-
-await newClient.start();
-
 /**
 * Takes a screenshot of your selected display and produces an HTML report file inside the default output path <project_root>/report.
 */
-await newClient.annotate();
+await aui.annotate();
 
 /**
 * Loads the image from <image_path> and produces an HTML report file inside the default output path <output_path>
 */
-await newClient.annotate(
+await aui.annotate(
     {
     imagePath: '<image_path>',
     outputPath: '<output_path>'
@@ -45,7 +38,7 @@ await newClient.annotate(
 /**
 * Loads the image from <image_path> and the custom elements and produces an HTML report file inside the default output path <output_path>
 */
-await newClient.annotate(
+await aui.annotate(
     {
     imagePath: '<image_path>',
     outputPath: '<output_path>',
@@ -62,9 +55,4 @@ await newClient.annotate(
         }
     ]
     });
-
-/**
-* Stops the controlui-server and closes the connection to the controlui-server
-*/
-newClient.stop();
 ```

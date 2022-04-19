@@ -1,3 +1,7 @@
+---
+custom_edit_url: null
+---
+
 # Gitlab CI/CD
 
 The askui library can be integrated into a [Gitlab CI/CD Pipeline](https://docs.gitlab.com/ee/ci).
@@ -51,7 +55,7 @@ The main difference between [the first test suite using askui example](../02-Get
 
 ```typescript
 const controluiServerUrl = process.env.CI_JOB_ID ? '<alias_name>' : 'localhost';
-newClient = new askui.Client({
+aui = new AskuiClient({
   controlServerUrl: `http://${controluiServerUrl}:6769`,
 });
 ```

@@ -1,6 +1,5 @@
 ---
 custom_edit_url: null
-sidebar_position: 2
 ---
 import ClipboardButton from '@site/src/components/ClipboardButton';
 
@@ -75,31 +74,49 @@ npm i -D testcontainers
 Then, to run your tests inside a container, include a `beforeAll` setup function like in the following example. It is going to pull and start the container with the askui server and browser mapping the ports exposed by the container to free ports on your machine (randomly chose out of the free ports available at runtime to prevent collision) which you and the askui library can use to connect to the container.
 
 ```typescript
-import * as askui from '@vqa4gui/askui';
-import { GenericContainer } from 'testcontainers';
+import { AskuiClient } from '@vqa4gui/askui';
+import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
+
 describe('jasmine demo with askui', () => {
-  let newClient: askui.Client;
+  let aui : AskuiClient;
+  let container: StartedTestContainer
 
   beforeAll(async () => {
     const browser = 'chrome';
     const releaseVersion = 'v0.9.0';
     const browserVersion = '99.0.4844.51';
     const containerPath = `registry.gitlab.com/vqa4gui/mvp/askui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
-
-    const container = await new GenericContainer(containerPath)
+    
+    container = await new GenericContainer(containerPath)
       .withEnv('ENABLE_VNC', 'true')
       .withEnv('SCREEN_RESOLUTION', '1920x1080')
       .withExposedPorts(6769, 5900)
       .start();
 
     console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
-    newClient = new askui.Client({
+    aui = new AskuiClient({
       controlServerUrl: `http://${container.getHost()}:${container.getMappedPort(6769)}`,
     });
-    await newClient.start();
+    await aui.connect();;
+  });
+
+  it('Should click on text', async () => {    
+    await aui.click().text().exec()
+  });
+
+  afterAll(async function clean() {
+    /**
+    * Closes the connection to the askui controlui-server
+    */
+    aui.close();
+
+    /**
+    * Stops the container
+    */
+    await container.stop();
   });
 });
 ```
