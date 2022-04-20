@@ -29,10 +29,7 @@ export class HttpClientGot {
     if (this.credentials) {
       return { ...options, headers: this.headers };
     }
-    if (this.envHeaders) {
-      return { ...options, headers: this.envHeaders };
-    }
-    return options;
+    return this.envHeaders ? { ...options, headers: this.envHeaders } : options;
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
