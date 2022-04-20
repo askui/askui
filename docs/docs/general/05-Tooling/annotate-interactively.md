@@ -1,3 +1,6 @@
+---
+custom_edit_url: null
+---
 
 # Annotate Interactively
 
@@ -12,25 +15,9 @@ The interactive annotation command requests the askui server to take a screensho
 ## How to Use
 
 ```typescript
-import * as askui from "@vqa4gui/askui";
-
-await askui.startAskuiServer({
-      port: 6769,
-      minimize: true
-    });
-
-const newClient = new askui.Client();
-
-await newClient.start();
-
 /**
  * Starts the interactive annotation. A window appears shortly afterwards showing the result 
  * of the annotation. Press "Esc" to close this window again.
  */
-await newClient.annotateInteractively();
-
-/**
- * Stops the controlui-server and closes the connection to the controlui-server.
- */
-newClient.stop();
+await aui.annotateInteractively();
 ```

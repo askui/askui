@@ -35,44 +35,53 @@ Create a spec file inside the `spec_dir` you specified inside your `jasmine.json
 Copy the following over into that file:
 
 ```typescript
-import * as askui from '@vqa4gui/askui';
+import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
-describe('Jasmine demo with askui', () => {
-  let newClient: askui.Client;
 
-  beforeAll(async () => {
-    await askui.startAskuiServer({});
+describe('jasmine demo with askui', () => {
+  let askuiServer : AskuiControlServer;
+  let aui : AskuiClient;
 
-    newClient = new askui.Client({
-      controlServerUrl: 'http://localhost:6769',
-      controlYourUiApi: 'https://controlui-api-dev.askui.com',
-      annotationLevel: 'onFailure',
+  beforeAll(async function init() {
+    askuiServer = new AskuiControlServer({
+      /**
+       * Select the display you want to run your tests on, display 0 is your main display;
+       * ignore if you have only one display
+       */
+      display: 0,
     });
-    await newClient.start();
+    /**
+    * Starts the askui controlui-server
+    */
+    await askuiServer.start();
+
+    aui = new AskuiClient();
+    /**
+     * Starts the connection to the askui controlui-server
+     */
+    await aui.connect();
   });
 
+
   it('Should click on text', async () => {
-    const result = await newClient
+    await aui
       .click()
       .text()
       .exec();
-    expect(result.state).toBe('PASSED');
   });
 
-  it('Should fail', async () => {
-    const result = await newClient
-      .expect()
-      .text()
-      .withText('No such text exits')
-      .exists()
-      .exec();
-    expect(result.state).toBe('FAILED');
-  });
+  afterAll(async function clean() {
+    /**
+    * Closes the connection to the askui controlui-server
+    */
+    aui.close();
 
-  afterAll(async () => {
-    await newClient.stop();
+    /**
+    * Stops the askui controlui-server
+    */
+    await askuiServer.stop();
   });
 });
 
