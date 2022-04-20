@@ -18,12 +18,15 @@ If you have not yet set up a project using npm as your package manager, you can 
 
 To be able to install the askui library inside your project, you need to tell npm to download it from our registry. You have to do this only once before you use the library for the first time.
 
+```shell
+npm config set  @vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/
+```
+
 :::caution
 Replace  `<DEPLOY_TOKEN>` with your deploy token.
 :::
 
 ```shell
-npm config set  @vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/
 npm config set  -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<DEPLOY_TOKEN>"
 ```
 
@@ -34,7 +37,7 @@ npm i -D @vqa4gui/askui
 ```
 
 While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of 
-- writing up the actual test, 
+- writing up the actual test,
 - writing up assertions to test wether an expectation holds true and, last but not least, 
 - a way to execute the tests, i.e., a test runner.
 
