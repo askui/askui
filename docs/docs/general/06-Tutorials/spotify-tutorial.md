@@ -2,7 +2,7 @@
 custom_edit_url: null
 ---
 
-# Spotify Automation Tutorial
+# Desktop App Automation Tutorial
 
 The following tutorial shows how to automate a desktop application. As an example we will automatically like songs in the Spotify desktop application.
 
