@@ -19,7 +19,7 @@ docker login registry.gitlab.com -u <username> -p <token>
 
 The images can be downloaded from
 
-`registry.gitlab.com/vqa4gui/mvp/askui/browser/<browser>:v0.9.0-<browser_version>-<platform>`
+`registry.gitlab.com/vqa4gui/mvp/askui/browser/<browser>:v0.9.1-<browser_version>-<platform>`
 
 whereby `<browser>`, `<browser_version>` and `<platform>` need to be replaced with concrete values.
 
@@ -27,14 +27,14 @@ The following list shows the images we currently provide:
 
 | Browser | Browser Version | Release Version | Platform| |
 |---|---|---|---|---|
-| chrome | 100.0.4896.60 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.0-100.0.4896.60-amd64"></ClipboardButton> |
-| chrome | 99.0.4844.51 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.0-99.0.4844.51-amd64"></ClipboardButton> |
-| chrome | 97.0.4692.71 |  v0.9.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.0-97.0.4692.71-amd64"></ClipboardButton> |
-| chrome | 90.0.4430.212 |  v0.9.0 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.0-90.0.4430.212-amd64"></ClipboardButton> |
-| firefox | 98.0.2 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.0-98.0.2-amd64"></ClipboardButton> |
-| firefox | 97.0.2 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.0-97.0.2-amd64"></ClipboardButton> |
-| firefox | 96.0.3 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.0-96.0.3-amd64"></ClipboardButton> |
-| firefox | 82.0.3 | v0.9.0  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.0-82.0.3-amd64"></ClipboardButton> |
+| chrome | 100.0.4896.60 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.1-100.0.4896.60-amd64"></ClipboardButton> |
+| chrome | 99.0.4844.51 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.1-99.0.4844.51-amd64"></ClipboardButton> |
+| chrome | 97.0.4692.71 |  v0.9.1 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.1-97.0.4692.71-amd64"></ClipboardButton> |
+| chrome | 90.0.4430.212 |  v0.9.1 | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/chrome:v0.9.1-90.0.4430.212-amd64"></ClipboardButton> |
+| firefox | 98.0.2 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.1-98.0.2-amd64"></ClipboardButton> |
+| firefox | 97.0.2 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.1-97.0.2-amd64"></ClipboardButton> |
+| firefox | 96.0.3 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.1-96.0.3-amd64"></ClipboardButton> |
+| firefox | 82.0.3 | v0.9.1  | amd64 | <ClipboardButton link="registry.gitlab.com/vqa4gui/mvp/askui/browser/firefox:v0.9.1-82.0.3-amd64"></ClipboardButton> |
 
 
 :::caution
@@ -86,7 +86,7 @@ describe('jasmine demo with askui', () => {
 
   beforeAll(async () => {
     const browser = 'chrome';
-    const releaseVersion = 'v0.9.0';
+    const releaseVersion = 'v0.9.1';
     const browserVersion = '99.0.4844.51';
     const containerPath = `registry.gitlab.com/vqa4gui/mvp/askui/browser/${browser}:${releaseVersion}-${browserVersion}-amd64`;
     
