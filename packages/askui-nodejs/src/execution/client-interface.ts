@@ -1,11 +1,11 @@
-import { Credentials } from '../utils/http/credentials';
+import { CredentialsInterface } from '../utils/http/credentials';
 import { AnnotationLevel } from './annotation-level';
 
 export interface ClientArgs {
   readonly controlServerUrl?: string,
   readonly controlYourUiApi?: string,
   readonly annotationLevel?: AnnotationLevel,
-  readonly credentials?: Credentials
+  readonly credentials?: CredentialsInterface
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {

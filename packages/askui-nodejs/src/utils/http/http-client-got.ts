@@ -1,9 +1,19 @@
 import got, { OptionsOfJSONResponseBody, RequestError } from 'got';
-import { Credentials } from './credentials';
+import { Credentials, CredentialsInterface } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
-  constructor(private credentials?: Credentials) { }
+  constructor(private credential?: CredentialsInterface) { }
+
+  private get credentials(): Credentials | undefined {
+    if (this.credential) {
+      return new Credentials(this.credential);
+    }
+    if (this.envCredentials) {
+      return new Credentials(this.envCredentials);
+    }
+    return undefined;
+  }
 
   private get headers() {
     return {
@@ -12,24 +22,22 @@ export class HttpClientGot {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private get envHeaders() {
+  private get envCredentials(): CredentialsInterface | undefined {
     const envToken = process.env['ASKUI_TOKEN'];
     const envTenant = process.env['ASKUI_TENANT'];
     const envEmail = process.env['ASKUI_EMAIL'];
     if (envToken && envTenant && envEmail) {
-      const envCredential = new Credentials(envTenant, envEmail, envToken);
       return {
-        Authorization: `Basic ${envCredential.base64Encoded}`,
+        tenant: envTenant,
+        email: envEmail,
+        password: envToken,
       };
     }
     return undefined;
   }
 
   private injectAuthHeader(options: OptionsOfJSONResponseBody) {
-    if (this.credentials) {
-      return { ...options, headers: this.headers };
-    }
-    return this.envHeaders ? { ...options, headers: this.envHeaders } : options;
+    return this.credentials ? { ...options, headers: this.headers } : options;
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
