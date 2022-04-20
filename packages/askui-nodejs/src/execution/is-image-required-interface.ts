@@ -1,3 +1,3 @@
 export interface IsImageRequired {
-  requrieImage: boolean
+  isImageRequired: boolean
 }

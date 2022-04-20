@@ -21,7 +21,7 @@ export class ControlYourUiApi {
       instruction,
     };
     const httpResponse = await this.httpClient.post<IsImageRequired>(url, httpBody);
-    return httpResponse.requrieImage;
+    return httpResponse.isImageRequired;
   }
 
   async predictControlCommand(
