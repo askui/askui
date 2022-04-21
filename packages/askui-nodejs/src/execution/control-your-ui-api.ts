@@ -4,7 +4,7 @@ import { ControlCommand } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/test-case-dto';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationJson } from '../core/annotation/annotation-json';
-import { resizeIfNeeded } from '../utils/transformations';
+import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 
 export class ControlYourUiApi {
@@ -24,12 +24,20 @@ export class ControlYourUiApi {
     return httpResponse.isImageRequired;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private async resizeIfNeeded(customElements: CustomElement[], image?: string) {
+    if (!(image) || customElements.length > 0) {
+      return { base64Image: image, resizeRatio: 1 };
+    }
+    return resizeBase64ImageWithSameRatio(image);
+  }
+
   async predictControlCommand(
     instruction: string,
     customElements: CustomElement[],
     image?: string,
   ): Promise<ControlCommand> {
-    const resizedImage = await resizeIfNeeded(customElements, image);
+    const resizedImage = await this.resizeIfNeeded(customElements, image);
     const httpBody = {
       image: resizedImage.base64Image,
       instruction,
@@ -44,7 +52,7 @@ export class ControlYourUiApi {
     image: string,
     customElements: CustomElement[] = [],
   ): Promise<Annotation> {
-    const resizedImage = await resizeIfNeeded(customElements, image);
+    const resizedImage = await this.resizeIfNeeded(customElements, image);
     const httpBody = {
       image: resizedImage.base64Image,
       customElements,

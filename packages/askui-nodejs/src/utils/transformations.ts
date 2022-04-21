@@ -1,6 +1,5 @@
 import fs from 'fs';
 import { read } from 'jimp';
-import { CustomElementJson } from '../core/model/test-case-dto';
 import { logger } from '../lib';
 import { ImageResizingError, InvalidBase64Image } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
@@ -31,7 +30,7 @@ export async function toBase64ImageIfNeeded(pngPathOrBase64Image: string): Promi
   * @returns {Promise<ResizedImage>} ResiziedImage Interface,
   * the true pixel values = controlui-api response * resizeRatio.
   */
-async function resizeBase64ImageWithSameRatio(
+export async function resizeBase64ImageWithSameRatio(
   base64ImageString: string,
   maxEdge = 1400,
 ): Promise<ResizedImage> {
@@ -61,11 +60,4 @@ async function resizeBase64ImageWithSameRatio(
   } catch (error) {
     return Promise.reject(new ImageResizingError(`A Problem has occured during the resizeing of the image. Error: ${error}`));
   }
-}
-
-export async function resizeIfNeeded(customElements: CustomElementJson[], image?: string) {
-  if (!(image) || customElements.length > 0) {
-    return { base64Image: image, resizeRatio: 1 };
-  }
-  return resizeBase64ImageWithSameRatio(image);
 }
