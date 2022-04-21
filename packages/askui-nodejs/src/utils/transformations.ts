@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { read } from 'jimp';
-import { CustomElement } from '../core/model/test-case-dto';
+import { CustomElementJson } from '../core/model/test-case-dto';
 import { logger } from '../lib';
 import { ImageResizingError, InvalidBase64Image } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
@@ -63,7 +63,7 @@ async function resizeBase64ImageWithSameRatio(
   }
 }
 
-export async function resizeIfNeeded(customElements: CustomElement[], image?: string) {
+export async function resizeIfNeeded(customElements: CustomElementJson[], image?: string) {
   if (!(image) || customElements.length > 0) {
     return { base64Image: image, resizeRatio: 1 };
   }
