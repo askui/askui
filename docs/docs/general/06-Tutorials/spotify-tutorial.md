@@ -22,7 +22,7 @@ After running the `npx askui init` command as described in the setup you will ha
 describe(/* a string identifying the test suite */, () => {
     ... (other tests)
 
-    it('should auto-like spotify song', async () => {
+    it('should like spotify song', async () => {
 
     });
 });
@@ -30,11 +30,11 @@ describe(/* a string identifying the test suite */, () => {
 
 ### 1. Navigate to the Search Page
 
-First we need to open the search page where we can look for a song:
+First, we need to open the search page where we can look for a song:
 
 ```ts
-it('Should auto-like spotify song', async () => {
-    await aui.click().text().withText('Search').exec();
+it('should like spotify song', async () => {
+    await aui.click().icon().withText('search').exec();
 });
 ```
 
@@ -42,7 +42,7 @@ it('Should auto-like spotify song', async () => {
 Then we can use the search field (a textfield) to search a song:
 
 ```ts
-it('Should auto-like spotify song', async () => {
+it('should like spotify song', async () => {
     ...
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
     await aui.pressKey('enter').exec();
@@ -53,23 +53,39 @@ it('Should auto-like spotify song', async () => {
 On the search result page we need to right click a song to open the menu for the song:
 
 ```ts
-it('Should auto-like spotify song', async () => {
+it('should like spotify song', async () => {
     ...
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').above().text().withText('Queen').exec();
+    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Songs').exec();
     await aui.mouseRightClick().exec();
     await aui.click().text().withText('Save to your Liked Songs').exec();
 });
 ```
-As the text "Bohemian Rhapsody" is present on the page multiple times, we are specifying the position of the text we want to click further by saying that it is the one above the text "Queen".
+As the text "Bohemian Rhapsody" is present on the page multiple times, we are specifying the position of the text we want to click further by saying that it is the one below the text "Songs".
+
+:::caution
+We expect that the song has not yet been liked (although we totally understand if this is the case - we like it, too 😉 - but just for the sake of this test, let's unlike it or use another song).
+:::
 
 ### 4. Check Whether the Song was Added to Liked Songs
-Finally we want to check whether the song was actually added to the liked songs:
+Finally, we want to check whether the song was actually added to the liked songs:
 
 ```ts
-it('Should auto-like spotify song', async () => {
+it('should like spotify song', async () => {
     ...
     await aui.click().text().withText('Liked Songs').exec();
     await aui.expect().text().withText('Bohemian Rhapsody').exists().exec();
+});
+```
+
+### 5. Remove Song from Like Songs
+To be able to run the test again, it is necessary to reset the state of Spotify, or more specifically, your liked songs. One option would be to add the following commands to your test in order to remove the song from the liked songs.
+
+```ts
+it('should like spotify song', async () => {
+    ...
+    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Title').exec();
+    await aui.mouseRightClick().exec();
+    await aui.click().text().withText('Remove from your Liked Songs').exec();
 });
 ```
 
@@ -78,15 +94,18 @@ it('Should auto-like spotify song', async () => {
 The following code block shows the complete code for the spotify automation:
 
 ```ts
-it('Should auto-like spotify song', async () => {
-    await aui.click().text().withText('Search').exec();
+it('should like spotify song', async () => {
+    await aui.click().icon().withText('search').exec();
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
     await aui.pressKey('enter').exec();
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').above().text().withText('Queen').exec();
+    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Songs').exec();
     await aui.mouseRightClick().exec();
     await aui.click().text().withText('Save to your Liked Songs').exec();
     await aui.click().text().withText('Liked Songs').exec();
     await aui.expect().text().withText('Bohemian Rhapsody').exists().exec();
+    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Title').exec();
+    await aui.mouseRightClick().exec();
+    await aui.click().text().withText('Remove from your Liked Songs').exec();
 });
 ```
 To run this test use the `npx jasmine --config=specs/support/jasmine.json` command.
