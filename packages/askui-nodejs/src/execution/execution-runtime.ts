@@ -85,11 +85,16 @@ export class ExecutionRuntime {
   }
 
   private async predictCommand(step: TestStep): Promise<ControlCommand> {
-    const screenshotResponse = await this.client.requestScreenshot();
+    const isImageRequired = await this.api.isImageRequired(step.instruction);
+    let image: string | undefined;
+    if (isImageRequired) {
+      const screenshotResponse = await this.client.requestScreenshot();
+      image = screenshotResponse.data.image;
+    }
     return this.api.predictControlCommand(
-      screenshotResponse.data.image,
       step.instruction,
       step.customElements,
+      image,
     );
   }
 
