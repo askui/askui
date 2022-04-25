@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.1.0-next.0...2.2.0-next.0) (2022-04-25)
+
+
+### Features
+
+* screenshot is skipped when its not needed (#AS-919) ([1b4535e](https://gitlab.com/vqa4gui/mvp/askui/commit/1b4535e2394005030f3849b8b1f40a68e7e6a6f7)), closes [#AS-919](https://gitlab.com/vqa4gui/mvp/askui/issues/AS-919)
+
 ## [2.1.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.0.0-next.0...2.1.0-next.0) (2022-04-14)
 
 
