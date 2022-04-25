@@ -1,4 +1,4 @@
-export interface CredentialsInterface {
+export interface CredentialArgs {
   tenant: string,
   email: string,
   password: string,
@@ -6,7 +6,7 @@ export interface CredentialsInterface {
 
 export class Credentials {
   constructor(
-    private credentials: CredentialsInterface,
+    private credentials: CredentialArgs,
   ) { }
 
   get base64Encoded(): string {

@@ -1,9 +1,12 @@
-import got, { OptionsOfJSONResponseBody, RequestError } from 'got';
-import { Credentials, CredentialsInterface } from './credentials';
+import got, { OptionsOfJSONResponseBody } from 'got';
+import { logger } from '../../lib';
+import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
-  constructor(private credential?: CredentialsInterface) { }
+  private _envCredentials?: CredentialArgs;
+
+  constructor(private credential?: CredentialArgs) { }
 
   private get credentials(): Credentials | undefined {
     if (this.credential) {
@@ -22,18 +25,19 @@ export class HttpClientGot {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private get envCredentials(): CredentialsInterface | undefined {
+  private get envCredentials(): CredentialArgs | undefined {
     const envToken = process.env['ASKUI_TOKEN'];
     const envTenant = process.env['ASKUI_TENANT'];
     const envEmail = process.env['ASKUI_EMAIL'];
-    if (envToken && envTenant && envEmail) {
-      return {
+    if ((envToken && envTenant && envEmail) && !(this._envCredentials)) {
+      logger.info('Credentials are used from ENV variables');
+      this._envCredentials = {
         tenant: envTenant,
         email: envEmail,
         password: envToken,
       };
     }
-    return undefined;
+    return this._envCredentials;
   }
 
   private injectAuthHeader(options: OptionsOfJSONResponseBody) {
@@ -46,7 +50,7 @@ export class HttpClientGot {
     if (statusCode !== 200) {
       throw httpClientErrorHandler(
         statusCode,
-        JSON.stringify((body as unknown as RequestError).message),
+        JSON.stringify(body),
       );
     }
     return body;
