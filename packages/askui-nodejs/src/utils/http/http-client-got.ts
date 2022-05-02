@@ -1,43 +1,18 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
-import { logger } from '../../lib';
 import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
-  private _envCredentials?: CredentialArgs;
+  private credentials: Credentials | undefined;
 
-  constructor(private credential?: CredentialArgs) { }
-
-  private get credentials(): Credentials | undefined {
-    if (this.credential) {
-      return new Credentials(this.credential);
-    }
-    if (this.envCredentials) {
-      return new Credentials(this.envCredentials);
-    }
-    return undefined;
+  constructor(private credential?: CredentialArgs) {
+    this.credentials = this.credential ? new Credentials(this.credential) : undefined;
   }
 
   private get headers() {
     return {
       Authorization: `Basic ${this.credentials?.base64Encoded}`,
     };
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private get envCredentials(): CredentialArgs | undefined {
-    const envToken = process.env['ASKUI_TOKEN'];
-    const envTenant = process.env['ASKUI_TENANT'];
-    const envEmail = process.env['ASKUI_EMAIL'];
-    if ((envToken && envTenant && envEmail) && !(this._envCredentials)) {
-      logger.info('Credentials are used from ENV variables');
-      this._envCredentials = {
-        tenant: envTenant,
-        email: envEmail,
-        password: envToken,
-      };
-    }
-    return this._envCredentials;
   }
 
   private injectAuthHeader(options: OptionsOfJSONResponseBody) {
