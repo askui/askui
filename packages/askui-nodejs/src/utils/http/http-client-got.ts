@@ -1,9 +1,13 @@
-import got, { OptionsOfJSONResponseBody, RequestError } from 'got';
-import { Credentials } from './credentials';
+import got, { OptionsOfJSONResponseBody } from 'got';
+import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
-  constructor(private credentials?: Credentials) { }
+  private credentials: Credentials | undefined;
+
+  constructor(private credentialArgs?: CredentialArgs) {
+    this.credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
+  }
 
   private get headers() {
     return {
@@ -21,7 +25,7 @@ export class HttpClientGot {
     if (statusCode !== 200) {
       throw httpClientErrorHandler(
         statusCode,
-        JSON.stringify((body as unknown as RequestError).message),
+        JSON.stringify(body),
       );
     }
     return body;
