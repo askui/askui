@@ -17,10 +17,13 @@ import { ControlUiClientError } from './client-error';
 export class AskuiClient extends FluentCommand {
   private _controlYourUiClient?: ControlYourUiClient;
 
+  private httpClient: HttpClientGot;
+
   constructor(
     private clientArgs?: ClientArgs,
   ) {
     super();
+    this.httpClient = new HttpClientGot(this.clientArgs?.credentials);
   }
 
   private get controlYourUiClient(): ControlYourUiClient {
@@ -30,10 +33,6 @@ export class AskuiClient extends FluentCommand {
       );
     }
     return this._controlYourUiClient;
-  }
-
-  private get httpClient(): HttpClientGot {
-    return new HttpClientGot(this.clientArgs?.credentials);
   }
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
