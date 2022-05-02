@@ -5,8 +5,8 @@ import { httpClientErrorHandler } from './custom-errors';
 export class HttpClientGot {
   private credentials: Credentials | undefined;
 
-  constructor(private credential?: CredentialArgs) {
-    this.credentials = this.credential ? new Credentials(this.credential) : undefined;
+  constructor(private credentialArgs?: CredentialArgs) {
+    this.credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
   }
 
   private get headers() {
