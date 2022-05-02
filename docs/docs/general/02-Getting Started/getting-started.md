@@ -27,7 +27,7 @@ Replace  `<DEPLOY_TOKEN>` with your deploy token.
 :::
 
 ```shell
-npm config set  -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<DEPLOY_TOKEN>"
+npm config set  -- "//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken" "<DEPLOY_TOKEN>"
 ```
 
 Now, you are ready to install the askui library.
