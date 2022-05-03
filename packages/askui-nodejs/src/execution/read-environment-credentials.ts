@@ -1,5 +1,5 @@
-import { logger } from '../../lib';
-import { CredentialArgs } from './credentials';
+import { logger } from '../lib';
+import { CredentialArgs } from '../utils/http/credentials';
 
 export function envCredentials(): CredentialArgs | undefined {
   const envToken = process.env['ASKUI_TOKEN'];

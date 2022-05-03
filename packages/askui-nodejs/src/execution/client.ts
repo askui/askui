@@ -13,7 +13,7 @@ import { TestStepState } from '../core/model/test-case-result-dto';
 import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { ControlUiClientError } from './client-error';
-import { envCredentials } from '../utils/http/read-environment-credentials';
+import { envCredentials } from './read-environment-credentials';
 
 export class AskuiClient extends FluentCommand {
   private _controlYourUiClient?: ControlYourUiClient;
