@@ -13,7 +13,7 @@ import { TestStepState } from '../core/model/test-case-result-dto';
 import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { ControlUiClientError } from './client-error';
-import { CredentialArgs } from '../utils/http/credentials';
+import { envCredentials } from '../utils/http/read-environment-credentials';
 
 export class AskuiClient extends FluentCommand {
   private _controlYourUiClient?: ControlYourUiClient;
@@ -25,7 +25,7 @@ export class AskuiClient extends FluentCommand {
   ) {
     super();
     this.httpClient = new HttpClientGot(
-      this.clientArgs?.credentials ? this.clientArgs.credentials : this.envCredentials,
+      this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
     );
   }
 
@@ -36,22 +36,6 @@ export class AskuiClient extends FluentCommand {
       );
     }
     return this._controlYourUiClient;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private get envCredentials(): CredentialArgs | undefined {
-    const envToken = process.env['ASKUI_TOKEN'];
-    const envTenant = process.env['ASKUI_TENANT'];
-    const envEmail = process.env['ASKUI_EMAIL'];
-    if (envToken && envTenant && envEmail) {
-      logger.info('Credentials are used from ENV variables: ASKUI_TOKEN, ASKUI_TENANT and ASKUI_EMAIL');
-      return {
-        tenant: envTenant,
-        email: envEmail,
-        password: envToken,
-      };
-    }
-    return undefined;
   }
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
