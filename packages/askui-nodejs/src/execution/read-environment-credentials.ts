@@ -10,7 +10,7 @@ export function envCredentials(): CredentialArgs | undefined {
     return {
       tenant: envTenant,
       email: envEmail,
-      password: envToken,
+      token: envToken,
     };
   }
   return undefined;
