@@ -1,7 +1,7 @@
 export interface CredentialArgs {
   tenant: string,
   email: string,
-  password: string,
+  token: string,
 }
 
 export class Credentials {
@@ -14,7 +14,7 @@ export class Credentials {
   }
 
   private get buffered(): Buffer {
-    return Buffer.from(`${this.userName}:${this.credentials.password}`);
+    return Buffer.from(`${this.userName}:${this.credentials.token}`);
   }
 
   private get userName(): string {
