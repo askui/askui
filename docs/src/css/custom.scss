@@ -15,8 +15,8 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #403a60;
-  --ifm-color-secondary: #963dbd;
+  --ifm-color-primary: #963dbd;;
+  --ifm-color-secondary: #e4a6e5;;
   --ifm-font-color-base: #403a60;
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 18px;
@@ -47,7 +47,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 html[data-theme="dark"] {
-  --ifm-color-primary: #fff;
+  --ifm-color-primary: #e4a6e5;;
   --ifm-font-color-base: #fff;
   --ifm-background-color: #403a60;
   --ifm-background-surface-color: #403a60;
