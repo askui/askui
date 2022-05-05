@@ -8,7 +8,7 @@ custom_edit_url: null
 ## Display
 
 The file `specs/helpers/askui-helper.ts` helps to initialize the enviroment of all test suites.
-As mentioned in the chapter [<ins>__Writing Your First Test__</ins>](../02-Getting%20Started/writing-your-first-test.md) you can choose on which display you want to excecute all
+As mentioned in the chapter [Writing Your First Test](../02-Getting%20Started/writing-your-first-test.md) you can choose on which display you want to excecute all
 tests. You can only perform all tests on one display.
 The application which you want to test should be open and selected on your chosen display.
 
