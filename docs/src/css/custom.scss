@@ -15,9 +15,14 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #403a60;
-  --ifm-color-secondary: #963dbd;
-  --ifm-font-color-base: #403a60;
+  --basic:#fff;
+  --primary: #963dbd;
+  --secondary: #e4a6e5;;
+  --font-color-base: #403a60;
+  
+  --ifm-color-primary: var(--primary);;
+  --ifm-color-secondary: var(--secondary);;
+  --ifm-font-color-base: var(--font-color-base);
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.5;
@@ -32,26 +37,26 @@
 }
 
 .button.button--secondary {
-  color: #fff;
+  color: var(--basic);
 }
 
 .footer {
   background-image: url("../../static/img/background-website-1-01-01-scaled.jpeg");
-  --ifm-footer-link-color: #fff;
+  --ifm-footer-link-color: var(--basic);
 }
 
 .hero {
   background-image: url("../../static/img/background-website-1-01-01-scaled.jpeg");
-  color: white;
+  color: var(--basic);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 html[data-theme="dark"] {
-  --ifm-color-primary: #fff;
-  --ifm-font-color-base: #fff;
-  --ifm-background-color: #403a60;
-  --ifm-background-surface-color: #403a60;
-
+  --ifm-color-primary: var(--secondary);;
+  --ifm-font-color-base: var(--basic);
+  --ifm-background-color: var(--font-color-base);
+  --ifm-background-surface-color: var(--font-color-base);
+  
   .docusaurus-highlight-code-line {
     background-color: rgba(0, 0, 0, 0.3);
   }
