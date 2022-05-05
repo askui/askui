@@ -1,16 +1,11 @@
 ---
 custom_edit_url: null
 ---
-
 # Configuration
-
-
 ## AskuiControlServer
 
 - [Display](#display)
-
-
-
+- [Coming Soon](#coming-soon)
 ### Display
 
 The file `specs/helpers/askui-helper.ts` helps to initialize the enviroment of all test suites.
@@ -24,4 +19,6 @@ second monitor you can change the value to `1` (`2` for your third monitor etc.)
 
 You have the option to click on the askui icon. Now you can choose the menu show.
 This shows the order of your screen and helps you to set the display value.
+### Coming Soon
 
+- AskuiClient
