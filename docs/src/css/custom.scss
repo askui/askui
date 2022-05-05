@@ -15,10 +15,10 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --basic:#fff;
-  --primary: #963dbd;
-  --secondary: #e4a6e5;;
-  --font-color-base: #403a60;
+  --white: #fff;
+  --color_primary: #963dbd;
+  --color_secondary: #e4a6e5;;
+  --color_font-color-base: #403a60;
   
   --ifm-color-primary: var(--primary);;
   --ifm-color-secondary: var(--secondary);;
@@ -37,23 +37,23 @@
 }
 
 .button.button--secondary {
-  color: var(--basic);
+  color: var(--white);
 }
 
 .footer {
   background-image: url("../../static/img/background-website-1-01-01-scaled.jpeg");
-  --ifm-footer-link-color: var(--basic);
+  --ifm-footer-link-color: var(--white);
 }
 
 .hero {
   background-image: url("../../static/img/background-website-1-01-01-scaled.jpeg");
-  color: var(--basic);
+  color: var(--white);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 html[data-theme="dark"] {
   --ifm-color-primary: var(--secondary);;
-  --ifm-font-color-base: var(--basic);
+  --ifm-font-color-base: var(--white);
   --ifm-background-color: var(--font-color-base);
   --ifm-background-surface-color: var(--font-color-base);
   
