@@ -22,7 +22,7 @@
   
   --ifm-color-primary: var(--color-primary);;
   --ifm-color-secondary: var(--color-secondary);;
-  --ifm-font-color-base: var(--color-font-color-base);
+  --ifm-font-color-base: var(--font-color-base);
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.5;
@@ -54,8 +54,8 @@
 html[data-theme="dark"] {
   --ifm-color-primary: var(--color-secondary);;
   --ifm-font-color-base: var(--white);
-  --ifm-background-color: var(--color-font-color-base);
-  --ifm-background-surface-color: var(--color-font-color-base);
+  --ifm-background-color: var(--font-color-base);
+  --ifm-background-surface-color: var(--font-color-base);
   
   .docusaurus-highlight-code-line {
     background-color: rgba(0, 0, 0, 0.3);
