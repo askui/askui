@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.2.0-next.0...2.3.0-next.0) (2022-05-05)
+
+
+### Features
+
+* auth credentials for the client (#AS-893) ([6d89bdf](https://gitlab.com/vqa4gui/mvp/askui/commit/6d89bdf9cbae43a2eaab5a3b0ff77621c894828d)), closes [#AS-893](https://gitlab.com/vqa4gui/mvp/askui/issues/AS-893)
+* credentials can be defined as env variables (#AS-893) ([0da4d56](https://gitlab.com/vqa4gui/mvp/askui/commit/0da4d5626bd8ae1546e088fa790765e4d1fb0b7b)), closes [#AS-893](https://gitlab.com/vqa4gui/mvp/askui/issues/AS-893)
+
 ## [2.2.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.1.0-next.0...2.2.0-next.0) (2022-04-25)
 
 
