@@ -27,16 +27,11 @@ module.exports = {
         'airbnb-typescript/base',
       ],
       parserOptions: {
-        project: ['./tsconfig.json', './example_projects_templates/typescript_jasmine/tsconfig.json'],
+        project: ['./tsconfig.json'],
+        createDefaultProgram: true,
       },
       rules: {
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      },
-    },
-    {
-      files: ['./example_projects_templates/typescript_jasmine/**/*'],
-      rules: {
-        'import/no-extraneous-dependencies': 'off',
       },
     },
   ],
