@@ -7,7 +7,7 @@
         "lint:staged": "lint-staged"
     },
     "dependencies": {
-        "@vqa4gui/askui": "2.3.0-next.0",
+        "@vqa4gui/askui": "1.0.0-next.0",
         "jasmine": "4.0.2"
     },
     "devDependencies": {

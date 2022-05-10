@@ -1,24 +1,27 @@
-import { AskuiClient } from '@vqa4gui/askui';
+import * as askui from '@vqa4gui/askui';
 
 describe('jasmine demo with askui', () => {
-  let aui : AskuiClient;
+  let newClient : askui.Client;
+
   beforeAll(function init() {
-    aui = this.askuiClient;
+    newClient = this.askuiClient;
   });
 
   it('Should click on text', async () => {
-    await aui
+    const result = await newClient
       .click()
       .text()
       .exec();
+    expect(result.state).toBe('PASSED');
   });
 
-  it('Should fail', async () => {
-    await aui
+  xit('Should fail', async () => {
+    const result = await newClient
       .expect()
       .text()
       .withText('NO such text exits')
       .exists()
       .exec();
+    expect(result.state).toBe('FAILED');
   });
 });

@@ -1,35 +1,24 @@
-import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
+import * as askui from '@vqa4gui/askui';
+import { AnnotationLevel } from '@vqa4gui/askui/dist/cjs/execution/annotation-level';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
+const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+
 beforeAll(async function init() {
-  this.askuiServer = new AskuiControlServer({
-    /**
-     * Select the display you want to run your tests on, display 0 is your main display;
-     * ignore if you have only one display
-     */
-    display: 0,
+  this.askuiClient = new askui.Client({
+    controlServerUrl: `http://${controluiServerUrl}:6769`,
+    annotationLevel: AnnotationLevel.ON_FAILURE,
   });
   /**
-  * Starts the askui controlui-server
+  * this function will start the connection to the askui controlui-server
   */
-  await this.askuiServer.start();
-
-  this.askuiClient = new AskuiClient();
-  /**
-   * Starts the connection to the askui controlui-server
-   */
-  await this.askuiClient.connect();
+  await this.askuiClient.start();
 });
 
-afterAll(async function clean() {
+afterAll(function clean() {
   /**
-  * Stops the askui controlui-server
+  * closes the connection to the askui controlui-server
   */
-  await this.askuiServer.stop();
-
-  /**
-  * Closes the connection to the askui controlui-server
-  */
-  this.askuiClient.close();
+  this.askuiClient.closeConnectionToServer();
 });

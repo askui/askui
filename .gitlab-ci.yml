@@ -5,7 +5,7 @@
 variables:
   CI_EMAIL: ${GITLAB_USER_EMAIL}
   CI_USERNAME: ${GITLAB_USER_LOGIN}
-  CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION: v0.9.1
+  CONTROL_UI_WITH_BROWSER_CONTAINER_VERSION: v0.8.0
   NPM_TOKEN: ${GITLAB_TOKEN}
   RELEASE_FLAGS:
     description: 'Flags (space-separated) to be passed to the release command, e.g., "--no-increment --no-npm".'
