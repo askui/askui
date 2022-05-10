@@ -1,0 +1,10 @@
+{
+    "spec_dir": "specs",
+    "spec_files": [
+        "**/*[sS]pec.ts"
+    ],
+    "helpers": [
+        "../node_modules/ts-node/register/type-check.js",
+        "helpers/askui-helper.ts"
+    ]
+}
