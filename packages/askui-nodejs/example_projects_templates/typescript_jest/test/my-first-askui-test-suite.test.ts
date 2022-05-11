@@ -1,45 +1,39 @@
 import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
 describe('jest with askui', () => {
-  let askuiServer : AskuiControlServer;
-  let aui : AskuiClient;
+  // Sets up connection with server with desired configuration
+  let askuiControlServer : AskuiControlServer;
+
+  // Client is necessary to use the askui API
+  let askuiClient : AskuiClient;
+
   jest.setTimeout(60 * 1000 * 60);
+
   beforeEach(async () => {
-    askuiServer = new AskuiControlServer({
+    askuiControlServer = new AskuiControlServer({
       /**
        * Select the display you want to run your tests on, display 0 is your main display;
        * ignore if you have only one display
        */
       display: 0,
     });
-    /**
-    * Starts the askui controlui-server
-    */
-    await askuiServer.start();
 
-    aui = new AskuiClient();
-    /**
-     * Starts the connection to the askui controlui-server
-     */
-    await aui.connect();
+    await askuiControlServer.start();
+
+    askuiClient = new AskuiClient();
+
+    await askuiClient.connect();
   });
 
-  it('Should click on text', async () => {
-    await aui
+  it('should click on text', async () => {
+    await askuiClient
       .click()
       .text()
       .exec();
   });
 
   afterEach(async () => {
-    /**
-    * Closes the connection to the askui controlui-server
-    */
-    aui.close();
-
-    /**
-    * Stops the askui controlui-server
-    */
-    await askuiServer.stop();
+    askuiClient.close();
+    await askuiControlServer.stop();
   });
 });

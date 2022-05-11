@@ -16,81 +16,72 @@ npx askui init
 This is going to create
 
 - a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-- a folder called `specs` which includes:
-  - `specs/my-first-askui-test-suite.spec.ts`: an example test with askui,
-  - `specs/support/jasmine.json`: configuration of Jasmine,
-  - `specs/helpers/askui-helper.ts`: initializes the environment of all test suites, e.g, on which display the tests are executed (tests can only be run on one display meaning everything you want to test needs to be opened on that display, the default is `0` which is your main display).
+- a `jest.config.json`: json file for configuration of Jest,
+- a folder called `test` which includes:
+  - `test/my-first-askui-test-suite.test.ts`: an example test with askui,
+  
 
 To execute the test suite, enter
 
 ```shell
-npx jasmine --config=specs/support/jasmine.json
+npx jest test/my-first-askui-test-suite.test.ts
 ```
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
 
 ## Manual
-Create a spec file inside the `spec_dir` you specified inside your `jasmine.json` and make sure it matches up with the pattern you specified under `spec_files`, e.g., `specs/my-first-askui-test-suite.spec.ts`.
+You can create a test file in the test folder. It is also possible to create test files in other folders and with other names.You can specify your own structure with the command line `npx jest <path-to-your-test.ts-file>`. For our example we create the `my-first-askui-test-suite.test.ts` file
+in our `test` folder.
 
 Copy the following over into that file:
 
 ```typescript
 import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
-
-
-describe('jasmine demo with askui', () => {
-  let askuiServer : AskuiControlServer;
-  let aui : AskuiClient;
-
-  beforeAll(async function init() {
-    askuiServer = new AskuiControlServer({
+describe('jest with askui', () => {
+  
+  // Sets up connection with server with desired configuration
+  let askuiControlServer : AskuiControlServer;
+  
+  // Client is necessary to use the askui API
+  let askuiClient : AskuiClient;
+  
+  jest.setTimeout(60 * 1000 * 60);
+  
+  beforeEach(async () => {
+    askuiControlServer = new AskuiControlServer({
       /**
        * Select the display you want to run your tests on, display 0 is your main display;
        * ignore if you have only one display
        */
       display: 0,
     });
-    /**
-    * Starts the askui controlui-server
-    */
-    await askuiServer.start();
+    
+    await askuiControlServer.start();
 
-    aui = new AskuiClient();
-    /**
-     * Starts the connection to the askui controlui-server
-     */
-    await aui.connect();
+    askuiClient  = new AskuiClient();
+    
+    await askuiClient.connect();
   });
 
-
-  it('Should click on text', async () => {
-    await aui
+  it('should click on text', async () => {
+    await askuiClient 
       .click()
       .text()
       .exec();
   });
 
-  afterAll(async function clean() {
-    /**
-    * Closes the connection to the askui controlui-server
-    */
-    aui.close();
-
-    /**
-    * Stops the askui controlui-server
-    */
-    await askuiServer.stop();
+  afterEach(async () => {
+     askuiClient.close();
+     await askuiControlServer.stop();
   });
 });
-
 ```
 
 Now, just execute the following command in order to run the test suite:
 
 ```shell
-npx jasmine --config=jasmine.json
+npx jest test/my-first-askui-test-suite.test.ts
 ```
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
