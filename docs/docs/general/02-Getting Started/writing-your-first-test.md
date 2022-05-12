@@ -84,7 +84,6 @@ Now, just execute the following command in order to run the test suite:
 npx jest test/my-first-askui-test-suite.test.ts
 ```
 
-You can run all your Jest test files with `npx jest` and if you want to test all test files in a certain folder you can
-use `npx jest <folder name>/`
+You can use `npx jest` to test all your Jest test files and `npx jest <folder name>/` to test all files in a certain folder.
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
