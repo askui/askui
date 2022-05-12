@@ -1,7 +1,7 @@
 import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
 describe('jest with askui', () => {
-  // Sets up connection with server with desired configuration
+  // Server for controlling the operating system
   let askuiControlServer : AskuiControlServer;
 
   // Client is necessary to use the askui API
