@@ -41,16 +41,16 @@ While the askui library provides you with a way of controlling your OS, it does 
 - writing up assertions to test wether an expectation holds true and, last but not least, 
 - a way to execute the tests, i.e., a test runner.
 
-One framework which provides all of this out of the box is [Jasmine](https://jasmine.github.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jest](https://jestjs.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.
+One framework which provides all of this out of the box is [Jest](https://jestjs.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.
 
 ```shell
-npm i -D jasmine
+npm i -D jest
 ```
 
-We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jasmine and Node.js.
+We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jest and Node.js.
 
 ```shell
-npm i -D typescript @types/jasmine @types/node ts-node
+npm i -D @types/jest ts-jest 
 ```
 
 Now, we are ready to write up our first test.

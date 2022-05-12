@@ -8,7 +8,7 @@ const createProgram = () => {
   return program;
 };
 function copyExampleProject() {
-  const exampleProjectPath = path.join('example_projects_templates', 'typescript_jasmine');
+  const exampleProjectPath = path.join('example_projects_templates', 'typescript_jest');
   fs.copySync(path.join(__dirname, '..', '..', exampleProjectPath), '.');
 }
 
