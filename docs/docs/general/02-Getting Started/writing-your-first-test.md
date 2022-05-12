@@ -41,10 +41,10 @@ import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 describe('jest with askui', () => {
   
   // Sets up connection with server with desired configuration
-  let askuiControlServer : AskuiControlServer;
+  let askuiControlServer: AskuiControlServer;
   
   // Client is necessary to use the askui API
-  let askuiClient : AskuiClient;
+  let askuiClient: AskuiClient;
   
   jest.setTimeout(60 * 1000 * 60);
   
@@ -83,5 +83,8 @@ Now, just execute the following command in order to run the test suite:
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts
 ```
+
+You can run all your Jest test files with `npx jest` and if you want to test all test files in a certain folder you can
+use `npx jest <folder name>/`
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.

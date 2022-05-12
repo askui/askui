@@ -2,10 +2,10 @@ import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
 
 describe('jest with askui', () => {
   // Server for controlling the operating system
-  let askuiControlServer : AskuiControlServer;
+  let askuiControlServer: AskuiControlServer;
 
   // Client is necessary to use the askui API
-  let askuiClient : AskuiClient;
+  let askuiClient: AskuiClient;
 
   jest.setTimeout(60 * 1000 * 60);
 

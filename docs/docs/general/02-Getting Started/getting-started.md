@@ -47,7 +47,7 @@ One framework which provides all of this out of the box is [Jest](https://jestjs
 npm i -D jest
 ```
 
-We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jasmine and Node.js.
+We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jest and Node.js.
 
 ```shell
 npm i -D @types/jest ts-jest 
