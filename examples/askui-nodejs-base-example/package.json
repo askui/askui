@@ -2,7 +2,7 @@
     "name": "askui-nodejs-base-example",
     "private": true,
     "scripts": {
-        "test": "npx jasmine --config=specs/support/jasmine.json",
+        "test": "npx jasmine",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.ts\"",
         "lint:staged": "lint-staged"
     },
