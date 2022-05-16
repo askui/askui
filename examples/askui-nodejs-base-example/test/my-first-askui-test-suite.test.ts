@@ -1,6 +1,5 @@
 import { AskuiClient } from '@vqa4gui/askui';
-
-import start = require('./helper/askui-helper');
+import * as start from './helper/askui-helper';
 
 start.setupBeforeAndAfter();
 
