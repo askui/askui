@@ -16,9 +16,10 @@ npx askui init
 This is going to create
 
 - a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-- a `jest.config.json`: json file for configuration of Jest,
+- a `jest.config.js`: file for configuration of Jest,
 - a folder called `test` which includes:
   - `test/my-first-askui-test-suite.test.ts`: an example test with askui,
+  - a folder `helper` which contain `askui-helper.ts` file: this helper file is setting up the test enviroment for all tests
   
 
 To execute the test suite, enter
@@ -85,5 +86,11 @@ npx jest test/my-first-askui-test-suite.test.ts
 ```
 
 You can use `npx jest` to test all your Jest test files and `npx jest <folder name>/` to test all files in a certain folder.
+If your jest config file e.g. `jest.config.js` in this case ist not in your root folder you can use `--config` to specify the location of your config file.
+For example:
+
+```shell
+npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.json
+```
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
