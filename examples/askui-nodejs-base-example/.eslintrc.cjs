@@ -29,5 +29,6 @@ module.exports = {
         'no-continue': 'error',
         'no-param-reassign': 'error',
         'no-promise-executor-return': 'error',
+        'import/no-mutable-exports': 'off'
     }
 };
