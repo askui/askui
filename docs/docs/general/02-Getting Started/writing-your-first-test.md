@@ -19,7 +19,7 @@ This is going to create
 - a `jest.config.js`: file for configuration of Jest,
 - a folder called `test` which includes:
   - `test/my-first-askui-test-suite.test.ts`: an example test with askui,
-  - a folder `helper` which contain `askui-helper.ts` file: this helper file is setting up the test enviroment for all tests
+  - a folder `helper` which contain `jest.setup.ts` file: this file is setting up the test enviroment for all tests
   
 
 To execute the test suite, enter
