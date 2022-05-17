@@ -1,7 +1,7 @@
 import { AskuiClient } from '@vqa4gui/askui';
-import * as start from './helper/askui-helper';
+import setupBeforeAndAfter from './helper/askui-helper';
 
-start.setupBeforeAndAfter();
+setupBeforeAndAfter();
 
 describe('jest with askui', () => {
   // Client is necessary to use the askui API

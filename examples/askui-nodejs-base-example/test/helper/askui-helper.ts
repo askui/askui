@@ -28,4 +28,4 @@ function setupBeforeAndAfter() {
   });
 }
 
-export = { setupBeforeAndAfter };
+export default setupBeforeAndAfter;
