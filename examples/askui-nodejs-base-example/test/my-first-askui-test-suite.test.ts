@@ -13,8 +13,12 @@ describe('jest with askui', () => {
     await askuiClient.connect();
   });
 
+  let aui: AskuiClient;
+
   it('should click on text', async () => {
-    await askuiClient
+    await askuiClient;
+
+    await aui
       .click()
       .text()
       .exec();

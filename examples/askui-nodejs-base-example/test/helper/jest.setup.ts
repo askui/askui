@@ -1,25 +1,18 @@
-import { AskuiControlServer } from '@vqa4gui/askui';
+import { AskuiClient } from '@vqa4gui/askui';
 
-let askuiServer : AskuiControlServer;
+const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+let aui: AskuiClient;
+
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
-  askuiServer = new AskuiControlServer({
-    /**
-       * Select the display you want to run your tests on, display 0 is your main display;
-       * ignore if you have only one display
-       */
-    display: 0,
+  aui = new AskuiClient({
+    controlServerUrl: `http://${controluiServerUrl}:6769`,
   });
-  /**
-    * Starts the askui controlui-server
-    */
-  await askuiServer.start();
+
+  await aui.connect();
 });
 
 afterAll(async () => {
-  /**
-    * Stops the askui controlui-server
-    */
-  await askuiServer.stop();
+  aui.close();
 });
