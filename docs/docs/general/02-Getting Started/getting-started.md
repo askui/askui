@@ -50,7 +50,7 @@ npm i -D jest
 We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jest and Node.js.
 
 ```shell
-npm i -D @types/jest ts-jest 
+npm i -D @types/jest ts-jest ts-node
 ```
 
 Now, we are ready to write up our first test.
