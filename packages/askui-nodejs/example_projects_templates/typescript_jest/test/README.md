@@ -9,13 +9,13 @@ Using Jest as test framework to execute all tests.
 
 Use following command to set up Jest:
 ```shell
-npm i -D jest @type/jest ts-jest
+npm i -D jest @types/jest ts-jest
 ```
 
 ## How to execute the example test
 
 This test can be executed with the following command:
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts
+npx jest --config ./test/jest.config.ts
 ```
 
