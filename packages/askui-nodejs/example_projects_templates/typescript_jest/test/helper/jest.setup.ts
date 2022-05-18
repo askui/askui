@@ -1,6 +1,8 @@
 import { AskuiControlServer } from '@vqa4gui/askui';
 
+// Server for controlling the operating system
 let askuiServer : AskuiControlServer;
+
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
@@ -11,15 +13,10 @@ beforeAll(async () => {
        */
     display: 0,
   });
-  /**
-    * Starts the askui controlui-server
-    */
+
   await askuiServer.start();
 });
 
 afterAll(async () => {
-  /**
-    * Stops the askui controlui-server
-    */
   await askuiServer.stop();
 });
