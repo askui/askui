@@ -6,6 +6,7 @@ let askuiServer: AskuiControlServer;
 const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
 
 // Client is necessary to use the askui API
+// eslint-disable-next-line import/no-mutable-exports
 let aui: AskuiClient;
 
 jest.setTimeout(60 * 1000 * 60);
@@ -31,6 +32,4 @@ afterAll(async () => {
   aui.close();
 });
 
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable  import/no-mutable-exports */
 export { aui };
