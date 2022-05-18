@@ -1,21 +1,23 @@
-# Askui first test
+# Askui Node.js Base Example
 
-Example to introduce  how to use the askui lib.
-The lib is helps to control the operating system with
-commands.
-Using Jest as test framework to execute all tests.
+Example of how Askui Node.js library can be used for testing. [Jest](https://jestjs.io/) is used for writing and executing the tests.
 
-## Installation of Jest
+## Installation
 
-Use following command to set up Jest:
+Run
+
 ```shell
-npm i -D jest @type/jest ts-jest
+npm install
 ```
 
-## How to execute the example test
+in the root folder of the example where the `package.json` file is located.
 
-This test can be executed with the following command:
+## Use
+
+Run
+
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts
+npm test
 ```
 
+to run all the tests in files whose name ends with `.test.ts` inside the `test` directory.
