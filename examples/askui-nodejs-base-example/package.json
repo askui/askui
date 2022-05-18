@@ -2,7 +2,7 @@
     "name": "askui-nodejs-base-example",
     "private": true,
     "scripts": {
-        "test": "npx jest --config ./test/jest.config.js",
+        "test": "jest --config ./test/jest.config.ts",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.ts\"",
         "lint:staged": "lint-staged"
     },
