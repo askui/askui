@@ -31,7 +31,7 @@ npx jest test/my-first-askui-test-suite.test.ts
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
 
 ## Manual
-Create a new folder in your project folder with the name `test`. Inside this folder add a new test file: `my-first-askui-test-suite.test.ts`.
+At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.You can specify your own structure with the command line `npx jest <path-to-your-test.ts-file>`. 
 
 
 Copy the following over into that file:
