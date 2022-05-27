@@ -1,6 +1,6 @@
 {
     "name": "@vqa4gui/askui",
-    "version": "2.3.0-next.0",
+    "version": "2.3.1-next.0",
     "main": "./dist/cjs/main.js",
     "module": "./dist/esm/main.js",
     "bin": "bin/askui",

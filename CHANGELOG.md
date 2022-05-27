@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.3.1-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.3.0-next.0...2.3.1-next.0) (2022-05-27)
+
+
+### Reverts
+
+* revert package-lock.json in example folder (#AS-923) ([4f529d3](https://gitlab.com/vqa4gui/mvp/askui/commit/4f529d37b9db6353f5406a316ca7af90ca6c6fc7)), closes [#AS-923](https://gitlab.com/vqa4gui/mvp/askui/issues/AS-923)
+
 ## [2.3.0-next.0](https://gitlab.com/vqa4gui/mvp/askui/compare/2.2.0-next.0...2.3.0-next.0) (2022-05-05)
 
 
