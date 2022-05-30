@@ -3,7 +3,10 @@
 
 *Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on*
 
-#  Humanizing UI Automation. 
+<br/>
+
+<center> <h1> Humanizing UI Automation. </h1> </center>
+
 
 ## Disclaimer
 
