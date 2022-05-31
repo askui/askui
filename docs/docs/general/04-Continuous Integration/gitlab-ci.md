@@ -10,7 +10,7 @@ The askui library can be integrated into a [Gitlab CI/CD Pipeline](https://docs.
 
 The example below is a basic CI/CD pipeline definition (`.gitlab-ci.yml`) with one `test` stage and a `test` job within it to run  [Jasmine tests](../02-Getting%20Started/writing-your-first-test.md) with the askui library. It assumes the CI/CD variables `ASKUI_DEPLOY_TOKEN` and `ASKUI_USER_NAME` to be defined as [custom CI/CD variables](https://docs.gitlab.com/ee/ci/variables/index.html#custom-cicd-variables). They should hold the deploy token and user name you received from your contact person at askui. 
 
-Besides that, the `<docker_image_path>` needs to be replaced by [one of our docker images](local-docker.md#available-images). Moreover, the `<alias_name>` should replaced by a name that will be used to access the service from the job's container (see [Services in Gitlab](https://docs.gitlab.com/ee/ci/services/#define-services-in-the-gitlab-ciyml-file)).
+Besides that, the `<docker_image_path>` needs to be replaced by [one of our Docker Images](./askui-ui-controller-docker-images). Moreover, the `<alias_name>` should replaced by a name that will be used to access the service from the job's container (see [Services in Gitlab](https://docs.gitlab.com/ee/ci/services/#define-services-in-the-gitlab-ciyml-file)).
 
 ```yml
 stages:
