@@ -43,7 +43,7 @@ export class ControlYourUiApi {
       instruction,
       customElements,
     };
-    const url = urljoin(this.apiEndpointUrl, 'api','v1','predict-command');
+    const url = urljoin(this.apiEndpointUrl, 'upload');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
     return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
   }
