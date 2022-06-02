@@ -10,7 +10,7 @@ const config = {
   title: `askui - ${tagline}`,
   tagline,
   url: 'https://docs.askui.com',
-  baseUrl: process.env.DOCS_BASE_URL || '/',
+  baseUrl: process.env.DOCS_BASE_URL || '/askui/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/askui_icon_positive_rgb-150x150.png',
