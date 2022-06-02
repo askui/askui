@@ -1,16 +1,24 @@
-name: Build and Deploy
-on: [push]
+name: Build and Release Documentation
+on:
+  repository_dispatch:
+    types: [deploy-documentation]
+  push:
+    branches:
+      - 'main'
+      - 'AS-673-migrate-askui-mono-repo-to-github'
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docu-deployment.yml'
 permissions: 
   contents: write
 jobs:
   build-and-deploy:
-    #concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: [self-hosted, Linux, X64]
     defaults:
       run:
         working-directory: docs
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
       
       - name: Set up Node
@@ -18,13 +26,13 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Build Documentation
         run: |
           npm install
           npm run build
 
-      - name: Deploy 🚀
+      - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: docs/dist # The folder the action should deploy.
+          branch: gh-pages
+          folder: docs/dist
