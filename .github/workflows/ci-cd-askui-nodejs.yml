@@ -1,9 +1,8 @@
 name: CI/CD Pipeline of the askui Node.js package
 on:
   push:
-    # branches:
-    #   - main
-    branches: ['**']
+    branches:
+      - main
   workflow_dispatch:
 env:
   NODE_VERSION: 16
@@ -11,11 +10,11 @@ jobs:
   ci_cd:
     runs-on: [self-hosted, Linux, X64]
     steps:
-      # - name: Exit if not on main branch
-      #   if: github.ref != 'refs/heads/main'
-      #   run: |
-      #     echo requires main branch
-      #     exit 1
+      - name: Exit if not on main branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo requires main branch
+          exit 1
       - name: Get Release Tag
         id: get_release_tag
         run: |
