@@ -1,13 +1,28 @@
 name: CI/CD Pipeline of the askui Node.js package
 on:
   push:
+    # branches:
+    #   - main
     branches: ['**']
+  workflow_dispatch:
 env:
   NODE_VERSION: 16
 jobs:
   ci_cd:
     runs-on: [self-hosted, Linux, X64]
     steps:
+      # - name: Exit if not on main branch
+      #   if: github.ref != 'refs/heads/main'
+      #   run: |
+      #     echo requires main branch
+      #     exit 1
+      - name: Get Release Tag
+        id: get_release_tag
+        run: |
+          echo "::set-output name=release_command::release:prerelease"
+          if  ${{ github.event_name == 'workflow_dispatch' }} ; then
+          echo "::set-output name=release_command::release:prerelease"
+          fi
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Node
@@ -29,7 +44,19 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release
-        run: npm run release:prerelease
+        run: npm run ${{ steps.deploy_variables.outputs.version_suffix }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+          repository_dispatch_linux_x64_binaries_released:
+  repository_dispatch_new_nodejs_released:
+    name: Repository Dispatch new nodejs package released
+    runs-on: [self-hosted, Linux, X64]
+    needs: [ci_cd]
+    steps:
+      - name: Repository Dispatch Linux x64 Binaries Released
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: new_nodejs_package_released
+
