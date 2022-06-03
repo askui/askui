@@ -2,9 +2,9 @@
 custom_edit_url: null
 ---
 
-# Askui UI Controller Docker Images
+# askui UI Controller Docker Images
 
-We maintain Docker Images for running tests with Askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images contain the Askui UI Controller and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The Askui library connects to the Askui UI Controller inside the Docker container to execute the test steps inside it.
+We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images contain the askui UI Controller and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
@@ -25,7 +25,7 @@ The following environment variables can be used for configuring the Docker Conta
 
 ## Usage
 
-The Askui UI Controller is bound to port `6769` of the container so this needs to be exposed.
+The askui UI Controller is bound to port `6769` of the container so this needs to be exposed.
 
 ### Starting Container _Manually_
 
@@ -51,7 +51,7 @@ To use it, first install it:
 npm i -D testcontainers
 ```
 
-After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the Askui UI Controller container just before all tests are run and connecting to it:
+After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
 
 ```typescript
 import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
