@@ -10,6 +10,9 @@ on:
       no-increment:
         default: false
         type: boolean
+      no-npm:
+        default: false
+        type: boolean
 env:
   NODE_VERSION: 16
 jobs:
@@ -59,7 +62,7 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release
-        run: npm run ${{ steps.get_release_script.outputs.release_command }} -- ${{ github.event.inputs.no-increment == 'true' && '--no-increment' || '' }}
+        run: npm run ${{ steps.get_release_script.outputs.release_command }} -- ${{ github.event.inputs.no-increment == 'true' && '--no-increment' || '' }} ${{ github.event.inputs.no-npm == 'true' && '--no-npm' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
