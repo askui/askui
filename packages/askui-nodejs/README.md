@@ -9,23 +9,31 @@ You can use this to write end-to-end tests or automate any kind of application.
 To use **askui** follow these steps:
 
 ### 0. Create *node.js* project
+
 ```
 npm init
 ```
 
 ### 1. Install askui
+
 ```
 npm i -D askui
 ```
+
 ### 2. Install a testing framework
+
 ```
 npm i -D jest
 ```
+
 ### 3. Install Typescript
+
 ```
 npm i -D @types/jest ts-jest ts-node typescript
 ```
+
 ### 4. Create a first test suite
+
 ```
 npx askui init
 ```
@@ -37,7 +45,8 @@ Visit our [documentation](https://docs.askui.com) for examples and a full list o
 ## Example
 
 The following example shows the use of **askui** for testing a desktop application.
-```
+
+```typescript
 it('should be able to add to liked songs', async () => {
     await aui.click().icon().withText('search').exec();
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
