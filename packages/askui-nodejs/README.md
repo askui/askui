@@ -1,10 +1,8 @@
 # askui - Humanizing UI Automation
 
 **askui** allows you to automate the interaction with an application, multiple applications or even the entire operating system. 
-
 You can use this to write end-to-end tests or automate any kind of application.
 
-<br>
 
 ## Start
 
@@ -31,13 +29,10 @@ npm i -D @types/jest ts-jest ts-node
 ```
 npx askui init
 ```
-<br>
 
 ## Documentation
 
 Visit our [documentation](https://docs.askui.com) for examples and a full list of supported commands.
-
-<br>
 
 ## Example
 
