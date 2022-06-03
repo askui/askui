@@ -8,9 +8,10 @@
     "addUntrackedFiles": true,
     "commitMessage": "chore: release ${version} [skip-ci]",
     "requireCommits": true,
-    "requireBranch": ["main", "*.*.x"]
+    "requireBranch": "main",
+    "requireCleanWorkingDir ": false
   },
-  "gitlab": {
+  "github": {
     "release": true,
     "releaseName": "${version}"
   },

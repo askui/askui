@@ -1,0 +1,35 @@
+name: CI/CD Pipeline of the askui Node.js package
+on:
+  push:
+    branches: ['**']
+env:
+  NODE_VERSION: 16
+jobs:
+  ci_cd:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install 
+        run: npm install
+      - name: Lint 
+        run: npm run lint
+      - name: Test 
+        run: npm run test
+      - name: Build
+        run: npm run build
+        working-directory: packages/askui-nodejs
+      - name: Configure Git User
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Release
+        run: npm run release:prerelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
