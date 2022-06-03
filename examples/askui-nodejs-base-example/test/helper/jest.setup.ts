@@ -1,4 +1,4 @@
-import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
+import { AskuiClient, AskuiControlServer } from 'askui';
 
 // Server for controlling the operating system
 let askuiServer: AskuiControlServer;

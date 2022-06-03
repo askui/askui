@@ -22,13 +22,7 @@ test:
   variables:
     DOCKER_PASSWORD: ${ASKUI_DEPLOY_TOKEN}
     DOCKER_USER: ${ASKUI_USER_NAME}
-    NPM_TOKEN: ${ASKUI_DEPLOY_TOKEN}
   before_script:
-    - |
-      {
-        echo "@vqa4gui:registry=https://gitlab.com/api/v4/projects/34584527/packages/npm/"
-        echo "//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken=\${NPM_TOKEN}"
-      } | tee -a .npmrc
     - docker login registry.gitlab.com -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} 
     - npm ci
   services:
@@ -36,7 +30,6 @@ test:
       alias: <alias_name>
   script:
     - npx jasmine --config=jasmine.json
-
 ```
 
 ### How This Configuration Works
@@ -44,9 +37,8 @@ test:
 On push to the repository on Gitlab, a Gitlab-hosted Linux instance will start and execute the stages.
 - The code of your project is checked out.
 - Scripts within the stages will be executed:
-  - Creates an `.npmrc` file which allows you to install the askui library from our registry.
   - Authenticates and authorizes with our Docker image registry which allows you to pull the image for the service.
-  - Installs npm dependencies including the askui library.
+  - Installs npm dependencies including askui.
   - Starts testing.
 
 ### Testing Inside Gitlab-CI

@@ -37,7 +37,7 @@ At the beginning we create a new folder with the name `test`. For the next step 
 Copy the following over into that file:
 
 ```typescript
-import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
+import { AskuiClient, AskuiControlServer } from 'askui';
 
 describe('jest with askui', () => {
   
