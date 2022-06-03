@@ -41,7 +41,7 @@ export class AskuiClient extends FluentCommand {
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
     const defaults = {
       controlServerUrl: 'http://localhost:6769',
-      controlYourUiApi: 'https://controlui-api-dev.askui.com',
+      controlYourUiApi: 'https://inference.askui.com',
       annotationLevel: AnnotationLevel.DISABLED,
     };
     return Object.assign(defaults, this.clientArgs);

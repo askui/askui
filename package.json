@@ -1,86 +1,83 @@
 {
-  "name": "askui",
-  "license": "MIT",
-  "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
-  "version": "2.3.1-next.0",
-  "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
-  "workspaces": [
-    "./docs",
-    "./packages/*"
-  ],
-  "directories": {
-    "doc": "docs",
-    "example": "examples"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/vqa4gui/mvp/askui.git"
-  },
-  "bugs": {
-    "url": "https://gitlab.com/vqa4gui/mvp/askui/issues"
-  },
-  "homepage": "https://gitlab.com/vqa4gui/mvp/askui#readme",
-  "publishConfig": {
-    "@vqa4gui:registry": "https://gitlab.com/api/v4/projects/34584527/packages/npm/"
-  },
-  "engines": {
-    "npm": "^8.1.2",
-    "node": "~16.13.2"
-  },
-  "keywords": [
-    "test",
-    "testing",
-    "automated-testing",
-    "e2e-testing",
-    "rpa",
-    "askui",
-    "function-testing",
-    "ui-testing",
-    "automation",
-    "selenium",
-    "cypress",
-    "playwright",
-    "ui-automation"
-  ],
-  "scripts": {
-    "lint": "npm run lint --workspaces --if-present",
-    "lint:staged": "npm run lint:staged --workspaces --if-present",
-    "test": "npm run test --workspace=@vqa4gui/askui",
-    "postinstall": "husky install",
-    "postpublish": "pinst --enable",
-    "prepublishOnly": "pinst --disable",
-    "release:prerelease": "release-it --preRelease next",
-    "release": "release-it"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "~16.1.0",
-    "@commitlint/config-conventional": "~16.0.0",
-    "@release-it/bumper": "^3.0.1",
-    "@release-it/conventional-changelog": "^4.2.2",
-    "@typescript-eslint/eslint-plugin": "~5.10.0",
-    "@typescript-eslint/parser": "~5.10.0",
-    "commitizen": "~4.2.4",
-    "cz-conventional-changelog": "~3.3.0",
-    "eslint": "~8.7.0",
-    "eslint-config-airbnb-base": "~15.0.0",
-    "eslint-config-airbnb-typescript": "~16.1.0",
-    "eslint-plugin-import": "~2.25.4",
-    "husky": "~7.0.4",
-    "is-ci": "~3.0.1",
-    "jira-prepare-commit-msg": "~1.6.2",
-    "lint-staged": "~12.3.2",
-    "pinst": "~2.1.6",
-    "release-it": "~14.14.0",
-    "release-it-yarn-workspaces": "~2.0.1",
-    "zx": "~6.0.7"
-  },
-  "jira-prepare-commit-msg": {
-    "isConventionalCommit": true,
-    "messagePattern": "$M (#$J)"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "name": "askui",
+    "license": "MIT",
+    "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
+    "version": "0.1.0",
+    "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
+    "workspaces": [
+        "./docs",
+        "./packages/*"
+    ],
+    "directories": {
+        "doc": "docs",
+        "example": "examples"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/askui/askui.git"
+    },
+    "bugs": {
+        "url": "https://github.com/askui/askui/issues"
+    },
+    "homepage": "https://github.com/askui/askui#askui",
+    "engines": {
+        "npm": "^8.1.2",
+        "node": "~16.13.2"
+    },
+    "keywords": [
+        "test",
+        "testing",
+        "automated-testing",
+        "e2e-testing",
+        "rpa",
+        "askui",
+        "function-testing",
+        "ui-testing",
+        "automation",
+        "selenium",
+        "cypress",
+        "playwright",
+        "ui-automation"
+    ],
+    "scripts": {
+        "lint": "npm run lint --workspaces --if-present",
+        "lint:staged": "npm run lint:staged --workspaces --if-present",
+        "test": "npm run test --workspace=askui",
+        "postinstall": "husky install",
+        "postpublish": "pinst --enable",
+        "prepublishOnly": "pinst --disable",
+        "release:prerelease": "release-it --preRelease=next",
+        "release": "release-it"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "~16.1.0",
+        "@commitlint/config-conventional": "~16.0.0",
+        "@release-it/bumper": "^3.0.1",
+        "@release-it/conventional-changelog": "^4.2.2",
+        "@typescript-eslint/eslint-plugin": "~5.10.0",
+        "@typescript-eslint/parser": "~5.10.0",
+        "commitizen": "~4.2.4",
+        "cz-conventional-changelog": "~3.3.0",
+        "eslint": "~8.7.0",
+        "eslint-config-airbnb-base": "~15.0.0",
+        "eslint-config-airbnb-typescript": "~16.1.0",
+        "eslint-plugin-import": "~2.25.4",
+        "husky": "~7.0.4",
+        "is-ci": "~3.0.1",
+        "jira-prepare-commit-msg": "~1.6.2",
+        "lint-staged": "~12.3.2",
+        "pinst": "~2.1.6",
+        "release-it": "~14.14.0",
+        "release-it-yarn-workspaces": "~2.0.1",
+        "zx": "~6.0.7"
+    },
+    "jira-prepare-commit-msg": {
+        "isConventionalCommit": true,
+        "messagePattern": "$M (#$J)"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
-  }
 }

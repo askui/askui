@@ -1,4 +1,4 @@
-import { AskuiClient, AskuiControlServer } from '@vqa4gui/askui';
+import { AskuiClient, AskuiControlServer } from 'askui';
 
 // Server for controlling the operating system
 let askuiServer: AskuiControlServer;
@@ -10,7 +10,6 @@ let aui: AskuiClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
-
   askuiServer = new AskuiControlServer({
     /**
      * Select the display you want to run your tests on, display 0 is your main display;

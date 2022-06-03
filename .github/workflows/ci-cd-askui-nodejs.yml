@@ -1,0 +1,65 @@
+name: CI/CD Pipeline of the askui Node.js package
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'packages/askui-nodejs/**'
+  workflow_dispatch:
+env:
+  NODE_VERSION: 16
+jobs:
+  build:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install 
+      run: npm ci
+    - name: Lint 
+      run: npm run lint
+    - name: Test 
+      run: npm run test
+    - name: Build
+      run: npm run build
+      working-directory: packages/askui-nodejs
+    - name: Upload Build Artifacts
+      if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v3
+      with:
+        name: askui-nodejs-${{ github.sha }}
+        path: packages/askui-nodejs/dist
+  release:
+    # if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: askui-nodejs-${{ github.sha }}
+          path: packages/askui-nodejs/dist
+      - name: Get Release Tag
+        id: get_release_tag
+        run: |
+          echo "::set-output name=release_command::${{ github.event_name == 'workflow_dispatch' && 'release' || 'release:prerelease' }}"
+      - name: Configure Git User
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - name: Release
+        run: npm run ${{ steps.get_release_tag.outputs.release_command }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+  repository_dispatch_nodejs_released:
+    name: Repository Dispatch nodejs package released
+    needs: release
+    steps:
+      - name: Repository Dispatch nodejs package released
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: nodejs_package_released
