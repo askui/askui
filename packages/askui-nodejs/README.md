@@ -6,7 +6,7 @@ You can use this to write end-to-end tests or automate any kind of application.
 
 ## Start
 
-To use **askui** inside a *node.js* project follow these steps. If you want to automate sth. not written in *node.js* like a desktop application, create a *node.js* project first to run your tests from there.
+To use **askui** follow these steps:
 
 ### 0. Create *node.js* project
 ```
@@ -23,7 +23,7 @@ npm i -D jest
 ```
 ### 3. Install Typescript
 ```
-npm i -D @types/jest ts-jest ts-node
+npm i -D @types/jest ts-jest ts-node typescript
 ```
 ### 4. Create a first test suite
 ```
