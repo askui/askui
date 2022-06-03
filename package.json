@@ -42,7 +42,7 @@
   "scripts": {
     "lint": "npm run lint --workspaces --if-present",
     "lint:staged": "npm run lint:staged --workspaces --if-present",
-    "test": "npm run test --workspace=askui",
+    "test": "npm run test --workspace=askui-dev-0",
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
     "prepublishOnly": "pinst --disable",

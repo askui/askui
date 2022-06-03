@@ -1,5 +1,5 @@
 {
-    "name": "askui",
+    "name": "askui-dev-0",
     "version": "0.1.0",
     "main": "./dist/cjs/main.js",
     "module": "./dist/esm/main.js",
