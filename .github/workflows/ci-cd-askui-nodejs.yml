@@ -8,7 +8,6 @@ on:
   workflow_dispatch:
     inputs:
       no-increment:
-        description: 'Determines if version is incremented when releasing (should be false for a regular (pre-)release)'
         default: false
         type: boolean
 env:
