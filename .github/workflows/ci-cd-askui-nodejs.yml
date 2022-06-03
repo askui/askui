@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'docs/**'
+      - 'packages/askui-nodejs/**'
   workflow_dispatch:
 env:
   NODE_VERSION: 16
