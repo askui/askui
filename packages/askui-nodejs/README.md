@@ -6,24 +6,10 @@ The askui-nodejs-lib allows users to control the operating system with natural l
 
 To download the package, you need to copy the .npmrc file and replace ${GITLAB_AUTH_TOKEN} with your token and then run  the command : 
 
-
-### Precondition
-
-Setup private npm repository:
-1. Create auth token with `read_api` under [your gitlab profile](https://gitlab.com/-/profile/personal_access_tokens)
-2. Set your auth token with: 
-```shell
-npm config set -- '//gitlab.com/api/v4/projects/34584527/packages/npm/:_authToken' "<your_token>"
-```
-3. Set
-```shell
-npm config set @vqa4gui:registry https://gitlab.example.com/api/v4/projects/34584527/packages/npm/
-```
-
 ### Install
 
 ```shell
-npm i @vqa4gui/askui
+npm i -D askui
 ```
 
 ## Usage
@@ -31,7 +17,7 @@ npm i @vqa4gui/askui
 ### Example usage of the client with jasmine.
 
 ```typescript
-import * as askui from '@vqa4gui/askui';
+import * as askui from 'askui';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
 
@@ -77,7 +63,7 @@ The chrome-runner is a docker image contains Askui-Server and chrome browser. It
 
 
 ```typescript
-import * as askui from '@vqa4gui/askui';
+import * as askui from 'askui';
 
 /************
  Testcontainers is a NodeJS library that supports tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container

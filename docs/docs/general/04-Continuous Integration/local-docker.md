@@ -74,7 +74,7 @@ npm i -D testcontainers
 Then, to run your tests inside a container, include a `beforeAll` setup function like in the following example. It is going to pull and start the container with the askui server and browser mapping the ports exposed by the container to free ports on your machine (randomly chose out of the free ports available at runtime to prevent collision) which you and the askui library can use to connect to the container.
 
 ```typescript
-import { AskuiClient } from '@vqa4gui/askui';
+import { AskuiClient } from 'askui';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;
