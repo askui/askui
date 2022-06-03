@@ -16,7 +16,7 @@ sidebar_position: 2
 If you have not yet set up a project using npm as your package manager, you can easily do so by running `npm init -y` inside the directory that you want your project to be in. This is going to create a `package.json` file with a description of your project, all your dependencies etc. If you already have a project that you would like to include the askui library in for writing up tests, simply navigate to that project.
 
 ```shell
-npm i -D @vqa4gui/askui
+npm i -D askui
 ```
 
 While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of 
