@@ -1,8 +1,6 @@
 name: CI/CD Pipeline of the askui Node.js package
 on:
   push:
-    branches:
-      - main
     paths:
       - 'docs/**'
       - 'packages/askui-nodejs/**'
