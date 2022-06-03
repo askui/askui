@@ -44,7 +44,7 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release
-        run: npm run ${{ steps.deploy_variables.outputs.version_suffix }}
+        run: npm run ${{ steps.get_release_tag.outputs.release_command }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
