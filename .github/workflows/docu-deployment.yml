@@ -1,11 +1,10 @@
 name: Build and Release Documentation
 on:
   repository_dispatch:
-    types: [deploy-documentation]
+    types: [new_nodejs_package_released]
   push:
     branches:
       - 'main'
-      - 'AS-673-migrate-askui-mono-repo-to-github'
     paths:
       - 'docs/**'
       - '.github/workflows/docu-deployment.yml'
