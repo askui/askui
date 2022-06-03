@@ -20,7 +20,7 @@ jobs:
         run: |
           echo "::set-output name=release_command::release:prerelease"
           if  ${{ github.event_name == 'workflow_dispatch' }} ; then
-          echo "::set-output name=release_command::release:prerelease"
+          echo "::set-output name=release_command::release"
           fi
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://registry.npmjs.org'
       - name: Install 
-        run: npm install
+        run: npm ci
       - name: Lint 
         run: npm run lint
       - name: Test 
@@ -47,15 +47,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
-          repository_dispatch_linux_x64_binaries_released:
+          
   repository_dispatch_new_nodejs_released:
-    name: Repository Dispatch new nodejs package released
+    name: Repository Dispatch  nodejs package released
     runs-on: [self-hosted, Linux, X64]
     needs: [ci_cd]
     steps:
-      - name: Repository Dispatch Linux x64 Binaries Released
+      - name: Repository Dispatch  nodejs package released
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          event-type: new_nodejs_package_released
-
+          event-type: nodejs_package_released

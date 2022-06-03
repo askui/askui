@@ -1,41 +1,42 @@
 {
-  "hooks": {
-    "after:bump": [
-      "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; fi; npm install; npm run build -w packages/askui-nodejs;"
-    ]
-  },
-  "git": {
-    "addUntrackedFiles": true,
-    "commitMessage": "chore: release ${version} [skip-ci]",
-    "requireCommits": true,
-    "requireCleanWorkingDir ": false
-  },
-  "github": {
-    "release": true,
-    "releaseName": "${version}"
-  },
-  "npm": {
-    "publishPath": "./packages/askui-nodejs",
-    "skipChecks": true
-  },
-  "plugins": {
-    "@release-it/conventional-changelog": {
-      "header": "# Changelog",
-      "preset": "conventionalcommits",
-      "infile": "CHANGELOG.md",
-      "strictSemVer": true
-    },
-    "release-it-yarn-workspaces": {
-      "skipChecks": true,
-      "workspaces": [
-        "packages/askui-nodejs"
-      ],
-      "additionalManifests": {
-        "versionUpdates": [
-          "docs/package.json", 
-          "packages/askui-nodejs/package.json"
+    "hooks": {
+        "after:bump": [
+            "if ! npx zx ./scripts/is-prerelease.mjs --version ${version}; then npm run -w docs version -- ${version}; fi; npm install; npm run build -w packages/askui-nodejs;"
         ]
-      }
+    },
+    "git": {
+        "addUntrackedFiles": true,
+        "commitMessage": "chore: release ${version} [skip-ci]",
+        "requireCommits": true,
+        "requireBranch": ["main", "*.*.x"],
+        "requireCleanWorkingDir ": false
+    },
+    "github": {
+        "release": true,
+        "releaseName": "${version}"
+    },
+    "npm": {
+        "publishPath": "./packages/askui-nodejs",
+        "skipChecks": true
+    },
+    "plugins": {
+        "@release-it/conventional-changelog": {
+            "header": "# Changelog",
+            "preset": "conventionalcommits",
+            "infile": "CHANGELOG.md",
+            "strictSemVer": true
+        },
+        "release-it-yarn-workspaces": {
+            "skipChecks": true,
+            "workspaces": [
+                "packages/askui-nodejs"
+            ],
+            "additionalManifests": {
+                "versionUpdates": [
+                    "docs/package.json",
+                    "packages/askui-nodejs/package.json"
+                ]
+            }
+        }
     }
-  }
 }
