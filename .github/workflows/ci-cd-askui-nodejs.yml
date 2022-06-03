@@ -42,6 +42,8 @@ jobs:
     # if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     if: github.event_name == 'workflow_dispatch'
     needs: build
+    permissions: 
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
