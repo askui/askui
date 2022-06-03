@@ -1,37 +1,41 @@
-name: CI/CD Pipeline of the askui Node.js package
+name: CI/CD Pipeline of the askui Node.js Package
 on:
   push:
     paths:
       - 'docs/**'
       - 'packages/askui-nodejs/**'
+      - '.github/workflows/ci-cd-askui-nodejs.yml'
   workflow_dispatch:
 env:
   NODE_VERSION: 16
 jobs:
   build:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        registry-url: 'https://registry.npmjs.org'
-    - name: Install 
-      run: npm ci
-    - name: Lint 
-      run: npm run lint
-    - name: Test 
-      run: npm run test
-    - name: Build
-      run: npm run build
-      working-directory: packages/askui-nodejs
-    - name: Upload Build Artifacts
-      if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-      uses: actions/upload-artifact@v3
-      with:
-        name: askui-nodejs-${{ github.sha }}
-        path: packages/askui-nodejs/dist
+    name: Build askui Node.js package
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install 
+        run: npm ci
+      - name: Lint 
+        run: npm run lint
+      - name: Test 
+        run: npm run test
+      - name: Build
+        run: npm run build
+        working-directory: packages/askui-nodejs
+      - name: Upload Build Artifacts
+        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v3
+        with:
+          name: askui-nodejs-${{ github.sha }}
+          path: packages/askui-nodejs/dist
   release:
+    name: Release askui Node.js package
     # if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     if: github.event_name == 'workflow_dispatch'
     needs: build
@@ -55,11 +59,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
   repository_dispatch_nodejs_released:
-    name: Repository Dispatch nodejs package released
+    name: Repository Dispatch askui Node.js Package Released
     needs: release
     steps:
-      - name: Repository Dispatch nodejs package released
+      - name: Repository Dispatch askui Node.js Package Released
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          event-type: nodejs_package_released
+          event-type: askui_nodejs_package_released

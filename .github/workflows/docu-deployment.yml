@@ -1,7 +1,7 @@
 name: Build and Release Documentation
 on:
   repository_dispatch:
-    types: [new_nodejs_package_released]
+    types: [askui_nodejs_package_released]
   push:
     branches:
       - 'main'
