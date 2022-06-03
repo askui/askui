@@ -2,7 +2,7 @@
   "name": "askui",
   "license": "MIT",
   "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
-  "version": "2.3.1-next.0",
+  "version": "0.1.0",
   "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
   "workspaces": [
     "./docs",
@@ -14,15 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/vqa4gui/mvp/askui.git"
+    "url": "git+https://github.com/askui/askui.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/vqa4gui/mvp/askui/issues"
+    "url": "https://github.com/askui/askui/issues"
   },
-  "homepage": "https://gitlab.com/vqa4gui/mvp/askui#readme",
-  "publishConfig": {
-    "@vqa4gui:registry": "https://gitlab.com/api/v4/projects/34584527/packages/npm/"
-  },
+  "homepage": "https://github.com/askui/askui#askui",
   "engines": {
     "npm": "^8.1.2",
     "node": "~16.13.2"
@@ -45,11 +42,11 @@
   "scripts": {
     "lint": "npm run lint --workspaces --if-present",
     "lint:staged": "npm run lint:staged --workspaces --if-present",
-    "test": "npm run test --workspace=@vqa4gui/askui",
+    "test": "npm run test --workspace=askui",
     "postinstall": "husky install",
     "postpublish": "pinst --enable",
     "prepublishOnly": "pinst --disable",
-    "release:prerelease": "release-it --preRelease next",
+    "release:prerelease": "release-it --preRelease=next",
     "release": "release-it"
   },
   "devDependencies": {

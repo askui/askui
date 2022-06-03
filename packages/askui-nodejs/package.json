@@ -1,6 +1,6 @@
 {
-    "name": "@vqa4gui/askui",
-    "version": "2.3.1-next.0",
+    "name": "askui",
+    "version": "0.1.0",
     "main": "./dist/cjs/main.js",
     "module": "./dist/esm/main.js",
     "bin": "bin/askui",
@@ -44,9 +44,6 @@
         "shx": "~0.3.4",
         "ts-jest": "~27.1.3",
         "typescript": "~4.5.4"
-    },
-    "publishConfig": {
-        "@vqa4gui:registry": "https://gitlab.com/api/v4/projects/34584527/packages/npm/"
     },
     "lint-staged": {
         "./**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"

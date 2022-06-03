@@ -33,7 +33,7 @@ npm config set  -- "//gitlab.com/api/v4/projects/34584527/packages/npm/:_authTok
 Now, you are ready to install the askui library.
 
 ```shell
-npm i -D @vqa4gui/askui
+npm i -D askui
 ```
 
 While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of 

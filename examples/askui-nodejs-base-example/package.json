@@ -7,7 +7,7 @@
         "lint:staged": "lint-staged"
     },
     "dependencies": {
-        "@vqa4gui/askui": "2.3.0-next.0"
+        "askui": "0.1.0"
     },
     "devDependencies": {
         "@types/node": "17.0.10",
