@@ -36,7 +36,7 @@ The [one version rule](https://opensource.google/documentation/reference/thirdpa
 
 ### Githooks
 
-This monorepo uses [githooks](https://git-scm.com/docs/githooks) wrapped by [husky](https://github.com/typicode/husky) to lint and test the code, to help you stick to the commit message standard by opening up a cli for constructing the commit message on each commit, prepending the commit message with the issue number or linting the commit message etc. In some cases, e.g., when using a Git client such as [Git Tower](https://www.git-tower.com/) or [GitKraken](https://www.gitkraken.com/), cherry-picking, rebasing or in a ci pipeline, you may want to disable githooks, especially the interactive cli.
+This monorepo uses [githooks](https://git-scm.com/docs/githooks) with [husky](https://github.com/typicode/husky) to lint and test the code, to help you stick to the commit message standard by opening up a cli for constructing the commit message on each commit, prepending the commit message with the issue number or linting the commit message etc. In some cases, e.g., when using a Git client such as [Git Tower](https://www.git-tower.com/) or [GitKraken](https://www.gitkraken.com/), cherry-picking, rebasing or in a ci pipeline, you may want to disable githooks, especially the interactive cli.
 
 For skipping the interactive cli when commiting, set the environment variable `SKIP_CZ_CLI` to `true`.
 ```sh
