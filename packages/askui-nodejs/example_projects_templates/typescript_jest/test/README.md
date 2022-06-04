@@ -5,11 +5,11 @@ The lib is helps to control the operating system with
 commands.
 Using Jest as test framework to execute all tests.
 
-## Installation of Jest
+## Installation of Jest and Typescript
 
 Use following command to set up Jest:
 ```shell
-npm i -D jest @types/jest ts-jest
+npm i -D jest @types/jest ts-jest typescript
 ```
 
 ## How to execute the example test
