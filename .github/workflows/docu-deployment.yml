@@ -3,8 +3,6 @@ on:
   repository_dispatch:
     types: [askui_nodejs_package_released]
   push:
-    branches:
-      - 'main'
     paths:
       - 'docs/**'
       - '.github/workflows/docu-deployment.yml'
@@ -25,6 +23,7 @@ jobs:
       - name: Build Documentation
         run: npm run build -w docs
       - name: Deploy to Github Pages
+        if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
           branch: gh-pages
