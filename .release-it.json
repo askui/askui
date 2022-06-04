@@ -13,7 +13,7 @@
     },
     "github": {
         "release": true,
-        "releaseName": "${version}"
+        "releaseName": "v${version}"
     },
     "npm": {
         "publishPath": "./packages/askui-nodejs",
