@@ -6,7 +6,7 @@
     },
     "git": {
         "addUntrackedFiles": true,
-        "commitMessage": "chore: release ${version} [skip-ci]",
+        "commitMessage": "chore: release ${version}",
         "requireCommits": true,
         "requireBranch": ["main", "*.*.x"],
         "requireCleanWorkingDir ": false
