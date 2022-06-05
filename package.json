@@ -22,7 +22,7 @@
     "homepage": "https://github.com/askui/askui#askui",
     "engines": {
         "npm": "^8.1.2",
-        "node": "~16.13.2"
+        "node": "^16.13.2"
     },
     "keywords": [
         "test",
