@@ -5,14 +5,15 @@ on:
       - 'docs/**'
       - 'packages/askui-nodejs/**'
       - '.github/workflows/ci-cd-askui-nodejs.yml'
-  workflow_dispatch:
-    inputs:
-      prerelease:
-        default: false
-        type: boolean
-      release-it-options:
-        required: false
-        type: string
+  # Currently, we only support releasing manually from main as we have not yet decided on how to deal with the protected branch issue (https://github.community/t/allowing-github-actions-bot-to-push-to-protected-branch/16536/16)
+  # workflow_dispatch:
+  #   inputs:
+  #     prerelease:
+  #       default: false
+  #       type: boolean
+  #     release-it-options:
+  #       required: false
+  #       type: string
 env:
   NODE_VERSION: 16
   RELEASE_COMMAND: ${{ github.event.inputs.prerelease == 'true' &&  'release:prerelease' || 'release' }} -- ${{ github.event.inputs.release-it-options }}
