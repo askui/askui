@@ -66,7 +66,7 @@ export abstract class ControlUiServerFacade {
   }
 
   protected getStartingCommand(): string {
-    return this.binaryPath;
+    return `"${this.binaryPath}"`;
   }
 
   // eslint-disable-next-line class-methods-use-this

@@ -31,6 +31,7 @@ export function platform(): SupportedPlatform {
 function buildBinaryNotAvailbleError(binaryVersion: string): Error {
   return new Error(`It seems that the askui server binary version "${binaryVersion}" for your system "${platform()} ${os.arch}" is not availble, Please contact as at info@askui.com for more information`);
 }
+
 export function getBinaryPath(version: string): string {
   return path.join(__dirname, '..', '..', 'release', version, ...binarySubPathsByPlatform[platform()]);
 }
