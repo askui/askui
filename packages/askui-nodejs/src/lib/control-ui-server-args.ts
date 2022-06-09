@@ -1,5 +1,15 @@
 import { LogLevels } from '../shared/log-levels';
 
+/**
+ * @property {number} display
+ * @property {string} binaryVersion .
+ * @property {number} port
+ * @property {string} host
+ * @property {boolean} minimize
+ * @property {boolean} overWriteBinary
+ * @property {LogLevels} logLevel
+ * @property {string} logFilePath
+ */
 export interface ControlUiServerArgs {
   readonly display?: number;
   readonly binaryVersion?: string,
