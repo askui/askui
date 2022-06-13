@@ -2236,14 +2236,14 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Scrolls in the x and y direction, e.g., until an element is visible.
+   * Moves mouse to the filtered element and scrolls in the x and y direction
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
    * @return {FluentFilters}
    */
-  scrollUntil(x_offset: number, y_offset: number): FluentFilters {
+  scrollInside(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = `Scroll x ${x_offset} y ${y_offset} in`;
 
     return new FluentFilters(this);
