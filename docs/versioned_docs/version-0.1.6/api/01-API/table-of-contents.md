@@ -51,7 +51,7 @@ custom_edit_url: null
 
 -  [scroll](../commands/scroll)
 
--  [scrollUntil](../commands/scrolluntil)
+-  [scrollInside](../commands/scrollinside)
 
 -  [swipe](../commands/swipe)
 
