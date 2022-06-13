@@ -27,57 +27,14 @@ There are different versions of the askui UI Controller. Not all versions are su
 You can specify which binary version of server you want to download and use. The default value is `latest` which will
 download the newest version.
 
-<table>
-  <tr>
-    <td></td>
-    <th scope="col">v0.8.0</th>
-    <th scope="col">v0.9.0</th>
-    <th scope="col">v0.9.1</th>
-    <th scope="col">v0.10.0</th>
-  </tr>
-  <tr>
-    <th scope="row">linux x64</th>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-  </tr>
-   <tr>
-    <th scope="row">darwin arm64</th>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-  </tr>
-   <tr>
-    <th scope="row">darwin x64</th>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-    <td>&#10003;</td>
-  </tr>
-   <tr>
-    <th scope="row">win32 x64</th>
-    <td>&#10005;</td>
-    <td>&#10003;</td>
-    <td>&#10005;</td>
-    <td>&#10003;</td>
-  </tr>
-   <tr>
-    <th scope="row">win32 ia32</th>
-    <td>&#10005;</td>
-    <td>&#10005;</td>
-    <td>&#10005;</td>
-    <td>&#10003;</td>
-  </tr>
-   <tr>
-    <td colspan="3" class="cap foot">
-        Availability of binary version for diffrent operating systems
-    </td>
-  </tr>
-</table>
-
-
+| | v0.8.0 | v0.9.0 | v0.9.1 | v0.10.0 |
+| - | ------ | ------ | ------ | ------- |
+| **linux x64** | ✓ | ✓ | ✓ | ✓ |
+| **darwin arm64** | ✓ | ✓ | ✓ | ✓ |
+| **darwin x64** | ✓ | ✓ | ✓ | ✓ |
+| **win32 x64** | ✕ | ✓ | ✕ | ✓ |
+| **win32 ia32** | ✕ | ✕ | ✕ | ✓ |
+Availability of binary version by OS and CPU architecture.
 ___
 
 ### display
@@ -101,7 +58,7 @@ ___
 • **host**: `string` - Default: `127.0.0.1`
 
 
-The host the askui UI Controller is running on. This websocket server can be connected with the runner protocol.
+The host the askui UI Controller is running on.
 
 ### logFilePath
 
@@ -137,7 +94,7 @@ ___
 
 • **port**: `number` - Default: `6769`
 
-The port the askui UI Controller is running on.  The connection to this port is enabled with our runner protocol. The client can also connect to this port with the runner protocol.
+The port the askui UI Controller is running on.
 
 ## Example
 
@@ -152,13 +109,13 @@ describe('jest with askui', () => {
   beforeAll(async () => {
     askuiControlServer = new AskuiControlServer({
     
-    // choosing the second montor 
+    // choosing the second monitor 
     display: 1,
 
     // download the latest version of the server
     binaryVersion: 'latest',
 
-    // start ask ui controller as minimized application
+    // start ask UI Controller as minimized application
     minimize: true,
 
     // using error loglevel

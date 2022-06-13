@@ -1,11 +1,10 @@
 ---
 custom_edit_url: null
 ---
-# Configuration
 
-## AskuiControlServer
+# AskuiControlServer
 
-### Display
+## Display
 
 The file `specs/helpers/askui-helper.ts` helps to initialize the enviroment of all test suites.
 This sets up the AskuiControlserver.
@@ -16,7 +15,7 @@ The application which you want to test should be open and selected on your chose
 The default value of display is `0` which is your main monitor. If you want to use your
 second monitor you can change the value to `1` (`2` for your third monitor etc.).
 
-### Coming Soon
+## Coming Soon
 
 - AskuiClient
 - Other configuration
