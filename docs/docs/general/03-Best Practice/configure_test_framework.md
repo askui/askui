@@ -28,3 +28,8 @@ export default config;
 ```
 
 In case your Jest tests are executed slowly, make sure you have added the `sandboxInjectedGlobals` configuration for `Math`.
+
+:::caution
+
+The option `sandboxInjectedGlobals` was named `extraGlobals` in Jest v27 and lower.
+:::
