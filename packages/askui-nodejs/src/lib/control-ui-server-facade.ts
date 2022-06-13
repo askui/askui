@@ -23,6 +23,7 @@ export abstract class ControlUiServerFacade {
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
   async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
+    this.preStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
@@ -71,6 +72,11 @@ export abstract class ControlUiServerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected makeBinaryExecutable() {
+    /* Executable out of the box */
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected preStartChecks() {
     /* Executable out of the box */
   }
 
@@ -129,7 +135,8 @@ export abstract class ControlUiServerFacade {
       );
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
-      throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}`);
+      throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}
+      Check this website for more information: https://docs.askui.com/docs/general/troubleshooting/askui-ui-controller-starting-problems`);
     }
   }
 }
