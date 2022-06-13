@@ -44,7 +44,7 @@ export class ControlYourUiClient {
     value: any,
   ) => void = ControlYourUiClient.EMPTY_RESOLVE;
 
-  constructor(public controlServerUrl: string) { }
+  constructor(public askuiUiControllerUrl: string) { }
 
   private clearResponse() {
     this.currentReject = ControlYourUiClient.EMPTY_REJECT;
@@ -70,7 +70,7 @@ export class ControlYourUiClient {
     this.connectionState = ClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(this.controlServerUrl);
+        this.ws = new WebSocket(this.askuiUiControllerUrl);
         this.ws.on('message', (data) => { this.onMessage(data); });
         this.ws.on('open', () => {
           this.connectionState = ClientConnectionState.CONNECTED;
@@ -78,12 +78,12 @@ export class ControlYourUiClient {
         });
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
           this.connectionState = ClientConnectionState.ERROR;
-          reject(new ControlUiClientError(`Connection to Control UI Server cannot be established,
-          Probably it was not started. Makse sure you started the server with this 
-          Url ${this.controlServerUrl}. Error message  ${error.message}`));
+          reject(new ControlUiClientError(`Connection to the askui UI controller cannot be established,
+          Probably it was not started. Make sure you started the server with this 
+          Url ${this.askuiUiControllerUrl}. Error message  ${error.message}`));
         });
       } catch (error) {
-        reject(new ControlUiClientError(`Connection to Control UI Server cannot be established. Reason: ${error}`));
+        reject(new ControlUiClientError(`Connection to the askui UI controller cannot be established. Reason: ${error}`));
       }
     });
   }
@@ -102,7 +102,7 @@ export class ControlYourUiClient {
       try {
         this.send(msg, requestTimeout);
         this.timeout = setTimeout(
-          () => this.currentReject(`Request to Control UI Server timed out.
+          () => this.currentReject(`Request to the askui UI controller timed out.
           it seems that the server is down, Please make sure the server is up`),
           ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
         );

@@ -90,7 +90,7 @@ export abstract class ControlUiServerFacade {
           output: process?.env['LOG_LEVEL'] === 'verbose' ? 'dots' : 'silent',
         }).then((open: boolean) => {
           if (open) {
-            logger.info('The Control UI Server has been started.');
+            logger.info('The askui UI Controller has been started.');
             return resolve();
           }
           return reject(new TimeoutError('Starting time limit has been reached'));
@@ -109,10 +109,10 @@ export abstract class ControlUiServerFacade {
 
   private async getBinary(binaryVersion: string, overWriteBinary = false): Promise<void> {
     if (!fs.existsSync(this.binaryPath) || overWriteBinary || !this.isBinaryValid()) {
-      logger.debug(`Currently, no binary of the Control UI Server is available at "${this.binaryPath}"`);
+      logger.debug(`Currently, no binary of the askui UI Controller is available at "${this.binaryPath}"`);
       await downloadServerBinaries(binaryVersion);
     } else {
-      logger.debug(`Binary of Control UI Server is already present at "${this.binaryPath}".`);
+      logger.debug(`Binary of askui UI Controller is already present at "${this.binaryPath}".`);
     }
   }
 
@@ -121,7 +121,7 @@ export abstract class ControlUiServerFacade {
     maxWaitingForStartingInSeconds?: number,
   ) {
     try {
-      logger.debug('Starting the Control UI Server...');
+      logger.debug('Starting the askui UI Controller...');
       spawn(
         this.getStartingCommand(),
         createCliFlagsFromArgs(args),
@@ -129,7 +129,7 @@ export abstract class ControlUiServerFacade {
       );
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
-      throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}`);
+      throw new Error(`The askui UI Controller could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}`);
     }
   }
 }

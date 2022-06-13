@@ -10,11 +10,11 @@ export class ControlUiServerDarwin extends ControlUiServerFacade {
   }
 
   protected override getStartingCommand(): string {
-    return `${path.dirname(this.binaryPath)}/controlui-server.app/Contents/MacOS/controlui-server`;
+    return `${path.dirname(this.binaryPath)}/askui-ui-controller.app/Contents/MacOS/askui-ui-controller`;
   }
 
   private makeDiskImageExecutable() {
-    const mountPoint = '/Volumes/controlui-server.dmg';
+    const mountPoint = '/Volumes/askui-ui-controller.dmg';
     execSync([
       'hdiutil attach',
       '-nobrowse',
@@ -24,7 +24,7 @@ export class ControlUiServerDarwin extends ControlUiServerFacade {
       `-mountpoint ${mountPoint}`,
       this.binaryPath,
     ].join(' '));
-    const appBaseName = 'controlui-server.app';
+    const appBaseName = 'askui-ui-controller.app';
     const appSrcPath = `${mountPoint}/${appBaseName}`;
     const appDestPath = `${path.dirname(this.binaryPath)}/${appBaseName}`;
     fs.removeSync(appDestPath);

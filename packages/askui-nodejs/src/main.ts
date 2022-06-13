@@ -1,2 +1,2 @@
-export { AskuiControlServer } from './lib';
+export { AskuiUiController } from './lib';
 export { AskuiClient } from './execution';

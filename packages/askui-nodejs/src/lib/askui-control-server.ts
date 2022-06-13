@@ -5,7 +5,7 @@ import { ControlUiServerLinux } from './control-ui-server-linux';
 import { ControlUiServerWin32 } from './control-ui-server-win32';
 import { platform } from './download-binaries';
 
-export class AskuiControlServer {
+export class AskuiUiController {
   private server: ControlUiServerFacade;
 
   constructor(private args?: ControlUiServerArgs) {
@@ -24,7 +24,7 @@ export class AskuiControlServer {
     }
   }
 
-  async start(timeoutInSeconds?:number) {
+  async start(timeoutInSeconds?: number) {
     await this.server.start(this.args, timeoutInSeconds);
   }
 
