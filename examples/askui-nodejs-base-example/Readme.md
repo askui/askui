@@ -22,7 +22,7 @@ parallel:
       alias: <alias_name>
 ```
 
-2 - Write your tests with jasmine. Please note, that you have to use alias_name that you defined in step 1 for the controlServerUrl : `http://<alias_name>:6769`
+2 - Write your tests with jasmine. Please note, that you have to use alias_name that you defined in step 1 for the askuiUiControllerUrl : `http://<alias_name>:6769`
 
 3- write a test stage in the CI pipeline.
 

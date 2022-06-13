@@ -5,7 +5,7 @@ import ClipboardButton from '@site/src/components/ClipboardButton';
 
 # Local Docker
 
-We maintain Docker Images for running askui tests locally and in CI pipelines. The images contain the askui server and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library can connect to the server inside the Docker container to execute the test steps inside it.
+We maintain Docker Images for running askui tests locally and in CI pipelines. The images contain the askui UI Controller and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library can connect to the controller inside the Docker container to execute the test steps inside it.
 
 ## Authentication & Authorization
 
@@ -71,7 +71,7 @@ First, install [Testcontainers](https://github.com/testcontainers/testcontainers
 npm i -D testcontainers
 ```
 
-Then, to run your tests inside a container, include a `beforeAll` setup function like in the following example. It is going to pull and start the container with the askui server and browser mapping the ports exposed by the container to free ports on your machine (randomly chose out of the free ports available at runtime to prevent collision) which you and the askui library can use to connect to the container.
+Then, to run your tests inside a container, include a `beforeAll` setup function like in the following example. It is going to pull and start the container with the askui UI Controller and browser mapping the ports exposed by the container to free ports on your machine (randomly chose out of the free ports available at runtime to prevent collision) which you and the askui library can use to connect to the container.
 
 ```typescript
 import { AskuiClient } from 'askui';
@@ -98,7 +98,7 @@ describe('jasmine demo with askui', () => {
 
     console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
     aui = new AskuiClient({
-      controlServerUrl: `http://${container.getHost()}:${container.getMappedPort(6769)}`,
+      askuiUiControllerUrl: `http://${container.getHost()}:${container.getMappedPort(6769)}`,
     });
     await aui.connect();;
   });
@@ -109,7 +109,7 @@ describe('jasmine demo with askui', () => {
 
   afterAll(async function clean() {
     /**
-    * Closes the connection to the askui controlui-server
+    * Closes the connection to the askui UI Controller
     */
     aui.close();
 

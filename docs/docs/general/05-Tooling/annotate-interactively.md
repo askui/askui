@@ -8,7 +8,7 @@ Similar to [annotate image](annotate-image.md), the askui client offers an inter
 
 ## How It Works
 
-The interactive annotation command requests the askui server to take a screenshot of the specified screen. Then, an AI model is used to annotate the image. After that, a full-screen window appears. Inside this window, boundary boxes enclosing the UI elements detected are going to appear. You can hover over the boxes to see the boxes' specifications, e.g., text detected, element type etc.
+The interactive annotation command requests the askui UI Controller to take a screenshot of the specified screen. Then, an AI model is used to annotate the image. After that, a full-screen window appears. Inside this window, boundary boxes enclosing the UI elements detected are going to appear. You can hover over the boxes to see the boxes' specifications, e.g., text detected, element type etc.
 
 ![Interactive Annotation](./interactive-annotate.gif)
 
