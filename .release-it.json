@@ -6,14 +6,14 @@
     },
     "git": {
         "addUntrackedFiles": true,
-        "commitMessage": "chore: release ${version} [skip-ci]",
+        "commitMessage": "chore: release ${version}",
         "requireCommits": true,
         "requireBranch": ["main", "*.*.x"],
         "requireCleanWorkingDir ": false
     },
     "github": {
         "release": true,
-        "releaseName": "${version}"
+        "releaseName": "v${version}"
     },
     "npm": {
         "publishPath": "./packages/askui-nodejs",

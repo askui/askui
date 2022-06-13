@@ -7,7 +7,7 @@
         "lint:staged": "lint-staged"
     },
     "dependencies": {
-        "askui": "0.1.0"
+        "askui": "0.1.2"
     },
     "devDependencies": {
         "@types/node": "17.0.10",

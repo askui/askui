@@ -1,5 +1,7 @@
 # Changelog
 
-### 0.1.2-next.0 (2022-06-03)
+### 0.1.6 (2022-06-05)
 
-### 0.1.1-next.0 (2022-06-03)
+First Official Release
+
+We migrated from Gitlab to Github and made our package public on [npmjs](https://www.npmjs.com/) starting our open-source journey with you.

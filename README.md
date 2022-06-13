@@ -1,9 +1,12 @@
-# askui
-
-
-![askui logo](./docs/static/img/askui_logo-horizontal_negative_rgb.svg)
+![askui logo](./docs/static/img/askui_logo-horizontal_negative_rgb_thin.svg#gh-dark-mode-only)
+![askui logo](./docs/static/img/askui_logo-horizontal_positive_rgb_thin.svg#gh-light-mode-only)
 
 *Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on*
+
+<br/>
+
+<center> <h1> Humanizing UI Automation </h1> </center>
+
 
 ## Disclaimer
 
@@ -33,7 +36,7 @@ The [one version rule](https://opensource.google/documentation/reference/thirdpa
 
 ### Githooks
 
-This monorepo uses [githooks](https://git-scm.com/docs/githooks) wrapped by [husky](https://github.com/typicode/husky) to lint and test the code, to help you stick to the commit message standard by opening up a cli for constructing the commit message on each commit, prepending the commit message with the issue number or linting the commit message etc. In some cases, e.g., when using a Git client such as [Git Tower](https://www.git-tower.com/) or [GitKraken](https://www.gitkraken.com/), cherry-picking, rebasing or in a ci pipeline, you may want to disable githooks, especially the interactive cli.
+This monorepo uses [githooks](https://git-scm.com/docs/githooks) with [husky](https://github.com/typicode/husky) to lint and test the code, to help you stick to the commit message standard by opening up a cli for constructing the commit message on each commit, prepending the commit message with the issue number or linting the commit message etc. In some cases, e.g., when using a Git client such as [Git Tower](https://www.git-tower.com/) or [GitKraken](https://www.gitkraken.com/), cherry-picking, rebasing or in a ci pipeline, you may want to disable githooks, especially the interactive cli.
 
 For skipping the interactive cli when commiting, set the environment variable `SKIP_CZ_CLI` to `true`.
 ```sh
@@ -46,22 +49,3 @@ $ export HUSKY=0
 ```
 
 In a ci pipeline, the githooks are skipped by default.
-
-### Releasing
-
-Releases should be created using the pipeline, e.g., from the web ui, and setting the ci variable `RELEASE_TYPE`. The variable can take one among 5 values depending on which kind of release you are going for:
-
-- `no_release` (default): run pipeline other purposes than releasing 
-- `release`:
-  - run from trunk, e.g., `main` branch
-  - runs [release-it](https://github.com/release-it/release-it) for version bumping confirming to SemVer (`x.y.z`), writing CHANGELOG, publishing npm package, creating actual (Gitlab) release etc. (have a look at the documentation and our [.release-it.json](./.release-it.json))
-  - triggers versioning of current and release of new documentation
-  - pass flags to `release-it` using the ci variable `RELEASE_FLAGS`
-- `release:prerelease`:
-  - like `release` but run with flag `--preRelease next` which bumps version to next prerelease version (`x.y.z-next.w`)
-  - releases documentation without versioning (`Next` updated)
-- `release:docs`
-  - run from trunk, e.g., `main` branch
-  - (only) rebuilds documentation and releases it (`Next` updated), e.g., to fix a typo
-- `release:feature`:
-  - (only) builds & publishes a new package meant for testing with a unique name (suffix) and version including branch name and git commit sha

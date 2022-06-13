@@ -14,9 +14,9 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/askui_icon_positive_rgb-150x150.png',
-  organizationName: 'askui GmbH',
+  organizationName: 'askui',
   plugins: ['docusaurus-plugin-sass'],
-  projectName: 'Documentation', // Usually your repo name.
+  projectName: 'askui', // Usually your repo name.
 
   presets: [
     [
