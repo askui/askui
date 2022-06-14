@@ -12,7 +12,7 @@ custom_edit_url: null
   - [Table of Contents](#table-of-contents)
     - [Properties](#properties)
   - [Properties](#properties-1)
-    - [askuiUiControllerServerUrl](#askuiUiControllerServerUrl)
+    - [uiControlServerUrl](#uiControlServerUrl)
     - [inferenceServerUrl](#inferenceServerUrl)
     - [annotationLevel](#annotationLevel)
     - [credentials](#credentials)
@@ -20,9 +20,9 @@ custom_edit_url: null
 
 ## Properties
 
-### askuiUiControllerServerUrl
+### uiControlServerUrl
 
-• **askuiUiControllerServerUrl**: `string` - Default: `http://localhost:6769`
+• **uiControlServerUrl**: `string` - Default: `http://localhost:6769`
 
 This provides the port where the askui UI Controller runs. The Client is also connecting
 to this address.
@@ -33,14 +33,14 @@ ___
 
 • **inferenceServerUrl**: `string` - Default: `https://inference.askui.com`
 
-The address of the askui Inferrence server.
+The address of the askui Inference server.
 ___
 
 ### annotationLevel
 
 • **annotationLevel**: `AnnotationLevel` - Default: `AnnotationLevel.DISABLED`
 
-AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE` , `ALL`
+AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
 
 `ALL`:  We run the [annotate](../../general/05-Tooling/annotate-image.md) command after the execution of each test step.
 
@@ -56,7 +56,7 @@ ___
 
 • **credentials**: `string` - Default: `envCredentials`
 
-We need to provide this credentials for the http client. As Default we use the credentials from the user environment.
+We need to provide this credentials for the http client. Per Default we use the credentials from the user environment.
 ___
 
 ## Example
