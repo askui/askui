@@ -49,8 +49,14 @@ The application which you want to test should be open and selected on your chose
 The default value of display is `0` which is your main monitor. If you want to use your
 second monitor you can change the value to `1` (`2` for your third monitor etc.).
 
-If you start the askui Ui Controller you will see a small GUI where you can also select the monitor and identify the order
-of your monitors.
+There is also a possibility to detect the value of your monitors.
+After the start of the askui UI Controller you should see an askui icon. After clicking on this icon you can choose the option `Show`.
+You will see the same window as the following image.
+
+![Select Monitor Option](./select-monitor.png)
+
+ Now you can identify the order of your monitors and you can also select the monitor in this configuration.
+
 ___
 
 ### host
@@ -64,7 +70,7 @@ The host the askui UI Controller is running on.
 
 • **logFilePath**: `string` - Default: `stdout`
 
-It is possible to specify a path for your log files. Log files are written to the console per default.
+It is possible to specify a path for your log files. Log files are written to the stdout per default.
 ___
 
 ### logLevel
@@ -115,7 +121,7 @@ describe('jest with askui', () => {
     // download the latest version of the server
     binaryVersion: 'latest',
 
-    // start ask UI Controller as minimized application
+    // start askui UI Controller as minimized application
     minimize: true,
 
     // using error loglevel
