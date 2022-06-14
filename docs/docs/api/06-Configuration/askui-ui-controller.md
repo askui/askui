@@ -70,7 +70,7 @@ The host the askui UI Controller is running on.
 
 • **logFilePath**: `string` - Default: `stdout`
 
-It is possible to specify a path for your log files. Log files are written to the stdout per default.
+It is possible to specify a path for your log files. Logs are written to the stdout per default.
 ___
 
 ### logLevel
