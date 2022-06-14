@@ -1,6 +1,6 @@
 import { LogLevels } from '../shared/log-levels';
 
-export interface ControlUiServerArgs {
+export interface AskuiUiControllerServerArgs {
   readonly display?: number;
   readonly binaryVersion?: string,
   readonly port?: number;
@@ -11,7 +11,7 @@ export interface ControlUiServerArgs {
   readonly logFilePath?: string;
 }
 
-export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
+export interface AskuiUiControllerServerArgsWithDefaults extends AskuiUiControllerServerArgs {
   readonly display: number;
   readonly binaryVersion: string;
   readonly overWriteBinary: boolean;
@@ -22,8 +22,8 @@ export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
 }
 
 export function createArgsWithDefaults(
-  args?: ControlUiServerArgs,
-): ControlUiServerArgsWithDefaults {
+  args?: AskuiUiControllerServerArgs,
+): AskuiUiControllerServerArgsWithDefaults {
   const defaults = {
     binaryVersion: 'latest',
     display: 0,
@@ -36,7 +36,7 @@ export function createArgsWithDefaults(
   return Object.assign(defaults, args);
 }
 
-export function createCliFlagsFromArgs(args: ControlUiServerArgsWithDefaults): string[] {
+export function createCliFlagsFromArgs(args: AskuiUiControllerServerArgsWithDefaults): string[] {
   return [
     `-d ${args.display.toString()}`,
     args?.port ? `-p ${args.port.toString()}` : '',

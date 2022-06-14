@@ -66,7 +66,7 @@ export function downloadServerBinaries(binaryVersion: string): Promise<void> {
       })
       .on('finish', () => {
         logger.info(`askui UI Controller version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
-        logger.debug(`Binary of askui Ui Controller is located at "${binaryOutputPath}".`);
+        logger.debug(`Binary of askui UI Controller is located at "${binaryOutputPath}".`);
         resolve();
       });
     downloadStream.pipe(fileWriterStream);

@@ -1,10 +1,10 @@
 import { exec, execSync } from 'child_process';
 import fs from 'fs-extra';
 import path from 'path';
-import { ControlUiServerFacade } from './askui-ui-controller-server-facade';
+import { AskuiUiControllerServerFacade } from './askui-ui-controller-server-facade';
 import { logger } from './logger';
 
-export class ControlUiServerDarwin extends ControlUiServerFacade {
+export class AskuiUiControllerServerDarwin extends AskuiUiControllerServerFacade {
   protected override makeBinaryExecutable(): void {
     this.makeDiskImageExecutable();
   }

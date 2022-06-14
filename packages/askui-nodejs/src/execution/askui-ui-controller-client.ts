@@ -78,12 +78,12 @@ export class AskuiUiControllerClient {
         });
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
           this.connectionState = ClientConnectionState.ERROR;
-          reject(new AskuiUiControllerClientError(`Connection to the askui UI controller cannot be established,
+          reject(new AskuiUiControllerClientError(`Connection to the askui UI Controller cannot be established,
           Probably it was not started. Make sure you started the server with this 
           Url ${this.askuiUiControllerUrl}. Error message  ${error.message}`));
         });
       } catch (error) {
-        reject(new AskuiUiControllerClientError(`Connection to the askui UI controller cannot be established. Reason: ${error}`));
+        reject(new AskuiUiControllerClientError(`Connection to the askui UI Controller cannot be established. Reason: ${error}`));
       }
     });
   }
@@ -102,12 +102,12 @@ export class AskuiUiControllerClient {
       try {
         this.send(msg, requestTimeout);
         this.timeout = setTimeout(
-          () => this.currentReject(`Request to the askui UI controller timed out.
+          () => this.currentReject(`Request to the askui UI Controller timed out.
           it seems that the server is down, Please make sure the server is up`),
           AskuiUiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
-        this.currentReject(`The communication to the ControlUI Server is broken. Reason: ${error}`);
+        this.currentReject(`The communication to the  askui UI Controller is broken. Reason: ${error}`);
       }
     });
   }

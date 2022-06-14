@@ -5,8 +5,8 @@ import fkill from 'fkill';
 import os from 'os';
 import path from 'path';
 import {
-  ControlUiServerArgs,
-  ControlUiServerArgsWithDefaults,
+  AskuiUiControllerServerArgs,
+  AskuiUiControllerServerArgsWithDefaults,
   createArgsWithDefaults,
   createCliFlagsFromArgs,
 } from './askui-ui-controller-server-args';
@@ -15,14 +15,14 @@ import { logger } from './logger';
 import { TimeoutError } from './timeout-error';
 import { UnkownError } from './unkown-error';
 
-export abstract class ControlUiServerFacade {
+export abstract class AskuiUiControllerServerFacade {
   protected binaryPath = getBinaryPath('latest');
 
   protected serverLogFile!: string;
 
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
-  async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
+  async start(args?: AskuiUiControllerServerArgs, maxWaitingForStartingInSeconds?: number) {
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
@@ -32,7 +32,7 @@ export abstract class ControlUiServerFacade {
     await this.startWithDefaults(argsWithLogPath, maxWaitingForStartingInSeconds);
   }
 
-  async stop(args?: ControlUiServerArgs, forceStop?: boolean): Promise<void> {
+  async stop(args?: AskuiUiControllerServerArgs, forceStop?: boolean): Promise<void> {
     try {
       const argsWithDefaults = createArgsWithDefaults(args);
       await this.killPort(argsWithDefaults.port, forceStop);
@@ -42,8 +42,8 @@ export abstract class ControlUiServerFacade {
   }
 
   protected serverLogFilePath(
-    args?: ControlUiServerArgsWithDefaults,
-  ): ControlUiServerArgsWithDefaults {
+    args?: AskuiUiControllerServerArgsWithDefaults,
+  ): AskuiUiControllerServerArgsWithDefaults {
     if (args?.logFilePath) {
       this.serverLogFile = args.logFilePath;
       return args;
@@ -76,7 +76,7 @@ export abstract class ControlUiServerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected waitUntilStarted(
-    args: ControlUiServerArgsWithDefaults,
+    args: AskuiUiControllerServerArgsWithDefaults,
     maxWaitingForStartingInSeconds?: number,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -117,7 +117,7 @@ export abstract class ControlUiServerFacade {
   }
 
   private async startWithDefaults(
-    args: ControlUiServerArgsWithDefaults,
+    args: AskuiUiControllerServerArgsWithDefaults,
     maxWaitingForStartingInSeconds?: number,
   ) {
     try {
