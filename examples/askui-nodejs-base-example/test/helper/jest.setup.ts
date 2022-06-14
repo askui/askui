@@ -1,7 +1,7 @@
-import { AskuiClient, AskuiUiController } from 'askui';
+import { AskuiClient, AskuiUiControllerServer } from 'askui';
 
 // Server for controlling the operating system
-let askuiUiController: AskuiUiController;
+let askuiUiControllerServer: AskuiUiControllerServer;
 
 const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
 
@@ -13,12 +13,12 @@ jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
   if (!(process.env.CI_JOB_ID)) {
-    askuiUiController = new AskuiUiController();
-    await askuiUiController.start();
+    askuiUiControllerServer = new AskuiUiControllerServer();
+    await askuiUiControllerServer.start();
   }
 
   aui = new AskuiClient({
-    askuiUiControllerUrl: `http://${controluiServerUrl}:6769`,
+    askuiUiControllerServerUrl: `http://${controluiServerUrl}:6769`,
   });
 
   await aui.connect();
@@ -26,7 +26,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (!(process.env.CI_JOB_ID)) {
-    await askuiUiController.stop();
+    await askuiUiControllerServer.stop();
   }
 
   aui.close();

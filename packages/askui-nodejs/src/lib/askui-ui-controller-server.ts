@@ -5,7 +5,7 @@ import { AskuiUiControllerServerLinux } from './askui-ui-controller-server-linux
 import { AskuiUiControllerServerWin32 } from './askui-ui-controller-server-win32';
 import { platform } from './download-binaries';
 
-export class AskuiUiController {
+export class AskuiUiControllerServer {
   private server: AskuiUiControllerServerFacade;
 
   constructor(private args?: AskuiUiControllerServerArgs) {

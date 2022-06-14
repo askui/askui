@@ -44,7 +44,7 @@ export class AskuiUiControllerClient {
     value: any,
   ) => void = AskuiUiControllerClient.EMPTY_RESOLVE;
 
-  constructor(public askuiUiControllerUrl: string) { }
+  constructor(public askuiUiControllerServerUrl: string) { }
 
   private clearResponse() {
     this.currentReject = AskuiUiControllerClient.EMPTY_REJECT;
@@ -70,7 +70,7 @@ export class AskuiUiControllerClient {
     this.connectionState = ClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(this.askuiUiControllerUrl);
+        this.ws = new WebSocket(this.askuiUiControllerServerUrl);
         this.ws.on('message', (data) => { this.onMessage(data); });
         this.ws.on('open', () => {
           this.connectionState = ClientConnectionState.CONNECTED;
@@ -80,7 +80,7 @@ export class AskuiUiControllerClient {
           this.connectionState = ClientConnectionState.ERROR;
           reject(new AskuiUiControllerClientError(`Connection to the askui UI Controller cannot be established,
           Probably it was not started. Make sure you started the server with this 
-          Url ${this.askuiUiControllerUrl}. Error message  ${error.message}`));
+          Url ${this.askuiUiControllerServerUrl}. Error message  ${error.message}`));
         });
       } catch (error) {
         reject(new AskuiUiControllerClientError(`Connection to the askui UI Controller cannot be established. Reason: ${error}`));

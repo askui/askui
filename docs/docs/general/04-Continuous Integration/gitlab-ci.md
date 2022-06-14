@@ -42,8 +42,8 @@ On push to the repository on Gitlab, a Gitlab-hosted Linux instance will start a
 The main difference between [the first test suite using askui example](../02-Getting%20Started/writing-your-first-test.md) and tests inside Gitlab-CI is the askui UI Controller URL. Using Gitlab services, the askui UI Controller URL is `http://<alias_name>:6769` instead of `http://localhost:6769`. To have a test that can work locally and inside the Gitlab CI we suggest that you create the client like in the following example.
 
 ```typescript
-const askuiUiController = process.env.CI_JOB_ID ? '<alias_name>' : 'localhost';
+const askuiUiControllerServerName = process.env.CI_JOB_ID ? '<alias_name>' : 'localhost';
 aui = new AskuiClient({
-  askuiUiControllerUrl: `http://${askuiUiController}:6769`,
+  askuiUiControllerServerUrl: `http://${askuiUiControllerServerName}:6769`,
 });
 ```

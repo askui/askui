@@ -4,7 +4,7 @@ custom_edit_url: null
 
 # askui UI Controller Docker Images
 
-We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *AskuiControlServer*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
+We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *AskuiUiControllerServer*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
@@ -48,7 +48,7 @@ npm i -D testcontainers
 After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
 
 ```typescript
-import { AskuiClient, AskuiControlServer } from 'askui';
+import { AskuiClient, AskuiUiControllerServer } from 'askui';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 function getDockerImageName(): string {
@@ -74,9 +74,9 @@ function startTestContainer(): StartedTestContainer {
 let testContainer: StartedTestContainer
 
 // Server for controlling the operating system
-let askuiServer: AskuiControlServer;
+let askuiUiControllerServer: AskuiUiControllerServer;
 
-const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+const askuiUiControllerServerName = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
@@ -88,12 +88,12 @@ beforeAll(async () => {
  testContainer = startTestContainer();
 
   if (!(process.env.CI_JOB_ID)) {
-    askuiServer = new AskuiControlServer();
-    await askuiServer.start();
+    askuiUiControllerServer = new AskuiUiControllerServer();
+    await askuiUiControllerServer.start();
   }
 
   aui = new AskuiClient({
-    controlServerUrl: `http://${controluiServerUrl}:6769`,
+    controlServerUrl: `http://${askuiUiControllerServerName}:6769`,
   });
 
   await aui.connect();
@@ -101,7 +101,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (!(process.env.CI_JOB_ID)) {
-    await askuiServer.stop();
+    await askuiUiControllerServer.stop();
   }
 
   aui.close();
@@ -114,7 +114,7 @@ export { aui };
 
 ## Connect via VNC
 
-To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the interal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console. 
+To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the interal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console.
 
 When connecting, enter the password `askui` when asked.
 
