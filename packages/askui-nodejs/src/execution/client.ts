@@ -15,7 +15,7 @@ import { AnnotationLevel } from './annotation-level';
 import { AskuiUiControllerClientError } from './client-error';
 import { envCredentials } from './read-environment-credentials';
 
-export class AskuiClient extends FluentCommand {
+export class UiControlClient extends FluentCommand {
   private _askuiUiControllerClient?: AskuiUiControllerClient;
 
   private httpClient: HttpClientGot;
