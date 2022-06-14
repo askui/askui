@@ -87,6 +87,10 @@ in the `test` folder of your project and copy the following content in this file
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  setupFilesAfterEnv: ['./helper/jest.setup.ts'],
+  sandboxInjectedGlobals: [
+    'Math'
+  ]
 };
 
 ```
