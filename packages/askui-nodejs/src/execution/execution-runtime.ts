@@ -1,9 +1,9 @@
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
 import { CustomElement, TestStep } from '../core/model/test-case-dto';
-import { ControlYourUiClient } from './askui-ui-controller-client';
+import { AskuiUiControllerClient } from './askui-ui-controller-client';
 import { RepeatError } from './repeat-error';
 import { delay } from './misc';
-import { ControlYourUiApi } from './askui-inference-api';
+import { InferenceApi } from './askui-inference-api';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
@@ -12,8 +12,8 @@ import { logger } from '../lib/logger';
 
 export class ExecutionRuntime {
   constructor(
-    private client: ControlYourUiClient,
-    private api: ControlYourUiApi,
+    private client: AskuiUiControllerClient,
+    private api: InferenceApi,
   ) { }
 
   async executeTestStep(step: TestStep): Promise<void> {

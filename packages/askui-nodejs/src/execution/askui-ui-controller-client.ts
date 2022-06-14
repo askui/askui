@@ -22,9 +22,9 @@ import { ControlCommand } from '../core/ui-control-commands';
 import { logger } from '../lib/logger';
 import { ClientConnectionState } from './client-connection-state';
 import { ReadRecordingResponseStreamHandler } from './read-recording-response-stream-handler';
-import { ControlUiClientError } from './client-error';
+import { AskuiUiControllerClientError } from './client-error';
 
-export class ControlYourUiClient {
+export class AskuiUiControllerClient {
   private static readonly EMPTY_REJECT = (_reason?: unknown) => { };
 
   private static readonly EMPTY_RESOLVE = (_value: unknown) => { };
@@ -37,18 +37,18 @@ export class ControlYourUiClient {
 
   private timeout?: NodeJS.Timeout;
 
-  private currentReject: (reason?: unknown) => void = ControlYourUiClient.EMPTY_REJECT;
+  private currentReject: (reason?: unknown) => void = AskuiUiControllerClient.EMPTY_REJECT;
 
   private currentResolve: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
-  ) => void = ControlYourUiClient.EMPTY_RESOLVE;
+  ) => void = AskuiUiControllerClient.EMPTY_RESOLVE;
 
   constructor(public askuiUiControllerUrl: string) { }
 
   private clearResponse() {
-    this.currentReject = ControlYourUiClient.EMPTY_REJECT;
-    this.currentResolve = ControlYourUiClient.EMPTY_RESOLVE;
+    this.currentReject = AskuiUiControllerClient.EMPTY_REJECT;
+    this.currentResolve = AskuiUiControllerClient.EMPTY_RESOLVE;
   }
 
   private onMessage(data: WebSocket.Data) {
@@ -78,12 +78,12 @@ export class ControlYourUiClient {
         });
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
           this.connectionState = ClientConnectionState.ERROR;
-          reject(new ControlUiClientError(`Connection to the askui UI controller cannot be established,
+          reject(new AskuiUiControllerClientError(`Connection to the askui UI controller cannot be established,
           Probably it was not started. Make sure you started the server with this 
           Url ${this.askuiUiControllerUrl}. Error message  ${error.message}`));
         });
       } catch (error) {
-        reject(new ControlUiClientError(`Connection to the askui UI controller cannot be established. Reason: ${error}`));
+        reject(new AskuiUiControllerClientError(`Connection to the askui UI controller cannot be established. Reason: ${error}`));
       }
     });
   }
@@ -94,7 +94,7 @@ export class ControlYourUiClient {
 
   private sendAndReceive<T extends RunnerProtocolResponse>(
     msg: RunnerProtocolRequest,
-    requestTimeout = ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+    requestTimeout = AskuiUiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ): Promise<T> {
     return new Promise((resolve, reject) => {
       this.currentResolve = resolve;
@@ -104,7 +104,7 @@ export class ControlYourUiClient {
         this.timeout = setTimeout(
           () => this.currentReject(`Request to the askui UI controller timed out.
           it seems that the server is down, Please make sure the server is up`),
-          ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+          AskuiUiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
         this.currentReject(`The communication to the ControlUI Server is broken. Reason: ${error}`);
@@ -114,7 +114,7 @@ export class ControlYourUiClient {
 
   private send(
     msg: RunnerProtocolRequest,
-    _requestTimeout = ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+    _requestTimeout = AskuiUiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ) {
     if (!this.currentReject || !this.currentResolve) {
       throw Error('Request is not finished! It is not possible to have multiple requests at the same time.');

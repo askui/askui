@@ -1,1 +1,1 @@
-export class ControlUiClientError extends Error {}
+export class AskuiUiControllerClientError extends Error {}

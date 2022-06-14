@@ -7,7 +7,7 @@ import { AnnotationJson } from '../core/annotation/annotation-json';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 
-export class ControlYourUiApi {
+export class InferenceApi {
   constructor(
     public apiEndpointUrl: string,
     public httpClient: HttpClientGot,
