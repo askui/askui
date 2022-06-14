@@ -136,7 +136,7 @@ export abstract class ControlUiServerFacade {
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
       throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}
-      Check this website for more information: https://docs.askui.com/docs/general/troubleshooting/askui-ui-controller-starting-problems`);
+      Check this website for more information: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems`);
     }
   }
 }
