@@ -8,14 +8,19 @@ custom_edit_url: null
 
 ### Properties
 
-- [binaryVersion](#binaryversion)
-- [display](#display)
-- [host](#host)
-- [logFilePath](#logfilepath)
-- [logLevel](#loglevel)
-- [minimize](#minimize)
-- [overWriteBinary](#overwritebinary)
-- [port](#port)
+ [askui UI Controller](#askui-ui-controller)
+  - [Table of Contents](#table-of-contents)
+    - [Properties](#properties)
+  - [Properties](#properties-1)
+    - [binaryVersion](#binaryversion)
+    - [display](#display)
+    - [host](#host)
+    - [logFilePath](#logfilepath)
+    - [logLevel](#loglevel)
+    - [minimize](#minimize)
+    - [overWriteBinary](#overwritebinary)
+    - [port](#port)
+  - [Example](#example)
 
 ## Properties
 
