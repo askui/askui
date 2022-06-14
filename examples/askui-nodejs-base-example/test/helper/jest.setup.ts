@@ -18,7 +18,7 @@ beforeAll(async () => {
   }
 
   aui = new AskuiClient({
-    askuiUiControllerServerUrl: `http://${controluiServerUrl}:6769`,
+    uiControlServerUrl: `http://${controluiServerUrl}:6769`,
   });
 
   await aui.connect();

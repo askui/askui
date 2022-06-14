@@ -32,7 +32,7 @@ export class AskuiClient extends FluentCommand {
   private get askuiUiControllerClient(): AskuiUiControllerClient {
     if (!this._askuiUiControllerClient) {
       this._askuiUiControllerClient = new AskuiUiControllerClient(
-        this.clientArgsWithDefaults.askuiUiControllerServerUrl,
+        this.clientArgsWithDefaults.uiControlServerUrl,
       );
     }
     return this._askuiUiControllerClient;
@@ -40,7 +40,7 @@ export class AskuiClient extends FluentCommand {
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
     const defaults = {
-      askuiUiControllerServerUrl: 'http://localhost:6769',
+      uiControlServerUrl: 'http://localhost:6769',
       inferenceApiApiUrl: 'https://inference.askui.com',
       annotationLevel: AnnotationLevel.DISABLED,
     };

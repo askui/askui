@@ -44,6 +44,6 @@ The main difference between [the first test suite using askui example](../02-Get
 ```typescript
 const askuiUiControllerServerName = process.env.CI_JOB_ID ? '<alias_name>' : 'localhost';
 aui = new AskuiClient({
-  askuiUiControllerServerUrl: `http://${askuiUiControllerServerName}:6769`,
+  uiControlServerUrl: `http://${askuiUiControllerServerName}:6769`,
 });
 ```
