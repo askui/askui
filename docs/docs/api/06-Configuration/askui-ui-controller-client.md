@@ -24,11 +24,10 @@ custom_edit_url: null
 
 • **askuiUiControllerServerUrl**: `string` - Default: `http://localhost:6769`
 
-This provides the address where the askui UI Controller runs. The Client is also connecting
+This provides the port where the askui UI Controller runs. The Client is also connecting
 to this address.
 
 ___
-
 
 ### inferenceServerUrl
 
@@ -36,7 +35,6 @@ ___
 
 The address of the askui Inferrence server.
 ___
-
 
 ### annotationLevel
 
@@ -54,15 +52,12 @@ AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `
 
 ___
 
-
-
 ### credentials
 
 • **credentials**: `string` - Default: `envCredentials`
 
-We need to provide this credenetials for the http client. AS Default we use the credentials from the user environment.
+We need to provide this credentials for the http client. As Default we use the credentials from the user environment.
 ___
-
 
 ## Example
 
