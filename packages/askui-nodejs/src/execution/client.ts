@@ -4,7 +4,7 @@ import { HttpClientGot } from '../utils/http/http-client-got';
 import { ClientConnectionState } from './client-connection-state';
 import { AskuiUiControllerClient } from './askui-ui-controller-client';
 import { ExecutionRuntime } from './execution-runtime';
-import { InferenceApi } from './askui-inference-api';
+import { InferenceClient } from './askui-inference-api';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
@@ -41,14 +41,14 @@ export class AskuiClient extends FluentCommand {
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
     const defaults = {
       uiControlServerUrl: 'http://localhost:6769',
-      inferenceApiApiUrl: 'https://inference.askui.com',
+      inferenceServerUrl: 'https://inference.askui.com',
       annotationLevel: AnnotationLevel.DISABLED,
     };
     return Object.assign(defaults, this.clientArgs);
   }
 
-  private get api(): InferenceApi {
-    return new InferenceApi(this.clientArgsWithDefaults.inferenceApiApiUrl, this.httpClient);
+  private get api(): InferenceClient {
+    return new InferenceClient(this.clientArgsWithDefaults.inferenceServerUrl, this.httpClient);
   }
 
   private get executionRuntime(): ExecutionRuntime {

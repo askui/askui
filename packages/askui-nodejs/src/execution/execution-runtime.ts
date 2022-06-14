@@ -3,7 +3,7 @@ import { CustomElement, TestStep } from '../core/model/test-case-dto';
 import { AskuiUiControllerClient } from './askui-ui-controller-client';
 import { RepeatError } from './repeat-error';
 import { delay } from './misc';
-import { InferenceApi } from './askui-inference-api';
+import { InferenceClient } from './askui-inference-api';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
@@ -13,7 +13,7 @@ import { logger } from '../lib/logger';
 export class ExecutionRuntime {
   constructor(
     private client: AskuiUiControllerClient,
-    private api: InferenceApi,
+    private api: InferenceClient,
   ) { }
 
   async executeTestStep(step: TestStep): Promise<void> {
