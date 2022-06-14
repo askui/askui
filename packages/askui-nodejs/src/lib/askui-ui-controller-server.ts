@@ -1,8 +1,8 @@
-import { ControlUiServerFacade } from './control-ui-server-facade';
-import { ControlUiServerArgs } from './control-ui-server-args';
-import { ControlUiServerDarwin } from './control-ui-server-darwin';
-import { ControlUiServerLinux } from './control-ui-server-linux';
-import { ControlUiServerWin32 } from './control-ui-server-win32';
+import { ControlUiServerFacade } from './askui-ui-controller-server-facade';
+import { ControlUiServerArgs } from './askui-ui-controller-server-args';
+import { ControlUiServerDarwin } from './askui-ui-controller-server-darwin';
+import { ControlUiServerLinux } from './askui-ui-controller-server-linux';
+import { ControlUiServerWin32 } from './askui-ui-controller-server-win32';
 import { platform } from './download-binaries';
 
 export class AskuiUiController {

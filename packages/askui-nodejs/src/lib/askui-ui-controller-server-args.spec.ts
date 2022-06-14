@@ -1,4 +1,4 @@
-import { createArgsWithDefaults, createCliFlagsFromArgs } from './control-ui-server-args';
+import { createArgsWithDefaults, createCliFlagsFromArgs } from './askui-ui-controller-server-args';
 
 describe('createCliFlagsFromArgs()', () => {
   test('test createCliFlagsFromArgs should return -d 0 as default output', () => {

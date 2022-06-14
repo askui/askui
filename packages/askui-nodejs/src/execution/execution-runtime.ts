@@ -1,9 +1,9 @@
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
 import { CustomElement, TestStep } from '../core/model/test-case-dto';
-import { ControlYourUiClient } from './control-your-ui-client';
+import { ControlYourUiClient } from './askui-ui-controller-client';
 import { RepeatError } from './repeat-error';
 import { delay } from './misc';
-import { ControlYourUiApi } from './control-your-ui-api';
+import { ControlYourUiApi } from './askui-inference-api';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
