@@ -37,20 +37,20 @@ At the beginning we create a new folder with the name `test`. For the next step 
 Copy the following over into that file:
 
 ```typescript
-import { AskuiClient, AskuiUiControllerServer } from 'askui';
+import { UiControlClient, UiControlServer } from 'askui';
 
 describe('jest with askui', () => {
   
   // Server for controlling the operating system
-  let askuiUiControllerServer: AskuiUiControllerServer;
+  let askuiUiControllerServer: UiControlServer;
   
   // Client is necessary to use the askui API
-  let askuiClient: AskuiClient;
+  let askuiClient: UiControlClient;
   
   jest.setTimeout(60 * 1000 * 60);
   
   beforeAll(async () => {
-    askuiUiControllerServer = new AskuiUiControllerServer({
+    askuiUiControllerServer = new UiControlServer({
       /**
        * Select the display you want to run your tests on, display 0 is your main display;
        * ignore if you have only one display
@@ -60,7 +60,7 @@ describe('jest with askui', () => {
     
     await askuiUiControllerServer.start();
 
-    askuiClient  = new AskuiClient();
+    askuiClient  = new UiControlClient();
     
     await askuiClient.connect();
   });

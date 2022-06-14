@@ -4,7 +4,7 @@ custom_edit_url: null
 
 # askui UI Controller Docker Images
 
-We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *AskuiUiControllerServer*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
+We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiControlServer*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
@@ -48,7 +48,7 @@ npm i -D testcontainers
 After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
 
 ```typescript
-import { AskuiClient, AskuiUiControllerServer } from 'askui';
+import { UiControlClient, UiControlServer } from 'askui';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
 
 function getDockerImageName(): string {
@@ -74,13 +74,13 @@ function startTestContainer(): StartedTestContainer {
 let testContainer: StartedTestContainer
 
 // Server for controlling the operating system
-let askuiUiControllerServer: AskuiUiControllerServer;
+let askuiUiControllerServer: UiControlServer;
 
 const askuiUiControllerServerName = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
-let aui: AskuiClient;
+let aui: UiControlClient;
 
 jest.setTimeout(60 * 1000 * 60);
 
@@ -88,11 +88,11 @@ beforeAll(async () => {
  testContainer = startTestContainer();
 
   if (!(process.env.CI_JOB_ID)) {
-    askuiUiControllerServer = new AskuiUiControllerServer();
+    askuiUiControllerServer = new UiControlServer();
     await askuiUiControllerServer.start();
   }
 
-  aui = new AskuiClient({
+  aui = new UiControlClient({
     controlServerUrl: `http://${askuiUiControllerServerName}:6769`,
   });
 
