@@ -19,14 +19,17 @@ export class ControlUiServerLinux extends ControlUiServerFacade {
     if (waylandStatus.stdout.trim().includes('wayland')) {
       throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#wayland');
     }
-    const checkLinuxdistrib = await runCommand('uname -v');
 
-    if (checkLinuxdistrib.stdout.trim().includes('Ubuntu')) {
-      try {
-        await runCommand('dpkg -s libfuse2 | grep Status');
-      } catch {
-        throw new LibfuseError('Libfuse2 package is missing: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#libfuse2');
-      }
+    try {
+      await runCommand('dpkg --version');
+    } catch (err) {
+      return;
+    }
+
+    try {
+      await runCommand('dpkg -s libfuse2 | grep Status');
+    } catch {
+      throw new LibfuseError('Libfuse2 package is missing: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#libfuse2');
     }
   }
 }
