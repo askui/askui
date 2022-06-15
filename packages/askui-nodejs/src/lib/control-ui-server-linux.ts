@@ -17,11 +17,9 @@ export class ControlUiServerLinux extends ControlUiServerFacade {
       const runCommand = promisify(require('child_process').exec)
       /* eslint-enable */
 
-    const waylandStatus = await runCommand('loginctl show-session 2 -p Type ');
+    const waylandStatus = await runCommand('echo $WAYLAND_DISPLAY');
 
-    const wayState = waylandStatus.stdout.trim();
-
-    if (wayState.includes('wayland')) {
+    if (waylandStatus.includes('wayland')) {
       throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#wayland');
     }
 
