@@ -6,32 +6,26 @@ custom_edit_url: null
 
 ## Table of Contents
 
-### Properties
-
- [askui Client](#askui-client)
-  - [Table of Contents](#table-of-contents)
-    - [Properties](#properties)
-  - [Properties](#properties-1)
-    - [uiControlServerUrl](#uiControlServerUrl)
-    - [inferenceServerUrl](#inferenceServerUrl)
+  - [Properties](#properties)
+    - [uiControllerUrl](#uiControllerUrl)
+    - [inferenceClientUrl](#inferenceClientUrl)
     - [annotationLevel](#annotationLevel)
     - [credentials](#credentials)
   - [Example](#example)  
-
 ## Properties
 
-### uiControlServerUrl
+### uiControllerUrl
 
-• **uiControlServerUrl**: `string` - Default: `http://localhost:6769`
+• **uiControllerUrl**: `string` - Default: `http://localhost:6769`
 
 This provides the url where the askui UI Controller runs. The Client is also connecting
 to this address.
 
 ___
 
-### inferenceServerUrl
+### inferenceClientUrl
 
-• **inferenceServerUrl**: `string` - Default: `https://inference.askui.com`
+• **inferenceClientUrl**: `string` - Default: `https://inference.askui.com`
 
 The address of the askui Inference server.
 ___
@@ -56,8 +50,7 @@ ___
 
 • **credentials**: `string` - Default: `environment-tenant`, `environment-token`, `environment-email`
 
-We need to provide this credentials for the authentication of askui Inferrence Server. If you want to set your own credentials you need to provide
-an Credentials object with following arguments `tenant`, `token`, `email`. Per default we read the environment variables.
+We need to provide credentials for the authentication of the askui Inferrence Server. If you want to set your own credentials you need to provide the following arguments `tenant`, `token`, `email`. Per default we read the environment variables.
 ___
 
 ## Example
@@ -68,5 +61,10 @@ ___
     askuiUiControllerServerUrl: 'http://localhost:6769',
     inferenceServerUrl: 'https://inference.askui.com',
     annotationLevel: AnnotationLevel.DISABLED,
+    credentials: {
+      tenant: 'user',
+      email: 'user@mail.com',
+      token: 'userToken',
+    }
   });
 ```

@@ -6,12 +6,7 @@ custom_edit_url: null
 
 ## Table of Contents
 
-### Properties
-
- [askui UI Controller](#askui-ui-controller)
-  - [Table of Contents](#table-of-contents)
-    - [Properties](#properties)
-  - [Properties](#properties-1)
+  - [Properties](#properties)
     - [binaryVersion](#binaryversion)
     - [display](#display)
     - [host](#host)
@@ -21,7 +16,6 @@ custom_edit_url: null
     - [overWriteBinary](#overwritebinary)
     - [port](#port)
   - [Example](#example)
-
 ## Properties
 
 ### binaryVersion
