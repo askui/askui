@@ -1,7 +1,6 @@
 ---
 custom_edit_url: null
 ---
-
 # askui Client
 
 ## Table of Contents
@@ -54,7 +53,6 @@ We need to provide credentials for the authentication of the askui Inferrence Se
 ___
 
 ## Example
-
 
 ```typescript
  let aui = new AskuiClient({
