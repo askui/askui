@@ -23,7 +23,7 @@ export abstract class ControlUiServerFacade {
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
   async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
-    this.preStartChecks();
+    await this.preStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
@@ -76,8 +76,15 @@ export abstract class ControlUiServerFacade {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected preStartChecks() {
-    /* Executable out of the box */
+  protected preStartChecks(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve();
+        return;
+      } catch (err) {
+        reject(new UnkownError(`An unknown error occured while waiting for the askui server: ${err}`));
+      }
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
