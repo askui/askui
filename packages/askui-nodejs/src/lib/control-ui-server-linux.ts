@@ -13,16 +13,12 @@ export class ControlUiServerLinux extends ControlUiServerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected override async preStartChecks(): Promise<void> {
-    /* eslint-disable */
-      const runCommand = promisify(require('child_process').exec)
-      /* eslint-enable */
-
+    const runCommand = promisify(exec);
     const waylandStatus = await runCommand('echo $WAYLAND_DISPLAY');
 
-    if (waylandStatus.includes('wayland')) {
+    if (waylandStatus.stdout.trim().includes('wayland')) {
       throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#wayland');
     }
-
     const checkLinuxdistrib = await runCommand('uname -v');
 
     if (checkLinuxdistrib.stdout.trim().includes('Ubuntu')) {
