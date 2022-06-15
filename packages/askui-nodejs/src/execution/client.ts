@@ -14,18 +14,23 @@ import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { ControlUiClientError } from './client-error';
 import { envCredentials } from './read-environment-credentials';
+import { AnalyticsFormater } from '../utils/analytics';
 
 export class AskuiClient extends FluentCommand {
   private _controlYourUiClient?: ControlYourUiClient;
 
-  private httpClient: HttpClientGot;
+  private libEnvironment?: string;
 
   constructor(
     private clientArgs?: ClientArgs,
   ) {
     super();
-    this.httpClient = new HttpClientGot(
+  }
+
+  private get httpClient(): HttpClientGot {
+    return new HttpClientGot(
       this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
+      this.libEnvironment,
     );
   }
 
@@ -74,6 +79,7 @@ export class AskuiClient extends FluentCommand {
   }
 
   async connect(): Promise<ClientConnectionState> {
+    this.libEnvironment = await new AnalyticsFormater().getLibEnvironment();
     const connectionState: ClientConnectionState = await this.controlYourUiClient.connect();
     return connectionState;
   }

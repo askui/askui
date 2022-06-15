@@ -1,22 +1,32 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
 import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
+import { RequestHeaders } from './headers-interface';
 
 export class HttpClientGot {
   private credentials: Credentials | undefined;
 
-  constructor(private credentialArgs?: CredentialArgs) {
+  constructor(
+    private readonly credentialArgs?: CredentialArgs,
+    private readonly libEnvironment?: string,
+  ) {
     this.credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
   }
 
   private get headers() {
-    return {
-      Authorization: `Basic ${this.credentials?.base64Encoded}`,
-    };
+    const headers: RequestHeaders = {};
+    headers.AskuiLibEnvironment = '';
+    if (this.credentialArgs) {
+      headers.Authorization = `Basic ${this.credentials?.base64Encoded}`;
+    }
+    if (this.libEnvironment) {
+      headers.AskuiLibEnvironment = this.libEnvironment;
+    }
+    return { ...headers };
   }
 
   private injectAuthHeader(options: OptionsOfJSONResponseBody) {
-    return this.credentials ? { ...options, headers: this.headers } : options;
+    return { ...options, headers: this.headers };
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
