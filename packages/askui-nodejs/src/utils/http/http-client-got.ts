@@ -1,7 +1,7 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
 import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
-import { RequestHeaders } from './headers-interface';
+import { RequestHeaders } from './request-headers';
 
 export class HttpClientGot {
   private credentials: Credentials | undefined;
