@@ -73,16 +73,26 @@ The host the askui UI Controller is running on.
 
 ### logFilePath
 
-• **logFilePath**: `string` - Default: `stdout`
+• **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log` 
 
-It is possible to specify a path for your log files. Logs are written to the stdout per default.
+It is possible to specify a path for your log files. Per default we create the askui-server.log file and askui folder in your temp folder.
 ___
 
 ### logLevel
 
 • **logLevel**: `LogLevels` - Default: `debug`
 
-You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All loglevel are defined in an `LogLevels` enum.
+You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum. You can export all log levels.
+
+On Linux use this command:
+```shell
+export LOG_LEVEL=verbose
+```
+
+For Windows you need this command:
+ ```shell
+$env:LOG_LEVEL="verbose"
+```
 ___
 
 ### minimize

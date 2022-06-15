@@ -1,27 +1,29 @@
 import { LogLevels } from '../shared/log-levels';
 
+/**
+ * @param display You can choose on which display you want to excecute all tests.
+ * 0 is your main monitor.
+ * If you want to use your second monitor you can change
+ * the value to `1` (`2` for your third monitor etc.).
+ * @param binaryVersion Choose the version of the askui UI Controller Server.
+ * @param port The port the askui UI Controller is running on.
+ * @param host The host the askui UI Controller is running on.
+ * @param minimize askui UI Controller will be started as minimized window.
+ * @param overWriteBinary Download the provided Version of askui UI Controller.
+ * If a version is already downloaded. This version will be overwritten
+ * @param logLevel You can use different types of Log Level.
+ * Options: "fatal", "error", "warn", "info", "debug", "trace", "silent", "verbose".
+ * @param logFilePath It is possible to specify a path for your log files.
+ * Per default we create the askui-server.log file and askui folder in your temp folder.
+ */
 export interface ControlUiServerArgs {
-  /* You can choose on which display you want to excecute all tests. 0 is your main monitor.
-  If you want to use your second monitor you can change
-  the value to `1` (`2` for your third monitor etc.). */
   readonly display?: number;
-  // Choose the version of the askui UI Controller Server.
   readonly binaryVersion?: string,
-  // The port the askui UI Controller is running on.
   readonly port?: number;
-  // The host the askui UI Controller is running on.
   readonly host?: string;
-  // Askui UI Controller will be started as minimized window.
   readonly minimize?: boolean;
-  /* Download the provided Version of askui UI Controller.
-  If a version is already downloaded. This version will be overwritten. */
   readonly overWriteBinary?: boolean;
-  /* You can use different types of Log Level. Options:
-  options: "fatal", "error", "warn", "info", "debug", "trace", "silent", "verbose".
-  */
   readonly logLevel?: LogLevels;
-  /* It is possible to specify a path for your log files.
-  Logs are written to the stdout per default. */
   readonly logFilePath?: string;
 }
 

@@ -2,13 +2,13 @@
 custom_edit_url: null
 ---
 
-# askui UI Controller Client
+# askui Client
 
 ## Table of Contents
 
 ### Properties
 
- [askui UI Controller Client](#askui-ui-controller-client)
+ [askui Client](#askui-client)
   - [Table of Contents](#table-of-contents)
     - [Properties](#properties)
   - [Properties](#properties-1)
@@ -24,7 +24,7 @@ custom_edit_url: null
 
 • **uiControlServerUrl**: `string` - Default: `http://localhost:6769`
 
-This provides the port where the askui UI Controller runs. The Client is also connecting
+This provides the url where the askui UI Controller runs. The Client is also connecting
 to this address.
 
 ___
@@ -54,21 +54,19 @@ ___
 
 ### credentials
 
-• **credentials**: `string` - Default: `envCredentials`
+• **credentials**: `string` - Default: `environment-tenant`, `environment-token`, `environment-email`
 
-We need to provide this credentials for the http client. Per Default we use the credentials from the user environment.
+We need to provide this credentials for the authentication of askui Inferrence Server. If you want to set your own credentials you need to provide
+an Credentials object with following arguments `tenant`, `token`, `email`. Per default we read the environment variables.
 ___
 
 ## Example
 
 
 ```typescript
- aui = new AskuiClient({
+ let aui = new AskuiClient({
     askuiUiControllerServerUrl: 'http://localhost:6769',
     inferenceServerUrl: 'https://inference.askui.com',
     annotationLevel: AnnotationLevel.DISABLED,
   });
 ```
-
-
-
