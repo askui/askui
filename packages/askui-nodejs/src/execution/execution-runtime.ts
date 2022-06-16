@@ -1,9 +1,9 @@
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
 import { CustomElement, TestStep } from '../core/model/test-case-dto';
-import { ControlYourUiClient } from './control-your-ui-client';
+import { UiControllerClient } from './ui-controller-client';
 import { RepeatError } from './repeat-error';
 import { delay } from './misc';
-import { ControlYourUiApi } from './control-your-ui-api';
+import { InferenceClient } from './inference-client';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
@@ -12,8 +12,8 @@ import { logger } from '../lib/logger';
 
 export class ExecutionRuntime {
   constructor(
-    private client: ControlYourUiClient,
-    private api: ControlYourUiApi,
+    private client: UiControllerClient,
+    private inferenceClient: InferenceClient,
   ) { }
 
   async executeTestStep(step: TestStep): Promise<void> {
@@ -85,13 +85,13 @@ export class ExecutionRuntime {
   }
 
   private async predictCommand(step: TestStep): Promise<ControlCommand> {
-    const isImageRequired = await this.api.isImageRequired(step.instruction);
+    const isImageRequired = await this.inferenceClient.isImageRequired(step.instruction);
     let image: string | undefined;
     if (isImageRequired) {
       const screenshotResponse = await this.client.requestScreenshot();
       image = screenshotResponse.data.image;
     }
-    return this.api.predictControlCommand(
+    return this.inferenceClient.predictControlCommand(
       step.instruction,
       step.customElements,
       image,
@@ -124,6 +124,6 @@ export class ExecutionRuntime {
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }
-    return this.api.predictImageAnnotation(base64Image, customElements);
+    return this.inferenceClient.predictImageAnnotation(base64Image, customElements);
   }
 }

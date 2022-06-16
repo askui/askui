@@ -20,11 +20,11 @@ import {
 } from '../core/runner-protocol';
 import { ControlCommand } from '../core/ui-control-commands';
 import { logger } from '../lib/logger';
-import { ClientConnectionState } from './client-connection-state';
+import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ReadRecordingResponseStreamHandler } from './read-recording-response-stream-handler';
-import { ControlUiClientError } from './client-error';
+import { UiControlClientError } from './ui-control-client-error';
 
-export class ControlYourUiClient {
+export class UiControllerClient {
   private static readonly EMPTY_REJECT = (_reason?: unknown) => { };
 
   private static readonly EMPTY_RESOLVE = (_value: unknown) => { };
@@ -33,22 +33,22 @@ export class ControlYourUiClient {
 
   ws!: WebSocket;
 
-  connectionState: ClientConnectionState = ClientConnectionState.NOT_CONNECTED;
+  connectionState = UiControllerClientConnectionState.NOT_CONNECTED;
 
   private timeout?: NodeJS.Timeout;
 
-  private currentReject: (reason?: unknown) => void = ControlYourUiClient.EMPTY_REJECT;
+  private currentReject: (reason?: unknown) => void = UiControllerClient.EMPTY_REJECT;
 
   private currentResolve: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
-  ) => void = ControlYourUiClient.EMPTY_RESOLVE;
+  ) => void = UiControllerClient.EMPTY_RESOLVE;
 
-  constructor(public controlServerUrl: string) { }
+  constructor(public uiControllerUrl: string) { }
 
   private clearResponse() {
-    this.currentReject = ControlYourUiClient.EMPTY_REJECT;
-    this.currentResolve = ControlYourUiClient.EMPTY_RESOLVE;
+    this.currentReject = UiControllerClient.EMPTY_REJECT;
+    this.currentResolve = UiControllerClient.EMPTY_RESOLVE;
   }
 
   private onMessage(data: WebSocket.Data) {
@@ -66,24 +66,24 @@ export class ControlYourUiClient {
     this.clearResponse();
   }
 
-  connect(): Promise<ClientConnectionState> {
-    this.connectionState = ClientConnectionState.CONNECTING;
+  connect(): Promise<UiControllerClientConnectionState> {
+    this.connectionState = UiControllerClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(this.controlServerUrl);
+        this.ws = new WebSocket(this.uiControllerUrl);
         this.ws.on('message', (data) => { this.onMessage(data); });
         this.ws.on('open', () => {
-          this.connectionState = ClientConnectionState.CONNECTED;
+          this.connectionState = UiControllerClientConnectionState.CONNECTED;
           resolve(this.connectionState);
         });
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
-          this.connectionState = ClientConnectionState.ERROR;
-          reject(new ControlUiClientError(`Connection to Control UI Server cannot be established,
-          Probably it was not started. Makse sure you started the server with this 
-          Url ${this.controlServerUrl}. Error message  ${error.message}`));
+          this.connectionState = UiControllerClientConnectionState.ERROR;
+          reject(new UiControlClientError(`Connection to UI Controller cannot be established,
+          Probably it was not started. Makse sure you started UI Controller with this 
+          Url ${this.uiControllerUrl}. Error message  ${error.message}`));
         });
       } catch (error) {
-        reject(new ControlUiClientError(`Connection to Control UI Server cannot be established. Reason: ${error}`));
+        reject(new UiControlClientError(`Connection to UI Controller cannot be established. Reason: ${error}`));
       }
     });
   }
@@ -94,7 +94,7 @@ export class ControlYourUiClient {
 
   private sendAndReceive<T extends RunnerProtocolResponse>(
     msg: RunnerProtocolRequest,
-    requestTimeout = ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+    requestTimeout = UiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ): Promise<T> {
     return new Promise((resolve, reject) => {
       this.currentResolve = resolve;
@@ -102,19 +102,19 @@ export class ControlYourUiClient {
       try {
         this.send(msg, requestTimeout);
         this.timeout = setTimeout(
-          () => this.currentReject(`Request to Control UI Server timed out.
-          it seems that the server is down, Please make sure the server is up`),
-          ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+          () => this.currentReject(`Request to UI Controller timed out.
+          it seems that the UI Controller is down, Please make sure the server is up`),
+          UiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
-        this.currentReject(`The communication to the ControlUI Server is broken. Reason: ${error}`);
+        this.currentReject(`The communication to the UI Controller is broken. Reason: ${error}`);
       }
     });
   }
 
   private send(
     msg: RunnerProtocolRequest,
-    _requestTimeout = ControlYourUiClient.REQUEST_TIMEOUT_IN_MS,
+    _requestTimeout = UiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ) {
     if (!this.currentReject || !this.currentResolve) {
       throw Error('Request is not finished! It is not possible to have multiple requests at the same time.');

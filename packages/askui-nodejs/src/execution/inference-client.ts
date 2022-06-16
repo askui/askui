@@ -7,16 +7,16 @@ import { AnnotationJson } from '../core/annotation/annotation-json';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 
-export class ControlYourUiApi {
+export class InferenceClient {
   constructor(
-    public apiEndpointUrl: string,
+    public inferenceServerUrl: string,
     public httpClient: HttpClientGot,
   ) { }
 
   async isImageRequired(
     instruction: string,
   ): Promise<boolean> {
-    const url = urljoin(this.apiEndpointUrl, 'instruction', 'is-image-required');
+    const url = urljoin(this.inferenceServerUrl, 'instruction', 'is-image-required');
     const httpBody = {
       instruction,
     };
@@ -43,7 +43,7 @@ export class ControlYourUiApi {
       instruction,
       customElements,
     };
-    const url = urljoin(this.apiEndpointUrl, 'api', 'v1', 'predict-command');
+    const url = urljoin(this.inferenceServerUrl, 'api', 'v1', 'predict-command');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
     return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
   }
@@ -57,7 +57,7 @@ export class ControlYourUiApi {
       image: resizedImage.base64Image,
       customElements,
     };
-    const url = urljoin(this.apiEndpointUrl, 'annotate', '?format=json');
+    const url = urljoin(this.inferenceServerUrl, 'annotate', '?format=json');
     const httpResponse = await this.httpClient.post<AnnotationJson>(url, httpBody);
     return Annotation.fromJson({ ...httpResponse, image }, resizedImage.resizeRatio);
   }

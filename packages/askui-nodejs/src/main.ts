@@ -1,3 +1,3 @@
 export { UiController } from './lib';
-export { AskuiClient } from './execution';
+export { UiControlClient } from './execution';
 export { LogLevels } from './shared';
