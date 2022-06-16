@@ -7,11 +7,12 @@ custom_edit_url: null
 The following tutorial shows how to test the login process of a simple demo online shop.
 
 ## Setup
+
 * Create a new npm project (create an empty folder and run `npm init -y`)
 * Follow the [askui installation guide](../02-Getting%20Started/getting-started.md)
 * Generate the askui example project files with `npx askui init`
 * Open a browser on your screen
-    * If you have multiple screens, configure the used display by setting the display variable at `helpers/askui-helper.ts`
+  * If you have multiple screens, configure the used display by setting the display variable at `helpers/askui-helper.ts`
 
 ## Test
 
@@ -37,6 +38,7 @@ it('Should log into account', async () => {
     await aui.pressKey('enter').exec();
 });
 ```
+
 When you run this test with `npx jasmine --config=specs/support/jasmine.json`, you should see the demo online shop opening in the browser you opened.
 
 ### 2. Navigate to the Login Dialog
@@ -107,4 +109,5 @@ it('Should log into account', async () => {
     await aui.click().text().withText('Logout test@askui.com').exec();
 });
 ```
+
 To run this test use the `npx jasmine --config=specs/support/jasmine.json` command.

@@ -21,7 +21,6 @@ This is going to create
   - a folder `helper` which contains `jest.setup.ts` file: this file is setting up the test environment for all tests
   - a `jest.config.ts`: file for configuration of Jest,
   
-
 To execute the test suite, enter
 
 ```shell
@@ -31,26 +30,26 @@ npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
 
 ## Manual
-At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
 
+At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
 
 Copy the following over into that file:
 
 ```typescript
-import { AskuiClient, AskuiControlServer } from 'askui';
+import { UiControlClient, UiController } from 'askui';
 
 describe('jest with askui', () => {
   
   // Server for controlling the operating system
-  let askuiControlServer: AskuiControlServer;
+  let uiController: UiController;
   
   // Client is necessary to use the askui API
-  let askuiClient: AskuiClient;
+  let aui: UiControlClient;
   
   jest.setTimeout(60 * 1000 * 60);
   
   beforeAll(async () => {
-    askuiControlServer = new AskuiControlServer({
+    uiController = new UiController({
       /**
        * Select the display you want to run your tests on, display 0 is your main display;
        * ignore if you have only one display
@@ -58,23 +57,23 @@ describe('jest with askui', () => {
       display: 0,
     });
     
-    await askuiControlServer.start();
+    await uiController.start();
 
-    askuiClient  = new AskuiClient();
+    aui = new UiControlClient();
     
-    await askuiClient.connect();
+    await aui.connect();
   });
 
   it('should click on text', async () => {
-    await askuiClient 
+    await aui 
       .click()
       .text()
       .exec();
   });
 
   afterAll(async () => {
-     askuiClient.close();
-     await askuiControlServer.stop();
+     aui.close();
+     await uiController.stop();
   });
 });
 ```
@@ -94,6 +93,7 @@ module.exports = {
 };
 
 ```
+
 You should also add a configuration file for Typescript in your project root folder.
 Create a file with the name `tsconfig.json` and fill in this code:
 
