@@ -10,14 +10,14 @@ import { AnnotationLevel } from './annotation-level';
  * the authentication of the askui Inferrence Server.
  */
 export interface ClientArgs {
-  readonly controlServerUrl?: string,
-  readonly controlYourUiApi?: string,
+  readonly uiControllerUrl?: string,
+  readonly inferenceServerUrl?: string,
   readonly annotationLevel?: AnnotationLevel,
   readonly credentials?: CredentialArgs
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
-  readonly controlServerUrl: string,
-  readonly controlYourUiApi: string,
+  readonly uiControllerUrl: string,
+  readonly inferenceServerUrl: string,
   readonly annotationLevel: AnnotationLevel
 }

@@ -1,16 +1,16 @@
-import { AskuiClient, AskuiControlServer } from 'askui';
+import { UiControlClient, UiController } from 'askui';
 
 // Server for controlling the operating system
-let askuiServer: AskuiControlServer;
+let uiController: UiController;
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
-let aui: AskuiClient;
+let aui: UiControlClient;
 
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
-  askuiServer = new AskuiControlServer({
+  uiController = new UiController({
     /**
      * Select the display you want to run your tests on, display 0 is your main display;
      * ignore if you have only one display
@@ -18,15 +18,15 @@ beforeAll(async () => {
     display: 0,
   });
 
-  await askuiServer.start();
+  await uiController.start();
 
-  aui = new AskuiClient();
+  aui = new UiControlClient();
 
   await aui.connect();
 });
 
 afterAll(async () => {
-  await askuiServer.stop();
+  await uiController.stop();
 
   aui.close();
 });

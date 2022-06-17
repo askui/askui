@@ -17,10 +17,10 @@ const stream = pretty({
   ignore: 'pid,hostname,filename',
 });
 const defaultLogLevel = 'info';
-const pinoLevel : string = isProcessEnvLogLevelValid() ? process.env['LOG_LEVEL'] as string : defaultLogLevel;
+const pinoLevel: string = isProcessEnvLogLevelValid() ? process.env['LOG_LEVEL'] as string : defaultLogLevel;
 const logger = pino(
   {
-    name: 'askuiClient',
+    name: 'askuiUiControlClient',
     level: pinoLevel,
     customLevels: {
       verbose: 5,

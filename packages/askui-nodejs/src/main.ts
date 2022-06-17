@@ -1,3 +1,3 @@
-export { AskuiControlServer } from './lib';
-export { AskuiClient, AnnotationLevel } from './execution';
+export { UiController } from './lib';
+export { UiControlClient, AnnotationLevel } from './execution';
 export { LogLevels } from './shared';

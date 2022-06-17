@@ -16,7 +16,9 @@ import { LogLevels } from '../shared/log-levels';
  * @param logFilePath It is possible to specify a path for your log files.
  * Per default we create the askui-server.log file and askui folder in your temp folder.
  */
-export interface ControlUiServerArgs {
+
+export interface UiControllerArgs {
+
   readonly display?: number;
   readonly binaryVersion?: string,
   readonly port?: number;
@@ -27,7 +29,7 @@ export interface ControlUiServerArgs {
   readonly logFilePath?: string;
 }
 
-export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
+export interface UiControllerArgsWithDefaults extends UiControllerArgs {
   readonly display: number;
   readonly binaryVersion: string;
   readonly overWriteBinary: boolean;
@@ -38,8 +40,8 @@ export interface ControlUiServerArgsWithDefaults extends ControlUiServerArgs {
 }
 
 export function createArgsWithDefaults(
-  args?: ControlUiServerArgs,
-): ControlUiServerArgsWithDefaults {
+  args?: UiControllerArgs,
+): UiControllerArgsWithDefaults {
   const defaults = {
     binaryVersion: 'latest',
     display: 0,
@@ -52,7 +54,7 @@ export function createArgsWithDefaults(
   return Object.assign(defaults, args);
 }
 
-export function createCliFlagsFromArgs(args: ControlUiServerArgsWithDefaults): string[] {
+export function createCliFlagsFromArgs(args: UiControllerArgsWithDefaults): string[] {
   return [
     `-d ${args.display.toString()}`,
     args?.port ? `-p ${args.port.toString()}` : '',
