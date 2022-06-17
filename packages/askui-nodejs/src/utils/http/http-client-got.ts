@@ -16,7 +16,7 @@ export class HttpClientGot {
       const credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
       this.headers = {
         ...(credentials ? { Authorization: `Basic ${this.credentials?.base64Encoded}` } : {}),
-        ...customerHeaders,
+        ...customHeaders,
       }
   }
 
