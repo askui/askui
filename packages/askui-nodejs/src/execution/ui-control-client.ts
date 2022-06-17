@@ -1,23 +1,23 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import { FluentCommand } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
-import { ClientConnectionState } from './client-connection-state';
-import { ControlYourUiClient } from './control-your-ui-client';
+import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
+import { UiControllerClient } from './ui-controller-client';
 import { ExecutionRuntime } from './execution-runtime';
-import { ControlYourUiApi } from './control-your-ui-api';
+import { InferenceClient } from './inference-client';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
 import { TestStepState } from '../core/model/test-case-result-dto';
-import { ClientArgs, ClientArgsWithDefaults } from './client-interface';
+import { ClientArgs, ClientArgsWithDefaults } from './ui-controller-client-interface';
 import { AnnotationLevel } from './annotation-level';
-import { ControlUiClientError } from './client-error';
+import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
 import { AnalyticsFormater } from '../utils/analytics';
 
-export class AskuiClient extends FluentCommand {
-  private _controlYourUiClient?: ControlYourUiClient;
+export class UiControlClient extends FluentCommand {
+  private _uiControllerClient?: UiControllerClient;
 
   private libEnvironment?: string;
 
@@ -34,30 +34,30 @@ export class AskuiClient extends FluentCommand {
     );
   }
 
-  private get controlYourUiClient(): ControlYourUiClient {
-    if (!this._controlYourUiClient) {
-      this._controlYourUiClient = new ControlYourUiClient(
-        this.clientArgsWithDefaults.controlServerUrl,
+  private get uiControllerClient(): UiControllerClient {
+    if (!this._uiControllerClient) {
+      this._uiControllerClient = new UiControllerClient(
+        this.clientArgsWithDefaults.uiControllerUrl,
       );
     }
-    return this._controlYourUiClient;
+    return this._uiControllerClient;
   }
 
   private get clientArgsWithDefaults(): ClientArgsWithDefaults {
     const defaults = {
-      controlServerUrl: 'http://localhost:6769',
-      controlYourUiApi: 'https://inference.askui.com',
+      uiControllerUrl: 'http://localhost:6769',
+      inferenceServerUrl: 'https://inference.askui.com',
       annotationLevel: AnnotationLevel.DISABLED,
     };
     return Object.assign(defaults, this.clientArgs);
   }
 
-  private get api(): ControlYourUiApi {
-    return new ControlYourUiApi(this.clientArgsWithDefaults.controlYourUiApi, this.httpClient);
+  private get inferenceClient(): InferenceClient {
+    return new InferenceClient(this.clientArgsWithDefaults.inferenceServerUrl, this.httpClient);
   }
 
   private get executionRuntime(): ExecutionRuntime {
-    return new ExecutionRuntime(this.controlYourUiClient, this.api);
+    return new ExecutionRuntime(this.uiControllerClient, this.inferenceClient);
   }
 
   private async annotateByDefault(
@@ -78,9 +78,9 @@ export class AskuiClient extends FluentCommand {
     );
   }
 
-  async connect(): Promise<ClientConnectionState> {
+  async connect(): Promise<UiControllerClientConnectionState> {
     this.libEnvironment = await new AnalyticsFormater().getLibEnvironment();
-    const connectionState: ClientConnectionState = await this.controlYourUiClient.connect();
+    const connectionState = await this.uiControllerClient.connect();
     return connectionState;
   }
 
@@ -124,7 +124,7 @@ export class AskuiClient extends FluentCommand {
       return await Promise.resolve();
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
-      return Promise.reject(new ControlUiClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`));
+      return Promise.reject(new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`));
     }
   }
 
@@ -132,6 +132,6 @@ export class AskuiClient extends FluentCommand {
   * closes the connection to the controlui-server`.
   */
   close(): void {
-    this.controlYourUiClient.close();
+    this.uiControllerClient.close();
   }
 }

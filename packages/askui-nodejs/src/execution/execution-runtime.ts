@@ -1,9 +1,9 @@
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
 import { CustomElement, TestStep } from '../core/model/test-case-dto';
-import { ControlYourUiClient } from './control-your-ui-client';
+import { UiControllerClient } from './ui-controller-client';
 import { RepeatError } from './repeat-error';
 import { delay } from './misc';
-import { ControlYourUiApi } from './control-your-ui-api';
+import { InferenceClient } from './inference-client';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
@@ -12,8 +12,8 @@ import { logger } from '../lib/logger';
 
 export class ExecutionRuntime {
   constructor(
-    private client: ControlYourUiClient,
-    private api: ControlYourUiApi,
+    private uiControllerClient: UiControllerClient,
+    private inferenceClient: InferenceClient,
   ) { }
 
   async executeTestStep(step: TestStep): Promise<void> {
@@ -27,9 +27,9 @@ export class ExecutionRuntime {
   private async executeCommand(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
-      await this.client.requestControl(controlCommand);
+      await this.uiControllerClient.requestControl(controlCommand);
     } else if (controlCommand.tryToRepeat) {
-      await this.client.requestControl(controlCommand);
+      await this.uiControllerClient.requestControl(controlCommand);
       this.executeCommandRepeatedly(step);
     } else {
       throw new ControlCommandError(controlCommand.actions[0]?.text || '');
@@ -53,7 +53,7 @@ export class ExecutionRuntime {
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
       } else if (controlCommand.tryToRepeat) {
-        await this.client.requestControl(controlCommand);
+        await this.uiControllerClient.requestControl(controlCommand);
       } else {
         throw new ControlCommandError(controlCommand.actions[0]?.text || '');
       }
@@ -85,13 +85,13 @@ export class ExecutionRuntime {
   }
 
   private async predictCommand(step: TestStep): Promise<ControlCommand> {
-    const isImageRequired = await this.api.isImageRequired(step.instruction);
+    const isImageRequired = await this.inferenceClient.isImageRequired(step.instruction);
     let image: string | undefined;
     if (isImageRequired) {
-      const screenshotResponse = await this.client.requestScreenshot();
+      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
       image = screenshotResponse.data.image;
     }
-    return this.api.predictControlCommand(
+    return this.inferenceClient.predictControlCommand(
       step.instruction,
       step.customElements,
       image,
@@ -100,7 +100,10 @@ export class ExecutionRuntime {
 
   async annotateInteractively() {
     const annotationResponse = await this.annotateImage();
-    await this.client.annotateInteractively(annotationResponse.objects, annotationResponse.image);
+    await this.uiControllerClient.annotateInteractively(
+      annotationResponse.objects,
+      annotationResponse.image,
+    );
   }
 
   async takeScreenshotIfImageisNotProvided(imagePath?: string): Promise<string> {
@@ -109,7 +112,7 @@ export class ExecutionRuntime {
       base64Image = await toBase64Image(imagePath);
     }
     if (imagePath === undefined) {
-      const screenshotResponse = await this.client.requestScreenshot();
+      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
       base64Image = screenshotResponse.data.image;
     }
     return base64Image;
@@ -124,6 +127,6 @@ export class ExecutionRuntime {
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }
-    return this.api.predictImageAnnotation(base64Image, customElements);
+    return this.inferenceClient.predictImageAnnotation(base64Image, customElements);
   }
 }

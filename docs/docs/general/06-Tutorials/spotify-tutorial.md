@@ -12,7 +12,7 @@ The following tutorial shows how to automate a desktop application. As an exampl
 * Follow the [askui installation guide](../02-Getting%20Started/getting-started.md)
 * Generate the askui example project files with `npx askui init`
 * Open the Spotify desktop application on your screen
-    * If you have multiple screens, configure the used display by setting the display variable at `helpers/askui-helper.ts`
+  * If you have multiple screens, configure the used display by setting the display variable at `helpers/askui-helper.ts`
 
 ## Test
 
@@ -39,6 +39,7 @@ it('should like spotify song', async () => {
 ```
 
 ### 2. Search for a Song
+
 Then we can use the search field (a textfield) to search a song:
 
 ```ts
@@ -50,6 +51,7 @@ it('should like spotify song', async () => {
 ```
 
 ### 3. Open Menu for a Song
+
 On the search result page we need to right click a song to open the menu for the song:
 
 ```ts
@@ -60,6 +62,7 @@ it('should like spotify song', async () => {
     await aui.click().text().withText('Save to your Liked Songs').exec();
 });
 ```
+
 As the text "Bohemian Rhapsody" is present on the page multiple times, we are specifying the position of the text we want to click further by saying that it is the one below the text "Songs".
 
 :::caution
@@ -67,6 +70,7 @@ We expect that the song has not yet been liked (although we totally understand i
 :::
 
 ### 4. Check Whether the Song was Added to Liked Songs
+
 Finally, we want to check whether the song was actually added to the liked songs:
 
 ```ts
@@ -78,6 +82,7 @@ it('should like spotify song', async () => {
 ```
 
 ### 5. Remove Song from Like Songs
+
 To be able to run the test again, it is necessary to reset the state of Spotify, or more specifically, your liked songs. One option would be to add the following commands to your test in order to remove the song from the liked songs.
 
 ```ts
@@ -108,4 +113,5 @@ it('should like spotify song', async () => {
     await aui.click().text().withText('Remove from your Liked Songs').exec();
 });
 ```
+
 To run this test use the `npx jasmine --config=specs/support/jasmine.json` command.
