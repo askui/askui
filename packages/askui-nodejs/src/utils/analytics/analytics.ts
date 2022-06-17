@@ -6,8 +6,11 @@ import { UserIdentifier } from './user-identifier';
 export class Analytics implements AnalyticsInterface {
   private userIdentifier: UserIdentifierInterface = new UserIdentifier();
 
-  async getAnalyticsHeader(): Promise<Record<string, string>> {
+  async getAnalyticsHeaders(): Promise<Record<string, string>> {
     const userID = await this.userIdentifier.userId();
-    return { AskuiLibEnvironment: `user_id:${userID};os:${os.platform()};arch:${os.arch()}` };
+    return {
+      'askui-user-id': userID,
+      'askui-user-agen': `os:${os.platform()};arch:${os.arch()}`,
+    };
   }
 }
