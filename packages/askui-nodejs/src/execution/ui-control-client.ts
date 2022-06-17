@@ -19,19 +19,21 @@ import { Analytics } from '../utils/analytics';
 export class UiControlClient extends FluentCommand {
   private _uiControllerClient?: UiControllerClient;
 
-  private httpClient: HttpClientGot;
-
-  constructor(
+  private constructor(
+    private httpClient: HttpClientGot,
     private clientArgs?: ClientArgs,
   ) {
     super();
+  }
+
+  static async build(clientArgs?: ClientArgs): Promise<UiControlClient> {
     const analytics = new Analytics();
-    analytics.getAnalyticsHeader().then(header => {
-      this.httpClient = new HttpClientGot(
-        this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
-        header,
-      );
-    });
+    const analyticsHeader = await analytics.getAnalyticsHeader();
+    const httpClient = new HttpClientGot(
+      clientArgs?.credentials ? clientArgs.credentials : envCredentials(),
+      analyticsHeader,
+    );
+    return new UiControlClient(httpClient, clientArgs);
   }
 
   private get uiControllerClient(): UiControllerClient {
@@ -123,7 +125,9 @@ export class UiControlClient extends FluentCommand {
       return await Promise.resolve();
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
-      return Promise.reject(new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`));
+      return Promise.reject(
+        new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
+      );
     }
   }
 

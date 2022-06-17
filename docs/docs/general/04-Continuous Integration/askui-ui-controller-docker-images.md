@@ -92,7 +92,7 @@ beforeAll(async () => {
     await uiController.start();
   }
 
-  aui = new UiControlClient({
+  aui = await UiControlClient.build({
     uiControllerUrl: `http://${uiControllerUrlHost}:6769`,
   });
 

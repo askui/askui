@@ -6,18 +6,18 @@ export class HttpClientGot {
   private headers: Record<string, string> = {};
 
   constructor(
-    private readonly credentialArgs?: CredentialArgs,
-    private readonly customHeaders?: Record<string, string>,
+    readonly credentialArgs?: CredentialArgs,
+    readonly customHeaders?: Record<string, string>,
   ) {
     this.initHeaders(credentialArgs, customHeaders);
   }
-  
+
   private initHeaders(credentialArgs?: CredentialArgs, customHeaders: Record<string, string> = {}) {
-      const credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
-      this.headers = {
-        ...(credentials ? { Authorization: `Basic ${this.credentials?.base64Encoded}` } : {}),
-        ...customHeaders,
-      }
+    const credentials = credentialArgs ? new Credentials(credentialArgs) : undefined;
+    this.headers = {
+      ...(credentials ? { Authorization: `Basic ${credentials?.base64Encoded}` } : {}),
+      ...customHeaders,
+    };
   }
 
   private injectHeaders(options: OptionsOfJSONResponseBody) {
