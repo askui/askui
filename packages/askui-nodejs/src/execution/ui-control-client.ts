@@ -14,41 +14,47 @@ import { ClientArgs, ClientArgsWithDefaults } from './ui-controller-client-inter
 import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
+import { Analytics } from '../utils/analytics';
+
+const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
+  uiControllerUrl: 'http://localhost:6769',
+  inferenceServerUrl: 'https://inference.askui.com',
+  annotationLevel: AnnotationLevel.DISABLED,
+  ...clientArgs,
+});
 
 export class UiControlClient extends FluentCommand {
   private _uiControllerClient?: UiControllerClient;
 
-  private httpClient: HttpClientGot;
-
-  constructor(
-    private clientArgs?: ClientArgs,
+  private constructor(
+    private httpClient: HttpClientGot,
+    private clientArgs: ClientArgsWithDefaults,
   ) {
     super();
-    this.httpClient = new HttpClientGot(
-      this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
+  }
+
+  static async build(clientArgs?: ClientArgs): Promise<UiControlClient> {
+    const analytics = new Analytics();
+    const analyticsHeaders = await analytics.getAnalyticsHeaders();
+    const cas = getClientArgsWithDefaults(clientArgs);
+    const httpClient = new HttpClientGot(
+      cas.credentials || envCredentials(),
+      analyticsHeaders,
     );
+    return new UiControlClient(httpClient, cas);
   }
 
   private get uiControllerClient(): UiControllerClient {
     if (!this._uiControllerClient) {
       this._uiControllerClient = new UiControllerClient(
-        this.clientArgsWithDefaults.uiControllerUrl,
+        this.clientArgs.uiControllerUrl,
       );
     }
     return this._uiControllerClient;
   }
 
-  private get clientArgsWithDefaults(): ClientArgsWithDefaults {
-    const defaults = {
-      uiControllerUrl: 'http://localhost:6769',
-      inferenceServerUrl: 'https://inference.askui.com',
-      annotationLevel: AnnotationLevel.DISABLED,
-    };
-    return Object.assign(defaults, this.clientArgs);
-  }
-
   private get inferenceClient(): InferenceClient {
-    return new InferenceClient(this.clientArgsWithDefaults.inferenceServerUrl, this.httpClient);
+    return new InferenceClient(this.clientArgs.inferenceServerUrl, this.httpClient);
   }
 
   private get executionRuntime(): ExecutionRuntime {
@@ -60,9 +66,9 @@ export class UiControlClient extends FluentCommand {
     customElements: CustomElement[] = [],
   ) {
     if ((testStepState === TestStepState.FAILED
-      && this.clientArgsWithDefaults.annotationLevel === AnnotationLevel.DISABLED)
+      && this.clientArgs.annotationLevel === AnnotationLevel.DISABLED)
       || (testStepState === TestStepState.PASSED
-        && this.clientArgsWithDefaults.annotationLevel !== AnnotationLevel.ALL)) {
+        && this.clientArgs.annotationLevel !== AnnotationLevel.ALL)) {
       return;
     }
     await this.annotate(
@@ -118,7 +124,9 @@ export class UiControlClient extends FluentCommand {
       return await Promise.resolve();
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
-      return Promise.reject(new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`));
+      return Promise.reject(
+        new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
+      );
     }
   }
 

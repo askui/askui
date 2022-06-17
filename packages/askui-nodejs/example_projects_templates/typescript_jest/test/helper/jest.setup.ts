@@ -20,7 +20,7 @@ beforeAll(async () => {
 
   await uiController.start();
 
-  aui = new UiControlClient();
+  aui = await UiControlClient.build();
 
   await aui.connect();
 });
