@@ -7,16 +7,17 @@ custom_edit_url: null
 ## Wayland
 
 At the moment we don't support the windowing system Wayland for any linux distribution. 
-As solution you have to use Xorg instead of Wayland. You can look on [this page](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/) to see how to Switch to Xorg from Wayland.
+As a solution, you can switch to Xorg instead of Wayland ([how to switch to Xorg](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)). 
 
 
 
 ## libfuse2 
 
-With Ubuntu 22.04 libfuse will no longer be installed per default.
+If you are using Ubuntu 22.04 or later, you need to install libfuse before using askui lib 
+since it's no longer installed per default.
 That's why you have to manually install libfuse2 to use the askui lib
 
-Therefore just run the following commands:
+Libfuse2 can be installed with these commands: 
 
 ```shell
 sudo apt-get update

@@ -77,13 +77,8 @@ export abstract class UiControllerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected preStartChecks(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve();
-        return;
-      } catch (err) {
-        reject(new UnkownError(`An unknown error occured while waiting for the askui server: ${err}`));
-      }
+    return new Promise((resolve) => {
+      resolve();
     });
   }
 
