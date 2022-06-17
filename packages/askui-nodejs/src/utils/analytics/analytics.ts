@@ -10,7 +10,7 @@ export class Analytics implements AnalyticsInterface {
     const userID = await this.userIdentifier.userId();
     return {
       'askui-user-id': userID,
-      'askui-user-agen': `os:${os.platform()};arch:${os.arch()}`,
+      'askui-user-agent': `os:${os.platform()};arch:${os.arch()}`,
     };
   }
 }
