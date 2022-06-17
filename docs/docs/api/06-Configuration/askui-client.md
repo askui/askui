@@ -55,7 +55,7 @@ ___
 ## Example
 
 ```typescript
- let aui = new AskuiClient({
+ let aui = new UiControlClient({
     askuiUiControllerServerUrl: 'http://localhost:6769',
     inferenceServerUrl: 'https://inference.askui.com',
     annotationLevel: AnnotationLevel.DISABLED,

@@ -113,15 +113,15 @@ The port the askui UI Controller is running on.
 ## Example
 
 ```typescript
-import { AskuiClient, AskuiControlServer, LogLevels } from 'askui';
+import { UiControlClient, UiController, LogLevels } from 'askui';
 
 describe('jest with askui', () => {
   
   // Server for controlling the operating system
-  let askuiControlServer: AskuiControlServer;
+  let uiController: UiController;
   
   beforeAll(async () => {
-    askuiControlServer = new AskuiControlServer({
+    uiController = new UiController()({
     
     // choosing the second monitor 
     display: 1,
