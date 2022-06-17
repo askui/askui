@@ -1,36 +1,39 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
 import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
-import { RequestHeaders } from './request-headers';
 
 export class HttpClientGot {
   private credentials: Credentials | undefined;
 
+  private headers:Record<string, string> = {};
+
   constructor(
     private readonly credentialArgs?: CredentialArgs,
-    private readonly libEnvironment?: string,
+    private readonly customHeaders?: Record<string, string>,
   ) {
     this.credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
   }
 
-  private get headers() {
-    const headers: RequestHeaders = {};
-    headers.AskuiLibEnvironment = '';
+  private defineHeaders() {
     if (this.credentialArgs) {
-      headers.Authorization = `Basic ${this.credentials?.base64Encoded}`;
+      this.injectIntoHeaders({ Authorization: `Basic ${this.credentials?.base64Encoded}` });
     }
-    if (this.libEnvironment) {
-      headers.AskuiLibEnvironment = this.libEnvironment;
+    if (this.customHeaders) {
+      this.injectIntoHeaders(this.customHeaders);
     }
-    return { ...headers };
   }
 
-  private injectAuthHeader(options: OptionsOfJSONResponseBody) {
+  private injectIntoHeaders(newObject: Record<string, string>) {
+    this.headers = { ...this.headers, ...newObject };
+  }
+
+  private injectHeaders(options: OptionsOfJSONResponseBody) {
     return { ...options, headers: this.headers };
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
-    const options = this.injectAuthHeader({ json: data, responseType: 'json', throwHttpErrors: false });
+    this.defineHeaders();
+    const options = this.injectHeaders({ json: data, responseType: 'json', throwHttpErrors: false });
     const { body, statusCode } = await got.post<T>(url, options);
     if (statusCode !== 200) {
       throw httpClientErrorHandler(
@@ -42,7 +45,7 @@ export class HttpClientGot {
   }
 
   async get<T>(url: string, options: OptionsOfJSONResponseBody = { responseType: 'json' }): Promise<T> {
-    const response = await got.get<T>(url, this.injectAuthHeader(options));
+    const response = await got.get<T>(url, this.injectHeaders(options));
     return response.body;
   }
 }

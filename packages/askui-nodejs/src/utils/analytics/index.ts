@@ -1,1 +1,1 @@
-export { AnalyticsFormater } from './analytics-formater';
+export { Analytics } from './analytics';

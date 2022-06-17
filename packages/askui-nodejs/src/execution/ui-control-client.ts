@@ -14,12 +14,12 @@ import { ClientArgs, ClientArgsWithDefaults } from './ui-controller-client-inter
 import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
-import { AnalyticsFormater } from '../utils/analytics';
+import { Analytics } from '../utils/analytics';
 
 export class UiControlClient extends FluentCommand {
   private _uiControllerClient?: UiControllerClient;
 
-  private libEnvironment?: string;
+  private analyticsHeader?: Record<string, string>;
 
   constructor(
     private clientArgs?: ClientArgs,
@@ -30,7 +30,7 @@ export class UiControlClient extends FluentCommand {
   private get httpClient(): HttpClientGot {
     return new HttpClientGot(
       this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
-      this.libEnvironment,
+      this.analyticsHeader,
     );
   }
 
@@ -79,7 +79,7 @@ export class UiControlClient extends FluentCommand {
   }
 
   async connect(): Promise<UiControllerClientConnectionState> {
-    this.libEnvironment = await new AnalyticsFormater().getLibEnvironment();
+    this.analyticsHeader = await new Analytics().getAnalyticsHeader();
     const connectionState = await this.uiControllerClient.connect();
     return connectionState;
   }
