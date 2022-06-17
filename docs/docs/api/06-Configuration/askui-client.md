@@ -10,6 +10,7 @@ custom_edit_url: null
     - [inferenceClientUrl](#inferenceClientUrl)
     - [annotationLevel](#annotationLevel)
     - [credentials](#credentials)
+  - [Set Log Level](#set-log-level)  
   - [Example](#example)  
 ## Properties
 
@@ -19,7 +20,6 @@ custom_edit_url: null
 
 This provides the url where the askui UI Controller runs. The Client is also connecting
 to this address.
-
 ___
 
 ### inferenceClientUrl
@@ -42,7 +42,6 @@ AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `
 
 
 `DISABLED`: Never runs the annotate command after test steps
-
 ___
 
 ### credentials
@@ -52,6 +51,21 @@ ___
 We need to provide credentials for the authentication of the askui Inferrence Server. If you want to set your own credentials you need to provide the following arguments `tenant`, `token`, `email`. Per default we read the environment variables.
 ___
 
+## Set Log Level
+
+Starting the askui library the askui UI Controller will write [logs](../06-Configuration/askui-ui-controller.md#loglevel) in a default/passed path. ([logfile path](../06-Configuration/askui-ui-controller.md#logfilepath)).
+Only the askui Client can write logs to the stdout while using the askui library.
+You can set all log levels(`"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`) for the client.
+
+On Linux and MacOS use this command:
+```shell
+export LOG_LEVEL=verbose
+```
+
+For Windows you need this command:
+ ```shell
+$env:LOG_LEVEL="verbose"
+```
 ## Example
 
 ```typescript
