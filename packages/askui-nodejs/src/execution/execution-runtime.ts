@@ -12,7 +12,7 @@ import { logger } from '../lib/logger';
 
 export class ExecutionRuntime {
   constructor(
-    private client: UiControllerClient,
+    private uiControllerClient: UiControllerClient,
     private inferenceClient: InferenceClient,
   ) { }
 
@@ -27,9 +27,9 @@ export class ExecutionRuntime {
   private async executeCommand(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
-      await this.client.requestControl(controlCommand);
+      await this.uiControllerClient.requestControl(controlCommand);
     } else if (controlCommand.tryToRepeat) {
-      await this.client.requestControl(controlCommand);
+      await this.uiControllerClient.requestControl(controlCommand);
       this.executeCommandRepeatedly(step);
     } else {
       throw new ControlCommandError(controlCommand.actions[0]?.text || '');
@@ -53,7 +53,7 @@ export class ExecutionRuntime {
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
       } else if (controlCommand.tryToRepeat) {
-        await this.client.requestControl(controlCommand);
+        await this.uiControllerClient.requestControl(controlCommand);
       } else {
         throw new ControlCommandError(controlCommand.actions[0]?.text || '');
       }
@@ -88,7 +88,7 @@ export class ExecutionRuntime {
     const isImageRequired = await this.inferenceClient.isImageRequired(step.instruction);
     let image: string | undefined;
     if (isImageRequired) {
-      const screenshotResponse = await this.client.requestScreenshot();
+      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
       image = screenshotResponse.data.image;
     }
     return this.inferenceClient.predictControlCommand(
@@ -100,7 +100,10 @@ export class ExecutionRuntime {
 
   async annotateInteractively() {
     const annotationResponse = await this.annotateImage();
-    await this.client.annotateInteractively(annotationResponse.objects, annotationResponse.image);
+    await this.uiControllerClient.annotateInteractively(
+      annotationResponse.objects,
+      annotationResponse.image,
+    );
   }
 
   async takeScreenshotIfImageisNotProvided(imagePath?: string): Promise<string> {
@@ -109,7 +112,7 @@ export class ExecutionRuntime {
       base64Image = await toBase64Image(imagePath);
     }
     if (imagePath === undefined) {
-      const screenshotResponse = await this.client.requestScreenshot();
+      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
       base64Image = screenshotResponse.data.image;
     }
     return base64Image;

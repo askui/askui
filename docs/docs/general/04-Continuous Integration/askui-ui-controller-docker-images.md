@@ -76,7 +76,7 @@ let testContainer: StartedTestContainer
 // Server for controlling the operating system
 let uiController: UiController;
 
-const uiControllerUrlBaseName = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+const uiControllerUrlHost = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
@@ -93,7 +93,7 @@ beforeAll(async () => {
   }
 
   aui = new UiControlClient({
-    uiControllerUrl: `http://${uiControllerUrlBaseName}:6769`,
+    uiControllerUrl: `http://${uiControllerUrlHost}:6769`,
   });
 
   await aui.connect();

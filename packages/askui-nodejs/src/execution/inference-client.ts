@@ -9,14 +9,14 @@ import { IsImageRequired } from './is-image-required-interface';
 
 export class InferenceClient {
   constructor(
-    public inferenceServerUrl: string,
+    public url: string,
     public httpClient: HttpClientGot,
   ) { }
 
   async isImageRequired(
     instruction: string,
   ): Promise<boolean> {
-    const url = urljoin(this.inferenceServerUrl, 'instruction', 'is-image-required');
+    const url = urljoin(this.url, 'instruction', 'is-image-required');
     const httpBody = {
       instruction,
     };
@@ -43,7 +43,7 @@ export class InferenceClient {
       instruction,
       customElements,
     };
-    const url = urljoin(this.inferenceServerUrl, 'api', 'v1', 'predict-command');
+    const url = urljoin(this.url, 'api', 'v1', 'predict-command');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
     return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
   }
@@ -57,7 +57,7 @@ export class InferenceClient {
       image: resizedImage.base64Image,
       customElements,
     };
-    const url = urljoin(this.inferenceServerUrl, 'annotate', '?format=json');
+    const url = urljoin(this.url, 'annotate', '?format=json');
     const httpResponse = await this.httpClient.post<AnnotationJson>(url, httpBody);
     return Annotation.fromJson({ ...httpResponse, image }, resizedImage.resizeRatio);
   }

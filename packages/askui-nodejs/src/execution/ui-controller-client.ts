@@ -44,7 +44,7 @@ export class UiControllerClient {
     value: any,
   ) => void = UiControllerClient.EMPTY_RESOLVE;
 
-  constructor(public uiControllerUrl: string) { }
+  constructor(public url: string) { }
 
   private clearResponse() {
     this.currentReject = UiControllerClient.EMPTY_REJECT;
@@ -70,7 +70,7 @@ export class UiControllerClient {
     this.connectionState = UiControllerClientConnectionState.CONNECTING;
     return new Promise((resolve, reject) => {
       try {
-        this.ws = new WebSocket(this.uiControllerUrl);
+        this.ws = new WebSocket(this.url);
         this.ws.on('message', (data) => { this.onMessage(data); });
         this.ws.on('open', () => {
           this.connectionState = UiControllerClientConnectionState.CONNECTED;
@@ -80,7 +80,7 @@ export class UiControllerClient {
           this.connectionState = UiControllerClientConnectionState.ERROR;
           reject(new UiControlClientError(`Connection to UI Controller cannot be established,
           Probably it was not started. Makse sure you started UI Controller with this 
-          Url ${this.uiControllerUrl}. Error message  ${error.message}`));
+          Url ${this.url}. Error message  ${error.message}`));
         });
       } catch (error) {
         reject(new UiControlClientError(`Connection to UI Controller cannot be established. Reason: ${error}`));
@@ -103,7 +103,7 @@ export class UiControllerClient {
         this.send(msg, requestTimeout);
         this.timeout = setTimeout(
           () => this.currentReject(`Request to UI Controller timed out.
-          it seems that the UI Controller is down, Please make sure the server is up`),
+          It seems that the UI Controller is not running. Please, make sure that it is running when executing tests.`),
           UiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
