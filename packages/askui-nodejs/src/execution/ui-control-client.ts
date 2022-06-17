@@ -19,19 +19,19 @@ import { Analytics } from '../utils/analytics';
 export class UiControlClient extends FluentCommand {
   private _uiControllerClient?: UiControllerClient;
 
-  private analyticsHeader?: Record<string, string>;
+  private httpClient: HttpClientGot;
 
   constructor(
     private clientArgs?: ClientArgs,
   ) {
     super();
-  }
-
-  private get httpClient(): HttpClientGot {
-    return new HttpClientGot(
-      this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
-      this.analyticsHeader,
-    );
+    const analytics = new Analytics();
+    analytics.getAnalyticsHeader().then(header => {
+      this.httpClient = new HttpClientGot(
+        this.clientArgs?.credentials ? this.clientArgs.credentials : envCredentials(),
+        header,
+      );
+    });
   }
 
   private get uiControllerClient(): UiControllerClient {
@@ -79,7 +79,6 @@ export class UiControlClient extends FluentCommand {
   }
 
   async connect(): Promise<UiControllerClientConnectionState> {
-    this.analyticsHeader = await new Analytics().getAnalyticsHeader();
     const connectionState = await this.uiControllerClient.connect();
     return connectionState;
   }
