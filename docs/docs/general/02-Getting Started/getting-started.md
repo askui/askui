@@ -19,9 +19,10 @@ If you have not yet set up a project using npm as your package manager, you can 
 npm i -D askui
 ```
 
-While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of 
+While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of:
+
 - writing up the actual test,
-- writing up assertions to test wether an expectation holds true and, last but not least, 
+- writing up assertions to test wether an expectation holds true and, last but not least,
 - a way to execute the tests, i.e., a test runner.
 
 One framework which provides all of this out of the box is [Jest](https://jestjs.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.

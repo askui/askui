@@ -11,9 +11,9 @@ enum SupportedPlatform {
 }
 
 const binarySubPathsByPlatform = {
-  linux: ['linux', 'controlui-server.AppImage'],
-  darwin: ['darwin', 'controlui-server.dmg'],
-  win32: ['windows', 'controlui-server.exe'],
+  linux: ['linux', 'askui-ui-controller.AppImage'],
+  darwin: ['darwin', 'askui-ui-controller.dmg'],
+  win32: ['windows', 'askui-ui-controller.exe'],
 } as const;
 
 function isSupportedPlatform(value: string): value is SupportedPlatform {
@@ -29,7 +29,7 @@ export function platform(): SupportedPlatform {
 }
 
 function buildBinaryNotAvailbleError(binaryVersion: string): Error {
-  return new Error(`It seems that the askui server binary version "${binaryVersion}" for your system "${platform()} ${os.arch}" is not availble, Please contact as at info@askui.com for more information`);
+  return new Error(`It seems that the UI Controller version "${binaryVersion}" for your system "${platform()} ${os.arch}" is not availble, Please contact as at info@askui.com for more information`);
 }
 
 export function getBinaryPath(version: string): string {
@@ -37,7 +37,7 @@ export function getBinaryPath(version: string): string {
 }
 
 function getBinaryDownloadUrl(binaryVersion: string): string {
-  const baseUrl = `https://askui-public.s3.eu-central-1.amazonaws.com/releases/controlui-server/${binaryVersion}`;
+  const baseUrl = `https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/${binaryVersion}`;
   const arch = os.arch();
   return `${baseUrl}/${platform()}/${arch}/${binarySubPathsByPlatform[platform()][1]}`;
 }
@@ -47,7 +47,7 @@ export function downloadServerBinaries(binaryVersion: string): Promise<void> {
     const url = getBinaryDownloadUrl(binaryVersion);
     const binaryOutputPath = getBinaryPath(binaryVersion);
     const binaryFolder = path.dirname(binaryOutputPath);
-    logger.info(`Start downloading askui server binary version "${binaryVersion}"`);
+    logger.info(`Start downloading UI Controller version "${binaryVersion}"`);
     if (!(fs.existsSync(binaryFolder))) {
       fs.mkdirSync(binaryFolder, { recursive: true });
     }
@@ -65,8 +65,8 @@ export function downloadServerBinaries(binaryVersion: string): Promise<void> {
         reject(new Error('oops, an error during the downloaded occurred, try again with fresh install'));
       })
       .on('finish', () => {
-        logger.info(`askui server binary version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
-        logger.debug(`Binary of Control UI Server is located at "${binaryOutputPath}".`);
+        logger.info(`UI Controller version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
+        logger.debug(`Binary of UI Controller is located at "${binaryOutputPath}".`);
         resolve();
       });
     downloadStream.pipe(fileWriterStream);
