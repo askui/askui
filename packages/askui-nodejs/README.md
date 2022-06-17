@@ -42,6 +42,11 @@ npx askui init
 
 Visit our [documentation](https://docs.askui.com) for examples and a full list of supported commands.
 
+### Notes
+
+Important note for Linux users: Currently, Wayland is not supported.
+You can read more in our [troubleshooting chapter](https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#wayland).
+
 ## Example
 
 The following example shows the use of **askui** for testing a desktop application.
