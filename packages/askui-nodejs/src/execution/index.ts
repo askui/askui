@@ -1,1 +1,1 @@
-export { AskuiClient } from './client';
+export { UiControlClient } from './ui-control-client';

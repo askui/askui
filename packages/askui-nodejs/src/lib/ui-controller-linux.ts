@@ -1,14 +1,14 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { ControlUiServerFacade } from './control-ui-server-facade';
-import { LibfuseError } from './libfuse-error';
+import { UiControllerFacade } from './ui-controller-facade';
 import { logger } from './logger';
 import { WaylandError } from './wayland-error';
+import { LibfuseError } from './libfuse-error';
 
-export class ControlUiServerLinux extends ControlUiServerFacade {
+export class UiControllerLinux extends UiControllerFacade {
   // eslint-disable-next-line class-methods-use-this
   protected override makeBinaryExecutable(): void {
-    exec(`chmod +x ${this.binaryPath}`, (_exception, stdout) => logger.debug(stdout));
+    exec(`chmod +x "${this.binaryPath}"`, (_exception, stdout) => logger.debug(stdout));
   }
 
   // eslint-disable-next-line class-methods-use-this

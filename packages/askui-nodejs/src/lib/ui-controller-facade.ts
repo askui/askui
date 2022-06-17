@@ -5,52 +5,52 @@ import fkill from 'fkill';
 import os from 'os';
 import path from 'path';
 import {
-  ControlUiServerArgs,
-  ControlUiServerArgsWithDefaults,
+  UiControllerArgs,
+  UiControllerArgsWithDefaults,
   createArgsWithDefaults,
   createCliFlagsFromArgs,
-} from './control-ui-server-args';
+} from './ui-controller-args';
 import { downloadServerBinaries, getBinaryPath } from './download-binaries';
 import { logger } from './logger';
 import { TimeoutError } from './timeout-error';
 import { UnkownError } from './unkown-error';
 
-export abstract class ControlUiServerFacade {
+export abstract class UiControllerFacade {
   protected binaryPath = getBinaryPath('latest');
 
   protected serverLogFile!: string;
 
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
-  async start(args?: ControlUiServerArgs, maxWaitingForStartingInSeconds?: number) {
+  async start(args?: UiControllerArgs, maxWaitingForStartingInSeconds?: number) {
     await this.preStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
     await this.getBinary(argsWithLogPath.binaryVersion, argsWithLogPath.overWriteBinary);
     this.makeBinaryExecutable();
-    logger.debug(`AskuiServer log path "${this.serverLogFile}"`);
+    logger.debug(`UI Controller log path "${this.serverLogFile}"`);
     await this.startWithDefaults(argsWithLogPath, maxWaitingForStartingInSeconds);
   }
 
-  async stop(args?: ControlUiServerArgs, forceStop?: boolean): Promise<void> {
+  async stop(args?: UiControllerArgs, forceStop?: boolean): Promise<void> {
     try {
       const argsWithDefaults = createArgsWithDefaults(args);
       await this.killPort(argsWithDefaults.port, forceStop);
     } catch (err) {
-      throw new Error(`An unknown error occured while closing of the askui server. Log file: "${this.serverLogFile}". ErrorReason: ${err}`);
+      throw new Error(`An unknown error occured while closing of the UI Controller. Log file: "${this.serverLogFile}". ErrorReason: ${err}`);
     }
   }
 
   protected serverLogFilePath(
-    args?: ControlUiServerArgsWithDefaults,
-  ): ControlUiServerArgsWithDefaults {
+    args?: UiControllerArgsWithDefaults,
+  ): UiControllerArgsWithDefaults {
     if (args?.logFilePath) {
       this.serverLogFile = args.logFilePath;
       return args;
     }
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'askui'));
-    this.serverLogFile = path.join(tmpDir, 'askui-server.log');
+    this.serverLogFile = path.join(tmpDir, 'askui-ui-controller.log');
     const argPath = { logFilePath: this.serverLogFile };
     return Object.assign(argPath, args);
   }
@@ -67,7 +67,7 @@ export abstract class ControlUiServerFacade {
   }
 
   protected getStartingCommand(): string {
-    return this.binaryPath;
+    return `"${this.binaryPath}"`;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -89,7 +89,7 @@ export abstract class ControlUiServerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected waitUntilStarted(
-    args: ControlUiServerArgsWithDefaults,
+    args: UiControllerArgsWithDefaults,
     maxWaitingForStartingInSeconds?: number,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -109,7 +109,7 @@ export abstract class ControlUiServerFacade {
           return reject(new TimeoutError('Starting time limit has been reached'));
         });
       } catch (err) {
-        reject(new UnkownError(`An unknown error occured while waiting for the askui server: ${err}`));
+        reject(new UnkownError(`An unknown error occured while waiting for the UI Controller: ${err}`));
       }
     });
   }
@@ -122,19 +122,19 @@ export abstract class ControlUiServerFacade {
 
   private async getBinary(binaryVersion: string, overWriteBinary = false): Promise<void> {
     if (!fs.existsSync(this.binaryPath) || overWriteBinary || !this.isBinaryValid()) {
-      logger.debug(`Currently, no binary of the Control UI Server is available at "${this.binaryPath}"`);
+      logger.debug(`Currently, no binary of the UI Controller is available at "${this.binaryPath}"`);
       await downloadServerBinaries(binaryVersion);
     } else {
-      logger.debug(`Binary of Control UI Server is already present at "${this.binaryPath}".`);
+      logger.debug(`Binary of UI Controller is already present at "${this.binaryPath}".`);
     }
   }
 
   private async startWithDefaults(
-    args: ControlUiServerArgsWithDefaults,
+    args: UiControllerArgsWithDefaults,
     maxWaitingForStartingInSeconds?: number,
   ) {
     try {
-      logger.debug('Starting the Control UI Server...');
+      logger.debug('Starting the UI Controller...');
       spawn(
         this.getStartingCommand(),
         createCliFlagsFromArgs(args),
@@ -142,7 +142,7 @@ export abstract class ControlUiServerFacade {
       );
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
-      throw new Error(`The Control UI Server could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}
+      throw new Error(`The UI Controller could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}
       Check this website for more information: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems`);
     }
   }

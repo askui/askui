@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Why askui?
 
-The askui library provides you with an API that allows you to automate the interaction with an application, multiple applications or even an entire operating system (OS). You can use this to write ui, e2e or functional tests. 
+The askui library provides you with an API that allows you to automate the interaction with an application, multiple applications or even an entire operating system (OS). You can use this to write ui, e2e or functional tests.
 
 ## Who uses askui?
 
