@@ -20,6 +20,11 @@ export class UiControllerLinux extends UiControllerFacade {
       throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems#wayland');
     }
 
+    /* First we want to check if the user is using a debian distribution.
+    * and in the following if libfuse2 is installed.
+    * With Ubunutu 22.04 libfuse2 is not installed per default.
+    * For more information: https://discourse.joplinapp.org/t/appimage-incompatibility-in-ubuntu-22-04/25173
+    */
     try {
       await runCommand('dpkg --version');
     } catch (err) {
