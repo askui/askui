@@ -3,28 +3,21 @@ import { Credentials, CredentialArgs } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
-  private credentials: Credentials | undefined;
-
-  private headers:Record<string, string> = {};
+  private headers: Record<string, string> = {};
 
   constructor(
     private readonly credentialArgs?: CredentialArgs,
     private readonly customHeaders?: Record<string, string>,
   ) {
-    this.credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
+    this.initHeaders(credentialArgs, customHeaders);
   }
-
-  private defineHeaders() {
-    if (this.credentialArgs) {
-      this.injectIntoHeaders({ Authorization: `Basic ${this.credentials?.base64Encoded}` });
-    }
-    if (this.customHeaders) {
-      this.injectIntoHeaders(this.customHeaders);
-    }
-  }
-
-  private injectIntoHeaders(newObject: Record<string, string>) {
-    this.headers = { ...this.headers, ...newObject };
+  
+  private initHeaders(credentialArgs?: CredentialArgs, customHeaders: Record<string, string> = {}) {
+      const credentials = this.credentialArgs ? new Credentials(this.credentialArgs) : undefined;
+      this.headers = {
+        ...(credentials ? { Authorization: `Basic ${this.credentials?.base64Encoded}` } : {}),
+        ...customerHeaders,
+      }
   }
 
   private injectHeaders(options: OptionsOfJSONResponseBody) {
@@ -32,7 +25,6 @@ export class HttpClientGot {
   }
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
-    this.defineHeaders();
     const options = this.injectHeaders({ json: data, responseType: 'json', throwHttpErrors: false });
     const { body, statusCode } = await got.post<T>(url, options);
     if (statusCode !== 200) {
