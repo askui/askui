@@ -43,7 +43,7 @@ The main difference between [the first test suite using askui example](../02-Get
 
 ```typescript
 const uiControllerUrlHost = process.env.CI_JOB_ID ? '<alias_name>' : 'localhost';
-aui = new UiControlClient({
+aui = await UiControlClient.build({
   uiControllerUrl: `http://${uiControllerUrlHost}:6769`,
 });
 ```
