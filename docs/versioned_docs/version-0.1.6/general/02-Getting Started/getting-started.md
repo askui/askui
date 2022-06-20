@@ -9,7 +9,8 @@ sidebar_position: 2
 
 - Node.js version 16 or above
 - npm version 7.10 or above
-- :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/askuicontroller-starting-problems.md#wayland).
+- :warning: **Linux**: Currently, the windowing system Wayland is not supported. You can switch to Xorg to make askui work with your Linux distribution (see [How to Switch to Xorg from Wayland](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)).
+
 
 ## Installation
 

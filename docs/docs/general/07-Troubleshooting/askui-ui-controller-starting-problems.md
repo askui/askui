@@ -15,7 +15,6 @@ As a solution, you can switch to Xorg instead of Wayland ([how to switch to Xorg
 
 If you are using Ubuntu 22.04 or later, you need to install libfuse before using askui lib 
 since it's no longer installed per default.
-That's why you have to manually install libfuse2 to use the askui lib
 
 Libfuse2 can be installed with these commands: 
 
