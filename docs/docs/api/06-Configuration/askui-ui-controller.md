@@ -23,7 +23,7 @@ custom_edit_url: null
 
 There are different versions of the askui UI Controller. Not all versions are supported for all operating systems.
 You can specify which binary version of server you want to download and use. The default value is `latest` which will
-download the newest version. Currently, we only provide the latest version.
+download the newest version.
 ___
 
 ### display
@@ -66,7 +66,7 @@ ___
 
 • **logLevel**: `LogLevels` - Default: `debug`
 
-You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum. You can export all log levels.
+You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum.
 ___
 
 ### minimize

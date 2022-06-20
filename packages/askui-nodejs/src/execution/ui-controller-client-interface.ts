@@ -2,11 +2,14 @@ import { CredentialArgs } from '../utils/http/credentials';
 import { AnnotationLevel } from './annotation-level';
 
 /**
- * @param uiControllerUrl The adress of the askui UI Controller server.
- * @param inferenceClientUrl Address of the askui Inference server.
- * @param annotationLevel Usage of annotate command after execution of test steps.
+ * Provide configuration options for the askui UI Control Client
+ *
+ * @param {string} uiControllerUrl - The adress of the askui UI Controller server.
+ * @param {string} inferenceClientUrl - Address of the askui Inference server.
+ * @param {AnnotationLevel} annotationLevel - Usage of annotate command
+ * after execution of test steps.
  * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
- * @param credentials We need to provide credentials for
+ * @param {CredentialArgs} credentials - We need to provide credentials for
  * the authentication of the askui Inferrence Server.
  */
 export interface ClientArgs {

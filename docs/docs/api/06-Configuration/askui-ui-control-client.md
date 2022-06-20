@@ -1,7 +1,7 @@
 ---
 custom_edit_url: null
 ---
-# askui Client
+# askui UI Control Client
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ custom_edit_url: null
 
 • **uiControllerUrl**: `string` - Default: `http://localhost:6769`
 
-This provides the url where the askui UI Controller runs. The Client is also connecting
+This provides the url where the askui UI Controller runs. The askui UI Control Client is also connecting
 to this address.
 ___
 
@@ -35,7 +35,7 @@ ___
 
 AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
 
-`ALL`:  We run the [annotate](../../general/05-Tooling/annotate-image.md) command after the execution of each test step.
+`ALL`:  Runs the [annotate](../../general/05-Tooling/annotate-image.md) command after the execution of each test step.
 
 
 `ON_FAILURE`: Runs the annotate command if the test step fails 
@@ -69,9 +69,7 @@ $env:LOG_LEVEL="verbose"
 ## Example
 
 ```typescript
- let aui = new UiControlClient({
-    askuiUiControllerServerUrl: 'http://localhost:6769',
-    inferenceServerUrl: 'https://inference.askui.com',
+ let aui = await UiControlClient.build({
     annotationLevel: AnnotationLevel.DISABLED,
     credentials: {
       tenant: 'user',
