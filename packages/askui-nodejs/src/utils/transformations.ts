@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { read } from 'jimp';
+import sharp from 'sharp';
 import { logger } from '../lib';
 import { ImageResizingError, InvalidBase64Image } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
@@ -8,8 +8,8 @@ export async function toBase64Image(imagePath: string): Promise<string> {
   if (!(fs.existsSync(imagePath))) {
     throw new Error(`the image ${imagePath} does not exists!`);
   }
-  const image = await read(imagePath);
-  return image.getBase64Async('image/png');
+  const image = sharp(imagePath);
+  return `data:image/png;base64,${(await image.toBuffer()).toString('base64')}`;
 }
 
 export async function toBase64ImageIfNeeded(pngPathOrBase64Image: string): Promise<string> {
@@ -40,22 +40,22 @@ export async function resizeBase64ImageWithSameRatio(
   }
   try {
     let resizeRatio = 1;
-    const orignalImage = await read(Buffer.from(base64ImageString.replace(/^data:image\/png;base64,/, ''), 'base64'));
-    const imageHeight = orignalImage.getHeight();
-    const imageWidth = orignalImage.getWidth();
+    const orignalImage = sharp(Buffer.from(base64ImageString.replace(/^data:image\/png;base64,/, ''), 'base64'));
+    const imageMetadata = await orignalImage.metadata();
+    const imageHeight = imageMetadata.height;
+    const imageWidth = imageMetadata.width;
 
-    if (Math.max(imageHeight, imageWidth) <= maxEdge) {
+    if (Math.max(imageHeight ?? NaN, imageWidth ?? NaN) <= maxEdge) {
       return await Promise.resolve({ base64Image: base64ImageString, resizeRatio });
     }
 
-    const imageRatio = imageHeight / imageWidth;
+    const imageRatio = (imageHeight ?? NaN) / (imageWidth ?? NaN);
     const isHeigthBiggerThanWidth = imageRatio > 1;
     const newHeigh = isHeigthBiggerThanWidth ? maxEdge : maxEdge * imageRatio;
     const newWidth = isHeigthBiggerThanWidth ? maxEdge / imageRatio : maxEdge;
     const newImage = orignalImage.resize(newWidth, newHeigh);
-    resizeRatio = imageHeight / newHeigh;
-    const newImageBase64 = await newImage.getBase64Async('image/png');
-
+    resizeRatio = imageHeight ?? NaN / newHeigh;
+    const newImageBase64 = `data:image/png;base64,${(await newImage.toBuffer()).toString('base64')}`;
     return await Promise.resolve({ base64Image: newImageBase64, resizeRatio });
   } catch (error) {
     return Promise.reject(new ImageResizingError(`A Problem has occured during the resizeing of the image. Error: ${error}`));
