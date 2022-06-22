@@ -49,12 +49,9 @@ abstract class FluentBase {
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      const secretText = newParamsList.has('secretText')
-        ? newParamsList.get('secretText')?.[0] as string : '';
       return fluentCommand.exec(
         newCurrentInstruction.trim(),
         customElements,
-        secretText,
       );
     }
     if (!this.prev) {
@@ -2550,6 +2547,5 @@ export abstract class FluentCommand extends FluentBase {
   abstract exec(
     instruction: string,
     customElements: CustomElementJson[],
-    secretText: string,
   ): Promise<void>;
 }

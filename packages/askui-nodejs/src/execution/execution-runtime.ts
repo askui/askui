@@ -9,8 +9,6 @@ import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
 import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
 import { logger } from '../lib/logger';
-import { InputEvent } from '../core/ui-control-commands/input-event';
-import { Action } from '../core/ui-control-commands/action';
 
 export class ExecutionRuntime {
   constructor(
@@ -24,26 +22,8 @@ export class ExecutionRuntime {
   }
 
   private async requestControl(
-    controlCommandFromPrediction: ControlCommand,
-    step: TestStep,
+    controlCommand: ControlCommand,
   ): Promise<void> {
-    const actions = controlCommandFromPrediction.actions.map((a) => {
-      if (
-        (a.inputEvent !== InputEvent.TYPE && a.inputEvent !== InputEvent.TYPE_TEXT)
-        || !step.secretText
-      ) return a;
-
-      return new Action(
-        a.inputEvent,
-        a.position,
-        step.secretText,
-      );
-    });
-    const controlCommand = new ControlCommand(
-      controlCommandFromPrediction.code,
-      actions,
-      controlCommandFromPrediction.tryToRepeat,
-    );
     await this.uiControllerClient.requestControl(controlCommand);
   }
 
@@ -53,11 +33,11 @@ export class ExecutionRuntime {
   private async executeCommand(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
-      return this.requestControl(controlCommand, step);
+      return this.requestControl(controlCommand);
     }
 
     if (controlCommand.tryToRepeat) {
-      await this.requestControl(controlCommand, step);
+      await this.requestControl(controlCommand);
       return this.executeCommandRepeatedly(step);
     }
 
@@ -83,7 +63,7 @@ export class ExecutionRuntime {
       }
 
       if (controlCommand.tryToRepeat) {
-        await this.requestControl(controlCommand, step);
+        await this.requestControl(controlCommand);
       } else {
         throw new ControlCommandError(controlCommand.actions[0]?.text || '');
       }
@@ -114,18 +94,25 @@ export class ExecutionRuntime {
     return command;
   }
 
+  private async getImageIfRequired(instruction: string): Promise<string | undefined> {
+    const isImageRequired = await this.inferenceClient.isImageRequired(instruction);
+    if (!isImageRequired) return undefined;
+
+    const screenshotResponse = await this.uiControllerClient.requestScreenshot();
+    return screenshotResponse.data.image;
+  }
+
   private async predictCommand(step: TestStep): Promise<ControlCommand> {
-    const isImageRequired = await this.inferenceClient.isImageRequired(step.instruction);
-    let image: string | undefined;
-    if (isImageRequired) {
-      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
-      image = screenshotResponse.data.image;
-    }
-    return this.inferenceClient.predictControlCommand(
+    const image = await this.getImageIfRequired(step.instruction);
+    const controlCommand = await this.inferenceClient.predictControlCommand(
       step.instruction,
       step.customElements,
       image,
     );
+    if (step.secretText !== undefined) {
+      controlCommand.setTextToBeTyped(step.secretText);
+    }
+    return controlCommand;
   }
 
   async annotateInteractively() {

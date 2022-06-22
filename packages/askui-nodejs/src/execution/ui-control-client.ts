@@ -110,12 +110,12 @@ export class UiControlClient extends FluentCommand {
   async exec(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
-    secretText = '',
   ): Promise<void> {
     let customElements: CustomElement[] = [];
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }
+    const { secretText } = this;
     try {
       await this.executionRuntime.executeTestStep({
         instruction,
@@ -132,9 +132,11 @@ export class UiControlClient extends FluentCommand {
     }
   }
 
+  private secretText: string | undefined = undefined;
+
   override typeIn(text: string, { isSecret = false, secretMask = '****' } = {}): FluentFilters {
     if (isSecret) {
-      this._params.set('secretText', text);
+      this.secretText = text;
       return super.typeIn(secretMask);
     }
 
@@ -143,7 +145,7 @@ export class UiControlClient extends FluentCommand {
 
   override type(text: string, { isSecret = false, secretMask = '****' } = {}): Exec {
     if (isSecret) {
-      this._params.set('secretText', text);
+      this.secretText = text;
       return super.type(secretMask);
     }
 
