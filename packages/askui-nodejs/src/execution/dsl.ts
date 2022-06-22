@@ -49,12 +49,21 @@ abstract class FluentBase {
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      return fluentCommand.exec(newCurrentInstruction.trim(), customElements);
+      const secretText = newParamsList.has('secretText')
+        ? newParamsList.get('secretText')?.[0] as string : '';
+      return fluentCommand.exec(
+        newCurrentInstruction.trim(),
+        customElements,
+        secretText,
+      );
     }
     if (!this.prev) {
       throw new Error('Prev element not defined');
     }
-    return this.prev.commandStringBuilder(newCurrentInstruction, newParamsList);
+    return this.prev.commandStringBuilder(
+      newCurrentInstruction,
+      newParamsList,
+    );
   }
 
   protected get textStr() { return this._textStr; }
@@ -62,7 +71,7 @@ abstract class FluentBase {
   protected get params() { return this._params; }
 }
 
-class Exec extends FluentBase {
+export class Exec extends FluentBase {
   exec(): Promise<void> {
     return this.commandStringBuilder();
   }
@@ -2538,6 +2547,9 @@ export abstract class FluentCommand extends FluentBase {
     return new Exec(this);
   }
 
-  abstract exec(instruction: string,
-    customElements: CustomElementJson[]): Promise<void>;
+  abstract exec(
+    instruction: string,
+    customElements: CustomElementJson[],
+    secretText: string,
+  ): Promise<void>;
 }

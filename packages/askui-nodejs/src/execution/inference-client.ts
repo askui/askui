@@ -34,7 +34,7 @@ export class InferenceClient {
 
   async predictControlCommand(
     instruction: string,
-    customElements: CustomElement[],
+    customElements: CustomElement[] = [],
     image?: string,
   ): Promise<ControlCommand> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);

@@ -1,5 +1,5 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
-import { FluentCommand } from './dsl';
+import { Exec, FluentCommand, FluentFilters } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { UiControllerClient } from './ui-controller-client';
@@ -109,7 +109,8 @@ export class UiControlClient extends FluentCommand {
 
   async exec(
     instruction: string,
-    customElementJson?: CustomElementJson[],
+    customElementJson: CustomElementJson[] = [],
+    secretText = '',
   ): Promise<void> {
     let customElements: CustomElement[] = [];
     if (customElementJson !== undefined) {
@@ -119,6 +120,7 @@ export class UiControlClient extends FluentCommand {
       await this.executionRuntime.executeTestStep({
         instruction,
         customElements,
+        secretText,
       });
       await this.annotateByDefault(TestStepState.PASSED, customElements);
       return await Promise.resolve();
@@ -128,6 +130,24 @@ export class UiControlClient extends FluentCommand {
         new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
       );
     }
+  }
+
+  override typeIn(text: string, { isSecret = false, secretMask = '****' } = {}): FluentFilters {
+    if (isSecret) {
+      this._params.set('secretText', text);
+      return super.typeIn(secretMask);
+    }
+
+    return super.typeIn(text);
+  }
+
+  override type(text: string, { isSecret = false, secretMask = '****' } = {}): Exec {
+    if (isSecret) {
+      this._params.set('secretText', text);
+      return super.type(secretMask);
+    }
+
+    return super.type(text);
   }
 
   /**

@@ -10,7 +10,7 @@ class TestCommand extends FluentCommand {
   }
 }
 
-describe('DSL', () => {
+xdescribe('DSL', () => {
   describe('custom element', () => {
     test('should call exec function with zero custom element', async () => {
       const underTest = new TestCommand();

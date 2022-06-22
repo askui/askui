@@ -9,6 +9,8 @@ import { Annotation } from '../core/annotation/annotation';
 import { toBase64Image } from '../utils/transformations';
 import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
 import { logger } from '../lib/logger';
+import { InputEvent } from '../core/ui-control-commands/input-event';
+import { Action } from '../core/ui-control-commands/action';
 
 export class ExecutionRuntime {
   constructor(
@@ -21,19 +23,45 @@ export class ExecutionRuntime {
     await this.executeCommand(step);
   }
 
+  private async requestControl(
+    controlCommandFromPrediction: ControlCommand,
+    step: TestStep,
+  ): Promise<void> {
+    const actions = controlCommandFromPrediction.actions.map((a) => {
+      if (
+        (a.inputEvent !== InputEvent.TYPE && a.inputEvent !== InputEvent.TYPE_TEXT)
+        || !step.secretText
+      ) return a;
+
+      return new Action(
+        a.inputEvent,
+        a.position,
+        step.secretText,
+      );
+    });
+    const controlCommand = new ControlCommand(
+      controlCommandFromPrediction.code,
+      actions,
+      controlCommandFromPrediction.tryToRepeat,
+    );
+    await this.uiControllerClient.requestControl(controlCommand);
+  }
+
   /**
    * @param {TestStep} step - Test step used for predicting command.
    */
   private async executeCommand(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
-      await this.uiControllerClient.requestControl(controlCommand);
-    } else if (controlCommand.tryToRepeat) {
-      await this.uiControllerClient.requestControl(controlCommand);
-      this.executeCommandRepeatedly(step);
-    } else {
-      throw new ControlCommandError(controlCommand.actions[0]?.text || '');
+      return this.requestControl(controlCommand, step);
     }
+
+    if (controlCommand.tryToRepeat) {
+      await this.requestControl(controlCommand, step);
+      return this.executeCommandRepeatedly(step);
+    }
+
+    throw new ControlCommandError(controlCommand.actions[0]?.text || '');
   }
 
   private readonly EXEC_REPETITION_COUNT = 25;
@@ -52,8 +80,10 @@ export class ExecutionRuntime {
       const controlCommand = await this.predictCommandWithRetry(step);
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
-      } else if (controlCommand.tryToRepeat) {
-        await this.uiControllerClient.requestControl(controlCommand);
+      }
+
+      if (controlCommand.tryToRepeat) {
+        await this.requestControl(controlCommand, step);
       } else {
         throw new ControlCommandError(controlCommand.actions[0]?.text || '');
       }
