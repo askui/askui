@@ -24,4 +24,4 @@ sudo apt-get update
 
 ```shell
 sudo apt-get install libfuse2
-
+```
