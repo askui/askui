@@ -18,8 +18,7 @@ custom_edit_url: null
 
 • **uiControllerUrl**: `string` - Default: `http://localhost:6769`
 
-This provides the url where the askui UI Controller runs. The askui UI Control Client is also connecting
-to this address.
+The url of the askui UI Controller controlling the OS.
 ___
 
 ### inferenceClientUrl
@@ -46,9 +45,13 @@ ___
 
 ### credentials
 
-• **credentials**: `string` - Default: `environment-tenant`, `environment-token`, `environment-email`
+• **credentials**: {Credentials.<`tenant`: string, `email`: string, `token`: string>} - 
 
-We need to provide credentials for the authentication of the askui Inferrence Server. If you want to set your own credentials you need to provide the following arguments `tenant`, `token`, `email`. Per default we read the environment variables.
+We need to provide credentials for the authentication of the askui Inferrence Server. If you want to set your own credentials you need to provide the following arguments `tenant`, `email`, `token`. We read the environment variables:
+
+- `tenant`: 'ASKUI_TENANT'
+- `email`:  'ASKUI_EMAIL'
+- `token`:  'ASKUI_TOKEN'
 ___
 
 ## Set Log Level

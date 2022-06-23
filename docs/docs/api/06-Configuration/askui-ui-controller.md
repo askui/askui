@@ -66,7 +66,7 @@ ___
 
 • **logLevel**: `LogLevels` - Default: `debug`
 
-You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum.
+You can set the log level using the `LogLevels`. The following values are available: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum.
 ___
 
 ### minimize
@@ -102,7 +102,7 @@ describe('jest with askui', () => {
   let uiController: UiController;
   
   beforeAll(async () => {
-    uiController = new UiController()({
+    uiController = new UiController({
     
     // choosing the second monitor 
     display: 1,
