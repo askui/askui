@@ -1,21 +1,8 @@
-import fs from 'fs';
 import sharp from 'sharp';
 import { logger } from '../lib';
-import { ImageResizingError, InvalidBase64Image } from './image-resize-errors';
+import { Base64Image } from './base_64_image/base-64-image';
+import { ImageResizingError } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
-
-async function transformToBase64String(image: Buffer): Promise<string> {
-  const bufferedImageString = image.toString('base64');
-  const base64ImageString = `data:image/png;base64,${bufferedImageString}`;
-
-  return base64ImageString;
-}
-
-async function bufferBase64String(base64ImageString: string): Promise<Buffer> {
-  const cutBase64ImageString: string = base64ImageString.replace(/^data:image\/png;base64,/, '');
-  const bufferOfImage = Buffer.from(cutBase64ImageString, 'base64');
-  return bufferOfImage;
-}
 
 async function getLengths(originalImage: sharp.Sharp): Promise<number []> {
   const imageMetadata = await originalImage.metadata();
@@ -24,22 +11,6 @@ async function getLengths(originalImage: sharp.Sharp): Promise<number []> {
   const arrLengths = [imageWidth, imageHeight];
 
   return arrLengths;
-}
-
-export async function toBase64Image(imagePath: string): Promise<string> {
-  if (!(fs.existsSync(imagePath))) {
-    throw new Error(`the image ${imagePath} does not exists!`);
-  }
-  const image = await sharp(imagePath).toBuffer();
-  return transformToBase64String(image);
-}
-
-export async function toBase64ImageIfNeeded(pngPathOrBase64Image: string): Promise<string> {
-  const isBase64Image = pngPathOrBase64Image.startsWith('data:image');
-  if (!isBase64Image) {
-    return toBase64Image(pngPathOrBase64Image);
-  }
-  return pngPathOrBase64Image;
 }
 
 /**
@@ -57,12 +28,9 @@ export async function resizeBase64ImageWithSameRatio(
   maxEdge = 1400,
 ): Promise<ResizedImage> {
   logger.debug('Image resizing');
-  if (!(base64ImageString.startsWith('data:image'))) {
-    Promise.reject(new InvalidBase64Image('Invalid base64 image string'));
-  }
   try {
     const resizeRatio = 1;
-    const bufferedbase64Image = await bufferBase64String(base64ImageString);
+    const bufferedbase64Image = Base64Image.fromString(base64ImageString).toBuffer();
     const originalImage = sharp(bufferedbase64Image);
     const HeightandWidth = await getLengths(originalImage);
     const width = HeightandWidth[0] as number;
@@ -78,7 +46,7 @@ export async function resizeBase64ImageWithSameRatio(
       fit: sharp.fit.contain,
     }).toBuffer({ resolveWithObject: true });
     return {
-      base64Image: await transformToBase64String(newImage.data),
+      base64Image: Base64Image.fromBuffer(newImage.data).toString(),
       resizeRatio: width / newImage.info.width,
     };
   } catch (error) {
