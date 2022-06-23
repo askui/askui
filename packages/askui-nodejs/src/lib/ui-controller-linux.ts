@@ -12,7 +12,7 @@ export class UiControllerLinux extends UiControllerFacade {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected override async preStartChecks(): Promise<void> {
+  protected override async runPreStartChecks(): Promise<void> {
     const runCommand = promisify(exec);
     const waylandStatus = await runCommand('echo $WAYLAND_DISPLAY');
 

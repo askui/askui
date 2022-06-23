@@ -23,7 +23,7 @@ export abstract class UiControllerFacade {
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
   async start(args?: UiControllerArgs, maxWaitingForStartingInSeconds?: number) {
-    await this.preStartChecks();
+    await this.runPreStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
@@ -76,7 +76,7 @@ export abstract class UiControllerFacade {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  protected preStartChecks(): Promise<void> {
+  protected runPreStartChecks(): Promise<void> {
     return new Promise((resolve) => {
       resolve();
     });
