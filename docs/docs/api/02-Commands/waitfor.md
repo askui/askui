@@ -4,7 +4,6 @@ custom_edit_url: null
 ---
 # waitFor
 
-Waits for `<timeValue> <timeUnit>`, e.g., 10 seconds.
+Waits for `<delayInMs>` ms, e.g., 1000 ms. The exact delay may be a little longer than `<delayInMs>` but never shorter than that.
 
-   * @param {number} timeValue - A number of time unit, e.g., ms or min, to wait for.
-   * @param {TimeUnit} timeUnit - A time unit, e.g., ms, s or min.
+   * @param {number} delayInMs - The delay in ms to wait for.
