@@ -1,10 +1,19 @@
-# Askui Node.js Lib Example
+# askui Node.js Lib Example
 
-## description
+## Installation
 
- TODO
+Change to the repositories root directory and runs the following commands in order:
+
+1. `npm install`
+2. `npm run build -w packages/askui-nodejs`
+3. `cd ./examples/askui-nodejs-base-example`
+4. `npm install`
 
 ## Usage
+
+```shell
+npx jest --config ./test/jest.config.ts
+```
 
 ### Integration of askui-nodejs lib in gitlab CI
 
@@ -50,11 +59,3 @@ test:
 ```
 
 4- the variable RELEASE_VERSION is set to the actual version "v0.8.0", for future releases this can be overwritten, by starting the ci pipeline with the new value  
-
-## Contributing
-
-TODO
-
-## License
-
-TODO

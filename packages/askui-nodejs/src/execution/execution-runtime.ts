@@ -6,9 +6,9 @@ import { delay } from './misc';
 import { InferenceClient } from './inference-client';
 import { ControlCommandError } from './control-command-error';
 import { Annotation } from '../core/annotation/annotation';
-import { toBase64Image } from '../utils/transformations';
 import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
 import { logger } from '../lib/logger';
+import { Base64Image } from '../utils/base_64_image/base-64-image';
 
 export class ExecutionRuntime {
   constructor(
@@ -109,7 +109,7 @@ export class ExecutionRuntime {
   async takeScreenshotIfImageisNotProvided(imagePath?: string): Promise<string> {
     let base64Image = '';
     if (imagePath !== undefined) {
-      base64Image = await toBase64Image(imagePath);
+      base64Image = (await Base64Image.fromPath(imagePath)).toString();
     }
     if (imagePath === undefined) {
       const screenshotResponse = await this.uiControllerClient.requestScreenshot();
