@@ -36,22 +36,20 @@ AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `
 
 `ALL`:  Runs the [annotate](../../general/05-Tooling/annotate-image.md) command after the execution of each test step.
 
-
 `ON_FAILURE`: Runs the annotate command if the test step fails 
-
 
 `DISABLED`: Never runs the annotate command after test steps
 ___
 
 ### credentials
 
-• **credentials**: {Credentials.<`tenant`: string, `email`: string, `token`: string>} - 
+• **credentials**: `Credentials` Your user credentials - Optional.
+  • **tenant**: `string` Your tenant
+  • **email**: `string` Your e-mail address
+  • **token**: `string` An access token for authentication with the askui Inference Server
 
-We need to provide credentials for the authentication of the askui Inferrence Server. If you want to set your own credentials you need to provide the following arguments `tenant`, `email`, `token`. We read the environment variables:
+You can provide credentials for authentication with the askui Inference Server. This allows you to use dedidacted ressources instead of our public ressources which allows you to run tests more stable and faster. You may also provide the credentials using the environment variables `ASKUI_TENANT`, `ASKUI_EMAIL` and `ASKUI_TOKEN` but they are only taken if you don't provide the `credentials` here as a property.
 
-- `tenant`: 'ASKUI_TENANT'
-- `email`:  'ASKUI_EMAIL'
-- `token`:  'ASKUI_TOKEN'
 ___
 
 ## Set Log Level
