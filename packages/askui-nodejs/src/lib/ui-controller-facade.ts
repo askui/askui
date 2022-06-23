@@ -77,9 +77,7 @@ export abstract class UiControllerFacade {
 
   // eslint-disable-next-line class-methods-use-this
   protected runPreStartChecks(): Promise<void> {
-    return new Promise((resolve) => {
-      resolve();
-    });
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line class-methods-use-this
