@@ -23,6 +23,7 @@ export abstract class UiControllerFacade {
   protected readonly DefaultmaxWaitingForStartingInMs = 30 * 1000;
 
   async start(args?: UiControllerArgs, maxWaitingForStartingInSeconds?: number) {
+    await this.runPreStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
@@ -72,6 +73,11 @@ export abstract class UiControllerFacade {
   // eslint-disable-next-line class-methods-use-this
   protected makeBinaryExecutable() {
     /* Executable out of the box */
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected runPreStartChecks(): Promise<void> {
+    return Promise.resolve();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -129,7 +135,8 @@ export abstract class UiControllerFacade {
       );
       await this.waitUntilStarted(args, maxWaitingForStartingInSeconds);
     } catch (err) {
-      throw new Error(`The UI Controller could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}`);
+      throw new Error(`The UI Controller could not be started. Log file :  ${this.serverLogFile}. ErrorReason: ${err}
+      Check this website for more information: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller-starting-problems`);
     }
   }
 }
