@@ -54,19 +54,28 @@ ___
 
 ## Set Log Level
 
-Starting the askui library the askui UI Controller will write [logs](../06-Configuration/askui-ui-controller.md#loglevel) in a default/passed path. ([logfile path](../06-Configuration/askui-ui-controller.md#logfilepath)).
-Only the askui Client can write logs to the stdout while using the askui library.
-You can set all log levels(`"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`) for the client.
+Set the log level of the askui UI Control Client using the `LOG_LEVEL` environment variable. 
+The following log levels are available:
+- `"fatal"`, 
+- `"error"`,
+- `"warn"`,
+- `"info"`,
+- `"debug"`,
+- `"trace"`,
+- `"silent"` and 
+- `"verbose"`.
+The log level defaults to `info`.
 
 On Linux and MacOS use this command:
 ```shell
 export LOG_LEVEL=verbose
 ```
 
-For Windows you need this command:
+Windows
  ```shell
 $env:LOG_LEVEL="verbose"
 ```
+
 ## Example
 
 ```typescript
