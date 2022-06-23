@@ -1,5 +1,5 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
-import { FluentCommand } from './dsl';
+import { Executable, FluentCommand } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { UiControllerClient } from './ui-controller-client';
@@ -128,6 +128,24 @@ export class UiControlClient extends FluentCommand {
         new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
       );
     }
+  }
+
+  /**
+   * Waits for `<delayInMs>` ms, e.g., 1000 ms. The exact delay may be a little longer
+   * than `<delayInMs>` but never shorter than that.
+   *
+   * @param {number} delayInMs - The daily in ms to wait for.
+   *
+   * @return {Executable}
+   */
+  // eslint-disable-next-line class-methods-use-this
+  waitFor(delayInMs: number): Executable {
+    return {
+      exec(): Promise<void> {
+        logger.debug(`Wait for ${delayInMs} ms`);
+        return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
+      },
+    };
   }
 
   /**
