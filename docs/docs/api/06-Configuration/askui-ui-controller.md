@@ -1,22 +1,20 @@
 ---
 custom_edit_url: null
 ---
-
 # askui UI Controller
 
 ## Table of Contents
 
-### Properties
-
-- [binaryVersion](#binaryversion)
-- [display](#display)
-- [host](#host)
-- [logFilePath](#logfilepath)
-- [logLevel](#loglevel)
-- [minimize](#minimize)
-- [overWriteBinary](#overwritebinary)
-- [port](#port)
-
+  - [Properties](#properties)
+    - [binaryVersion](#binaryversion)
+    - [display](#display)
+    - [host](#host)
+    - [logFilePath](#logfilepath)
+    - [logLevel](#loglevel)
+    - [minimize](#minimize)
+    - [overWriteBinary](#overwritebinary)
+    - [port](#port)
+  - [Example](#example)
 ## Properties
 
 ### binaryVersion
@@ -26,15 +24,6 @@ custom_edit_url: null
 There are different versions of the askui UI Controller. Not all versions are supported for all operating systems.
 You can specify which binary version of server you want to download and use. The default value is `latest` which will
 download the newest version.
-
-| | v0.8.0 | v0.9.0 | v0.9.1 | v0.10.0 |
-| - | ------ | ------ | ------ | ------- |
-| **linux x64** | ✓ | ✓ | ✓ | ✓ |
-| **darwin arm64** | ✓ | ✓ | ✓ | ✓ |
-| **darwin x64** | ✓ | ✓ | ✓ | ✓ |
-| **win32 x64** | ✕ | ✓ | ✕ | ✓ |
-| **win32 ia32** | ✕ | ✕ | ✕ | ✓ |
-Availability of binary version by OS and CPU architecture.
 ___
 
 ### display
@@ -68,16 +57,16 @@ The host the askui UI Controller is running on.
 
 ### logFilePath
 
-• **logFilePath**: `string` - Default: `stdout`
+• **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log` 
 
-It is possible to specify a path for your log files. Logs are written to the stdout per default.
+It is possible to specify a path for your log files. Per default we create the askui-server.log file and askui folder in your temp folder.
 ___
 
 ### logLevel
 
 • **logLevel**: `LogLevels` - Default: `debug`
 
-You can use different types of Log Level. We provide this options: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All loglevel are defined in an `LogLevels` enum.
+You can set the log level using the `LogLevels`. The following values are available: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum.
 ___
 
 ### minimize
@@ -105,15 +94,15 @@ The port the askui UI Controller is running on.
 ## Example
 
 ```typescript
-import { AskuiClient, AskuiControlServer, LogLevels } from 'askui';
+import { UiControlClient, UiController, LogLevels } from 'askui';
 
 describe('jest with askui', () => {
   
   // Server for controlling the operating system
-  let askuiControlServer: AskuiControlServer;
+  let uiController: UiController;
   
   beforeAll(async () => {
-    askuiControlServer = new AskuiControlServer({
+    uiController = new UiController({
     
     // choosing the second monitor 
     display: 1,
