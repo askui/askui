@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    curly: 'error',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'import/prefer-default-export': 'off',
     'import/no-default-export': 'error',

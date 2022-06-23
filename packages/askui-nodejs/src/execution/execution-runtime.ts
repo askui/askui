@@ -96,7 +96,9 @@ export class ExecutionRuntime {
 
   private async getImageIfRequired(instruction: string): Promise<string | undefined> {
     const isImageRequired = await this.inferenceClient.isImageRequired(instruction);
-    if (!isImageRequired) return undefined;
+    if (!isImageRequired) {
+      return undefined;
+    }
 
     const screenshotResponse = await this.uiControllerClient.requestScreenshot();
     return screenshotResponse.data.image;
