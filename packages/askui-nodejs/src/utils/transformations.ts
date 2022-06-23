@@ -1,17 +1,7 @@
-import sharp from 'sharp';
 import { logger } from '../lib';
 import { Base64Image } from './base_64_image/base-64-image';
 import { ImageResizingError } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
-
-async function getLengths(originalImage: sharp.Sharp): Promise<number []> {
-  const imageMetadata = await originalImage.metadata();
-  const imageHeight = imageMetadata.height as number;
-  const imageWidth = imageMetadata.width as number;
-  const arrLengths = [imageWidth, imageHeight];
-
-  return arrLengths;
-}
 
 /**
   * Resizes a base64image only when the height or the width is bigger than the maxEdge Param,so that
@@ -29,27 +19,17 @@ export async function resizeBase64ImageWithSameRatio(
 ): Promise<ResizedImage> {
   logger.debug('Image resizing');
   try {
-    const resizeRatio = 1;
-    const bufferedbase64Image = Base64Image.fromString(base64ImageString).toBuffer();
-    const originalImage = sharp(bufferedbase64Image);
-    const HeightandWidth = await getLengths(originalImage);
-    const width = HeightandWidth[0] as number;
-    const height = HeightandWidth[1] as number;
-
-    if (Math.max(height, width) <= maxEdge) {
-      return { base64Image: base64ImageString, resizeRatio };
+    const image = await Base64Image.fromString(base64ImageString);
+    if (image.height <= maxEdge && image.width <= maxEdge) {
+      return { base64Image: base64ImageString, resizeRatio: 1 };
     }
 
-    const newImage = await originalImage.resize({
-      width: width >= height ? maxEdge : undefined,
-      height: height > width ? maxEdge : undefined,
-      fit: sharp.fit.contain,
-    }).toBuffer({ resolveWithObject: true });
+    const resizedImage = await image.resizeToFitInto(maxEdge);
     return {
-      base64Image: Base64Image.fromBuffer(newImage.data).toString(),
-      resizeRatio: width / newImage.info.width,
+      base64Image: resizedImage.toString(),
+      resizeRatio: image.width / resizedImage.width,
     };
   } catch (error) {
-    return Promise.reject(new ImageResizingError(`A Problem has occured during the resizeing of the image. Error: ${error}`));
+    throw new ImageResizingError(`A Problem has occured during the resizing of the image. Error: ${error}`);
   }
 }
