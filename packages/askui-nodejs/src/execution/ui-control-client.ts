@@ -111,10 +111,7 @@ export class UiControlClient extends FluentCommand {
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    let customElements: CustomElement[] = [];
-    if (customElementJson !== undefined) {
-      customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
-    }
+    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     const { secretText } = this;
     try {
       await this.executionRuntime.executeTestStep({
