@@ -7,8 +7,7 @@
         "lint:staged": "lint-staged"
     },
     "dependencies": {
-        "askui": "0.1.7",
-        "node-machine-id": "^1.1.12"
+        "askui": "../../packages/askui-nodejs"
     },
     "devDependencies": {
         "@types/jest": "^27.5.0",
