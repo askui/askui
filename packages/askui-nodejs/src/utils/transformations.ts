@@ -4,9 +4,8 @@ import { logger } from '../lib';
 import { ImageResizingError, InvalidBase64Image } from './image-resize-errors';
 import { ResizedImage } from './resized-image-interface';
 
-async function transformToBase64String(sharpImage: sharp.Sharp): Promise<string> {
-  const bufferedImage = await sharpImage.toBuffer();
-  const bufferedImageString = bufferedImage.toString('base64');
+async function transformToBase64String(image: Buffer): Promise<string> {
+  const bufferedImageString = image.toString('base64');
   const base64ImageString = `data:image/png;base64,${bufferedImageString}`;
 
   return base64ImageString;
@@ -31,7 +30,7 @@ export async function toBase64Image(imagePath: string): Promise<string> {
   if (!(fs.existsSync(imagePath))) {
     throw new Error(`the image ${imagePath} does not exists!`);
   }
-  const image = sharp(imagePath);
+  const image = await sharp(imagePath).toBuffer();
   return transformToBase64String(image);
 }
 
@@ -73,16 +72,14 @@ export async function resizeBase64ImageWithSameRatio(
       return { base64Image: base64ImageString, resizeRatio };
     }
 
-    const newImage = originalImage.resize({
-      width: width > height ? maxEdge : undefined,
+    const newImage = await originalImage.resize({
+      width: width >= height ? maxEdge : undefined,
       height: height > width ? maxEdge : undefined,
       fit: sharp.fit.contain,
-    });
-    const newWidth = (await newImage.metadata()).width as number;
-
+    }).toBuffer({ resolveWithObject: true });
     return {
-      base64Image: await transformToBase64String(newImage),
-      resizeRatio: width / newWidth,
+      base64Image: await transformToBase64String(newImage.data),
+      resizeRatio: width / newImage.info.width,
     };
   } catch (error) {
     return Promise.reject(new ImageResizingError(`A Problem has occured during the resizeing of the image. Error: ${error}`));
