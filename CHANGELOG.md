@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/askui/askui/compare/0.1.6...0.2.0) (2022-06-23)
+
+* AS-944 Fix Handling UI Controller Binary Paths Including Whitespace by @adi-wan-askui in https://github.com/askui/askui/pull/9
+* AS-1061 fix slow jest by @maxi-askui in https://github.com/askui/askui/pull/12
+* refactor: rename scollUntil to scollInside. update docs (#AS-925) by @thinh-askui in https://github.com/askui/askui/pull/11
+* docs(configuration options): document all config options for askui-ui… by @thinh-askui in https://github.com/askui/askui/pull/10
+* As 1034 rename for source code UI controller 2 by @mlikasam-askui in https://github.com/askui/askui/pull/17
+* As 993 unauthenticated library usage with tracking by @mlikasam-askui in https://github.com/askui/askui/pull/15
+* AS-1010 Fix waitFor() by @adi-wan-askui in https://github.com/askui/askui/pull/22
+* As 1073 improve speed if image resizing in lib by @thinh-askui in https://github.com/askui/askui/pull/20
+* As 1007 troubleshooting UI controller wayland problems by @thinh-askui in https://github.com/askui/askui/pull/16
+* As 979 documentation of configuration options by @thinh-askui in https://github.com/askui/askui/pull/14
+
+### ⚠ BREAKING CHANGES
+
+* construction of ui-control-client with constructor replaced by builder pattern
+
 ### 0.1.6 (2022-06-05)
 
 First Official Release

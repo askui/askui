@@ -1,3 +1,3 @@
 export { UiController } from './lib';
-export { UiControlClient } from './execution';
+export { UiControlClient, AnnotationLevel } from './execution';
 export { LogLevels } from './shared';

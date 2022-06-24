@@ -1,5 +1,5 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
-import { Exec, FluentCommand, FluentFilters } from './dsl';
+import { Exec, Executable, FluentCommand, FluentFilters } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { UiControllerClient } from './ui-controller-client';
@@ -174,7 +174,7 @@ export class UiControlClient extends FluentCommand {
    * @param {string} [options.secretMask = '****'] - If `options.isSecret` is set to `true`, this
    *   is included in logs and sent over to askui Inference for prediction instead of the `text`.
    *
-   * @return {FluentFilters}
+   * @return {Exec}
    */
   override type(text: string, { isSecret = false, secretMask = '****' } = {}): Exec {
     if (isSecret) {
@@ -183,6 +183,24 @@ export class UiControlClient extends FluentCommand {
     }
 
     return super.type(text);
+  }
+
+  /**
+   * Waits for `<delayInMs>` ms, e.g., 1000 ms. The exact delay may be a little longer
+   * than `<delayInMs>` but never shorter than that.
+   *
+   * @param {number} delayInMs - The delay in ms to wait for.
+   *
+   * @return {Executable}
+   */
+  // eslint-disable-next-line class-methods-use-this
+  waitFor(delayInMs: number): Executable {
+    return {
+      exec(): Promise<void> {
+        logger.debug(`Wait for ${delayInMs} ms`);
+        return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
+      },
+    };
   }
 
   /**

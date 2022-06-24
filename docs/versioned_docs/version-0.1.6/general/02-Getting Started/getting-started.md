@@ -11,6 +11,7 @@ sidebar_position: 2
 - npm version 7.10 or above
 - :warning: **Linux**: Currently, the windowing system Wayland is not supported. You can switch to Xorg to make askui work with your Linux distribution (see [How to Switch to Xorg from Wayland](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)).
 
+
 ## Installation
 
 If you have not yet set up a project using npm as your package manager, you can easily do so by running `npm init -y` inside the directory that you want your project to be in. This is going to create a `package.json` file with a description of your project, all your dependencies etc. If you already have a project that you would like to include the askui library in for writing up tests, simply navigate to that project.

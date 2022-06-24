@@ -7,12 +7,6 @@
 
 import { CustomElementJson } from '../core/model/test-case-dto';
 
-export enum TimeUnit {
-  MS = 'millisecond',
-  S = 'seconds',
-  MIN = 'minutes',
-}
-
 // LITERALS
 export type PC_KEY = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 export type ANDROID_KEY = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
@@ -68,7 +62,11 @@ abstract class FluentBase {
   protected get params() { return this._params; }
 }
 
-export class Exec extends FluentBase {
+export interface Executable {
+  exec(): Promise<void>
+}
+
+export class Exec extends FluentBase implements Executable {
   exec(): Promise<void> {
     return this.commandStringBuilder();
   }
@@ -2293,20 +2291,6 @@ export abstract class FluentCommand extends FluentBase {
    */
   type(text: string): Exec {
     this._textStr = `Type "${text}"`;
-
-    return new Exec(this);
-  }
-
-  /**
-   * Waits for `<timeValue> <timeUnit>`, e.g., 10 seconds.
-   *
-   * @param {number} timeValue - A number of time unit, e.g., ms or min, to wait for.
-   * @param {TimeUnit} timeUnit - A time unit, e.g., ms, s or min.
-   *
-   * @return {Exec}
-   */
-  waitFor(timeValue: number, timeUnit: TimeUnit): Exec {
-    this._textStr = `Wait for ${timeValue} ${timeUnit}`;
 
     return new Exec(this);
   }

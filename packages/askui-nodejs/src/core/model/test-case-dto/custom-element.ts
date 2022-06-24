@@ -1,7 +1,7 @@
 import {
   array, number, object, ValidationError,
 } from 'yup';
-import { toBase64ImageIfNeeded } from '../../../utils/transformations';
+import { Base64Image } from '../../../utils/base_64_image/base-64-image';
 import { CustomElementJson } from './custom-element-json';
 
 export class CustomElement implements CustomElementJson {
@@ -32,7 +32,7 @@ export class CustomElement implements CustomElementJson {
   static async fromJsonWithImagePathOrImage(
     ceJson: CustomElementJson,
   ): Promise<CustomElement> {
-    const customImage = await toBase64ImageIfNeeded(ceJson.customImage);
+    const customImage = (await Base64Image.fromPathOrString(ceJson.customImage)).toString();
     const customElement = CustomElement.fromJson({
       ...ceJson,
       customImage,
