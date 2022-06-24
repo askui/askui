@@ -21,19 +21,27 @@ export class ExecutionRuntime {
     await this.executeCommand(step);
   }
 
+  private async requestControl(
+    controlCommand: ControlCommand,
+  ): Promise<void> {
+    await this.uiControllerClient.requestControl(controlCommand);
+  }
+
   /**
    * @param {TestStep} step - Test step used for predicting command.
    */
   private async executeCommand(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
-      await this.uiControllerClient.requestControl(controlCommand);
-    } else if (controlCommand.tryToRepeat) {
-      await this.uiControllerClient.requestControl(controlCommand);
-      this.executeCommandRepeatedly(step);
-    } else {
-      throw new ControlCommandError(controlCommand.actions[0]?.text || '');
+      return this.requestControl(controlCommand);
     }
+
+    if (controlCommand.tryToRepeat) {
+      await this.requestControl(controlCommand);
+      return this.executeCommandRepeatedly(step);
+    }
+
+    throw new ControlCommandError(controlCommand.actions[0]?.text || '');
   }
 
   private readonly EXEC_REPETITION_COUNT = 25;
@@ -52,8 +60,10 @@ export class ExecutionRuntime {
       const controlCommand = await this.predictCommandWithRetry(step);
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
-      } else if (controlCommand.tryToRepeat) {
-        await this.uiControllerClient.requestControl(controlCommand);
+      }
+
+      if (controlCommand.tryToRepeat) {
+        await this.requestControl(controlCommand);
       } else {
         throw new ControlCommandError(controlCommand.actions[0]?.text || '');
       }
@@ -84,18 +94,27 @@ export class ExecutionRuntime {
     return command;
   }
 
-  private async predictCommand(step: TestStep): Promise<ControlCommand> {
-    const isImageRequired = await this.inferenceClient.isImageRequired(step.instruction);
-    let image: string | undefined;
-    if (isImageRequired) {
-      const screenshotResponse = await this.uiControllerClient.requestScreenshot();
-      image = screenshotResponse.data.image;
+  private async getImageIfRequired(instruction: string): Promise<string | undefined> {
+    const isImageRequired = await this.inferenceClient.isImageRequired(instruction);
+    if (!isImageRequired) {
+      return undefined;
     }
-    return this.inferenceClient.predictControlCommand(
+
+    const screenshotResponse = await this.uiControllerClient.requestScreenshot();
+    return screenshotResponse.data.image;
+  }
+
+  private async predictCommand(step: TestStep): Promise<ControlCommand> {
+    const image = await this.getImageIfRequired(step.instruction);
+    const controlCommand = await this.inferenceClient.predictControlCommand(
       step.instruction,
       step.customElements,
       image,
     );
+    if (step.secretText !== undefined) {
+      controlCommand.setTextToBeTyped(step.secretText);
+    }
+    return controlCommand;
   }
 
   async annotateInteractively() {
