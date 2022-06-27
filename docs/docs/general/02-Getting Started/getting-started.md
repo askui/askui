@@ -9,7 +9,7 @@ sidebar_position: 2
 
 - Node.js version 16 or above
 - npm version 7.10 or above
-- :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/askui-ui-controller-starting-problems.md#wayland).
+- :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/askui-ui-controller.md###wayland).
 
 ## Installation
 
