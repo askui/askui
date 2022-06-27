@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const { InstallationTimestamp } = require('../dist/cjs/utils/analytics/installation-timestamp');
+
+(() => {
+  try {
+    InstallationTimestamp.create();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+  }
+})();
