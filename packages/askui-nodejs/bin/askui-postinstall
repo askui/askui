@@ -1,12 +1,35 @@
 #!/usr/bin/env node
 
-const { InstallationTimestamp } = require('../dist/cjs/utils/analytics/installation-timestamp');
+const { access } = require('fs/promises');
+const { join } = require('path');
 
-(() => {
+async function shouldBeExecuted() {
   try {
+    await access(join(__dirname, '../.no-askui-postinstall'));
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return true;
+    }
+    // eslint-disable-next-line no-console
+    console.error(err);
+  }
+  return false;
+}
+
+async function createInstallationTimestamp() {
+  try {
+    const { InstallationTimestamp } = require('../dist/cjs/utils/analytics/installation-timestamp');
     InstallationTimestamp.create();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
   }
-})();
+}
+
+async function main() {
+  if (await shouldBeExecuted()) {
+    await createInstallationTimestamp();
+  }
+}
+
+main();
