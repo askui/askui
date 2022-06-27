@@ -18,5 +18,4 @@ export enum InputEvent {
   MOUSE_DOWN = 'MOUSE_DOWN',
   MOUSE_UP = 'MOUSE_UP',
   EXECUTE_COMMAND = 'EXECUTE_COMMAND',
-  WAIT = 'WAIT',
 }
