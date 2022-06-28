@@ -3,14 +3,18 @@
     "version": "0.2.0",
     "main": "./dist/cjs/main.js",
     "module": "./dist/esm/main.js",
-    "bin": "bin/askui",
+    "bin": {
+        "askui": "bin/askui",
+        "askui-postinstall": "bin/askui-postinstall"
+    },
     "scripts": {
         "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copyTemplate && npm run copyExampleProject",
         "copyTemplate": "shx cp -r src/core/annotation/template.html dist/cjs/core/annotation/ && shx cp -r src/core/annotation/template.html dist/esm/core/annotation/",
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
-        "test": "jest '/src'"
+        "test": "jest '/src'",
+        "postinstall": "$npm_package_bin_askui-postinstall"
     },
     "files": [
         "dist/cjs/",
