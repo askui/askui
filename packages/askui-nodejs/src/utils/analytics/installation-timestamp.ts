@@ -28,7 +28,7 @@ export abstract class InstallationTimestamp {
         InstallationTimestamp.value = await this.getFromFile();
       } catch (err) {
         InstallationTimestamp.value = null;
-        logger.error(err);
+        logger.warn((err as InstallationTimestampGetError).message);
       }
     }
     return InstallationTimestamp.value;
