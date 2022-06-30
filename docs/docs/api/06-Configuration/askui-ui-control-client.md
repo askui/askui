@@ -48,7 +48,7 @@ ___
   - **email**: `string` Your e-mail address
   - **token**: `string` An access token for authentication with the askui Inference Server
 
-Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable instead of public resources. Credentials can also be provided using the environment variables `ASKUI_TENANT`, `ASKUI_EMAIL` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the tenant via setting the `ASKUI_TENANT` environment variable, you need to set email and token also using environment variables.
+Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_TENANT`, `ASKUI_EMAIL` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the tenant via setting the `ASKUI_TENANT` environment variable, you need to set email and token with environment variables as well.
 
 Setting credentials in code:
 ```typescript
