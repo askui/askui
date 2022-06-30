@@ -16,21 +16,21 @@ custom_edit_url: null
 
 ### uiControllerUrl
 
-• **uiControllerUrl**: `string` - Default: `http://localhost:6769`
+- **uiControllerUrl**: `string` - Default: `http://localhost:6769`
 
 The url of the askui UI Controller controlling the OS.
 ___
 
 ### inferenceClientUrl
 
-• **inferenceClientUrl**: `string` - Default: `https://inference.askui.com`
+- **inferenceClientUrl**: `string` - Default: `https://inference.askui.com`
 
 The address of the askui Inference server.
 ___
 
 ### annotationLevel
 
-• **annotationLevel**: `AnnotationLevel` - Default: `AnnotationLevel.DISABLED`
+- **annotationLevel**: `AnnotationLevel` - Default: `AnnotationLevel.DISABLED`
 
 AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
 
@@ -43,13 +43,37 @@ ___
 
 ### credentials
 
-• **credentials**: `Credentials` Your user credentials - Optional.
-  • **tenant**: `string` Your tenant
-  • **email**: `string` Your e-mail address
-  • **token**: `string` An access token for authentication with the askui Inference Server
+- **credentials**: `Credentials` Your user credentials - Optional.
+  - **tenant**: `string` Your tenant
+  - **email**: `string` Your e-mail address
+  - **token**: `string` An access token for authentication with the askui Inference Server
 
-You can provide credentials for authentication with the askui Inference Server. This allows you to use dedidacted ressources instead of our public ressources which allows you to run tests more stable and faster. You may also provide the credentials using the environment variables `ASKUI_TENANT`, `ASKUI_EMAIL` and `ASKUI_TOKEN` but they are only taken if you don't provide the `credentials` here as a property.
+Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_TENANT`, `ASKUI_EMAIL` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the tenant via setting the `ASKUI_TENANT` environment variable, you need to set email and token with environment variables as well.
 
+Setting credentials in code:
+```typescript
+ let aui = await UiControlClient.build({
+    credentials: {
+      tenant: 'user',
+      email: 'user@mail.com',
+      token: 'userToken',
+    }
+  });
+```
+
+Setting credentials using environment variables (Powershell):
+```powershell
+$env:ASKUI_TENANT = <tenat>
+$env:ASKUI_TOKEN = <token>
+$env:ASKUI_EMAIL = <email>
+```
+
+Setting credentials using environment variables (Bash or similar):
+```bash
+export ASKUI_TENANT=<tenat>
+export ASKUI_TOKEN=<token>
+export ASKUI_EMAIL=<email>
+```
 ___
 
 ## Set Log Level

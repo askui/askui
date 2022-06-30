@@ -19,7 +19,7 @@ custom_edit_url: null
 
 ### binaryVersion
 
-• **binaryVersion**: `string` - Default: `latest`
+- **binaryVersion**: `string` - Default: `latest`
 
 There are different versions of the askui UI Controller. Not all versions are supported for all operating systems.
 You can specify which binary version of server you want to download and use. The default value is `latest` which will
@@ -28,7 +28,7 @@ ___
 
 ### display
 
-• **display**: `number` - Default: `0`
+- **display**: `number` - Default: `0`
 
 
 You can choose on which display you want to excecute all
@@ -50,28 +50,28 @@ ___
 
 ### host
 
-• **host**: `string` - Default: `127.0.0.1`
+- **host**: `string` - Default: `127.0.0.1`
 
 
 The host the askui UI Controller is running on.
 
 ### logFilePath
 
-• **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log` 
+- **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log` 
 
 It is possible to specify a path for your log files. Per default we create the askui-server.log file and askui folder in your temp folder.
 ___
 
 ### logLevel
 
-• **logLevel**: `LogLevels` - Default: `debug`
+- **logLevel**: `LogLevels` - Default: `debug`
 
 You can set the log level using the `LogLevels`. The following values are available: `"fatal"`, `"error"`, `"warn"`, `"info"`, `"debug"`, `"trace"`, `"silent"`, `"verbose"`. All log levels are defined in an `LogLevels` enum.
 ___
 
 ### minimize
 
-• **minimize**: `boolean` - Default: `true`
+- **minimize**: `boolean` - Default: `true`
 
 The default value of this property is `true`. This means that
 askui UI Controller will be started as minimized window. 
@@ -79,7 +79,7 @@ ___
 
 ### overWriteBinary
 
-• **overWriteBinary**: `boolean` - Default: `false`
+- **overWriteBinary**: `boolean` - Default: `false`
 
 
 Download the provided Version of askui UI Controller. If a version is already downloaded. This version will be overwritten.
@@ -87,7 +87,7 @@ ___
 
 ### port
 
-• **port**: `number` - Default: `6769`
+- **port**: `number` - Default: `6769`
 
 The port the askui UI Controller is running on.
 
