@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.2.1](https://github.com/askui/askui/compare/0.2.0...0.2.1) (2022-07-04)
+
+
+### Features
+
+* **askui-nodejs:** allow tracking time to value using install timestamp (#AS-1070) ([a67da0b](https://github.com/askui/askui/commit/a67da0b8a3fc926367467a86fed27223bfb5d439)), closes [#AS-1070](https://github.com/askui/askui/issues/AS-1070)
+* **askui-nodejs:** allow typing secrets (#AS-920) ([8fff99c](https://github.com/askui/askui/commit/8fff99cd9647619624619aa502b73cc0c1c803f2)), closes [#AS-920](https://github.com/askui/askui/issues/AS-920)
+* dont communicate missing timestamp as an error (#AS-1070) ([0f5824c](https://github.com/askui/askui/commit/0f5824cf2dfceccb154f1cc482ab70d7e0c3b293)), closes [#AS-1070](https://github.com/askui/askui/issues/AS-1070)
+
+
+### Bug Fixes
+
+* creation of timestamp for esm (#AS-1070) ([fa4f223](https://github.com/askui/askui/commit/fa4f2239d59b6e2e9796bc6894bc263f6a23c3dc)), closes [#AS-1070](https://github.com/askui/askui/issues/AS-1070)
+
 ## [0.2.0](https://github.com/askui/askui/compare/0.1.6...0.2.0) (2022-06-23)
 
 * AS-944 Fix Handling UI Controller Binary Paths Including Whitespace by @adi-wan-askui in https://github.com/askui/askui/pull/9
