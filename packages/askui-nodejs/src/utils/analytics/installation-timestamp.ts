@@ -3,9 +3,13 @@ import path from 'path';
 import { logger } from '../../lib';
 import { InstallationTimestampCreateError } from './installation-timestamp-create-error';
 import { InstallationTimestampGetError } from './installation-timestamp-get-error';
+import { getPathToNodeModulesRoot } from '../path';
 
 export abstract class InstallationTimestamp {
-  private static fileName = path.resolve(__dirname, 'install-timestamp');
+  private static fileName = path.join(
+    getPathToNodeModulesRoot(),
+    'install-timestamp',
+  );
 
   private static value?: Date | null;
 

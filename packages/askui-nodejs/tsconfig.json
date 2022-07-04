@@ -21,7 +21,11 @@
     "types": [
       "jest",
       "node"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "./src"

@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs-extra';
+import { getPathToNodeModulesRoot } from '../utils/path';
 
 const createProgram = () => {
   const program = new Command('askui');
@@ -9,7 +10,7 @@ const createProgram = () => {
 };
 function copyExampleProject() {
   const exampleProjectPath = path.join('example_projects_templates', 'typescript_jest');
-  fs.copySync(path.join(__dirname, '..', '..', exampleProjectPath), '.');
+  fs.copySync(path.join(getPathToNodeModulesRoot(), exampleProjectPath), '.');
 }
 
 export function init(argv: string[]): Command {

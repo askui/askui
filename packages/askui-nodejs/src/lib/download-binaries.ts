@@ -2,6 +2,7 @@ import fs from 'fs';
 import got from 'got';
 import os from 'os';
 import path from 'path';
+import { getPathToNodeModulesRoot } from '../utils/path';
 import { logger } from './logger';
 
 enum SupportedPlatform {
@@ -33,7 +34,7 @@ function buildBinaryNotAvailbleError(binaryVersion: string): Error {
 }
 
 export function getBinaryPath(version: string): string {
-  return path.join(__dirname, '..', '..', 'release', version, ...binarySubPathsByPlatform[platform()]);
+  return path.join(getPathToNodeModulesRoot(), 'release', version, ...binarySubPathsByPlatform[platform()]);
 }
 
 function getBinaryDownloadUrl(binaryVersion: string): string {

@@ -1,5 +1,7 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
-import { Exec, Executable, FluentCommand, FluentFilters } from './dsl';
+import {
+  Exec, Executable, FluentCommand, FluentFilters,
+} from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { UiControllerClient } from './ui-controller-client';
