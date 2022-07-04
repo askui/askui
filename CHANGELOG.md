@@ -1,6 +1,6 @@
 # Changelog
 
-### [0.2.1](https://github.com/askui/askui/compare/0.2.0...0.2.1) (2022-07-04)
+## [0.2.1](https://github.com/askui/askui/compare/0.2.0...0.2.1) (2022-07-04)
 
 * AS-920 Type Secrets by @adi-wan-askui in https://github.com/askui/askui/pull/21
 * docs: add troubleshooting for macos by @adi-wan-askui in https://github.com/askui/askui/pull/33
@@ -24,7 +24,7 @@
 
 * construction of ui-control-client with constructor replaced by builder pattern
 
-### 0.1.6 (2022-06-05)
+## 0.1.6 (2022-06-05)
 
 First Official Release
 
