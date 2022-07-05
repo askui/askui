@@ -48,65 +48,50 @@ npm i -D testcontainers
 After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
 
 ```typescript
-import { UiControlClient, UiController } from 'askui';
+import { UiControlClient } from 'askui';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
-
-function getDockerImageName(): string {
-  const askuiUiControllerVersion = 'v0.10.0';
-    const browser = 'firefox';
-    const browserVersion = '82.0.3';
-    const osArch = 'amd64';
-    const containerPath = `askuigmbh/askui-ui-controller:${askuiUiControllerVersion}-${browser}-${browserVersion}-${osArch}`;
-}
-
-function startTestContainer(): StartedTestContainer {
-    container = await new GenericContainer(getDockerImageName())
-      .withEnv('ENABLE_VNC', 'true')
-      .withEnv('SCREEN_RESOLUTION', '1920x1080')
-      .withExposedPorts(6769, 5900)
-      .start();
-
-    console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
-
-    return container;
-}
-
-let testContainer: StartedTestContainer
-
-// Server for controlling the operating system
-let uiController: UiController;
-
-const uiControllerUrlHost = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
-
-// Client is necessary to use the askui API
-// eslint-disable-next-line import/no-mutable-exports
-let aui: UiControlClient;
 
 jest.setTimeout(60 * 1000 * 60);
 
-beforeAll(async () => {
- testContainer = startTestContainer();
+function getDockerImageName(): string {
+  const askuiUiControllerVersion = 'v0.10.0';
+  const browser = 'firefox';
+  const browserVersion = '82.0.3';
+  const osArch = 'amd64';
+  return `askuigmbh/askui-ui-controller:${askuiUiControllerVersion}-${browser}-${browserVersion}-${osArch}`;
+}
 
-  if (!(process.env.CI_JOB_ID)) {
-    uiController = new UiController();
-    await uiController.start();
-  }
+async function startTestContainer(): Promise<StartedTestContainer> {
+  const container = await new GenericContainer(getDockerImageName())
+    .withEnv('ENABLE_VNC', 'true')
+    .withEnv('SCREEN_RESOLUTION', '1920x1080')
+    .withExposedPorts(6769, 5900)
+    .start();
+
+  console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
+
+  return container;
+}
+
+let testContainer: StartedTestContainer;
+
+// eslint-disable-next-line import/no-mutable-exports
+let aui: UiControlClient;
+
+beforeAll(async () => {
+  testContainer = await startTestContainer();
 
   aui = await UiControlClient.build({
-    uiControllerUrl: `http://${uiControllerUrlHost}:6769`,
+    uiControllerUrl: `http://localhost:${testContainer.getMappedPort(6769)}`,
   });
 
   await aui.connect();
 });
 
 afterAll(async () => {
-  if (!(process.env.CI_JOB_ID)) {
-    await uiController.stop();
-  }
-
   aui.close();
 
-  testContainer.stop();
+  await testContainer.stop();
 });
 
 export { aui };
