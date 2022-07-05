@@ -14,7 +14,7 @@
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
         "test": "jest '/src'",
-        "postinstall": "$npm_package_bin_askui-postinstall"
+        "postinstall": "node -e \"require('./bin/askui-postinstall')\""
     },
     "files": [
         "dist/cjs/",
