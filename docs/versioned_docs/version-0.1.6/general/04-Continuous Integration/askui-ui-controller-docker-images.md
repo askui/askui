@@ -47,66 +47,51 @@ npm i -D testcontainers
 
 After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
 
-```typescript
-import { AskuiClient, AskuiControlServer } from 'askui';
+```typescriptimport { AskuiClient } from 'askui';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
+
+jest.setTimeout(60 * 1000 * 60);
 
 function getDockerImageName(): string {
   const askuiUiControllerVersion = 'v0.10.0';
-    const browser = 'firefox';
-    const browserVersion = '82.0.3';
-    const osArch = 'amd64';
-    const containerPath = `askuigmbh/askui-ui-controller:${askuiUiControllerVersion}-${browser}-${browserVersion}-${osArch}`;
+  const browser = 'firefox';
+  const browserVersion = '82.0.3';
+  const osArch = 'amd64';
+  return `askuigmbh/askui-ui-controller:${askuiUiControllerVersion}-${browser}-${browserVersion}-${osArch}`;
 }
 
-function startTestContainer(): StartedTestContainer {
-    container = await new GenericContainer(getDockerImageName())
-      .withEnv('ENABLE_VNC', 'true')
-      .withEnv('SCREEN_RESOLUTION', '1920x1080')
-      .withExposedPorts(6769, 5900)
-      .start();
+async function startTestContainer(): Promise<StartedTestContainer> {
+  const container = await new GenericContainer(getDockerImageName())
+    .withEnv('ENABLE_VNC', 'true')
+    .withEnv('SCREEN_RESOLUTION', '1920x1080')
+    .withExposedPorts(6769, 5900)
+    .start();
 
-    console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
+  console.log(`VNC link: ${container.getHost()}:${container.getMappedPort(5900)}`);
 
-    return container;
+  return container;
 }
 
-let testContainer: StartedTestContainer
-
-// Server for controlling the operating system
-let askuiServer: AskuiControlServer;
-
-const controluiServerUrl = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+let testContainer: StartedTestContainer;
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
 let aui: AskuiClient;
 
-jest.setTimeout(60 * 1000 * 60);
-
 beforeAll(async () => {
- testContainer = startTestContainer();
-
-  if (!(process.env.CI_JOB_ID)) {
-    askuiServer = new AskuiControlServer();
-    await askuiServer.start();
-  }
+  testContainer = await startTestContainer();
 
   aui = new AskuiClient({
-    controlServerUrl: `http://${controluiServerUrl}:6769`,
+    controlServerUrl: `http://localhost:${testContainer.getMappedPort(6769)}`,
   });
 
   await aui.connect();
 });
 
 afterAll(async () => {
-  if (!(process.env.CI_JOB_ID)) {
-    await askuiServer.stop();
-  }
-
   aui.close();
 
-  testContainer.stop();
+  await testContainer.stop();
 });
 
 export { aui };
