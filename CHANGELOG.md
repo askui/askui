@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.2](https://github.com/askui/askui/compare/0.2.1...0.2.2) (2022-07-05)
+
+* docs: fix  testcontainer examples by @mlikasam-askui in https://github.com/askui/askui/pull/40
+* fix(askui-nodejs): postinstall hook on windows by @adi-wan-askui in https://github.com/askui/askui/pull/41
+
 ## [0.2.1](https://github.com/askui/askui/compare/0.2.0...0.2.1) (2022-07-04)
 
 * AS-920 Type Secrets by @adi-wan-askui in https://github.com/askui/askui/pull/21
