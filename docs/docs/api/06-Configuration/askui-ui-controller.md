@@ -3,18 +3,6 @@ custom_edit_url: null
 ---
 # askui UI Controller
 
-## Table of Contents
-
-  - [Properties](#properties)
-    - [binaryVersion](#binaryversion)
-    - [display](#display)
-    - [host](#host)
-    - [logFilePath](#logfilepath)
-    - [logLevel](#loglevel)
-    - [minimize](#minimize)
-    - [overWriteBinary](#overwritebinary)
-    - [port](#port)
-  - [Example](#example)
 ## Properties
 
 ### binaryVersion
@@ -29,7 +17,6 @@ ___
 ### display
 
 - **display**: `number` - Default: `0`
-
 
 You can choose on which display you want to excecute all
 tests. You can only perform all tests on one display.
@@ -52,12 +39,11 @@ ___
 
 - **host**: `string` - Default: `127.0.0.1`
 
-
 The host the askui UI Controller is running on.
 
 ### logFilePath
 
-- **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log` 
+- **logFilePath**: `string` - Default: `<temp-dir>/askui/askui-server.log`
 
 It is possible to specify a path for your log files. Per default we create the askui-server.log file and askui folder in your temp folder.
 ___
@@ -74,13 +60,12 @@ ___
 - **minimize**: `boolean` - Default: `true`
 
 The default value of this property is `true`. This means that
-askui UI Controller will be started as minimized window. 
+askui UI Controller will be started as minimized window.
 ___
 
 ### overWriteBinary
 
 - **overWriteBinary**: `boolean` - Default: `false`
-
 
 Download the provided Version of askui UI Controller. If a version is already downloaded. This version will be overwritten.
 ___

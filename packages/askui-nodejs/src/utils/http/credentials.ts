@@ -1,5 +1,5 @@
 export interface CredentialArgs {
-  tenant: string,
+  workspaceId: string,
   email: string,
   token: string,
 }
@@ -18,6 +18,6 @@ export class Credentials {
   }
 
   private get userName(): string {
-    return `${this.credentials.tenant}|${this.credentials.email}`;
+    return `${this.credentials.workspaceId}|${this.credentials.email}`;
   }
 }
