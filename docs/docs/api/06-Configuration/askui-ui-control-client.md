@@ -17,17 +17,17 @@ The following log levels are available:
 - `"silent"`
 - `"verbose"`.
 
-The log level defaults to `info`. and it can be changed with the following command:
+The log level defaults to `"info"`. and it can be changed with the following command:
 
-On Linux and MacOS:
+Bash or similar:
 
-```shell
+```bash
 export LOG_LEVEL=verbose
 ```
 
-On Windows
+Powershell
 
- ```shell
+ ```powershell
 $env:LOG_LEVEL="verbose"
 ```
 
