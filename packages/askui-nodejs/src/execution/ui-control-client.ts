@@ -41,12 +41,11 @@ export class UiControlClient extends FluentCommand {
     const analyticsHeaders = await analytics.getAnalyticsHeaders();
     const cas = getClientArgsWithDefaults(clientArgs);
     const credentialArgs = cas.credentials || envCredentials();
-    const workspaceId = credentialArgs?.workspaceId;
     const httpClient = new HttpClientGot(
-      credentialArgs,
+      credentialArgs?.token,
       analyticsHeaders,
     );
-    return new UiControlClient(httpClient, cas, workspaceId);
+    return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }
 
   private get uiControllerClient(): UiControllerClient {

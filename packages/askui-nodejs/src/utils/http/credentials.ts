@@ -5,7 +5,7 @@ export interface CredentialArgs {
 
 export class Credentials {
   constructor(
-    private credentials: CredentialArgs,
+    private token: string,
   ) { }
 
   get base64Encoded(): string {
@@ -13,6 +13,6 @@ export class Credentials {
   }
 
   private get buffered(): Buffer {
-    return Buffer.from(`${this.credentials.token}`);
+    return Buffer.from(`${this.token}`);
   }
 }
