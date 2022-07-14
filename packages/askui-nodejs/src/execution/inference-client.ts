@@ -16,13 +16,8 @@ export class InferenceClient {
     readonly workspaceId?: string,
     public apiVersion = 'v2',
   ) {
-    this.url = workspaceId ? urljoin(
-      this.baseUrl,
-      'api',
-      this.apiVersion,
-      'workspaces',
-      workspaceId,
-    ) : urljoin(this.baseUrl, 'api', this.apiVersion);
+    const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
+    this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
   }
 
   async isImageRequired(
