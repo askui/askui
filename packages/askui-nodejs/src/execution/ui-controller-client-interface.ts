@@ -1,5 +1,5 @@
-import { CredentialArgs } from '../utils/http/credentials';
 import { AnnotationLevel } from './annotation-level';
+import { CredentialArgs } from './credentials-args';
 
 /**
  * Configuration options for the askui UI Control Client

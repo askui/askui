@@ -1,8 +1,3 @@
-export interface CredentialArgs {
-  workspaceId: string,
-  token: string,
-}
-
 export class Credentials {
   constructor(
     private token: string,
