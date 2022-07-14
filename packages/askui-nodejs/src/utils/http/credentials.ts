@@ -1,12 +1,6 @@
-export interface CredentialArgs {
-  workspaceId: string,
-  email: string,
-  token: string,
-}
-
 export class Credentials {
   constructor(
-    private credentials: CredentialArgs,
+    private token: string,
   ) { }
 
   get base64Encoded(): string {
@@ -14,10 +8,6 @@ export class Credentials {
   }
 
   private get buffered(): Buffer {
-    return Buffer.from(`${this.userName}:${this.credentials.token}`);
-  }
-
-  private get userName(): string {
-    return `${this.credentials.workspaceId}|${this.credentials.email}`;
+    return Buffer.from(`${this.token}`);
   }
 }

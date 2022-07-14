@@ -1,19 +1,19 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
-import { Credentials, CredentialArgs } from './credentials';
+import { Credentials } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
   private headers: Record<string, string> = {};
 
   constructor(
-    readonly credentialArgs?: CredentialArgs,
+    readonly token?: string,
     readonly customHeaders?: Record<string, string>,
   ) {
-    this.initHeaders(credentialArgs, customHeaders);
+    this.initHeaders(token, customHeaders);
   }
 
-  private initHeaders(credentialArgs?: CredentialArgs, customHeaders: Record<string, string> = {}) {
-    const credentials = credentialArgs ? new Credentials(credentialArgs) : undefined;
+  private initHeaders(token?: string, customHeaders: Record<string, string> = {}) {
+    const credentials = token ? new Credentials(token) : undefined;
     this.headers = {
       ...(credentials ? { Authorization: `Basic ${credentials?.base64Encoded}` } : {}),
       ...customHeaders,
