@@ -82,7 +82,7 @@ beforeAll(async () => {
   testContainer = await startTestContainer();
 
   aui = await UiControlClient.build({
-    uiControllerUrl: `http://localhost:${testContainer.getMappedPort(6769)}`,
+    uiControllerUrl: `http://127.0.0.1:${testContainer.getMappedPort(6769)}`,
   });
 
   await aui.connect();

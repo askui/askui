@@ -35,7 +35,7 @@ $env:LOG_LEVEL="verbose"
 
 ### uiControllerUrl
 
-- **uiControllerUrl**: `string` - Default: `http://localhost:6769`
+- **uiControllerUrl**: `string` - Default: `http://127.0.0.1:6769`
 
 The url of the askui UI Controller controlling the OS.
 ___
