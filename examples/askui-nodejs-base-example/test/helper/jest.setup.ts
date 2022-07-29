@@ -3,7 +3,7 @@ import { UiControlClient, UiController } from 'askui';
 // Server for controlling the operating system
 let uiController: UiController;
 
-const uiControllerUrlHost = process.env.CI_JOB_ID ? 'askui-runner' : 'localhost';
+const uiControllerUrlHost = process.env.CI_JOB_ID ? 'askui-runner' : '127.0.0.1';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports

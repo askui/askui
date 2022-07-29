@@ -19,7 +19,7 @@ import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
 
 const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
-  uiControllerUrl: 'http://localhost:6769',
+  uiControllerUrl: 'http://127.0.0.1:6769',
   inferenceServerUrl: 'https://inference.askui.com',
   annotationLevel: AnnotationLevel.DISABLED,
   ...clientArgs,

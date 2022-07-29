@@ -4,7 +4,7 @@ import { AnnotationLevel } from './annotation-level';
 /**
  * Configuration options for the askui UI Control Client
  *
- * @param {string} uiControllerUrl - Default: http://localhost:6769
+ * @param {string} uiControllerUrl - Default: http://127.0.0.1:6769
  * The adress of the askui UI Controller server.
  * @param {string} inferenceClientUrl - Default: https://inference.askui.com`
  * Address of the askui Inference server.
