@@ -2,39 +2,16 @@
 custom_edit_url: null
 ---
 
-# askui UI Controller
+# MacOS
 
-## ...is not starting (Linux)
-
-### Wayland
-
-At the moment we don't support the windowing system Wayland for any linux distribution. 
-As a solution, you can switch to Xorg instead of Wayland 
-([how to switch to Xorg](https://www.maketecheasier.com/switch-xorg-wayland-ubuntu1710/)). 
-
-### libfuse2 
-
-If you are using Ubuntu 22.04 or later, you need to install libfuse before using askui lib 
-since it's no longer installed per default.
-
-Libfuse2 can be installed with these commands: 
-
-```shell
-sudo apt-get update
-```
-
-```shell
-sudo apt-get install libfuse2
-```
-
-## ...is starting but neither capturing what is shown on screen nor executing commands (macOS)
-
-This could, e.g., look like this:
+## Elements Can't Be Found / Annotated Screen Empty / UI Controller not starting
 
 ![macOS empty screen captured](./macos-empty-screen.png)
 
 macOS sometimes does not recognize an installation of askui UI Controller and, therefore,
-does not give it proper permissions although it looks like it. You can fix this, by heading 
+does not give it proper permissions although it looks like it. 
+
+You can fix this, by heading 
 over to *System Preferences > Security & Privacy*.
 Open the *Privacy* tab and check if you can find the askui UI Controller (originally, the 
 askui UI Controller was called *controlui-server* so depending on your version you may see that 
