@@ -17,7 +17,7 @@ export class UiControllerLinux extends UiControllerFacade {
     const waylandStatus = await runCommand('echo $WAYLAND_DISPLAY');
 
     if (waylandStatus.stdout.trim().includes('wayland')) {
-      throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller#wayland');
+      throw new WaylandError('Wayland is not supported: https://docs.askui.com/docs/general/Troubleshooting/linux#wayland');
     }
 
     /* First we want to check if the user is using a debian distribution.
@@ -34,7 +34,7 @@ export class UiControllerLinux extends UiControllerFacade {
     try {
       await runCommand('dpkg -s libfuse2 | grep Status');
     } catch {
-      throw new LibfuseError('Libfuse2 package is missing: https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller#libfuse2');
+      throw new LibfuseError('Libfuse2 package is missing: https://docs.askui.com/docs/general/Troubleshooting/linux#libfuse2');
     }
   }
 }

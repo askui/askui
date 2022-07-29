@@ -45,8 +45,8 @@ Visit our [documentation](https://docs.askui.com) for examples and a full list o
 ### Notes
 
 Important note for Linux users: Currently, Wayland is not supported.
-You can read more in our [troubleshooting chapter](https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller#wayland).
-If you want to use the askui library libfuse2 is needed ([libfuse2 installation](https://docs.askui.com/docs/general/Troubleshooting/askui-ui-controller#libfuse2)).
+You can read more in our [troubleshooting chapter](https://docs.askui.com/docs/general/Troubleshooting/linux#wayland).
+If you want to use the askui library libfuse2 is needed ([libfuse2 installation](https://docs.askui.com/docs/general/Troubleshooting/linux#libfuse2)).
 
 ## Example
 
