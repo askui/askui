@@ -8,6 +8,8 @@ We maintain Docker Images for running tests with askui inside a Docker Container
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
+:warning: **ARM CPUs**: are currently not supported
+
 ## Configuration
 
 The following environment variables can be used for configuring the Docker Container started from one of our Docker Images:
