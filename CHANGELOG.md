@@ -1,12 +1,9 @@
 # Changelog
 
-### [0.2.3](https://github.com/askui/askui/compare/0.2.2...0.2.3) (2022-08-16)
+## [0.2.3](https://github.com/askui/askui/compare/0.2.2...0.2.3) (2022-08-16)
 
-
-### Features
-
-* **dsl:** add withTextRegex filter (#AS-1202) ([a61c1b0](https://github.com/askui/askui/commit/a61c1b06e5a7c80d05508c8e89e278a551ca188d)), closes [#AS-1202](https://github.com/askui/askui/issues/AS-1202)
-* migrate from tenant to workspace model (#AS-1137) ([6297dfe](https://github.com/askui/askui/commit/6297dfe57fac34d5f11083cd232201b9cfdaec11)), closes [#AS-1137](https://github.com/askui/askui/issues/AS-1137)
+* **dsl:** add withTextRegex filter by @mlikasam-askui in https://github.com/askui/askui/pull/47
+* migrate from tenant to workspace model by @mlikasam-askui in https://github.com/askui/askui/pull/42
 
 ## [0.2.2](https://github.com/askui/askui/compare/0.2.1...0.2.2) (2022-07-05)
 
