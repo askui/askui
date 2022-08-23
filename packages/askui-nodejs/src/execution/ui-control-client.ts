@@ -1,6 +1,6 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import {
-  Exec, Executable, FluentCommand, FluentFilters,
+  Exec, Executable, FluentCommand, FluentFilters, Separators,
 } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
@@ -17,7 +17,6 @@ import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
-import { Separators } from './seperator';
 
 const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
   uiControllerUrl: 'http://127.0.0.1:6769',
