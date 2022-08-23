@@ -7,6 +7,7 @@
 // TODO: Split this in multiple files
 
 import { CustomElementJson } from '../core/model/test-case-dto';
+import { Separators } from './seperator';
 
 // LITERALS
 export type PC_KEY = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
@@ -876,7 +877,7 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   withText(text: string): FluentFiltersOrRelations {
-    this._textStr = `with text <|string|>${text}<|string|>`;
+    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -897,7 +898,7 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   withTextRegex(regex_pattern: string): FluentFiltersOrRelations {
-    this._textStr = `match regex pattern <|string|>${regex_pattern}<|string|>`;
+    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -921,7 +922,7 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   withExactText(text: string): FluentFiltersOrRelations {
-    this._textStr = `equals text <|string|>${text}<|string|>`;
+    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -941,7 +942,7 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   containsText(text: string): FluentFiltersOrRelations {
-    this._textStr = `contain text <|string|>${text}<|string|>`;
+    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -1953,7 +1954,7 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   withText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `with text <|string|>${text}<|string|>`;
+    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1974,7 +1975,7 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   withTextRegex(regex_pattern: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `match regex pattern <|string|>${regex_pattern}<|string|>`;
+    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1998,7 +1999,7 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   withExactText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `equals text <|string|>${text}<|string|>`;
+    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2018,7 +2019,7 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   containsText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `contain text <|string|>${text}<|string|>`;
+    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2295,7 +2296,7 @@ export abstract class FluentCommand extends FluentBase {
    * @return {FluentFilters}
    */
   typeIn(text: string): FluentFilters {
-    this._textStr = `Type <|string|>${text}<|string|> in`;
+    this._textStr = `Type ${Separators.STRING}${text}${Separators.STRING} in`;
 
     return new FluentFilters(this);
   }
@@ -2351,7 +2352,7 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   type(text: string): Exec {
-    this._textStr = `Type <|string|>${text}<|string|>`;
+    this._textStr = `Type ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new Exec(this);
   }
@@ -2408,7 +2409,7 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   execOnShell(shell_command: string): Exec {
-    this._textStr = `Execute shell command <|string|>${shell_command}<|string|>`;
+    this._textStr = `Execute shell command ${Separators.STRING}${shell_command}${Separators.STRING}`;
 
     return new Exec(this);
   }

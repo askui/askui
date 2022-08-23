@@ -17,6 +17,7 @@ import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
+import { Separators } from './seperator';
 
 const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
   uiControllerUrl: 'http://127.0.0.1:6769',
@@ -109,12 +110,19 @@ export class UiControlClient extends FluentCommand {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private escape_separator_string(instruction: string): string {
+    return instruction.split(Separators.STRING).join('"');
+  }
+
   async exec(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     const { secretText } = this;
+    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
+    const stringWithoutSeparators = this.escape_separator_string(instruction);
+    logger.debug(stringWithoutSeparators);
     try {
       await this.executionRuntime.executeTestStep({
         instruction,
@@ -126,7 +134,7 @@ export class UiControlClient extends FluentCommand {
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
       return Promise.reject(
-        new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
+        new UiControlClientError(`A problem occures while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
       );
     }
   }
