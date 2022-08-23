@@ -111,7 +111,7 @@ export class UiControlClient extends FluentCommand {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private escape_separator_string(instruction: string): string {
+  private escapeSeparatorString(instruction: string): string {
     return instruction.split(Separators.STRING).join('"');
   }
 
@@ -121,7 +121,7 @@ export class UiControlClient extends FluentCommand {
   ): Promise<void> {
     const { secretText } = this;
     const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
-    const stringWithoutSeparators = this.escape_separator_string(instruction);
+    const stringWithoutSeparators = this.escapeSeparatorString(instruction);
     logger.debug(stringWithoutSeparators);
     try {
       await this.executionRuntime.executeTestStep({
@@ -134,7 +134,7 @@ export class UiControlClient extends FluentCommand {
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
       return Promise.reject(
-        new UiControlClientError(`A problem occures while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
+        new UiControlClientError(`A problem occurred while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
       );
     }
   }
