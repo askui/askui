@@ -1,5 +1,7 @@
 # Changelog
 
+### [0.2.4](https://github.com/askui/askui/compare/0.2.3...0.2.4) (2022-08-24)
+
 ## [0.2.3](https://github.com/askui/askui/compare/0.2.2...0.2.3) (2022-08-16)
 
 * **dsl:** add withTextRegex filter by @mlikasam-askui in https://github.com/askui/askui/pull/47
