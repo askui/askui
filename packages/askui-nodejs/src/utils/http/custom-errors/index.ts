@@ -10,7 +10,7 @@ export function httpClientErrorHandler(
   responseCode: number,
   errorMessage: string,
 ): HttpClientError {
-  const diplayedMessage = `response code: ${responseCode}. Message:${errorMessage}`;
+  const diplayedMessage = `HTTP Status Code: ${responseCode}. Message:${errorMessage}`;
   if (responseCode >= 400 && responseCode < 500) {
     if (responseCode === 401 || responseCode === 403) {
       return new AuthenticationHttpClientError(diplayedMessage);

@@ -1,6 +1,6 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import {
-  Exec, Executable, FluentCommand, FluentFilters,
+  Exec, Executable, FluentCommand, FluentFilters, Separators,
 } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
@@ -109,12 +109,19 @@ export class UiControlClient extends FluentCommand {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private escapeSeparatorString(instruction: string): string {
+    return instruction.split(Separators.STRING).join('"');
+  }
+
   async exec(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     const { secretText } = this;
+    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
+    const stringWithoutSeparators = this.escapeSeparatorString(instruction);
+    logger.debug(stringWithoutSeparators);
     try {
       await this.executionRuntime.executeTestStep({
         instruction,
@@ -126,7 +133,7 @@ export class UiControlClient extends FluentCommand {
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
       return Promise.reject(
-        new UiControlClientError(`A problem occures while executing the instruction: ${instruction}. Reason ${error}`),
+        new UiControlClientError(`A problem occurred while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
       );
     }
   }

@@ -17,7 +17,6 @@ export class ExecutionRuntime {
   ) { }
 
   async executeTestStep(step: TestStep): Promise<void> {
-    logger.debug(step.instruction);
     await this.executeCommand(step);
   }
 
