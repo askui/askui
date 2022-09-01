@@ -3,7 +3,7 @@
     "license": "MIT",
     "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
     "version": "0.2.4",
-    "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on",
+    "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology you are running on",
     "workspaces": [
         "./docs",
         "./packages/*"
@@ -21,8 +21,8 @@
     },
     "homepage": "https://github.com/askui/askui#askui",
     "engines": {
-        "npm": "^8.1.2",
-        "node": "^16.13.2"
+        "npm": ">8.1.2",
+        "node": ">16.13.2"
     },
     "keywords": [
         "test",
@@ -50,26 +50,26 @@
         "release": "release-it"
     },
     "devDependencies": {
-        "@commitlint/cli": "~16.1.0",
-        "@commitlint/config-conventional": "~16.0.0",
-        "@release-it/bumper": "^3.0.1",
-        "@release-it/conventional-changelog": "^4.2.2",
-        "@typescript-eslint/eslint-plugin": "~5.10.0",
-        "@typescript-eslint/parser": "~5.10.0",
-        "commitizen": "~4.2.4",
-        "cz-conventional-changelog": "~3.3.0",
-        "eslint": "~8.7.0",
-        "eslint-config-airbnb-base": "~15.0.0",
-        "eslint-config-airbnb-typescript": "~16.1.0",
-        "eslint-plugin-import": "~2.25.4",
-        "husky": "~7.0.4",
-        "is-ci": "~3.0.1",
-        "jira-prepare-commit-msg": "~1.6.2",
-        "lint-staged": "~12.3.2",
-        "pinst": "~2.1.6",
-        "release-it": "~14.14.0",
-        "release-it-yarn-workspaces": "~2.0.1",
-        "zx": "~6.0.7"
+        "@commitlint/cli": "16.1.0",
+        "@commitlint/config-conventional": "16.0.0",
+        "@release-it-plugins/workspaces": "^3.2.0",
+        "@release-it/bumper": "4.0.0",
+        "@release-it/conventional-changelog": "5.0.0",
+        "@typescript-eslint/eslint-plugin": "5.10.0",
+        "@typescript-eslint/parser": "5.10.0",
+        "commitizen": "4.2.5",
+        "cz-conventional-changelog": "3.3.0",
+        "eslint": "8.7.0",
+        "eslint-config-airbnb-base": "15.0.0",
+        "eslint-config-airbnb-typescript": "16.1.0",
+        "eslint-plugin-import": "2.25.4",
+        "husky": "7.0.4",
+        "is-ci": "3.0.1",
+        "jira-prepare-commit-msg": "1.6.2",
+        "lint-staged": "12.3.2",
+        "pinst": "2.1.6",
+        "release-it": "15.4.1",
+        "zx": "6.0.7"
     },
     "jira-prepare-commit-msg": {
         "isConventionalCommit": true,
