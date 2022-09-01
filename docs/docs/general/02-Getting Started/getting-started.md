@@ -7,34 +7,35 @@ sidebar_position: 2
 
 ## Requirements
 
-- Node.js version 16 or above
-- npm version 7.10 or above
+- [Node.js](https://nodejs.org/) version 16 or above
+- [npm.js](https://www.npmjs.com/) version 7.10 or above
 - :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/linux.md###wayland).
 
 ## Installation
 
-If you have not yet set up a project using npm as your package manager, you can easily do so by running `npm init -y` inside the directory that you want your project to be in. This is going to create a `package.json` file with a description of your project, all your dependencies etc. If you already have a project that you would like to include the askui library in for writing up tests, simply navigate to that project.
+Open a directory where you would like to place the tests. If you have no npm project set up inside that directory, you can set one up by running:
 
 ```shell
-npm i -D askui
+npm init
 ```
 
-While the askui library provides you with a way of controlling your OS, it does not yet provide everything you need for writing and executing a test. You also need a way of:
+This is going to create a `package.json` file inside your present working directory which contains the configuration of your project including a description of its dependencies.
 
-- writing up the actual test,
-- writing up assertions to test wether an expectation holds true and, last but not least,
-- a way to execute the tests, i.e., a test runner.
-
-One framework which provides all of this out of the box is [Jest](https://jestjs.io/) which we are going to use in this example as it is quite easy to get started with and well-known. But feel free to use another test framework, such as [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/). How you use the askui library should be pretty much the same across these frameworks.
+Install `askui` and other dependencies for writing and executing tests:
 
 ```shell
-npm i -D jest
+npm i -D askui typescript ts-node @types/jest ts-jest jest
 ```
 
-We are going to use [TypeScript](https://www.typescriptlang.org/) for writing the test instead of plain JavaScript. Run the following command to install Typescript, TS-Node for using Typescript together with Node.js and the types of Jest and Node.js.
+Quick explanation of all the dependencies:
+- [askui](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements, colors etc.
+- [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
+- [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
+- [jest](https://www.npmjs.com/package/jest): Allowing you to write and run tests (`describe`, `it`, assertions, mocking etc.)
+- [ts-jest](https://www.npmjs.com/package/ts-jest): A Jest transformer with source map support that lets you use Jest to test projects written in TypeScript
+- [@types/jest](https://www.npmjs.com/package/@types/jest): Types for Jest
 
-```shell
-npm i -D @types/jest ts-jest ts-node typescript
-```
+If you don't like Jest, feel free to use another test framework, e.g., [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/).
+
 
 Now, we are ready to write our first test.
