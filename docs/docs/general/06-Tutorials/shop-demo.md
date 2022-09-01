@@ -39,7 +39,7 @@ it('Should log into account', async () => {
 });
 ```
 
-When you run this test with `npx jasmine --config=specs/support/jasmine.json`, you should see the demo online shop opening in the browser you opened.
+When you run this test with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
 
 ### 2. Navigate to the Login Dialog
 
@@ -110,4 +110,4 @@ it('Should log into account', async () => {
 });
 ```
 
-To run this test use the `npx jasmine --config=specs/support/jasmine.json` command.
+To run this test use the `npx jest --config ./test/jest.config.ts` command.
