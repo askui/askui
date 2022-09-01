@@ -1,6 +1,32 @@
 {
     "name": "askui",
     "version": "0.2.4",
+    "license": "MIT",
+    "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
+    "description": "Reliable, automated end-to-end-testing that depends on what is shown on your screen instead of the technology you are running on",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/askui/askui.git"
+    },
+    "bugs": {
+        "url": "https://github.com/askui/askui/issues"
+    },
+    "homepage": "https://github.com/askui/askui#askui",
+    "keywords": [
+        "test",
+        "testing",
+        "automated-testing",
+        "e2e-testing",
+        "rpa",
+        "askui",
+        "function-testing",
+        "ui-testing",
+        "automation",
+        "selenium",
+        "cypress",
+        "playwright",
+        "ui-automation"
+    ],
     "main": "./dist/cjs/main.js",
     "module": "./dist/esm/main.js",
     "bin": {
@@ -23,34 +49,34 @@
         "dist/example_projects_templates/"
     ],
     "dependencies": {
-        "commander": "~8.3.0",
-        "fkill": "~7.2.1",
-        "fs-extra": "~10.0.0",
-        "got": "~11.8.2",
-        "jsdom": "~19.0.0",
-        "node-machine-id": "~1.1.12",
-        "pino": "~7.8.1",
-        "pino-pretty": "~7.5.3",
-        "sharp": "~0.30.6",
-        "url-join": "~4.0.1",
-        "wait-port": "~0.2.9",
-        "ws": "~7.4.4",
-        "yup": "~0.32.11"
+        "commander": "8.3.0",
+        "fkill": "7.2.1",
+        "fs-extra": "10.0.0",
+        "got": "11.8.2",
+        "jsdom": "20.0.0",
+        "node-machine-id": "1.1.12",
+        "pino": "7.8.1",
+        "pino-pretty": "7.5.3",
+        "sharp": "0.30.6",
+        "url-join": "4.0.1",
+        "wait-port": "0.2.9",
+        "ws": "7.4.4",
+        "yup": "0.32.11"
     },
     "devDependencies": {
-        "@types/fs-extra": "~9.0.13",
-        "@types/jest": "~27.4.0",
-        "@types/jsdom": "~16.2.14",
-        "@types/node": "~17.0.10",
-        "@types/sharp": "~0.30.4",
-        "@types/url-join": "~4.0.1",
-        "@types/webrtc": "~0.0.30",
-        "@types/ws": "~7.4.4",
+        "@types/fs-extra": "9.0.13",
+        "@types/jest": "27.4.0",
+        "@types/jsdom": "20.0.0",
+        "@types/node": "17.0.10",
+        "@types/sharp": "0.30.4",
+        "@types/url-join": "4.0.1",
+        "@types/webrtc": "0.0.30",
+        "@types/ws": "7.4.4",
         "jest": "28.1.1",
-        "sharp": "^0.30.6",
+        "sharp": "0.30.6",
         "shx": "0.3.4",
         "ts-jest": "28.0.4",
-        "typescript": "~4.5.4"
+        "typescript": "4.5.4"
     },
     "lint-staged": {
         "./**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"

@@ -114,4 +114,4 @@ it('should like spotify song', async () => {
 });
 ```
 
-To run this test use the `npx jasmine --config=specs/support/jasmine.json` command.
+To run this test use the `npx jest --config ./test/jest.config.ts` command.
