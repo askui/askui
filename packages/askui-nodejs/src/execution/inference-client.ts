@@ -8,10 +8,17 @@ import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 
 export class InferenceClient {
+  url: string;
+
   constructor(
-    public url: string,
+    public baseUrl: string,
     public httpClient: HttpClientGot,
-  ) { }
+    readonly workspaceId?: string,
+    public apiVersion = 'v2',
+  ) {
+    const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
+    this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
+  }
 
   async isImageRequired(
     instruction: string,
@@ -43,7 +50,7 @@ export class InferenceClient {
       instruction,
       customElements,
     };
-    const url = urljoin(this.url, 'api', 'v1', 'predict-command');
+    const url = urljoin(this.url, 'predict-command');
     const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
     return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
   }

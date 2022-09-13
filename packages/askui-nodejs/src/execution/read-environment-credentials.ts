@@ -1,15 +1,13 @@
 import { logger } from '../lib';
-import { CredentialArgs } from '../utils/http/credentials';
+import { CredentialArgs } from './credentials-args';
 
 export function envCredentials(): CredentialArgs | undefined {
   const envToken = process.env['ASKUI_TOKEN'];
   const envWorkspaceId = process.env['ASKUI_WORKSPACE_ID'];
-  const envEmail = process.env['ASKUI_EMAIL'];
-  if (envToken && envWorkspaceId && envEmail) {
-    logger.info('Credentials are used from ENV variables: ASKUI_TOKEN, ASKUI_WORKSPACE_ID and ASKUI_EMAIL');
+  if (envToken && envWorkspaceId) {
+    logger.info('Credentials are used from ENV variables: ASKUI_TOKEN and ASKUI_WORKSPACE_ID');
     return {
       workspaceId: envWorkspaceId,
-      email: envEmail,
       token: envToken,
     };
   }

@@ -31,6 +31,7 @@ export class UiControlClient extends FluentCommand {
   private constructor(
     private httpClient: HttpClientGot,
     private clientArgs: ClientArgsWithDefaults,
+    private workspaceId?: string,
   ) {
     super();
   }
@@ -39,11 +40,12 @@ export class UiControlClient extends FluentCommand {
     const analytics = new Analytics();
     const analyticsHeaders = await analytics.getAnalyticsHeaders();
     const cas = getClientArgsWithDefaults(clientArgs);
+    const credentialArgs = cas.credentials || envCredentials();
     const httpClient = new HttpClientGot(
-      cas.credentials || envCredentials(),
+      credentialArgs?.token,
       analyticsHeaders,
     );
-    return new UiControlClient(httpClient, cas);
+    return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }
 
   private get uiControllerClient(): UiControllerClient {
@@ -56,7 +58,11 @@ export class UiControlClient extends FluentCommand {
   }
 
   private get inferenceClient(): InferenceClient {
-    return new InferenceClient(this.clientArgs.inferenceServerUrl, this.httpClient);
+    return new InferenceClient(
+      this.clientArgs.inferenceServerUrl,
+      this.httpClient,
+      this.workspaceId,
+    );
   }
 
   private get executionRuntime(): ExecutionRuntime {
