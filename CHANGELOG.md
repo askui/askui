@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.6](https://github.com/askui/askui/compare/0.2.5...0.2.6) (2022-09-13)
+
+* As 1137 migrate from tenant to workspace  model by @mlikasam-askui in https://github.com/askui/askui/pull/45
+
 ## [0.2.5](https://github.com/askui/askui/compare/0.2.4...0.2.5) (2022-09-01)
 
 * Fix up Getting Started docs by @adi-wan-askui in https://github.com/askui/askui/pull/72
