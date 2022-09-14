@@ -219,7 +219,7 @@ export class UiControlClient extends FluentCommand {
   }
 
   /**
-  * closes the connection to the controlui-server`.
+  * Closes the connection to the askui UI Controller
   */
   close(): void {
     this.uiControllerClient.close();

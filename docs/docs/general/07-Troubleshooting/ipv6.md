@@ -16,5 +16,5 @@ aui = await UiControlClient.build({
 
 For example, starting the UI Controller (version `latest`, for other versions just replace the respective part of the path) on Mac OS from your project's root directory would like this:
 ```shell
-open ./node_modules/askui/dist/release/latest/darwin/controlui-server.app --args --host ::1
+open ./node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app --args --host ::1
 ```
