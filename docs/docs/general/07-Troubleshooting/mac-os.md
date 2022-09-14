@@ -13,8 +13,8 @@ does not give it proper permissions although it looks like it.
 
 You can fix this, by heading 
 over to *System Preferences > Security & Privacy*.
-Open the *Privacy* tab and check if you can find the askui UI Controller (originally, the 
-askui UI Controller was called *controlui-server* so depending on your version you may see that 
+Open the *Privacy* tab and check if you can find the *askui-ui-controller* (originally, it
+was called *controlui-server* so depending on your version you may see that 
 name) under *Screen Recording* and *Accessibility*. 
 
 If yes, revoke its permissions by unchecking 
