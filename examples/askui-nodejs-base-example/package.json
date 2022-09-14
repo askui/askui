@@ -10,7 +10,7 @@
         "askui": "../../packages/askui-nodejs"
     },
     "devDependencies": {
-        "@types/jest": "27.5.0",
+        "@types/jest": "29.0.2",
         "@types/node": "17.0.10",
         "testcontainers": "8.2.0",
         "ts-jest": "28.0.4",
