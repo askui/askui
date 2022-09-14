@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.7](https://github.com/askui/askui/compare/0.2.6...0.2.7) (2022-09-14)
+
+* fix(askui-nodejs): connect to ui controller on mac by @adi-wan-askui in https://github.com/askui/askui/pull/102
+
 ## [0.2.6](https://github.com/askui/askui/compare/0.2.5...0.2.6) (2022-09-13)
 
 * As 1137 migrate from tenant to workspace  model by @mlikasam-askui in https://github.com/askui/askui/pull/45
