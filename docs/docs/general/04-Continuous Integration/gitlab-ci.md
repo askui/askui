@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Gitlab CI/CD
 
 The askui library can be integrated into a [Gitlab CI/CD Pipeline](https://docs.gitlab.com/ee/ci).

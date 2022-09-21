@@ -25,7 +25,9 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://gitlab.com/vqa4gui/mvp/documentation',
+          breadcrumbs: true,
+          editUrl: ({versionDocsDirPath, docPath}) =>
+            `https://github.com/askui/askui/tree/main/docs/${versionDocsDirPath}/${docPath}`,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
@@ -99,6 +101,16 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+      },
+    ],
+  ]
 };
 
 module.exports = config;

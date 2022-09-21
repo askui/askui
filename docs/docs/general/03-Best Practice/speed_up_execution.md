@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Speed Up Execution
 
 Lazy inference is a transitive feature to speed up the execution of instructions. Following the principle: <i>Only execute that what needs to be executed</i>. To benefit from this feature, you have to write the commands in a certain way.

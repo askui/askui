@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Annotate Interactively
 
 Similar to [annotate image](annotate-image.md), the askui client offers an interactive annotation tool which helps with the test creation and debugging of failed tests.
