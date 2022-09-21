@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Annotate Image
 
 The askui client offers an annotation tool which helps with the test creation and debugging of failed tests.

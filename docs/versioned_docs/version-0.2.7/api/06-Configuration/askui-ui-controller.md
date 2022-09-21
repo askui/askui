@@ -1,6 +1,3 @@
----
-custom_edit_url: null
----
 # askui UI Controller
 
 ## Properties

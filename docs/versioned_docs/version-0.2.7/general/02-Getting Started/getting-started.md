@@ -1,5 +1,4 @@
 ---
-custom_edit_url: null
 sidebar_position: 2
 ---
 
@@ -37,5 +36,10 @@ Quick explanation of all the dependencies:
 
 If you don't like Jest, feel free to use another test framework, e.g., [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/).
 
+## Configure Access Token from our askui User Portal
+
+In order to use askui you have to create an access token at our [user portal](https://app.askui.com/).
+
+[After that please configure it as described here](../../api/06-Configuration/askui-ui-control-client.md#credentials)
 
 Now, we are ready to write our first test.

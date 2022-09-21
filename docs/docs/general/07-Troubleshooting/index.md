@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Troubleshooting
 
 If you are having problems using the askui lib, have a look at the following pages. If you can't solve your

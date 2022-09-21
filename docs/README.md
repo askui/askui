@@ -24,6 +24,15 @@ npm run build
 
 This command generates static content into the `dist` directory and can be served using any static contents hosting service.
 
+### Local Search
+
+For your searchbar to work locally you have to generate the static content and then serve it locally.
+
+```shell
+npm run build
+npm run serve
+```
+
 ### Regenerate API Documentation
 
 1. Head over to [askui-inference](https://github.com/askui/askui-inference#generate-fluent-api-and-documentation)

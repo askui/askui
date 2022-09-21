@@ -1,7 +1,3 @@
----
-custom_edit_url: null
----
-
 # Online Shop Test Tutorial
 
 The following tutorial shows how to test the login process of a simple demo online shop.
