@@ -10,6 +10,8 @@ import { LogLevels } from '../shared/log-levels';
  * the value to `1` (`2` for your third monitor etc.).
  * @param {string} binaryVersion - Default: `'latest'`
  *  Choose the version of the askui UI Controller Server.
+ * @param {number} actionDelayInMs - Default: `1000`
+ * Waits x milliseconds after each action. This can be used to slow down or speed up the execution
  * @param {number} port - Default: `6769`
  * The port the askui UI Controller is running on.
  * @param {string} host - Default: `'127.0.0.1'`
@@ -30,6 +32,7 @@ import { LogLevels } from '../shared/log-levels';
 export interface UiControllerArgs {
 
   readonly display?: number;
+  readonly actionDelayInMs?: number;
   readonly binaryVersion?: string,
   readonly port?: number;
   readonly host?: string;
@@ -41,6 +44,7 @@ export interface UiControllerArgs {
 
 export interface UiControllerArgsWithDefaults extends UiControllerArgs {
   readonly display: number;
+  readonly actionDelayInMs: number;
   readonly binaryVersion: string;
   readonly overWriteBinary: boolean;
   readonly port: number;
@@ -55,6 +59,7 @@ export function createArgsWithDefaults(
   const defaults = {
     binaryVersion: 'latest',
     display: 0,
+    actionDelayInMs: 1000,
     overWriteBinary: false,
     minimize: true,
     port: 6769,
@@ -68,6 +73,7 @@ export function createCliFlagsFromArgs(args: UiControllerArgsWithDefaults): stri
   return [
     `-d ${args.display.toString()}`,
     args?.port ? `-p ${args.port.toString()}` : '',
+    args?.actionDelayInMs ? `--action_wait_time ${args.actionDelayInMs.toString()}` : '',
     args?.host ? `--host ${args.host}` : '',
     args?.minimize ? '-m ' : '',
     args?.logLevel ? `--log-level ${args.logLevel}` : '',
