@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.1](https://github.com/askui/askui/compare/0.2.7...0.3.1) (2022-09-23)
+
+* docs: add Local search; Add 'Edit this page' for 0.2.7 and next; Toke… by @JohannesDienst-askui in https://github.com/askui/askui/pull/110
+* docs: fix wrong link in Getting Started to askui User Portal signup by @JohannesDienst-askui in https://github.com/askui/askui/pull/112
+* As 1379 configurable wait time after each action by @mlikasam-askui in https://github.com/askui/askui/pull/114
+* docs: rename nearest to nearestTo by @mlikasam-askui in https://github.com/askui/askui/pull/115
+
+### New Contributors
+* @JohannesDienst-askui made their first contribution in https://github.com/askui/askui/pull/110
+
 ## [0.2.7](https://github.com/askui/askui/compare/0.2.6...0.2.7) (2022-09-14)
 
 * fix(askui-nodejs): connect to ui controller on mac by @adi-wan-askui in https://github.com/askui/askui/pull/102
