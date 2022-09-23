@@ -75,6 +75,16 @@ ___
 - **port**: `number` - Default: `6769`
 
 The port the askui UI Controller is running on.
+___
+
+### actionDelayInMs
+
+- **actionDelayInMs**: `number` - Default: `1000`
+
+`actionDelayInMs` is the askui UI controller delay time between each action. This can be used to slow down or speed up the execution.
+
+Let's say, you want to click on the login button and then navigate to the home page by clicking on the home button. Based on this number, the UI controller will wait between the two actions.
+This delay time can be increased in case your application has a slow load time. 
 
 ## Example
 
