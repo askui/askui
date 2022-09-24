@@ -50,7 +50,7 @@ The `withText('text')` method is based on a [fuzzy matching algorithm](https://e
 await aui.click().withText('Login').exec();
 ```
 
-Sometimes two words are so similar, e.g., 'text' and 'test', that the previous method is selecting the wrong text. In this cases the `withExactTest('text')` method can be used.
+Sometimes two words are so similar, e.g., 'text' and 'test', that the previous method is selecting the wrong text. In this cases the `withExactText('text')` method can be used.
 ```javascript
 await aui.click().withExactText('Login').exec();
 ```
