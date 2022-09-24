@@ -61,7 +61,7 @@
         "tough-cookie": "4.1.2",
         "url-join": "4.0.1",
         "wait-port": "0.2.9",
-        "ws": "7.4.4",
+        "ws": "8.9.0",
         "yup": "0.32.11"
     },
     "devDependencies": {
@@ -72,7 +72,7 @@
         "@types/sharp": "0.30.4",
         "@types/url-join": "4.0.1",
         "@types/webrtc": "0.0.30",
-        "@types/ws": "7.4.4",
+        "@types/ws": "8.5.3",
         "jest": "28.1.1",
         "sharp": "0.30.6",
         "shx": "0.3.4",
