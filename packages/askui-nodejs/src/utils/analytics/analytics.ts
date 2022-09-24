@@ -21,4 +21,11 @@ export class Analytics implements AnalyticsInterface {
 
     return headers;
   }
+
+  async getAnalyticsCookies(): Promise<Record<string, string>> {
+    const userID = await this.userIdentifier.userId();
+    return {
+      'askui-user-id': userID,
+    };
+  }
 }
