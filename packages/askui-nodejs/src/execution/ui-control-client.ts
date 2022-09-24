@@ -39,11 +39,13 @@ export class UiControlClient extends FluentCommand {
   static async build(clientArgs?: ClientArgs): Promise<UiControlClient> {
     const analytics = new Analytics();
     const analyticsHeaders = await analytics.getAnalyticsHeaders();
+    const analyticsCookies = await analytics.getAnalyticsCookies();
     const cas = getClientArgsWithDefaults(clientArgs);
     const credentialArgs = cas.credentials || envCredentials();
     const httpClient = new HttpClientGot(
       credentialArgs?.token,
       analyticsHeaders,
+      analyticsCookies,
     );
     return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }
