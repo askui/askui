@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.2](https://github.com/askui/askui/compare/0.3.1...0.3.2) (2022-09-24)
+
+* chore: add analytics cookie to request by @adi-wan-askui in https://github.com/askui/askui/pull/118
+
 ## [0.3.1](https://github.com/askui/askui/compare/0.2.7...0.3.1) (2022-09-23)
 
 * docs: add Local search; Add 'Edit this page' for 0.2.7 and next; Toke… by @JohannesDienst-askui in https://github.com/askui/askui/pull/110
