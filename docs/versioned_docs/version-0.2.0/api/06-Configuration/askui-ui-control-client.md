@@ -84,7 +84,7 @@ $env:LOG_LEVEL="verbose"
     credentials: {
       tenant: 'user',
       email: 'user@mail.com',
-      token: 'userToken',
+      token: 'access token',
     }
   });
 ```

@@ -64,14 +64,14 @@ Setting credentials in code:
 Setting credentials using environment variables (Powershell):
 ```powershell
 $env:ASKUI_TENANT = <tenat>
-$env:ASKUI_TOKEN = <token>
+$env:ASKUI_TOKEN = <access token>
 $env:ASKUI_EMAIL = <email>
 ```
 
 Setting credentials using environment variables (Bash or similar):
 ```bash
 export ASKUI_TENANT=<tenat>
-export ASKUI_TOKEN=<token>
+export ASKUI_TOKEN=<access token>
 export ASKUI_EMAIL=<email>
 ```
 ___
@@ -108,7 +108,7 @@ $env:LOG_LEVEL="verbose"
     credentials: {
       tenant: 'user',
       email: 'user@mail.com',
-      token: 'userToken',
+      token: 'access Token',
     }
   });
 ```

@@ -85,7 +85,7 @@ Setting credentials in code:
     credentials: {
       workspaceId: 'workspace_id',
       email: 'user@mail.com',
-      token: 'userToken',
+      token: 'access token',
     }
   });
 ```
@@ -94,7 +94,7 @@ Setting credentials using environment variables (Powershell):
 
 ```powershell
 $env:ASKUI_WORKSPACE_ID = <workspace_id>
-$env:ASKUI_TOKEN = <token>
+$env:ASKUI_TOKEN = <access token>
 $env:ASKUI_EMAIL = <email>
 ```
 
@@ -102,7 +102,7 @@ Setting credentials using environment variables (Bash or similar):
 
 ```bash
 export ASKUI_WORKSPACE_ID=<workspace_id>
-export ASKUI_TOKEN=<token>
+export ASKUI_TOKEN=<access token>
 export ASKUI_EMAIL=<email>
 ```
 

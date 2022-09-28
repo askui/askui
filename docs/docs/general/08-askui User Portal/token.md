@@ -15,7 +15,7 @@ With the workspace created you can now create access tokens for it. Click on the
 
 ![Overlap](./create_token_start.png)
 
-Enter the token name and an expiry date and click _create_.
+Enter the access token name and an expiry date and click _create_.
 
 ![Overlap](./token_name_expiry.png)
 
