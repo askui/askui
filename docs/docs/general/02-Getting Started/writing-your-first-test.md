@@ -4,12 +4,6 @@ sidebar_position: 3
 
 # Writing Your First Test
 
-## Access Token
-
-First we need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
-
-Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
-
 ## Quickstart
 
 To create your first test suite, enter
@@ -28,7 +22,10 @@ This is going to create
 
 ### Configuration
 
-Go to your `jest.config.ts` and add the configuration for your workspace Id and your access token to the _UiControlClient_.
+We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
+Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
+
+Then go to your `jest.config.ts` and add the configuration for your workspace Id and your access token to the _UiControlClient_.
 
 ```typescript
  aui = await UiControlClient.build({
@@ -49,9 +46,16 @@ npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
 
+### Troubleshooting
+
+If you are having problems with the test execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md)
+
 ## Manual
 
 At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
+
+We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
+Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
 
 Copy the following over into that file.
 Do not forget to replace your workspace Id and your access token in the _UiControlClient_:
@@ -144,3 +148,7 @@ You can also use `npx jest` to test all your Jest test files and `npx jest <fold
 If your jest config file e.g. `jest.config.ts` is not in your root folder you can use `--config` to specify the location of your config file. In this example the config file is in the `test` folder, that's why we need to provide the location our config file.
 
 You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
+
+### Troubleshooting
+
+If you are having problems with the test execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md)
