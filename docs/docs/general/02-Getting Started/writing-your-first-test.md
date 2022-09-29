@@ -4,6 +4,12 @@ sidebar_position: 3
 
 # Writing Your First Test
 
+## Access Token
+
+First we need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
+
+Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
+
 ## Quickstart
 
 To create your first test suite, enter
@@ -19,7 +25,22 @@ This is going to create
   - `test/my-first-askui-test-suite.test.ts`: an example test with askui,
   - a folder `helper` which contains `jest.setup.ts` file: this file is setting up the test environment for all tests
   - a `jest.config.ts`: file for configuration of Jest,
-  
+
+### Configuration
+
+Go to your `jest.config.ts` and add the configuration for your workspace Id and your access token to the _UiControlClient_.
+
+```typescript
+ aui = await UiControlClient.build({
+    credentials: {
+      workspaceId: 'workspace_id',
+      token: 'access token',
+    }
+  });
+```
+
+### Run
+
 To execute the test suite, enter
 
 ```shell
@@ -32,7 +53,8 @@ You should now see the test suite being executed inside the shell and, actually,
 
 At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
 
-Copy the following over into that file:
+Copy the following over into that file.
+Do not forget to replace your workspace Id and your access token in the _UiControlClient_:
 
 ```typescript
 import { UiControlClient, UiController } from 'askui';
@@ -58,7 +80,12 @@ describe('jest with askui', () => {
     
     await uiController.start();
 
-    aui = await UiControlClient.build();
+    aui = await UiControlClient.build({
+      credentials: {
+        workspaceId: 'workspace_id',
+        token: 'access token',
+      }
+    });
     
     await aui.connect();
   });
@@ -107,7 +134,7 @@ Create a file with the name `tsconfig.json` and fill in this code:
 
 ```
 
-Now, just execute the following command in order to run the test suite:
+Now, execute the following command in order to run the test suite:
 
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
