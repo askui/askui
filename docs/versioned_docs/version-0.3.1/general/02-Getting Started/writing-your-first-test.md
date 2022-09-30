@@ -23,7 +23,7 @@ This is going to create
 ### Configuration
 
 We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
-Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
+Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
 
 Go to your `jest.config.ts` and add the configuration for your workspace Id and your access token to the _UiControlClient_.
 
@@ -55,7 +55,7 @@ If you are having problems with the test execution, [have a look at our Troubles
 At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
 
 We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
-Please see <a href="../askui%20User%20Portal/signup.html" target="_blank">our documention on how to signup and create the credentials</a>.
+Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
 
 Copy the following over into that file:
 
