@@ -72,15 +72,15 @@ ___
   - **workspaceId**: `string` Your workspace id
   - **token**: `string` An access token for authentication with the askui Inference Server
 
-Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_WORKSPACE_ID` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the workspace Id via setting the `ASKUI_WORKSPACE_ID` environment variable, you need to set token with environment variables as well.
+Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_WORKSPACE_ID` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the `workspace id` via setting the `ASKUI_WORKSPACE_ID` environment variable, you need to set token with environment variables as well.
 
 Setting credentials in code:
 
 ```typescript
  let aui = await UiControlClient.build({
     credentials: {
-      workspaceId: 'workspace_id',
-      token: 'access token',
+      workspaceId: '<your workspace id>',
+      token: '<your access token>',
     }
   });
 ```
@@ -88,15 +88,15 @@ Setting credentials in code:
 Setting credentials using environment variables (Powershell):
 
 ```powershell
-$env:ASKUI_WORKSPACE_ID = <workspace_id>
-$env:ASKUI_TOKEN = <access token>
+$env:ASKUI_WORKSPACE_ID = <your workspace id>
+$env:ASKUI_TOKEN = <your access token>
 ```
 
 Setting credentials using environment variables (Bash or similar):
 
 ```bash
-export ASKUI_WORKSPACE_ID=<workspace_id>
-export ASKUI_TOKEN=<access token>
+export ASKUI_WORKSPACE_ID=<your workspace id>
+export ASKUI_TOKEN=<your access token>
 ```
 
 ___
