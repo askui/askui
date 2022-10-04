@@ -30,7 +30,7 @@ Then, go to your `jest.config.ts` and add the configuration for your `workspace 
 ```typescript
  aui = await UiControlClient.build({
     credentials: {
-      workspaceId: '<your workspace id',
+      workspaceId: '<your workspace id>',
       token: '<your access token>',
     }
   });
@@ -86,7 +86,7 @@ describe('jest with askui', () => {
 
     aui = await UiControlClient.build({
       credentials: {
-        workspaceId: '<your workspace id',
+        workspaceId: '<your workspace id>',
         token: '<your access token>',
       }
     });
