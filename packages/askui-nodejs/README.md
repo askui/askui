@@ -14,28 +14,22 @@ To use **askui** follow these steps:
 npm init
 ```
 
-### 1. Install askui
+### 1. Install askui with Needed Dependencies
 
 ```
-npm i -D askui
+npm i -D askui typescript ts-node @types/jest ts-jest jest
 ```
 
-### 2. Install a testing framework
-
-```
-npm i -D jest
-```
-
-### 3. Install Typescript
-
-```
-npm i -D @types/jest ts-jest ts-node typescript
-```
-
-### 4. Create a first test suite
+### 2. Create your First Test
 
 ```
 npx askui init
+```
+
+### 3. Execute the Test
+
+```
+npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
 ```
 
 ## Documentation

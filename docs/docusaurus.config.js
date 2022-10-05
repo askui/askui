@@ -32,6 +32,10 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
         },
+        gtag: {
+          trackingID: 'GTM-MPZ8G56',
+          anonymizeIP: true,
+        }
       }),
     ],
   ],
@@ -72,6 +76,10 @@ const config = {
             title: 'Community',
             items: [
               {
+                label: 'Discord',
+                href: 'https://discord.gg/EgHmgmPUhT',
+              },
+              {
                 label: 'Linkedin',
                 href: 'https://www.linkedin.com/company/askyourui',
               },
@@ -83,13 +91,22 @@ const config = {
                 label: 'Youtube',
                 href: 'https://www.youtube.com/channel/UC2LZq-dfxwAgPu_wMMIl7PA',
               },
+            ],
+          },
+          {
+            title: 'About',
+            items: [
               {
-                label: 'Slack',
-                href: 'https://join.slack.com/t/askui/shared_invite/zt-z2yu0seo-coQPdwBsV5prJsjbb8yqvA',
+                label: 'Contact',
+                href: 'mailto:info@askui.com',
               },
               {
-                label: 'Discord',
-                href: 'https://discord.gg/EgHmgmPUhT',
+                label: 'Data Privacy',
+                href: 'https://www.askui.com/data-privacy',
+              },
+              {
+                label: 'Imprint',
+                href: 'https://www.askui.com/imprint',
               },
             ],
           },

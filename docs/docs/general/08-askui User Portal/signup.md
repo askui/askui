@@ -19,4 +19,4 @@ If the verification succeeded you can click on _Continue_. On the next page ente
 
 ![Overlap](./welcome_fullname_company.png)
 
-You made it! Welcome to the Dashboard. Now it is time to create a workspace.
+You made it! Welcome to the Dashboard. Now it is time to create a workspace to get your access token.

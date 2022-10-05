@@ -1,10 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.scss';
-import HomepageFeatures from '../components/HomepageFeatures';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -24,14 +22,7 @@ function HomepageHeader() {
   );
 }
 
+import {Redirect} from '@docusaurus/router';
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <Layout>
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
-  );
+    return <Redirect to="/docs/general/Introduction/why-askui" />;
 }
