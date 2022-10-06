@@ -25,13 +25,13 @@ This is going to create
 We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
 Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
 
-Go to your `jest.config.ts` and add the configuration for your workspace Id and your access token to the _UiControlClient_.
+Then, go to your `jest.config.ts` and add the configuration for your `workspace id` and your `access token` to the _UiControlClient_.
 
 ```typescript
  aui = await UiControlClient.build({
     credentials: {
-      workspaceId: 'workspace_id',
-      token: 'access token',
+      workspaceId: '<your workspace id>',
+      token: '<your access token>',
     }
   });
 ```
@@ -57,7 +57,8 @@ At the beginning we create a new folder with the name `test`. For the next step 
 We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
 Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
 
-Copy the following over into that file:
+Copy the following over into that file.
+Do not forget to replace your `workspace id` and your `access token` in the _UiControlClient_:
 
 ```typescript
 import { UiControlClient, UiController } from 'askui';
@@ -85,8 +86,8 @@ describe('jest with askui', () => {
 
     aui = await UiControlClient.build({
       credentials: {
-        workspaceId: 'workspace_id',
-        token: 'access token',
+        workspaceId: '<your workspace id>',
+        token: '<your access token>',
       }
     });
     
