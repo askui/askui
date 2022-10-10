@@ -25,7 +25,7 @@ This is going to create
 We need you to create some credentials through our [askui user portal](https://app.askui.com/) (usage is free!).
 Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
 
-Then, go to your `jest.config.ts` and add the configuration for your `workspace id` and your `access token` to the _UiControlClient_.
+Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the _UiControlClient_.
 
 ```typescript
  aui = await UiControlClient.build({
