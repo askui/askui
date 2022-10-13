@@ -1,20 +1,15 @@
-import { InputEvent } from './input-event';
+import { ControlCommand } from './control-command';
+import { ControlCommandCode } from './control-command-code';
 
-export class Action {
+export class CommandData {
   constructor(
-    public inputEvent: InputEvent,
-    public position: { x: number, y: number },
-    public text: string,
-  ) { }
+    public type:string,
+    public data: ControlCommand [] = [],
+  ) {}
 
-  static fromJson(action: Action, resizeRatio = 1) {
-    return new Action(
-      InputEvent[action.inputEvent],
-      {
-        x: action.position.x * resizeRatio,
-        y: action.position.y * resizeRatio,
-      },
-      action.text,
-    );
+  static getControlCommandFromJson(json:CommandData, resizeRatio = 1) {
+    return ControlCommand
+      .fromJson(json.data[0]
+            ?? new ControlCommand(ControlCommandCode.ERROR, []), resizeRatio);
   }
 }
