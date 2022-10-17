@@ -1,11 +1,12 @@
 import urljoin from 'url-join';
 import { HttpClientGot } from '../utils/http/http-client-got';
-import { ControlCommand, CommandData } from '../core/ui-control-commands';
+import { ControlCommand, ControlCommandCode, ResponseData } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/test-case-dto';
 import { Annotation } from '../core/annotation/annotation';
-import { AnnotationJson } from '../core/annotation/annotation-json';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
+import { CommandData } from '../core/ui-control-commands/command-data';
+import { InferenceClientError } from './inference-client-error';
 
 export class InferenceClient {
   url: string;
@@ -56,8 +57,12 @@ export class InferenceClient {
       customElements,
     };
     const url = urljoin(this.url, 'inference');
-    const httpResponse = await this.httpClient.post<CommandData>(url, httpBody);
-    return CommandData.getControlCommandFromJson(httpResponse, resizedImage.resizeRatio);
+    const httpResponse = await this.httpClient.post<ResponseData>(url, httpBody);
+    const responseJson = ResponseData.fromJson(httpResponse, resizedImage.resizeRatio);
+    if (responseJson instanceof CommandData) {
+      return responseJson.command[0] ?? new ControlCommand(ControlCommandCode.ERROR, []);
+    }
+    throw new InferenceClientError('Internal Error. Can not execute command');
   }
 
   async predictImageAnnotation(
@@ -70,7 +75,11 @@ export class InferenceClient {
       customElements,
     };
     const url = urljoin(this.url, 'inference', '?format=json');
-    const httpResponse = await this.httpClient.post<AnnotationJson>(url, httpBody);
-    return Annotation.fromJson({ ...httpResponse, image }, resizedImage.resizeRatio);
+    const httpResponse = await this.httpClient.post<ResponseData>(url, httpBody);
+    const responseJson = ResponseData.fromJson(httpResponse, resizedImage.resizeRatio, image);
+    if (responseJson instanceof Annotation) {
+      return responseJson;
+    }
+    throw new InferenceClientError('Internal Error. Can not execute annotation');
   }
 }
