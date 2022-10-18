@@ -119,7 +119,7 @@ export class ExecutionRuntime {
   async annotateInteractively() {
     const annotationResponse = await this.annotateImage();
     await this.uiControllerClient.annotateInteractively(
-      annotationResponse.data,
+      annotationResponse.detectedElements,
       annotationResponse.image,
     );
   }

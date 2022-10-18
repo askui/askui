@@ -7,6 +7,7 @@ import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 import { CommandData } from '../core/ui-control-commands/command-data';
 import { InferenceResponseError } from './inference-response-error';
+import { AnnotationData } from '../core/annotation/annotation-data';
 
 export class InferenceClient {
   url: string;
@@ -77,8 +78,8 @@ export class InferenceClient {
     const url = urljoin(this.url, 'inference', '?format=json');
     const httpResponse = await this.httpClient.post<InferenceResponse>(url, httpBody);
     const responseJson = InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio, image);
-    if (responseJson instanceof Annotation) {
-      return responseJson;
+    if (responseJson instanceof AnnotationData) {
+      return responseJson.annotations[0] ?? new Annotation('test');
     }
     throw new InferenceResponseError('Internal Error. Can not execute annotation');
   }
