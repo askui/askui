@@ -69,7 +69,7 @@ export class InferenceClient {
   async predictImageAnnotation(
     image: string,
     customElements: CustomElement[] = [],
-  ): Promise<Annotation> {
+  ): Promise<Annotation[]> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const httpBody = {
       image: resizedImage.base64Image,
@@ -79,7 +79,7 @@ export class InferenceClient {
     const httpResponse = await this.httpClient.post<InferenceResponse>(url, httpBody);
     const responseJson = InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio, image);
     if (responseJson instanceof AnnotationData) {
-      return responseJson.annotations[0] ?? new Annotation('test');
+      return responseJson.annotations;
     }
     throw new InferenceResponseError('Internal Error. Can not execute annotation');
   }
