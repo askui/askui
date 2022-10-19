@@ -57,7 +57,7 @@ export class InferenceClient {
     };
     const url = urljoin(this.url, 'inference');
     const httpResponse = await this.httpClient.post<InferenceResponse>(url, httpBody);
-    return InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio);
+    return InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio, image);
   }
 
   async predictControlCommand(
