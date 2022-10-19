@@ -118,11 +118,10 @@ export class ExecutionRuntime {
 
   async annotateInteractively() {
     const annotationResponse = await this.annotateImage();
-    await Promise.all(annotationResponse
-      .map(async (response) => this.uiControllerClient.annotateInteractively(
-        response.detectedElements,
-        response.image,
-      )));
+    await this.uiControllerClient.annotateInteractively(
+      annotationResponse.detectedElements,
+      annotationResponse.image,
+    );
   }
 
   async takeScreenshotIfImageisNotProvided(imagePath?: string): Promise<string> {
@@ -140,7 +139,7 @@ export class ExecutionRuntime {
   async annotateImage(
     imagePath?: string,
     customElementJson?: CustomElementJson[],
-  ): Promise<Annotation[]> {
+  ): Promise<Annotation> {
     let customElements: CustomElement[] = [];
     const base64Image = await this.takeScreenshotIfImageisNotProvided(imagePath);
     if (customElementJson !== undefined) {

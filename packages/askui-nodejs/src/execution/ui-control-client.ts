@@ -96,17 +96,17 @@ export class UiControlClient extends FluentCommand {
 
   async annotate(
     annotationRequest: AnnotationRequest = {},
-  ): Promise<Annotation[]> {
-    const annotations = await this.executionRuntime.annotateImage(
+  ): Promise<Annotation> {
+    const annotation = await this.executionRuntime.annotateImage(
       annotationRequest.imagePath,
       annotationRequest.customElements,
     );
-    annotations.map((annotation) => AnnotationWriter.write(
+    AnnotationWriter.write(
       annotation.toHtml(),
       annotationRequest.outputPath,
       annotationRequest.fileNamePrefix,
-    ));
-    return annotations;
+    );
+    return annotation;
   }
 
   async annotateInteractively(): Promise<void> {
