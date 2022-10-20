@@ -3701,10 +3701,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   }
 
   /**
-   * Returns a list of Detected Elements
-   *
-   * @return {DetectedElement[]}
-   */
+  * Returns a list of detected elements
+  *
+  * @return {DetectedElement[]}
+  */
   exec(): Promise<DetectedElement[]> {
     return this.getterCommandStringBuilder();
   }
@@ -3713,7 +3713,6 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
 // Commands
 export abstract class GetFilters extends FluentCommand {
   /**
-   *
    * Returns the filtered element
    *
    * @return {FluentFiltersGetter}
@@ -3725,7 +3724,6 @@ export abstract class GetFilters extends FluentCommand {
   }
 
   /**
-   *
    * Returns all detected elements
    *
    * @return {ExecGetter}
