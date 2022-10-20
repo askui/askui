@@ -24,4 +24,4 @@ The next popup will show your access token and your workspace ID. Both act as cr
 ![Overlap](./create_token_end.png)
 
 ## Configuration
-To learn how to use these tokens for authentication and authorization with our api, head over to [configure our library to use these credentials](../../api/06-Configuration/askui-ui-control-client.md#credential).
+To learn how to use these tokens for authentication and authorization with our api, head over to [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials).

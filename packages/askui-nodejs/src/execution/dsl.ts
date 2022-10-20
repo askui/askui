@@ -68,10 +68,10 @@ abstract class FluentBase {
   ): Promise<DetectedElement[]> {
     const newCurrentInstruction = `${this.textStr} ${currentInstruction}`;
     const newParamsList = FluentBase.addParams(paramsList, this._params);
-    if (this instanceof GetFilters) {
-      const getFilters = this as GetFilters;
+    if (this instanceof Getter) {
+      const getter = this as Getter;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      return getFilters.getterCommandExecutor(
+      return getter.getterCommandExecutor(
         newCurrentInstruction.trim(),
         customElements,
       );
@@ -3711,14 +3711,14 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
 }
 
 // Commands
-export abstract class GetFilters extends FluentCommand {
+export abstract class Getter extends FluentCommand {
   /**
    * Returns the filtered element
    *
    * @return {FluentFiltersGetter}
    */
   get(): FluentFiltersGetter {
-    this._textStr = 'get information for the element';
+    this._textStr = 'get element';
 
     return new FluentFiltersGetter(this);
   }
@@ -3729,7 +3729,7 @@ export abstract class GetFilters extends FluentCommand {
    * @return {ExecGetter}
    */
   getAll(): ExecGetter {
-    this._textStr = 'get information for all elements';
+    this._textStr = 'get all elements';
 
     return new ExecGetter(this);
   }
@@ -3740,4 +3740,4 @@ export abstract class GetFilters extends FluentCommand {
   ): Promise<DetectedElement[]>;
 }
 
-export abstract class ApiCommands extends GetFilters { }
+export abstract class ApiCommands extends Getter { }
