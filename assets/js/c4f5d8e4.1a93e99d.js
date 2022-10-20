@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[64195],{51866:(e,t,c)=>{c.r(t),c.d(t,{default:()=>s});var n=c(27378);c(81884),c(50353);var r=c(35331);function s(){return n.createElement(r.l_,{to:"/docs/general/Introduction/why-askui"})}}}]);
