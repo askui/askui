@@ -33,7 +33,7 @@ const config = {
           customCss: require.resolve('./src/css/custom.scss'),
         },
         gtag: {
-          trackingID: 'GTM-MPZ8G56',
+          trackingID: 'GTM-NNW647S',
           anonymizeIP: true,
         }
       }),
@@ -107,6 +107,14 @@ const config = {
               {
                 label: 'Imprint',
                 href: 'https://www.askui.com/imprint',
+              },
+              {
+                html: `
+                    <!-- Google Tag Manager (noscript) -->
+                    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNW647S"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                    <!-- End Google Tag Manager (noscript) --> 
+                  `,
               },
             ],
           },
