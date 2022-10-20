@@ -3,7 +3,10 @@ import { FluentCommand } from './dsl';
 
 class TestCommand extends FluentCommand {
   // eslint-disable-next-line class-methods-use-this
-  async exec(instruction: string, customElements: CustomElementJson[]): Promise<void> {
+  async fluentCommandExecutor(
+    instruction: string,
+    customElements: CustomElementJson[],
+  ): Promise<void> {
     // eslint-disable-next-line no-console
     console.log(`${instruction} ${customElements}`);
     return Promise.resolve();
@@ -14,7 +17,7 @@ describe('DSL', () => {
   describe('custom element', () => {
     test('should call exec function with zero custom element', async () => {
       const underTest = new TestCommand();
-      const testCommandSpy = jest.spyOn(underTest, 'exec');
+      const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().button()
         .exec();
@@ -26,7 +29,7 @@ describe('DSL', () => {
 
     test('should call exec function with one custom element', async () => {
       const underTest = new TestCommand();
-      const testCommandSpy = jest.spyOn(underTest, 'exec');
+      const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().customElement({
         customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
@@ -46,7 +49,7 @@ describe('DSL', () => {
 
     test('should call exec function with two custom element', async () => {
       const underTest = new TestCommand();
-      const testCommandSpy = jest.spyOn(underTest, 'exec');
+      const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().customElement({
         customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
