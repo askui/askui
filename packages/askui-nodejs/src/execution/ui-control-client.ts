@@ -147,7 +147,7 @@ export class UiControlClient extends ApiCommands {
     }
   }
 
-  async getterCommandExecutor(
+  async getterExecutor(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<DetectedElement[]> {

@@ -62,7 +62,7 @@ abstract class FluentBase {
     );
   }
 
-  protected getterCommandStringBuilder(
+  protected getterStringBuilder(
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<DetectedElement[]> {
@@ -71,7 +71,7 @@ abstract class FluentBase {
     if (this instanceof Getter) {
       const getter = this as Getter;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      return getter.getterCommandExecutor(
+      return getter.getterExecutor(
         newCurrentInstruction.trim(),
         customElements,
       );
@@ -79,7 +79,7 @@ abstract class FluentBase {
     if (!this.prev) {
       throw new Error('Prev element not defined');
     }
-    return this.prev.getterCommandStringBuilder(
+    return this.prev.getterStringBuilder(
       newCurrentInstruction,
       newParamsList,
     );
@@ -2625,7 +2625,7 @@ export interface ExecutableGetter {
 
 export class ExecGetter extends FluentBase implements ExecutableGetter {
   exec(): Promise<DetectedElement[]> {
-    return this.getterCommandStringBuilder();
+    return this.getterStringBuilder();
   }
 }
 // Filters
@@ -3706,7 +3706,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   * @return {DetectedElement[]}
   */
   exec(): Promise<DetectedElement[]> {
-    return this.getterCommandStringBuilder();
+    return this.getterStringBuilder();
   }
 }
 
@@ -3734,7 +3734,7 @@ export abstract class Getter extends FluentCommand {
     return new ExecGetter(this);
   }
 
-  abstract getterCommandExecutor(
+  abstract getterExecutor(
     instruction: string,
     customElements: CustomElementJson[],
   ): Promise<DetectedElement[]>;
