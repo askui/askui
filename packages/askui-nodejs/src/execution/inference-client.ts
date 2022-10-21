@@ -6,6 +6,7 @@ import { Annotation } from '../core/annotation/annotation';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 import { InferenceResponseError } from './inference-response-error';
+import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
 export class InferenceClient {
   url: string;
@@ -70,6 +71,18 @@ export class InferenceClient {
       throw new InferenceResponseError('Internal Error. Can not execute command');
     }
     return inferenceResponse;
+  }
+
+  async getDetectedElements(
+    instruction: string,
+    image: string,
+    customElements: CustomElement[] = [],
+  ): Promise<DetectedElement[]> {
+    const inferenceResponse = await this.inference(customElements, image, instruction);
+    if (!(inferenceResponse instanceof Annotation)) {
+      throw new InferenceResponseError('Internal Error. Unable to get the detected elements');
+    }
+    return inferenceResponse.detectedElements;
   }
 
   async predictImageAnnotation(

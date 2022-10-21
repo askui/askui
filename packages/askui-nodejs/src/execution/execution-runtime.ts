@@ -9,6 +9,7 @@ import { Annotation } from '../core/annotation/annotation';
 import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
 import { logger } from '../lib/logger';
 import { Base64Image } from '../utils/base_64_image/base-64-image';
+import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
 export class ExecutionRuntime {
   constructor(
@@ -134,6 +135,18 @@ export class ExecutionRuntime {
       base64Image = screenshotResponse.data.image;
     }
     return base64Image;
+  }
+
+  async getDetectedElements(
+    instruction: string,
+    customElementJson?: CustomElementJson[],
+  ): Promise<DetectedElement[]> {
+    let customElements: CustomElement[] = [];
+    const base64Image = await this.takeScreenshotIfImageisNotProvided();
+    if (customElementJson !== undefined) {
+      customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
+    }
+    return this.inferenceClient.getDetectedElements(instruction, base64Image, customElements);
   }
 
   async annotateImage(
