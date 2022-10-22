@@ -5,6 +5,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const tagline = 'Humanizing UI Automation';
 
+// This is a hacky way to get GTM working //////////
+// See also the 'scripts' tag in config ////////////
+var headScript = '/scripts/googleTagManager.js';
+const isProd = process.env.NODE_ENV === 'production';
+if (!isProd) {
+  headScript = '/scripts/isNotProd.js';
+}
+////////////////////////////////////////////////////
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: `askui - ${tagline}`,
@@ -18,6 +27,9 @@ const config = {
   plugins: ['docusaurus-plugin-sass'],
   projectName: 'askui', // Usually your repo name.
 
+  scripts: [
+    {src: `${headScript}`}
+  ],
   presets: [
     [
       'classic',
@@ -32,10 +44,6 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
         },
-        gtag: {
-          trackingID: 'GTM-NNW647S',
-          anonymizeIP: true,
-        }
       }),
     ],
   ],
@@ -111,7 +119,7 @@ const config = {
               {
                 html: `
                     <!-- Google Tag Manager (noscript) -->
-                    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNW647S"
+                    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPZ8G56"
                     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <!-- End Google Tag Manager (noscript) --> 
                   `,
