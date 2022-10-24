@@ -230,3 +230,9 @@ displayed_sidebar: apiSidebar
 
 -  [notExists](../checks/notexists)
 
+## Getters
+
+-  [getAll](../getters/getall)
+
+-  [get](../getters/get)
+

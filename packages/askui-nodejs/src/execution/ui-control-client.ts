@@ -1,6 +1,6 @@
 import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import {
-  Exec, Executable, FluentCommand, FluentFilters, Separators,
+  Exec, Executable, FluentFilters, ApiCommands, Separators,
 } from './dsl';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
@@ -17,6 +17,7 @@ import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
+import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
 const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
   uiControllerUrl: 'http://127.0.0.1:6769',
@@ -25,7 +26,7 @@ const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithD
   ...clientArgs,
 });
 
-export class UiControlClient extends FluentCommand {
+export class UiControlClient extends ApiCommands {
   private _uiControllerClient?: UiControllerClient;
 
   private constructor(
@@ -122,7 +123,7 @@ export class UiControlClient extends FluentCommand {
     return instruction.split(Separators.STRING).join('"');
   }
 
-  async exec(
+  async fluentCommandExecutor(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
@@ -144,6 +145,16 @@ export class UiControlClient extends FluentCommand {
         new UiControlClientError(`A problem occurred while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
       );
     }
+  }
+
+  async getterExecutor(
+    instruction: string,
+    customElementJson: CustomElementJson[] = [],
+  ): Promise<DetectedElement[]> {
+    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
+    const stringWithoutSeparators = this.escapeSeparatorString(instruction);
+    logger.debug(stringWithoutSeparators);
+    return this.executionRuntime.getDetectedElements(instruction, customElements);
   }
 
   private secretText: string | undefined = undefined;

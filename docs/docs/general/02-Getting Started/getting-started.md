@@ -40,6 +40,6 @@ Now, we are ready to write our first test.
 
 ## Access Token
 
-Currently, you can use our lib without any configuration. But in the future, as we need to prevent misuse of our api, we may need you to create some credentials through our [askui user portal](https://app.askui.com/) (still, totally free) and [configure our library to use these credentials](../../api/06-Configuration/askui-ui-control-client.md#credentials) for authenticating and authorising with our api.
+Currently, you can use our lib without any configuration. But in the future, as we need to prevent misuse of our api, we may need you to create some credentials through our [askui user portal](https://app.askui.com/) (still, totally free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorising with our api.
 
 Please see [our documention on how to signup and create the credentials](../08-askui%20User%20Portal/signup.md).

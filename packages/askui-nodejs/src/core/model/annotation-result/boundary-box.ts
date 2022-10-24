@@ -1,3 +1,14 @@
+/**
+*
+* @remarks
+* The screen top left corner is the origin
+*
+* @param {number} xmin - The bounding box xmin coordinate in pixels
+* @param {number} ymin - The bounding box ymin coordinate in pixels
+* @param {number} xmax - The bounding box xmax coordinate in pixels
+* @param {number} ymax - The bounding box ymax coordinate in pixels
+*
+*/
 export class BoundingBox {
   constructor(
     public xmin: number,
@@ -14,5 +25,23 @@ export class BoundingBox {
       boundinBox.ymax * resizeRatio,
 
     );
+  }
+
+  /**
+  *
+  * @returns {number} The bounding box height in pixels
+  *
+  */
+  get_height(): number {
+    return this.ymax - this.ymin;
+  }
+
+  /**
+  *
+  * @returns {number} The bounding box width in pixels
+  *
+  */
+  get_width(): number {
+    return this.xmax - this.xmin;
   }
 }
