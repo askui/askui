@@ -5,12 +5,12 @@ The following tutorial shows how to automate a desktop application. As an exampl
 ## Setup
 
 * Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
-* Open a browser on your screen
+* Open the Spotify desktop application on your screen
   * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
 ## Test
 
-After running the `npx askui init` command as described in the setup you will have a file `specs/my-first-askui-test-suite.spec.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
@@ -108,4 +108,4 @@ it('should like spotify song', async () => {
 });
 ```
 
-To run this test use the `npx jest --config ./test/jest.config.ts` command.
+To run this test use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.

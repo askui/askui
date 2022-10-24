@@ -82,6 +82,7 @@ describe('jest with askui', () => {
     // Open a new tab with keyboard shortcut
     // MacOS: command + t
     // Windows: control + T
+    // Linux: control + t
     await aui
       .pressTwoKeys('command', 't')
       .exec();
@@ -143,6 +144,8 @@ describe('jest with askui', () => {
       .exec();
 
     // Save it
+    // If it does not work because the button is not found
+    // Remove the '.button()'
     await aui
       .click()
       .button()

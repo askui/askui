@@ -82,6 +82,7 @@ describe('jest with askui', () => {
     // Open a new tab with keyboard shortcut
     // MacOS: command + t
     // Windows: control + T
+    // Linux: control + t
     await aui
       .pressTwoKeys('command', 't')
       .exec();
@@ -143,6 +144,8 @@ describe('jest with askui', () => {
       .exec();
 
     // Save it
+    // If it does not work because the button is not found
+    // Remove the '.button()'
     await aui
       .click()
       .button()
@@ -183,6 +186,6 @@ It is always a good idea to try to play around with the functions and see if you
 
 If you have a recurring or persisting issue, don’t hesitate to [ask the community](https://bit.ly/3ekHnGR) for help. You can be sure that your questions will be answered there. We’re excited to hear about how you apply askui to your projects.
 
-If you have any feature requests, please feel free to [post them in our featurebase board](https://bit.ly/3AP20T7).
+If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 
 Best regards and happy testing!

@@ -10,7 +10,7 @@ The following tutorial shows how to test the login process of a simple demo onli
 
 ## Test
 
-After running the `npx askui init` command as described in the setup you will have a file `specs/my-first-askui-test-suite.spec.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
@@ -104,4 +104,4 @@ it('Should log into account', async () => {
 });
 ```
 
-To run this test use the `npx jest --config ./test/jest.config.ts` command.
+To run this test use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
