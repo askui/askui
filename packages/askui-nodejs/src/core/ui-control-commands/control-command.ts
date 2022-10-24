@@ -9,11 +9,12 @@ export class ControlCommand {
     public tryToRepeat: boolean = false,
   ) { }
 
-  static fromJson(json: ControlCommand, resizeRatio = 1): ControlCommand {
+  static fromJson(json:unknown, resizeRatio = 1): ControlCommand {
+    const controlCommand = json as ControlCommand;
     return new ControlCommand(
-      ControlCommandCode[json.code],
-      json.actions.map((action) => Action.fromJson(action, resizeRatio)),
-      json.tryToRepeat,
+      ControlCommandCode[controlCommand.code],
+      controlCommand.actions.map((action) => Action.fromJson(action, resizeRatio)),
+      controlCommand.tryToRepeat,
     );
   }
 

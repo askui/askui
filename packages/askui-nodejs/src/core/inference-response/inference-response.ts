@@ -1,21 +1,21 @@
 import { ControlCommand } from '../ui-control-commands/control-command';
-import { AnnotationJson } from '../annotation/annotation-json';
 import { Annotation } from '../annotation/annotation';
 
 export class InferenceResponse {
   constructor(
     public type: string,
-    public data: ControlCommand | AnnotationJson,
+    public data: ControlCommand | Annotation,
   ) {}
 
-  static fromJson(json: InferenceResponse, resizeRatio = 1, image?: string):
+  static fromJson(json: unknown, resizeRatio = 1, image?: string):
   ControlCommand | Annotation {
-    return this.createModels(json.type, json.data, resizeRatio, image);
+    const inferenceResponse = json as InferenceResponse;
+    return this.createModels(inferenceResponse.type, inferenceResponse.data, resizeRatio, image);
   }
 
   static createModels(
     type: string,
-    data: ControlCommand | AnnotationJson,
+    data: ControlCommand | Annotation,
     resizeRatio: number,
     image?: string,
   ):
@@ -25,7 +25,7 @@ export class InferenceResponse {
 
   static models: Models = {
     DETECTED_ELEMENTS: (
-      data: AnnotationJson,
+      data: Annotation,
       resizeRatio: number,
       image: string,
     ) => Annotation

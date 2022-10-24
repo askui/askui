@@ -52,7 +52,7 @@ export class InferenceClient {
       customElements,
     };
     const url = urljoin(this.url, 'inference');
-    const httpResponse = await this.httpClient.post<InferenceResponse>(url, httpBody);
+    const httpResponse = await this.httpClient.post<unknown>(url, httpBody);
     return InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio, image);
   }
 
@@ -77,7 +77,7 @@ export class InferenceClient {
     if (!(inferenceResponse instanceof Annotation)) {
       throw new InferenceResponseError('Internal Error. Unable to get the detected elements');
     }
-    return inferenceResponse.detectedElements;
+    return inferenceResponse.detected_elements;
   }
 
   async predictImageAnnotation(

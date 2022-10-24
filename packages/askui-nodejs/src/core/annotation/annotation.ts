@@ -2,12 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { JSDOM } from 'jsdom';
 import { DetectedElement } from '../model/annotation-result/detected-element';
-import { AnnotationJson } from './annotation-json';
 
 export class Annotation {
   constructor(
     public image: string,
-    public detectedElements: DetectedElement[] = [],
+    public detected_elements: DetectedElement[] = [],
   ) { }
 
   toHtml() {
@@ -17,16 +16,17 @@ export class Annotation {
       var el = document.getElementsByTagName("bounding-box-renderer");
       el[0].setAttribute("shouldrenderimage", true);
       el[0].setAttribute("imagestr", "${this.image.trim()}"); 
-      el[0].setAttribute("detectedobjects", JSON.stringify(${JSON.stringify(this.detectedElements)}));
+      el[0].setAttribute("detectedobjects", JSON.stringify(${JSON.stringify(this.detected_elements)}));
     `;
     template.window.document.body.appendChild(script);
     return template;
   }
 
-  static fromJson(json: AnnotationJson, resizeRatio = 1): Annotation {
+  static fromJson(json: unknown, resizeRatio = 1): Annotation {
+    const annotation = json as Annotation;
     return new Annotation(
-      json.image,
-      json.detected_elements.map((data) => DetectedElement.fromJson(data, resizeRatio)),
+      annotation.image,
+      annotation.detected_elements.map((data) => DetectedElement.fromJson(data, resizeRatio)),
     );
   }
 
