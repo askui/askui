@@ -11,25 +11,20 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 export class InferenceClient {
   url: string;
 
-  oldUrl: string;
-
   constructor(
     public baseUrl: string,
     public httpClient: HttpClientGot,
     readonly workspaceId?: string,
     public apiVersion = 'v3',
-    public oldApiVersion = 'v2',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
-    const oldVersionBaseUrl = urljoin(this.baseUrl, 'api', this.oldApiVersion);
     this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
-    this.oldUrl = workspaceId ? urljoin(oldVersionBaseUrl, 'workspaces', workspaceId) : oldVersionBaseUrl;
   }
 
   async isImageRequired(
     instruction: string,
   ): Promise<boolean> {
-    const url = urljoin(this.oldUrl, 'instruction', 'is-image-required');
+    const url = urljoin(this.url, 'instruction', 'is-image-required');
     const httpBody = {
       instruction,
     };
