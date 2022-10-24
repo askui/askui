@@ -1,11 +1,12 @@
 import urljoin from 'url-join';
 import { HttpClientGot } from '../utils/http/http-client-got';
-import { ControlCommand } from '../core/ui-control-commands';
+import { ControlCommand, InferenceResponse } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/test-case-dto';
 import { Annotation } from '../core/annotation/annotation';
-import { AnnotationJson } from '../core/annotation/annotation-json';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
+import { InferenceResponseError } from './inference-response-error';
+import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
 export class InferenceClient {
   url: string;
@@ -14,7 +15,7 @@ export class InferenceClient {
     public baseUrl: string,
     public httpClient: HttpClientGot,
     readonly workspaceId?: string,
-    public apiVersion = 'v2',
+    public apiVersion = 'v3',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
     this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
@@ -39,33 +40,54 @@ export class InferenceClient {
     return resizeBase64ImageWithSameRatio(image);
   }
 
-  async predictControlCommand(
-    instruction: string,
+  async inference(
     customElements: CustomElement[] = [],
     image?: string,
-  ): Promise<ControlCommand> {
+    instruction?: string,
+  ): Promise<ControlCommand | Annotation> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const httpBody = {
       image: resizedImage.base64Image,
       instruction,
       customElements,
     };
-    const url = urljoin(this.url, 'predict-command');
-    const httpResponse = await this.httpClient.post<ControlCommand>(url, httpBody);
-    return ControlCommand.fromJson(httpResponse, resizedImage.resizeRatio);
+    const url = urljoin(this.url, 'inference');
+    const httpResponse = await this.httpClient.post<unknown>(url, httpBody);
+    return InferenceResponse.fromJson(httpResponse, resizedImage.resizeRatio, image);
+  }
+
+  async predictControlCommand(
+    instruction: string,
+    customElements: CustomElement[] = [],
+    image?: string,
+  ): Promise<ControlCommand> {
+    const inferenceResponse = await this.inference(customElements, image, instruction);
+    if (!(inferenceResponse instanceof ControlCommand)) {
+      throw new InferenceResponseError('Internal Error. Can not execute command');
+    }
+    return inferenceResponse;
+  }
+
+  async getDetectedElements(
+    instruction: string,
+    image: string,
+    customElements: CustomElement[] = [],
+  ): Promise<DetectedElement[]> {
+    const inferenceResponse = await this.inference(customElements, image, instruction);
+    if (!(inferenceResponse instanceof Annotation)) {
+      throw new InferenceResponseError('Internal Error. Unable to get the detected elements');
+    }
+    return inferenceResponse.detected_elements;
   }
 
   async predictImageAnnotation(
     image: string,
     customElements: CustomElement[] = [],
   ): Promise<Annotation> {
-    const resizedImage = await this.resizeIfNeeded(customElements, image);
-    const httpBody = {
-      image: resizedImage.base64Image,
-      customElements,
-    };
-    const url = urljoin(this.url, 'annotate', '?format=json');
-    const httpResponse = await this.httpClient.post<AnnotationJson>(url, httpBody);
-    return Annotation.fromJson({ ...httpResponse, image }, resizedImage.resizeRatio);
+    const inferenceResponse = await this.inference(customElements, image);
+    if (!(inferenceResponse instanceof Annotation)) {
+      throw new InferenceResponseError('Internal Error. Can not execute annotation');
+    }
+    return inferenceResponse;
   }
 }

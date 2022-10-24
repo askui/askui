@@ -6,6 +6,7 @@
 
 // TODO: Split this in multiple files
 import { CustomElementJson } from '../core/model/test-case-dto';
+import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
 export enum Separators {
   STRING = '<|string|>',
@@ -38,7 +39,7 @@ abstract class FluentBase {
     return paramsList;
   }
 
-  protected commandStringBuilder(
+  protected fluentCommandStringBuilder(
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<void> {
@@ -47,7 +48,7 @@ abstract class FluentBase {
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      return fluentCommand.exec(
+      return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
         customElements,
       );
@@ -55,7 +56,30 @@ abstract class FluentBase {
     if (!this.prev) {
       throw new Error('Prev element not defined');
     }
-    return this.prev.commandStringBuilder(
+    return this.prev.fluentCommandStringBuilder(
+      newCurrentInstruction,
+      newParamsList,
+    );
+  }
+
+  protected getterStringBuilder(
+    currentInstruction = '',
+    paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
+  ): Promise<DetectedElement[]> {
+    const newCurrentInstruction = `${this.textStr} ${currentInstruction}`;
+    const newParamsList = FluentBase.addParams(paramsList, this._params);
+    if (this instanceof Getter) {
+      const getter = this as Getter;
+      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      return getter.getterExecutor(
+        newCurrentInstruction.trim(),
+        customElements,
+      );
+    }
+    if (!this.prev) {
+      throw new Error('Prev element not defined');
+    }
+    return this.prev.getterStringBuilder(
       newCurrentInstruction,
       newParamsList,
     );
@@ -72,7 +96,7 @@ export interface Executable {
 
 export class Exec extends FluentBase implements Executable {
   exec(): Promise<void> {
-    return this.commandStringBuilder();
+    return this.fluentCommandStringBuilder();
   }
 }
 
@@ -1149,7 +1173,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
   }
 
   exec(): Promise<void> {
-    return this.commandStringBuilder();
+    return this.fluentCommandStringBuilder();
   }
 }
 
@@ -2382,7 +2406,7 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   moveMouse(x_coordinate: number, y_coordinate: number): Exec {
-    this._textStr = `Move mouse to  x ${x_coordinate} y ${y_coordinate}`;
+    this._textStr = `Move mouse to x ${x_coordinate} y ${y_coordinate}`;
 
     return new Exec(this);
   }
@@ -2588,8 +2612,1132 @@ export abstract class FluentCommand extends FluentBase {
     return new Exec(this);
   }
 
-  abstract exec(
+  abstract fluentCommandExecutor(
     instruction: string,
     customElements: CustomElementJson[],
   ): Promise<void>;
 }
+
+// Getters
+export interface ExecutableGetter {
+  exec(): Promise<DetectedElement[]>
+}
+
+export class ExecGetter extends FluentBase implements ExecutableGetter {
+  exec(): Promise<DetectedElement[]> {
+    return this.getterStringBuilder();
+  }
+}
+// Filters
+
+export class FluentFiltersGetter extends FluentBase {
+  /**
+   * Filters for a UI element 'wizard item active'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  wizardItemActive(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'wizard item active';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'wizard item'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  wizardItem(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'wizard item';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'wizard'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  wizard(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'wizard';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'windows bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  windowsBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'windows bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'window'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  window(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'window';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'video'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  video(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'video';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'url'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  url(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'url';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'tooltip'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tooltip(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'tooltip';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  textfield(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'textfield';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'textarea'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  textarea(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'textarea';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'table row'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tableRow(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'table row';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'table header'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tableHeader(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'table header';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'table column'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tableColumn(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'table column';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  table(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'table';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'tab selected'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tabSelected(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'tab selected';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'tab bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tabBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'tab bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'tab active'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tabActive(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'tab active';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'tab'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  tab(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'tab';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'switch enabled'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  switchEnabled(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'switch enabled';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'switch disabled'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  switchDisabled(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'switch disabled';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'status bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  statusBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'status bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'slider indicator'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  sliderIndicator(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'slider indicator';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'slider'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  slider(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'slider';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'sidebar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  sidebar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'sidebar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'scroll bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  scrollBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'scroll bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'rect'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  rect(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'rect';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'recaptcha'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  recaptcha(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'recaptcha';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'rate'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  rate(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'rate';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'radio button unselected'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  radioButtonUnselected(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'radio button unselected';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'radio button selected'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  radioButtonSelected(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'radio button selected';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'progressbar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  progressbar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'progressbar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'progress bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  progressBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'progress bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'popover'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  popover(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'popover';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'pil'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  pil(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'pil';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'password'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  password(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'password';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'pager'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  pager(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'pager';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'navigation bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  navigationBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'navigation bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'mouse text'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  mouseText(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'mouse text';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'mouse pointer'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  mousePointer(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'mouse pointer';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'mouse cursor'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  mouseCursor(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'mouse cursor';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'modal'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  modal(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'modal';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'message box'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  messageBox(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'message box';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'map'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  map(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'map';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'logo'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  logo(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'logo';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'link'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  link(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'link';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'keyboard'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  keyboard(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'keyboard';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  image(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'image';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'header'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  header(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'header';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'footer'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  footer(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'footer';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'flag'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  flag(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'flag';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'dropdown menu'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  dropdownMenu(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'dropdown menu';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'divider'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  divider(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'divider';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'circle'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  circle(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'circle';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'checkbox unchecked'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  checkboxUnchecked(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'checkbox unchecked';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'checkbox checked'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  checkboxChecked(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'checkbox checked';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'chart pie'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  chartPie(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'chart pie';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'chart'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  chart(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'chart';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'card'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  card(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'card';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'browser bar'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  browserBar(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'browser bar';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'breadcrumb'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  breadcrumb(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'breadcrumb';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'banner'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  banner(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'banner';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'badge'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  badge(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'badge';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'alert'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  alert(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'alert';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'unknown'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  unknown(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'unknown';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for an UI element 'button'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  button(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'button';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for an UI element 'text'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  text(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'text';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for an UI element 'dropdown'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  dropdown(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'dropdown';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for an UI element 'icon'.
+   *
+   * You can combine it with the 'withText' command to look for a specific icon.
+   *
+   * **Examples:**
+   * ```typescript
+   * icon().withText('plus')
+   * ```
+   *
+   * Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  icon(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'icon';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a custom UI element (see {@link CustomElementJson}).
+   *
+   * **Important**: This increases the runtime quite a bit. So
+   *  only use it when absolutely necessary.
+   *
+   * @param {CustomElementJson} customElement - The custom element to filter for.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  customElement(customElement: CustomElementJson): FluentFiltersOrRelationsGetter {
+    this._textStr = 'custom element';
+    this._params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'checkbox' checked or unchecked.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  checkbox(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'checkbox';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for similar (doesn't need to be a 100% equal) text.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withText('text') => true
+   * 'test' === withText('text') => true
+   * 'other' === withText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  withText(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for texts, which match the regex pattern.
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * 'The rain in Spain' === withTextRegex('\b[Ss]\w+') => true
+   * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
+   * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
+   * ```
+   *
+   * @param {string} regex_pattern - An regex pattern
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for equal text.
+   *
+   * **Note:** This should be only used in cases where the similarity
+   *  comparison of {@link FluentFilters.withText()} allows not for
+   *  specific enough filtering (too many elements).
+   *
+   * **Examples:**
+   * ```typescript
+   * 'text' === withExactText('text') => true
+   * 'test' === withExactText('text') => false
+   * 'other' === withExactText('text') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  withExactText(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for text containing the text provided as an argument.
+   *
+   * **Examples:**
+   * ```typescript
+   * 'This is an text' === containsText('text') => true
+   * 'This is an text' === containsText('other text') => false
+   * 'This is an text' === containsText('other') => false
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  containsText(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for elements having a specific color.
+   *
+   * @param {COLOR} color - A color to match
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  colored(color: COLOR): FluentFiltersOrRelationsGetter {
+    this._textStr = `with color ${color}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+}
+
+// Relations
+
+export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
+  /**
+   * Filters for an element inside another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns innerEl because innerEl is inside outerEl
+   * ...innerEl().in().outerEl()
+   * // Returns nothing because innerEl is not inside outerEl
+   * ...outerEl().in().innerEl()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  in(): FluentFiltersGetter {
+    this._textStr = 'in';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element right of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns rightEl because rightEl is right of leftEl
+   * ...rightEl().rightOf().leftEl()
+   * // Returns no element because leftEl is left of rightEl
+   * ...leftEl().rightOf().rightEl()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  rightOf(): FluentFiltersGetter {
+    this._textStr = 'right of';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element left of another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------  --------------
+   * |  leftEl    |  |  rightEl   |
+   * --------------  --------------
+   *
+   * // Returns leftEl because leftEl is left of rightEl
+   * ...leftEl().leftOf().rightEl()
+   * // Returns no element because rightEl is left of leftEl
+   * ...rightEl().leftOf().leftEl()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  leftOf(): FluentFiltersGetter {
+    this._textStr = 'left of';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element below another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns button because button is below text
+   * ...button().below().text()
+   * // Returns no element because text is above button
+   * ...text().below().button()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  below(): FluentFiltersGetter {
+    this._textStr = 'below';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element above another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |    text    |
+   * --------------
+   * --------------
+   * |   button   |
+   * --------------
+   *
+   * // Returns text because text is above button
+   * ...text().above().button()
+   * // Returns no element because button is below text
+   * ...button().above().text()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  above(): FluentFiltersGetter {
+    this._textStr = 'above';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element nearest to another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * --------------
+   * |  button 1  |
+   * --------------
+   * --------------
+   * |   text     |
+   * --------------
+   *
+   *
+   *
+   * --------------
+   * |  button 2  |
+   * --------------
+   *
+   * // Returns button 1 because button 1 is nearer to the text than button 2
+   * ...button().nearestTo().text()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  nearestTo(): FluentFiltersGetter {
+    this._textStr = 'nearest to';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Filters for an element containing another element.
+   *
+   * **Example:**
+   * ```typescript
+   * --------------------
+   * |     outerEl      |
+   * |  --------------  |
+   * |  |  innerEl   |  |
+   * |  --------------  |
+   * |                  |
+   * --------------------
+   *
+   * // Returns outerEl because outerEl contains innerEl
+   * ...outerEl().contains().innerEl()
+   * //  Returns no element because innerEl contains no outerEl
+   * ...innerEl().contains().outerEl()
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  contains(): FluentFiltersGetter {
+    this._textStr = 'contains';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+  * Returns a list of detected elements
+  *
+  * @return {DetectedElement[]}
+  */
+  exec(): Promise<DetectedElement[]> {
+    return this.getterStringBuilder();
+  }
+}
+
+// Commands
+export abstract class Getter extends FluentCommand {
+  /**
+   * Returns the filtered element
+   *
+   * @return {FluentFiltersGetter}
+   */
+  get(): FluentFiltersGetter {
+    this._textStr = 'get element';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Returns all detected elements
+   *
+   * @return {ExecGetter}
+   */
+  getAll(): ExecGetter {
+    this._textStr = 'get all elements';
+
+    return new ExecGetter(this);
+  }
+
+  abstract getterExecutor(
+    instruction: string,
+    customElements: CustomElementJson[],
+  ): Promise<DetectedElement[]>;
+}
+
+export abstract class ApiCommands extends Getter { }
