@@ -4,7 +4,7 @@ custom_edit_url: null
 ---
 # getAll
 
-Returns an array with all filtered detected elements.
+Returns an array with all detected elements.
 A detected element has the following properties:
 - `name` of the element
 - `text` content of element
