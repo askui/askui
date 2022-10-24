@@ -26,7 +26,7 @@ This tutorial will show you how to zip files on your filesystem and then upload 
 
 ## Test
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.spec.ts`. In this file, add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new test inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
