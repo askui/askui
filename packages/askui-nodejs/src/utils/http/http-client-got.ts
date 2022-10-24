@@ -1,5 +1,6 @@
 import got, { OptionsOfJSONResponseBody } from 'got';
 import { CookieJar } from 'tough-cookie';
+import { logger } from '../../lib';
 import { Credentials } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
@@ -32,7 +33,10 @@ export class HttpClientGot {
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
     const options = this.injectHeadersAndCookies(url, { json: data, responseType: 'json', throwHttpErrors: false });
-    const { body, statusCode } = await got.post<T>(url, options);
+    const { body, statusCode, headers } = await got.post<T>(url, options);
+    if (headers['deprecation'] !== undefined) {
+      logger.warn(headers['deprecation']);
+    }
     if (statusCode !== 200) {
       throw httpClientErrorHandler(
         statusCode,
