@@ -25,10 +25,10 @@ const icon = await aui.get().icon().withText("care left").exec();
             text: 'caret left',
             colors: [ 'black', 'black', 'gray' ],
             bndbox: BoundingBox {
-            xmin: 3749.806138392857,
-            ymin: 1948.1609933035716,
-            xmax: 3773.3209821428572,
-            ymax: 1963.8654575892858
+                xmin: 3749.806138392857,
+                ymin: 1948.1609933035716,
+                xmax: 3773.3209821428572,
+                ymax: 1963.8654575892858
             }
         }
 ]

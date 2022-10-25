@@ -1,15 +1,14 @@
 # Deprecated Endpoints
 
-The askui library is sending requests with screenshots and/or instructions
-to endpoints of our inference API to get annotations and commands.
-We are starting to use our new `inference` endpoint for this kind of requests.
-Earlier versions (`v0.3.2` and prior) are using the `predict-comand` and `annotate` endpoint
-of the API.
-The old endpoints are still working but we are not planning to maintain them.
-Both endpoints will be deprecated in the future.
+If you are using the askui library you may see this warning:
 
-Please upgrade your askui version to use our new endpoint if you are using askui `v0.3.2` and earlier:
+`This endpoint will be deprecated. Please upgrade your askui version.`
+
+This means that you are using an old askui version and old endpoints of our API.
+We will not maintain old endpoints and deprecate them in the near future. 
+
+You can update askui to use our new endpoints with following command:
 
 ```shell
-npm update askui
+npm install askui@latest
 ```
