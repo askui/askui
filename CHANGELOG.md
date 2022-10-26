@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.4.0](https://github.com/askui/askui/compare/0.3.2...0.4.0) (2022-10-26)
+
+
+### Features
+
+* adapt to new inference backend response (#AS-1403) ([c3ef3f4](https://github.com/askui/askui/commit/c3ef3f46a4e9687bf73a95123a96cd932e6e4a74)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+* adapt to new inference backend response for annotations (#AS-1403) ([0c48b0c](https://github.com/askui/askui/commit/0c48b0cba8a9799401b2904432f67b59f97f246f)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+* add element getters (#AS-1405) ([93388f6](https://github.com/askui/askui/commit/93388f6aa986af9b3ae1356d92133f9a9569f109)), closes [#AS-1405](https://github.com/askui/askui/issues/AS-1405)
+* **inference endpoint:** add inference endpoint to frontend (#AS-1403) ([a82d320](https://github.com/askui/askui/commit/a82d32094e30835e6986b581bdfbd0256ce3d243)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+* logging deprecation warning if header is defined (#AS-1402) ([f60f006](https://github.com/askui/askui/commit/f60f00660f95e6ccad8d0e615edf91c7a2379c32)), closes [#AS-1402](https://github.com/askui/askui/issues/AS-1402)
+* new model to wrap ne inference backend response (#AS-1403) ([96d334a](https://github.com/askui/askui/commit/96d334a787e76b913e60e17baf2189347df493b0)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+* return of multiple annotations possible (#AS-1403) ([0ae5ad8](https://github.com/askui/askui/commit/0ae5ad8689753d4c6b346b29a516ee6fc9d5f2ae)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+
+
+### Bug Fixes
+
+* **add commanddata model:** add Commanddata model (#AS-1403) ([029572d](https://github.com/askui/askui/commit/029572d817455f95ba6b3e0da5b2817b05b4bd77)), closes [#AS-1403](https://github.com/askui/askui/issues/AS-1403)
+* change annotation timestamps to UTC (#AS-1380) ([ff7550b](https://github.com/askui/askui/commit/ff7550b096aed7765d704da602eca399b6d596a3)), closes [#AS-1380](https://github.com/askui/askui/issues/AS-1380)
+
 ## [0.3.2](https://github.com/askui/askui/compare/0.3.1...0.3.2) (2022-09-24)
 
 * chore: add analytics cookie to request by @adi-wan-askui in https://github.com/askui/askui/pull/118
