@@ -1,4 +1,4 @@
-import { UiControlClient, UiController } from 'askui';
+import { UiControlClient, UiController } from 'askui'; // eslint-disable-line import/no-extraneous-dependencies
 
 // Server for controlling the operating system
 let uiController: UiController;
@@ -20,7 +20,12 @@ beforeAll(async () => {
 
   await uiController.start();
 
-  aui = await UiControlClient.build();
+  aui = await UiControlClient.build({
+    credentials: {
+      workspaceId: '<your workspace id>',
+      token: '<your access token>',
+    },
+  });
 
   await aui.connect();
 });
