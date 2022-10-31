@@ -991,6 +991,59 @@ export class FluentFilters extends FluentBase {
 
 export class FluentFiltersOrRelations extends FluentFilters {
   /**
+   * Logic or operator
+   *
+   * **Examples:**
+   * ```typescript
+   * scene 1
+   * --------------  -----------
+   * |  button    |  |  icon   |
+   * --------------  -----------
+   *
+   * scene 2
+   * --------------  -----------
+   * |  button    |  |  text   |
+   * --------------  -----------
+   *
+   * // In case, that your reference element can have multiple values
+   * // in this example, the element right of the button can be either icon or text
+   * // you can use the or relation, so you teststep is valid for both scenes
+   * ...button().rightOf().icon().or().text()
+   * // Returns button for both cases
+   * ```
+   *
+   * @return {FluentFilters}
+   */
+  or(): FluentFilters {
+    this._textStr = 'or';
+
+    return new FluentFilters(this);
+  }
+
+  /**
+   * Logic and operator
+   *
+   * **Examples:**
+   * ```typescript
+   *  ---------------------------- --------------------------
+   *  |  icon user colored black | |  icon  user colored red |
+   *  ---------------------------- --------------------------
+   * await aui.click().icon().withText('user').exec()
+   * // clicks on one of the icons, because they share the same text
+   * // you can combine filters with the and relation and specifiy exactly which icon you want
+   * await aui.click().icon().withText('user').and().colored('red').exec()
+   * // clicks on the right icon although both icons have the same text
+   * ```
+   *
+   * @return {FluentFilters}
+   */
+  and(): FluentFilters {
+    this._textStr = 'and';
+
+    return new FluentFilters(this);
+  }
+
+  /**
    * Filters for an element inside another element.
    *
    * **Examples:**
@@ -2067,6 +2120,59 @@ export class FluentFiltersCondition extends FluentBase {
 // Relations
 
 export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
+  /**
+   * Logic or operator
+   *
+   * **Examples:**
+   * ```typescript
+   * scene 1
+   * --------------  --------------
+   * |  button    |  |  icon   |
+   * --------------  --------------
+   *
+   * scene 2
+   * --------------  --------------
+   * |  button    |  |  text   |
+   * --------------  --------------
+   *
+   * // In case, that your reference element can have multiple values
+   * // in this example, the element right of the button can be either icon or text
+   * // you can use the or relation, so you teststep is valid for both scenes
+   * ...button().rightOf().icon().or().text()
+   * // Returns button for both cases
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
+  or(): FluentFiltersCondition {
+    this._textStr = 'or';
+
+    return new FluentFiltersCondition(this);
+  }
+
+  /**
+   * Logic and operator
+   *
+   * **Examples:**
+   * ```typescript
+   *  --------------------------   --------------------------
+   *  |  icon user colored black | |  icon  user colored red |
+   *  --------------------------   --------------------------
+   * await aui.click().icon().withText('user').exec()
+   * // clicks on one of the icons, because they share the same text
+   * // you can combine filters with the and relation and specifiy exactly which icon you want
+   * await aui.click().icon().withText('user').and().colored('red').exec()
+   * // clicks on the right icon although both icons have the same text
+   * ```
+   *
+   * @return {FluentFiltersCondition}
+   */
+  and(): FluentFiltersCondition {
+    this._textStr = 'and';
+
+    return new FluentFiltersCondition(this);
+  }
+
   /**
    * Filters for an element inside another element.
    *
@@ -3518,6 +3624,59 @@ export class FluentFiltersGetter extends FluentBase {
 // Relations
 
 export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
+  /**
+   * Logic or operator
+   *
+   * **Examples:**
+   * ```typescript
+   * scene 1
+   * --------------  --------------
+   * |  button    |  |  icon   |
+   * --------------  --------------
+   *
+   * scene 2
+   * --------------  --------------
+   * |  button    |  |  text   |
+   * --------------  --------------
+   *
+   * // In case, that your reference element can have multiple values
+   * // in this example, the element right of the button can be either icon or text
+   * // you can use the or relation, so you teststep is valid for both scenes
+   * ...button().rightOf().icon().or().text()
+   * // Returns button for both cases
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  or(): FluentFiltersGetter {
+    this._textStr = 'or';
+
+    return new FluentFiltersGetter(this);
+  }
+
+  /**
+   * Logic and operator
+   *
+   * **Examples:**
+   * ```typescript
+   *  --------------------------   --------------------------
+   *  |  icon user colored black | |  icon  user colored red |
+   *  --------------------------   --------------------------
+   * await aui.click().icon().withText('user').exec()
+   * // clicks on one of the icons, because they share the same text
+   * // you can combine filters with the and relation and specifiy exactly which icon you want
+   * await aui.click().icon().withText('user').and().colored('red').exec()
+   * // clicks on the right icon although both icons have the same text
+   * ```
+   *
+   * @return {FluentFiltersGetter}
+   */
+  and(): FluentFiltersGetter {
+    this._textStr = 'and';
+
+    return new FluentFiltersGetter(this);
+  }
+
   /**
    * Filters for an element inside another element.
    *
