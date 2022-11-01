@@ -1,6 +1,5 @@
 ---
 displayed_sidebar: apiSidebar
-custom_edit_url: null
 ---
 # and
 
@@ -9,7 +8,7 @@ Logic and operator
 **Examples:**
 ```typescript 
  --------------------------   --------------------------
- | icon user colored black |  | icon  user colored red |
+ |  icon user colored black | |  icon  user colored red |
  --------------------------   --------------------------
 await aui.click().icon().withText('user').exec()
 // clicks on one of the icons, because they share the same text 
