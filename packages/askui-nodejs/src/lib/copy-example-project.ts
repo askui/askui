@@ -16,9 +16,10 @@ async function replaceStringInFile(filePath: string, replace: string, replacemen
     const result = data.replace(replace, replacement);
     await fs.writeFile(filePath, result, 'utf8');
   } catch (error: unknown) {
-    logger.error(`Could not replace '${replace}' with ${replacement} in file ${path}`);
-    if (error instanceof Error) {
-      logger.error(error.message);
+    logger.error(`Could not replace '${replace}' with '${replacement}' in file '${path}'`);
+
+    if ((<Error> error).message) {
+      logger.error((<Error> error).message);
     }
   }
 }
@@ -43,8 +44,8 @@ export function init(argv: string[]): Command {
   program
     .command('init')
     .description('creates a typescript example project')
-    .option('-w, --workspace-id <value>', 'the workspace id')
-    .option('-a, --access-token <value>', 'the access token')
+    .option('-w, --workspace-id <value>', 'a workspace id')
+    .option('-a, --access-token <value>', 'an access token for the workspace with the id')
     .usage('[-w workspace_id] [-a access_token]')
     .action(async (opts: OptionValues) => {
       await copyExampleProject(opts);

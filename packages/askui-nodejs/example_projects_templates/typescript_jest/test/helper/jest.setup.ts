@@ -1,4 +1,4 @@
-import { UiControlClient, UiController } from 'askui'; // eslint-disable-line import/no-extraneous-dependencies
+import { UiControlClient, UiController } from 'askui';
 
 // Server for controlling the operating system
 let uiController: UiController;
