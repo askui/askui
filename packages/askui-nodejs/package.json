@@ -39,7 +39,7 @@
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
-        "test": "jest '/src'",
+        "test": "NODE_EXTRA_CA_CERTS='src/utils/proxy/certs/unit_test.pem' jest '/src'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\""
     },
     "files": [
@@ -52,11 +52,15 @@
         "commander": "8.3.0",
         "fkill": "7.2.1",
         "fs-extra": "10.0.0",
+        "global-agent": "^3.0.0",
         "got": "11.8.2",
+        "hpagent": "^1.2.0",
+        "http-proxy": "^1.18.1",
         "jsdom": "20.0.0",
         "node-machine-id": "1.1.12",
         "pino": "7.8.1",
         "pino-pretty": "7.5.3",
+        "proxy": "^1.0.2",
         "sharp": "0.30.6",
         "tough-cookie": "4.1.2",
         "url-join": "4.0.1",
@@ -66,6 +70,8 @@
     },
     "devDependencies": {
         "@types/fs-extra": "9.0.13",
+        "@types/global-agent": "^2.1.1",
+        "@types/http-proxy": "^1.17.9",
         "@types/jest": "27.4.0",
         "@types/jsdom": "20.0.0",
         "@types/node": "17.0.10",
