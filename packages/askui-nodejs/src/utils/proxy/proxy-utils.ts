@@ -1,7 +1,6 @@
-import * as fs from "fs";
+import fs from "fs";
 import { createServer, Server as HttpServer, Agent } from "http";
-import Server from "http-proxy";
-import * as https from "https";
+import https from "https";
 import { join } from "path";
 import dns, { LookupOneOptions } from "dns";
 const proxy = require('proxy');
@@ -9,38 +8,6 @@ const proxy = require('proxy');
 /***
  * This file is oriented by the integration tests of hpagent: https://github.com/delvedor/hpagent/blob/main/test/utils.js
  */
-
-
-export async function buildHttpProxy(): Promise<HttpServer> {
-    return new Promise((resolve, _reject) => {
-        const proxy = Server.createProxyServer({agent: new Agent({})});
-        const httpProxy = createServer({}, (req, res) => {
-            //console.log('req:', req)
-            //console.log('req:', req)
-            var header = req.headers['proxy-authorization'] || '';       // get the auth header
-            var token = header.split(/\s+/).pop() || '';        // and the encoded auth token
-            var auth = Buffer.from(token, 'base64').toString(); // convert from base64
-            var parts = auth.split(/:/);                        // split on colon
-            var username = parts.shift();                       // username is first
-            var password = parts.join(':');
-            
-            
-            if(!(username === "test" && password === "test")){
-                res.writeHead(401, { 'Content-Type': 'text/plain' });
-                res.end('username is "' + username + '" and password is "' + password + '"');
-            }
-            
-            proxy.web(req, res, { target: req.url})
-
-        })
-        httpProxy.listen(8009, () => {
-            console.log("Waiting for requests...")
-            resolve(httpProxy)
-        })
-    })
-}
-
-
 export function addBasicAuthentication(httpProxy: HttpServer): HttpServer{
     (httpProxy as any).authenticate = (req: any, fn: any) => {
         var header = req.headers['proxy-authorization'] || '';       // get the auth header
@@ -63,7 +30,6 @@ export function addBasicAuthentication(httpProxy: HttpServer): HttpServer{
 export async function buildProxy(): Promise<HttpServer> {
     return new Promise<HttpServer>((resolve, _reject) => {
         const httpProxy = proxy(createServer().listen(8009, () => {
-            console.log("Waiting for requests...")
             resolve(httpProxy)
         }));
         httpProxy.agent = new Agent()   
@@ -125,7 +91,6 @@ dns.lookup = (((hostname: string, options: LookupOneOptions, callback: (err: Nod
 export async function buildSecureServer(): Promise<https.Server> {
     return new Promise<https.Server>((resolve, _reject) => {
         const secureServer = https.createServer(sslServer).listen(8081, () => {
-            console.log("Waiting for requests...")
             resolve(secureServer)
         })
     })    

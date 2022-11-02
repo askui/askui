@@ -2,26 +2,7 @@ import got from 'got';
 import { addBasicAuthentication, buildProxy, buildSecureServer, buildSecureProxy, 
     SERVER_HOSTNAME, PROXY_HOSTNAME } from './proxy-utils';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import https from 'https';
 import { Server } from 'http';
-
-
-function pemEncode(str: string, n: number) {
-    var ret = [];
-  
-    for (var i = 1; i <= str.length; i++) {
-      ret.push(str[i - 1]);
-      var mod = i % n;
-  
-      if (mod === 0) {
-        ret.push('\n');
-      }
-    }
-  
-    var returnString = `-----BEGIN CERTIFICATE-----\n${ret.join('')}\n-----END CERTIFICATE-----`;
-  
-    return returnString;
-  }
 
 describe("proxy and hpagent", () => {  
     let httpProxy: Server;
@@ -136,11 +117,6 @@ describe("proxy and hpagent", () => {
         });
     })
 
-
-
-   
-
-
     describe("https proxy", () => {
 
         beforeEach(async () => {
@@ -181,26 +157,4 @@ describe("proxy and hpagent", () => {
             expect(response.statusCode).toBe(200)
         });
     })
-
-
-    
-    xit("get certificate", async () => {
-
-        const httpServer = await buildSecureServer()
-        httpServer.on('request', (_req, res) => res.end('ok'))
-        var options = {
-            host: SERVER_HOSTNAME,
-            port: 8081,
-            method: 'GET'
-        };
-
-        var req = https.request(options, (res: any) => {            
-            console.log(pemEncode(res.socket.getPeerCertificate(true).raw.toString('base64'), 64));
-        });
-
-
-        req.end();
-    })
-
-
 });
