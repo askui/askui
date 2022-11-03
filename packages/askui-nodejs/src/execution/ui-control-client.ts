@@ -47,6 +47,7 @@ export class UiControlClient extends ApiCommands {
       credentialArgs?.token,
       analyticsHeaders,
       analyticsCookies,
+      clientArgs.proxyAgents
     );
     return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }

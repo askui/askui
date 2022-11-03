@@ -11,6 +11,8 @@ let aui: UiControlClient;
 
 jest.setTimeout(60 * 1000 * 60);
 
+// TODO: add proxy example here
+
 beforeAll(async () => {
   if (!(process.env.CI_JOB_ID)) {
     uiController = new UiController();

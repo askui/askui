@@ -1,4 +1,4 @@
-import got from 'got';
+import got, { Got } from 'got';
 import { addBasicAuthentication, buildProxy, buildSecureServer, buildSecureProxy, 
     SERVER_HOSTNAME, PROXY_HOSTNAME } from './proxy-utils';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
@@ -7,7 +7,49 @@ import { Server } from 'http';
 describe("proxy and hpagent", () => {  
     let httpProxy: Server;
 
-    describe("http proxy", () => {
+    describe("default proxy", () => {
+        let askuiGot: Got;
+
+        beforeEach(async () => {
+            httpProxy = await buildProxy()  
+            askuiGot = got.extend({
+                agent: {
+                    http: new HttpProxyAgent({
+                        keepAlive: false,
+                        keepAliveMsecs: 1000,
+                        maxSockets: 256,
+                        maxFreeSockets: 256,
+                        scheduling: 'lifo',
+                        proxy: 'http://localhost:8009'
+                    }),
+                    https: new HttpsProxyAgent({
+                        keepAlive: false,
+                        keepAliveMsecs: 1000,
+                        maxSockets: 256,
+                        maxFreeSockets: 256,
+                        scheduling: 'lifo',
+                        proxy: 'http://localhost:8009'
+                    }),
+                }
+
+            })
+            
+        });
+
+        afterEach(() => {
+            httpProxy.close()
+        });
+
+
+        it('should tunnel https connection over http proxy with valid certificate', async () => {         
+            const response = await askuiGot.get("https://www.google.com", {retry: 0});
+                
+            expect(response.statusCode).toBe(200);
+        });
+
+    })
+
+    xdescribe("http proxy", () => {
 
         beforeEach(async () => {
             httpProxy = await buildProxy()   
@@ -69,7 +111,7 @@ describe("proxy and hpagent", () => {
     })
 
 
-    describe('proxy basic authentication', () => {
+    xdescribe('proxy basic authentication', () => {
 
         beforeEach(async () => {
             httpProxy = await buildProxy()   
@@ -117,7 +159,7 @@ describe("proxy and hpagent", () => {
         });
     })
 
-    describe("https proxy", () => {
+    xdescribe("https proxy", () => {
 
         beforeEach(async () => {
             httpProxy = await buildSecureProxy()   
