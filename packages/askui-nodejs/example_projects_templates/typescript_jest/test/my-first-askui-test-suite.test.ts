@@ -5,7 +5,6 @@ describe('jest with askui', () => {
     // Run this to see what askui annotates
     await aui.annotateInteractively();
 
-    // TODO Validate this works
     await aui.moveMouse(0, 0).exec();
     await aui
       .click()
