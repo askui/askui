@@ -17,10 +17,7 @@ async function replaceStringInFile(filePath: string, replace: string, replacemen
     await fs.writeFile(filePath, result, 'utf8');
   } catch (error: unknown) {
     logger.error(`Could not replace '${replace}' with '${replacement}' in file '${path}'`);
-
-    if ((<Error> error).message) {
-      logger.error((<Error> error).message);
-    }
+    logger.error((error as Error).message);
   }
 }
 
