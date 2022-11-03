@@ -20,7 +20,12 @@ beforeAll(async () => {
 
   await uiController.start();
 
-  aui = await UiControlClient.build();
+  aui = await UiControlClient.build({
+    credentials: {
+      workspaceId: '<your workspace id>',
+      token: '<your access token>',
+    },
+  });
 
   await aui.connect();
 });
