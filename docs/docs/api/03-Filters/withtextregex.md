@@ -13,4 +13,4 @@ Filters for texts, which match the regex pattern.
 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
 ```
 
-* @param {string} regex_pattern - An regex pattern
+* @param {string} regex_pattern - A regex pattern

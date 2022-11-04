@@ -5,5 +5,8 @@ npx is-ci && exit 0
 npm run lint:staged
 npm test
 
-cd ./examples/askui-nodejs-base-example || exit
+cd ./docs || exit
+npm run spellcheck-docs
+
+cd ../examples/askui-nodejs-base-example || exit
 npm run lint:staged

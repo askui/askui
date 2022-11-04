@@ -1,6 +1,6 @@
 # Zip Images and Upload them to Google Drive on Windows OS Tutorial
 
-This tutorial will show you how to zip files on your filesystem and then upload them to Google Drive.
+This tutorial will show you how to zip files on your file system and then upload them to Google Drive.
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/i3M5SPYQTKI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

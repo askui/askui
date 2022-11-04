@@ -6,8 +6,8 @@ challenge after you have read through the pages, please drop us a note. We are h
 ## Pages
 * [Deprecated Endpoints](deprecated-endpoints.md)
 * [ipv6](ipv6.md)
-* [linux](linux.md)
-* [mac-os](mac-os.md)
+* [Linux](linux.md)
+* [Mac OS](mac-os.md)
 
 # Support
 

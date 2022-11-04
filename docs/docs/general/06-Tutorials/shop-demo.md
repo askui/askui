@@ -24,7 +24,7 @@ describe(/* a string identifying the test suite */, () => {
 
 ### 1. Open the Demo Shop
 
-First we need to open the demo shop in the browser. For that we can type the url into the url bar and hit enter:
+First we need to open the demo shop in the browser. For that we can type the URL into the URL bar and hit enter:
 
 ```ts
 it('Should log into account', async () => {
@@ -48,11 +48,11 @@ it('Should log into account', async () => {
 
 ### 3. Fill out Login Information
 
-After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` command. After filling in an email address, depending on the browser used the textfield may open an auto-complete dropdown that overlaps with the password field:
+After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` command. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
 
 ![Overlap](./login_overlap.png)
 
-To keep the password field visible, we have to hide the auto-complete dropdown. In order to do this, we have to blur the email input field. We do this by clicking on the headline of the page ("Login"). Afterwards, we can type into the password field.
+To keep the password field visible, we have to hide the auto-complete drop-down. In order to do this, we have to blur the email input field. We do this by clicking on the headline of the page ("Login"). Afterwards, we can type into the password field.
 
 ```ts
 it('Should log into account', async () => {
