@@ -19,8 +19,6 @@ import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent'; // <-- Add imports
 
 beforeAll(async () => {
   // Add this block
-  let proxyAgents = {};
-
   const proxyUrl = "http://<your-proxy-url>" // <-- Adapt proxy url
 
   const proxyAgents = {

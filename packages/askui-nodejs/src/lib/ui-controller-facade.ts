@@ -14,6 +14,8 @@ import { downloadServerBinaries, getBinaryPath } from './download-binaries';
 import { logger } from './logger';
 import { TimeoutError } from './timeout-error';
 import { UnkownError } from './unkown-error';
+import http from 'http'
+import https from 'https'
 
 export abstract class UiControllerFacade {
   protected binaryPath = getBinaryPath('latest');
@@ -27,7 +29,7 @@ export abstract class UiControllerFacade {
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
     this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
-    await this.getBinary(argsWithLogPath.binaryVersion, argsWithLogPath.overWriteBinary);
+    await this.getBinary(argsWithLogPath.binaryVersion, argsWithLogPath.overWriteBinary, argsWithLogPath.proxyAgents);
     this.makeBinaryExecutable();
     logger.debug(`UI Controller log path "${this.serverLogFile}"`);
     await this.startWithDefaults(argsWithLogPath, maxWaitingForStartingInSeconds);
@@ -113,10 +115,10 @@ export abstract class UiControllerFacade {
     return binarysizeInMB > sizeThresholdInMB;
   }
 
-  private async getBinary(binaryVersion: string, overWriteBinary = false): Promise<void> {
+  private async getBinary(binaryVersion: string, overWriteBinary = false, proxyAgent?: {http: http.Agent, https: https.Agent}): Promise<void> {
     if (!fs.existsSync(this.binaryPath) || overWriteBinary || !this.isBinaryValid()) {
       logger.debug(`Currently, no binary of the UI Controller is available at "${this.binaryPath}"`);
-      await downloadServerBinaries(binaryVersion);
+      await downloadServerBinaries(binaryVersion, proxyAgent);
     } else {
       logger.debug(`Binary of UI Controller is already present at "${this.binaryPath}".`);
     }
