@@ -8,6 +8,7 @@ challenge after you have read through the pages, please drop us a note. We are h
 * [ipv6](ipv6.md)
 * [linux](linux.md)
 * [mac-os](mac-os.md)
+* [proxy](proxy.md)
 
 # Support
 

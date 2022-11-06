@@ -1,4 +1,6 @@
 import { UiControlClient, UiController } from 'askui';
+// Uncomment following line for proxy support and install hpagent with  `npm i --save hpagent`
+// import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 
 // Server for controlling the operating system
 let uiController: UiController;
@@ -10,17 +12,36 @@ let aui: UiControlClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
+  let proxyAgents = {};
+  /*
+  // Proxy configuration
+  // Uncomment this block for proxy support.
+  const proxyUrl = "http://<your-proxy-url>"
+  proxyAgents = {
+    proxyAgents: {
+      http: new HttpProxyAgent({
+          proxy: proxyUrl
+        }),
+      https: new HttpsProxyAgent({
+          proxy: proxyUrl
+        }),
+  }}
+  */
+
   uiController = new UiController({
     /**
      * Select the display you want to run your tests on, display 0 is your main display;
      * ignore if you have only one display
      */
     display: 0,
+    ...proxyAgents
   });
 
   await uiController.start();
 
-  aui = await UiControlClient.build();
+  aui = await UiControlClient.build({
+    ...proxyAgents
+  });
 
   await aui.connect();
 });

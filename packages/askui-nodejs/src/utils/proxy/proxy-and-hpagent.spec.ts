@@ -49,7 +49,7 @@ describe("proxy and hpagent", () => {
 
     })
 
-    xdescribe("http proxy", () => {
+    describe("http proxy", () => {
 
         beforeEach(async () => {
             httpProxy = await buildProxy()   
@@ -111,7 +111,7 @@ describe("proxy and hpagent", () => {
     })
 
 
-    xdescribe('proxy basic authentication', () => {
+    describe('proxy basic authentication', () => {
 
         beforeEach(async () => {
             httpProxy = await buildProxy()   
@@ -159,7 +159,7 @@ describe("proxy and hpagent", () => {
         });
     })
 
-    xdescribe("https proxy", () => {
+    describe("https proxy", () => {
 
         beforeEach(async () => {
             httpProxy = await buildSecureProxy()   
