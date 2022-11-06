@@ -12,7 +12,7 @@ let aui: UiControlClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
-  let proxyAgents = {};
+  const proxyAgents = {};
   /*
   // Proxy configuration
   // Uncomment this block for proxy support.
@@ -34,13 +34,17 @@ beforeAll(async () => {
      * ignore if you have only one display
      */
     display: 0,
-    ...proxyAgents
+    ...proxyAgents,
   });
 
   await uiController.start();
 
   aui = await UiControlClient.build({
-    ...proxyAgents
+    credentials: {
+      workspaceId: '<your workspace id>',
+      token: '<your access token>',
+    },
+    ...proxyAgents,
   });
 
   await aui.connect();
