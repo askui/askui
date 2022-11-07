@@ -3731,10 +3731,10 @@ export abstract class Getter extends FluentCommand {
    *      text: 'Sign In',
    *      colors: [ 'black', 'gray', 'gray' ],
    *      bndbox: BoundingBox {
-   *      xmin: 1128.2720982142857,
-   *      ymin: 160.21332310267857,
-   *      xmax: 1178.8204241071428,
-   *      ymax: 180.83512834821428
+   *        xmin: 1128.2720982142857,
+   *        ymin: 160.21332310267857,
+   *        xmax: 1178.8204241071428,
+   *        ymax: 180.83512834821428
    *      }
    *  }
    *  ]
@@ -3767,20 +3767,20 @@ export abstract class Getter extends FluentCommand {
    *      text: 'Sign In',
    *      colors: [ 'black', 'gray', 'gray' ],
    *      bndbox: BoundingBox {
-   *      xmin: 1128.2720982142857,
-   *      ymin: 160.21332310267857,
-   *      xmax: 1178.8204241071428,
-   *      ymax: 180.83512834821428
+   *        xmin: 1128.2720982142857,
+   *        ymin: 160.21332310267857,
+   *        xmax: 1178.8204241071428,
+   *        ymax: 180.83512834821428
    *      },
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'search',
    *      colors: [ 'black', 'red', 'gray' ],
    *      bndbox: BoundingBox {
-   *      xmin: 250.8204241071428,
-   *      ymin: 300.21332310267857,
-   *      xmax: 450.6304241071428,
-   *      ymax: 950.47812834821428
+   *        xmin: 250.8204241071428,
+   *        ymin: 300.21332310267857,
+   *        xmax: 450.6304241071428,
+   *        ymax: 950.47812834821428
    *      },
    *      ... 381 more items
    *  }
