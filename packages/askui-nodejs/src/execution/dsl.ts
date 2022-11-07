@@ -3738,7 +3738,6 @@ export abstract class Getter extends FluentCommand {
    * // ]
    * ```
    *
-   *
    * @return {FluentFiltersGetter}
    */
   get(): FluentFiltersGetter {
