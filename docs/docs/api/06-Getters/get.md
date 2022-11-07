@@ -13,19 +13,20 @@ A detected element has the following properties:
 ```typescript 
 const text = await aui.get().text().withText('Sign').exec();
 console.log(text);
-// console output: [
-//  DetectedElement {
-//     name: 'TEXT',
-//     text: 'Sign In',
-//     colors: [ 'black', 'gray', 'gray' ],
-//     bndbox: BoundingBox {
-//     xmin: 1128.2720982142857,
-//     ymin: 160.21332310267857,
-//     xmax: 1178.8204241071428,
-//     ymax: 180.83512834821428
-//     }
-// }
-// ]
 ```
-
+```text 
+ console output: [
+  DetectedElement {
+     name: 'TEXT',
+     text: 'Sign In',
+     colors: [ 'black', 'gray', 'gray' ],
+     bndbox: BoundingBox {
+     xmin: 1128.2720982142857,
+     ymin: 160.21332310267857,
+     xmax: 1178.8204241071428,
+     ymax: 180.83512834821428
+     }
+ }
+ ]
+```
 
