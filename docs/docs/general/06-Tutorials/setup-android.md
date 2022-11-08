@@ -97,8 +97,7 @@ mkdir cmdline-tools/latest
 cd cmdline-tools/latest
 mv ../* .
 # Install platform and build tools
-# List of available packages: https://gist.github.com/alvr/8db356880447d2c4bbe948ea92d22c23
-# Or you can fetch the complete list of available packages via:
+# You can fetch the complete list of available packages via:
 bin/sdkmanager --list
 # Install the desired package and tools via:
 bin/sdkmanager --install "system-images;android-33;google_apis;x86_64"
