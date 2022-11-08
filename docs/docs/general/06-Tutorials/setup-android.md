@@ -2,7 +2,7 @@
 
 In this tutorial, we will walk you through how to set up an Android device for developing and testing mobile apps running on Android devices. Depending on the testing environment, i.e. whether it is a real Android device or an emulator, the procedure might slightly differ. But the overall process of the setup will be more or less the same. 
 
-If you want to set up the development environment for Android devices without the Android Studio, then skip the **1. Install Android SDK Command-line Tools** and go to [Set up SDK Command Line Tools without Android Studio](###set-up-sdk-command-line-tools-without-android-studio)
+If you want to set up the development environment for Android devices without the Android Studio, then skip the **1. Install Android SDK Command-line Tools** and go to [Set up SDK Command Line Tools without Android Studio](#set-up-sdk-command-line-tools-without-android-studio)
 
 ### Requirements
 - [Android Studio](https://developer.android.com/studio) installed
