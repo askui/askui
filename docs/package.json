@@ -27,7 +27,7 @@
   "devDependencies": {
     "@docusaurus/types": "2.1.0",
     "docusaurus-plugin-sass": "0.2.2",
-    "sass": "1.54.8"
+    "sass": "1.56.0"
   },
   "browserslist": {
     "production": [
