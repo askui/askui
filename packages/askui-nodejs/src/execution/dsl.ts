@@ -996,18 +996,18 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * **Examples:**
    * ```typescript
    * scene 1
-   * --------------  -----------
+   * --------------  --------------
    * |  button    |  |  icon   |
-   * --------------  -----------
+   * --------------  --------------
    *
    * scene 2
-   * --------------  -----------
+   * --------------  --------------
    * |  button    |  |  text   |
-   * --------------  -----------
+   * --------------  --------------
    *
    * // In case, that your reference element can have multiple values
    * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so you teststep is valid for both scenes
+   * // you can use the or relation, so your teststep is valid for both scenes
    * ...button().rightOf().icon().or().text()
    * // Returns button for both cases
    * ```
@@ -1024,15 +1024,63 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * Logic and operator
    *
    * **Examples:**
-   * ```typescript
-   *  ---------------------------- --------------------------
+   * ```text
+   * example scene:
+   *  --------------------------   --------------------------
    *  |  icon user colored black | |  icon  user colored red |
-   *  ---------------------------- --------------------------
-   * await aui.click().icon().withText('user').exec()
-   * // clicks on one of the icons, because they share the same text
-   * // you can combine filters with the and relation and specifiy exactly which icon you want
-   * await aui.click().icon().withText('user').and().colored('red').exec()
-   * // clicks on the right icon although both icons have the same text
+   *  --------------------------   --------------------------
+   * ```
+   * ```typescript
+   * // using only the filter withText, the get command will return both icons because they share the same text
+   * const icons = await aui.get().icon().withText('user').exec()
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'black', 'black', 'black' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 1000,
+   *         ymin: 1010,
+   *         xmax: 1020,
+   *         ymax: 1030
+   *      }
+   *   },
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
+   * ```
+   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * ```typescript
+   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * // the get command returns only the red icon although both icons have the same text
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFilters}
@@ -2137,7 +2185,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * // In case, that your reference element can have multiple values
    * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so you teststep is valid for both scenes
+   * // you can use the or relation, so your teststep is valid for both scenes
    * ...button().rightOf().icon().or().text()
    * // Returns button for both cases
    * ```
@@ -2154,15 +2202,63 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * Logic and operator
    *
    * **Examples:**
-   * ```typescript
+   * ```text
+   * example scene:
    *  --------------------------   --------------------------
    *  |  icon user colored black | |  icon  user colored red |
    *  --------------------------   --------------------------
-   * await aui.click().icon().withText('user').exec()
-   * // clicks on one of the icons, because they share the same text
-   * // you can combine filters with the and relation and specifiy exactly which icon you want
-   * await aui.click().icon().withText('user').and().colored('red').exec()
-   * // clicks on the right icon although both icons have the same text
+   * ```
+   * ```typescript
+   * // using only the filter withText, the get command will return both icons because they share the same text
+   * const icons = await aui.get().icon().withText('user').exec()
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'black', 'black', 'black' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 1000,
+   *         ymin: 1010,
+   *         xmax: 1020,
+   *         ymax: 1030
+   *      }
+   *   },
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
+   * ```
+   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * ```typescript
+   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * // the get command returns only the red icon although both icons have the same text
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFiltersCondition}
@@ -3641,7 +3737,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * // In case, that your reference element can have multiple values
    * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so you teststep is valid for both scenes
+   * // you can use the or relation, so your teststep is valid for both scenes
    * ...button().rightOf().icon().or().text()
    * // Returns button for both cases
    * ```
@@ -3658,15 +3754,63 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * Logic and operator
    *
    * **Examples:**
-   * ```typescript
+   * ```text
+   * example scene:
    *  --------------------------   --------------------------
    *  |  icon user colored black | |  icon  user colored red |
    *  --------------------------   --------------------------
-   * await aui.click().icon().withText('user').exec()
-   * // clicks on one of the icons, because they share the same text
-   * // you can combine filters with the and relation and specifiy exactly which icon you want
-   * await aui.click().icon().withText('user').and().colored('red').exec()
-   * // clicks on the right icon although both icons have the same text
+   * ```
+   * ```typescript
+   * // using only the filter withText, the get command will return both icons because they share the same text
+   * const icons = await aui.get().icon().withText('user').exec()
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'black', 'black', 'black' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 1000,
+   *         ymin: 1010,
+   *         xmax: 1020,
+   *         ymax: 1030
+   *      }
+   *   },
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
+   * ```
+   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * ```typescript
+   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * // the get command returns only the red icon although both icons have the same text
+   * console.log(icons)
+   * ```
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'ICON',
+   *      text: 'user',
+   *      colors: [ 'red', 'red', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFiltersGetter}
