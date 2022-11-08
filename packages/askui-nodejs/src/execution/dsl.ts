@@ -1031,12 +1031,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * // using only the filter withText, the get command will return both icons because they share the same text
    * const icons = await aui.get().icon().withText('user').exec()
    * console.log(icons)
    * ```
+   * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
-   *  console output: [
+   * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
@@ -1061,12 +1061,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *   }
    *  ]
    * ```
-   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * You can combine filters with the and relation and specifiy exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
-   * // the get command returns only the red icon although both icons have the same text
    * console.log(icons)
    * ```
+   * The get command returns only the red icon although both icons have the same text
    * ```text
    *  console output: [
    *   DetectedElement {
@@ -2209,12 +2209,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * // using only the filter withText, the get command will return both icons because they share the same text
    * const icons = await aui.get().icon().withText('user').exec()
    * console.log(icons)
    * ```
+   * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
-   *  console output: [
+   * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
@@ -2239,12 +2239,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *   }
    *  ]
    * ```
-   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * You can combine filters with the and relation and specifiy exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
-   * // the get command returns only the red icon although both icons have the same text
    * console.log(icons)
    * ```
+   * The get command returns only the red icon although both icons have the same text
    * ```text
    *  console output: [
    *   DetectedElement {
@@ -3761,12 +3761,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * // using only the filter withText, the get command will return both icons because they share the same text
    * const icons = await aui.get().icon().withText('user').exec()
    * console.log(icons)
    * ```
+   * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
-   *  console output: [
+   * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
@@ -3791,12 +3791,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *   }
    *  ]
    * ```
-   * you can combine filters with the and relation and specifiy exactly which icon you want
+   * You can combine filters with the and relation and specifiy exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
-   * // the get command returns only the red icon although both icons have the same text
    * console.log(icons)
    * ```
+   * The get command returns only the red icon although both icons have the same text
    * ```text
    *  console output: [
    *   DetectedElement {
