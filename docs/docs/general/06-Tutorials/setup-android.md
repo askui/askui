@@ -101,7 +101,7 @@ mv ../* .
 bin/sdkmanager --list
 # Install the desired package and tools via:
 bin/sdkmanager --install "system-images;android-33;google_apis;x86_64"
-# The above command will donwload and install the tools in the sdk_root (android_sdk/)
+# The above command will download and install the tools in the sdk_root (android_sdk/)
 ```
 
 3. Download and install the Emulator:
@@ -127,7 +127,7 @@ Now you should see your newly created avd device `mytestdevice`
 ./emulator -avd mytestdevice
 ```
 
-#### 2. Case02-Set Up for a real Android Device
+#### Case02: Set Up for a real Android Device
 1. Go to the [official site](https://developer.android.com/studio/releases/platform-tools) and download the **SDK Platform-Tools**
 
 2. Unzip the .zip file. You can find the **adb** binary within the extracted directory.
