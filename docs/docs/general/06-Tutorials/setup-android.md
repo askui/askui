@@ -81,6 +81,8 @@ After finishing creating a new virtual device, we will be able to see our new de
 
 
 ### Set up SDK Command Line Tools without Android Studio
+#### Case01: Set Up for the Android Emulator
+
 1. Download the [Android SDK Command-Line Tools](https://developer.android.com/studio#command-tools)
 
 2. Install the necessary tools:
@@ -126,6 +128,15 @@ Now you should see your newly created avd device `mytestdevice`
 ./emulator -avd mytestdevice
 ```
 
+#### 2. Case02-Set Up for a real Android Device
+1. Go to the [official site](https://developer.android.com/studio/releases/platform-tools) and download the **SDK Platform-Tools**
+
+2. Unzip the .zip file. You can find the **adb** binary within the extracted directory.
+```bash
+cd platform-tools
+# Show every available Android devices
+./adb devices
+```
 
 
 ### 3. Set up the ADBKeyboard
