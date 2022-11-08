@@ -2,6 +2,8 @@
 
 In this tutorial, we will walk you through how to set up an Android device for developing and testing mobile apps running on Android devices. Depending on the testing environment, i.e. whether it is a real Android device or an emulator, the procedure might slightly differ. But the overall process of the setup will be more or less the same. 
 
+If you want to set up the development environment for Android devices without the Android Studio, then skip the **1. Install Android SDK Command-line Tools** and go to [Set up SDK Command Line Tools without Android Studio](###set-up-sdk-command-line-tools-without-android-studio)
+
 ### Requirements
 - [Android Studio](https://developer.android.com/studio) installed
 - (optional) Android device, if you want to run your app on a real device
@@ -76,6 +78,55 @@ After finishing creating a new virtual device, we will be able to see our new de
 
 
 ![device-created](images/device-created.png)
+
+
+### Set up SDK Command Line Tools without Android Studio
+1. Download the [Android SDK Command-Line Tools](https://developer.android.com/studio#command-tools)
+
+2. Install the necessary tools:
+```bash
+# create a directory for the cli-tools, and move the .zip file into the directory
+mkdir android_sdk
+cd android_sdk
+mv <PATH_TO_YOUR_DOWNLOADED_ZIP_FILE> .
+# unzip the donwloaded file, and put the contents in the new directory 'latest/'
+unzip commandlinetools-<YOUR_PLATFORM>-8512546_latest.zip
+mkdir cmdline-tools/latest
+cd cmdline-tools/latest
+mv ../* .
+# Install platform and build tools
+# List of available packages: https://gist.github.com/alvr/8db356880447d2c4bbe948ea92d22c23
+# Or you can fetch the complete list of available packages via:
+bin/sdkmanager --list
+# Install the desired package and tools via:
+bin/sdkmanager --install "system-images;android-33;google_apis;x86_64"
+# The above command will donwload and install the tools in the sdk_root (android_sdk/)
+```
+
+3. Download and install the Emulator:
+```bash
+bin/sdkmanager --install "emulator" 
+```
+
+4. Create a new avd device:
+```bash
+bin/avdmanager create avd -n mytestdevice -k "system-images;android-33;google_apis;x86_64"
+```
+
+5. Check if the avd device is available:
+```bash
+# go to the 'emulator/' directory, and run the command
+cd ../../emulator
+./emulator -list-avds
+```
+Now you should see your newly created avd device `mytestdevice`
+
+6. Run the emulator
+```bash
+./emulator -avd mytestdevice
+```
+
+
 
 ### 3. Set up the ADBKeyboard
 
