@@ -43,7 +43,7 @@ console output: [
   }
  ]
 ```
-You can combine filters with the and relation and specifiy exactly which icon you want
+You can combine filters with **the `and()` relation** and specifiy exactly which icon you want
 ```typescript 
 const icons = await aui.get().icon().withText('user').and().colored('red').exec()
 console.log(icons)
