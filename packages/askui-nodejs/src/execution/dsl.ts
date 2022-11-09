@@ -994,7 +994,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * Logic or operator
    *
    * **Examples:**
-   * ```typescript
+   * ```text
    * scene 1
    * --------------  --------------
    * |  button    |  |  icon   |
@@ -1005,11 +1005,28 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * |  button    |  |  text   |
    * --------------  --------------
    *
-   * // In case, that your reference element can have multiple values
-   * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so your teststep is valid for both scenes
-   * ...button().rightOf().icon().or().text()
-   * // Returns button for both cases
+   * ```
+   * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
+   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * ```typescript
+   * const button = await aui.get().button().rightOf().icon().or().text().exec();
+   * console.log(button);
+   * ```
+   * Returns the same button for both cases
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'BUTTON',
+   *      text: 'button',
+   *      colors: [ 'red', 'black', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFilters}
@@ -1031,8 +1048,8 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec()
-   * console.log(icons)
+   * const icons = await aui.get().icon().withText('user').exec();
+   * console.log(icons);
    * ```
    * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
@@ -2172,7 +2189,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * Logic or operator
    *
    * **Examples:**
-   * ```typescript
+   * ```text
    * scene 1
    * --------------  --------------
    * |  button    |  |  icon   |
@@ -2183,11 +2200,28 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * |  button    |  |  text   |
    * --------------  --------------
    *
-   * // In case, that your reference element can have multiple values
-   * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so your teststep is valid for both scenes
-   * ...button().rightOf().icon().or().text()
-   * // Returns button for both cases
+   * ```
+   * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
+   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * ```typescript
+   * const button = await aui.get().button().rightOf().icon().or().text().exec();
+   * console.log(button);
+   * ```
+   * Returns the same button for both cases
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'BUTTON',
+   *      text: 'button',
+   *      colors: [ 'red', 'black', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFiltersCondition}
@@ -2209,8 +2243,8 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec()
-   * console.log(icons)
+   * const icons = await aui.get().icon().withText('user').exec();
+   * console.log(icons);
    * ```
    * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
@@ -3724,7 +3758,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * Logic or operator
    *
    * **Examples:**
-   * ```typescript
+   * ```text
    * scene 1
    * --------------  --------------
    * |  button    |  |  icon   |
@@ -3735,11 +3769,28 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * |  button    |  |  text   |
    * --------------  --------------
    *
-   * // In case, that your reference element can have multiple values
-   * // in this example, the element right of the button can be either icon or text
-   * // you can use the or relation, so your teststep is valid for both scenes
-   * ...button().rightOf().icon().or().text()
-   * // Returns button for both cases
+   * ```
+   * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
+   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * ```typescript
+   * const button = await aui.get().button().rightOf().icon().or().text().exec();
+   * console.log(button);
+   * ```
+   * Returns the same button for both cases
+   * ```text
+   *  console output: [
+   *   DetectedElement {
+   *      name: 'BUTTON',
+   *      text: 'button',
+   *      colors: [ 'red', 'black', 'red' ],
+   *      bndbox: BoundingBox {
+   *         xmin: 900,
+   *         ymin: 910,
+   *         xmax: 920,
+   *         ymax: 930
+   *      }
+   *   }
+   *  ]
    * ```
    *
    * @return {FluentFiltersGetter}
@@ -3761,8 +3812,8 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *  --------------------------   --------------------------
    * ```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec()
-   * console.log(icons)
+   * const icons = await aui.get().icon().withText('user').exec();
+   * console.log(icons);
    * ```
    * Using only the filter withText, the get command will return both icons because they share the same text
    * ```text
