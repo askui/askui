@@ -1,6 +1,5 @@
 ---
 displayed_sidebar: apiSidebar
-custom_edit_url: null
 ---
 # get
 
@@ -10,27 +9,24 @@ A detected element has the following properties:
 - `text` content of element
 - `colors` of element
 - `bndbox`: location of element described with coordinates of a bounding box
-
 **Examples:**
 ```typescript 
-const icon = await aui.get().icon().withText("care left").exec();
-
+const text = await aui.get().text().withText('Sign').exec();
+console.log(text);
 ```
-
-'Return value':
-```typescript 
-[
-    DetectedElement {
-            name: 'ICON',
-            text: 'caret left',
-            colors: [ 'black', 'black', 'gray' ],
-            bndbox: BoundingBox {
-                xmin: 3749.806138392857,
-                ymin: 1948.1609933035716,
-                xmax: 3773.3209821428572,
-                ymax: 1963.8654575892858
-            }
-        }
-]
+```text 
+ console output: [
+  DetectedElement {
+     name: 'TEXT',
+     text: 'Sign In',
+     colors: [ 'black', 'gray', 'gray' ],
+     bndbox: BoundingBox {
+        xmin: 1128.2720982142857,
+        ymin: 160.21332310267857,
+        xmax: 1178.8204241071428,
+        ymax: 180.83512834821428
+     }
+ }
+ ]
 ```
 
