@@ -4,7 +4,7 @@ import { addBasicAuthentication, buildProxy, buildSecureServer, buildSecureProxy
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import { Server } from 'http';
 
-describe("proxy and hpagent", () => {  
+xdescribe("proxy and hpagent", () => {  
     let httpProxy: Server;
 
     describe("default proxy", () => {

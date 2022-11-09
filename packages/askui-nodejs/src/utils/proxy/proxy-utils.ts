@@ -1,9 +1,58 @@
 import fs from "fs";
+import { IncomingMessage } from "http";
 import { createServer, Server as HttpServer, Agent } from "http";
+import Server from "http-proxy";
 import https from "https";
 import { join } from "path";
-import dns, { LookupOneOptions } from "dns";
+import stream from "stream";
+//import dns, { LookupOneOptions } from "dns";
 const proxy = require('proxy');
+
+
+
+export async function buildHttpProxy(): Promise<HttpServer> {
+    return new Promise((resolve, _reject) => {
+        const proxy = Server.createProxyServer({agent: new Agent({}),
+        ws: true});
+        const httpProxy = createServer({}, (req, res) => {
+            console.log('req:', req)
+            //console.log('req:', req)
+            var header = req.headers['proxy-authorization'] || '';       // get the auth header
+            var token = header.split(/\s+/).pop() || '';        // and the encoded auth token
+            var auth = Buffer.from(token, 'base64').toString(); // convert from base64
+            var parts = auth.split(/:/);                        // split on colon
+            var username = parts.shift();                       // username is first
+            var password = parts.join(':');
+            
+            
+            if(!(username === "test" && password === "test")){
+                res.writeHead(401, { 'Content-Type': 'text/plain' });
+                res.end('username is "' + username + '" and password is "' + password + '"');
+            }
+            
+            proxy.web(req, res, { target: req.url})
+
+        })
+        httpProxy.on('connection', () => console.log("connection"))
+        httpProxy.on('connect', (req: IncomingMessage, _socket: stream.Duplex, _head: Buffer) => {
+            console.log("connect")
+            console.log(req)
+
+            proxy.ws(req, _socket, {target: "https://www.google.com"})
+        })
+        httpProxy.on('request', () => console.log("request"))
+        httpProxy.on('upgrade', () => console.log("upgrade"))
+        httpProxy.on('close', () => console.log("close"))
+        httpProxy.on('error', () => console.log("error"))
+        httpProxy.listen(8009, () => {
+            console.log("Waiting for requests...")
+            resolve(httpProxy)
+        })
+
+    })
+}
+
+
 
 /***
  * This file is oriented by the integration tests of hpagent: https://github.com/delvedor/hpagent/blob/main/test/utils.js
@@ -80,6 +129,7 @@ export const sslServer = {
  * 127.0.0.1. This allows us to use the self signed certs we made for the fake
  * domains to be verified, and then the connection made to localhost.
  */
+/*
 const originalDnsLookup = dns.lookup
 dns.lookup = (((hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
     if(hostname === SERVER_HOSTNAME || hostname === PROXY_HOSTNAME){
@@ -87,6 +137,7 @@ dns.lookup = (((hostname: string, options: LookupOneOptions, callback: (err: Nod
     }
     originalDnsLookup(hostname, options, callback)
 }) as any)
+*/
 
 export async function buildSecureServer(): Promise<https.Server> {
     return new Promise<https.Server>((resolve, _reject) => {
