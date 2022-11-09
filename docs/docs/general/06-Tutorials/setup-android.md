@@ -96,6 +96,14 @@ unzip commandlinetools-<YOUR_PLATFORM>-8512546_latest.zip
 mkdir cmdline-tools/latest
 cd cmdline-tools/latest
 mv ../* .
+# The hierarchy of the 'android_sdk':
+  └ android_sdk/
+    ├ cmdline-tools/
+      ├ latest/
+        ├ bin/
+        ├ lib/
+        ├ NOTICE.txt
+        ├ source.properties
 # Install platform and build tools
 # You can fetch the complete list of available packages via:
 bin/sdkmanager --list
