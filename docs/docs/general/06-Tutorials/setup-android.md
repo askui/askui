@@ -4,12 +4,12 @@ In this tutorial, we will walk you through how to set up an Android device for d
 
 If you want to set up the development environment for Android devices without the Android Studio, then skip the **1. Install Android SDK Command-line Tools** and go to [Set up SDK Command Line Tools without Android Studio](#set-up-sdk-command-line-tools-without-android-studio)
 
-### Requirements
-- [Android Studio](https://developer.android.com/studio) installed
+## Requirements
+- [Android Studio](https://developer.android.com/studio) installed.
 - (optional) Android device, if you want to run your app on a real device
 
 
-### 1. Install Android SDK Command-line Tools
+## 1. Install Android SDK Command-line Tools
 If you have the Android Studio installed, you have to verify if you have the `Android SDK Command-line Tools` and the `Android SDK Platform-Tools` installed. They both are packages containing several command line tools that are useful for developing apps for Android devices.
 
 To verify the installation of them, 
@@ -28,11 +28,11 @@ To verify the installation of them,
 
 
 
-### 2. Set up the Test Device
+## 2. Set up the Test Device
 
 After installing the necessary tools in the Android Studio, we can start to set up the Android device that we want to use for the development.
 
-#### Set up a Real Android Device
+### Set up a Real Android Device
 This part is for setting up a real Android device. If you want to use the Android Emulator instead, then you can skip it and go directly to the next step.
 
 To use additional development features in an Android device, we need to enable the `Developer Options` within the device. To enable the `Developer Options`, tap the `Build Number` option 7 times. You can find this option in one of the following locations, depending on your Android version:
@@ -47,7 +47,7 @@ After enabling the `Developer Options`, we can enable the `USB debugging` option
 - Android 8.0.0 (API level 26) and Android 8.1.0 (API level 26): `Settings` > `System` > `Developer Options` > `USB debugging`
 - Android 7.1 (API level 25) and lower: `Settings` > `Developer Options` > `USB debugging`
 
-#### Set up an Android Emulator
+### Set up an Android Emulator
 
 If you want to use the Android Emulator for testing purposes, we have to create a virtual device that runs in the emulator. After running the Android Studio,
 
@@ -80,8 +80,8 @@ After finishing creating a new virtual device, we will be able to see our new de
 ![device-created](images/device-created.png)
 
 
-### Set up SDK Command Line Tools without Android Studio
-#### Case01: Set Up for the Android Emulator
+## Set Up SDK Command Line Tools without Android Studio
+### Case01: Set Up for the Android Emulator
 
 1. Download the [Android SDK Command-Line Tools](https://developer.android.com/studio#command-tools)
 
@@ -130,13 +130,13 @@ cd ../../emulator
 ```
 Now you should see your newly created avd device `mytestdevice`
 
-6. Run the emulator
+6. Run the emulator:
 ```bash
 ./emulator -avd mytestdevice
 ```
 
-#### Case02: Set Up for a real Android Device
-1. Go to the [official site](https://developer.android.com/studio/releases/platform-tools) and download the **SDK Platform-Tools**
+### Case02: Set Up for a Real Android Device
+1. Download the **SDK Platform-Tools** from the [official site](https://developer.android.com/studio/releases/platform-tools).
 
 2. Unzip the .zip file. You can find the **adb** binary within the extracted directory.
 ```bash
@@ -146,7 +146,7 @@ cd platform-tools
 ```
 
 
-### 3. Set up the ADBKeyboard
+## 3. Set Up the ADBKeyboard
 
 Until now, we have prepared our Android device and now we are ready to go for testing our Android app. But before we jump into the test phase, we will set up one more utility that will make the test procedure easier.
 
@@ -189,7 +189,7 @@ To install the ADBKeyboard on your device,
 Click on a textfield in an app and see if the `ADB Keyboard {ON}` notification is shown at the bottom of the screen.
 
 
-### 4. Done
+## 4. Done
 
 We are finally done with the preparation for testing apps running on Android devices. In the next post, we will cover a simple test automation case utilizing [askui](https://bit.ly/3FGspGO) on the device we set up in this article.
 
