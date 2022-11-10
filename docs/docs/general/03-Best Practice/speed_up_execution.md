@@ -12,7 +12,7 @@ Our AI model consists of the following submodels:
 | Optical Character Recognition (OCR) | Convert the image of a text into text | fast :rocket: |
 | Color Classifier | Detect the colors of all elements | slow :snail: |
 
-The submodels have different execution times. It depends on wether they are executable and, therefore, executed on a GPU or a CPU. The fast models are executed on a GPU and the slow ones on a CPU.
+The submodels have different execution times. It depends on whether they are executable and, therefore, executed on a GPU or a CPU. The fast models are executed on a GPU and the slow ones on a CPU.
 
 During the execution of an instruction, the lazy inference can deactivate submodels to speed up execution. What can be deactivated can be derived from the instruction, e.g.:
 - `await aui.click().text().withText('Login').exec()` only needs the <b>Object Detector</b> and the <b>OCR</b> but not the <b>Icon Classifier</b>, <b>Color Classifier</b> or the <b>Custom Element Detector</b>.

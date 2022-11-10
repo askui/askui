@@ -16,7 +16,7 @@ After running the `npx askui init` command as described in the setup you will ha
 describe(/* a string identifying the test suite */, () => {
     ... (other tests)
 
-    it('should like spotify song', async () => {
+    it('should like Spotify song', async () => {
 
     });
 });
@@ -27,7 +27,7 @@ describe(/* a string identifying the test suite */, () => {
 First, we need to open the search page where we can look for a song:
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     await aui.click().icon().withText('search').exec();
 });
 ```
@@ -37,7 +37,7 @@ it('should like spotify song', async () => {
 Then we can use the search field (a textfield) to search a song:
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     ...
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
     await aui.pressKey('enter').exec();
@@ -49,7 +49,7 @@ it('should like spotify song', async () => {
 On the search result page we need to right click a song to open the menu for the song:
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     ...
     await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Songs').exec();
     await aui.mouseRightClick().exec();
@@ -68,7 +68,7 @@ We expect that the song has not yet been liked (although we totally understand i
 Finally, we want to check whether the song was actually added to the liked songs:
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     ...
     await aui.click().text().withText('Liked Songs').exec();
     await aui.expect().text().withText('Bohemian Rhapsody').exists().exec();
@@ -80,7 +80,7 @@ it('should like spotify song', async () => {
 To be able to run the test again, it is necessary to reset the state of Spotify, or more specifically, your liked songs. One option would be to add the following commands to your test in order to remove the song from the liked songs.
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     ...
     await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Title').exec();
     await aui.mouseRightClick().exec();
@@ -90,10 +90,10 @@ it('should like spotify song', async () => {
 
 ## Result
 
-The following code block shows the complete code for the spotify automation:
+The following code block shows the complete code for the Spotify automation:
 
 ```ts
-it('should like spotify song', async () => {
+it('should like Spotify song', async () => {
     await aui.click().icon().withText('search').exec();
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
     await aui.pressKey('enter').exec();

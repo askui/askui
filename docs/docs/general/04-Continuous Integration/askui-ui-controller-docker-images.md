@@ -97,7 +97,7 @@ export { aui };
 
 ## Connect via VNC
 
-To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the interal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console.
+To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the internal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console.
 
 When connecting, enter the password `askui` when asked.
 

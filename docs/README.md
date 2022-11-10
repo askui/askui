@@ -34,6 +34,15 @@ npm run build
 
 This command generates static content into the `dist` directory and can be served using any static contents hosting service.
 
+### Spellchecker
+
+Before every commit, a spellchecker will run against the next version of the docs located under `docs/`.
+To run the spellchecker manually before committing:
+
+```shell
+npm run spellcheck-docs
+```
+
 ### Regenerate API Documentation
 
 1. Head over to [askui-inference](https://github.com/askui/askui-inference#generate-fluent-api-and-documentation)

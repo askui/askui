@@ -1,4 +1,4 @@
-# MacOS
+# macOS
 
 ## Elements Can't Be Found / Annotated Screen Empty / UI Controller not starting
 

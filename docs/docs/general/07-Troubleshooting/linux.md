@@ -2,7 +2,7 @@
 
 ## Wayland
 
-We do not yet support the windowing system Wayland for any linux distribution. So you
+We do not yet support the windowing system Wayland for any Linux distribution. So you
 are going to see multiple errors when trying to run tests or may not even be able to
 start the UI Controller. 
 
@@ -22,7 +22,7 @@ As a solution, you can switch to Xorg instead of Wayland
 If you are using Ubuntu 22.04 or later, you need to install libfuse before using askui lib 
 since it's no longer installed per default.
 
-Libfuse2 can be installed with: 
+libfuse2 can be installed with: 
 
 ```shell
 sudo apt-get update

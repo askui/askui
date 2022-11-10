@@ -5,5 +5,5 @@ displayed_sidebar: apiSidebar
 
 Swipe an element in the x and y direction
 
-   * @param {number} x_offset - A x direction. positive an negative values are accepted
-   * @param {number} y_offset - A y direction. positive an negative values are accepted
+   * @param {number} x_offset - A x direction. positive and negative values are accepted
+   * @param {number} y_offset - A y direction. positive and negative values are accepted

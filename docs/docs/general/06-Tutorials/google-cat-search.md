@@ -171,7 +171,7 @@ await aui
 
 But it turns out, that the AI uses a different metric for measuring distance between elements, which is why our script failed the first time. Then we substituted this function for _above()_, which fixed the problem for us.
 
-Another problem regarding font-size occurred with the _Images_ button. The AI recognized _Image_ with a **s** missing at the end. That is why we switched from _withText('Images') to _withTextRegex('Image*')_.
+Another problem regarding font-size occurred with the _Images_ button. The AI recognized _Image_ with an **s** missing at the end. That is why we switched from _withText('Images') to _withTextRegex('Image*')_.
 
 ```typescript
 await aui
