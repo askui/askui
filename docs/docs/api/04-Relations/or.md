@@ -9,12 +9,12 @@ Logic or operator
 ```text 
 scene 1
 --------------  --------------
-|  button    |  |  icon   |
+|  button    |  |  icon       |
 --------------  --------------
 
 scene 2
 --------------  --------------
-|  button    |  |  text   |
+|  button    |  |  text       |
 --------------  --------------
 
 ```

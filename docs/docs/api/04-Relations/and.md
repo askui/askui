@@ -13,8 +13,8 @@ example scene:
  --------------------------   --------------------------
 ```
 ```typescript 
-const icons = await aui.get().icon().withText('user').exec()
-console.log(icons)
+const icons = await aui.get().icon().withText('user').exec();
+console.log(icons);
 ```
 Using only the filter withText, the get command will return both icons because they share the same text 
 ```text 

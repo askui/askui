@@ -997,12 +997,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```text
    * scene 1
    * --------------  --------------
-   * |  button    |  |  icon   |
+   * |  button    |  |  icon       |
    * --------------  --------------
    *
    * scene 2
    * --------------  --------------
-   * |  button    |  |  text   |
+   * |  button    |  |  text       |
    * --------------  --------------
    *
    * ```
@@ -2192,12 +2192,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```text
    * scene 1
    * --------------  --------------
-   * |  button    |  |  icon   |
+   * |  button    |  |  icon       |
    * --------------  --------------
    *
    * scene 2
    * --------------  --------------
-   * |  button    |  |  text   |
+   * |  button    |  |  text       |
    * --------------  --------------
    *
    * ```
@@ -3761,12 +3761,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```text
    * scene 1
    * --------------  --------------
-   * |  button    |  |  icon   |
+   * |  button    |  |  icon       |
    * --------------  --------------
    *
    * scene 2
    * --------------  --------------
-   * |  button    |  |  text   |
+   * |  button    |  |  text       |
    * --------------  --------------
    *
    * ```
