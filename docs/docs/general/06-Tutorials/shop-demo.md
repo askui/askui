@@ -50,7 +50,7 @@ it('Should log into account', async () => {
 
 After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` command. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
 
-![Overlap](./login_overlap.png)
+![Overlap](./images/login_overlap.png)
 
 To keep the password field visible, we have to hide the auto-complete drop-down. In order to do this, we have to blur the email input field. We do this by clicking on the headline of the page ("Login"). Afterwards, we can type into the password field.
 

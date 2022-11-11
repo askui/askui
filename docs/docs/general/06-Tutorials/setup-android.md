@@ -156,7 +156,7 @@ One noticeable advantage of using ADBKeyboard is that it can also handle base64 
 
 To install the ADBKeyboard on your device,
 
-1. Download the ADB-Keyboard package from [this GitHub Repo](https://github.com/senzhk/ADBKeyBoard/releases/tag/v2.0) *(Important: Version 2.0)*
+1. Download the ADBKeyboard package from [this GitHub Repository](https://github.com/senzhk/ADBKeyBoard/releases/tag/v2.0) *(Important: Version 2.0)*
 2. Unzip it.
 3. Find your device:
 
@@ -166,7 +166,7 @@ To install the ADBKeyboard on your device,
     adb devices
     ```
     
-4. Install the ADBkeyboard on the device:
+4. Install the ADBKeyboard on the device:
 
     ```bash
     # inside ADBKeyBoard-2.0/
@@ -179,7 +179,7 @@ To install the ADBKeyboard on your device,
     adb -s <your device id> shell settings put secure default_input_method com.android.adbkeyboard/.AdbIME
     ```
     
-6. Enable the ADB Keyboard:
+6. Enable the ADBKeyboard:
 
     ```bash
     adb -s <your device id> shell ime enable com.android.adbkeyboard/.AdbIME
