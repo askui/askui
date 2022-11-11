@@ -8,14 +8,14 @@ Logic or operator
 **Examples:**
 ```text 
 scene 1
---------------  --------------
+--------------  ---------------
 |  button    |  |  icon       |
---------------  --------------
+--------------  ---------------
 
 scene 2
---------------  --------------
+--------------  ---------------
 |  button    |  |  text       |
---------------  --------------
+--------------  ---------------
 
 ```
 In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.

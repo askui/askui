@@ -996,14 +996,14 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * **Examples:**
    * ```text
    * scene 1
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  icon       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * scene 2
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  text       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
@@ -1078,7 +1078,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specifiy exactly which icon you want
+   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
    * console.log(icons)
@@ -2191,14 +2191,14 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * **Examples:**
    * ```text
    * scene 1
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  icon       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * scene 2
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  text       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
@@ -2273,7 +2273,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specifiy exactly which icon you want
+   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
    * console.log(icons)
@@ -3760,14 +3760,14 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * **Examples:**
    * ```text
    * scene 1
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  icon       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * scene 2
-   * --------------  --------------
+   * --------------  ---------------
    * |  button    |  |  text       |
-   * --------------  --------------
+   * --------------  ---------------
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
@@ -3842,7 +3842,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specifiy exactly which icon you want
+   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
    * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
    * console.log(icons)
