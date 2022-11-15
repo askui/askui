@@ -1,29 +1,30 @@
 import got, { Got, OptionsOfJSONResponseBody } from 'got';
 import { CookieJar } from 'tough-cookie';
+import http from 'http';
+import https from 'https';
 import { logger } from '../../lib';
 import { Credentials } from './credentials';
-import { httpClientErrorHandler } from './custom-errors'
-import http from 'http'
-import https from 'https'
+import { httpClientErrorHandler } from './custom-errors';
 
 export class HttpClientGot {
   private headers: Record<string, string> = {};
-  private askuiGot: Got
+
+  private askuiGot: Got;
 
   constructor(
     readonly token?: string,
     readonly customHeaders?: Record<string, string>,
     private readonly cookies: Record<string, string> = {},
-    readonly proxyAgents?: {http: http.Agent, https: https.Agent} 
+    readonly proxyAgents?: { http: http.Agent, https: https.Agent },
   ) {
     this.initHeaders(token, customHeaders);
-    
-    let options = {}
-    if(proxyAgents){
-      const agents = {http: proxyAgents.http, https: proxyAgents.https}
-      options = {...options, agent: agents}
+
+    let options = {};
+    if (proxyAgents) {
+      const agents = { http: proxyAgents.http, https: proxyAgents.https };
+      options = { ...options, agent: agents };
     }
-    this.askuiGot = got.extend(options) 
+    this.askuiGot = got.extend(options);
   }
 
   private initHeaders(token?: string, customHeaders: Record<string, string> = {}) {

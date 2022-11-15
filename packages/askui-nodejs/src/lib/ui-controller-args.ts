@@ -1,4 +1,4 @@
-import { ProxyAgentsArgs } from '@/shared/proxy-agent-args';
+import { ProxyAgentsArgs } from '../shared/proxy-agent-args';
 import { LogLevels } from '../shared/log-levels';
 
 /**
@@ -7,6 +7,7 @@ import { LogLevels } from '../shared/log-levels';
  * @param {number} display - Default: `0`
  * You can choose on which display you want to excecute all tests.
  * 0 is your main monitor.
+ *
  * If you want to use your second monitor you can change
  * the value to `1` (`2` for your third monitor etc.).
  * @param {string} binaryVersion - Default: `'latest'`
