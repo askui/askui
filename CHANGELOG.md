@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/askui/askui/compare/0.4.0...0.5.0) (2022-11-14)
+
+
+### Features
+
+* add and_ and or_relation (#AS-1444) ([419ccb9](https://github.com/askui/askui/commit/419ccb9bdbb670857ab49478457fb79ee053b071)), closes [#AS-1444](https://github.com/askui/askui/issues/AS-1444)
+* ignore Rule import/no-extraneous-dependencies for example_project_template; Minor Refactorings ([60d08b5](https://github.com/askui/askui/commit/60d08b5cb810ed110e6b5a010d0f40f52e87f5dc))
+
+
+### Bug Fixes
+
+* extend spellchecker dictionary ([90d0563](https://github.com/askui/askui/commit/90d05631c999fa354ff7640bcbf86189e27079a4))
+
 ## [0.4.0](https://github.com/askui/askui/compare/0.3.2...0.4.0) (2022-10-26)
 
 ## What's Changed
