@@ -1,5 +1,5 @@
 import { UiControlClient, UiController } from 'askui';
-// Uncomment following line for proxy support and install hpagent with  `npm i --save hpagent`
+// Uncomment following the line for proxy support and install hpagent with  `npm i --save hpagent`
 // import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 
 // Server for controlling the operating system

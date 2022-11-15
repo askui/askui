@@ -1,17 +1,17 @@
 # Proxy
 
-In enterprises are proxies a standard to secure and control the network. Our library use [hpagent](https://github.com/delvedor/hpagent) to provide http(s) proxy functionality, but all other [http.Agent](https://nodejs.org/api/http.html#class-httpagent) and [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) should work.
+In enterprises, proxies are standard to secure and control the network. Our library uses  [hpagent](https://github.com/delvedor/hpagent) to provide http(s) proxy functionality, but all other [http.Agent](https://nodejs.org/api/http.html#class-httpagent) and [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) should work.
 
 ## Http(s) proxy with hpagent
 
-[hpagent](https://github.com/delvedor/hpagent) is an open source package which allows http(s) proxies and keep them alive.  
+[hpagent](https://github.com/delvedor/hpagent) is an open source package which provides http(s) proxies that keeps collections alive.
 
-First we need to install the the library with:
+First, we need to install the library with:
 ```bash
 npm i --save hpagent 
 ```
 
-Then we have to add the `hpagent` imports and configure the **UiController** and the **** under `test/helper/jest.setup.ts`: file
+Then we have to add the `hpagent` imports and configure the **UiController** and the **UiControlClient** under `test/helper/jest.setup.ts`: file
 ```typescript
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent'; // <-- Add imports
 
@@ -92,14 +92,14 @@ The other option is to add the self signed certificate as [extra certificates fo
 
 First get the certificate and convert it to a `.pem` file.
 
-Then set the `NODE_EXTRA_CA_CERTS` with following commands:
+Then set the `NODE_EXTRA_CA_CERTS` with the following commands:
 
 Windows:
 ```batch
 set NODE_EXTRA_CA_CERTS '<path>\<cert>.pem'
 ```
 
-MacOS/Unix:
+macOS/Unix:
 ```bash
 export NODE_EXTRA_CA_CERTS='<path>/<cert>.pem'
 ```
