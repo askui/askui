@@ -20,19 +20,9 @@ import https from 'https';
  *                    ...,
  *                    proxyAgents: {
  *                      http: new HttpProxyAgent({
- *                                  keepAlive: false,
- *                                  keepAliveMsecs: 1000,
- *                                  maxSockets: 256,
- *                                  maxFreeSockets: 256,
- *                                  scheduling: 'lifo',
  *                                  proxy: proxyUrl
  *                          }),
  *                      https: new HttpsProxyAgent({
- *                                  keepAlive: false,
- *                                  keepAliveMsecs: 1000,
- *                                  maxSockets: 256,
- *                                  maxFreeSockets: 256,
- *                                  scheduling: 'lifo',
  *                                  proxy: proxyUrl
  *                          }),
  *                    }
