@@ -19,7 +19,6 @@
     "outDir": "./dist/esm",
     "declaration": true,
     "types": [
-      "jest",
       "node"
     ],
     "baseUrl": "./",
@@ -28,6 +27,10 @@
     }
   },
   "include": [
-    "./src",
-    "./test"]
+    "./src"
+  ], 
+  "exclude": [
+    "./test",
+    "src/**/*.spec.ts"
+  ]
 }

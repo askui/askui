@@ -4,6 +4,11 @@ module.exports = {
     '<rootDir>/dist',
     '<rootDir>/e2e',
   ],
-  preset: 'ts-jest',
   testEnvironment: 'node',
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.jest.json',
+    },
+  },
+  preset: 'ts-jest',
 };
