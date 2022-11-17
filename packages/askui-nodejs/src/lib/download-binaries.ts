@@ -58,7 +58,7 @@ export function downloadServerBinaries(
       fs.mkdirSync(binaryFolder, { recursive: true });
     }
 
-    const downloadStream = got.stream(url, { ...(proxyAgent ? { agent: proxyAgent } : {}) });
+    const downloadStream = got.stream(url, proxyAgent ? { agent: proxyAgent } : {});
     const fileWriterStream = fs.createWriteStream(binaryOutputPath);
     downloadStream.on('error', () => {
       reject();

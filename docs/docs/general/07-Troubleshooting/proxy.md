@@ -1,22 +1,22 @@
 # Proxy
 
-In enterprises, proxies are standard to secure and control the network. Our library uses  [hpagent](https://github.com/delvedor/hpagent) to provide http(s) proxy functionality, but all other [http.Agent](https://nodejs.org/api/http.html#class-httpagent) and [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) should work.
+In enterprises, proxies are standard to secure and control the network. Our library uses  [hpagent](https://github.com/delvedor/hpagent) to provide HTTP(S) proxy functionality, but all other [http.Agent](https://nodejs.org/api/http.html#class-httpagent) and [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) should work.
 
-## Automatic http(s) proxy detection
+## Automatic HTTP(S) proxy detection
 
-Our libray is detecting http(s) proxy automatically when one of the following environment variables are detected: "HTTP_PROXY", "HTTPS_PROXY", "http_proxy" or "https_proxy".
+Our library is detecting HTTP(S) proxy automatically when one of the following environment variables are detected: `HTTP_PROXY`, `HTTPS_PROXY`, `http_proxy` or `https_proxy`.
 
 You need only to install [hpagent](https://github.com/delvedor/hpagent) with following command:
 ```bash
 npm i --save hpagent 
 ```
 
-If this is not working properly, please set the proxy url manually.
+If this is not working properly, please set the proxy URL manually.
 
 
-## Manual http(s) proxy setup
+## Manual HTTP(S) proxy setup
 
-[hpagent](https://github.com/delvedor/hpagent) is an open source package which provides http(s) proxies that keeps collections alive.
+[hpagent](https://github.com/delvedor/hpagent) is an open source package which provides HTTP(S) proxies that keeps collections alive.
 
 First, we need to install the library with:
 ```bash
@@ -60,19 +60,19 @@ beforeAll(async () => {
 
 Here are some example for the `proxyUrl` (for more details see [docs from hpagent](https://github.com/delvedor/hpagent#usage))
 
-| Proxy Type | Url | Description | 
+| Proxy Type | URL | Description | 
 | --- | --- | --- | 
-| HTTP | e.g. http://proxy.company.com:8293 |  An http proxy without authentication |
-| HTTP + Basic Auth | e.g. http://username:password@proxy.company.com:8293 |  An http proxy with authentication |
-| HTTPS | e.g. https://proxy.company.com:8293 |  An https proxy without authentication |
-| HTTPS + Basic Auth | e.g. https://username:password@proxy.company.com:8293 |  An http proxy with authentication.  |
+| HTTP | e.g. http://proxy.company.com:8293 |  A HTTP proxy without authentication |
+| HTTP + Basic Auth | e.g. http://username:password@proxy.company.com:8293 |  A HTTP proxy with authentication |
+| HTTPS | e.g. https://proxy.company.com:8293 |  A HTTPS proxy without authentication |
+| HTTPS + Basic Auth | e.g. https://username:password@proxy.company.com:8293 |  A HTTP proxy with authentication.  |
 | SOCKET |  |  Socket proxies are not supported by `hpagent` |
 
 
 ## Deep Package Inspection
 
-Company proxies, like [zscalar](https://www.zscaler.com/resources/security-terms-glossary/what-is-cloud-proxy), are using [deep package inspection](https://en.wikipedia.org/wiki/Deep_packet_inspection) to analyse the internet traffic.
-Such proxies are adding self-signed certificates to the https request to break up the TLS connection.
+Company proxies, like [Zscalar](https://www.zscaler.com/resources/security-terms-glossary/what-is-cloud-proxy), are using [deep package inspection](https://en.wikipedia.org/wiki/Deep_packet_inspection) to analyze the internet traffic.
+Such proxies are adding self-signed certificates to the HTTPS request to break up the TLS connection.
 
 This can result in the following error messages:
 ```
@@ -88,12 +88,12 @@ or
 This option deactivates the TLS validation (see [here](https://nodejs.org/api/cli.html#node_tls_reject_unauthorizedvalue)) and **is not recommended**. Only for testing!
 
 Windows:
-```batch
+```shell
 set NODE_TLS_REJECT_UNAUTHORIZED 0
 ```
 
-MacOS/Unix:
-```bash
+macOS/Unix:
+```shell
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
@@ -103,21 +103,21 @@ export NODE_TLS_REJECT_UNAUTHORIZED=0
 The other option is to add the self-signed certificate as [extra certificates for nodejs](https://nodejs.org/api/cli.html#node_extra_ca_certsfile). 
 
 First get the certificate and convert it to a `.pem` file. 
-1. [Export .pem certificate with chrome](https://superuser.com/a/1292098)
+1. [Export `.pem` certificate with chrome](https://superuser.com/a/1292098)
 
 Then set the `NODE_EXTRA_CA_CERTS` with the following commands:
 
 Windows:
-```batch
+```shell
 set NODE_EXTRA_CA_CERTS '<path>\<cert>.pem'
 ```
 
 macOS/Unix:
-```bash
+```shell
 export NODE_EXTRA_CA_CERTS='<path>/<cert>.pem'
 ```
 
 **Additional information:**
-- [Get zscalar custom certificate](https://help.zscaler.com/zia/adding-custom-certificate-application-specific-trusted-store) 
+- [Get Zscalar custom certificate](https://help.zscaler.com/zia/adding-custom-certificate-application-specific-trusted-store) 
 
 

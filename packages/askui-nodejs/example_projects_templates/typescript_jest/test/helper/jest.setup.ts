@@ -31,9 +31,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await uiController.stop();
-
   aui.close();
+
+  await uiController.stop();
 });
 
 export { aui };
