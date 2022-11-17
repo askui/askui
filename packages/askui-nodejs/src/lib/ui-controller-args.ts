@@ -1,4 +1,4 @@
-import { ProxyAgentsArgs } from '../shared/proxy-agent-args';
+import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { LogLevels } from '../shared/log-levels';
 
 /**
@@ -29,11 +29,10 @@ import { LogLevels } from '../shared/log-levels';
  * @param {string} logFilePath - Default: `'<temp-dir>/askui/askui-server.log'`
  * It is possible to specify a path for your log files.
  * Per default we create the askui-server.log file and askui folder in your temp folder.
- * @param {ProxyAgentsArgs} proxyAgents - To configure the  proxy for our http(s) requests.
+ * @param {ProxyAgentArgs} proxyAgents - To configure the proxy agents for our http(s) requests.
  */
 
 export interface UiControllerArgs {
-
   readonly display?: number;
   readonly actionDelayInMs?: number;
   readonly binaryVersion?: string,
@@ -43,7 +42,7 @@ export interface UiControllerArgs {
   readonly overWriteBinary?: boolean;
   readonly logLevel?: LogLevels;
   readonly logFilePath?: string;
-  readonly proxyAgents?: ProxyAgentsArgs
+  readonly proxyAgents?: ProxyAgentArgs
 }
 
 export interface UiControllerArgsWithDefaults extends UiControllerArgs {
@@ -54,7 +53,6 @@ export interface UiControllerArgsWithDefaults extends UiControllerArgs {
   readonly port: number;
   readonly host: string;
   readonly logLevel?: LogLevels;
-
 }
 
 export function createArgsWithDefaults(

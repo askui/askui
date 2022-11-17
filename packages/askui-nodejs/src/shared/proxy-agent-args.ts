@@ -4,36 +4,32 @@ import https from 'https';
 /**
  * Proxy agent configuration for HTTP(S) requests
  *
- * All modules which inheritate from the http(s).Agent can be used.
- * We recomment to use [hpagent](https://github.com/delvedore/hpagent).
+ * All modules which implement the `http.Agent`'s or `https.Agent`'s
+ * interface, respectively, can be used.
+ * We recommend to use [hpagent](https://github.com/delvedore/hpagent).
  *
  * Installation:
- * ```bash
+ * ```shell
  * npm install --save hpagent
  * ```
  *
  * Configuration:
  * ```typescript
- *  const proxyUrl = "http://your-proxy:8021"
+ *  const httpProxyUrl = "http://your-proxy:3128";
+ *  const httpsProxyUrl = "https://your-proxy:3129";
  *
  *  const aui = await UiControlClient.build({
- *      proxyAgents: {
- *          http: new HttpProxyAgent({
- *              proxy: proxyUrl,
- *          }),
- *          https: new HttpsProxyAgent({
- *               proxy: proxyUrl,
- *          }),
- *  })
- *
+ *    proxyAgents: {
+ *      http: new HttpProxyAgent({ proxy: httpProxyUrl }),
+ *      https: new HttpsProxyAgent({ proxy: httpsProxyUrl }),
+ *    },
+ *  });
  * ```
  *
  * @param {http.Agent} http - Agent for http requests
  * @param {https.Agent} https - Agent for https requests
- * @param {https.Agent} https - Agent for https requests
  ** */
-export interface ProxyAgentsArgs {
+export interface ProxyAgentArgs {
   http: http.Agent,
   https: https.Agent,
-  no_proxy?: string
 }

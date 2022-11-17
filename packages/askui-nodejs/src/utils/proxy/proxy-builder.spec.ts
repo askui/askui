@@ -1,5 +1,5 @@
 import {
-  buildProxyAgentsArgsFromEnvironment,
+  buildProxyAgentArgsFromEnvironment,
   ProxyImportError,
 } from './proxy-builder';
 
@@ -22,7 +22,7 @@ describe('proxy builder', () => {
   });
 
   it('should retrun undefined when https_proxy and http_proxy not set', async () => {
-    const proxyAgent = await buildProxyAgentsArgsFromEnvironment();
+    const proxyAgent = await buildProxyAgentArgsFromEnvironment();
 
     expect(proxyAgent).toBeUndefined();
   });
@@ -31,7 +31,7 @@ describe('proxy builder', () => {
     const expectedProxyUrl = 'http://localhost:3128';
     process.env['HTTP_PROXY'] = expectedProxyUrl;
 
-    const proxyAgentArgs = castToHpagent(await buildProxyAgentsArgsFromEnvironment());
+    const proxyAgentArgs = castToHpagent(await buildProxyAgentArgsFromEnvironment());
 
     expect(proxyAgentArgs.http.proxy.origin).toEqual(expectedProxyUrl);
     expect(proxyAgentArgs.https.proxy.origin).toEqual(expectedProxyUrl);
@@ -41,7 +41,7 @@ describe('proxy builder', () => {
     const expectedProxyUrl = 'https://localhost:3129';
     process.env['HTTPS_PROXY'] = expectedProxyUrl;
 
-    const proxyAgentArgs = castToHpagent(await buildProxyAgentsArgsFromEnvironment());
+    const proxyAgentArgs = castToHpagent(await buildProxyAgentArgsFromEnvironment());
 
     expect(proxyAgentArgs.http.proxy.origin).toEqual(expectedProxyUrl);
     expect(proxyAgentArgs.https.proxy.origin).toEqual(expectedProxyUrl);
@@ -53,7 +53,7 @@ describe('proxy builder', () => {
     process.env['HTTP_PROXY'] = expectedHttpProxyUrl;
     process.env['HTTPS_PROXY'] = expectedHttpsProxyUrl;
 
-    const proxyAgentArgs = castToHpagent(await buildProxyAgentsArgsFromEnvironment());
+    const proxyAgentArgs = castToHpagent(await buildProxyAgentArgsFromEnvironment());
 
     expect(proxyAgentArgs.http.proxy.origin).toEqual(expectedHttpProxyUrl);
     expect(proxyAgentArgs.https.proxy.origin).toEqual(expectedHttpsProxyUrl);
@@ -63,7 +63,7 @@ describe('proxy builder', () => {
     process.env['HTTP_PROXY'] = 'http://localhost:3128';
     jest.mock('hpagent', () => { throw new Error(); });
 
-    await expect(() => buildProxyAgentsArgsFromEnvironment()).rejects
+    await expect(() => buildProxyAgentArgsFromEnvironment()).rejects
       .toThrowError(ProxyImportError);
   });
 });

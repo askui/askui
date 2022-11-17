@@ -141,7 +141,8 @@ ADB
 teststep
 hpagent
 Auth
+HTTP
 HTTPS
 TLS
 Zscalar
-nodejs
+Node.js

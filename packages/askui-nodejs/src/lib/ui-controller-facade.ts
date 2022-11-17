@@ -16,7 +16,7 @@ import { downloadServerBinaries, getBinaryPath } from './download-binaries';
 import { logger } from './logger';
 import { TimeoutError } from './timeout-error';
 import { UnkownError } from './unkown-error';
-import { buildProxyAgentsArgsFromEnvironment } from '../utils/proxy/proxy-builder';
+import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
 
 export abstract class UiControllerFacade {
   protected binaryPath = getBinaryPath('latest');
@@ -33,7 +33,7 @@ export abstract class UiControllerFacade {
     await this.getBinary(
       argsWithLogPath.binaryVersion,
       argsWithLogPath.overWriteBinary,
-      argsWithLogPath.proxyAgents || await buildProxyAgentsArgsFromEnvironment(),
+      argsWithLogPath.proxyAgents || await buildProxyAgentArgsFromEnvironment(),
     );
     this.makeBinaryExecutable();
     logger.debug(`UI Controller log path "${this.serverLogFile}"`);

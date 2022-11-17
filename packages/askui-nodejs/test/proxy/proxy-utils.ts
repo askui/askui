@@ -1,26 +1,30 @@
+/**
+ * The utils are based on integration tests of the `hpagent` module
+ * (see https://github.com/delvedor/hpagent/blob/main/test/utils.js).
+ */
 import fs from 'fs';
 import http, { IncomingMessage } from 'http';
 import https from 'https';
 import { join } from 'path';
 import dns, { LookupOneOptions } from 'dns';
+import proxy from 'proxy';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const proxy = require('proxy');
-
-type BasicAuthProxyServer = http.Server & { authenticate: (req: IncomingMessage,
-  authCallback: (err: unknown, isAuth: boolean) => void) => void };
+type BasicAuthProxyServer = http.Server & {
+  authenticate: (
+    req: IncomingMessage,
+    authCallback: (err: unknown, isAuth: boolean) => void,
+  ) => void,
+};
 
 export const PROXY_HOSTNAME = 'proxy.proxy-unit-test-askui.com';
 export const SERVER_HOSTNAME = 'server.proxy-unit-test-askui.com';
 
-/** *
- * This file is oriented by the integration tests of hpagent: https://github.com/delvedor/hpagent/blob/main/test/utils.js
- */
 export function addBasicAuthentication(
   httpProxy: http.Server,
-  credentails = { username: 'username', password: 'password' },
+  credentials = { username: 'username', password: 'password' },
 ): http.Server {
-  // See proxy auth coder here: https://github.com/TooTallNate/proxy/blob/d677ef31fd4ca9f7e868b34c18b9cb22b0ff69da/proxy.js#L118
+  // See proxy auth coder here:
+  // https://github.com/TooTallNate/proxy/blob/d677ef31fd4ca9f7e868b34c18b9cb22b0ff69da/proxy.js#L118
   // eslint-disable-next-line no-param-reassign
   (httpProxy as BasicAuthProxyServer).authenticate = (
     req: IncomingMessage,
@@ -33,7 +37,7 @@ export function addBasicAuthentication(
     const username = parts.shift();
     const password = parts.join(':');
 
-    if (!(username === credentails.username && password === credentails.password)) {
+    if (!(username === credentials.username && password === credentials.password)) {
       authCallback(undefined, false);
       return;
     }
