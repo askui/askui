@@ -2,8 +2,12 @@ import got, { Got } from 'got';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import { Server } from 'http';
 import {
-  addBasicAuthentication, buildProxy, buildSecureServer, buildSecureProxy,
-  SERVER_HOSTNAME, PROXY_HOSTNAME,
+  addBasicAuthentication,
+  buildProxy,
+  buildSecureServer,
+  buildSecureProxy,
+  SERVER_HOSTNAME,
+  PROXY_HOSTNAME,
 } from '../../../test/proxy/proxy-utils';
 
 describe('proxy and hpagent', () => {
@@ -25,7 +29,6 @@ describe('proxy and hpagent', () => {
             proxy: 'http://localhost:3128',
           }),
         },
-
       });
     });
 
@@ -34,7 +37,9 @@ describe('proxy and hpagent', () => {
     });
 
     it('should tunnel https connection over http proxy with valid certificate', async () => {
-      const response = await askuiGot.get('https://www.google.com', { retry: 0 });
+      const response = await askuiGot.get('https://www.google.com', {
+        retry: 0,
+      });
 
       expect(response.statusCode).toBe(200);
     });
@@ -133,7 +138,9 @@ describe('proxy and hpagent', () => {
             keepAlive: false,
             proxy: 'http://localhost:3128',
             proxyRequestOptions: {
-              headers: { 'proxy-authorization': 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=' },
+              headers: {
+                'proxy-authorization': 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=',
+              },
             },
           }),
         },

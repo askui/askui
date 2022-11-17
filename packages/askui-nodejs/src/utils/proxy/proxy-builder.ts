@@ -1,24 +1,23 @@
 import { logger } from '../../lib/logger';
-import { ProxyAgentsArgs } from '../../shared/proxy-agent-args';
+import { ProxyAgentArgs } from '../../shared/proxy-agent-args';
 
-export class ProxyImportError extends Error {
-}
+export class ProxyImportError extends Error { }
 
 async function dynmicImportHpagent() {
   try {
     // eslint-disable-next-line import/no-extraneous-dependencies
     return await import('hpagent');
   } catch (err: unknown) {
-    throw new ProxyImportError('Can\'t import hpagent to configure proxy! Please install hpagent for proxy support with "npm i hpagent"');
+    throw new ProxyImportError('Can\'t find "hpagent" module to configure proxy! Please, install hpagent for proxy support with "npm install --save-dev hpagent".');
   }
 }
 
-export async function buildProxyAgentsArgsFromEnvironment(): Promise<ProxyAgentsArgs | undefined> {
-  const httpProxyUrl = process.env['HTTP_PROXY'] || process.env['http_proxy'] || undefined;
-  const httpsProxyUrl = process.env['HTTPS_PROXY'] || process.env['https_proxy'] || undefined;
+export async function buildProxyAgentArgsFromEnvironment(): Promise<ProxyAgentArgs | undefined> {
+  const httpProxyUrl = process.env['HTTP_PROXY'];
+  const httpsProxyUrl = process.env['HTTPS_PROXY'];
 
-  if (!(httpProxyUrl || httpsProxyUrl)) {
-    logger.debug('No proxy defined! "HTTPS_PROXY", "https_proxy", "HTTP_PROXY" and "http_proxy" environment variables are empty!');
+  if (httpProxyUrl === undefined && httpsProxyUrl === undefined) {
+    logger.debug('No proxy defined. "HTTPS_PROXY" and "HTTP_PROXY" environment variables are empty.');
     return undefined;
   }
 
