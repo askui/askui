@@ -1,11 +1,14 @@
 import fs from 'fs';
-import http from 'http';
+import http, { IncomingMessage } from 'http';
 import https from 'https';
 import { join } from 'path';
 import dns, { LookupOneOptions } from 'dns';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const proxy = require('proxy');
+
+type BasicAuthProxyServer = http.Server & { authenticate: (req: IncomingMessage,
+  authCallback: (err: unknown, isAuth: boolean) => void) => void };
 
 export const PROXY_HOSTNAME = 'proxy.proxy-unit-test-askui.com';
 export const SERVER_HOSTNAME = 'server.proxy-unit-test-askui.com';
@@ -17,8 +20,12 @@ export function addBasicAuthentication(
   httpProxy: http.Server,
   credentails = { username: 'username', password: 'password' },
 ): http.Server {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-param-reassign
-  (httpProxy as any).authenticate = (req: any, callback: any) => {
+  // See proxy auth coder here: https://github.com/TooTallNate/proxy/blob/d677ef31fd4ca9f7e868b34c18b9cb22b0ff69da/proxy.js#L118
+  // eslint-disable-next-line no-param-reassign
+  (httpProxy as BasicAuthProxyServer).authenticate = (
+    req: IncomingMessage,
+    authCallback: (err: unknown, isAuth: boolean) => void,
+  ) => {
     const header = req.headers['proxy-authorization'] || '';
     const token = header.split(/\s+/).pop() || '';
     const auth = Buffer.from(token, 'base64').toString();
@@ -27,15 +34,15 @@ export function addBasicAuthentication(
     const password = parts.join(':');
 
     if (!(username === credentails.username && password === credentails.password)) {
-      callback(null, false);
+      authCallback(undefined, false);
       return;
     }
-    callback(null, true);
+    authCallback(undefined, true);
   };
   return httpProxy;
 }
 
-export async function buildProxy(port = 8009): Promise<http.Server> {
+export async function buildProxy(port = 3128): Promise<http.Server> {
   return new Promise<http.Server>((resolve, _reject) => {
     const httpProxy = proxy(http.createServer().listen(port, () => {
       resolve(httpProxy);

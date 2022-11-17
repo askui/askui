@@ -18,13 +18,7 @@ export class HttpClientGot {
     readonly proxyAgents?: { http: http.Agent, https: https.Agent },
   ) {
     this.initHeaders(token, customHeaders);
-
-    let options = {};
-    if (proxyAgents) {
-      const agents = { http: proxyAgents.http, https: proxyAgents.https };
-      options = { ...options, agent: agents };
-    }
-    this.askuiGot = got.extend(options);
+    this.askuiGot = got.extend(proxyAgents ? { agent: proxyAgents } : {});
   }
 
   private initHeaders(token?: string, customHeaders: Record<string, string> = {}) {

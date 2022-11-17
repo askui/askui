@@ -18,11 +18,11 @@ describe('proxy and hpagent', () => {
         agent: {
           http: new HttpProxyAgent({
             keepAlive: false,
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
           }),
           https: new HttpsProxyAgent({
             keepAlive: false,
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
           }),
         },
 
@@ -56,7 +56,7 @@ describe('proxy and hpagent', () => {
           https: new HttpsProxyAgent({
             keepAlive: false,
             scheduling: 'lifo',
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
           }),
         },
       });
@@ -73,7 +73,7 @@ describe('proxy and hpagent', () => {
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
           }),
         },
       });
@@ -89,7 +89,7 @@ describe('proxy and hpagent', () => {
         agent: {
           http: new HttpProxyAgent({
             keepAlive: false,
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
           }),
         },
       });
@@ -115,7 +115,7 @@ describe('proxy and hpagent', () => {
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
-            proxy: 'http://username:password@localhost:8009',
+            proxy: 'http://username:password@localhost:3128',
           }),
         },
       });
@@ -131,7 +131,7 @@ describe('proxy and hpagent', () => {
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
-            proxy: 'http://localhost:8009',
+            proxy: 'http://localhost:3128',
             proxyRequestOptions: {
               headers: { 'proxy-authorization': 'Basic dXNlcm5hbWU6cGFzc3dvcmQ=' },
             },

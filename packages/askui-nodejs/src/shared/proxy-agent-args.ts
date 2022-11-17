@@ -2,10 +2,10 @@ import http from 'http';
 import https from 'https';
 
 /**
- * Proxy agent configuration for https requests
+ * Proxy agent configuration for HTTP(S) requests
  *
  * All modules which inheritate from the http(s).Agent can be used.
- * We recomment to use [hpagent](https://github.com/delvedore/hpagent)
+ * We recomment to use [hpagent](https://github.com/delvedore/hpagent).
  *
  * Installation:
  * ```bash
@@ -16,17 +16,15 @@ import https from 'https';
  * ```typescript
  *  const proxyUrl = "http://your-proxy:8021"
  *
- *  aui = await UiControlClient.build({
- *                    ...,
- *                    proxyAgents: {
- *                      http: new HttpProxyAgent({
- *                                  proxy: proxyUrl
- *                          }),
- *                      https: new HttpsProxyAgent({
- *                                  proxy: proxyUrl
- *                          }),
- *                    }
- *
+ *  const aui = await UiControlClient.build({
+ *      proxyAgents: {
+ *          http: new HttpProxyAgent({
+ *              proxy: proxyUrl,
+ *          }),
+ *          https: new HttpsProxyAgent({
+ *               proxy: proxyUrl,
+ *          }),
+ *  })
  *
  * ```
  *

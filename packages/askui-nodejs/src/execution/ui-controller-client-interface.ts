@@ -16,7 +16,7 @@ import { ProxyAgentsArgs } from '../shared/proxy-agent-args';
  * @param {CredentialArgs} credentials - We need to provide credentials for
  * the authentication of the askui Inference Server.
  * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
- * @param {ProxyAgentsArgs} proxyAgents - To configure the  proxy for our http(s) requests.
+ * @param {ProxyAgentsArgs} proxyAgents - To configure the proxy agents for http(s) requests.
  */
 export interface ClientArgs {
   readonly uiControllerUrl?: string,

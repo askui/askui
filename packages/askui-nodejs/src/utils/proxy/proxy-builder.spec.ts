@@ -28,7 +28,7 @@ describe('proxy builder', () => {
   });
 
   it('should build https and http proxy agent when http_proxy url is set', async () => {
-    const expectedProxyUrl = 'http://localhost:8009';
+    const expectedProxyUrl = 'http://localhost:3128';
     process.env['HTTP_PROXY'] = expectedProxyUrl;
 
     const proxyAgentArgs = castToHpagent(await buildProxyAgentsArgsFromEnvironment());
@@ -38,7 +38,7 @@ describe('proxy builder', () => {
   });
 
   it('should build https and http proxy agent when https_proxy url is set', async () => {
-    const expectedProxyUrl = 'https://localhost:8009';
+    const expectedProxyUrl = 'https://localhost:3129';
     process.env['HTTPS_PROXY'] = expectedProxyUrl;
 
     const proxyAgentArgs = castToHpagent(await buildProxyAgentsArgsFromEnvironment());
@@ -48,8 +48,8 @@ describe('proxy builder', () => {
   });
 
   it('should build https and http proxy agent when http_proxy and https_proxy url is set', async () => {
-    const expectedHttpProxyUrl = 'http://localhost:8009';
-    const expectedHttpsProxyUrl = 'https://localhost:8009';
+    const expectedHttpProxyUrl = 'http://localhost:3128';
+    const expectedHttpsProxyUrl = 'https://localhost:3129';
     process.env['HTTP_PROXY'] = expectedHttpProxyUrl;
     process.env['HTTPS_PROXY'] = expectedHttpsProxyUrl;
 
@@ -60,7 +60,7 @@ describe('proxy builder', () => {
   });
 
   it('should throw ProxyImportError when hpagent isn\'t installed', async () => {
-    process.env['HTTP_PROXY'] = 'http://localhost:8009';
+    process.env['HTTP_PROXY'] = 'http://localhost:3128';
     jest.mock('hpagent', () => { throw new Error(); });
 
     await expect(() => buildProxyAgentsArgsFromEnvironment()).rejects
