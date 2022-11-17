@@ -32,8 +32,10 @@ import https from 'https';
  *
  * @param {http.Agent} http - Agent for http requests
  * @param {https.Agent} https - Agent for https requests
+ * @param {https.Agent} https - Agent for https requests
  ** */
 export interface ProxyAgentsArgs {
   http: http.Agent,
   https: https.Agent,
+  no_proxy?: string
 }

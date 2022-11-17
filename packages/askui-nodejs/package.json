@@ -39,7 +39,7 @@
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
-        "test": "NODE_EXTRA_CA_CERTS='src/utils/proxy/certs/unit_test.pem' jest '/src'",
+        "test": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\""
     },
     "files": [

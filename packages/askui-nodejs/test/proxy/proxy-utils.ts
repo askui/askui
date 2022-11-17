@@ -4,6 +4,7 @@ import https from 'https';
 import { join } from 'path';
 import dns, { LookupOneOptions } from 'dns';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const proxy = require('proxy');
 
 export const PROXY_HOSTNAME = 'proxy.proxy-unit-test-askui.com';
@@ -12,21 +13,24 @@ export const SERVER_HOSTNAME = 'server.proxy-unit-test-askui.com';
 /** *
  * This file is oriented by the integration tests of hpagent: https://github.com/delvedor/hpagent/blob/main/test/utils.js
  */
-export function addBasicAuthentication(httpProxy: http.Server): http.Server {
+export function addBasicAuthentication(
+  httpProxy: http.Server,
+  credentails = { username: 'username', password: 'password' },
+): http.Server {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-param-reassign
-  (httpProxy as any).authenticate = (req: any, fn: any) => {
-    const header = req.headers['proxy-authorization'] || ''; // get the auth header
-    const token = header.split(/\s+/).pop() || ''; // and the encoded auth token
-    const auth = Buffer.from(token, 'base64').toString(); // convert from base64
-    const parts = auth.split(/:/); // split on colon
-    const username = parts.shift(); // username is first
+  (httpProxy as any).authenticate = (req: any, callback: any) => {
+    const header = req.headers['proxy-authorization'] || '';
+    const token = header.split(/\s+/).pop() || '';
+    const auth = Buffer.from(token, 'base64').toString();
+    const parts = auth.split(/:/);
+    const username = parts.shift();
     const password = parts.join(':');
 
-    if (!(username === 'username' && password === 'password')) {
-      fn(null, false);
+    if (!(username === credentails.username && password === credentails.password)) {
+      callback(null, false);
       return;
     }
-    fn(null, true);
+    callback(null, true);
   };
   return httpProxy;
 }
@@ -81,7 +85,6 @@ export const sslServer = {
  * to resolve to 127.0.0.1. This allows us to use the self signed certs we made for the fake
  * domains to be verified, and then the connection made to localhost.
  */
-
 const originalDnsLookup = dns.lookup;
 dns.lookup = (((
   hostname: string,

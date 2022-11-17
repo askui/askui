@@ -4,7 +4,7 @@ import http from 'http';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import { AddressInfo } from 'ws';
 import { HttpClientGot } from '../http/http-client-got';
-import { buildProxy, buildSecureServer, SERVER_HOSTNAME } from './proxy-utils';
+import { buildProxy, buildSecureServer, SERVER_HOSTNAME } from '../../../test/proxy/proxy-utils';
 
 describe('HttpClient proxy', () => {
   let httpClient: HttpClientGot;

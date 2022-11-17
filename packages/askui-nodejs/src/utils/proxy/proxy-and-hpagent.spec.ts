@@ -4,7 +4,7 @@ import { Server } from 'http';
 import {
   addBasicAuthentication, buildProxy, buildSecureServer, buildSecureProxy,
   SERVER_HOSTNAME, PROXY_HOSTNAME,
-} from './proxy-utils';
+} from '../../../test/proxy/proxy-utils';
 
 describe('proxy and hpagent', () => {
   let httpProxy: Server;

@@ -2,7 +2,19 @@
 
 In enterprises, proxies are standard to secure and control the network. Our library uses  [hpagent](https://github.com/delvedor/hpagent) to provide http(s) proxy functionality, but all other [http.Agent](https://nodejs.org/api/http.html#class-httpagent) and [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) should work.
 
-## Http(s) proxy with hpagent
+## Automatic http(s) proxy detection
+
+Our libray is detecting http(s) proxy automatically when one of the following environment variables are detected: "HTTP_PROXY", "HTTPS_PROXY", "http_proxy" or "https_proxy".
+
+You need only to install [hpagent](https://github.com/delvedor/hpagent) with following command:
+```bash
+npm i --save hpagent 
+```
+
+If this is not working properly, please set the proxy url manually.
+
+
+## Manual http(s) proxy setup
 
 [hpagent](https://github.com/delvedor/hpagent) is an open source package which provides http(s) proxies that keeps collections alive.
 
@@ -46,7 +58,7 @@ beforeAll(async () => {
 })
 ```
 
-Here are example for the `proxyUrl` (for more details see [docs from hpagent](https://github.com/delvedor/hpagent#usage))
+Here are some example for the `proxyUrl` (for more details see [docs from hpagent](https://github.com/delvedor/hpagent#usage))
 
 | Proxy Type | Url | Description | 
 | --- | --- | --- | 
@@ -60,9 +72,9 @@ Here are example for the `proxyUrl` (for more details see [docs from hpagent](ht
 ## Deep Package Inspection
 
 Company proxies, like [zscalar](https://www.zscaler.com/resources/security-terms-glossary/what-is-cloud-proxy), are using [deep package inspection](https://en.wikipedia.org/wiki/Deep_packet_inspection) to analyse the internet traffic.
-Such proxies are adding self signed certificates to the https request to break up the TLS connection.
+Such proxies are adding self-signed certificates to the https request to break up the TLS connection.
 
-This can result in following error messages:
+This can result in the following error messages:
 ```
  RequestError: self signed certificate
 ```
@@ -86,11 +98,12 @@ export NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
 
-### Add Self Signed Certificate as Extra CA Certs (RECOMMENDED)
+### Add Self-Signed Certificate as Extra CA Certs (RECOMMENDED)
 
-The other option is to add the self signed certificate as [extra certificates for nodejs](https://nodejs.org/api/cli.html#node_extra_ca_certsfile). 
+The other option is to add the self-signed certificate as [extra certificates for nodejs](https://nodejs.org/api/cli.html#node_extra_ca_certsfile). 
 
-First get the certificate and convert it to a `.pem` file.
+First get the certificate and convert it to a `.pem` file. 
+1. [Export .pem certificate with chrome](https://superuser.com/a/1292098)
 
 Then set the `NODE_EXTRA_CA_CERTS` with the following commands:
 
