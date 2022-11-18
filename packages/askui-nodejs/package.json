@@ -39,7 +39,7 @@
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
-        "test": "jest '/src'",
+        "test": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\""
     },
     "files": [
@@ -73,7 +73,10 @@
         "@types/url-join": "4.0.1",
         "@types/webrtc": "0.0.30",
         "@types/ws": "7.4.4",
+        "hpagent": "^1.2.0",
         "jest": "28.1.1",
+        "proxy": "^1.0.2",
+        "proxy-agent": "^5.0.0",
         "sharp": "0.30.6",
         "shx": "0.3.4",
         "ts-jest": "28.0.4",

@@ -139,3 +139,10 @@ android-sdk-tools
 adb
 ADB
 teststep
+hpagent
+Auth
+HTTP
+HTTPS
+TLS
+Zscalar
+Node.js

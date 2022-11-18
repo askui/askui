@@ -25,11 +25,11 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  aui.close();
+
   if (!(process.env.CI_JOB_ID)) {
     await uiController.stop();
   }
-
-  aui.close();
 });
 
 export { aui };

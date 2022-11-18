@@ -2,6 +2,8 @@ import fs from 'fs';
 import got from 'got';
 import os from 'os';
 import path from 'path';
+import http from 'http';
+import https from 'https';
 import { getPathToNodeModulesRoot } from '../utils/path';
 import { logger } from './logger';
 
@@ -43,7 +45,10 @@ function getBinaryDownloadUrl(binaryVersion: string): string {
   return `${baseUrl}/${platform()}/${arch}/${binarySubPathsByPlatform[platform()][1]}`;
 }
 
-export function downloadServerBinaries(binaryVersion: string): Promise<void> {
+export function downloadServerBinaries(
+  binaryVersion: string,
+  proxyAgent?: { http: http.Agent, https: https.Agent },
+): Promise<void> {
   return new Promise((resolve, reject) => {
     const url = getBinaryDownloadUrl(binaryVersion);
     const binaryOutputPath = getBinaryPath(binaryVersion);
@@ -53,7 +58,7 @@ export function downloadServerBinaries(binaryVersion: string): Promise<void> {
       fs.mkdirSync(binaryFolder, { recursive: true });
     }
 
-    const downloadStream = got.stream(url);
+    const downloadStream = got.stream(url, proxyAgent ? { agent: proxyAgent } : {});
     const fileWriterStream = fs.createWriteStream(binaryOutputPath);
     downloadStream.on('error', () => {
       reject();

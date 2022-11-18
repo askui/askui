@@ -1,5 +1,7 @@
-import got, { OptionsOfJSONResponseBody } from 'got';
+import got, { Got, OptionsOfJSONResponseBody } from 'got';
 import { CookieJar } from 'tough-cookie';
+import http from 'http';
+import https from 'https';
 import { logger } from '../../lib';
 import { Credentials } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
@@ -7,12 +9,16 @@ import { httpClientErrorHandler } from './custom-errors';
 export class HttpClientGot {
   private headers: Record<string, string> = {};
 
+  private askuiGot: Got;
+
   constructor(
     readonly token?: string,
     readonly customHeaders?: Record<string, string>,
     private readonly cookies: Record<string, string> = {},
+    readonly proxyAgents?: { http: http.Agent, https: https.Agent },
   ) {
     this.initHeaders(token, customHeaders);
+    this.askuiGot = got.extend(proxyAgents ? { agent: proxyAgents } : {});
   }
 
   private initHeaders(token?: string, customHeaders: Record<string, string> = {}) {
@@ -33,7 +39,7 @@ export class HttpClientGot {
 
   async post<T>(url: string, data: Record<string | number | symbol, unknown>): Promise<T> {
     const options = this.injectHeadersAndCookies(url, { json: data, responseType: 'json', throwHttpErrors: false });
-    const { body, statusCode, headers } = await got.post<T>(url, options);
+    const { body, statusCode, headers } = await this.askuiGot.post<T>(url, options);
     if (headers['deprecation'] !== undefined) {
       logger.warn(headers['deprecation']);
     }
@@ -47,7 +53,7 @@ export class HttpClientGot {
   }
 
   async get<T>(url: string, options: OptionsOfJSONResponseBody = { responseType: 'json' }): Promise<T> {
-    const response = await got.get<T>(url, this.injectHeadersAndCookies(url, options));
+    const response = await this.askuiGot.get<T>(url, this.injectHeadersAndCookies(url, options));
     return response.body;
   }
 }

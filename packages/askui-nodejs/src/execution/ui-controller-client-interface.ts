@@ -1,5 +1,6 @@
 import { AnnotationLevel } from './annotation-level';
 import { CredentialArgs } from './credentials-args';
+import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 
 /**
  * Configuration options for the askui UI Control Client
@@ -14,12 +15,15 @@ import { CredentialArgs } from './credentials-args';
  * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
  * @param {CredentialArgs} credentials - We need to provide credentials for
  * the authentication of the askui Inference Server.
+ * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
+ * @param {ProxyAgentArgs} proxyAgents - To configure the proxy agents for http(s) requests.
  */
 export interface ClientArgs {
   readonly uiControllerUrl?: string,
   readonly inferenceServerUrl?: string,
   readonly annotationLevel?: AnnotationLevel,
-  readonly credentials?: CredentialArgs
+  readonly credentials?: CredentialArgs,
+  readonly proxyAgents?: ProxyAgentArgs
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {

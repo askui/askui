@@ -18,6 +18,7 @@ import { UiControlClientError } from './ui-control-client-error';
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
+import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
 
 const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
   uiControllerUrl: 'http://127.0.0.1:6769',
@@ -43,10 +44,12 @@ export class UiControlClient extends ApiCommands {
     const analyticsCookies = await analytics.getAnalyticsCookies();
     const cas = getClientArgsWithDefaults(clientArgs);
     const credentialArgs = cas.credentials || envCredentials();
+    const proxyAgentArgs = cas.proxyAgents || await buildProxyAgentArgsFromEnvironment();
     const httpClient = new HttpClientGot(
       credentialArgs?.token,
       analyticsHeaders,
       analyticsCookies,
+      proxyAgentArgs,
     );
     return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }
