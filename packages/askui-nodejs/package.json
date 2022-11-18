@@ -61,7 +61,7 @@
         "tough-cookie": "4.1.2",
         "url-join": "4.0.1",
         "wait-port": "0.2.9",
-        "ws": "7.4.4",
+        "ws": "7.4.6",
         "yup": "0.32.11"
     },
     "devDependencies": {
