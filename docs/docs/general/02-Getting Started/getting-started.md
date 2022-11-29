@@ -14,15 +14,23 @@ sidebar_position: 2
 
 :::
 
+## macOS
+
+:::danger
+
+Some users have reported instability running automation on macOS with external displays and/or virtual desktops. If you experience similar issues, please disconnect external displays and close virtual desktops, or see documentation on running tests in Docker here.
+
+:::
+
 ## Installation
 
-Open a directory where you would like to place the tests. If you have no npm project set up inside that directory, you can set one up by running:
+Open a directory where you would like to place the automation. If you haven’t already, set up an NPM project by running:
 
 ```shell
-npm init
+npm init -y
 ```
 
-This is going to create a `package.json` file inside your present working directory which contains the configuration of your project including a description of its dependencies.
+This will create a `package.json` file inside your present working directory which contains the configuration of your project including a description of its dependencies.
 
 Install `askui` and other dependencies for writing and executing tests:
 
@@ -42,12 +50,8 @@ npm i -D askui typescript ts-node @types/jest ts-jest jest
 
 </details>
 
-If you don't like Jest, feel free to use another test framework, e.g., [Jasmine](https://jasmine.github.io/) or [Mocha](https://mochajs.org/).
-
-Now, we are ready to write our first test.
-
 ## Access Token
 
-Currently, you can use our lib without any configuration. But in the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.askui.com/) (still, totally free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+Currently, you can use our lib without any configuration. In the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
 
-Please see [our documentation on how to signup and create the credentials](../08-askui%20User%20Portal/signup.md).
+Please see [our documentation on how to signup and create the credentials](https://docs.askui.com/docs/general/askui%20User%20Portal/signup).

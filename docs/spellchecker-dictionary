@@ -5,6 +5,7 @@ UI
 UIs
 Wayland
 npm
+NPM
 REPL
 ESM
 Quickstart
@@ -147,3 +148,6 @@ TLS
 Zscalar
 Node.js
 px
+gif
+Gif
+automations
