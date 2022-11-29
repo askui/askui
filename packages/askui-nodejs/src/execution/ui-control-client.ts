@@ -67,6 +67,7 @@ export class UiControlClient extends ApiCommands {
     return new InferenceClient(
       this.clientArgs.inferenceServerUrl,
       this.httpClient,
+      this.clientArgs.resize,
       this.workspaceId,
     );
   }
