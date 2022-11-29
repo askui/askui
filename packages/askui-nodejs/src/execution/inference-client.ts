@@ -22,7 +22,7 @@ export class InferenceClient {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
     this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
     if (this.resize !== undefined && this.resize <= 0) {
-      throw new ConfigurationError(`Resize must be a postive number. the current resize value "${this.resize}" is not valid.`);
+      throw new ConfigurationError(`Resize must be a positive number. The current resize value "${this.resize}" is not valid.`);
     }
     this.resize = this.resize ? Math.ceil(this.resize) : this.resize;
   }

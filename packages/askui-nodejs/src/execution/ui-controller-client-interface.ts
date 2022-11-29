@@ -9,7 +9,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
  * The adress of the askui UI Controller server.
  * @param {(number | undefined)} resize - Default: undefined
  * The resizing will be skipped if it's undefined.
- * The Side length of the target image to resize to in px.
+ * The side length of the target image to resize to in px.
  * Your screenshot image will be resized with the original aspect ratio,
  *  and the lengths image side will be equal to this number.
  * This can be used to reduce the inference time by reducing
