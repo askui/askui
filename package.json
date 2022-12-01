@@ -2,7 +2,7 @@
     "name": "askui",
     "license": "MIT",
     "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology you are running on",
     "workspaces": [
         "./docs",
