@@ -51,14 +51,16 @@ If you have any issues while setting up **askui**, you can have a look at the mo
 
 **Configure askui for Android**
 
-We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of askui(ver. 0.5) doesn't provide the API for running it with the runtime option yet.
+We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of askui(ver. 0.5) doesn't provide the API for running it with the runtime option yet:
 
 ```bash
+# first, go to the folder that contains the binary
 cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFORM>
-./askui-ui-controller -r android
 
 # for example, Mac OS
 cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/
+
+# then run it
 ./askui-ui-controller -r android
 
 # If you can't find the binary as described above,
@@ -68,7 +70,12 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 ```
 
-Thereafter, we have to change a few lines of the generated test code, as the code ships with the part that creates another **UiController** instance.
+If the UiController starts to run, it will display the log of it on the shell. We can leave it on the background, and prepare a new terminal window for the next step.
+
+💡*If you got any errors after running the binary, please check if your android device/emulator is properly connected and recognized by `adb` by using this command: `adb devices`. You should see a list of recognized devices.*
+
+
+For the next, we have to change a few lines of the generated test code, as the code ships with the part that creates another **UiController** instance.
 
 Go to `helper/jest.setup.ts` and comment out every line that is using `uiController`:
 
