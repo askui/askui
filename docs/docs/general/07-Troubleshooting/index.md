@@ -9,6 +9,7 @@ challenge after you have read through the pages, please drop us a note. We are h
 * [Linux](linux.md)
 * [macOS](mac-os.md)
 * [proxy](proxy.md)
+* [Jest](jest.md)
 
 # Support
 
