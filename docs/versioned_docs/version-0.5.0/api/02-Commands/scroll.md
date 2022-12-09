@@ -11,7 +11,7 @@ Scrolls based on the current mouse position in the x and y direction.
 
 **Example:**
 ```typescript 
-// Scoll 10 up in y direction
+// Scroll 10 up in y direction
 await aui.scroll(0, 10).exec()
 ```
 
