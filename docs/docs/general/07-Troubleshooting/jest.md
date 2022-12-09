@@ -16,14 +16,7 @@ As described in the error message Jest has problems to stop because of some proc
 This can cause problems in your CI/CD pipeline because your pipeline can't continue after 
 getting this error.
 
-One solution could be forcing the askui Controller to stop. This can be done by passing `true` to
-the stop method:
-
-```typescript
-await uiController.stop(true);
-```
-
-Another solution is to force Jest to stop. For this case Jest provides the `--forceExit` flag: 
+A solution is to force Jest to stop. For this case Jest provides the `--forceExit` flag: 
 
 ```shell
 npx jest --config ./test/jest.config.ts --forceExit
