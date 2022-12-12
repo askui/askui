@@ -19,4 +19,4 @@ Filters for an element below another element.
 // Returns no element because text is above button
 ...text().below().button()
 ```
-
+![](/img/gif/below.gif)

@@ -20,4 +20,4 @@ Filters for an element containing another element.
 //  Returns no element because innerEl contains no outerEl
 ...innerEl().contains().outerEl()
 ```
-
+![](/img/gif/contains.gif)
