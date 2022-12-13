@@ -1,15 +1,14 @@
 # Windows
 
-## askui Controller 
+## askui UI Controller 
 
-On windows the problem occurs that the askui Controller doesn't terminate after test execution.
-Jest can't execute if processes are still running. If you are using askui in a CI/CD pipeline
-this can prevent the pipeline to proceed.
-[Here](jest.md) is already a possible solution where you force Jest to exit.
+On Windows, the askui UI Controller may not terminate after test execution. This may lead to problems when using the askui UI Controller in a pipeline like a pipeline's run not coming to an end. There are two ways to deal with this issue:
 
-But you could also try to stop the askui Controller. This can be done by passing `true` to
-the stop method:
+- you can force Jest to exit as described on our [Jest-Troubleshooting page](jest.md)
+
+- try to stop the askui UI Controller. The stop method of the class `UiController` has an optional `forceStop` parameter. If we pass `true` to the stop method we kill the process of the askui UI Controller port and force a termination.
 
 ```typescript
 await uiController.stop(true);
 ```
+ 

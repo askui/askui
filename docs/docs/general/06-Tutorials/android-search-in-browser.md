@@ -169,7 +169,7 @@ What we're gonna do is:
 
 **(3) Select the icon above the text 'chrome'**
 
-This approach will give us a more consistent result because typing chrome in the search bar will give us a more clearly understandable visual element.
+This approach will give us a more consistent result because typing "chrome" in the search bar will give us a more understandable visual element.
 
 Try to change your code according to this:
 

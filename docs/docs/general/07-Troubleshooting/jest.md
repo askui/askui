@@ -2,7 +2,7 @@
 
 ## Termination Error
 
-Jest sometimes has problems to terminate correctly. If this happens, you can see following error message:
+Jest sometimes has problems terminating correctly. If this happens, you can see the following error message:
 
 ```shell
 Jest did not exit one second after the test run has completed.
@@ -12,7 +12,7 @@ that weren't stopped in your tests.
 Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
 ```
 
-As described in the error message Jest has problems to stop because of some processes which are still running.
+As described in the error message Jest has problems stopping because of some processes which are still running.
 This can cause problems in your CI/CD pipeline because your pipeline can't continue after 
 getting this error.
 
