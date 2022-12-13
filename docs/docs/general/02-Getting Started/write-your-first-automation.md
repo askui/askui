@@ -38,9 +38,9 @@ npx askui init
 
 ### Configuration
 
-Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!). Please see the [documentation](https://docs.askui.com/docs/general/askui%20User%20Portal/signup) on signing up and generating credentials.
+Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!). Please see the [documentation](../08-askui%20User%20Portal/signup.md) on signing up and generating credentials.
 
-Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the _UiControlClient_.
+Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
 ```typescript
  aui = await UiControlClient.build({
@@ -56,10 +56,28 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
 ### Run
 
 :::info
-Before executing the automation, open `test/my-first-askui-test-suite.test.ts` on your main display. This file contains the text on **line 12** for which the AI will search.
+Before executing the automation, open `test/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below. It contains the text on **line 12** for which the AI will search.
 
-Some users have reported instability running automation on macOS with external displays and/or virtual desktops. If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running automation in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running automation on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running automation in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 :::
+
+```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+import { aui } from './helper/jest.setup';
+
+describe('jest with askui', () => {
+  it('should click on text', async () => {
+    // Run this to see what askui annotates
+    await aui.annotateInteractively();
+
+    await aui.moveMouse(0, 0).exec();
+    await aui
+      .click()
+      .text()
+      .withText('Click on this text right here!')
+      .exec();
+  });
+});
+```
 
 To execute the automation suite, enter
 
@@ -69,7 +87,7 @@ npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 
 You should now see the automation suite being executed inside the shell and the following things happening on your main display:
 
-1. **Line 6**: Show an interactive annotated version of your main display with red bounding boxes around the annotated elements. When you press `ESC` on your keyboard the automation will resume.
+1. **Line 6**: Show an interactively annotated version of your main display with red bounding boxes around the annotated elements. When you press `ESC` on your keyboard the automation will resume.
 
 <details>
   <summary>What is Interactive Annotation?</summary>
@@ -77,7 +95,7 @@ The interactive annotation command requests the askui server to take a screensho
 </details>
 
 2. **Line 8**: Your mouse pointer moves to the upper left corner of your main display.
-3. **Line 9**: Your mouse pointer comes back to click on the text `Click on this text right here!` in your automation file.
+3. **Line 12**: Your mouse pointer comes back to click on the text `Click on this text right here!` in your automation file.
 
 This is what it should look like on your display:
 

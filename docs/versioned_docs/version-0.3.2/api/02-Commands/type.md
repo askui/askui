@@ -4,7 +4,7 @@ displayed_sidebar: apiSidebar
 # type
 
 Types a text at the current position.
-If you need to focus the element first, use typeIn()
+If you need to focus the element first, use `typeIn()`.
 
 By default, the `text` is included in the logs and sent over to the askui Inference server to
 predict in which context the typing has to occur. You can exclude the `text` from the logs

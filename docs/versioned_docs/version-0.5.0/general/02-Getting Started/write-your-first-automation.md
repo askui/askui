@@ -2,30 +2,45 @@
 sidebar_position: 3
 ---
 
-# Writing Your First Test
+# Write Your First Automation
+
+:::tip
+What you will learn
+
+- Initialize your first automation suite
+- Configure your credentials (workspace id and access token)
+- Understand the generated automation case
+- Run your first automation
+- Troubleshooting any issues
+- Where to go next
+:::
 
 ## Quickstart
 
-To create your first test suite, enter
+## Initialization
+
+To create your first automation suite, enter
 
 ```shell
 npx askui init
 ```
 
-This is going to create
+<details>
+  <summary>This will create</summary>
 
-- a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
-- a folder called `test` which includes:
-  - `test/my-first-askui-test-suite.test.ts`: an example test with askui,
-  - a folder `helper` which contains `jest.setup.ts` file: this file is setting up the test environment for all tests
-  - a `jest.config.ts`: file for configuration of Jest,
+-   a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
+-   a folder called `test` which includes:
+    -   `test/my-first-askui-test-suite.test.ts`: an example test with askui,
+    -   a folder called `helper` which contains the `jest.setup.ts` file for setting up the test environment
+    -   a `jest.config.ts` configuration file
+
+</details>
 
 ### Configuration
 
-We need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (usage is free!).
-Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
+Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!). Please see the [documentation](../08-askui%20User%20Portal/signup.md) on signing up and generating credentials.
 
-Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the _UiControlClient_.
+Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
 ```typescript
  aui = await UiControlClient.build({
@@ -36,119 +51,71 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
   });
 ```
 
-### Run
+### Understand the Generated Code
 
-To execute the test suite, enter
+#### Run
 
-```shell
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
-```
+:::info
+Before executing the automation, open `test/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below. It contains the text on **line 12** for which the AI will search.
 
-You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
+Some users have reported instability running automation on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running automation in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+:::
 
-### Troubleshooting
-
-If you are having problems with the test execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md)
-
-## Manual
-
-At the beginning we create a new folder with the name `test`. For the next step we create the `my-first-askui-test-suite.test.ts` file in our `test` folder. It is also possible to create test files in other folders and with other names.
-
-We need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (usage is free!).
-Please see <a href="../askui%20User%20Portal/signup" target="_blank">our documentation on how to signup and create the credentials</a>.
-
-Copy the following over into that file.
-Do not forget to replace your `workspace id` and your `access token` in the _UiControlClient_:
-
-```typescript
-import { UiControlClient, UiController } from 'askui';
+```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
-  
-  // Server for controlling the operating system
-  let uiController: UiController;
-  
-  // Client is necessary to use the askui API
-  let aui: UiControlClient;
-  
-  jest.setTimeout(60 * 1000 * 60);
-  
-  beforeAll(async () => {
-    uiController = new UiController({
-      /**
-       * Select the display you want to run your tests on, display 0 is your main display;
-       * ignore if you have only one display
-       */
-      display: 0,
-    });
-    
-    await uiController.start();
-
-    aui = await UiControlClient.build({
-      credentials: {
-        workspaceId: '<your workspace id>',
-        token: '<your access token>',
-      }
-    });
-    
-    await aui.connect();
-  });
-
   it('should click on text', async () => {
-    await aui 
+    // Run this to see what askui annotates
+    await aui.annotateInteractively();
+
+    await aui.moveMouse(0, 0).exec();
+    await aui
       .click()
       .text()
+      .withText('Click on this text right here!')
       .exec();
-  });
-
-  afterAll(async () => {
-     aui.close();
-     await uiController.stop();
   });
 });
 ```
 
-You also need to create a configuration file for Jest. Therefore you can create a file with the name `jest.config.ts`
-in the `test` folder of your project and copy the following content in this file
-
-```typescript
-
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  setupFilesAfterEnv: ['./helper/jest.setup.ts'],
-  sandboxInjectedGlobals: [
-    'Math'
-  ]
-};
-
-```
-
-You should also add a configuration file for Typescript in your project root folder.
-Create a file with the name `tsconfig.json` and fill in this code:
-
-```json
-{
-    "compilerOptions": {
-      "module": "CommonJS",
-      "esModuleInterop": true,
-      "moduleResolution": "node"
-    }
-  }
-
-```
-
-Now, execute the following command in order to run the test suite:
+To execute the automation suite, enter
 
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
 ```
 
-You can also use `npx jest` to test all your Jest test files and `npx jest <folder name>/` to test all files in a certain folder.
-If your jest config file e.g. `jest.config.ts` is not in your root folder you can use `--config` to specify the location of your config file. In this example the config file is in the `test` folder, that's why we need to provide the location our config file.
+You should now see the automation suite being executed inside the shell and the following things happening on your main display:
 
-You should now see the test suite being executed inside the shell and, actually, your cursor should move to some text shown on your screen and click on that text. :tada: Congratulations! You just executed your first test suite using askui.
+1. **Line 6**: Show an interactively annotated version of your main display with red bounding boxes around the annotated elements. When you press `ESC` on your keyboard the automation will resume.
+
+<details>
+  <summary>What is Interactive Annotation?</summary>
+The interactive annotation command requests the askui server to take a screenshot of the specified screen. Then, an AI model is used to annotate the image. After that, a full-screen window appears. Inside this window, boundary boxes enclosing the UI elements detected are going to appear. You can hover over the boxes to see the boxes' specifications, e.g., text detected, element type etc.
+</details>
+
+2. **Line 8**: Your mouse pointer moves to the upper left corner of your main display.
+3. **Line 12**: Your mouse pointer comes back to click on the text `Click on this text right here!` in your automation file.
+
+This is what it should look like on your display:
+
+![Gif showing first test execution with Visual Studio Code on display.](/img/gif/first_test_execution.gif)
+
+:tada: Congratulations! You just executed your first automation suite using askui.
 
 ### Troubleshooting
 
-If you are having problems with the test execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md)
+For problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
+
+You will find the following pages there:
+
+* [Linux Wayland window manager and libfuse2](../07-Troubleshooting/linux.md)
+* [macOS missing permissions for UiController](../07-Troubleshooting/mac-os.md)
+
+### Where to Go Next?
+
+Writing powerful UI automations with askui needs some practice. We recommend you head over to the [Selecting UI Elements page](../03-Best%20Practice/selecting_ui_elements.mdx) to learn more about how to select elements based on visual properties.
+
+If you are looking for inspiration, the **Tutorials** section will provide you with food for thought. Why not [Search for a Cat Image](../06-Tutorials/google-cat-search.md) as a start?
+
+Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!

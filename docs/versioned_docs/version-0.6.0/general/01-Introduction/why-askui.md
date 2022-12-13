@@ -4,7 +4,15 @@ sidebar_position: 1
 
 # Why askui?
 
-The askui library provides you with an API that allows you to automate the interaction with an application, multiple applications or even an entire operating system (OS). You can use this to write ui, e2e or functional tests.
+The askui library is a Typescript SDK that allows you to automate interactions with a device or even multiple devices. For example, 
+
+- you could write an email inside your favorite note-taking app, then, 
+- copy over the email to your email client running in your web browser to send it, and, then, 
+- head over to your mobile phone to check that the email is inside the `Sent` folder of your email client's installation on your mobile phone 
+
+completely automatically and inside one short script.
+
+This way, you can write UI, e2e, and functional tests more powerfully than ever without caring about underlying technology or application contexts.
 
 ## Who uses askui?
 

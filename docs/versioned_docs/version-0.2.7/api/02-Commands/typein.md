@@ -3,7 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # typeIn
 
-Puts the focus on the filtered element and types in the text.
+Puts the focus on the filtered element by click/tap and types in the text.
 
 By default, the `text` is included in the logs and sent over to the askui Inference server to
 predict in which context the typing has to occur. You can exclude the `text` from the logs

@@ -18,7 +18,7 @@ sidebar_position: 2
 
 :::danger
 
-Some users have reported instability running automation on macOS with external displays and/or virtual desktops. If you experience similar issues, please disconnect external displays and close virtual desktops, or see documentation on running tests in Docker here.
+Some users have reported instability running automation on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running automation in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 
 :::
 
@@ -52,6 +52,6 @@ npm i -D askui typescript ts-node @types/jest ts-jest jest
 
 ## Access Token
 
-Currently, you can use our lib without any configuration. In the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (while still free) and [configure our library to use these credentials](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+Currently, you can use our lib without any configuration. In the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
 
-Please see [our documentation on how to signup and create the credentials](https://docs.askui.com/docs/general/askui%20User%20Portal/signup).
+Please see [our documentation on how to signup and create the credentials](../08-askui%20User%20Portal/signup.md).
