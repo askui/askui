@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Annotate Image
 
 The askui client offers an annotation tool which helps with the test creation and debugging of failed tests.
@@ -6,11 +10,12 @@ The askui client offers an annotation tool which helps with the test creation an
 
 The annotation command annotates an image with our AI model producing a single report as an HTML file. This file can easily be shared.
 
-This command takes as optional input:
+This command `annotate()` can be used in two different ways by using optional arguments:
+
 
 - `imagePath`:
-  - If this argument is defined, the image at the path is loaded and annotated
-  - If this argument is not defined, a screenshot of your specified screen is taken and annotated
+  - If this argument is defined, the image at the path is loaded and annotated.
+  - If this argument is not defined, a screenshot of your specified screen is taken and annotated.
 - `outputPath`: This is the output folder path in which the HTML reports are going to be saved. If it's not defined then a folder called `report` will be created.
 - `customElements`: A list of custom elements. The AI model will use them to detect elements similar to them.
 

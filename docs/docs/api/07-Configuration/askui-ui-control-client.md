@@ -59,7 +59,7 @@ ___
 
 AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
 
-`ALL`:  Runs the [annotate](../../general/05-Tooling/annotate-image.md) command after the execution of each test step.
+`ALL`:  Runs the [annotate](../../general/02-Getting%20Started/annotate-image.md) command after the execution of each test step.
 
 `ON_FAILURE`: Runs the annotate command if the test step fails
 
