@@ -52,6 +52,6 @@ npm i -D askui typescript ts-node @types/jest ts-jest jest
 
 ## Access Token
 
-Currently, you can use our lib without any configuration. In the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+Currently, you can use our lib without any configuration. In the future, as we need to prevent misuse of our API, we may need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (while still free) and [configure our library to use these credentials](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
 
 Please see [our documentation on how to signup and create the credentials](https://docs.askui.com/docs/general/askui%20User%20Portal/signup).
