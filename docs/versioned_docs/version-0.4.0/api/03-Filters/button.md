@@ -5,3 +5,8 @@ displayed_sidebar: apiSidebar
 
 Filters for an UI element 'button'.
 
+**Examples:** 
+```typescript
+await aui.moveMouseTo().button().exec()
+```
+
