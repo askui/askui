@@ -6,7 +6,8 @@ On Windows, the askui UI Controller may not terminate after test execution. This
 
 - you can force Jest to exit as described on our [Jest-Troubleshooting page](jest.md)
 
-- try to stop the askui UI Controller. The stop method of the class `UiController` has an optional `forceStop` parameter. If we pass `true` to the stop method we kill the process of the askui UI Controller port and force a termination.
+- force termination of the askui UI Controller. The `UiController.stop()` takes an optional boolean argument which is set to `false` by default. If we pass `true` to the `UiController.stop()` method, e.g., `uiController.stop(true)`,  we kill the askui UI Controller process. 
+This option explicitly stops the askui UI Controller. The first option terminates all processes which were set up by test code and didn't close properly.  
 
 ```typescript
 await uiController.stop(true);
