@@ -14,6 +14,8 @@ Filters for equal text.
 'text' === withExactText('text') => true
 'test' === withExactText('text') => false
 'other' === withExactText('text') => false
+
+await aui.moveMouseTo().text().withExactText('Password').exec()
 ```
 
    * @param {string} text - A text to be matched.

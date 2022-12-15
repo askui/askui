@@ -5,3 +5,8 @@ displayed_sidebar: apiSidebar
 
 Expects that filtered element does not exist.
 
+**Examples:**
+```typescript 
+await aui.expect().text().withText('Login').notExists().exec()
+```
+

@@ -3,5 +3,5 @@ displayed_sidebar: apiSidebar
 ---
 # mouseToggleUp
 
-Toggles mouse up.
+Toggles mouse up (Left mouse key).
 

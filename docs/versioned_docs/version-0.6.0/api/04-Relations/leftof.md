@@ -16,4 +16,4 @@ Filters for an element left of another element.
 // Returns no element because rightEl is left of leftEl
 ...rightEl().leftOf().leftEl()
 ```
-
+![](/img/gif/leftOf.gif)

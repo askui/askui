@@ -3,7 +3,7 @@ sidebar_position: 1
 ---
 
 # Signup
-Go to our [askui user portal](https://app.askui.com/), click on _Sign Up_. Then enter your mail-address and a valid password.
+Go to our [askui user portal](https://app.v2.askui.com/), click on _Sign Up_. Then enter your mail-address and a valid password.
 
 ![Overlap](./signup.png)
 

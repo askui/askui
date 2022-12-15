@@ -3,5 +3,5 @@ displayed_sidebar: apiSidebar
 ---
 # mouseToggleDown
 
-Toggles mouse down.
+Toggles mouse down (Left mouse key).
 
