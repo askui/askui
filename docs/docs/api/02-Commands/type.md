@@ -26,4 +26,3 @@ await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
        logs of askui nor sent over to askui Inference for prediction.
    * @param {string} [options.secretMask = '****'] - If `options.isSecret` is set to `true`, this 
        is included in logs and sent over to askui Inference for prediction instead of the `text`.
-

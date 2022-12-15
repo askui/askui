@@ -12,8 +12,7 @@ On touch devices it taps the element and then drags it.
 // Swipe the element 500 to the right
 await aui.swipe(500, 0).image().exec()
 ```
+![](/img/gif/swipe.gif)
 
    * @param {number} x_offset - A x direction. positive and negative values are accepted
    * @param {number} y_offset - A y direction. positive and negative values are accepted
-
-![](/img/gif/swipe.gif)

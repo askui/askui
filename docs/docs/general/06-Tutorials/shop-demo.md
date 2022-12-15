@@ -28,7 +28,7 @@ First we need to open the demo shop in the browser. For that we can type the URL
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').textfield().in().container().exec();
     await aui.pressKey('enter').exec();
 });
 ```
@@ -92,7 +92,7 @@ The following code block shows the finished test for the login of the web shop:
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').textfield().in().container().exec();
     await aui.pressKey('enter').exec();
     await aui.click().text().withText('Login').exec();
     await aui.typeIn('test@askui.com').textfield().contains().text().withText('Email Address').exec();

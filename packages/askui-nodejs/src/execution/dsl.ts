@@ -257,7 +257,8 @@ export class FluentFilters extends FluentBase {
    * 'texst' === withText('text') => true
    * 'texts' === withText('text') => true
    *
-   * // usually false'atebxtc' === withText('text') => false
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
    *
@@ -281,9 +282,10 @@ export class FluentFilters extends FluentBase {
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
    *
-   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()```
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
+   * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -328,6 +330,7 @@ export class FluentFilters extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -825,7 +828,8 @@ export class FluentFiltersCondition extends FluentBase {
    * 'texst' === withText('text') => true
    * 'texts' === withText('text') => true
    *
-   * // usually false'atebxtc' === withText('text') => false
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
    *
@@ -849,9 +853,10 @@ export class FluentFiltersCondition extends FluentBase {
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
    *
-   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()```
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
+   * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -896,6 +901,7 @@ export class FluentFiltersCondition extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -1331,6 +1337,7 @@ export abstract class FluentCommand extends FluentBase {
    * // mask the text so it is not send to the askui-inference server
    * await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfield().exec()
    * ```
+   * ![](https://docs.askui.com/img/gif/typeIn.gif)
    *
    * @param {string} text - A text to type
    *
@@ -1372,6 +1379,7 @@ export abstract class FluentCommand extends FluentBase {
    * // Move mouse 30 pixels below button
    * await aui.moveMouseRelativelyTo(0, 30).button().withText('Submit').exec()
    * ```
+   * ![](https://docs.askui.com/img/gif/moveMouseRelativelyTo.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
@@ -1386,7 +1394,7 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Swipe an element in the x and y direction.
-   * Holds the left mousebutton down on Windows, Linux and macOS and drags the element.
+   * Holds the left mouse button down on Windows, Linux and macOS and drags the element.
    * On touch devices it taps the element and then drags it.
    *
    * **Example:**
@@ -1394,6 +1402,7 @@ export abstract class FluentCommand extends FluentBase {
    * // Swipe the element 500 to the right
    * await aui.swipe(500, 0).image().exec()
    * ```
+   * ![](https://docs.askui.com/img/gif/swipe.gif)
    *
    * @param {number} x_offset - A x direction. positive and negative values are accepted
    * @param {number} y_offset - A y direction. positive and negative values are accepted
@@ -1464,7 +1473,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * // Scoll 10 up in y direction
+   * // Scroll 10 up in y direction
    * await aui.scroll(0, 10).exec()
    * ```
    *
@@ -1843,7 +1852,8 @@ export class FluentFiltersGetter extends FluentBase {
    * 'texst' === withText('text') => true
    * 'texts' === withText('text') => true
    *
-   * // usually false'atebxtc' === withText('text') => false
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
    *
@@ -1867,9 +1877,10 @@ export class FluentFiltersGetter extends FluentBase {
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
    *
-   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()```
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
+   * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -1914,6 +1925,7 @@ export class FluentFiltersGetter extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
