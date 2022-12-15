@@ -9,6 +9,7 @@ A detected element has the following properties:
 - `text` content of element
 - `colors` of element
 - `bndbox`: location of element described with coordinates of a bounding box
+
 **Examples:**
 ```typescript 
 const detectedElements = await aui.getAll().exec();

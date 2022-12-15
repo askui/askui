@@ -13,5 +13,3 @@ Filters for text containing the text provided as an argument.
 ```
 
    * @param {string} text - A text to be matched.
-
-![](/img/gif/containsText.gif)

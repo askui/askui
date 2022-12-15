@@ -15,7 +15,7 @@ Filters for similar (doesn't need to be a 100% equal) text.
 'texst' === withText('text') => true
 'texts' === withText('text') => true
 
-'atebxtc' === withText('text') => false
+// usually false'atebxtc' === withText('text') => false
 'other' === withText('text') => false
 ```
 
