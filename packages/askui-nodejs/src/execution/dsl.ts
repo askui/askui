@@ -217,7 +217,7 @@ export class FluentFilters extends FluentBase {
    * icon().withText('plus')
    * ```
    *
-   * Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+   * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -257,7 +257,6 @@ export class FluentFilters extends FluentBase {
    * 'texst' === withText('text') => true
    * 'texts' === withText('text') => true
    *
-   * // usually false
    * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
