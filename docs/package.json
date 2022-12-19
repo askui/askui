@@ -28,7 +28,7 @@
   "devDependencies": {
     "@docusaurus/types": "2.2.0",
     "docusaurus-plugin-sass": "0.2.2",
-    "sass": "1.54.8",
+    "sass": "1.57.0",
     "spellchecker-cli": "^6.0.2"
   },
   "browserslist": {
