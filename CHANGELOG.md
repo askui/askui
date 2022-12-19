@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.1](https://github.com/askui/askui/compare/0.6.0...0.6.1) (2022-12-19)
+
+* docs: add new android tutorial for web searching automation by @HaramChoi-askui in https://github.com/askui/askui/pull/223
+* docs: youTube DSGVO compliance; Relational Selectors gifs; Onboarding… by @JohannesDienst-askui in https://github.com/askui/askui/pull/224
+* docs: documentation for jest exit error. resolve spellchecks warning … by @thinh-askui in https://github.com/askui/askui/pull/232
+
 ## [0.6.0](https://github.com/askui/askui/compare/0.5.0...0.6.0) (2022-11-30)
 
 * Proxy Implementation - Some Optimization Ideas by @adi-wan-askui in https://github.com/askui/askui/pull/216
