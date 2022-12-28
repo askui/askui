@@ -15,7 +15,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
  * This can be used to reduce the inference time by reducing
  *  the request size in case of a bad internet connection.
  * But it can cause a decrease in the prediction quality.
- * @param {string} inferenceClientUrl - Default: https://inference.askui.com`
+ * @param {string} inferenceServerUrl - Default: https://inference.askui.com`
  * Address of the askui Inference server.
  * @param {AnnotationLevel} annotationLevel - Default: AnnotationLevel.DISABLED
  * Usage of annotate command
