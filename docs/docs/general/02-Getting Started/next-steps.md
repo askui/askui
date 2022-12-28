@@ -18,10 +18,13 @@ Here are some recommended readings for the next step:
     - [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
     - [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
+**Annotation**
+- Read the [Debug with Annotation](../05-Tooling/debug-with-annotation.md) to learn how to use askuis' **Image Annotation Feature** in order to get the best automation result.
 
-
-**Speed Up Execution**
+**Best Practice**
 - Read the [Speed Up Execution](../03-Best%20Practice/speed_up_execution.md) to understand more about the inference's performance of our AI model.
+- Read the [Selecting an Element by Visual Relation](../03-Best%20Practice/selecting-by-visual-relation.md) to understand the *Relational Selectors* in askui.
+- Read the [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn about *Text Selectors* in askui.
 
 
 **Continuous Integration**
