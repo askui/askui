@@ -7,7 +7,7 @@ If you have already set up your test environment, go directly to [3. Automate We
 **Index**
 
 [1. Prepare the askui Test Environment](#1-prepare-the-askui-test-environment)  
-[2. Try Annnotation](#2-try-annotating)  
+[2. Try Annotation](#2-try-annotating)  
 [3. Automate Web Searching](#3-automate-web-searching)  
 [4. Complete Test Code](#4-complete-test-code)  
 [5. Conclusion](#5-conclusion)  
@@ -44,14 +44,14 @@ After creating the **askui test suite**, add your credentials in `helper/jest.se
     }
   });
   ```
-💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.askui.com/) for free.
+💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.v2.askui.com/) for free.
 
 
 If you have any issues while setting up **askui**, you can have a look at the more descriptive [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/getting-started) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.
 
 **Configure askui for Android**
 
-We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of askui(ver. 0.5) doesn't provide the API for running it with the runtime option yet:
+We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of askui(version 0.5) doesn't provide the API for running it with the runtime option yet:
 
 ```bash
 # first, go to the folder that contains the binary
@@ -169,7 +169,7 @@ What we're gonna do is:
 
 **(3) Select the icon above the text 'chrome'**
 
-This sideway approach will give us a more consistent result because typing chrome in the search bar will give us a more clearly understandable visual element.
+This approach will give us a more consistent result because typing "chrome" in the search bar will give us a more understandable visual element.
 
 Try to change your code according to this:
 

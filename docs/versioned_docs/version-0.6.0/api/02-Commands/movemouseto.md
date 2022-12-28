@@ -5,3 +5,8 @@ displayed_sidebar: apiSidebar
 
 Move mouse over the filtered element.
 
+**Example:**
+```typescript 
+await aui.moveMouseTo().button().withText('Submit').exec()
+```
+
