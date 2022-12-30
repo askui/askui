@@ -7,6 +7,7 @@ import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
 import { InferenceResponseError } from './inference-response-error';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
+import { ConfigurationError } from './config-error';
 
 export class InferenceClient {
   url: string;
@@ -14,11 +15,16 @@ export class InferenceClient {
   constructor(
     public baseUrl: string,
     public httpClient: HttpClientGot,
+    public resize?: number,
     readonly workspaceId?: string,
     public apiVersion = 'v3',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
     this.url = workspaceId ? urljoin(versionedBaseUrl, 'workspaces', workspaceId) : versionedBaseUrl;
+    if (this.resize !== undefined && this.resize <= 0) {
+      throw new ConfigurationError(`Resize must be a positive number. The current resize value "${this.resize}" is not valid.`);
+    }
+    this.resize = this.resize ? Math.ceil(this.resize) : this.resize;
   }
 
   async isImageRequired(
@@ -34,10 +40,10 @@ export class InferenceClient {
 
   // eslint-disable-next-line class-methods-use-this
   private async resizeIfNeeded(customElements: CustomElement[], image?: string) {
-    if (!(image) || customElements.length > 0) {
+    if (!(image) || customElements.length > 0 || this.resize === undefined) {
       return { base64Image: image, resizeRatio: 1 };
     }
-    return resizeBase64ImageWithSameRatio(image);
+    return resizeBase64ImageWithSameRatio(image, this.resize);
   }
 
   async inference(

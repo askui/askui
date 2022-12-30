@@ -203,6 +203,8 @@ custom_edit_url: null
 
 -  [withText](../filters/withtext)
 
+-  [withTextRegex](../filters/withtextregex)
+
 -  [wizard](../filters/wizard)
 
 -  [wizardItem](../filters/wizarditem)

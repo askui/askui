@@ -202,6 +202,8 @@ displayed_sidebar: apiSidebar
 
 -  [withText](../filters/withtext)
 
+-  [withTextRegex](../filters/withtextregex)
+
 -  [wizard](../filters/wizard)
 
 -  [wizardItem](../filters/wizarditem)

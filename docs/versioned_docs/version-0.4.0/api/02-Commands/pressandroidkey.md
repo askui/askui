@@ -1,8 +1,12 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# pressAndroidKey
+# moveMouseTo
 
-Press one Android keys like `DEL`
+Move mouse over the filtered element.
 
-   * @param {ANDROID_KEY} key - A Android key
+**Example:**
+```typescript 
+await aui.moveMouseTo().button().withText('Submit').exec()
+```
+

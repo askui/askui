@@ -1,21 +1,27 @@
 # Changelog
 
+## [0.6.1](https://github.com/askui/askui/compare/0.6.0...0.6.1) (2022-12-19)
+
+* docs: add new android tutorial for web searching automation by @HaramChoi-askui in https://github.com/askui/askui/pull/223
+* docs: youTube DSGVO compliance; Relational Selectors gifs; Onboarding… by @JohannesDienst-askui in https://github.com/askui/askui/pull/224
+* docs: documentation for jest exit error. resolve spellchecks warning … by @thinh-askui in https://github.com/askui/askui/pull/232
+
+## [0.6.0](https://github.com/askui/askui/compare/0.5.0...0.6.0) (2022-11-30)
+
+* Proxy Implementation - Some Optimization Ideas by @adi-wan-askui in https://github.com/askui/askui/pull/216
+* Proxy Implementation by @programminx-askui in https://github.com/askui/askui/pull/201
+* docs: add gifs with an example for relational selectors under API by @JohannesDienst-askui in https://github.com/askui/askui/pull/215
+* docs: fix missing function in Table of Contents by @HaramChoi-askui in https://github.com/askui/askui/pull/219
+* Client side resize flag by @mlikasam-askui in https://github.com/askui/askui/pull/222
+
 ## [0.5.0](https://github.com/askui/askui/compare/0.4.0...0.5.0) (2022-11-14)
-
-
-### Features
 
 * add and_ and or_relation (#AS-1444) ([419ccb9](https://github.com/askui/askui/commit/419ccb9bdbb670857ab49478457fb79ee053b071)), closes [#AS-1444](https://github.com/askui/askui/issues/AS-1444)
 * ignore Rule import/no-extraneous-dependencies for example_project_template; Minor Refactorings ([60d08b5](https://github.com/askui/askui/commit/60d08b5cb810ed110e6b5a010d0f40f52e87f5dc))
-
-
-### Bug Fixes
-
 * extend spellchecker dictionary ([90d0563](https://github.com/askui/askui/commit/90d05631c999fa354ff7640bcbf86189e27079a4))
 
 ## [0.4.0](https://github.com/askui/askui/compare/0.3.2...0.4.0) (2022-10-26)
 
-## What's Changed
 * Update selecting_ui_elements.mdx by @gauravkhuraana in https://github.com/askui/askui/pull/116
 * Docs updates: Activate Analytics, Redirect to docs from landing page, consistent access Token naming, optimize Getting Started and Troubleshooting, Footer section About by @JohannesDienst-askui in https://github.com/askui/askui/pull/130
 * fix: change annotation timestamps to UTC (#AS-1380) by @mlikasam-askui in https://github.com/askui/askui/pull/139
@@ -27,9 +33,6 @@
 * feat: logging deprecation warning if header is defined (#AS-1402) by @thinh-askui in https://github.com/askui/askui/pull/178
 * As 1403 adding infernce endpoint to frontend by @thinh-askui in https://github.com/askui/askui/pull/160
 * Added two new tutorials and corrected some errors in the existing ones by @JohannesDienst-askui in https://github.com/askui/askui/pull/177
-
-### New Contributors
-* @gauravkhuraana made their first contribution in https://github.com/askui/askui/pull/116
 
 ## [0.3.2](https://github.com/askui/askui/compare/0.3.1...0.3.2) (2022-09-24)
 

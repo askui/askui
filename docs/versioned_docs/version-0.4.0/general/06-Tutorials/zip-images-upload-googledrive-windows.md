@@ -2,7 +2,11 @@
 
 This tutorial will show you how to zip files on your filesystem and then upload them to Google Drive.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/i3M5SPYQTKI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="cookieconsent-optout-marketing">
+  Please <a href="javascript:Cookiebot.renew()">accept marketing-cookies</a> to watch this video.
+</div>
+
+<iframe width="560" height="315" data-cookieblock-src="https://www.youtube-nocookie.com/embed/i3M5SPYQTKI" data-cookieconsent="marketing" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Setup
 

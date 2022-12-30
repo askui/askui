@@ -5,3 +5,8 @@ displayed_sidebar: apiSidebar
 
 Clicks on the filtered element.
 
+**Example:**
+```typescript 
+await aui.click().button().withText('Submit').exec()
+```
+
