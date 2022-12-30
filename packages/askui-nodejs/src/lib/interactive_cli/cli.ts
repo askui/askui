@@ -1,20 +1,41 @@
-import inquirer from 'inquirer';
+import inquirer, { QuestionCollection } from 'inquirer';
 import { Command, OptionValues } from 'commander';
 import { CreateExampleProject } from './create-example-project';
+import { CliOptions } from './cli-options-interface';
 
-const questions = [
+const nonEmpty = (subject: string) => (input: string) => (input.trim().length > 0) || `${subject} is required.`;
+
+const questions: QuestionCollection = [
   {
-    type: 'list', name: 'progLanguage', message: 'Which language do you prefer?', choices: ['typescript'],
+    type: 'list',
+    name: 'progLanguage',
+    message: 'Which language do you prefer?',
+    choices: ['typescript'],
   },
   {
-    type: 'list', name: 'testFramework', message: 'Which test framework do you prefer', choices: ['jasmine', 'jest'],
+    type: 'list',
+    name: 'testFramework',
+    message: 'Which test framework do you prefer',
+    choices: ['jasmine', 'jest'],
   },
-  { type: 'input', name: 'workspaceId', message: 'your workspace id' },
   {
-    type: 'password', name: 'accessToken', message: 'your access token', mask: '*',
+    type: 'input',
+    name: 'workspaceId',
+    message: 'your workspace id',
+    validate: nonEmpty('workspace id'),
   },
   {
-    type: 'confirm', name: 'usingProxy', message: 'are you using Proxy?', default: false,
+    type: 'password',
+    name: 'accessToken',
+    message: 'your access token',
+    mask: '*',
+    validate: nonEmpty('access token'),
+  },
+  {
+    type: 'confirm',
+    name: 'usingProxy',
+    message: 'are you using Proxy?',
+    default: false,
   },
   {
     type: 'confirm',
@@ -38,7 +59,7 @@ export function init(argv: string[]): Command {
     .action(async (_opts: OptionValues) => {
       inquirer.prompt(questions)
         .then(async (userAnswers) => {
-          await (new CreateExampleProject(userAnswers)).createExampleProject();
+          await (new CreateExampleProject(userAnswers as CliOptions)).createExampleProject();
         });
     });
   return program.parse(args);
