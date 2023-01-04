@@ -115,8 +115,10 @@ You will find the following pages there:
 
 ### Where to Go Next?
 
-Writing powerful UI automations with askui needs some practice. We recommend you head over to the [Selecting UI Elements page](../03-Best%20Practice/selecting_ui_elements.mdx) to learn more about how to select elements based on visual properties.
+Writing powerful UI automations with askui needs some practice. We recommend you head over to the [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn more about how to select elements by texts written on the elements.
 
 If you are looking for inspiration, the **Tutorials** section will provide you with food for thought. Why not [Search for a Cat Image](../06-Tutorials/google-cat-search.md) as a start?
+
+Or check out the next page [Next Steps](./next-steps.md) for more.
 
 Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
