@@ -9,7 +9,7 @@ The askui client offers an annotation tool which helps you to scaffold and debug
 - `annotate()`
 - `annotateInteractively()`
 
-## annotate()
+## Static Annotation
 
 The helper function `annotate()` creates an annotated HTML file of the given image and saves it into the given path. If no image is given, then it captures the specified screen and annotates the captured image.
 
@@ -100,8 +100,8 @@ await aui.annotate(
     });
 ```
 
-## annotateInteractively()
-Similar to `annotate()`, but it launches a fullscreen window and shows the annotated screen in which you can interact with your mouse. This function doesn't save the result.
+## Interactive Annotation
+Similar to `annotate()`, but it launches a full screen window and shows the annotated screen in which you can interact with your mouse. This function doesn't save the result.
 
 **Example**
 ```ts
