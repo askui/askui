@@ -158,7 +158,6 @@ Check out other articles to discover more about askui:
 - [Selecting an Element with Text](./selecting-with-text.md)
 - [Speed Up Execution](./speed_up_execution.md)
 
-
 **Tutorials**
 
 - [Search Image in Google](../06-Tutorials/google-cat-search.md)

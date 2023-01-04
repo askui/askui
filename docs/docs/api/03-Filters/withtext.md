@@ -21,4 +21,4 @@ Filters for similar (doesn't need to be a 100% equal) text.
 
    * @param {string} text - A text to be matched.
 
-   ![containsText](../../../static/img/gif/withText.gif)
+![](/img/gif/withText.gif)
