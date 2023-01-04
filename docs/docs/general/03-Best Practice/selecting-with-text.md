@@ -2,7 +2,7 @@
 
 A human usually needs only the written text or visual properties of elements to understand a graphical user interface. The askui library provides multiple methods to interact with text of the UI.
 
-When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or textfields. Hence, knowing the benefits of using different text filters can become critical in scaffolding a robust test suite.
+When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text filters can become critical in scaffolding a robust test suite.
 
 askui provides four different methods to handle text elements:
 
@@ -10,7 +10,6 @@ askui provides four different methods to handle text elements:
 - `withExactText()`
 - `withText()`
 - `withTextRegex()`
-
 
 For a convenient demonstration, we will use a [Flutter web demo](https://gallery.flutter.dev/#/demo) provided by Flutter. 
 
@@ -25,23 +24,20 @@ await aui.moveMouseTo().text().withText('matrial').exec();
 await aui.mouseLeftClick().exec();
 ```
 
-
 ![withText](../../../static/img/gif/withText.gif)
-
 
 `withText()` tries to find a text that matches the whole sequence. In most test cases, you will want to stick to this method, as it supports **Fuzzy Matching** and tolerates misspelled text. **Note that the above example code has two typos**. `matrial` doesn't match the text in the demo app, which is `Material`, although askui will find the text element that roughly matches the text on the screen.
 
 ------
 
-## Match a Substring within a Text
+## Match a Sub-string within a Text
 
-Even though the the method `withText()` is handy and quite reliable, you might face a test case where you know only a fraction of the text element that you want to interact with. In such a case, `containsText()` is the method you might want to use:
+Even though the method `withText()` is handy and quite reliable, you might face a test case where you know only a fraction of the text element that you want to interact with. In such a case, `containsText()` is the method you might want to use:
 
 ```ts
 await aui.moveMouseTo().text().containsText('Bottom').exec();
 await aui.mouseLeftClick().exec();
 ```
-
 
 ![containsText](../../../static/img/gif/containsText.gif)
 
@@ -63,7 +59,7 @@ await aui.moveMouseTo().text().containsText('Bottom').exec();
 
 The biggest difference between `withText()` and `containsText()` is whether it matches the text as a whole sequence or not. Matching many texts with a repeating affix could be a practical use case for the `containsText()`.
 
-It is recommended to experiment enough with these methonds to find a better option that suits your specific case, since it's not easy to predict if the given text can be fuzzy-matched with target texts.
+It is recommended to experiment enough with these methods to find a better option that suits your specific case, since it's not easy to predict if the given text can be fuzzy-matched with target texts.
 
 ------
 
@@ -96,8 +92,6 @@ for(let i=0; i<elts.length; ++i){
 
 ```
 
-
-
 ![withText2](../../../static/img/gif/withText2.gif)
 
 You will see that askui clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
@@ -116,15 +110,13 @@ for(let i=0; i<elts.length; ++i){
 }
 ```
 
-
-
 ![withExactText](../../../static/img/gif/withExactText.gif)
 
 ## Match Text with Regular Expression
 
 The method `withTextRegex()` supports **Regular Expression** to match any text in the most flexible way. Although it might be tricky to use regex due to its esoteric appearance, it is maybe one of the best solution when it comes to character matching.
 
-On the same page of the demo app, let's say that we want to click on the items whoes Calorie is between 300 and 500 `(cal>=300 && cal<500)`. Since regex doesn't support numeric comparison, we will try to match the digits in a sequence:
+On the same page of the demo app, let's say that we want to click on the items whose Calorie is between 300 and 500 `(cal>=300 && cal<500)`. Since regex doesn't support numeric comparison, we will try to match the digits in a sequence:
 
 ```ts
 // Find all the text that matches the expression
@@ -147,8 +139,6 @@ The regular expression `[3-4][0-9]{2}` means,
 - **{2}**: Repeat the previous expression ([0-9]) two times.
 
 As the result, it will try to match every text that has a sequence starting with the digit 3 or 4, and then has any two digits in a row.
-
-
 
 ## Keep Reading
 
