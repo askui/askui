@@ -1,8 +1,8 @@
 # Automate Multiple Devices
 
-This tutorial shows how to automate multiple devices on a same network by using askui library. After following this tutorial, you will be able to automate more than one devices across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library. In fact, there are many automation tools in the wild which you can use to automate different devices, although most of them require different configuration and different test code for different platforms.
+This tutorial shows how to automate multiple devices on the same network by using askui library. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
 
-By using askui library, an automation tool that operates on the OS level, you can simply use the same test code for any application running on different devices even without so much of change. And this makes the askui a powerful Cross-platform automation tool. 
+In fact, there are many automation tools in the wild that you can use to automate different devices, although most of them require different configurations and different test codes for different platforms. By using askui library, an automation tool that operates on the OS level, you can simply use the same test code for any application running on different devices even without so much change. And this makes the askui a powerful Cross-platform automation tool. 
 
 Let's have a look at the askui library and see how we can accomplish a Cross-platform/-device automation test🔥
 
@@ -11,12 +11,12 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ![multi-device-automation](images/multi-device-diagram.png)
 
-## 1. Download and prepare the `askui-ui-controller` binary for each device
+## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
 
-- If you already used the askui library once, then the binary for your platform already exist in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](https://docs.askui.com/docs/api/Configuration/askui-ui-controller) for more details of the *askui UI Controller*.
+- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](https://docs.askui.com/docs/api/Configuration/askui-ui-controller) for more details on the *askui* UI Controller*.
 
-- Follow this path and confirm that the binary exist:
+- Follow this path and confirm that the binary exists:
 
     ```bash
     # Windows
@@ -35,7 +35,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ### Android Only:
  
-- There is no need to save the binary into Android devices. They are controlled by the *askui UI Controller* running on the local device (desktop).
+- There is no need to save the binary to Android devices. They are controlled by the *askui UI Controller* running on the local device (desktop).
 
 - Be sure that your Android device is discoverable by the `adb` from your local device:
     ```bash
@@ -43,9 +43,9 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     adb devices
     ```
 
-- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](https://www.askui.com/blog-posts/tutorial-setting-up-android-devices-for-testing-mobile-apps).
+- If you don't have the `ADB` installed on your local device, set it up by following [this tutorial](https://www.askui.com/blog-posts/tutorial-setting-up-android-devices-for-testing-mobile-apps).
 
-- Use the commands below, if you want to connect your Android device via `adb` wirelessly:
+- Use the commands below, if you want to connect your Android device via `ADB` wirelessly:
     ```bash
     # Make sure that the `USB Debugging Mode` is enabled in the Android device.
     # Connect the Android device with a USB cable, and run this command:
@@ -66,7 +66,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ## 2. Configure the `jest.setup.ts`
 
-- Figure out the local ip address of the remote device, and then change the `<local-ip-address>` of the `jest.setup.ts`:
+- Figure out the local IP address of the remote device, and then change the `<local-ip-address>` of the `jest.setup.ts`:
     ```ts
     import { UiControlClient, UiController } from 'askui';
 
@@ -115,7 +115,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ## 3. Run the Controller on Each Device
 
-- Run the binary *askui UI Controller* on the local and remote device with the following command:
+- Run the binary *askui UI Controller* on the local and remote devices with the following command:
     ```bash
     # Windows powershell or cmd
     askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
@@ -146,7 +146,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 - Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
 
 #### (option) Running Multiple Android Devices
-- The *askui UI Controller* considers all the Android devices as a single device with multiple displays. See the screenshot below.
+- The *askui UI Controller* considers all Android devices as a single device with multiple displays. See the screenshot below.
 - Set the `-d 0` option of the binary differently for each Android device.
 
     ```bash
@@ -191,3 +191,5 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     ```
 
 
+## 6. Conclusion
+Now you should be able to automate multiple devices in the network. If you got any issues while following this tutorial, don't hesitate to ask our [Discord Community](https://bit.ly/3T2je6C)!
