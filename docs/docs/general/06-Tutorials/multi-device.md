@@ -1,6 +1,10 @@
 # Automate Multiple Devices
 
-This tutorial shows how to automate multiple devices on the same network by using askui library. 
+This tutorial shows how to automate multiple devices on a same network by using askui library. After following this tutorial, you will be able to automate more than one devices across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library. In fact, there are many automation tools in the wild which you can use to automate different devices, although most of them require different configuration and different test code for different platforms.
+
+By using askui library, an automation tool that operates on the OS level, you can simply use the same test code for any application running on different devices even without so much of change. And this makes the askui a powerful Cross-platform automation tool. 
+
+Let's have a look at the askui library and see how we can accomplish a Cross-platform/-device automation test🔥
 
 
 📌 *The following tutorial assumes that you have already installed and set up the askui library on your local device. The code for the configuration is based on the generated test code: `npx askui init`. See [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/write-your-first-automation) for more details.*
