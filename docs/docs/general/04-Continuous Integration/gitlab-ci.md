@@ -4,7 +4,7 @@ The askui library can be integrated into a [Gitlab CI/CD Pipeline](https://docs.
 
 ## Basic Setup
 
-The example below is a basic CI/CD pipeline definition (`.gitlab-ci.yml`) with one `test` stage and a `test` job within it to run tests with the askui library. It assumes you have set up a project with the askui library as described under [Getting Started](../02-Getting%20Started/write-your-first-automation.md).
+The example below is a basic CI/CD pipeline definition (`.gitlab-ci.yml`) with one `test` stage and a `test` job within it to run tests with the askui library. It assumes you have set up a project with the askui library as described under [Getting Started](../02-Getting%20Started/write-your-first-instruction.md).
 
 Besides that, the `<docker_image_path>` needs to be replaced by [one of our Docker Images](./askui-ui-controller-docker-images). Moreover, the `<alias_name>` should replaced by a name that will be used to access the service from the job's container (see [Services in Gitlab](https://docs.gitlab.com/ee/ci/services/#define-services-in-the-gitlab-ciyml-file)).
 
@@ -35,7 +35,7 @@ On push to the repository on Gitlab, a Gitlab-hosted Linux instance will start a
 
 ### Testing Inside Gitlab-CI
 
-The main difference between [the first test suite using askui example](../02-Getting%20Started/write-your-first-automation.md) and tests inside Gitlab-CI is the askui server URL. Using Gitlab services, the askui server URL is `http://<alias_name>:6769` instead of `http://127.0.0.1:6769`. To have a test that can work locally and inside the Gitlab CI we suggest that you create the client like in the following example.
+The main difference between [the first test suite using askui example](../02-Getting%20Started/write-your-first-instruction.md) and tests inside Gitlab-CI is the askui server URL. Using Gitlab services, the askui server URL is `http://<alias_name>:6769` instead of `http://127.0.0.1:6769`. To have a test that can work locally and inside the Gitlab CI we suggest that you create the client like in the following example.
 
 ```typescript
 const uiControllerUrlHost = process.env.CI_JOB_ID ? '<alias_name>' : '127.0.0.1';

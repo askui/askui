@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Write Your First Automation
+# Write Your First Instruction
 
 :::tip
 What you will learn
