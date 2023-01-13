@@ -24,14 +24,7 @@ function HomepageHeader() {
   );
 }
 
+import {Redirect} from '@docusaurus/router';
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <Layout>
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
-  );
+    return <Redirect to="/docs/general/Introduction/why-askui" />;
 }
