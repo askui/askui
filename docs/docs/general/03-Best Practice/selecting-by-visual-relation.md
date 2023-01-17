@@ -1,8 +1,18 @@
-# Selecting an Element by Visual Relation
+# Relational Selectors
+A common problem while writing instructions which one encounters is interacting with elements which share the same text.
 
-Relational selectors can be difficult and sometimes confusing to work with at first. Sometimes it is even not clear why a specific element will not be selected or why the selector does not seem to work.
+An example can be seen when you interactively annotate your Visual Studio Code Editor.
+Notice that the magnifying glass icon and many other elements throughout the UI share the same name:
 
-After reading this tutorial you will know how to use the full power of all the relational selectors. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
+![Icon mobile annotation one.](images/relational_selectors_same_icon1.png)
+![Icon mobile annotation one.](images/relational_selectors_same_icon2.png)
+![Icon mobile annotation one.](images/relational_selectors_same_icon3.png)
+
+To ensure you’re able to instruct askui to select the correct element, the use of relational selectors can be employed.
+Relational selectors describe the element relative to other elements in the UI.
+
+## Selecting an Element by Visual Relation
+After reading the next section you will know how to use the full power of all the relational selectors. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
 
 We will use the [Selectorshub practice page](https://selectorshub.com/xpath-practice-page/) for the demonstration.
 
