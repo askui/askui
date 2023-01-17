@@ -75,6 +75,12 @@ const config = {
             position: 'left',
             dropdownActiveClassDisabled: true,
           },
+          {
+            href: 'https://github.com/askui/askui',
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
+          },
         ],
       },
       footer: {
