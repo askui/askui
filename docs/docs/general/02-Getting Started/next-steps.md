@@ -24,7 +24,7 @@ Here are some recommended readings for the next step:
 - Read the [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn about *Text Selectors* in askui.
 
 **Annotation**
-- Read the [Debug with Annotation](../05-Tooling/debug-with-annotation.md) to learn how to use the **Image Annotation Feature** in order to get the best automation result.
+- Read the [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature** in order to get the best automation result.
 
 **Continuous Integration**
 - Read the [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running tests with askui on top of a Docker container.
