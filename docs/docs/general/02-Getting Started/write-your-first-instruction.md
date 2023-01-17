@@ -68,7 +68,7 @@ import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
   it('should generate an interactive annotation', async () => {
-    await aui.annotateInteractively()
+    await aui.annotateInteractively();
   });
 });
 ```
@@ -101,8 +101,7 @@ Add this instruction code block to the describe block in your test file just und
 it('should click on my element', async () => {
   await aui
     .click()
-    [INSERT YOUR COPIED FILTER HERE]
-    .exec()
+    // <INSERT YOUR COPIED FILTER HERE AND UNCOMMENT THIS LINE>.exec();
 });
 ```
 
@@ -112,14 +111,14 @@ Be sure to `xit` out the interactive annotation, as that is no longer needed. Th
 describe('jest with askui', () => {
 
   xit('should generate an interactive annotation', async () => {
-    await aui.annotateInteractively()
+    await aui.annotateInteractively();
   });
 
   it('should click on my element', async () => {
     await aui
       .click()
       .text().withText("node_nodu")
-      .exec()
+      .exec();
   });
 });
 ````
