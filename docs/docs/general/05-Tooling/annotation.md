@@ -2,12 +2,24 @@
 sidebar_position: 4
 ---
 
-# Debug with Annotation
+## Interactive Annotation
+An interactive annotation is in essence three components:
 
-The askui client offers an annotation tool which helps you to scaffold and debug your test code. It is recommended to be used whenever before writing a test code as well as after failing a test in askui. This tool is offered as two different functions:
+1. A screenshot of whatever the askui controller is told to see, as defined in the config file:
 
-- `annotate()`
-- `annotateInteractively()`
+![Screenshot of Visual Studio Code without annotations.](images/interactive_annotation1.png)
+
+2. Annotations, or the red boxes you see, which are added by the machine learning model.
+
+![Screenshot of Visual Studio Code with annotations as red bounding boxes.](images/interactive_annotation2.png)
+
+3. Filters, which are labels applied to the annotations of the screenshot.
+
+![Annotated source code showing one text annotation detail.](images/interactive_annotation2.png)
+
+Clicking an element will copy this filter, which we can then use in the [step 3 of Getting Started page](../02-Getting%20Started/getting-started.md), which is actually using that to execute commands.
+
+![Interactive Annotation in action](../../../static/img/gif/interactive-annotate.gif)
 
 ## Static Annotation
 
@@ -99,18 +111,3 @@ await aui.annotate(
     ]
     });
 ```
-
-## Interactive Annotation
-Similar to `annotate()`, but it launches a full screen window and shows the annotated screen in which you can interact with your mouse. This function doesn't save the result.
-
-**Example**
-```ts
-/*
-It lauhches a window that shows the result of the annotation.
-You can interact with it by using your mouse.
-Press `ESC` to close the fullscreen window.
-*/
-await aui.annotateInteractively();
-```
-
-![Interactive Annotation](../../../static/img/gif/interactive-annotate.gif)
