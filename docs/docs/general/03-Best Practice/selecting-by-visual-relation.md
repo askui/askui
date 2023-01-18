@@ -16,7 +16,7 @@ After reading the next section you will know how to use the full power of all th
 
 We will use the [Selectorshub practice page](https://selectorshub.com/xpath-practice-page/) for the demonstration.
 
-In this article we’ll discuss the following relational selectors:
+We’ll discuss the following relational selectors:
 
 - [above()](#above)
 - [below()](#below)
@@ -165,24 +165,3 @@ await aui
   .withText('Submit')
   .exec()
 ```
-
-## Keep Reading
-
-Check out other articles to discover more about askui:
-
-**Best Practices**
-- [Selecting an Element with Text](./selecting-with-text.md)
-- [Speed Up Execution](./speed_up_execution.md)
-
-**Tutorials**
-
-- [Search Image in Google](../06-Tutorials/google-cat-search.md)
-- [Login at an Online Shop](../06-Tutorials/shop-demo.md)
-- [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
-- [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
-- [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
-
-**Continuous Integration**
-
-- [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md)
-- [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md)

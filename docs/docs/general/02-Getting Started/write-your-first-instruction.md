@@ -153,10 +153,25 @@ You will find the following pages there:
 
 ## Where to Go Next?
 
-Writing powerful UI automations with askui needs some practice. We recommend you head over to the [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn more about how to select elements by texts written on the elements.
-
-If you are looking for inspiration, the **Tutorials** section will provide you with food for thought. Why not [Search for a Cat Image](../06-Tutorials/google-cat-search.md) as a start?
-
-Or check out the next page [Next Steps](./next-steps.md) for more.
-
 Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
+
+### Tutorials
+If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of askui in depth:
+
+* [Search Image in Google](../06-Tutorials/google-cat-search.md)
+* [Login at an Online Shop](../06-Tutorials/shop-demo.md)
+* [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
+* [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
+* [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
+
+### Best Practice
+* Read [Selecting an Element by Visual Relation](../03-Best%20Practice/selecting-by-visual-relation.md) to understand the *Relational Selectors* in askui.
+* Read [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn about *Text Selectors* in askui.
+* Read [Speed Up Execution](../03-Best%20Practice/speed_up_execution.md) to understand more about the inference's performance.
+
+### Annotation
+* Read [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature**.
+
+### Continuous Integration
+- Read the [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running askui inside a Docker container.
+- Read the [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md) to learn about integrating askui into your Gitlab CI/CD.
