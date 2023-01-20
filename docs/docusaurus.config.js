@@ -24,7 +24,19 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/askui_icon_positive_rgb-150x150.png',
   organizationName: 'askui',
-  plugins: ['docusaurus-plugin-sass'],
+  plugins: [
+    ['docusaurus-plugin-sass', {}],
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        quality: 70,
+        max: 1030, // max resized image's size.
+        min: 640, // min resized image's size. if original is lower, use that size.
+        steps: 2, // the max number of images generated between min and max (inclusive)
+        disableInDev: false,
+      },
+    ],
+  ],
   projectName: 'askui', // Usually your repo name.
 
   scripts: [
