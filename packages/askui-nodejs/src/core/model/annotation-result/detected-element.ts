@@ -12,16 +12,16 @@ export class DetectedElement {
   constructor(
     public name: string,
     public text: string,
-    public colors: string[],
     public bndbox: BoundingBox,
+    public colors?: string[],
   ) { }
 
   static fromJson(detectedElement: DetectedElement, resizeRatio = 1) {
     return new DetectedElement(
       detectedElement.name,
       detectedElement.text,
-      detectedElement.colors,
       BoundingBox.fromJson(detectedElement.bndbox, resizeRatio),
+      detectedElement.colors,
 
     );
   }
