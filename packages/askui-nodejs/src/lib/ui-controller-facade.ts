@@ -12,14 +12,14 @@ import {
   createArgsWithDefaults,
   createCliFlagsFromArgs,
 } from './ui-controller-args';
-import { downloadServerBinaries, getBinaryPath } from './download-binaries';
+import { downloadServerBinaries, getBinaryFilePath } from './download-binaries';
 import { logger } from './logger';
 import { TimeoutError } from './timeout-error';
 import { UnkownError } from './unkown-error';
 import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
 
 export abstract class UiControllerFacade {
-  protected binaryPath = getBinaryPath('latest');
+  protected binaryFilePath = getBinaryFilePath('latest');
 
   protected serverLogFile!: string;
 
@@ -29,7 +29,7 @@ export abstract class UiControllerFacade {
     await this.runPreStartChecks();
     const argsWithDefaults = createArgsWithDefaults(args);
     const argsWithLogPath = this.serverLogFilePath(argsWithDefaults);
-    this.binaryPath = getBinaryPath(argsWithLogPath.binaryVersion);
+    this.binaryFilePath = getBinaryFilePath(argsWithLogPath.binaryVersion);
     await this.getBinary(
       argsWithLogPath.binaryVersion,
       argsWithLogPath.overWriteBinary,
@@ -74,7 +74,7 @@ export abstract class UiControllerFacade {
   }
 
   protected getStartingCommand(): string {
-    return `"${this.binaryPath}"`;
+    return `"${this.binaryFilePath}"`;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -114,22 +114,16 @@ export abstract class UiControllerFacade {
     });
   }
 
-  private isBinaryValid(): boolean {
-    const sizeThresholdInMB = 100;
-    const binarysizeInMB = fs.statSync(this.binaryPath).size / (1024 * 1024);
-    return binarysizeInMB > sizeThresholdInMB;
-  }
-
   private async getBinary(
     binaryVersion: string,
     overWriteBinary = false,
     proxyAgent?: { http: http.Agent, https: https.Agent },
   ): Promise<void> {
-    if (!fs.existsSync(this.binaryPath) || overWriteBinary || !this.isBinaryValid()) {
-      logger.debug(`Currently, no binary of the UI Controller is available at "${this.binaryPath}"`);
+    if (!fs.existsSync(this.binaryFilePath) || overWriteBinary) {
+      logger.debug(`Currently, no binary of the UI Controller is available at "${this.binaryFilePath}"`);
       await downloadServerBinaries(binaryVersion, proxyAgent);
     } else {
-      logger.debug(`Binary of UI Controller is already present at "${this.binaryPath}".`);
+      logger.debug(`Binary of UI Controller is already present at "${this.binaryFilePath}".`);
     }
   }
 
