@@ -69,9 +69,6 @@ export async function downloadServerBinaries(
 
   try {
     await pipeline(downloadStream, fileWriterStream);
-    if (fs.existsSync(binaryFilePath)) {
-      fs.unlink(binaryFilePath, (err) => { logger.error(err); });
-    }
     fs.rename(tempFilePath, binaryFilePath, () => {
       logger.info(`UI Controller version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
       logger.debug(`Binary of UI Controller is located at "${binaryFilePath}".`);
