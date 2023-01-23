@@ -4,8 +4,8 @@ import { BoundingBox } from './boundary-box';
 *
 * @param {string} name - The element type e.g text, button
 * @param {string} text - The detected text inside the element
-* @param {string[]} colors - The element top 3 dominate colors
 * @param {BoundingBox} bndbox - The element bounding box
+* @param {string[]} colors - An optional, the element top 3 dominate colors
 *
 */
 export class DetectedElement {
