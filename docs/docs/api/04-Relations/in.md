@@ -20,4 +20,5 @@ Filters for an element inside another element.
 // Returns nothing because innerEl is not inside outerEl
 ...outerEl().in().innerEl()
 ```
+![](/img/gif/in.gif)
 

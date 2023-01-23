@@ -8,21 +8,19 @@ Logic and operator
 **Examples:**
 ```text 
 example scene: 
- --------------------------   --------------------------
- |  icon user colored black | |  icon  user colored red |
- --------------------------   --------------------------
-```
+ ---------------   ----------------
+ |  icon user  |   |  icon search |
+ ---------------   ----------------```
 ```typescript 
-const icons = await aui.get().icon().withText('user').exec();
+const icons = await aui.get().icon().exec();
 console.log(icons);
 ```
-Using only the filter withText, the get command will return both icons because they share the same text 
+Using only the filter icon, the get command will return both icons 
 ```text 
 console output: [
   DetectedElement {
      name: 'ICON',
      text: 'user',
-     colors: [ 'black', 'black', 'black' ],
      bndbox: BoundingBox {
         xmin: 1000,
         ymin: 1010,
@@ -32,8 +30,7 @@ console output: [
   },
   DetectedElement {
      name: 'ICON',
-     text: 'user',
-     colors: [ 'red', 'red', 'red' ],
+     text: 'search',
      bndbox: BoundingBox {
         xmin: 900,
         ymin: 910,
@@ -45,16 +42,15 @@ console output: [
 ```
 You can combine filters with **the `and()` relation** and specify exactly which icon you want
 ```typescript 
-const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+const icons = await aui.get().icon().and().withText('user').exec()
 console.log(icons)
 ```
-The get command returns only the red icon although both icons have the same text
+The get command returns only the user icon although both elements are icons
 ```text 
  console output: [
   DetectedElement {
      name: 'ICON',
      text: 'user',
-     colors: [ 'red', 'red', 'red' ],
      bndbox: BoundingBox {
         xmin: 900,
         ymin: 910,
