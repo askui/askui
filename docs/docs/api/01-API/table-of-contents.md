@@ -86,8 +86,6 @@ displayed_sidebar: apiSidebar
 
 -  [circle](../filters/circle)
 
--  [colored](../filters/colored)
-
 -  [containsText](../filters/containstext)
 
 -  [customElement](../filters/customelement)

@@ -30,7 +30,6 @@ Returns the same button for both cases
   DetectedElement {
      name: 'BUTTON',
      text: 'button',
-     colors: [ 'red', 'black', 'red' ],
      bndbox: BoundingBox {
         xmin: 900,
         ymin: 910,
