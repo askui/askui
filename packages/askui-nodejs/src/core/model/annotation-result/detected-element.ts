@@ -21,7 +21,7 @@ export class DetectedElement {
       detectedElement.name,
       detectedElement.text,
       BoundingBox.fromJson(detectedElement.bndbox, resizeRatio),
-      detectedElement.colors,
+      detectedElement.colors ? detectedElement.colors : undefined,
 
     );
   }
