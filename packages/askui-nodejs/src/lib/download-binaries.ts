@@ -4,6 +4,8 @@ import os from 'os';
 import path from 'path';
 import http from 'http';
 import https from 'https';
+import { promisify } from 'util';
+import stream from 'stream';
 import { getPathToNodeModulesRoot } from '../utils/path';
 import { logger } from './logger';
 
@@ -31,11 +33,14 @@ export function platform(): SupportedPlatform {
   throw new Error(`Platform "${pf}" is not supported.`);
 }
 
-function buildBinaryNotAvailbleError(binaryVersion: string): Error {
-  return new Error(`It seems that the UI Controller version "${binaryVersion}" for your system "${platform()} ${os.arch}" is not availble, Please contact as at info@askui.com for more information`);
+function buildBinaryNotAvailableError(binaryVersion: string): Error {
+  return new Error(`There was an error during downloading and creating the askui UI Controller. You can try a fresh install.
+   If you specified a binary version it is possible that the askui UI Controller version "${binaryVersion}" 
+   for your system "${platform()} ${os.arch}" is not available. 
+   If this problem still occurs, please contact us at info@askui.com for more information`);
 }
 
-export function getBinaryPath(version: string): string {
+export function getBinaryFilePath(version: string): string {
   return path.join(getPathToNodeModulesRoot(), 'release', version, ...binarySubPathsByPlatform[platform()]);
 }
 
@@ -45,36 +50,34 @@ function getBinaryDownloadUrl(binaryVersion: string): string {
   return `${baseUrl}/${platform()}/${arch}/${binarySubPathsByPlatform[platform()][1]}`;
 }
 
-export function downloadServerBinaries(
+export async function downloadServerBinaries(
   binaryVersion: string,
   proxyAgent?: { http: http.Agent, https: https.Agent },
 ): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const url = getBinaryDownloadUrl(binaryVersion);
-    const binaryOutputPath = getBinaryPath(binaryVersion);
-    const binaryFolder = path.dirname(binaryOutputPath);
-    logger.info(`Start downloading UI Controller version "${binaryVersion}"`);
-    if (!(fs.existsSync(binaryFolder))) {
-      fs.mkdirSync(binaryFolder, { recursive: true });
-    }
+  logger.info(`Start downloading UI Controller version "${binaryVersion}"`);
+  const url = getBinaryDownloadUrl(binaryVersion);
+  const binaryFilePath = getBinaryFilePath(binaryVersion);
+  const binaryFolderPath = path.dirname(binaryFilePath);
+  const tempFilePath = path.join(binaryFolderPath, 'askui-ui-controller.temp');
+  const pipeline = promisify(stream.pipeline);
+  const downloadStream = got.stream(url, proxyAgent ? { agent: proxyAgent } : {});
+  const fileWriterStream = fs.createWriteStream(tempFilePath);
 
-    const downloadStream = got.stream(url, proxyAgent ? { agent: proxyAgent } : {});
-    const fileWriterStream = fs.createWriteStream(binaryOutputPath);
-    downloadStream.on('error', () => {
-      reject();
-      fs.unlink(binaryOutputPath, (err) => { logger.error(err); });
-      throw buildBinaryNotAvailbleError(binaryVersion);
+  if (!(fs.existsSync(binaryFolderPath))) {
+    fs.mkdirSync(binaryFolderPath, { recursive: true });
+  }
+
+  try {
+    await pipeline(downloadStream, fileWriterStream);
+    fs.rename(tempFilePath, binaryFilePath, () => {
+      logger.info(`UI Controller version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
+      logger.debug(`Binary of UI Controller is located at "${binaryFilePath}".`);
     });
-    fileWriterStream
-      .on('error', () => {
-        fs.unlink(binaryOutputPath, () => { });
-        reject(new Error('oops, an error during the downloaded occurred, try again with fresh install'));
-      })
-      .on('finish', () => {
-        logger.info(`UI Controller version ${binaryVersion} for your system "${platform()} ${os.arch}" was downloaded`);
-        logger.debug(`Binary of UI Controller is located at "${binaryOutputPath}".`);
-        resolve();
-      });
-    downloadStream.pipe(fileWriterStream);
-  });
+  } catch (error) {
+    logger.error(error);
+    fs.unlink(tempFilePath, (err) => { logger.error(err); });
+    throw buildBinaryNotAvailableError(binaryVersion);
+  }
+
+  return Promise.resolve();
 }
