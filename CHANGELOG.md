@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/askui/askui/compare/0.6.1...0.7.0) (2023-01-25)
+
+
+### Features
+
+* make colors optional (#AS-1714) ([a0dbeac](https://github.com/askui/askui/commit/a0dbeacd9cfd1b5e918cf283d301800a0f5a04ac)), closes [#AS-1714](https://github.com/askui/askui/issues/AS-1714)
+
 ## [0.6.1](https://github.com/askui/askui/compare/0.6.0...0.6.1) (2022-12-19)
 
 * docs: add new android tutorial for web searching automation by @HaramChoi-askui in https://github.com/askui/askui/pull/223
