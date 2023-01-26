@@ -19,7 +19,7 @@ An interactive annotation is in essence three components:
 
 Clicking an element will copy this filter, which we can then use in the [step 3 of Getting Started page](../02-Getting%20Started/getting-started.md), which is actually using that to execute commands.
 
-![Interactive Annotation in action](../../../static/img/gif/interactive-annotate.gif)
+![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 
 ## Static Annotation
 
