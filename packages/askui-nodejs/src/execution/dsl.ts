@@ -810,6 +810,11 @@ export class FluentFilters extends FluentBase {
   /**
    * Filters for an UI element 'button'.
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().button().exec()
+   * ```
+   *
    * @return {FluentFiltersOrRelations}
    */
   button(): FluentFiltersOrRelations {
@@ -895,8 +900,17 @@ export class FluentFilters extends FluentBase {
    * ```typescript
    * 'text' === withText('text') => true
    * 'test' === withText('text') => true
+   * 'Test' === withText('text') => true
+   * 'Text' === withText('text') => true
+   * 'TEXT' === withText('text') => true
+   * 'texst' === withText('text') => true
+   * 'texts' === withText('text') => true
+   *
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -917,9 +931,11 @@ export class FluentFilters extends FluentBase {
    * 'The rain in Spain' === withTextRegex('\b[Ss]\w+') => true
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
+   *
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -941,6 +957,8 @@ export class FluentFilters extends FluentBase {
    * 'text' === withExactText('text') => true
    * 'test' === withExactText('text') => false
    * 'other' === withExactText('text') => false
+   *
+   * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
    * @param {string} text - A text to be matched.
@@ -962,6 +980,7 @@ export class FluentFilters extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -969,19 +988,6 @@ export class FluentFilters extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelations {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters for elements having a specific color.
-   *
-   * @param {COLOR} color - A color to match
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  colored(color: COLOR): FluentFiltersOrRelations {
-    this._textStr = `with color ${color}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -1018,7 +1024,6 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *   DetectedElement {
    *      name: 'BUTTON',
    *      text: 'button',
-   *      colors: [ 'red', 'black', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -1043,21 +1048,19 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * **Examples:**
    * ```text
    * example scene:
-   *  --------------------------   --------------------------
-   *  |  icon user colored black | |  icon  user colored red |
-   *  --------------------------   --------------------------
-   * ```
+   *  ---------------   ----------------
+   *  |  icon user  |   |  icon search |
+   *  ---------------   ---------------n```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec();
+   * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter withText, the get command will return both icons because they share the same text
+   * Using only the filter icon, the get command will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'black', 'black', 'black' ],
    *      bndbox: BoundingBox {
    *         xmin: 1000,
    *         ymin: 1010,
@@ -1067,8 +1070,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *   },
    *   DetectedElement {
    *      name: 'ICON',
-   *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
+   *      text: 'search',
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -1080,16 +1082,15 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```
    * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the red icon although both icons have the same text
+   * The get command returns only the user icon although both elements are icons
    * ```text
    *  console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -1126,6 +1127,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns nothing because innerEl is not inside outerEl
    * ...outerEl().in().innerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/in.gif)
    *
    * @return {FluentFilters}
    */
@@ -1149,6 +1151,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
    * @return {FluentFilters}
    */
@@ -1172,6 +1175,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
    * @return {FluentFilters}
    */
@@ -1198,6 +1202,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
+   * ![](https://docs.askui.com/img/gif/below.gif)
    *
    * @return {FluentFilters}
    */
@@ -1224,6 +1229,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/above.gif)
    *
    * @return {FluentFilters}
    */
@@ -1254,6 +1260,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * // Returns button 1 because button 1 is nearer to the text than button 2
    * ...button().nearestTo().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/nearestTo.gif)
    *
    * @return {FluentFilters}
    */
@@ -1281,6 +1288,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * //  Returns no element because innerEl contains no outerEl
    * ...innerEl().contains().outerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/contains.gif)
    *
    * @return {FluentFilters}
    */
@@ -2005,6 +2013,11 @@ export class FluentFiltersCondition extends FluentBase {
   /**
    * Filters for an UI element 'button'.
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().button().exec()
+   * ```
+   *
    * @return {FluentFiltersOrRelationsCondition}
    */
   button(): FluentFiltersOrRelationsCondition {
@@ -2090,8 +2103,17 @@ export class FluentFiltersCondition extends FluentBase {
    * ```typescript
    * 'text' === withText('text') => true
    * 'test' === withText('text') => true
+   * 'Test' === withText('text') => true
+   * 'Text' === withText('text') => true
+   * 'TEXT' === withText('text') => true
+   * 'texst' === withText('text') => true
+   * 'texts' === withText('text') => true
+   *
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -2112,9 +2134,11 @@ export class FluentFiltersCondition extends FluentBase {
    * 'The rain in Spain' === withTextRegex('\b[Ss]\w+') => true
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
+   *
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -2136,6 +2160,8 @@ export class FluentFiltersCondition extends FluentBase {
    * 'text' === withExactText('text') => true
    * 'test' === withExactText('text') => false
    * 'other' === withExactText('text') => false
+   *
+   * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
    * @param {string} text - A text to be matched.
@@ -2157,6 +2183,7 @@ export class FluentFiltersCondition extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -2164,19 +2191,6 @@ export class FluentFiltersCondition extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters for elements having a specific color.
-   *
-   * @param {COLOR} color - A color to match
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  colored(color: COLOR): FluentFiltersOrRelationsCondition {
-    this._textStr = `with color ${color}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2213,7 +2227,6 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *   DetectedElement {
    *      name: 'BUTTON',
    *      text: 'button',
-   *      colors: [ 'red', 'black', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -2238,21 +2251,19 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * **Examples:**
    * ```text
    * example scene:
-   *  --------------------------   --------------------------
-   *  |  icon user colored black | |  icon  user colored red |
-   *  --------------------------   --------------------------
-   * ```
+   *  ---------------   ----------------
+   *  |  icon user  |   |  icon search |
+   *  ---------------   ---------------n```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec();
+   * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter withText, the get command will return both icons because they share the same text
+   * Using only the filter icon, the get command will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'black', 'black', 'black' ],
    *      bndbox: BoundingBox {
    *         xmin: 1000,
    *         ymin: 1010,
@@ -2262,8 +2273,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *   },
    *   DetectedElement {
    *      name: 'ICON',
-   *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
+   *      text: 'search',
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -2275,16 +2285,15 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```
    * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the red icon although both icons have the same text
+   * The get command returns only the user icon although both elements are icons
    * ```text
    *  console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -2321,6 +2330,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns nothing because innerEl is not inside outerEl
    * ...outerEl().in().innerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/in.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2344,6 +2354,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2367,6 +2378,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2393,6 +2405,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
+   * ![](https://docs.askui.com/img/gif/below.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2419,6 +2432,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/above.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2449,6 +2463,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * // Returns button 1 because button 1 is nearer to the text than button 2
    * ...button().nearestTo().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/nearestTo.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2476,6 +2491,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * //  Returns no element because innerEl contains no outerEl
    * ...innerEl().contains().outerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/contains.gif)
    *
    * @return {FluentFiltersCondition}
    */
@@ -2488,6 +2504,11 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Expects that filtered element exists.
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.expect().text().withText('Login').exists().exec()
+   * ```
+   *
    * @return {ExecCondition}
    */
   exists(): ExecCondition {
@@ -2498,6 +2519,11 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
 
   /**
    * Expects that filtered element does not exist.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.expect().text().withText('Login').notExists().exec()
+   * ```
    *
    * @return {ExecCondition}
    */
@@ -2517,8 +2543,13 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Expects a condition, e.g., `exists()` or `notExits()`,
-   *  e.g., `...expect().text().withText('Login').exists()`.
+   * Expects a condition, e.g., `exists()` or `notExits()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.expect().text().withText('Login').exists().exec()
+   * await aui.expect().text().withText('Login').notExists().exec()
+   * ```
    *
    * @return {FluentFiltersCondition}
    */
@@ -2531,6 +2562,11 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Clicks on the filtered element.
    *
+   * **Example:**
+   * ```typescript
+   * await aui.click().button().withText('Submit').exec()
+   * ```
+   *
    * @return {FluentFilters}
    */
   click(): FluentFilters {
@@ -2542,6 +2578,11 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Move mouse over the filtered element.
    *
+   * **Example:**
+   * ```typescript
+   * await aui.moveMouseTo().button().withText('Submit').exec()
+   * ```
+   *
    * @return {FluentFilters}
    */
   moveMouseTo(): FluentFilters {
@@ -2551,7 +2592,16 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Types a text inside the filtered element.
+   * Puts the focus on the filtered element and types in the text.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.typeIn('Type some text').textfield().exec()
+   *
+   * // mask the text so it is not send to the askui-inference server
+   * await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfield().exec()
+   * ```
+   * ![](https://docs.askui.com/img/gif/typeIn.gif)
    *
    * @param {string} text - A text to type
    *
@@ -2566,6 +2616,13 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Moves mouse to the filtered element and scrolls in the x and y direction.
    *
+   * **macOS**: May not work as expected!
+   *
+   * **Example:**
+   * ```typescript
+   * await aui.scroll(0, 10).textarea().exec()
+   * ```
+   *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
@@ -2579,7 +2636,14 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Moves the mouse relatively to an element in the direction.
-   * This can be used when the mouse should not hover over on an element anymore.
+   * This can be used when the mouse should not hover over an element anymore.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Move mouse 30 pixels below button
+   * await aui.moveMouseRelativelyTo(0, 30).button().withText('Submit').exec()
+   * ```
+   * ![](https://docs.askui.com/img/gif/moveMouseRelativelyTo.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
@@ -2593,10 +2657,19 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Swipe an element in the x and y direction
+   * Swipe an element in the x and y direction.
+   * Holds the left mouse button down on Windows, Linux and macOS and drags the element.
+   * On touch devices it taps the element and then drags it.
    *
-   * @param {number} x_offset - A x direction. positive an negative values are accepted
-   * @param {number} y_offset - A y direction. positive an negative values are accepted
+   * **Example:**
+   * ```typescript
+   * // Swipe the element 500 to the right
+   * await aui.swipe(500, 0).image().exec()
+   * ```
+   * ![](https://docs.askui.com/img/gif/swipe.gif)
+   *
+   * @param {number} x_offset - A x direction. positive and negative values are accepted
+   * @param {number} y_offset - A y direction. positive and negative values are accepted
    *
    * @return {FluentFilters}
    */
@@ -2608,6 +2681,14 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Types a text at the current position.
+   * If you need to focus the element first, use typeIn()
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.type('Type some text').exec()
+   *
+   * // mask the text so it is not send to the askui-inference serverawait aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
+   * ```
    *
    * @param {string} text - A text to type
    *
@@ -2652,6 +2733,14 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Important**: Mouse must be positioned in a scrollable area.
    *
+   * **macOS**: May not work as expected!
+   *
+   * **Example:**
+   * ```typescript
+   * // Scroll 10 up in y direction
+   * await aui.scroll(0, 10).exec()
+   * ```
+   *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
@@ -2664,7 +2753,13 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Executes a shell command.
+   * Executes a shell command on the device.
+   *
+   * **Example:**
+   * ```typescript
+   * // Open the lastpass app
+   * await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec()
+   * ```
    *
    * @param {string} shell_command - A shell command which is executed.
    *
@@ -2672,94 +2767,6 @@ export abstract class FluentCommand extends FluentBase {
    */
   execOnShell(shell_command: string): Exec {
     this._textStr = `Execute shell command ${Separators.STRING}${shell_command}${Separators.STRING}`;
-
-    return new Exec(this);
-  }
-
-  /**
-   * Clicks with left mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseLeftClick(): Exec {
-    this._textStr = 'Mouse left click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Clicks with right mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseRightClick(): Exec {
-    this._textStr = 'Mouse right click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Clicks with middle mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseMiddleClick(): Exec {
-    this._textStr = 'Mouse middle click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Double-clicks with left mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseDoubleLeftClick(): Exec {
-    this._textStr = 'Mouse double left click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Double-clicks with right mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseDoubleRightClick(): Exec {
-    this._textStr = 'Mouse double right click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Double-clicks with middle mouse key.
-   *
-   * @return {Exec}
-   */
-  mouseDoubleMiddleClick(): Exec {
-    this._textStr = 'Mouse double middle click';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Toggles mouse down.
-   *
-   * @return {Exec}
-   */
-  mouseToggleDown(): Exec {
-    this._textStr = 'Mouse toggle down';
-
-    return new Exec(this);
-  }
-
-  /**
-   * Toggles mouse up.
-   *
-   * @return {Exec}
-   */
-  mouseToggleUp(): Exec {
-    this._textStr = 'Mouse toggle up';
 
     return new Exec(this);
   }
@@ -3574,6 +3581,11 @@ export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters for an UI element 'button'.
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().button().exec()
+   * ```
+   *
    * @return {FluentFiltersOrRelationsGetter}
    */
   button(): FluentFiltersOrRelationsGetter {
@@ -3659,8 +3671,17 @@ export class FluentFiltersGetter extends FluentBase {
    * ```typescript
    * 'text' === withText('text') => true
    * 'test' === withText('text') => true
+   * 'Test' === withText('text') => true
+   * 'Text' === withText('text') => true
+   * 'TEXT' === withText('text') => true
+   * 'texst' === withText('text') => true
+   * 'texts' === withText('text') => true
+   *
+   * // usually false
+   * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -3681,9 +3702,11 @@ export class FluentFiltersGetter extends FluentBase {
    * 'The rain in Spain' === withTextRegex('\b[Ss]\w+') => true
    * 'The rain in Portugal' === withTextRegex('\b[Ss]\w+') => false
    * 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
+   *
+   * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * @param {string} regex_pattern - An regex pattern
+   * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3705,6 +3728,8 @@ export class FluentFiltersGetter extends FluentBase {
    * 'text' === withExactText('text') => true
    * 'test' === withExactText('text') => false
    * 'other' === withExactText('text') => false
+   *
+   * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
    * @param {string} text - A text to be matched.
@@ -3726,6 +3751,7 @@ export class FluentFiltersGetter extends FluentBase {
    * 'This is an text' === containsText('other text') => false
    * 'This is an text' === containsText('other') => false
    * ```
+   * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
    * @param {string} text - A text to be matched.
    *
@@ -3733,19 +3759,6 @@ export class FluentFiltersGetter extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters for elements having a specific color.
-   *
-   * @param {COLOR} color - A color to match
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  colored(color: COLOR): FluentFiltersOrRelationsGetter {
-    this._textStr = `with color ${color}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -3782,7 +3795,6 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *   DetectedElement {
    *      name: 'BUTTON',
    *      text: 'button',
-   *      colors: [ 'red', 'black', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -3807,21 +3819,19 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * **Examples:**
    * ```text
    * example scene:
-   *  --------------------------   --------------------------
-   *  |  icon user colored black | |  icon  user colored red |
-   *  --------------------------   --------------------------
-   * ```
+   *  ---------------   ----------------
+   *  |  icon user  |   |  icon search |
+   *  ---------------   ---------------n```
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').exec();
+   * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter withText, the get command will return both icons because they share the same text
+   * Using only the filter icon, the get command will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'black', 'black', 'black' ],
    *      bndbox: BoundingBox {
    *         xmin: 1000,
    *         ymin: 1010,
@@ -3831,8 +3841,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *   },
    *   DetectedElement {
    *      name: 'ICON',
-   *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
+   *      text: 'search',
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -3844,16 +3853,15 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```
    * You can combine filters with **the `and()` relation** and specify exactly which icon you want
    * ```typescript
-   * const icons = await aui.get().icon().withText('user').and().colored('red').exec()
+   * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the red icon although both icons have the same text
+   * The get command returns only the user icon although both elements are icons
    * ```text
    *  console output: [
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'user',
-   *      colors: [ 'red', 'red', 'red' ],
    *      bndbox: BoundingBox {
    *         xmin: 900,
    *         ymin: 910,
@@ -3890,6 +3898,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns nothing because innerEl is not inside outerEl
    * ...outerEl().in().innerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/in.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -3913,6 +3922,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -3936,6 +3946,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -3962,6 +3973,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
+   * ![](https://docs.askui.com/img/gif/below.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -3988,6 +4000,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/above.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -4018,6 +4031,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * // Returns button 1 because button 1 is nearer to the text than button 2
    * ...button().nearestTo().text()
    * ```
+   * ![](https://docs.askui.com/img/gif/nearestTo.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -4045,6 +4059,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * //  Returns no element because innerEl contains no outerEl
    * ...innerEl().contains().outerEl()
    * ```
+   * ![](https://docs.askui.com/img/gif/contains.gif)
    *
    * @return {FluentFiltersGetter}
    */
@@ -4071,8 +4086,8 @@ export abstract class Getter extends FluentCommand {
    * A detected element has the following properties:
    * - `name` of the element
    * - `text` content of element
-   * - `colors` of element
    * - `bndbox`: location of element described with coordinates of a bounding box
+   *
    * **Examples:**
    * ```typescript
    * const text = await aui.get().text().withText('Sign').exec();
@@ -4083,7 +4098,6 @@ export abstract class Getter extends FluentCommand {
    *   DetectedElement {
    *      name: 'TEXT',
    *      text: 'Sign In',
-   *      colors: [ 'black', 'gray', 'gray' ],
    *      bndbox: BoundingBox {
    *         xmin: 1128.2720982142857,
    *         ymin: 160.21332310267857,
@@ -4107,8 +4121,8 @@ export abstract class Getter extends FluentCommand {
    * A detected element has the following properties:
    * - `name` of the element
    * - `text` content of element
-   * - `colors` of element
    * - `bndbox`: location of element described with coordinates of a bounding box
+   *
    * **Examples:**
    * ```typescript
    * const detectedElements = await aui.getAll().exec();
@@ -4119,7 +4133,6 @@ export abstract class Getter extends FluentCommand {
    *   DetectedElement {
    *      name: 'TEXT',
    *      text: 'Sign In',
-   *      colors: [ 'black', 'gray', 'gray' ],
    *      bndbox: BoundingBox {
    *         xmin: 1128.2720982142857,
    *         ymin: 160.21332310267857,
@@ -4129,7 +4142,6 @@ export abstract class Getter extends FluentCommand {
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'search',
-   *      colors: [ 'black', 'red', 'gray' ],
    *      bndbox: BoundingBox {
    *         xmin: 250.8204241071428,
    *         ymin: 300.21332310267857,

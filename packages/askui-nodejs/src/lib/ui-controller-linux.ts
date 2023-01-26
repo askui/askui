@@ -8,7 +8,7 @@ import { LibfuseError } from './libfuse-error';
 export class UiControllerLinux extends UiControllerFacade {
   // eslint-disable-next-line class-methods-use-this
   protected override makeBinaryExecutable(): void {
-    exec(`chmod +x "${this.binaryPath}"`, (_exception, stdout) => logger.debug(stdout));
+    exec(`chmod +x "${this.binaryFilePath}"`, (_exception, stdout) => logger.debug(stdout));
   }
 
   // eslint-disable-next-line class-methods-use-this
