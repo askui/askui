@@ -123,7 +123,7 @@ describe('jest with askui', () => {
 });
 ````
 
-As before, run your code with `npx jest --config ./test/jest.config.ts`
+As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts `
 
 You should see askui take over your mouse, mouse over the element you chose and click.
 

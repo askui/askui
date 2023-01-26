@@ -6,7 +6,6 @@ Notice that the magnifying glass icon and many other elements throughout the UI 
 
 ![Icon mobile annotation one.](images/relational_selectors_same_icon1.png)
 ![Icon mobile annotation one.](images/relational_selectors_same_icon2.png)
-![Icon mobile annotation one.](images/relational_selectors_same_icon3.png)
 
 To ensure you’re able to instruct askui to select the correct element, the use of relational selectors can be employed.
 Relational selectors describe the element relative to other elements in the UI.
