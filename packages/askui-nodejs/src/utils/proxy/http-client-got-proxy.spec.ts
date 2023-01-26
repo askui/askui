@@ -58,7 +58,7 @@ describe('HttpClient proxy', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await httpClient.post<any>(serverUrl, {});
 
-    expect(JSON.stringify(response)).toBe('{"ok":"test"}');
+    expect(JSON.stringify(response.body)).toBe('{"ok":"test"}');
     expect(connectedToProxy).toBeTruthy();
 
     httpServer.close();

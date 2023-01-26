@@ -3,12 +3,13 @@ import { Annotation } from '../annotation/annotation';
 import { ModelType } from './model-type';
 import { InvalidModelTypeError } from './invalid-model-type-error';
 
+export interface InferenceResponseBody {
+  type: ModelType;
+  data: ModelType extends 'COMMANDS' ? ControlCommand : Annotation;
+}
 export class InferenceResponse {
   static fromJson(
-    json: {
-      type: ModelType;
-      data: ModelType extends 'COMMANDS' ? ControlCommand : Annotation;
-    },
+    json: InferenceResponseBody,
     resizeRatio = 1,
     image?: string,
   ): ControlCommand | Annotation {

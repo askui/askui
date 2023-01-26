@@ -33,6 +33,7 @@ module.exports = {
       },
       rules: {
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        'import/extensions': ['error', { ts: 'never' }],
       },
     },
     {
