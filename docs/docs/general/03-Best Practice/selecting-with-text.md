@@ -24,7 +24,7 @@ await aui.moveMouseTo().text().withText('matrial').exec();
 await aui.mouseLeftClick().exec();
 ```
 
-![withText](../../../static/img/gif/withText.gif)
+![withText](/img/gif/withText.gif)
 
 `withText()` tries to find a text that matches the whole sequence. In most test cases, you will want to stick to this method, as it supports **Fuzzy Matching** and tolerates misspelled text. **Note that the above example code has two typos**. `matrial` doesn't match the text in the demo app, which is `Material`, although askui will find the text element that roughly matches the text on the screen.
 
@@ -39,7 +39,7 @@ await aui.moveMouseTo().text().containsText('Bottom').exec();
 await aui.mouseLeftClick().exec();
 ```
 
-![containsText](../../../static/img/gif/containsText.gif)
+![containsText](/img/gif/containsText.gif)
 
 Be aware that even if the method `containsText()` also supports **Fuzzy Matching**, it won't match the whole sequence by just a few characters. Try to use this code with the given demo app:
 
@@ -92,7 +92,7 @@ for(let i=0; i<elts.length; ++i){
 
 ```
 
-![withText2](../../../static/img/gif/withText2.gif)
+![withText2](/img/gif/withText2.gif)
 
 You will see that askui clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
 
@@ -110,7 +110,7 @@ for(let i=0; i<elts.length; ++i){
 }
 ```
 
-![withExactText](../../../static/img/gif/withExactText.gif)
+![withExactText](/img/gif/withExactText.gif)
 
 ## Match Text with Regular Expression
 
@@ -131,7 +131,7 @@ for(let i=0; i<cals.length; ++i){
 }
 ```
 
-![withTextRegex](../../../static/img/gif/withTextRegex.gif)
+![withTextRegex](/img/gif/withTextRegex.gif)
 
 The regular expression `[3-4][0-9]{2}` means,
 - **[3-4]**: Match one character between 3 and 4.

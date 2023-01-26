@@ -39,7 +39,7 @@ await aui
   .withText('Submit')
   .exec();
 ```
-![above](../../../static/img/gif/above.gif)
+![above](/img/gif/above.gif)
 
 
 ## below()
@@ -56,7 +56,7 @@ await aui
   .exec();
 ```
 
-![below](../../../static/img/gif/below.gif)
+![below](/img/gif/below.gif)
 
 ## contains()
 
@@ -76,7 +76,7 @@ await aui
   .exec();
 ```
 
-![contains](../../../static/img/gif/contains.gif)
+![contains](/img/gif/contains.gif)
 
 ## in()
 
@@ -103,7 +103,7 @@ await aui
   .exec();
 ```
 
-![in](../../../static/img/gif/in.gif)
+![in](/img/gif/in.gif)
 
 ## leftOf() and rightOf()
 If you want to select an element based on its location left or right of another element you have to use `leftOf()` or `rightOf()` respectively.
@@ -120,7 +120,7 @@ await aui
   .exec();
 ```
 
-![leftof](../../../static/img/gif/leftOf.gif)
+![leftof](/img/gif/leftOf.gif)
 
 ```ts
 await aui
@@ -132,7 +132,7 @@ await aui
   .exec();
 ```
 
-![leftof](../../../static/img/gif/rightOf.gif)
+![leftof](/img/gif/rightOf.gif)
 
 
 ## nearestTo()
@@ -149,7 +149,7 @@ await aui
   .exec();
 ```
 
-![nearestto](../../../static/img/gif/nearestTo.gif)
+![nearestto](/img/gif/nearestTo.gif)
 
 ## Additional Considerations About the Distance Metric
 The distance is not entirely based on physical distance. If you use an additional filter like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
