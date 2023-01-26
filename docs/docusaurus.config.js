@@ -60,7 +60,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'general/Introduction/why-askui',
+            docId: 'general/Getting Started/getting-started',
             position: 'left',
             label: 'Docs',
           },

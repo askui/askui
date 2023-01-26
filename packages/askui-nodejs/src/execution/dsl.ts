@@ -2772,6 +2772,94 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
+   * Clicks with left mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseLeftClick(): Exec {
+    this._textStr = 'Mouse left click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Clicks with right mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseRightClick(): Exec {
+    this._textStr = 'Mouse right click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Clicks with middle mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseMiddleClick(): Exec {
+    this._textStr = 'Mouse middle click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Double-clicks with left mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleLeftClick(): Exec {
+    this._textStr = 'Mouse double left click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Double-clicks with right mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleRightClick(): Exec {
+    this._textStr = 'Mouse double right click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Double-clicks with middle mouse key.
+   *
+   * @return {Exec}
+   */
+  mouseDoubleMiddleClick(): Exec {
+    this._textStr = 'Mouse double middle click';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Toggles mouse down (Left mouse key).
+   *
+   * @return {Exec}
+   */
+  mouseToggleDown(): Exec {
+    this._textStr = 'Mouse toggle down';
+
+    return new Exec(this);
+  }
+
+  /**
+   * Toggles mouse up (Left mouse key).
+   *
+   * @return {Exec}
+   */
+  mouseToggleUp(): Exec {
+    this._textStr = 'Mouse toggle up';
+
+    return new Exec(this);
+  }
+
+  /**
    * Press three keys like `CTRL+ALT+DEL`
    *
    * @param {MODIFIER_KEY} first_key - A modifier key
