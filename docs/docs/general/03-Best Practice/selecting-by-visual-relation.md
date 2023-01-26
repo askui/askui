@@ -1,12 +1,21 @@
-# Selecting an Element by Visual Relation
+# Relational Selectors
+A common problem while writing instructions which one encounters is interacting with elements which share the same text.
 
-Relational selectors can be difficult and sometimes confusing to work with at first. Sometimes it is even not clear why a specific element will not be selected or why the selector does not seem to work.
+An example can be seen when you interactively annotate your Visual Studio Code Editor.
+Notice that the magnifying glass icon and many other elements throughout the UI share the same name:
 
-After reading this tutorial you will know how to use the full power of all the relational selectors. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
+![Icon mobile annotation one.](images/relational_selectors_same_icon1.png)
+![Icon mobile annotation one.](images/relational_selectors_same_icon2.png)
+
+To ensure you’re able to instruct askui to select the correct element, the use of relational selectors can be employed.
+Relational selectors describe the element relative to other elements in the UI.
+
+## Selecting an Element by Visual Relation
+After reading the next section you will know how to use the full power of all the relational selectors. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
 
 We will use the [Selectorshub practice page](https://selectorshub.com/xpath-practice-page/) for the demonstration.
 
-In this article we’ll discuss the following relational selectors:
+We’ll discuss the following relational selectors:
 
 - [above()](#above)
 - [below()](#below)
@@ -29,7 +38,7 @@ await aui
   .withText('Submit')
   .exec();
 ```
-![above](../../../static/img/gif/above.gif)
+![above](/img/gif/above.gif)
 
 
 ## below()
@@ -46,7 +55,7 @@ await aui
   .exec();
 ```
 
-![below](../../../static/img/gif/below.gif)
+![below](/img/gif/below.gif)
 
 ## contains()
 
@@ -66,7 +75,7 @@ await aui
   .exec();
 ```
 
-![contains](../../../static/img/gif/contains.gif)
+![contains](/img/gif/contains.gif)
 
 ## in()
 
@@ -93,7 +102,7 @@ await aui
   .exec();
 ```
 
-![in](../../../static/img/gif/in.gif)
+![in](/img/gif/in.gif)
 
 ## leftOf() and rightOf()
 If you want to select an element based on its location left or right of another element you have to use `leftOf()` or `rightOf()` respectively.
@@ -110,7 +119,7 @@ await aui
   .exec();
 ```
 
-![leftof](../../../static/img/gif/leftOf.gif)
+![leftof](/img/gif/leftOf.gif)
 
 ```ts
 await aui
@@ -122,7 +131,7 @@ await aui
   .exec();
 ```
 
-![leftof](../../../static/img/gif/rightOf.gif)
+![leftof](/img/gif/rightOf.gif)
 
 
 ## nearestTo()
@@ -139,7 +148,7 @@ await aui
   .exec();
 ```
 
-![nearestto](../../../static/img/gif/nearestTo.gif)
+![nearestto](/img/gif/nearestTo.gif)
 
 ## Additional Considerations About the Distance Metric
 The distance is not entirely based on physical distance. If you use an additional filter like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
@@ -155,24 +164,3 @@ await aui
   .withText('Submit')
   .exec()
 ```
-
-## Keep Reading
-
-Check out other articles to discover more about askui:
-
-**Best Practices**
-- [Selecting an Element with Text](./selecting-with-text.md)
-- [Speed Up Execution](./speed_up_execution.md)
-
-**Tutorials**
-
-- [Search Image in Google](../06-Tutorials/google-cat-search.md)
-- [Login at an Online Shop](../06-Tutorials/shop-demo.md)
-- [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
-- [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
-- [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
-
-**Continuous Integration**
-
-- [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md)
-- [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md)

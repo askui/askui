@@ -24,7 +24,7 @@ await aui.moveMouseTo().text().withText('matrial').exec();
 await aui.mouseLeftClick().exec();
 ```
 
-![withText](../../../static/img/gif/withText.gif)
+![withText](/img/gif/withText.gif)
 
 `withText()` tries to find a text that matches the whole sequence. In most test cases, you will want to stick to this method, as it supports **Fuzzy Matching** and tolerates misspelled text. **Note that the above example code has two typos**. `matrial` doesn't match the text in the demo app, which is `Material`, although askui will find the text element that roughly matches the text on the screen.
 
@@ -39,7 +39,7 @@ await aui.moveMouseTo().text().containsText('Bottom').exec();
 await aui.mouseLeftClick().exec();
 ```
 
-![containsText](../../../static/img/gif/containsText.gif)
+![containsText](/img/gif/containsText.gif)
 
 Be aware that even if the method `containsText()` also supports **Fuzzy Matching**, it won't match the whole sequence by just a few characters. Try to use this code with the given demo app:
 
@@ -92,7 +92,7 @@ for(let i=0; i<elts.length; ++i){
 
 ```
 
-![withText2](../../../static/img/gif/withText2.gif)
+![withText2](/img/gif/withText2.gif)
 
 You will see that askui clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
 
@@ -110,7 +110,7 @@ for(let i=0; i<elts.length; ++i){
 }
 ```
 
-![withExactText](../../../static/img/gif/withExactText.gif)
+![withExactText](/img/gif/withExactText.gif)
 
 ## Match Text with Regular Expression
 
@@ -131,7 +131,7 @@ for(let i=0; i<cals.length; ++i){
 }
 ```
 
-![withTextRegex](../../../static/img/gif/withTextRegex.gif)
+![withTextRegex](/img/gif/withTextRegex.gif)
 
 The regular expression `[3-4][0-9]{2}` means,
 - **[3-4]**: Match one character between 3 and 4.
@@ -139,24 +139,3 @@ The regular expression `[3-4][0-9]{2}` means,
 - **{2}**: Repeat the previous expression ([0-9]) two times.
 
 As the result, it will try to match every text that has a sequence starting with the digit 3 or 4, and then has any two digits in a row.
-
-## Keep Reading
-
-Check out other articles to discover more about askui:
-
-**Best Practices**
-- [Selecting an Element with Text](./selecting-with-text.md)
-- [Speed Up Execution](./speed_up_execution.md)
-
-**Tutorials**
-
-- [Search Image in Google](../06-Tutorials/google-cat-search.md)
-- [Login at an Online Shop](../06-Tutorials/shop-demo.md)
-- [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
-- [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
-- [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
-
-**Continuous Integration**
-
-- [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md)
-- [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md)

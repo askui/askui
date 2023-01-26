@@ -126,7 +126,7 @@ binaryVersion
 url
 dropdown
 uiControllerUrl
-inferenceClientUrl
+inferenceServerUrl
 annotationLevel
 AnnotationLevel
 progressbar
@@ -160,3 +160,5 @@ nearestto
 withText2
 discoverable
 wirelessly
+Wayland
+Wayland.

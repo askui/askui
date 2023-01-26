@@ -113,4 +113,4 @@ Press `ESC` to close the fullscreen window.
 await aui.annotateInteractively();
 ```
 
-![Interactive Annotation](../../../static/img/gif/interactive-annotate.gif)
+![Interactive Annotation](/img/gif/interactive-annotate.gif)

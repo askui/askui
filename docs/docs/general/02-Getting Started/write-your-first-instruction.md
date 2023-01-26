@@ -7,19 +7,16 @@ sidebar_position: 3
 :::tip
 What you will learn
 
-- Initialize your first automation suite
+- Initialize your first askui suite
 - Configure your credentials (workspace id and access token)
-- Understand the generated automation case
-- Run your first automation
+- Run your first instruction
 - Troubleshooting any issues
 - Where to go next
 :::
 
-## Quickstart
-
 ## Initialization
 
-To create your first automation suite, enter
+To create your first askui suite, enter into your terminal
 
 ```shell
 npx askui init
@@ -36,9 +33,9 @@ npx askui init
 
 </details>
 
-### Configuration
+## Configuration
 
-Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!). Please see the [documentation](../08-askui%20User%20Portal/signup.md) on signing up and generating credentials.
+Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!).
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
@@ -51,61 +48,102 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
   });
 ```
 
-### Understand the Generated Code
+## Run Your First Instruction
+Writing and executing an instruction in askui can be done in three steps:
 
-### Run
+1. Execute an interactive annotation.
+2. Extract from the interactive annotation the filter which identifies target element.
+3. Execute an instruction to control the keyboard and mouse to take action on target element.
+
+### Step 1: Execute an Interactive Annotation
 
 :::info
-Before executing the automation, open `test/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below. It contains the text on **line 12** for which the AI will search.
+Before executing the instructions, open `test/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below.
 
-Some users have reported instability running automation on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running automation in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 :::
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
 import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
-  it('should click on text', async () => {
-    // Run this to see what askui annotates
+  it('should generate an interactive annotation', async () => {
     await aui.annotateInteractively();
-
-    await aui.moveMouse(0, 0).exec();
-    await aui
-      .click()
-      .text()
-      .withText('Click on this text right here!')
-      .exec();
   });
 });
 ```
 
-To execute the automation suite, enter
+To execute the instructions, enter into your terminal
 
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
 ```
 
-You should now see the automation suite being executed inside the shell and the following things happening on your main display:
+A few seconds later an interactive annotation will be generated.
 
-1. **Line 6**: Show an interactively annotated version of your main display with red bounding boxes around the annotated elements. When you press `ESC` on your keyboard the automation will resume.
+If you’d like a longer explanation as to what an interactive annotation is, read about here.
 
-<details>
-  <summary>What is Interactive Annotation?</summary>
-The interactive annotation command requests the askui server to take a screenshot of the specified screen. Then, an AI model is used to annotate the image. After that, a full-screen window appears. Inside this window, boundary boxes enclosing the UI elements detected are going to appear. You can hover over the boxes to see the boxes' specifications, e.g., text detected, element type etc.
-</details>
+[Explanation of Interactive Annotations](../05-Tooling/annotation.md)
 
-2. **Line 8**: Your mouse pointer moves to the upper left corner of your main display.
-3. **Line 12**: Your mouse pointer comes back to click on the text `Click on this text right here!` in your automation file.
+### Step 2: Extract the filter
+Extract from the interactive annotation the filter which identifies target element.
+Locate any element you’d like the mouse to move to and copy the filter by clicking on it:
+Clicking an element will copy this filter, which we can then use in the step 3.
 
-This is what it should look like on your display:
+To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
 
-![Gif showing first test execution with Visual Studio Code on display.](/img/gif/first_test_execution.gif)
+### Step 3: Execute an Instruction
 
-:tada: Congratulations! You just executed your first automation suite using askui.
+Add this instruction code block to the describe block in your test file just under your interactive annotation instruction, taking note to also add your copied filter from the annotation:
 
-### Troubleshooting
 
-For problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
+```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+it('should click on my element', async () => {
+  await aui
+    .click()
+    // <INSERT YOUR COPIED FILTER HERE AND UNCOMMENT THIS LINE>.exec();
+});
+```
+
+Be sure to `xit` out the interactive annotation, as that is no longer needed. The final version should look like this, taking exception of course to whatever filter text you chose:
+
+```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+describe('jest with askui', () => {
+
+  xit('should generate an interactive annotation', async () => {
+    await aui.annotateInteractively();
+  });
+
+  it('should click on my element', async () => {
+    await aui
+      .click()
+      .text().withText("node_nodu")
+      .exec();
+  });
+});
+````
+
+As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts `
+
+You should see askui take over your mouse, mouse over the element you chose and click.
+
+Congratulations! You’ve just built your first instruction using askui. :tada:
+
+### What other instructions are available?
+
+* [Commands API](../../api/01-API/table-of-contents.md#commands)
+* [Filters API](../../api/01-API/table-of-contents.md#filters)
+* [Relations API](../../api/01-API/table-of-contents.md#relations)
+* [Checks API](../../api/01-API/table-of-contents.md#checks)
+* [Getters API](../../api/01-API/table-of-contents.md#getters)
+
+## Troubleshooting
+
+### askui moves to the wrong element?
+Have a look at [Relational Selectors](../03-Best%20Practice/selecting-by-visual-relation.md) to select elements via a visual relation instead.
+
+### Technical
+For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
 
 You will find the following pages there:
 
@@ -113,12 +151,27 @@ You will find the following pages there:
 * [askui behind a corporate proxy](../07-Troubleshooting/proxy.md)
 * [macOS missing permissions for UiController](../07-Troubleshooting/mac-os.md)
 
-### Where to Go Next?
-
-Writing powerful UI automations with askui needs some practice. We recommend you head over to the [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn more about how to select elements by texts written on the elements.
-
-If you are looking for inspiration, the **Tutorials** section will provide you with food for thought. Why not [Search for a Cat Image](../06-Tutorials/google-cat-search.md) as a start?
-
-Or check out the next page [Next Steps](./next-steps.md) for more.
+## Where to Go Next?
 
 Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
+
+### Tutorials
+If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of askui in depth:
+
+* [Search Image in Google](../06-Tutorials/google-cat-search.md)
+* [Login at an Online Shop](../06-Tutorials/shop-demo.md)
+* [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
+* [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
+* [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
+
+### Best Practice
+* Read [Selecting an Element by Visual Relation](../03-Best%20Practice/selecting-by-visual-relation.md) to understand the *Relational Selectors* in askui.
+* Read [Selecting an Element with Text](../03-Best%20Practice/selecting-with-text.md) to learn about *Text Selectors* in askui.
+* Read [Speed Up Execution](../03-Best%20Practice/speed_up_execution.md) to understand more about the inference's performance.
+
+### Annotation
+* Read [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature**.
+
+### Continuous Integration
+- Read the [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running askui inside a Docker container.
+- Read the [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md) to learn about integrating askui into your Gitlab CI/CD.

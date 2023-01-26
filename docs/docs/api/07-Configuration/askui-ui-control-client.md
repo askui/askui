@@ -37,9 +37,9 @@ $env:LOG_LEVEL="verbose"
 The url of the askui UI Controller controlling the OS.
 ___
 
-### inferenceClientUrl
+### inferenceServerUrl
 
-- **inferenceClientUrl**: `string` - Default: `https://inference.askui.com`
+- **inferenceServerUrl**: `string` - Default: `https://inference.askui.com`
 
 The address of the askui Inference server.
 ___

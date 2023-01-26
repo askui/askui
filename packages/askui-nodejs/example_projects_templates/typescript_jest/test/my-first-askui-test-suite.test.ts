@@ -1,15 +1,14 @@
 import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
-  it('should click on text', async () => {
-    // Run this to see what askui annotates
-    await aui.annotateInteractively();
 
-    await aui.moveMouse(0, 0).exec();
+  it('should generate an interactive annotation', async () => {
+    await aui.annotateInteractively();
+  });
+
+  it('should click on my element', async () => {
     await aui
       .click()
-      .text()
-      .withText('Click on this text right here!')
-      .exec();
+      // <INSERT YOUR COPIED FILTER HERE AND UNCOMMENT THIS LINE>.exec();
   });
 });
