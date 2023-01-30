@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+# Annotation
+
 ## Interactive Annotation
 An interactive annotation is in essence three components:
 
