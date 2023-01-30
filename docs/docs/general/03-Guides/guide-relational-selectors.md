@@ -5,6 +5,8 @@ An example can be seen when you interactively annotate your Visual Studio Code E
 Notice that the magnifying glass icon and many other elements throughout the UI share the same name:
 
 ![Icon mobile annotation one.](images/relational_selectors_same_icon1.png)
+
+
 ![Icon mobile annotation one.](images/relational_selectors_same_icon2.png)
 
 To ensure you’re able to instruct askui to select the correct element, the use of relational selectors can be employed.

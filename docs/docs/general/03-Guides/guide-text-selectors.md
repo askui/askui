@@ -1,4 +1,4 @@
-# Selecting an Element with Text
+# Text Selectors
 
 A human usually needs only the written text or visual properties of elements to understand a graphical user interface. The askui library provides multiple methods to interact with text of the UI.
 
