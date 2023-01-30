@@ -1,22 +1,16 @@
 # Changelog
 
-### [0.7.1](https://github.com/askui/askui/compare/0.7.0...0.7.1) (2023-01-26)
+## [0.7.2](https://github.com/askui/askui/compare/0.7.1...0.7.2) (2023-01-30)
 
+* **askui-nodejs:** warn user of usage running out ([b2dd16c](https://github.com/askui/askui/commit/b2dd16cf1108aaf075d72493e9f41ddde66485a4))
 
-### Features
+## [0.7.1](https://github.com/askui/askui/compare/0.7.0...0.7.1) (2023-01-26)
 
 * change example_projects_template testfile to reflect changes in docs ([84512f5](https://github.com/askui/askui/commit/84512f5684d7bae2ce1cc96a05e877fab56e41dc))
 * use temp file to download binaries of askui UI Controller (#AS-1696) ([1caf102](https://github.com/askui/askui/commit/1caf10272bd3c1e9d607ce710fbca2c09eb08fe0)), closes [#AS-1696](https://github.com/askui/askui/issues/AS-1696)
-
-
-### Bug Fixes
-
 * add mouse commands ([ddf1d41](https://github.com/askui/askui/commit/ddf1d410e96f03518fcb8dd205df7d8440d6aa85))
 
 ## [0.7.0](https://github.com/askui/askui/compare/0.6.1...0.7.0) (2023-01-25)
-
-
-### Features
 
 * make colors optional (#AS-1714) ([a0dbeac](https://github.com/askui/askui/commit/a0dbeacd9cfd1b5e918cf283d301800a0f5a04ac)), closes [#AS-1714](https://github.com/askui/askui/issues/AS-1714)
 
