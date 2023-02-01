@@ -1,4 +1,4 @@
-# Selecting an Element with Text
+# Text Selectors
 
 A human usually needs only the written text or visual properties of elements to understand a graphical user interface. The askui library provides multiple methods to interact with text of the UI.
 
@@ -139,24 +139,3 @@ The regular expression `[3-4][0-9]{2}` means,
 - **{2}**: Repeat the previous expression ([0-9]) two times.
 
 As the result, it will try to match every text that has a sequence starting with the digit 3 or 4, and then has any two digits in a row.
-
-## Keep Reading
-
-Check out other articles to discover more about askui:
-
-**Best Practices**
-- [Selecting an Element with Text](./selecting-with-text.md)
-- [Speed Up Execution](./speed_up_execution.md)
-
-**Tutorials**
-
-- [Search Image in Google](../06-Tutorials/google-cat-search.md)
-- [Login at an Online Shop](../06-Tutorials/shop-demo.md)
-- [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
-- [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
-- [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
-
-**Continuous Integration**
-
-- [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md)
-- [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md)
