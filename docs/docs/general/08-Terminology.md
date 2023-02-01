@@ -6,8 +6,8 @@
 | bounding box           | Rectangle described by coordinates that describe an element's location. Displayed visually as red rectangle. |
 | command                | An action on the user interface. For example mouse left click or keypress. |
 | credentials            | Combination of `workspace id` and `access token` living in the same workspace. |
-| element                | Or user interface element. Building blocks websites or apps are build from. |
-| filters                | Type of an element. For example _button_. |
+| element                | A user interface component which websites and blocks are build from. |
+| filters                | Screen for a type of an element. For example _button_. |
 | inference              | The process of annotating a user interface. |
 | inference server       | Backend which performs the inference. |
 | instruction            | Single askui directive which usually has following parts: _command_ + (optional)_filters_.|
