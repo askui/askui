@@ -2,6 +2,8 @@
 sidebar_position: 4
 ---
 
+# Annotation
+
 ## Interactive Annotation
 An interactive annotation is in essence three components:
 
@@ -14,8 +16,6 @@ An interactive annotation is in essence three components:
 ![Screenshot of Visual Studio Code with annotations as red bounding boxes.](images/interactive_annotation2.png)
 
 3. Filters, which are labels applied to the annotations of the screenshot.
-
-![Annotated source code showing one text annotation detail.](images/interactive_annotation2.png)
 
 Clicking an element will copy this filter, which we can then use in the [step 3 of Getting Started page](../02-Getting%20Started/getting-started.md), which is actually using that to execute commands.
 
