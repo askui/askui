@@ -8,10 +8,13 @@ const tagline = 'Humanizing UI Automation';
 // This is a hacky way to get GTM working //////////
 // See also the 'scripts' tag in config ////////////
 var headScript = '/scripts/googleTagManager.js';
+var utm2CookieScript = 'https://askui-public.s3.eu-central-1.amazonaws.com/assets/set-analytics-cookies-from-query-parameters.js';
 const isProd = process.env.NODE_ENV === 'production';
 if (!isProd) {
   headScript = '/scripts/isNotProd.js';
+  utm2CookieScript = '/scripts/isNotProd.js';
 }
+
 ////////////////////////////////////////////////////
 
 /** @type {import('@docusaurus/types').Config} */
@@ -40,7 +43,8 @@ const config = {
   projectName: 'askui', // Usually your repo name.
 
   scripts: [
-    {src: `${headScript}`}
+    {src: `${headScript}`},
+    {src: `${utm2CookieScript}`, async: true,}
   ],
   presets: [
     [
