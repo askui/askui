@@ -5,9 +5,6 @@ displayed_sidebar: apiSidebar
 
 Defines a 'custom element'. This is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
 
-See our [post about Custom Element](https://www.askui.com/blog-posts/custom-elements-in-askui) for a more descriptive explanation.
-
-
 **Example**
 
 ```ts
