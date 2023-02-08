@@ -1,6 +1,9 @@
 # Custom Elements in askui
+:::caution
 
+**Important**: This increases the runtime quite a bit. So use it only if absolutely necessary.
 
+:::
 
 ## Overview
 
@@ -242,7 +245,6 @@ it('enable street view', async ()=>{
     await aui.mouseToggleUp().exec();
 });
 ```
-
 - Note the optional parameters for the `customElement()`, especially the `threshold` that is set to `0.9`.
 - This parameter can be set from `0.0` up to `1.0`.
     - `0.0` will consider every element on the screen as matched with the given image.
@@ -250,7 +252,6 @@ it('enable street view', async ()=>{
 - So, the best scenario to set the `threshold` might be:
     - 1) Make the custom image to be as precise as possible (cropping from the screen).
     - 2) Keep the `threshold` relatively higher, but below `1.0`
-
 
 ## Conclusion
 
