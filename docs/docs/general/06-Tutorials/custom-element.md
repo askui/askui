@@ -31,7 +31,7 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 
 ```ts
 // Example of customElement()
-// 
+
 await aui
     .click()
     .customElement({
@@ -52,7 +52,7 @@ await aui
 - **name** (*`string`, optional*):
     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
 - **threshold** (*`number`, optional*):
-    - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like defined by `CustomElementJson` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+    - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
 - **rotationDegreePerStep** (*`number`, optional*):
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
