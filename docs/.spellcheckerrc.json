@@ -4,6 +4,8 @@
         "docs/api/**",
         "!(**/*.gif)",
         "!(**/*.png)",
+        "!(**/*.jpg)",
+        "!(**/*.jpeg)",
         "!(.spellcheckerrc.json)",
         "!(spellchecker-dictionary)",
         "!(./package*)"
