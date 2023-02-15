@@ -1,3 +1,7 @@
+---
+sidebar_position: 8
+---
+
 # Deprecated Endpoints
 
 If you are using the askui library you may see this warning:
