@@ -94,6 +94,10 @@ const config = {
             dropdownActiveClassDisabled: true,
           },
           {
+            type: 'search',
+            position: 'left',
+          },
+          {
             href: 'https://github.com/askui/askui',
             position: 'right',
             className: 'header-github-link',
