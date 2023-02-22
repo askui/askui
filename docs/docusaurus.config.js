@@ -9,10 +9,12 @@ const tagline = 'Humanizing UI Automation';
 // See also the 'scripts' tag in config ////////////
 var headScript = '/scripts/googleTagManager.js';
 var utm2CookieScript = 'https://askui-public.s3.eu-central-1.amazonaws.com/assets/set-analytics-cookies-from-query-parameters.js';
+var segmentExternalLinkTracking = '/scripts/segmentExternalLinks.js';
 const isProd = process.env.NODE_ENV === 'production';
 if (!isProd) {
   headScript = '/scripts/isNotProd.js';
   utm2CookieScript = '/scripts/isNotProd.js';
+  segmentExternalLinkTracking = '/scripts/isNotProd.js';
 }
 
 ////////////////////////////////////////////////////
@@ -143,7 +145,8 @@ const config = {
                     <!-- Google Tag Manager (noscript) -->
                     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPZ8G56"
                     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                    <!-- End Google Tag Manager (noscript) --> 
+                    <!-- End Google Tag Manager (noscript) -->
+                    <script src="${segmentExternalLinkTracking}" async></script>
                   `,
               },
             ],
