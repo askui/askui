@@ -164,10 +164,10 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
-### Best Practice
+### Guides
 * Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-selectors.md) to understand the *Relational Selectors* in askui.
 * Read [Selecting an Element with Text](../03-Guides/guide-text-selectors.md) to learn about *Text Selectors* in askui.
-* Read [Speed Up Execution](../03-Guides/speed_up_execution.md) to understand more about the inference's performance.
+* Read [Recommended Practices](../03-Guides/recommended-practices.md).
 
 ### Annotation
 * Read [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature**.
