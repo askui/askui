@@ -30,11 +30,11 @@ function TutorialCard({name, image, url, description, cta}: Props) {
           <Heading as="h3">{name}</Heading>
           <p>{description}</p>
         </div>
-        {/* <div className={clsx('card__image')}>
+        <div className={clsx('card__image')}>
           <Link to={url}>
             <Image img={image} alt={`${name}'s image`} />
           </Link>
-        </div> */}
+        </div>
         <div className="card__footer">
           <div className="button-group button-group--block">
             <Link className="button button--secondary" to={url}>
