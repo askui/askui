@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Automate Multiple Devices
 
 This tutorial shows how to automate multiple devices on the same network by using askui library. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
