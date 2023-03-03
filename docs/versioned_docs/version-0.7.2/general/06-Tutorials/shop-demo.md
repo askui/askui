@@ -28,11 +28,32 @@ describe(/* a string identifying the test suite */, () => {
 
 ### 1. Open the Demo Shop
 
-First we need to open the demo shop in the browser. For that we can type the URL into the URL bar and hit enter:
+First we need to open the demo shop in the browser.
+For that we open the browser and then type the URL into the search bar and hit enter.
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    // First open the browser.
+    // If it is already open it should focus the current window
+    // macOS: open -a 'Google Chrome'
+    // Windows: start chrome
+    await aui.execOnShell("start chrome").exec();
+
+    // Open a new tab
+    // macOS: command + t
+    // windows: control + t
+    await aui.pressTwoKeys('control', 't').exec();
+
+    // Click the textfield or URL bar that contains
+    // the text 'Search Google or type a URL'
+    await aui.click()
+      .text()
+      .withText('Search Google or type a URL').exec();
+
+    // Type the text into the focused element
+    await aui.type('https://askui-demo-shop-6e358.web.app/').exec();
+
+    // Navigate to the website
     await aui.pressKey('enter').exec();
 });
 ```
@@ -96,7 +117,27 @@ The following code block shows the finished test for the login of the web shop:
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    // First open the browser.
+    // If it is already open it should focus the current window
+    // macOS: open -a 'Google Chrome'
+    // Windows: start chrome
+    await aui.execOnShell("start chrome").exec();
+
+    // Open a new tab
+    // macOS: command + t
+    // windows: control + t
+    await aui.pressTwoKeys('control', 't').exec();
+
+    // Click the textfield or URL bar that contains
+    // the text 'Search Google or type a URL'
+    await aui.click()
+      .text()
+      .withText('Search Google or type a URL').exec();
+
+    // Type the text into the focused element
+    await aui.type('https://askui-demo-shop-6e358.web.app/').exec();
+
+    // Navigate to the website
     await aui.pressKey('enter').exec();
     await aui.click().text().withText('Login').exec();
     await aui.typeIn('test@askui.com').textfield().contains().text().withText('Email Address').exec();
