@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Online Shop Test Tutorial
 
 The following tutorial shows how to test the login process of a simple demo online shop.
