@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # contains
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for an element containing another element.
 
 **Example:**

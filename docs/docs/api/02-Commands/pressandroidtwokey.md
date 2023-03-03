@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # pressAndroidTwoKey
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Press two Android keys like `ALT+F4`
 
    * @param {ANDROID_KEY} first_key - A Android key

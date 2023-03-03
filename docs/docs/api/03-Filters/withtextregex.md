@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # withTextRegex
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for texts, which match the regex pattern.
 
 **Examples:**

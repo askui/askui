@@ -183,13 +183,7 @@ import { aui } from './helper/jest.setup';
 describe('jest with askui', () => {
   it('should open chrome', async () => {
 
-    // Here we try to avoid failing our test by using the try-catch phrase.
-    // It is because, 'textfield' and 'textarea' are seeming quite the same, even if they are tagged with different names.
-    try {
-        await aui.click().textfield().exec();    
-    } catch (error) {
-        await aui.click().textarea().exec();
-    }
+    await aui.click().textfield().exec();    
 
     // Type the desired keyword into the search bar
     await aui.type('chrome').exec();
@@ -285,13 +279,9 @@ import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
   it('should search spacecraft in chrome', async () => {
-    // Here we try to avoid failing our test by using the try-catch phrase.
-    // It is because, 'textfield' and 'textarea' are seeming quite the same, even if they are tagged with different names.
-    try {
-        await aui.click().textfield().exec();    
-    } catch (error) {
-        await aui.click().textarea().exec();
-    }
+
+    await aui.click().textfield().exec();    
+
     // Type the desired keyword into the search bar
     await aui.type('chrome').exec();
     // We wait for 1500 miliseconds, to make sure that the search result has been loaded before askui start to look for the search result. 

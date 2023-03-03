@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # scroll
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Scrolls based on the current mouse position in the x and y direction.
 
 **Important**: Mouse must be positioned in a scrollable area.

@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # click
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Clicks on the filtered element.
 
 **Example:**

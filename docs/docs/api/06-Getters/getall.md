@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # getAll
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Returns an array with all detected elements.
 A detected element has the following properties:
 - `name` of the element

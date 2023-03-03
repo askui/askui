@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # below
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for an element below another element.
 
 **Examples:**

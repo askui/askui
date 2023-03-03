@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # rightOf
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for an element right of another element.
 
 **Examples:**

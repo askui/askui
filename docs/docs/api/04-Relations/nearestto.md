@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # nearestTo
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for an element nearest to another element.
 
 **Examples:**

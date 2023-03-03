@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # pressAndroidThirdKey
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Press three Android keys like `CTRL+ALT+DEL`
 
    * @param {ANDROID_KEY} first_key - A Android key

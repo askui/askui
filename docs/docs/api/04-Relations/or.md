@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # or
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Logic or operator
 
 **Examples:**

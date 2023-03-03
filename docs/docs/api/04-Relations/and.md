@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # and
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Logic and operator
 
 **Examples:**
@@ -10,7 +12,7 @@ Logic and operator
 example scene: 
  ---------------   ----------------
  |  icon user  |   |  icon search |
- ---------------   ----------------```
+ ---------------   ---------------n```
 ```typescript 
 const icons = await aui.get().icon().exec();
 console.log(icons);

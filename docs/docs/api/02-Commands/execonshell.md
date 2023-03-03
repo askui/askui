@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # execOnShell
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Executes a shell command on the device.
 
 **Example:**

@@ -117,7 +117,7 @@ describe('jest with askui', () => {
       .typeIn("cat")
       .textfield()
       .below()
-      .logo().withText("G00g.e")
+      .icon().withText("G00g.e")
       .exec();
 
     await aui

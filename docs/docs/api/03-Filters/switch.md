@@ -1,10 +1,9 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# pressKey
+# switch
 
 <span class="theme-doc-version-badge badge badge--secondary"></span>
 
-Press one keys like `DEL`
+Filters for a UI element 'switch'.
 
-   * @param {PC_AND_MODIFIER_KEY} key - A key

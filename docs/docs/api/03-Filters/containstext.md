@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # containsText
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for text containing the text provided as an argument.
 
 **Examples:** 
@@ -11,7 +13,6 @@ Filters for text containing the text provided as an argument.
 'This is an text' === containsText('other text') => false
 'This is an text' === containsText('other') => false
 ```
+![](/img/gif/containsText.gif)
 
    * @param {string} text - A text to be matched.
-
-![](/img/gif/containsText.gif)

@@ -1,10 +1,9 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# pressKey
+# container
 
 <span class="theme-doc-version-badge badge badge--secondary"></span>
 
-Press one keys like `DEL`
+Filters for a UI element 'container'.
 
-   * @param {PC_AND_MODIFIER_KEY} key - A key

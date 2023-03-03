@@ -3,6 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # withText
 
+<span class="theme-doc-version-badge badge badge--secondary"></span>
+
 Filters for similar (doesn't need to be a 100% equal) text.
 
 **Examples:** 
@@ -15,10 +17,10 @@ Filters for similar (doesn't need to be a 100% equal) text.
 'texst' === withText('text') => true
 'texts' === withText('text') => true
 
+// usually false
 'atebxtc' === withText('text') => false
 'other' === withText('text') => false
 ```
+![](/img/gif/withText.gif)
 
    * @param {string} text - A text to be matched.
-
-![](/img/gif/withText.gif)
