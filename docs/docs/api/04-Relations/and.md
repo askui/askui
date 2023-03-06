@@ -12,7 +12,8 @@ Logic and operator
 example scene: 
  ---------------   ----------------
  |  icon user  |   |  icon search |
- ---------------   ---------------n```
+ ---------------   ----------------
+```
 ```typescript 
 const icons = await aui.get().icon().exec();
 console.log(icons);

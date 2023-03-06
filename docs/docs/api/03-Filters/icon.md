@@ -14,5 +14,5 @@ You can combine it with the 'withText' command to look for a specific icon.
 icon().withText('plus')
 ```
 
-Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+**Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
 
