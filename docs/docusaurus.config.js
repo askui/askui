@@ -8,10 +8,15 @@ const tagline = 'Humanizing UI Automation';
 // This is a hacky way to get GTM working //////////
 // See also the 'scripts' tag in config ////////////
 var headScript = '/scripts/googleTagManager.js';
+var utm2CookieScript = 'https://askui-public.s3.eu-central-1.amazonaws.com/assets/set-analytics-cookies-from-query-parameters.js';
+var segmentExternalLinkTracking = '/scripts/segmentExternalLinks.js';
 const isProd = process.env.NODE_ENV === 'production';
 if (!isProd) {
   headScript = '/scripts/isNotProd.js';
+  utm2CookieScript = '/scripts/isNotProd.js';
+  segmentExternalLinkTracking = '/scripts/isNotProd.js';
 }
+
 ////////////////////////////////////////////////////
 
 /** @type {import('@docusaurus/types').Config} */
@@ -40,7 +45,8 @@ const config = {
   projectName: 'askui', // Usually your repo name.
 
   scripts: [
-    {src: `${headScript}`}
+    {src: `${headScript}`},
+    {src: `${utm2CookieScript}`, async: true,}
   ],
   presets: [
     [
@@ -86,6 +92,10 @@ const config = {
             type: 'docsVersionDropdown',
             position: 'left',
             dropdownActiveClassDisabled: true,
+          },
+          {
+            type: 'search',
+            position: 'left',
           },
           {
             href: 'https://github.com/askui/askui',
@@ -139,7 +149,8 @@ const config = {
                     <!-- Google Tag Manager (noscript) -->
                     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPZ8G56"
                     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                    <!-- End Google Tag Manager (noscript) --> 
+                    <!-- End Google Tag Manager (noscript) -->
+                    <script src="${segmentExternalLinkTracking}" async></script>
                   `,
               },
             ],

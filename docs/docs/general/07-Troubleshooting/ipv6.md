@@ -1,3 +1,7 @@
+---
+sidebar_position: 7
+---
+
 # IPv6
 
 By default, the UI Controller which the askui lib starts and interacts with (you can also start it manually) is started at IP address `127.0.0.1` (IPv4 IP address that `localhost` normally resolves to).

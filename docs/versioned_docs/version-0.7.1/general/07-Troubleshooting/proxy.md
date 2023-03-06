@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Proxy
 
 In enterprises, [proxies](https://en.wikipedia.org/wiki/Proxy_server) are a standard to secure and control network traffic. We support the use of proxies in two ways.

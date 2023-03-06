@@ -4,13 +4,14 @@ If you are having problems using the askui lib, have a look at the following pag
 challenge after you have read through the pages, please drop us a note. We are happy to help!
 
 ## Pages
-* [Deprecated Endpoints](deprecated-endpoints.md)
-* [ipv6](ipv6.md)
+* [Cannot find Element Error](cannot_find_element_error.md)
+* [Jest](jest.md)
 * [Linux](linux.md)
+* [Windows](windows.md)
 * [macOS](mac-os.md)
 * [proxy](proxy.md)
-* [Jest](jest.md)
-* [Windows](windows.md) 
+* [ipv6](ipv6.md)
+* [Deprecated Endpoints](deprecated-endpoints.md)
 
 # Support
 

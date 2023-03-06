@@ -2,8 +2,11 @@
     "files": [
         "docs/general/**",
         "docs/api/**",
+        "!**/**/06-Tutorials/index.mdx",
         "!(**/*.gif)",
         "!(**/*.png)",
+        "!(**/*.jpg)",
+        "!(**/*.jpeg)",
         "!(.spellcheckerrc.json)",
         "!(spellchecker-dictionary)",
         "!(./package*)"

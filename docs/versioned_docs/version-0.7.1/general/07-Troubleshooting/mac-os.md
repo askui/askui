@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # macOS
 
 ## Elements Can't Be Found / Annotated Screen Empty / UI Controller not starting

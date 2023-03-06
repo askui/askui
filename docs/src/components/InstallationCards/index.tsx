@@ -25,6 +25,8 @@ const Playgrounds = [
       </Translate>
     ),
     cta: 'Try it now!',
+    idimage: 'github-try-out-image',
+    idbutton: 'github-try-out-button',
   },
   {
     name: '💻 Local Installation',
@@ -38,6 +40,8 @@ const Playgrounds = [
       </Translate>
     ),
     cta: 'Install on your machine!',
+    idimage: 'install-local-image',
+    idbutton: 'install-local-button',
   },
 ];
 
@@ -47,9 +51,11 @@ interface Props {
   url: string;
   description: JSX.Element;
   cta: string;
+  idimage: string;
+  idbutton: string;
 }
 
-function PlaygroundCard({name, image, url, description, cta}: Props) {
+function PlaygroundCard({name, image, url, description, cta, idimage, idbutton}: Props) {
   return (
     <div className="col col--6 margin-bottom--lg">
       <div className={clsx('card')}>
@@ -58,13 +64,13 @@ function PlaygroundCard({name, image, url, description, cta}: Props) {
           <p>{description}</p>
         </div>
         <div className={clsx('card__image')}>
-          <Link to={url}>
+          <Link to={url} id={idimage}>
             <Image img={image} alt={`${name}'s image`} />
           </Link>
         </div>
         <div className="card__footer">
           <div className="button-group button-group--block">
-            <Link className="button button--secondary" to={url}>
+            <Link className="button button--secondary" to={url} id={idbutton}>
               <Translate id="playground.tryItButton">{cta}</Translate>
             </Link>
           </div>
