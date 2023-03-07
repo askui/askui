@@ -116,8 +116,8 @@ describe('jest with askui', () => {
     await aui
       .typeIn("cat")
       .textfield()
-      .below()
-      .icon().withText("G00g.e")
+      .contains()
+      .icon().withText('microphone')
       .exec();
 
     await aui
