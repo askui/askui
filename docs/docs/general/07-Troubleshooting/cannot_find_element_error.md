@@ -22,7 +22,7 @@ When you develop an automation you can use interactive annotation to extract fil
 This gif illustrates the process:
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 
-If a filter derived through this method does not work you may run the interactive annotation again and check if askui gives you the same filter. Sometimes elements are hard to identify correctly like icons or specific fonts. Read the next sections on how to tackle this 🙂
+If a filter derived through this method does not work you may run the interactive annotation again and check if askui gives you the same filter. Sometimes elements are hard to identify correctly, like icons or specific fonts. Read the next sections on how to tackle this 🙂
 
 ## Selecting Icons
 There are millions of different icon sets out there. Detecting them all reliable is nearly impossible.
@@ -30,7 +30,7 @@ There are millions of different icon sets out there. Detecting them all reliable
 You can use two strategies to make your instructions more stable.
 
 ### 1. Use Relative Selectors
-Often there is text near a specific icon. You can use this to your advantage like in the following example, where the icon below a specific text is clicked. See our [guide about relational selectors](../03-Guides/guide-relational-selectors.md) to understand how those work:
+Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational selectors](../03-Guides/guide-relational-selectors.md) to understand how those work:
 
 ```javascript
 await aui
@@ -58,7 +58,7 @@ await aui
   .withTextRegex('your[\\s]{0,1}name').exec();
 ```
 
-### 2. Cut off characters at the start/end of
+### 2. Cut off characters at the start/end
 For cut-off characters you can omit the first/last character:
 
 ```javascript
@@ -70,4 +70,4 @@ await aui
 ```
 
 ## Missing Permissions for UiController on macOS
-As askui controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing!). The askui UiController needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).
+askui controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing actually!). The askui UiController needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).
