@@ -155,7 +155,7 @@ await aui
 ## Additional Considerations About the Distance Metric
 The distance is not entirely based on physical distance. If you use an additional filter like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
 
-You can use `moveMouseTo()` like in the following example to see what element a instruction targets.
+You can use `moveMouseTo()` like in the following example to see what element an instruction targets.
 
 ```ts
 await aui
