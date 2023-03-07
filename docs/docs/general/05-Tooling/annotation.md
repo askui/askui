@@ -7,13 +7,13 @@ An interactive annotation is in essence three components:
 
 ![Screenshot of Visual Studio Code without annotations.](images/interactive_annotation1.png)
 
-2. Annotations, or the red boxes you see, which are added by the machine learning model.
+2. Annotations, marked by the red boxes you see, which are added by the machine learning model.
 
 ![Screenshot of Visual Studio Code with annotations as red bounding boxes.](images/interactive_annotation2.png)
 
 3. Filters, which are labels applied to the annotations of the screenshot.
 
-Clicking an element will copy this filter, which we can then use in the [step 3 of Getting Started page](../02-Getting%20Started/getting-started.md), which is actually using that to execute commands.
+Clicking an element will copy this filter, which we can then use in the [step 3 of Write Your First Instruction](../02-Getting%20Started/write-your-first-instruction.md), which is actually using that to execute commands.
 
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 
