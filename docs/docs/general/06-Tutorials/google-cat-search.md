@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Google Cat Search Tutorial
 
-The following tutorial shows you how to search for cat images on Google image search with askui.
+The following tutorial shows you how to search for cat images on Google Image Search with askui.
 
 ## Setup
 
@@ -24,7 +24,7 @@ First, we break this task down into steps that a user would take. Then we can re
 4. Select image
 5. Right-click + save the image
 
-Let us first get an annotated screenshot, where all of the on-screen elements are enclosed within **annotated bounding boxes**. This will help us select the correct elements in our test case.
+Let us first get an annotated screenshot, where all of the on-screen elements are enclosed within **annotated bounding boxes**. This will help us select the correct elements with our instructions.
 
 Open the file _test/my-first-askui-test-suite.test.ts_ and replace the *it*-code block starting in line 4 with the following code:
 
@@ -34,7 +34,7 @@ it('annotate', async () => {
 });
 ```
 
-Run the test from your terminal to create an annotated screenshot. A folder _report_ in your project folder will appear.
+Run the code from your terminal to create an annotated screenshot. A folder _report_ in your project folder will appear.
 
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
@@ -58,7 +58,7 @@ If you are having problems with the execution, [have a look at our Troubleshooti
 
 ## Writing and Debugging an askui Workflow
 
-Now we can start to write our Workflow, by locating the elements and then executing an instruction on them.
+Now we can start to write our workflow, by locating the elements and then executing an instruction on them.
 Remember the steps, that we wanted to recreate?
 
 1. Go to Google Search page 
@@ -69,7 +69,7 @@ Remember the steps, that we wanted to recreate?
 
 :::tip
 
-Make sure to open your browser on the configured display before the execution and move your mouse over the browser window!
+Make sure to open your browser on the configured display before the execution and move your mouse over the browser window immediately after starting the execution!
 
 :::
 
