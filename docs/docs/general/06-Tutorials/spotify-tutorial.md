@@ -4,17 +4,17 @@ sidebar_position: 7
 
 # Desktop App Automation Tutorial
 
-The following tutorial shows how to automate a desktop application. As an example we will automatically like songs in the Spotify desktop application.
+The following tutorial shows how to automate a desktop application. As an example we will automatically to like songs in the Spotify desktop application.
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
 * Open the Spotify desktop application on your screen
   * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
-## Test
+## Code
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
@@ -64,7 +64,7 @@ it('should like Spotify song', async () => {
 As the text "Bohemian Rhapsody" is present on the page multiple times, we are specifying the position of the text we want to click further by saying that it is the one below the text "Songs".
 
 :::caution
-We expect that the song has not yet been liked (although we totally understand if this is the case - we like it, too 😉 - but just for the sake of this test, let's unlike it or use another song).
+We expect that the song has not yet been liked (although we totally understand if this is the case - we like it, too 😉 - but just for the sake of this workflow, let's unlike it or use another song).
 :::
 
 ### 4. Check Whether the Song was Added to Liked Songs
@@ -81,7 +81,7 @@ it('should like Spotify song', async () => {
 
 ### 5. Remove Song from Like Songs
 
-To be able to run the test again, it is necessary to reset the state of Spotify, or more specifically, your liked songs. One option would be to add the following commands to your test in order to remove the song from the liked songs.
+To be able to run the workflow again, it is necessary to reset the state of Spotify, or more specifically, your liked songs. One option would be to add the following instructions to your code in order to remove the song from the liked songs.
 
 ```ts
 it('should like Spotify song', async () => {
@@ -112,4 +112,4 @@ it('should like Spotify song', async () => {
 });
 ```
 
-To run this test use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
+To run this workflow use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.

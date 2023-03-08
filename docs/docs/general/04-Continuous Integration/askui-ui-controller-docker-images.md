@@ -1,6 +1,6 @@
 # askui UI Controller Docker Images
 
-We maintain Docker Images for running tests with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The Images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the test steps inside it.
+We maintain Docker Images for running instructions with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the instructions inside it.
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
 :warning: **ARM CPUs**: are currently not supported
@@ -20,13 +20,13 @@ The askui UI Controller is bound to port `6769` of the container so this needs t
 
 ### Starting Container *Manually*
 
-You can pull an Image using `docker pull`, e.g.,
+You can pull an image using `docker pull`, e.g.,
 
 ```shell
 docker pull askuigmbh/askui-ui-controller:v0.10.0-firefox-82.0.3-amd64
 ```
 
-and, then, start the corresponding Container using:
+and, then, start the corresponding container using:
 
 ```shell
 docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:v0.10.0-firefox-82.0.3-amd64
@@ -42,7 +42,7 @@ To use it, first install it:
 npm i -D testcontainers
 ```
 
-After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all tests are run and connecting to it:
+After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all instructions are run and connecting to it:
 
 ```typescript
 import { UiControlClient } from 'askui';
@@ -97,7 +97,7 @@ export { aui };
 
 ## Connect via VNC
 
-To check what is happening inside a running test container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the internal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console.
+To check what is happening inside a running container, you can connect via VNC. For this, you need a VNC client like [Remmina](https://remmina.org/). When starting the [Docker Container manually](#starting-container-manually), you have to map the internal port `5900` to a free port on your machine that you, then, can connect to. When [using the testcontainers example code](#starting-container-from-within-beforeall-using-testcontainers), the VNC port to connect to is logged to the console.
 
 When connecting, enter the password `askui` when asked.
 

@@ -65,7 +65,7 @@ For selecting an element, that contains another element, `contains()` is the rig
 
 If you have problems with selecting a specific element, always run `annotate()` to create a screenshot of all the annotations or use `annotateInteractively()` to see if you need to use `contains()`.
 
-The following snippet moves the mouse to a textfield based on its placeholder text First Crush which is contained in the textfield:
+The following snippet moves the mouse to a textfield based on its placeholder text *First Crush* which is contained in the textfield:
 
 ```ts
 await aui
@@ -81,7 +81,7 @@ await aui
 
 ## in()
 
-When you want to target an element that is inside another element you can use in().
+When you want to target an element that is inside another element you can use `in()`.
 
 ```ts
 --------------------
@@ -155,7 +155,7 @@ await aui
 ## Additional Considerations About the Distance Metric
 The distance is not entirely based on physical distance. If you use an additional filter like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
 
-You can use `moveMouseTo()` like in the following example to see what element a command targets.
+You can use `moveMouseTo()` like in the following example to see what element an instruction targets.
 
 ```ts
 await aui

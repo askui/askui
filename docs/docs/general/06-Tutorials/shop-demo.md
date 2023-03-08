@@ -2,23 +2,23 @@
 sidebar_position: 6
 ---
 
-# Online Shop Test Tutorial
+# Online Shop Tutorial
 
-The following tutorial shows how to test the login process of a simple demo online shop.
+The following tutorial shows how to automate the login process of a simple demo online shop.
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
 * Open a browser on your screen
   * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
-## Test
+## Code
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
-    ... (other tests)
+    ... (other workflows)
 
     it('Should log into account', async () => {
 
@@ -58,7 +58,7 @@ it('Should log into account', async () => {
 });
 ```
 
-When you run this test with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
+When you run this code with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
 
 ### 2. Navigate to the Login Dialog
 
@@ -101,7 +101,7 @@ it('Should log into account', async () => {
 
 ### 5. Check whether Login worked & Log out
 
-Finally, we need to check whether the login worked. We can do this by checking if the text "Logout test@askui.com" is displayed in the header as this is only displayed if we are logged in. We complete the test by logging out so that the test can easily be rerun without having to log out manually.
+Finally, we need to check whether the login worked. We can do this by checking if the text "Logout test@askui.com" is displayed in the header as this is only displayed if we are logged in. We complete the workflow by logging out so that the workflow can easily be rerun without having to log out manually.
 
 ```ts
 it('Should log into account', async () => {
@@ -113,7 +113,7 @@ it('Should log into account', async () => {
 
 ## Result
 
-The following code block shows the finished test for the login of the web shop:
+The following code block shows the finished code for the login of the web shop:
 
 ```ts
 it('Should log into account', async () => {
@@ -149,4 +149,4 @@ it('Should log into account', async () => {
 });
 ```
 
-To run this test use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
+To run this code use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.

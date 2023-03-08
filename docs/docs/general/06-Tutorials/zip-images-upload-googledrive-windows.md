@@ -4,7 +4,7 @@ sidebar_position: 8
 
 # Zip Images and Upload them to Google Drive on Windows OS Tutorial
 
-This tutorial will show you how to zip files on your file system and then upload them to Google Drive.
+This tutorial will show you how to zip files on your file system and then upload them to Google Drive with askui.
 
 <div class="cookieconsent-optout-marketing">
   Please <a href="javascript:Cookiebot.renew()">accept marketing-cookies</a> to watch this video.
@@ -14,7 +14,7 @@ This tutorial will show you how to zip files on your file system and then upload
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
 * Create a folder named _askui_ on your desktop and put some files into it
 * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
@@ -32,13 +32,13 @@ This tutorial will show you how to zip files on your file system and then upload
 
 :::
 
-## Test
+## Code
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
-describe(/* a string identifying the test suite */, () => {
-    ... (other tests)
+describe(/* a string identifying the askui suite */, () => {
+    ... (other workflows)
 
     it('Should upload screenshots folder on google drive', async () => {
 
@@ -108,7 +108,7 @@ await aui.click().text().withText('Open').exec();
 
 ## Complete Code
 ```ts
-describe(/* a string identifying the test suite */, () => {
+describe(/* a string identifying the askui suite */, () => {
 
     it('Should upload screenshots folder on google drive', async () => {
         await aui.click().text().withText('askui').exec();
@@ -151,4 +151,4 @@ If you have a recurring or persisting issue, don’t hesitate to [ask the commun
 
 If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 
-Best regards and happy testing!
+Best regards and happy automating!
