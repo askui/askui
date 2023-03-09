@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Setting up Android Devices for Testing Mobile Apps
+# Setting up Android Devices
 
 In this tutorial, we will walk you through how to set up an Android device for automating mobile apps running on Android devices. Depending on the environment, i.e. whether it is a real Android device or an emulator, the procedure might slightly differ. But the overall process of the setup will be more or less the same. 
 

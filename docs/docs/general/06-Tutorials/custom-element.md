@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Custom Elements in askui
+# Custom Elements
 :::caution
 
 **Important**: This increases the runtime quite a bit. So use it only if absolutely necessary.
