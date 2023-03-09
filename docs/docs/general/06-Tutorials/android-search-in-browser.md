@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Automate Web Search on Android Devices with askui
+# Web Search on Android
 
 In this tutorial, we will automate web searching on Android devices. This tutorial assumes that you have already set up your Android Development Environment. If you haven't set it up yet, you can check out our [Setup Android tutorial](setup-android.md).
 

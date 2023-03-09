@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Google Cat Search Tutorial
+# Google Cat Image Search
 
 The following tutorial shows you how to search for cat images on Google Image Search with askui.
 

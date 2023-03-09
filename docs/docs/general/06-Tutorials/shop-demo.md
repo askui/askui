@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Online Shop Tutorial
+# Online Shop Login
 
 The following tutorial shows how to automate the login process of a simple demo online shop.
 

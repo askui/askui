@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Desktop App Automation Tutorial
+# Like on Spotify Desktop App
 
 The following tutorial shows how to automate a desktop application. As an example we will automatically to like songs in the Spotify desktop application.
 
