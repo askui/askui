@@ -186,7 +186,7 @@ export class UiControlClient extends ApiCommands {
       this.secretText = text;
       return super.typeIn(secretMask);
     }
-
+    this.secretText = undefined;
     return super.typeIn(text);
   }
 
@@ -213,7 +213,7 @@ export class UiControlClient extends ApiCommands {
       this.secretText = text;
       return super.type(secretMask);
     }
-
+    this.secretText = undefined;
     return super.type(text);
   }
 
