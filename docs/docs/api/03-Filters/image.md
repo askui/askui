@@ -5,7 +5,6 @@ displayed_sidebar: apiSidebar
 
 Filters for a UI element 'image'.
 
-
 **Examples:** 
 ```typescript
 // Works if there is only one image visible on the screen
