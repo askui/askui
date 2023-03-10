@@ -141,6 +141,7 @@ export class UiControlClient extends ApiCommands {
         customElements,
         secretText,
       });
+      this.secretText = undefined;
       await this.annotateByDefault(TestStepState.PASSED, customElements);
       return await Promise.resolve();
     } catch (error) {
@@ -186,7 +187,6 @@ export class UiControlClient extends ApiCommands {
       this.secretText = text;
       return super.typeIn(secretMask);
     }
-    this.secretText = undefined;
     return super.typeIn(text);
   }
 
@@ -213,7 +213,6 @@ export class UiControlClient extends ApiCommands {
       this.secretText = text;
       return super.type(secretMask);
     }
-    this.secretText = undefined;
     return super.type(text);
   }
 
