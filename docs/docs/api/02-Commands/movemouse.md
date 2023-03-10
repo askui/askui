@@ -5,7 +5,7 @@ displayed_sidebar: apiSidebar
 
 Moves the mouse cursor to the absolute x and y coordinates.
 
-If you want to move your mouse to an element, use `moveMouseTo()`.
+If you want to move your mouse cursor to an element, use `moveMouseTo()`.
 
 **Example:**
 ```typescript
