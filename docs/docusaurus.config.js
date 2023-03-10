@@ -29,6 +29,7 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/askui_icon_positive_rgb-150x150.png',
   organizationName: 'askui',
+  trailingSlash: false,
   plugins: [
     ['docusaurus-plugin-sass', {}],
     [
