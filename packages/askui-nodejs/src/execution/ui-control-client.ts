@@ -141,6 +141,7 @@ export class UiControlClient extends ApiCommands {
         customElements,
         secretText,
       });
+      this.secretText = undefined;
       await this.annotateByDefault(TestStepState.PASSED, customElements);
       return await Promise.resolve();
     } catch (error) {
