@@ -14,3 +14,4 @@ await aui.moveMouseTo().button().withText('Login').exec();
 
 await aui.mouseDoubleMiddleClick().exec();
 ```
+
