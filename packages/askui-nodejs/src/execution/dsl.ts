@@ -866,10 +866,38 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for a custom UI element (see {@link CustomElementJson}).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
    *
-   * **Important**: This increases the runtime quite a bit. So
-   *  only use it when absolutely necessary.
+   * **Example**
+   * ```typescript
+   * await aui
+   *     .click()
+   *     .customElement({
+   *         customImage: './logo.png', // required
+   *         name: 'myLogo', // optional
+   *         threshold: 0.9, // optional, defaults to 0.9
+   *         rotationDegreePerStep: 0, // optional, defaults to 0
+   *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
+   *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
+   *     })
+   *     .exec();
+   * ```
+   *
+   * **Arguments**
+   *
+   * - **customImage** (*`string`, required*):
+   *     - A cropped image in the form of a base64 string or file path.
+   * - **name** (*`string`, optional*):
+   *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
+   * - **threshold** (*`number`, optional*):
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **rotationDegreePerStep** (*`number`, optional*):
+   *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
+   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
+   * - **mask** (*`{x:number,y:number}[]`, optional*):
+   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
    *
@@ -988,6 +1016,19 @@ export class FluentFilters extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelations {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters elements based on a description.
+   *
+   * @param {string} text - A description of what is shown.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  showing(text: string): FluentFiltersOrRelations {
+    this._textStr = `showing ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -2069,10 +2110,38 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for a custom UI element (see {@link CustomElementJson}).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
    *
-   * **Important**: This increases the runtime quite a bit. So
-   *  only use it when absolutely necessary.
+   * **Example**
+   * ```typescript
+   * await aui
+   *     .click()
+   *     .customElement({
+   *         customImage: './logo.png', // required
+   *         name: 'myLogo', // optional
+   *         threshold: 0.9, // optional, defaults to 0.9
+   *         rotationDegreePerStep: 0, // optional, defaults to 0
+   *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
+   *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
+   *     })
+   *     .exec();
+   * ```
+   *
+   * **Arguments**
+   *
+   * - **customImage** (*`string`, required*):
+   *     - A cropped image in the form of a base64 string or file path.
+   * - **name** (*`string`, optional*):
+   *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
+   * - **threshold** (*`number`, optional*):
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **rotationDegreePerStep** (*`number`, optional*):
+   *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
+   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
+   * - **mask** (*`{x:number,y:number}[]`, optional*):
+   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
    *
@@ -2191,6 +2260,19 @@ export class FluentFiltersCondition extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters elements based on a description.
+   *
+   * @param {string} text - A description of what is shown.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  showing(text: string): FluentFiltersOrRelationsCondition {
+    this._textStr = `showing ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -3725,10 +3807,38 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for a custom UI element (see {@link CustomElementJson}).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
    *
-   * **Important**: This increases the runtime quite a bit. So
-   *  only use it when absolutely necessary.
+   * **Example**
+   * ```typescript
+   * await aui
+   *     .click()
+   *     .customElement({
+   *         customImage: './logo.png', // required
+   *         name: 'myLogo', // optional
+   *         threshold: 0.9, // optional, defaults to 0.9
+   *         rotationDegreePerStep: 0, // optional, defaults to 0
+   *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
+   *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
+   *     })
+   *     .exec();
+   * ```
+   *
+   * **Arguments**
+   *
+   * - **customImage** (*`string`, required*):
+   *     - A cropped image in the form of a base64 string or file path.
+   * - **name** (*`string`, optional*):
+   *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
+   * - **threshold** (*`number`, optional*):
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **rotationDegreePerStep** (*`number`, optional*):
+   *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
+   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
+   * - **mask** (*`{x:number,y:number}[]`, optional*):
+   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
    *
@@ -3847,6 +3957,19 @@ export class FluentFiltersGetter extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters elements based on a description.
+   *
+   * @param {string} text - A description of what is shown.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  showing(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `showing ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
