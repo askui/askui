@@ -4,9 +4,9 @@ sidebar_position: 5
 
 # Flutter Sample Android App
 
-This tutorial shows how to use askui to automate an Android app built with [Flutter](https://flutter.dev/). We provide the source code for the Flutter demo app used in this tutorial([GitHub repository](https://github.com/askui/flutter-example-automation)). Set up the demo app by following the instructions below. This tutorial assumes that you already have your Android device prepared. It can be a real Android device or an Android Emulator.
+This tutorial shows how to use askui to automate an Android app built with [Flutter](https://flutter.dev/). We provide the source code for the Flutter demo app used in this tutorial ([GitHub repository](https://github.com/askui/flutter-example-automation)). Set up the demo app by following the instructions below. This tutorial assumes that you already have your Android device prepared. It can be a real Android device or an Android Emulator.
 
-**If you haven't set up your Android device or Emulator yet, follow this post.**
+**If you haven't set up your Android device or Emulator yet, [follow this tutorial](setup-android.md).**
 
 This tutorial includes:
 
@@ -54,7 +54,7 @@ default config {
 }
 ```
 
-5) (optional) The app is ready to be built but will throw deprecation warnings. If you want to clear the deprecation warnings, follow this step. [See this issue.](https://github.com/flutter/flutter/issues/89578#issuecomment-945916643)
+5) (optional) The app is ready to be built but will throw deprecation warnings. If you want to clear the deprecation warnings, follow this step ([See also this issue.](https://github.com/flutter/flutter/issues/89578#issuecomment-945916643)).
 
 ```shell
 # change the respective part inside the 'pubspec.yaml'
@@ -125,7 +125,7 @@ From within your npm project path, go to the directory that contains the `askui-
 ```shell
 cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFORM>
 ./askui-ui-controller -r android
-# for example, Mac OS: cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/./askui-ui-controller -r android
+# for example, macOS: cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/./askui-ui-controller -r android
 # If you can't find the binary as described above,
 # then you might have askui freshly installed and haven't run it yet.
 # The binary gets downloaded as the askui code runs.
@@ -133,7 +133,7 @@ cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFOR
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 ```
 
-If you got them both(emulator and UiController) running, then we are ready to go for the UI automation.
+If you got them both (emulator and UiController) running, then we are ready to go for the UI automation.
 
 ‍
 3) You need to deactivate a few lines of the code in `test/helper/jest.setup.ts` that is running the UiController, because we are already running it manually in the previous step:
@@ -189,7 +189,7 @@ The code is divided into three parts, and each part automates a different tab wi
 * **Camera tab**: Open the camera and push the record button.
 
 ## 0. General Tips for Using askui as a More Friendly Tool:
-1) Try to annotate : Use `await aui.annotateInteractively()` or `await aui.annotate()` in order to see how askui is understanding the visible elements on your screen. By using `await aui.annotate()`, the result of the annotation will be saved in `report/` as an HTML file.
+1) Try to annotate : Use `await aui.annotateInteractively()` or `await aui.annotate()` in order to see how askui is understanding the visible elements on your screen. By using `await aui.annotate()`, the result of the annotation will be saved in the folder `report/` as an HTML file.
 
 2) **Be aware of the screen size of your device**: askui understands your application based on the screen shown and captured. Therefore, on some occasions, you may want to know your screen size to e.g. properly scroll or swipe within your application. You may need to change the numbers for the `input swipe` command within the provided code so that it suits the screen size of your device.
 
@@ -445,6 +445,6 @@ describe('jest with askui', () => {
 ```
 
 ## Conclusion
-After following through this example, you should be able to automate the interaction with the provided demo app. Although this example specifically provides a demo app built with Flutter, the overall method of using askui should also work with any mobile app running on an Android device.
+After following through this tutorial, you should be able to automate the interaction with the provided demo app. Although this example specifically provides a demo app built with Flutter, the overall method of using askui should also work with any mobile app running on an Android device.
 
 If you got an issue while following this example, or in case you would like to share your use case, don't hesitate to join our [community on Discord](https://discord.gg/Gu35zMGxbx)!
