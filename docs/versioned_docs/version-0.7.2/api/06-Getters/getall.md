@@ -35,7 +35,7 @@ console.log(detectedElements);
         ymax: 950.47812834821428
      },
      ... 381 more items
- }
+   }
  ]
 ```
 

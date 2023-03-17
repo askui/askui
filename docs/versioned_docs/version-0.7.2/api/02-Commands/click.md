@@ -3,7 +3,9 @@ displayed_sidebar: apiSidebar
 ---
 # click
 
-Clicks on the filtered element.
+Mouseleftclicks/taps on the filtered element by moving the mouse cursor to the filtered element first.
+
+If you need a simple mouseleftclick/tap only, use `mouseLeftClick`.
 
 **Example:**
 ```typescript 

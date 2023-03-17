@@ -5,3 +5,10 @@ displayed_sidebar: apiSidebar
 
 Toggles mouse up (Left mouse key).
 
+Toggles mouse up (Left mouse key/tap).
+
+**Example:**
+```typescript
+await aui.mouseToggleUp().exec();
+```
+
