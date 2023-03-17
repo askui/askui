@@ -5,7 +5,7 @@ displayed_sidebar: apiSidebar
 
 Throws an error when an element specified by a filter `exists` or `notExists`.
 
-Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
+Use the structure `expect().<your filter>.(exists()|notExists())` as shown in the examples below.
 
 **Examples:**
 ```typescript 
