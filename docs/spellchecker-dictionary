@@ -1,4 +1,5 @@
 askui
+Datepicker
 e2e
 ui
 UI
@@ -15,6 +16,7 @@ UiControlClient
 config
 v27
 textfield
+textfields
 submodels
 submodel
 tooltip
@@ -139,6 +141,7 @@ Accelerometer
 android-sdk-tools
 adb
 ADB
+ADBKeyboard
 teststep
 hpagent
 Auth
