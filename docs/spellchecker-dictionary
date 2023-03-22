@@ -189,3 +189,4 @@ basepath
 jest-html-reporter(s){0,1}
 customizable
 \.xml
+askui-file
