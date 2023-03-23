@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Text Selectors
 
 When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text filters can become critical in scaffolding a robust set of instructions.

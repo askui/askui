@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 # Recommended Practices
 
 This page will give you examples of how to use askui efficiently and effectively. 
