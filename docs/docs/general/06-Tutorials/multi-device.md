@@ -4,21 +4,20 @@ sidebar_position: 2
 
 # Automate Multiple Devices
 
-This tutorial shows how to automate multiple devices on the same network by using askui library. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
+This tutorial shows how to automate multiple devices on the same network by using askui. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
 
-In fact, there are many automation tools in the wild that you can use to automate different devices, although most of them require different configurations and different test codes for different platforms. By using askui library, an automation tool that operates on the OS level, you can simply use the same test code for any application running on different devices even without so much change. And this makes the askui a powerful Cross-platform automation tool. 
+In fact, there are many automation tools in the wild that you can use to automate different devices, although most of them require different configurations and different code for different platforms. By using askui library, an automation tool that operates on the OS level, you can use the same code for any application running on different devices even without so much change. And this makes askui a powerful Cross-platform automation tool. 
 
 Let's have a look at the askui library and see how we can accomplish a Cross-platform/-device automation test🔥
 
 
-📌 *The following tutorial assumes that you have already installed and set up the askui library on your local device. The code for the configuration is based on the generated test code: `npx askui init`. See [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/write-your-first-automation) for more details.*
+📌 *The following tutorial assumes that you have already installed and set up the askui library on your local device. The code for the configuration is based on the generated code: `npx askui init`. See [Getting Started](../02-Getting%20Started/write-your-first-instruction.md) for more details.*
 
 ![multi-device-automation](images/multi-device-diagram.png)
 
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
-
-- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](https://docs.askui.com/docs/api/Configuration/askui-ui-controller) for more details on the *askui* UI Controller*.
+- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui* UI Controller*.
 
 - Follow this path and confirm that the binary exists:
 
@@ -33,7 +32,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     node_modules/askui/dist/release/latest/linux/askui-ui-controller
     ```
 
-- If the remote device runs the same platform as the local device, simply copy the binary from the local device to the remote device.
+- If the remote device runs the same platform as the local device, copy the binary from the local device to the remote device.
 - If the remote device runs a different platform, then download the binary for the respective platform: [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 
@@ -41,15 +40,15 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
  
 - There is no need to save the binary to Android devices. They are controlled by the *askui UI Controller* running on the local device (desktop).
 
-- Be sure that your Android device is discoverable by the `adb` from your local device:
+- Be sure that your Android device is discoverable by the Android Debug Bridge `adb` from your local device:
     ```bash
     # Run this command to confirm that your Android device is discoverable
     adb devices
     ```
 
-- If you don't have the `ADB` installed on your local device, set it up by following [this tutorial](https://www.askui.com/blog-posts/tutorial-setting-up-android-devices-for-testing-mobile-apps).
+- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](setup-android.md).
 
-- Use the commands below, if you want to connect your Android device via `ADB` wirelessly:
+- Use the commands below, if you want to connect your Android device via `adb` wirelessly:
     ```bash
     # Make sure that the `USB Debugging Mode` is enabled in the Android device.
     # Connect the Android device with a USB cable, and run this command:
@@ -169,9 +168,9 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ![multiple-android](images/multiple-android.png)
 
-## 4. Write the Test Code
+## 4. Write the askui Code
 
-- Write the test code in `test/my-first-askui-test-suite.test.ts`:
+- Write the askui code in `test/my-first-askui-test-suite.test.ts`:
     ```ts
     import { localDevice, remoteDevice } from './helper/jest.setup';
 
@@ -187,9 +186,9 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     });
     ```
 
-## 5. Run the Test Code
+## 5. Run the Code
 
-- Run the command below to run the askui test code:
+- Run the command below to run the askui code:
     ```bash
     npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
     ```

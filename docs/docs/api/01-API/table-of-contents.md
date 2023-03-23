@@ -1403,3 +1403,8 @@ console.log(detectedElements);
     </tbody>
 </table>
 
+## Annotation
+
+-  [annotate](../Annotation/annotate)
+
+-  [annotateInteractively](../Annotation/annotateInteractively)

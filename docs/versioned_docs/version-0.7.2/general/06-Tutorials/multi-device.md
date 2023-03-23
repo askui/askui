@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Automate Multiple Devices
 
 This tutorial shows how to automate multiple devices on the same network by using askui library. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
@@ -14,7 +18,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
 
-- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](https://docs.askui.com/docs/api/Configuration/askui-ui-controller) for more details on the *askui* UI Controller*.
+- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui* UI Controller*.
 
 - Follow this path and confirm that the binary exists:
 

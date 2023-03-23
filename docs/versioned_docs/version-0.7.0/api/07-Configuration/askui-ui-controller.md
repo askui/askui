@@ -95,17 +95,20 @@ describe('jest with askui', () => {
   beforeAll(async () => {
     uiController = new UiController({
     
-    // choosing the second monitor 
-    display: 1,
+      // choosing the second monitor 
+      display: 1,
 
-    // download the latest version of the server
-    binaryVersion: 'latest',
+      // download the latest version of the server
+      binaryVersion: 'latest',
 
-    // start askui UI Controller as minimized application
-    minimize: true,
+      // start askui UI Controller as minimized application
+      minimize: true,
 
-    // using error loglevel
-    logLevel: LogLevels.ERROR,
+      // using error loglevel
+      logLevel: LogLevels.ERROR,
+
+      // Set the action lower than the default
+      actionDelayInMs: 500,
 
     });
   })

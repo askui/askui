@@ -6,6 +6,8 @@ displayed_sidebar: apiSidebar
 Types a text at the current position.
 If you need to focus the element first, use `typeIn()`.
 
+**Note:** In the current version it copies the text and pastes it.
+
 By default, the `text` is included in the logs and sent over to the askui Inference server to
 predict in which context the typing has to occur. You can exclude the `text` from the logs
 and the request to the askui Inference server setting `options.isSecret` to `true`.

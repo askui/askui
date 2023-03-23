@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Google Cat Search Tutorial
 
 The following tutorial shows you how to search for cat images on Google image search.

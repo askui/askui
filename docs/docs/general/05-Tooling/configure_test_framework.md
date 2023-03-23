@@ -1,6 +1,6 @@
 # Configure Test Frameworks
 
-Basically, you can run `askui` tests with every popular JavaScript/TypeScript test framework, e.g., [Jest](https://jestjs.io/) or [Jasmine](https://jasmine.github.io/).
+Basically, you can run `askui` instructions with every popular JavaScript/TypeScript test framework, e.g., [Jest](https://jestjs.io/) or [Jasmine](https://jasmine.github.io/).
 
 ## Jest
 

@@ -17,7 +17,10 @@ await aui
         threshold: 0.9, // optional, defaults to 0.9
         rotationDegreePerStep: 0, // optional, defaults to 0
         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
+<<<<<<< HEAD
         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
+=======
+>>>>>>> main
     })
     .exec();
 ```
@@ -33,9 +36,13 @@ await aui
 - **rotationDegreePerStep** (*`number`, optional*):
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+<<<<<<< HEAD
     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
 - **mask** (*`{x:number,y:number}[]`, optional*):
     - A polygon defined by an array of points to match only a certain area of the given custom image.
 
 
    * @param {CustomElementJson} customElement - The custom element to filter for.
+=======
+    - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
+>>>>>>> main

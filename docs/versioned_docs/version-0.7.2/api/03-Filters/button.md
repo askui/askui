@@ -7,6 +7,6 @@ Filters for an UI element 'button'.
 
 **Examples:** 
 ```typescript
-await aui.moveMouseTo().button().exec()
+await aui.moveMouseTo().button().exec();
 ```
 

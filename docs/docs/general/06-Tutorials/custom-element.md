@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Custom Elements in askui
+# Custom Elements
 :::caution
 
 **Important**: This increases the runtime quite a bit. So use it only if absolutely necessary.
@@ -44,7 +44,6 @@ await aui
         threshold: 0.9, // optional, defaults to 0.9
         rotationDegreePerStep: 0, // optional, defaults to 0
         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
-        mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
     })
     .exec();
 ```
@@ -61,8 +60,7 @@ await aui
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
     - The color compare style. `grayscale` compares the brightness of each pixel whereas `RGB` compares all three color. Defaults to `grayscale`.
-- **mask** (*`{x:number,y:number}[]`, optional*):
-    - A polygon defined by an array of points to match only a certain area of the given custom image.
+
 
 ### Two Things to be Aware of When Using `customElement()`
 

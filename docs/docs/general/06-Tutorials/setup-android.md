@@ -1,10 +1,10 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
-# Setting up Android Devices for Testing Mobile Apps
+# Setting up Android Devices
 
-In this tutorial, we will walk you through how to set up an Android device for developing and testing mobile apps running on Android devices. Depending on the testing environment, i.e. whether it is a real Android device or an emulator, the procedure might slightly differ. But the overall process of the setup will be more or less the same. 
+In this tutorial, we will walk you through how to set up an Android device for automating mobile apps running on Android devices. Depending on the environment, i.e. whether it is a real Android device or an emulator, the procedure might slightly differ. But the overall process of the setup will be more or less the same. 
 
 If you want to set up the development environment for Android devices without the Android Studio, then skip the **1. Install Android SDK Command-line Tools** and go to [Set up SDK Command Line Tools without Android Studio](#set-up-sdk-command-line-tools-without-android-studio)
 
@@ -53,7 +53,7 @@ After enabling the `Developer Options`, we can enable the `USB debugging` option
 
 ### Set up an Android Emulator
 
-If you want to use the Android Emulator for testing purposes, we have to create a virtual device that runs in the emulator. After running the Android Studio,
+If you want to use the Android Emulator for automation purposes, we have to create a virtual device that runs in the emulator. After running the Android Studio,
 
 - Click on the `More Actions` button, and then
 - Open the `Virtual Device Manager`
@@ -75,7 +75,7 @@ The hardware profile represents the specification of the hardware that will be u
 - Using Hardware buttons (Back, Home, Menu, Volume, etc.)
 - Using On-device sensors (Accelerometer, Gyroscope, GPS)
 
-After choosing a hardware profile, we will be choosing a system image for the Android device. Here we can choose out of a variety of Android images, from the latest Android 13 Tiramisu down to the Android 7 Nougat. If you have the Android studio freshly installed and haven't used it yet, then it will start to download the image after selecting one.
+After choosing a hardware profile, we will be choosing a system image for the Android device. Here we can choose out of a variety of Android images, from the latest Android 13 Tiramisu down to Android 7 Nougat. If you have Android studio freshly installed and haven't used it yet, then it will start to download the image after selecting one.
 
 
 After finishing creating a new virtual device, we will be able to see our new device listed in the `Device Manager`. Click the device's play button(:arrow_forward:) to run it.
@@ -152,9 +152,9 @@ cd platform-tools
 
 ## 3. Set Up the ADBKeyboard
 
-Until now, we have prepared our Android device and now we are ready to go for testing our Android app. But before we jump into the test phase, we will set up one more utility that will make the test procedure easier.
+Until now, we have prepared our Android device and now we are ready to go for automating our Android app. But before we jump into the this phase, we will set up one more utility that will make the procedure easier.
 
-[ADBKeyboard](https://github.com/senzhk/ADBKeyBoard) is a virtual keyboard that can be installed on Android devices. It enables us to type within the Android device by using command lines via adb.
+[ADBKeyboard](https://github.com/senzhk/ADBKeyBoard) is a virtual keyboard that can be installed on Android devices. It enables us to type within the Android device by using command lines commands via adb.
 
 One noticeable advantage of using ADBKeyboard is that it can also handle base64 encoding, which becomes handy if you want to type Unicode characters such as emojis:fire: For more details about this virtual keyboard, [see here](https://github.com/senzhk/ADBKeyBoard/blob/master/README.md).
 
@@ -195,7 +195,9 @@ Click on a textfield in an app and see if the `ADB Keyboard {ON}` notification i
 
 ## 4. Done
 
-We are finally done with the preparation for testing apps running on Android devices. In the next post, we will cover a simple test automation case utilizing [askui](https://bit.ly/3FGspGO) on the device we set up in this article.
+We are finally done with the preparation for automating apps running on Android devices.
+
+You can now try your setup in our [Automate Web Search on Android Devices Tutorial](android-search-in-browser.md).
 
 If you have a recurring or persisting issue while following this tutorial, don’t hesitate to ask the [Discord community](https://bit.ly/3T2je6C) for help!
 

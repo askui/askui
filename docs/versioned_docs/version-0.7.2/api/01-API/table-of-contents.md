@@ -236,3 +236,8 @@ displayed_sidebar: apiSidebar
 
 -  [get](../getters/get)
 
+## Annotation
+
+-  [annotate](../Annotation/annotate)
+
+-  [annotateInteractively](../Annotation/annotateInteractively)
