@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # get
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Returns an array with all filtered elements.
 A detected element has the following properties:
 - `name` of the element

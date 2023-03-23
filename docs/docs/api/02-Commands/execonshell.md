@@ -3,23 +3,18 @@ displayed_sidebar: apiSidebar
 ---
 # execOnShell
 
-<<<<<<< HEAD
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
-Executes a shell command on the device.
-=======
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Executes a shell command on the device your UiController is connected to.
->>>>>>> main
 
 **Example:**
 ```typescript 
-// Open the lastpass app on Android
-await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec()
+// Open the lastpass app
+await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec();
 
 // Open Google Chrome on Windows
-await aui.execOnShell("start chrome").exec();
+await aui.execOnShell("start chrome").exec()
 
-// Open Google Chrome on macOS
+;// Open Google Chrome on macOS
 await aui.execOnShell("open -a 'Google Chrome'").exec();
 
 // Open Google Chrome on Linux

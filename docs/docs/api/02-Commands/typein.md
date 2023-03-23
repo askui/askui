@@ -3,7 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # typeIn
 
-Puts the focus on the filtered element by click/tap and types in the text.
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
+Puts the focus on the filtered element and types in the text.
 
 **Note:** In the current version it copies the text and pastes it.
 
@@ -20,6 +21,7 @@ await aui.typeIn('Type some text').textfield().exec()
 // mask the text so it is not send to the askui-inference server
 await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfield().exec()
 ```
+![](/img/gif/typeIn.gif)
 
    * @param {string} text - A text to type
    * @param {Object} [options]
@@ -27,5 +29,3 @@ await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfie
        logs of askui nor sent over to askui Inference for prediction.
    * @param {string} [options.secretMask = '****'] - If `options.isSecret` is set to `true`, this 
        is included in logs and sent over to askui Inference for prediction instead of the `text`.
-
-![](/img/gif/typeIn.gif)

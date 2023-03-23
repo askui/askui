@@ -26,7 +26,9 @@ Use your browser search: `CMD/CTRL + f`
                     <summary>click()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Clicks on the filtered element.
+Mouse left-clicks/taps on the filtered element by moving the mouse cursor to the filtered element first.
+
+If you need a simple mouseleftclick/tap only, use `mouseLeftClick`.
 
 **Example:**
 ```typescript 
@@ -47,12 +49,21 @@ await aui.click().button().withText('Submit').exec()
                     <summary>execOnShell()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Executes a shell command on the device.
+Executes a shell command on the device your UiController is connected to.
 
 **Example:**
 ```typescript 
 // Open the lastpass app
-await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec()
+await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec();
+
+// Open Google Chrome on Windows
+await aui.execOnShell("start chrome").exec()
+
+;// Open Google Chrome on macOS
+await aui.execOnShell("open -a 'Google Chrome'").exec();
+
+// Open Google Chrome on Linux
+await aui.execOnShell("chrome").exec();
 ```  
 
 </md-block>
@@ -71,6 +82,8 @@ await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec()
 <md-block>
 
 Expects a condition, e.g., `exists()` or `notExits()`.
+
+Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
 
 **Examples:**
 ```typescript 
@@ -92,7 +105,17 @@ await aui.expect().text().withText('Login').notExists().exec()
                     <summary>mouseDoubleLeftClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Double-clicks with left mouse key.  
+Double-clicks with left mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseDoubleLeftClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -108,7 +131,17 @@ Double-clicks with left mouse key.
                     <summary>mouseDoubleMiddleClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Double-clicks with middle mouse key.  
+Double-clicks with middle mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseDoubleMiddleClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -124,7 +157,17 @@ Double-clicks with middle mouse key.
                     <summary>mouseDoubleRightClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Double-clicks with right mouse key.  
+Double-clicks with right mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseDoubleRightClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -140,7 +183,17 @@ Double-clicks with right mouse key.
                     <summary>mouseLeftClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Clicks with left mouse key.  
+Clicks with left mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseLeftClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -156,7 +209,17 @@ Clicks with left mouse key.
                     <summary>mouseMiddleClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Clicks with middle mouse key.  
+Clicks with middle mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseMiddleClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -172,7 +235,17 @@ Clicks with middle mouse key.
                     <summary>mouseRightClick()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Clicks with right mouse key.  
+Clicks with right mouse key.
+
+If you need to move the mouse first, use `moveMouseTo()`.
+
+**Examples:**
+```typescript
+// Optional: Move mouse to an element first
+await aui.moveMouseTo().button().withText('Login').exec();
+
+await aui.mouseRightClick().exec();
+```  
 
 </md-block>
 <md-block>
@@ -188,7 +261,12 @@ Clicks with right mouse key.
                     <summary>mouseToggleDown()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Toggles mouse down (Left mouse key).  
+Toggles mouse down (Left mouse key/tap).
+
+**Example:**
+```typescript
+await aui.mouseToggleDown().exec();
+```  
 
 </md-block>
 <md-block>
@@ -204,7 +282,12 @@ Toggles mouse down (Left mouse key).
                     <summary>mouseToggleUp()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Toggles mouse up (Left mouse key).  
+Toggles mouse up (Left mouse key/tap).
+
+**Example:**
+```typescript
+await aui.mouseToggleUp().exec();
+```  
 
 </md-block>
 <md-block>
@@ -220,7 +303,14 @@ Toggles mouse up (Left mouse key).
                     <summary>moveMouse()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Moves the mouse to the absolute x and y coordinates.  
+Moves the mouse to the absolute x and y coordinates.
+
+If you want to move your mouse cursor to an element, use `moveMouseTo()`.
+
+**Example:**
+```typescript
+await aui.moveMouse(500, 500).exec();
+```  
 
 </md-block>
 <md-block>
@@ -238,7 +328,12 @@ Moves the mouse to the absolute x and y coordinates.
                     <summary>moveMouseRelatively()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Moves the mouse from the current position (relative) in x and y direction.  
+Moves the mouse from the current position (relative) in x and y direction.
+
+**Example:**
+```typescript
+await aui.moveMouseRelatively(20, 20).exec();
+```  
 
 </md-block>
 <md-block>
@@ -303,7 +398,7 @@ await aui.moveMouseTo().button().withText('Submit').exec()
                     <summary>pressAndroidKey()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Press one Android keys like `DEL`  
+Press one Android key like `DEL`  
 
 </md-block>
 <md-block>
@@ -357,7 +452,12 @@ Press two Android keys like `ALT+F4`
                     <summary>pressKey()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Press one keys like `DEL`  
+Press one keys like `DEL`
+
+**Operating system specific mappings:**
+1. Windows: `command`-key maps to `windows`-key
+---
+  
 
 </md-block>
 <md-block>
@@ -374,7 +474,12 @@ Press one keys like `DEL`
                     <summary>pressThreeKeys()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Press three keys like `CTRL+ALT+DEL`  
+Press three keys like `CTRL+ALT+DEL`
+
+**Operating system specific mappings:**
+1. Windows: `command`-key maps to `windows`-key
+---
+  
 
 </md-block>
 <md-block>
@@ -393,7 +498,12 @@ Press three keys like `CTRL+ALT+DEL`
                     <summary>pressTwoKeys()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Press two keys like `ALT+F4`  
+Press two keys like `ALT+F4`
+
+**Operating system specific mappings:**
+1. Windows: `command`-key maps to `windows`-key
+---
+  
 
 </md-block>
 <md-block>
@@ -494,11 +604,14 @@ await aui.swipe(500, 0).image().exec()
 Types a text at the current position.
 If you need to focus the element first, use typeIn()
 
+**Note:** In the current version it copies the text and pastes it.
+
 **Examples:**
 ```typescript 
 await aui.type('Type some text').exec()
 
-// mask the text so it is not send to the askui-inference serverawait aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
+// mask the text so it is not send to the askui-inference server
+await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
 ```  
 
 </md-block>
@@ -517,6 +630,8 @@ await aui.type('Type some text').exec()
 <md-block>
 
 Puts the focus on the filtered element and types in the text.
+
+**Note:** In the current version it copies the text and pastes it.
 
 **Examples:**
 ```typescript 
@@ -554,7 +669,7 @@ await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfie
                     <summary>button()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Filters for an UI element 'button'.
+Filters for a UI element 'button'.
 
 **Examples:** 
 ```typescript
@@ -611,9 +726,9 @@ Filters for text containing the text provided as an argument.
 
 **Examples:** 
 ```typescript
-'This is an text' === containsText('text') => true
-'This is an text' === containsText('other text') => false
-'This is an text' === containsText('other') => false
+'This is a text' === containsText('text') => true
+'This is a text' === containsText('other text') => false
+'This is a text' === containsText('other') => false
 ```
 ![](/img/gif/containsText.gif)  
 
@@ -659,10 +774,9 @@ await aui
     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
 - **rotationDegreePerStep** (*`number`, optional*):
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
- **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+- **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-- **mask** (*`{x:number,y:number}[]`, optional*):
-    - A polygon defined by an array of points to match only a certain area of the given custom image.
+of the given custom image.
   
 
 </md-block>
@@ -680,16 +794,16 @@ await aui
                     <summary>icon()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Filters for an UI element 'icon'.
+Filters for a UI element 'icon'.
 
-You can combine it with the 'withText' command to look for a specific icon.
+You can combine it with the element-description 'withText()' to look for a specific icon.
 
 **Examples:** 
 ```typescript
 icon().withText('plus')
 ```
 
-Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.  
+**Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.  
 
 </md-block>
 <md-block>
@@ -705,11 +819,38 @@ Note: This is an alpha feature. The prediction of the icon name is sometimes uns
                     <summary>image()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Filters for a UI element 'image'.  
+Filters for a UI element 'image'.
+
+**Examples:**
+```typescript
+// Works if there is only one image visible on the screen
+await aui.click().image().exec();
+
+// Works if you have an image with
+// a caption text below
+await aui.click().image().above().text().withText('The caption').exec();
+```  
 
 </md-block>
 <md-block>
 
+
+</md-block>
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <details>
+                    <summary>match()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+<md-block>
+
+Filters elements based on a textual description.  
+
+</md-block>
+<md-block>
+
+* @param {string} text - A description of the target element.
 
 </md-block>
                 </details>
@@ -753,7 +894,17 @@ Filters for a UI element 'table'.
                     <summary>text()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Filters for an UI element 'text'.  
+Filters for an UI element 'text'.
+
+Often combined with the filter `withText()` as shown in the below examples.
+See also the filters `withTextRegex()` and `withExactText()`
+
+**Examples:**
+```typescript
+await aui.click().text().withText('Password').exec();
+await aui.click().text().withExactText('Username').exec();
+await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
+```  
 
 </md-block>
 <md-block>
@@ -769,23 +920,17 @@ Filters for an UI element 'text'.
                     <summary>textfield()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Filters for a UI element 'textfield'.  
+Filters for a UI element 'textfield'.
 
-</md-block>
-<md-block>
+**Examples:**
+```typescript
+// Works if there is only one textfield visible on the screen
+await aui.typeIn('Oh yeah').textfield().exec();
 
-
-</md-block>
-                </details>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <details>
-                    <summary>unknown()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
-<md-block>
-
-Filters for a UI element 'unknown'.  
+// Works if you have a labeled textfield
+// Label is above the textfield
+await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+```  
 
 </md-block>
 <md-block>
@@ -942,12 +1087,13 @@ Logic and operator
 example scene: 
  ---------------   ----------------
  |  icon user  |   |  icon search |
- ---------------   ---------------n```
+ ---------------   ----------------
+```
 ```typescript 
 const icons = await aui.get().icon().exec();
 console.log(icons);
 ```
-Using only the filter icon, the get command will return both icons 
+Using only the element-description icon, the get will return both icons 
 ```text 
 console output: [
   DetectedElement {
@@ -972,12 +1118,12 @@ console output: [
   }
  ]
 ```
-You can combine filters with **the `and()` relation** and specify exactly which icon you want
+You can combine element-descriptions with **the `and()` relation** and specify exactly which icon you want.
 ```typescript 
 const icons = await aui.get().icon().and().withText('user').exec()
 console.log(icons)
 ```
-The get command returns only the user icon although both elements are icons
+The get returns only the user icon although both elements are icons.
 ```text 
  console output: [
   DetectedElement {
@@ -1186,7 +1332,7 @@ scene 2
 
 ```
 In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
-You can use **the `or()` relation**, so your teststep is valid for both scenes
+You can use **the `or()` relation**, so your instruction is valid for both scenes
 ```typescript 
 const button = await aui.get().button().rightOf().icon().or().text().exec();
 console.log(button);
@@ -1264,9 +1410,22 @@ Filters for an element right of another element.
 
 Expects that filtered element exists.
 
+Always use together with `expect()`.
+
+**Note** Throws an error and stops the execution when the element is not found. You can catch the error and decide what to do as in the examples below.
+
 **Examples:**
-```typescript 
+```typescript
+// Stops execution at this point when the element does not exist.
 await aui.expect().text().withText('Login').exists().exec()
+
+// This will catch the error and log a message
+// But the execution will continue afterwards
+try {
+    await aui.expect().text().withText('Login').exists().exec()
+} catch (error) {
+    console.log('Too bad we could not find the element!');
+}
 ```  
 
 </md-block>
@@ -1283,11 +1442,24 @@ await aui.expect().text().withText('Login').exists().exec()
                     <summary>notExists()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Expects that filtered element does not exist.
+Expects that filtered element not exists.
+
+Always use together with `expect()`.
+
+**Note** Throws an error and stops the execution when the element is found. You can catch the error and decide what to do as in the examples below.
 
 **Examples:**
-```typescript 
+```typescript
+// Stops execution at this point when the element does exist.
 await aui.expect().text().withText('Login').notExists().exec()
+
+// This will catch the error and log a message
+// But the execution will continue afterwards
+try {
+    await aui.expect().text().withText('Login').notExists().exec()
+} catch (error) {
+    console.log('Too bad we could find the element!');
+}
 ```  
 
 </md-block>
@@ -1338,7 +1510,7 @@ console.log(text);
         xmax: 1178.8204241071428,
         ymax: 180.83512834821428
      }
- }
+   }
  ]
 ```  
 
@@ -1388,7 +1560,7 @@ console.log(detectedElements);
         ymax: 950.47812834821428
      },
      ... 381 more items
- }
+   }
  ]
 ```  
 
@@ -1403,8 +1575,3 @@ console.log(detectedElements);
     </tbody>
 </table>
 
-## Annotation
-
--  [annotate](../Annotation/annotate)
-
--  [annotateInteractively](../Annotation/annotateInteractively)

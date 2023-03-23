@@ -3,9 +3,8 @@ displayed_sidebar: apiSidebar
 ---
 # notExists
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
-Expects that filtered element does not exist.
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
+Expects that filtered element not exists.
 
 Always use together with `expect()`.
 
@@ -13,7 +12,7 @@ Always use together with `expect()`.
 
 **Examples:**
 ```typescript
-// Stops execution at this point when the element exists.
+// Stops execution at this point when the element does exist.
 await aui.expect().text().withText('Login').notExists().exec()
 
 // This will catch the error and log a message
@@ -21,7 +20,7 @@ await aui.expect().text().withText('Login').notExists().exec()
 try {
     await aui.expect().text().withText('Login').notExists().exec()
 } catch (error) {
-    console.log("Too bad we could find the element!");
+    console.log('Too bad we could find the element!');
 }
 ```
 

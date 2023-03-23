@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # withText
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for similar (doesn't need to be a 100% equal) text.
 
 **Examples:** 

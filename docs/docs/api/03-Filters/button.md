@@ -3,12 +3,11 @@ displayed_sidebar: apiSidebar
 ---
 # button
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
-Filters for an UI element 'button'.
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
+Filters for a UI element 'button'.
 
 **Examples:** 
 ```typescript
-await aui.moveMouseTo().button().exec();
+await aui.moveMouseTo().button().exec()
 ```
 

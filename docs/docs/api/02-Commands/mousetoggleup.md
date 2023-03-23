@@ -3,16 +3,11 @@ displayed_sidebar: apiSidebar
 ---
 # mouseToggleUp
 
-<<<<<<< HEAD
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
-Toggles mouse up (Left mouse key).
-=======
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Toggles mouse up (Left mouse key/tap).
 
 **Example:**
 ```typescript
 await aui.mouseToggleUp().exec();
 ```
->>>>>>> main
 

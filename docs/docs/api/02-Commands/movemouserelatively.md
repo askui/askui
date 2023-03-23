@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # moveMouseRelatively
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Moves the mouse from the current position (relative) in x and y direction.
 
 **Example:**

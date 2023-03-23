@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # moveMouseTo
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Move mouse over the filtered element.
 
 **Example:**

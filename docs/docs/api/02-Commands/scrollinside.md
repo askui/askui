@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # scrollInside
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Moves mouse to the filtered element and scrolls in the x and y direction.
 
 **macOS**: May not work as expected!

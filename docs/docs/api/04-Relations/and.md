@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # and
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Logic and operator
 
 **Examples:**
@@ -18,7 +17,7 @@ example scene:
 const icons = await aui.get().icon().exec();
 console.log(icons);
 ```
-Using only the filter icon, the get command will return both icons 
+Using only the element-description icon, the get will return both icons 
 ```text 
 console output: [
   DetectedElement {
@@ -43,12 +42,12 @@ console output: [
   }
  ]
 ```
-You can combine filters with **the `and()` relation** and specify exactly which icon you want
+You can combine element-descriptions with **the `and()` relation** and specify exactly which icon you want.
 ```typescript 
 const icons = await aui.get().icon().and().withText('user').exec()
 console.log(icons)
 ```
-The get command returns only the user icon although both elements are icons
+The get returns only the user icon although both elements are icons.
 ```text 
  console output: [
   DetectedElement {

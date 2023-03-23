@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # exists
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Expects that filtered element exists.
 
 Always use together with `expect()`.
@@ -14,14 +13,14 @@ Always use together with `expect()`.
 **Examples:**
 ```typescript
 // Stops execution at this point when the element does not exist.
-await aui.expect().text().withText('Login').exists().exec();
+await aui.expect().text().withText('Login').exists().exec()
 
 // This will catch the error and log a message
 // But the execution will continue afterwards
 try {
-    await aui.expect().text().withText('Login').exists().exec();
+    await aui.expect().text().withText('Login').exists().exec()
 } catch (error) {
-    console.log("Too bad we could not find the element!");
+    console.log('Too bad we could not find the element!');
 }
 ```
 

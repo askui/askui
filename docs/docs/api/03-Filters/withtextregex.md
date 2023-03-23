@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # withTextRegex
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for texts, which match the regex pattern.
 
 **Examples:**

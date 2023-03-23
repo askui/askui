@@ -3,8 +3,7 @@ displayed_sidebar: apiSidebar
 ---
 # above
 
-<span class="theme-doc-version-badge badge badge--secondary"></span>
-
+ <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for an element above another element.
 
 **Examples:**
