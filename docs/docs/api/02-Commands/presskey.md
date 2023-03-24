@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # pressKey
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Press one keys like `DEL`
 
 **Operating system specific mappings:**

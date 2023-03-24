@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # exists
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Expects that filtered element exists.
 
 Always use together with `expect()`.

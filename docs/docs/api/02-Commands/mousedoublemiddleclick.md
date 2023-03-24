@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # mouseDoubleMiddleClick
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Double-clicks with middle mouse key.
 
 If you need to move the mouse first, use `moveMouseTo()`.

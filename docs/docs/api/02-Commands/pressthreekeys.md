@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # pressThreeKeys
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Press three keys like `CTRL+ALT+DEL`
 
 **Operating system specific mappings:**

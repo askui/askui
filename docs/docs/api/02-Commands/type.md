@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # type
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Types a text at the current position.
 If you need to focus the element first, use typeIn()
 

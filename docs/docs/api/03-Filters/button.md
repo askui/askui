@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # button
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for a UI element 'button'.
 
 **Examples:** 

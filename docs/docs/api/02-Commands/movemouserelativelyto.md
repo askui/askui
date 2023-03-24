@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # moveMouseRelativelyTo
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Moves the mouse relatively to an element in the direction.
 This can be used when the mouse should not hover over an element anymore.
 

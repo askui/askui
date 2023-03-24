@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # text
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for an UI element 'text'.
 
 Often combined with the filter `withText()` as shown in the below examples.

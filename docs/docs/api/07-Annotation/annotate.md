@@ -2,6 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # annotate
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
+
 
 Creates an annotated HTML file of the given image and saves it into the given path. If no image is given, then it captures the specified screen and annotates the captured image.
 

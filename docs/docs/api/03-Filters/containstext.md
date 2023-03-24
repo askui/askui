@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # containsText
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for text containing the text provided as an argument.
 
 **Examples:** 

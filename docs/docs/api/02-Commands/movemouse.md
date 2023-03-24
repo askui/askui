@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # moveMouse
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Moves the mouse to the absolute x and y coordinates.
 
 If you want to move your mouse cursor to an element, use `moveMouseTo()`.

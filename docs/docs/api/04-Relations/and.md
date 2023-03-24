@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # and
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Logic and operator
 
 **Examples:**

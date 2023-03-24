@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # typeIn
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Puts the focus on the filtered element and types in the text.
 
 **Note:** In the current version it copies the text and pastes it.

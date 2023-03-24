@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # execOnShell
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Executes a shell command on the device your UiController is connected to.
 
 **Example:**
