@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # pressTwoKeys
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Press two keys like `ALT+F4`
 
 **Operating system specific mappings:**

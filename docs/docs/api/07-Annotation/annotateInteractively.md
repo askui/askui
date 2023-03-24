@@ -2,6 +2,7 @@
 displayed_sidebar: apiSidebar
 ---
 # annotateInteractively
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
 Creates an annotated version of your screen and shows it to you so you can explore the annotated image.
 Recognized elements are annotated with a red bounding box.  You can copy the filter needed to select the element by left-clicking on the bounding box.

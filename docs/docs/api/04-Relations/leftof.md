@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # leftOf
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for an element left of another element.
 
 **Examples:**

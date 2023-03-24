@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # notExists
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Expects that filtered element not exists.
 
 Always use together with `expect()`.

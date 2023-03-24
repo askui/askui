@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # customElement
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
 
 **Example**

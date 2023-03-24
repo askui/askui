@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # swipe
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Swipe an element in the x and y direction.
 Holds the left mouse button down on Windows, Linux and macOS and drags the element.
 On touch devices it taps the element and then drags it.

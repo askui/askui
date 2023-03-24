@@ -2,8 +2,8 @@
 displayed_sidebar: apiSidebar
 ---
 # mouseRightClick
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
- <span class="theme-doc-version-badge badge badge--success">production</span> 
 Clicks with right mouse key.
 
 If you need to move the mouse first, use `moveMouseTo()`.
