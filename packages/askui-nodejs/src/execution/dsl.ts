@@ -104,17 +104,6 @@ export class Exec extends FluentBase implements Executable {
 
 export class FluentFilters extends FluentBase {
   /**
-   * Filters for a UI element 'textfield'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  textfield(): FluentFiltersOrRelations {
-    this._textStr = 'textfield';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelations}
@@ -132,17 +121,6 @@ export class FluentFilters extends FluentBase {
    */
   switch(): FluentFiltersOrRelations {
     this._textStr = 'switch';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters for a UI element 'image'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  image(): FluentFiltersOrRelations {
-    this._textStr = 'image';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -170,18 +148,7 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for a UI element 'unknown'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  unknown(): FluentFiltersOrRelations {
-    this._textStr = 'unknown';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters for an UI element 'button'.
+   * Filters for a UI element 'button'.
    *
    * **Examples:**
    * ```typescript
@@ -199,6 +166,16 @@ export class FluentFilters extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
+   * Often combined with the filter `withText()` as shown in the below examples.
+   * See also the filters `withTextRegex()` and `withExactText()`
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().withExactText('Username').exec();
+   * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
+   * ```
+   *
    * @return {FluentFiltersOrRelations}
    */
   text(): FluentFiltersOrRelations {
@@ -208,16 +185,16 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for an UI element 'icon'.
+   * Filters for a UI element 'icon'.
    *
-   * You can combine it with the 'withText' command to look for a specific icon.
+   * You can combine it with the element-description 'withText()' to look for a specific icon.
    *
    * **Examples:**
    * ```typescript
    * icon().withText('plus')
    * ```
    *
-   * Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+   * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -255,10 +232,9 @@ export class FluentFilters extends FluentBase {
    *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
    *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * - **mask** (*`{x:number,y:number}[]`, optional*):
-   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   * of the given custom image.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -268,6 +244,48 @@ export class FluentFilters extends FluentBase {
   customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
     this._textStr = 'custom element';
     this._params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one image visible on the screen
+   * await aui.click().image().exec();
+   *
+   * // Works if you have an image with
+   * // a caption text below
+   * await aui.click().image().above().text().withText('The caption').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  image(): FluentFiltersOrRelations {
+    this._textStr = 'image';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one textfield visible on the screen
+   * await aui.typeIn('Oh yeah').textfield().exec();
+   *
+   * // Works if you have a labeled textfield
+   * // Label is above the textfield
+   * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  textfield(): FluentFiltersOrRelations {
+    this._textStr = 'textfield';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -355,9 +373,9 @@ export class FluentFilters extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * 'This is an text' === containsText('text') => true
-   * 'This is an text' === containsText('other text') => false
-   * 'This is an text' === containsText('other') => false
+   * 'This is a text' === containsText('text') => true
+   * 'This is a text' === containsText('other text') => false
+   * 'This is a text' === containsText('other') => false
    * ```
    * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
@@ -367,6 +385,19 @@ export class FluentFilters extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelations {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters elements based on a textual description.
+   *
+   * @param {string} text - A description of the target element.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  match(text: string): FluentFiltersOrRelations {
+    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -392,7 +423,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
-   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * You can use **the `or()` relation**, so your instruction is valid for both scenes
    * ```typescript
    * const button = await aui.get().button().rightOf().icon().or().text().exec();
    * console.log(button);
@@ -429,12 +460,13 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * example scene:
    *  ---------------   ----------------
    *  |  icon user  |   |  icon search |
-   *  ---------------   ---------------n```
+   *  ---------------   ----------------
+   * ```
    * ```typescript
    * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter icon, the get command will return both icons
+   * Using only the element-description icon, the get will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
@@ -459,12 +491,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
+   * You can combine element-descriptions with **the `and()` relation** and specify exactly which icon you want.
    * ```typescript
    * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the user icon although both elements are icons
+   * The get returns only the user icon although both elements are icons.
    * ```text
    *  console output: [
    *   DetectedElement {
@@ -686,17 +718,6 @@ export class FluentFiltersOrRelations extends FluentFilters {
 
 export class FluentFiltersCondition extends FluentBase {
   /**
-   * Filters for a UI element 'textfield'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  textfield(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'textfield';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsCondition}
@@ -714,17 +735,6 @@ export class FluentFiltersCondition extends FluentBase {
    */
   switch(): FluentFiltersOrRelationsCondition {
     this._textStr = 'switch';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters for a UI element 'image'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  image(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'image';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -752,18 +762,7 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for a UI element 'unknown'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  unknown(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'unknown';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters for an UI element 'button'.
+   * Filters for a UI element 'button'.
    *
    * **Examples:**
    * ```typescript
@@ -781,6 +780,16 @@ export class FluentFiltersCondition extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
+   * Often combined with the filter `withText()` as shown in the below examples.
+   * See also the filters `withTextRegex()` and `withExactText()`
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().withExactText('Username').exec();
+   * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
+   * ```
+   *
    * @return {FluentFiltersOrRelationsCondition}
    */
   text(): FluentFiltersOrRelationsCondition {
@@ -790,16 +799,16 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for an UI element 'icon'.
+   * Filters for a UI element 'icon'.
    *
-   * You can combine it with the 'withText' command to look for a specific icon.
+   * You can combine it with the element-description 'withText()' to look for a specific icon.
    *
    * **Examples:**
    * ```typescript
    * icon().withText('plus')
    * ```
    *
-   * Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+   * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -837,10 +846,9 @@ export class FluentFiltersCondition extends FluentBase {
    *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
    *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * - **mask** (*`{x:number,y:number}[]`, optional*):
-   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   * of the given custom image.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -850,6 +858,48 @@ export class FluentFiltersCondition extends FluentBase {
   customElement(customElement: CustomElementJson): FluentFiltersOrRelationsCondition {
     this._textStr = 'custom element';
     this._params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one image visible on the screen
+   * await aui.click().image().exec();
+   *
+   * // Works if you have an image with
+   * // a caption text below
+   * await aui.click().image().above().text().withText('The caption').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  image(): FluentFiltersOrRelationsCondition {
+    this._textStr = 'image';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one textfield visible on the screen
+   * await aui.typeIn('Oh yeah').textfield().exec();
+   *
+   * // Works if you have a labeled textfield
+   * // Label is above the textfield
+   * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  textfield(): FluentFiltersOrRelationsCondition {
+    this._textStr = 'textfield';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -937,9 +987,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * 'This is an text' === containsText('text') => true
-   * 'This is an text' === containsText('other text') => false
-   * 'This is an text' === containsText('other') => false
+   * 'This is a text' === containsText('text') => true
+   * 'This is a text' === containsText('other text') => false
+   * 'This is a text' === containsText('other') => false
    * ```
    * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
@@ -949,6 +999,19 @@ export class FluentFiltersCondition extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters elements based on a textual description.
+   *
+   * @param {string} text - A description of the target element.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  match(text: string): FluentFiltersOrRelationsCondition {
+    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -974,7 +1037,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
-   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * You can use **the `or()` relation**, so your instruction is valid for both scenes
    * ```typescript
    * const button = await aui.get().button().rightOf().icon().or().text().exec();
    * console.log(button);
@@ -1011,12 +1074,13 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * example scene:
    *  ---------------   ----------------
    *  |  icon user  |   |  icon search |
-   *  ---------------   ---------------n```
+   *  ---------------   ----------------
+   * ```
    * ```typescript
    * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter icon, the get command will return both icons
+   * Using only the element-description icon, the get will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
@@ -1041,12 +1105,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
+   * You can combine element-descriptions with **the `and()` relation** and specify exactly which icon you want.
    * ```typescript
    * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the user icon although both elements are icons
+   * The get returns only the user icon although both elements are icons.
    * ```text
    *  console output: [
    *   DetectedElement {
@@ -1262,9 +1326,22 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Expects that filtered element exists.
    *
+   * Always use together with `expect()`.
+   *
+   * **Note** Throws an error and stops the execution when the element is not found. You can catch the error and decide what to do as in the examples below.
+   *
    * **Examples:**
    * ```typescript
+   * // Stops execution at this point when the element does not exist.
    * await aui.expect().text().withText('Login').exists().exec()
+   *
+   * // This will catch the error and log a message
+   * // But the execution will continue afterwards
+   * try {
+   *     await aui.expect().text().withText('Login').exists().exec()
+   * } catch (error) {
+   *     console.log('Too bad we could not find the element!');
+   * }
    * ```
    *
    * @return {ExecCondition}
@@ -1276,11 +1353,24 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   }
 
   /**
-   * Expects that filtered element does not exist.
+   * Expects that filtered element not exists.
+   *
+   * Always use together with `expect()`.
+   *
+   * **Note** Throws an error and stops the execution when the element is found. You can catch the error and decide what to do as in the examples below.
    *
    * **Examples:**
    * ```typescript
+   * // Stops execution at this point when the element does exist.
    * await aui.expect().text().withText('Login').notExists().exec()
+   *
+   * // This will catch the error and log a message
+   * // But the execution will continue afterwards
+   * try {
+   *     await aui.expect().text().withText('Login').notExists().exec()
+   * } catch (error) {
+   *     console.log('Too bad we could find the element!');
+   * }
    * ```
    *
    * @return {ExecCondition}
@@ -1303,6 +1393,8 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Expects a condition, e.g., `exists()` or `notExits()`.
    *
+   * Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
+   *
    * **Examples:**
    * ```typescript
    * await aui.expect().text().withText('Login').exists().exec()
@@ -1318,7 +1410,9 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Clicks on the filtered element.
+   * Mouse left-clicks/taps on the filtered element by moving the mouse cursor to the filtered element first.
+   *
+   * If you need a simple mouseleftclick/tap only, use `mouseLeftClick`.
    *
    * **Example:**
    * ```typescript
@@ -1351,6 +1445,8 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Puts the focus on the filtered element and types in the text.
+   *
+   * **Note:** In the current version it copies the text and pastes it.
    *
    * **Examples:**
    * ```typescript
@@ -1441,11 +1537,14 @@ export abstract class FluentCommand extends FluentBase {
    * Types a text at the current position.
    * If you need to focus the element first, use typeIn()
    *
+   * **Note:** In the current version it copies the text and pastes it.
+   *
    * **Examples:**
    * ```typescript
    * await aui.type('Type some text').exec()
    *
-   * // mask the text so it is not send to the askui-inference serverawait aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
+   * // mask the text so it is not send to the askui-inference server
+   * await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
    * ```
    *
    * @param {string} text - A text to type
@@ -1461,6 +1560,11 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Moves the mouse from the current position (relative) in x and y direction.
    *
+   * **Example:**
+   * ```typescript
+   * await aui.moveMouseRelatively(20, 20).exec();
+   * ```
+   *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
@@ -1474,6 +1578,13 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Moves the mouse to the absolute x and y coordinates.
+   *
+   * If you want to move your mouse cursor to an element, use `moveMouseTo()`.
+   *
+   * **Example:**
+   * ```typescript
+   * await aui.moveMouse(500, 500).exec();
+   * ```
    *
    * @param {number} x_coordinate - A (positive/negative) x coordinate.
    * @param {number} y_coordinate - A (positive/negative) y coordinate.
@@ -1511,12 +1622,21 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Executes a shell command on the device.
+   * Executes a shell command on the device your UiController is connected to.
    *
    * **Example:**
    * ```typescript
    * // Open the lastpass app
-   * await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec()
+   * await aui.execOnShell('monkey -p com.lastpass.authenticator 1').exec();
+   *
+   * // Open Google Chrome on Windows
+   * await aui.execOnShell("start chrome").exec()
+   *
+   * ;// Open Google Chrome on macOS
+   * await aui.execOnShell("open -a 'Google Chrome'").exec();
+   *
+   * // Open Google Chrome on Linux
+   * await aui.execOnShell("chrome").exec();
    * ```
    *
    * @param {string} shell_command - A shell command which is executed.
@@ -1532,6 +1652,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Clicks with left mouse key.
    *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseLeftClick().exec();
+   * ```
+   *
    * @return {Exec}
    */
   mouseLeftClick(): Exec {
@@ -1542,6 +1672,16 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Clicks with right mouse key.
+   *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseRightClick().exec();
+   * ```
    *
    * @return {Exec}
    */
@@ -1554,6 +1694,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Clicks with middle mouse key.
    *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseMiddleClick().exec();
+   * ```
+   *
    * @return {Exec}
    */
   mouseMiddleClick(): Exec {
@@ -1564,6 +1714,16 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Double-clicks with left mouse key.
+   *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseDoubleLeftClick().exec();
+   * ```
    *
    * @return {Exec}
    */
@@ -1576,6 +1736,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Double-clicks with right mouse key.
    *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseDoubleRightClick().exec();
+   * ```
+   *
    * @return {Exec}
    */
   mouseDoubleRightClick(): Exec {
@@ -1587,6 +1757,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Double-clicks with middle mouse key.
    *
+   * If you need to move the mouse first, use `moveMouseTo()`.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Optional: Move mouse to an element first
+   * await aui.moveMouseTo().button().withText('Login').exec();
+   *
+   * await aui.mouseDoubleMiddleClick().exec();
+   * ```
+   *
    * @return {Exec}
    */
   mouseDoubleMiddleClick(): Exec {
@@ -1596,7 +1776,12 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Toggles mouse down (Left mouse key).
+   * Toggles mouse down (Left mouse key/tap).
+   *
+   * **Example:**
+   * ```typescript
+   * await aui.mouseToggleDown().exec();
+   * ```
    *
    * @return {Exec}
    */
@@ -1607,7 +1792,12 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Toggles mouse up (Left mouse key).
+   * Toggles mouse up (Left mouse key/tap).
+   *
+   * **Example:**
+   * ```typescript
+   * await aui.mouseToggleUp().exec();
+   * ```
    *
    * @return {Exec}
    */
@@ -1619,6 +1809,11 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Press three keys like `CTRL+ALT+DEL`
+   *
+   * **Operating system specific mappings:**
+   * 1. Windows: `command`-key maps to `windows`-key
+   * ---
+   *
    *
    * @param {MODIFIER_KEY} first_key - A modifier key
    * @param {MODIFIER_KEY} second_key - A modifier key
@@ -1635,6 +1830,11 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Press two keys like `ALT+F4`
    *
+   * **Operating system specific mappings:**
+   * 1. Windows: `command`-key maps to `windows`-key
+   * ---
+   *
+   *
    * @param {MODIFIER_KEY} first_key - A modifier key
    * @param {PC_KEY} second_key - A key
    *
@@ -1648,6 +1848,11 @@ export abstract class FluentCommand extends FluentBase {
 
   /**
    * Press one keys like `DEL`
+   *
+   * **Operating system specific mappings:**
+   * 1. Windows: `command`-key maps to `windows`-key
+   * ---
+   *
    *
    * @param {PC_AND_MODIFIER_KEY} key - A key
    *
@@ -1689,7 +1894,7 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Press one Android keys like `DEL`
+   * Press one Android key like `DEL`
    *
    * @param {ANDROID_KEY} key - A Android key
    *
@@ -1721,17 +1926,6 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
 
 export class FluentFiltersGetter extends FluentBase {
   /**
-   * Filters for a UI element 'textfield'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  textfield(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'textfield';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsGetter}
@@ -1749,17 +1943,6 @@ export class FluentFiltersGetter extends FluentBase {
    */
   switch(): FluentFiltersOrRelationsGetter {
     this._textStr = 'switch';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters for a UI element 'image'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  image(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'image';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -1787,18 +1970,7 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for a UI element 'unknown'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  unknown(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'unknown';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters for an UI element 'button'.
+   * Filters for a UI element 'button'.
    *
    * **Examples:**
    * ```typescript
@@ -1816,6 +1988,16 @@ export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
+   * Often combined with the filter `withText()` as shown in the below examples.
+   * See also the filters `withTextRegex()` and `withExactText()`
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().withExactText('Username').exec();
+   * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
+   * ```
+   *
    * @return {FluentFiltersOrRelationsGetter}
    */
   text(): FluentFiltersOrRelationsGetter {
@@ -1825,16 +2007,16 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for an UI element 'icon'.
+   * Filters for a UI element 'icon'.
    *
-   * You can combine it with the 'withText' command to look for a specific icon.
+   * You can combine it with the element-description 'withText()' to look for a specific icon.
    *
    * **Examples:**
    * ```typescript
    * icon().withText('plus')
    * ```
    *
-   * Note: This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
+   * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -1872,10 +2054,9 @@ export class FluentFiltersGetter extends FluentBase {
    *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   *  **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
    *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * - **mask** (*`{x:number,y:number}[]`, optional*):
-   *     - A polygon defined by an array of points to match only a certain area of the given custom image.
+   * of the given custom image.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -1885,6 +2066,48 @@ export class FluentFiltersGetter extends FluentBase {
   customElement(customElement: CustomElementJson): FluentFiltersOrRelationsGetter {
     this._textStr = 'custom element';
     this._params.set('customElement', customElement);
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'image'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one image visible on the screen
+   * await aui.click().image().exec();
+   *
+   * // Works if you have an image with
+   * // a caption text below
+   * await aui.click().image().above().text().withText('The caption').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  image(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'image';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'textfield'.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Works if there is only one textfield visible on the screen
+   * await aui.typeIn('Oh yeah').textfield().exec();
+   *
+   * // Works if you have a labeled textfield
+   * // Label is above the textfield
+   * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  textfield(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'textfield';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -1972,9 +2195,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * 'This is an text' === containsText('text') => true
-   * 'This is an text' === containsText('other text') => false
-   * 'This is an text' === containsText('other') => false
+   * 'This is a text' === containsText('text') => true
+   * 'This is a text' === containsText('other text') => false
+   * 'This is a text' === containsText('other') => false
    * ```
    * ![](https://docs.askui.com/img/gif/containsText.gif)
    *
@@ -1984,6 +2207,19 @@ export class FluentFiltersGetter extends FluentBase {
    */
   containsText(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters elements based on a textual description.
+   *
+   * @param {string} text - A description of the target element.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  match(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2009,7 +2245,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * ```
    * In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
-   * You can use **the `or()` relation**, so your teststep is valid for both scenes
+   * You can use **the `or()` relation**, so your instruction is valid for both scenes
    * ```typescript
    * const button = await aui.get().button().rightOf().icon().or().text().exec();
    * console.log(button);
@@ -2046,12 +2282,13 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * example scene:
    *  ---------------   ----------------
    *  |  icon user  |   |  icon search |
-   *  ---------------   ---------------n```
+   *  ---------------   ----------------
+   * ```
    * ```typescript
    * const icons = await aui.get().icon().exec();
    * console.log(icons);
    * ```
-   * Using only the filter icon, the get command will return both icons
+   * Using only the element-description icon, the get will return both icons
    * ```text
    * console output: [
    *   DetectedElement {
@@ -2076,12 +2313,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *   }
    *  ]
    * ```
-   * You can combine filters with **the `and()` relation** and specify exactly which icon you want
+   * You can combine element-descriptions with **the `and()` relation** and specify exactly which icon you want.
    * ```typescript
    * const icons = await aui.get().icon().and().withText('user').exec()
    * console.log(icons)
    * ```
-   * The get command returns only the user icon although both elements are icons
+   * The get returns only the user icon although both elements are icons.
    * ```text
    *  console output: [
    *   DetectedElement {
@@ -2329,7 +2566,7 @@ export abstract class Getter extends FluentCommand {
    *         xmax: 1178.8204241071428,
    *         ymax: 180.83512834821428
    *      }
-   *  }
+   *    }
    *  ]
    * ```
    *
@@ -2374,7 +2611,7 @@ export abstract class Getter extends FluentCommand {
    *         ymax: 950.47812834821428
    *      },
    *      ... 381 more items
-   *  }
+   *    }
    *  ]
    * ```
    *
