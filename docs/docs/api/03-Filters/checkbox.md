@@ -2,15 +2,7 @@
 displayed_sidebar: apiSidebar
 ---
 # checkbox
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Filters for a UI element 'checkbox' checked or unchecked.
+Filters for a UI element 'checkbox'.
 
-**Examples:** 
-```typescript
-// Works if there is only one checkbox visible on the screen
-await aui.click().checkbox().exec();
-
-// Works if you have a labeled checkbox
-// Label on the right side
-await aui.click().checkbox().leftOf().text().withText('The label text').exec();
-```

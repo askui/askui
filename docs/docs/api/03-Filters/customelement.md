@@ -2,12 +2,12 @@
 displayed_sidebar: apiSidebar
 ---
 # customElement
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Defines a 'custom element'. This is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
 
 **Example**
-
-```ts
+```typescript
 await aui
     .click()
     .customElement({
@@ -16,10 +16,11 @@ await aui
         threshold: 0.9, // optional, defaults to 0.9
         rotationDegreePerStep: 0, // optional, defaults to 0
         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
+        // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
     })
     .exec();
 ```
- 
+
 **Arguments**
 
 - **customImage** (*`string`, required*):
@@ -32,3 +33,7 @@ await aui
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
+of the given custom image.
+
+
+   * @param {CustomElementJson} customElement - The custom element to filter for.

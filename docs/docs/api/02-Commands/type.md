@@ -2,9 +2,10 @@
 displayed_sidebar: apiSidebar
 ---
 # type
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
 Types a text at the current position.
-If you need to focus the element first, use `typeIn()`.
+If you need to focus the element first, use typeIn()
 
 **Note:** In the current version it copies the text and pastes it.
 
@@ -28,4 +29,3 @@ await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
        logs of askui nor sent over to askui Inference for prediction.
    * @param {string} [options.secretMask = '****'] - If `options.isSecret` is set to `true`, this 
        is included in logs and sent over to askui Inference for prediction instead of the `text`.
-

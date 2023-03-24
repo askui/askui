@@ -2,10 +2,11 @@
 displayed_sidebar: apiSidebar
 ---
 # expect
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Throws an error when an element specified by a filter `exists` or `notExists`.
+Expects a condition, e.g., `exists()` or `notExits()`.
 
-Use the structure `expect().<your filter>.(exists()|notExists())` as shown in the examples below.
+Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
 
 **Examples:**
 ```typescript 

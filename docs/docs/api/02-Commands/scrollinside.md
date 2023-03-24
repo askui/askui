@@ -1,14 +1,16 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# moveMouseRelatively
+# scrollInside
 <span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Moves the mouse from the current position (relative) in x and y direction.
+Moves mouse to the filtered element and scrolls in the x and y direction.
+
+**macOS**: May not work as expected!
 
 **Example:**
-```typescript
-await aui.moveMouseRelatively(20, 20).exec();
+```typescript 
+await aui.scroll(0, 10).textarea().exec()
 ```
 
    * @param {number} x_offset - A (positive/negative) x direction.

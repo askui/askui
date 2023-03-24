@@ -22,15 +22,15 @@ When you develop an automation you can use interactive annotation to extract fil
 This gif illustrates the process:
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 
-If a filter derived through this method does not work you may run the interactive annotation again and check if askui gives you the same filter. Sometimes elements are hard to identify correctly, like icons or specific fonts. Read the next sections on how to tackle this 🙂
+If an element-description derived through this method does not work you may run the interactive annotation again and check if askui gives you the same element-description. Sometimes elements are hard to identify correctly, like icons or specific fonts. Read the next sections on how to tackle this 🙂
 
 ## Selecting Icons
 There are millions of different icon sets out there. Detecting them all reliable is nearly impossible.
 
 You can use two strategies to make your instructions more stable.
 
-### 1. Use Relative Selectors
-Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational selectors](../03-Guides/guide-relational-selectors.md) to understand how those work:
+### 1. Use Relative Element-Descriptors
+Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational element-descriptors](../03-Guides/guide-relational-element-descriptions.md) to understand how those work:
 
 ```javascript
 await aui

@@ -1,13 +1,9 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# mouseToggleUp
+# match
 <span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Toggles mouse up (Left mouse key/tap).
+Filters elements based on a textual description.
 
-**Example:**
-```typescript
-await aui.mouseToggleUp().exec();
-```
-
+   * @param {string} text - A description of the target element.

@@ -2,11 +2,11 @@
 sidebar_position: 1
 ---
 
-# Text Selectors
+# Text Element-Descriptions
 
-When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text filters can become critical in scaffolding a robust set of instructions.
+When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text element-description can become critical in scaffolding a robust set of instructions.
 
-askui provides four different methods to handle text elements:
+askui provides four different element-descriptions to handle text elements:
 
 - `containsText()`
 - `withExactText()`
@@ -34,7 +34,7 @@ await aui.mouseLeftClick().exec();
 
 ## Match a Sub-string within a Text
 
-Even though the method `withText()` is handy and quite reliable, you might face a case where you know only a fraction of the text element that you want to interact with. In such a case, `containsText()` is the method you might want to use:
+Even though the `withText()` is handy and quite reliable, you might face a case where you know only a fraction of the text element that you want to interact with. In such a case, `containsText()` is the element-description you might want to use:
 
 ```ts
 await aui.moveMouseTo().text().containsText('Bottom').exec();
@@ -43,7 +43,7 @@ await aui.mouseLeftClick().exec();
 
 ![containsText](/img/gif/containsText.gif)
 
-Be aware that even if the method `containsText()` also supports **Fuzzy Matching**, it won't match the whole sequence by just a few characters. Try to use this code with the given demo app:
+Be aware that even if the `containsText()` also supports **Fuzzy Matching**, it won't match the whole sequence by just a few characters. Try to use this code with the given demo app:
 
 ```ts
 // this will fail
@@ -62,13 +62,13 @@ await aui.moveMouseTo().text().containsText('Bottom').exec();
 
 The biggest difference between `withText()` and `containsText()` is whether it matches the text as a whole sequence or not. Matching many texts with a repeating affix could be a practical use case for the `containsText()`.
 
-It is recommended to experiment enough with these methods to find a better option that suits your specific case, since it's not easy to predict if the given text can be fuzzy-matched with target texts.
+It is recommended to experiment enough with these element-descriptions to find a better option that suits your specific case, since it's not easy to predict if the given text can be fuzzy-matched with target texts.
 
 ------
 
 ## Match the Exact Text
 
-If you already know what text you are looking for, or if there are too many similar text elements, you can use the method `withExactText()`.
+If you already know what text you are looking for, or if there are too many similar text elements, you can use the element-description `withExactText()`.
 
 From the main page of the demo app, go to `Material`->`Data tables`. You will see a table with different foods given with nutrition factors for each of them.
 
@@ -99,7 +99,7 @@ for(let i=0; i<elts.length; ++i){
 
 You will see that askui clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
 
-It will give you a clear idea where you will need to use the method `withExactText()` instead of `withText()`. Try to run the same code after replacing the `withText()` to `withExactText()`:
+It will give you a clear idea where you will need to use the element-description `withExactText()` instead of `withText()`. Try to run the same code after replacing the `withText()` to `withExactText()`:
 
 ```ts
 // Find all the text elements that matches '25.0' exactly
@@ -117,7 +117,7 @@ for(let i=0; i<elts.length; ++i){
 
 ## Match Text with Regular Expression
 
-The method `withTextRegex()` supports **Regular Expression** to match any text in the most flexible way. Although it might be tricky to use regex due to its esoteric appearance, it is maybe one of the most versatile solutions when it comes to character matching.
+The element-description `withTextRegex()` supports **Regular Expression** to match any text in the most flexible way. Although it might be tricky to use regex due to its esoteric appearance, it is maybe one of the most versatile solutions when it comes to character matching.
 
 On the same page of the demo app, let's say that we want to click on the items whose Calorie is between 300 and 500 `(cal>=300 && cal<500)`. Since regex doesn't support numeric comparison, we will try to match the digits in a sequence:
 

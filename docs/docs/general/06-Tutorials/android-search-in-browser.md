@@ -184,6 +184,7 @@ describe('jest with askui', () => {
   it('should open chrome', async () => {
 
     await aui.click().textfield().exec();    
+    await aui.click().textfield().exec();    
 
     // Type the desired keyword into the search bar
     await aui.type('chrome').exec();
@@ -228,7 +229,7 @@ To avoid our execution from failing, we have to examine whether we got a pop-up 
 ```ts
 try {
     // The `expect()` examines whether a specific element is detected or not.
-    // A command starting with `expect()` must always end with `exists()` or `notExists()`
+    // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
     await aui.expect().text().containsText('cookies').notExists().exec();
 } catch (error) {
     await aui.click().text().withText('read more').exec();
@@ -256,9 +257,9 @@ await aui.click()
     .exec();
 ```
 
-Pay attention to the command `nearestTo()` that is interconnecting two different text elements.
+Pay attention to the relational element-description `nearestTo()` that is interconnecting two different text elements.
 
-**askui** offers several **Relational Commands**, which enable you to select the desired element by their screen position:
+**askui** offers several **Relational Element-Descriptions**, which enable you to select the desired element by their screen position:
 
 - [above()](https://docs.askui.com/docs/api/Relations/above)
 - [below()](https://docs.askui.com/docs/api/Relations/below)
@@ -305,7 +306,7 @@ describe('jest with askui', () => {
 
     try {
         // The `expect()` examines whether a specific element is detected or not.
-        // A command starting with `expect()` must always end with `exists()` or `notExists()`
+        // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
         await aui.expect().text().containsText('cookies').notExists().exec();
     } catch (error) {
         await aui.click().text().withText('read more').exec();

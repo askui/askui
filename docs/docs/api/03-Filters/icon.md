@@ -2,10 +2,11 @@
 displayed_sidebar: apiSidebar
 ---
 # icon
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Filters for an UI element 'icon'.
+Filters for a UI element 'icon'.
 
-You can combine it with the 'withText' command to look for a specific icon.
+You can combine it with the element-description 'withText()' to look for a specific icon.
 
 **Examples:** 
 ```typescript

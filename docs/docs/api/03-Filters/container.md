@@ -1,13 +1,8 @@
 ---
 displayed_sidebar: apiSidebar
 ---
-# mouseToggleUp
+# container
 <span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Toggles mouse up (Left mouse key/tap).
-
-**Example:**
-```typescript
-await aui.mouseToggleUp().exec();
-```
+Filters for a UI element 'container'.
 

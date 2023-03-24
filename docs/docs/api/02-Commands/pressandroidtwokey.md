@@ -2,6 +2,7 @@
 displayed_sidebar: apiSidebar
 ---
 # pressAndroidTwoKey
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
 Press two Android keys like `ALT+F4`
 
