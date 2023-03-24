@@ -73,7 +73,7 @@ it('Should log into account', async () => {
 
 ### 3. Fill out Login Information
 
-After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` command. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
+After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` action. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
 
 ![Overlap](./images/login_overlap.png)
 

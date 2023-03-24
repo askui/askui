@@ -6,9 +6,9 @@ sidebar_position: 3
 
 This page will give you examples of how to use askui efficiently and effectively. 
 
-## General Considerations on Speed of Inference for Different Selectors
+## General Considerations on Speed of Inference for Different Element-Descriptions
 
-| Selector | Tasks   | Speed  |
+| Submodel | Tasks   | Speed  |
 | -------- | ------- | -------|
 | Object Detector | Common elements, e.g. a button or textfield | fast :rocket: |
 | Icon Classifier | Predict the class of an icon, e.g., a user icon  | fast :rocket: |
@@ -63,7 +63,7 @@ await aui.mouseToggleUp().exec()
 ```
 
 ### Scrolling With Mouse Wheel
-If you want to scroll with your mouse wheel you can use the `scroll()` command:
+If you want to scroll with your mouse wheel you can use the `scroll()` action:
 
 ```javascript
 // Scroll 10 down in y direction<>

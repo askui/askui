@@ -11,9 +11,9 @@ sidebar_position: 1
 
 ## Overview
 
-**Custom Element Selection** is a feature in askui that enables you to create custom selectors for elements on the screen, instead of relying on the standard selectors provided such as **Button**, **Textfield**, etc.
+**Custom Element Selection** is a feature in askui that enables you to create custom element-descriptions for elements on the screen, instead of relying on the standard element-descriptions provided such as **Button**, **Textfield**, etc.
 
-With this feature, you can define a custom selector based on how the element is displayed on the screen. This can be particularly useful in situations where standard selectors are unreliable due to the non-standard properties of the element. It provides greater flexibility and control, allowing you to tailor the automation to meet the specific needs of your application.
+With this feature, you can define a custom element-descriptions based on how the element is displayed on the screen. This can be particularly useful in situations where standard element-descriptions are unreliable due to the non-standard properties of the element. It provides greater flexibility and control, allowing you to tailor the automation to meet the specific needs of your application.
 
 Here we will demonstrate how to use a custom element to explore Google Street View.
 
@@ -83,7 +83,7 @@ await aui
 
 **2) The Time of the Execution will Increase by a Notable Amount**
 
-- To examine whether the custom image matches the given screen, askui iterates through the whole pixels of the given screen as well as the custom image. So it is likely to increase the runtime by a notable amount. Therefore, if the task could be accomplished with other filters such as `icon()`, `button()`, or `text()`, then it's maybe better to avoid using the `customElement()`.
+- To examine whether the custom image matches the given screen, askui iterates through the whole pixels of the given screen as well as the custom image. So it is likely to increase the runtime by a notable amount. Therefore, if the task could be accomplished with other element-descriptions such as `icon()`, `button()`, or `text()`, then it's maybe better to avoid using the `customElement()`.
 
 
 ## Capture the Custom Element

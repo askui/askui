@@ -11,9 +11,9 @@ An interactive annotation is in essence three components:
 
 ![Screenshot of Visual Studio Code with annotations as red bounding boxes.](images/interactive_annotation2.png)
 
-3. Filters, which are labels applied to the annotations of the screenshot.
+3. Element-Descriptions, which are labels applied to the annotations of the screenshot.
 
-Clicking an element will copy this filter, which we can then use in the [step 3 of Write Your First Instruction](../02-Getting%20Started/write-your-first-instruction.md), which is actually using that to execute commands.
+Clicking an element will copy this element-description, which we can then use in the [step 3 of Write Your First Instruction](../02-Getting%20Started/write-your-first-instruction.md), which is actually using that run instructions.
 
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 

@@ -140,7 +140,7 @@ Congratulations! You’ve just built your first instruction using askui. :tada:
 ## Troubleshooting
 
 ### askui moves to the wrong element?
-Have a look at [Relational Selectors](../03-Guides/guide-relational-selectors.md) to select elements via a visual relation instead.
+Have a look at [Relational Selectors](../03-Guides/guide-relational-element-descriptions.md) to select elements via a visual relation instead.
 
 ### Technical
 For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
@@ -165,8 +165,8 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
 ### Guides
-* Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-selectors.md) to understand the *Relational Selectors* in askui.
-* Read [Selecting an Element with Text](../03-Guides/guide-text-selectors.md) to learn about *Text Selectors* in askui.
+* Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-element-descriptions.md) to understand the *Relational Selectors* in askui.
+* Read [Selecting an Element with Text](../03-Guides/guide-text-element-descriptions.md) to learn about *Text Element-Descriptions* in askui.
 * Read [Recommended Practices](../03-Guides/recommended-practices.md).
 
 ### Annotation

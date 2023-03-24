@@ -60,7 +60,7 @@ Select the first image and then use the shortcut `Ctrl + A` to select all images
 ```ts
 // The text to insert here should be something in the opened explorer window.
 // Usually there is 'This PC' or 'Quick Access' there.
-// Watch the video if you are not sure how the selector works.
+// Watch the video if you are not sure how the element-descriptor works.
 await aui.click().image().nearestTo().text().withText('This PC').exec();
 await aui.pressTwoKeys('control', 'A').exec();
 
@@ -83,7 +83,7 @@ await aui.mouseDoubleLeftClick().exec();
 ## Navigate to Google Drive
 After opening Chrome the Google search page appears if you do not use profiles. The Google Drive-Link will be typed into the search field and thus opened when _Enter_-Key is pressed.
 
-Do not forget to replace `<Your Google drive link to the folder`!
+Do not forget to replace `<Your Google drive link to the folder>`!
 
 ```ts
 // Omit this step if you do not use profiles in chrome

@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Relational Selectors
+# Relational Element-Descriptions
 A common problem while writing instructions which one encounters is interacting with elements which share the same text.
 
 An example can be seen when you interactively annotate your Visual Studio Code Editor.
@@ -13,15 +13,15 @@ Notice that the magnifying glass icon and many other elements throughout the UI 
 
 ![Icon mobile annotation one.](images/relational_selectors_same_icon2.png)
 
-To ensure you’re able to instruct askui to select the correct element, the use of relational selectors can be employed.
-Relational selectors describe the element relative to other elements in the UI.
+To ensure you’re able to instruct askui to select the correct element, the use of relational element-descriptions can be employed.
+Relational element-descriptions describe the element relative to other elements in the UI.
 
 ## Selecting an Element by Visual Relation
-After reading the next section you will know how to use the full power of all the relational selectors. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
+After reading the next section you will know how to use the full power of all the relational element-descriptions. Additionally, you learn what pitfalls you can fall into and how to avoid them in the future.
 
 We will use the [Selectorshub practice page](https://selectorshub.com/xpath-practice-page/) for the demonstration.
 
-We’ll discuss the following relational selectors:
+We’ll discuss the following relational element-descriptions:
 
 - [above()](#above)
 - [below()](#below)
@@ -113,7 +113,7 @@ await aui
 ## leftOf() and rightOf()
 If you want to select an element based on its location left or right of another element you have to use `leftOf()` or `rightOf()` respectively.
 
-💡 If you do not specify another filter like `withText()` then you will get the nearest element. Otherwise, askui retrieves the nearest element that matches the filter!
+💡 If you do not specify another element-description like `withText()` then you will get the nearest element. Otherwise, askui retrieves the nearest element that matches the element-description!
 
 ```ts
 await aui
@@ -142,7 +142,7 @@ await aui
 
 ## nearestTo()
 
-Filtering with the `nearestTo()` filter will return the element nearest to another element. This is useful when the direction is not clear on where to search. Especially responsive designs are prone to wrap elements into a new line where `leftOf()` and `rightOf()` would fail.
+Filtering with the `nearestTo()` will return the element nearest to another element. This is useful when the direction is not clear on where to search. Especially responsive designs are prone to wrap elements into a new line where `leftOf()` and `rightOf()` would fail.
 
 ```ts
 await aui
@@ -157,7 +157,7 @@ await aui
 ![nearestto](/img/gif/nearestTo.gif)
 
 ## Additional Considerations About the Distance Metric
-The distance is not entirely based on physical distance. If you use an additional filter like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
+The distance is not entirely based on physical distance. If you use an additional element-description like `withText()` it optimizes to find the best match. It also considers special cases, for example, modal dialogs. Therefore the element selected by askui might sometimes be wrong from a user's point of view.
 
 You can use `moveMouseTo()` like in the following example to see what element an instruction targets.
 
