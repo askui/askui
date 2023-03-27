@@ -192,3 +192,9 @@ customizable
 \.xml
 askui-file
 Submodel
+InputEvent
+MouseInputEvent
+KeyboardInputEvent
+ControlCommand
+InputEvents
+TextField

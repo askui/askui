@@ -185,7 +185,7 @@ throw new Error("I'm an error!");
 
 After running the test suite again, you will have an HTML file reports/test-report.html in your project directory. Open the HTML file in your web browser:
 
-![Output of jest-html-reporter](images/askui-run-reports-jest-html-reporter.jpeg)
+![Output of jest-html-reporter](images/askui-run-reports-jest-html-reporter.png)
 
 ## 2.3. Using jest-html-reporters with askui
 [jest-html-reporters](https://www.npmjs.com/package/jest-html-reporters) is another reporter that generates an HTML that summarizes the run result within Jest. It might be similar to the above-mentioned reporter. But this one, **jest-html-reporters**, has a feature that can **attach an image to the report**, thus can assist your debugging process, especially for UI automations.
