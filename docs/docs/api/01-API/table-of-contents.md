@@ -11,7 +11,7 @@ Use your browser search: `CMD/CTRL + f`
 
 :::
 
-## Commands
+## Actions
 
 <table style={{display: 'table'}}>
     <thead>
@@ -654,7 +654,7 @@ await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfie
     </tbody>
 </table>
 
-## Filters
+## Element-Descriptions
 
 <table style={{display: 'table'}}>
     <thead>
