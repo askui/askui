@@ -1,6 +1,7 @@
 import { AnnotationLevel } from './annotation-level';
 import { CredentialArgs } from './credentials-args';
 import { ProxyAgentArgs } from '../shared/proxy-agent-args';
+import { ModelComposition } from './model-composition';
 
 /**
  * Configuration options for the askui UI Control Client
@@ -33,6 +34,7 @@ export interface ClientArgs {
   readonly credentials?: CredentialArgs,
   readonly proxyAgents?: ProxyAgentArgs
   readonly resize?: number
+  readonly modelComposition?: ModelComposition
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
