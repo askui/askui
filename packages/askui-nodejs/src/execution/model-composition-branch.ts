@@ -1,4 +1,8 @@
 export interface ModelCompositionBranch {
-  name: string,
-  version?: string,
+  task: string,
+  architecture: string
+  version: string,
+  interface: string,
+  useCase: string,
+  tag: string[],
 }
