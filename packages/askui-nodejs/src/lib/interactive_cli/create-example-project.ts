@@ -7,13 +7,14 @@ import chalk from 'chalk';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
 import { replaceStringInFile } from './replace-string-in-file';
+import { addScript } from './add-script-package-json';
 
 export class CreateExampleProject {
   private distexampleFolfderPath: string;
 
   private askuiHelperFilePath: string;
 
-  private exampleFolfderName: string;
+  private exampleFolderName: string;
 
   private baseDirPath: string;
 
@@ -21,8 +22,8 @@ export class CreateExampleProject {
 
   constructor(readonly cliOptions: CliOptions) {
     this.baseDirPath = process.cwd();
-    this.exampleFolfderName = 'askui_example';
-    this.distexampleFolfderPath = path.join(this.baseDirPath, this.exampleFolfderName);
+    this.exampleFolderName = 'askui_example';
+    this.distexampleFolfderPath = path.join(this.baseDirPath, this.exampleFolderName);
     this.askuiHelperFilePath = path.join(this.distexampleFolfderPath, 'helpers', 'askui-helper.ts');
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
   }
@@ -31,7 +32,7 @@ export class CreateExampleProject {
     const exampleProjectPath = path.join(
       'example_projects_templates',
       this.cliOptions.progLanguage,
-      this.exampleFolfderName,
+      this.exampleFolderName,
     );
 
     return [{
@@ -72,8 +73,27 @@ export class CreateExampleProject {
     );
   }
 
+  private async addAskuiRunCommand() {
+    const frameworkExecutionCommand = {
+      jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
+      jest: `jest --config ./${this.exampleFolderName}/jest.config.ts`,
+    };
+    await addScript(
+      this.baseDirPath+'/package.json',
+      frameworkExecutionCommand[this.cliOptions.testFramework],
+    );
+  }
+
+  private async installAskuiDependency() {
+    const runCommand = promisify(exec);
+
+    return [{
+      title: 'Install askui dependency',
+      task: async () => runCommand('npm i -D askui '),
+    }];
+  }
+
   private async setupTestFrameWork() {
-    // await this.copyTsConfigFIle();
     return [{
       title: 'Setup Test framework',
       task: async () => new Listr([
@@ -89,6 +109,10 @@ export class CreateExampleProject {
           title: 'Add timeout',
           task: async () => this.addTestFrameWorkTimeout(),
         },
+        {
+          title: 'Add askui run command',
+          task: async () => this.addAskuiRunCommand(),
+        },
       ]),
     }];
   }
@@ -102,9 +126,9 @@ export class CreateExampleProject {
     await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
   }
 
-  private async addUserCridentails() {
+  private async addUserCredentails() {
     return [{
-      title: 'Add user cridentails',
+      title: 'Add user credentails',
       task: async () => new Listr([
         {
           title: 'Add workspace id ',
@@ -118,7 +142,7 @@ export class CreateExampleProject {
     }];
   }
 
-  private async copyTsConfigFIle(): Promise<Listr.ListrTask<unknown>[]> {
+  private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
     const tsConfigFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, 'tsconfig.json');
     return [{
       title: 'Copy ts config file',
@@ -141,22 +165,15 @@ export class CreateExampleProject {
     }];
   }
 
-  private getTestFrameWorkExecCommand(): string {
-    const testFrameWorkExecCommand = {
-      jest: `npx jest --config ./${this.exampleFolfderName}/jest.config.ts`,
-      jasmine: `npx jasmine --config=${this.exampleFolfderName}/jasmine.config.json `,
-    };
-    return testFrameWorkExecCommand[this.cliOptions.testFramework];
-  }
-
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();
 
     tasks.add([
       ...await this.copyTemplateProject(),
+      ...await this.installAskuiDependency(),
       ...await this.setupTestFrameWork(),
-      ...await this.copyTsConfigFIle(),
-      ...await this.addUserCridentails(),
+      ...await this.copyTsConfigFile(),
+      ...await this.addUserCredentails(),
       ...await this.installProxy(),
     ]);
 
@@ -167,8 +184,8 @@ export class CreateExampleProject {
       console.log(chalk.gray(`You can find more information under ${this.proxyDocUrl}`));
     }
     console.log(chalk.greenBright('Congratulations!'));
-    console.log(`askui test example was created under ${chalk.gray(this.distexampleFolfderPath)}`);
-    console.log(`You can start your test with this command ${chalk.green(this.getTestFrameWorkExecCommand())}`);
+    console.log(`askui example was created under ${chalk.gray(this.distexampleFolfderPath)}`);
+    console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */
   }
 }

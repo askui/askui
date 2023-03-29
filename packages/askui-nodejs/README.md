@@ -11,25 +11,19 @@ To use **askui** follow these steps:
 ### 0. Create *node.js* project
 
 ```
-npm init
+npm init -y
 ```
 
-### 1. Install askui with Needed Dependencies
-
-```
-npm i -D askui typescript ts-node @types/jest ts-jest jest
-```
-
-### 2. Create your First Test
+### 2. Initialize askui
 
 ```
 npx askui init
 ```
 
-### 3. Execute the Test
+### 3. Execute Your First Instruction
 
 ```
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
+npm run askui
 ```
 
 ## Documentation
@@ -44,7 +38,7 @@ If you want to use the askui library libfuse2 is needed ([libfuse2 installation]
 
 ## Example
 
-The following example shows the use of **askui** for testing a desktop application.
+The following example shows the use of **askui** for automating a desktop application.
 
 ```typescript
 it('should be able to add to liked songs', async () => {

@@ -5,5 +5,4 @@ export interface CliOptions {
   testFramework: 'jasmine' | 'jest',
   usingProxy: boolean,
   addTsConfig: boolean,
-
 }

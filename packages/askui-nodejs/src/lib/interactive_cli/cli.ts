@@ -34,7 +34,7 @@ const questions: QuestionCollection = [
   {
     type: 'confirm',
     name: 'usingProxy',
-    message: 'are you using Proxy?',
+    message: 'are you using a proxy?',
     default: false,
   },
   {
