@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # Assertions
@@ -8,7 +8,7 @@ In this guide we will first show you how to assert if an element is there or not
 Then we will
 
 ## Assert the (non) Existence of Elements
-To validate if an element exists or not we use [expect()](../../api/02-Commands/expect.md) in combination with [exists()](../../api/05-Checks/exists.md) or [notExists](../../api/05-Checks/notexists.md).
+To validate if an element exists or not we use [expect()](../../api/02-Actions/expect.md) in combination with [exists()](../../api/05-Checks/exists.md) or [notExists](../../api/05-Checks/notexists.md).
 
 ```typescript
 // Expect that a button with text 'Go for it' exists
