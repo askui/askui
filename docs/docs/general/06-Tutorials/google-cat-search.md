@@ -1,18 +1,22 @@
-# Google Cat Search Tutorial
+---
+sidebar_position: 7
+---
 
-The following tutorial shows you how to search for cat images on Google image search.
+# Google Cat Image Search
+
+The following tutorial shows you how to search for cat images on Google Image Search with askui.
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow one of the two options under <a href="../Getting%20Started/start" target="_blank">Start to install askui</a>
 * Open a Chrome browser window on your screen
   * If you have multiple screens, configure the used display by setting the display variable in `test/helper/jest.setup.js`
 
-## Setting Up a Test Suite
+## Setting Up askui
 
 💭 Let’s say we’re on [google.com](http://google.com) and we want to **search for an image of a cat and then download it to our computer**.
 
-First, we break this task down into steps that a user would take. Then we can recreate those steps in code.
+First, we break this task down into steps that a user would take. Then we can recreate those steps with askui instructions in code.
 
 1. Go to Google Search page 
 2. Go to google images
@@ -20,7 +24,7 @@ First, we break this task down into steps that a user would take. Then we can re
 4. Select image
 5. Right-click + save the image
 
-Let us first get an annotated screenshot, where all of the on-screen elements are enclosed within **annotated bounding boxes**. This will help us select the correct elements in our test case.
+Let us first get an annotated screenshot, where all of the on-screen elements are enclosed within **annotated bounding boxes**. This will help us select the correct elements with our instructions.
 
 Open the file _test/my-first-askui-test-suite.test.ts_ and replace the *it*-code block starting in line 4 with the following code:
 
@@ -30,7 +34,7 @@ it('annotate', async () => {
 });
 ```
 
-Run the test from your terminal to create an annotated screenshot. It will appear the folder _report_ in your project folder.
+Run the code from your terminal to create an annotated screenshot. A folder _report_ in your project folder will appear.
 
 ```shell
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
@@ -47,14 +51,15 @@ it('annotate', async () => {
 });
 ```
 
-📌 The annotations are basically the substitute for IDs in selector-based testing. 
+📌 The annotations are basically the substitute for IDs in selector-based frameworks. 
 You can click on them to copy them into your clipboard.
 
-If you are having problems with the test execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md).
+If you are having problems with the execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md).
 
-## Writing and Debugging a Test Case
+## Writing and Debugging an askui Workflow
 
-Now we can start to write our test case, by locating the elements and then executing an action on them. Remember the steps, that we wanted to recreate?
+Now we can start to write our workflow, by locating the elements and then executing an instruction on them.
+Remember the steps, that we wanted to recreate?
 
 1. Go to Google Search page 
 2. Go to google images
@@ -64,11 +69,11 @@ Now we can start to write our test case, by locating the elements and then execu
 
 :::tip
 
-Make sure to open your browser on the configured display before test execution and move your mouse over the browser window!
+Make sure to open your browser on the configured display before the execution and move your mouse over the browser window immediately after starting the execution!
 
 :::
 
-In the end, your test case looks like this.
+In the end, your code for the workflow looks like this.
 
 ```typescript
 import { aui } from './helper/jest.setup';
@@ -112,8 +117,8 @@ describe('jest with askui', () => {
     await aui
       .typeIn("cat")
       .textfield()
-      .below()
-      .logo().withText("G00g.e")
+      .contains()
+      .icon().withText('microphone')
       .exec();
 
     await aui
@@ -169,9 +174,9 @@ await aui
     .exec()
 ```
 
-But it turns out, that the AI uses a different metric for measuring distance between elements, which is why our script failed the first time. Then we substituted this function for _above()_, which fixed the problem for us.
+But it turns out, that our model uses a different metric for measuring distance between elements, which is why our workflow failed the first time. Then we substituted this function for _above()_, which fixed the problem for us.
 
-Another problem regarding font-size occurred with the _Images_ button. The AI recognized _Image_ with an **s** missing at the end. That is why we switched from _withText('Images') to _withTextRegex('Image*')_.
+Another problem regarding font-size occurred with the _Images_ button. The model recognized _Image_ with an **s** missing at the end. That is why we switched from _withText('Images') to _withTextRegex('Image*')_.
 
 ```typescript
 await aui
@@ -188,4 +193,4 @@ If you have a recurring or persisting issue, don’t hesitate to [ask the commun
 
 If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 
-Best regards and happy testing!
+Best regards and happy automating!

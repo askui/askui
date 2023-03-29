@@ -13,6 +13,14 @@
   width: 144px;
 }
 
+img {
+  border-radius: 7px;
+}
+
+table {
+  width: 100%;
+}
+
 /* You can override the default Infima variables here. */
 :root {  
   --white: #fff;
@@ -27,6 +35,20 @@
   --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.5;
   --ifm-font-family-base: "Mulish", "Verdana", sans-serif;
+}
+
+.header-github-link:hover {
+  opacity: 0.6;
+}
+
+.header-github-link:before {
+  content: '';
+  width: 26px;
+  height: 26px;
+  display: flex;
+  background: url("/img/icons/github_black.svg") no-repeat;
+  background-size: 26px 26px;
+  margin-top: 5px;
 }
 
 .docusaurus-highlight-code-line {

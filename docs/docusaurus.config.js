@@ -8,10 +8,15 @@ const tagline = 'Humanizing UI Automation';
 // This is a hacky way to get GTM working //////////
 // See also the 'scripts' tag in config ////////////
 var headScript = '/scripts/googleTagManager.js';
+var utm2CookieScript = 'https://askui-public.s3.eu-central-1.amazonaws.com/assets/set-analytics-cookies-from-query-parameters.js';
+var segmentExternalLinkTracking = '/scripts/segmentExternalLinks.js';
 const isProd = process.env.NODE_ENV === 'production';
 if (!isProd) {
   headScript = '/scripts/isNotProd.js';
+  utm2CookieScript = '/scripts/isNotProd.js';
+  segmentExternalLinkTracking = '/scripts/isNotProd.js';
 }
+
 ////////////////////////////////////////////////////
 
 /** @type {import('@docusaurus/types').Config} */
@@ -24,11 +29,25 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/askui_icon_positive_rgb-150x150.png',
   organizationName: 'askui',
-  plugins: ['docusaurus-plugin-sass'],
+  trailingSlash: false,
+  plugins: [
+    ['docusaurus-plugin-sass', {}],
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        quality: 70,
+        max: 1030, // max resized image's size.
+        min: 640, // min resized image's size. if original is lower, use that size.
+        steps: 2, // the max number of images generated between min and max (inclusive)
+        disableInDev: false,
+      },
+    ],
+  ],
   projectName: 'askui', // Usually your repo name.
 
   scripts: [
-    {src: `${headScript}`}
+    {src: `${headScript}`},
+    {src: `${utm2CookieScript}`, async: true,}
   ],
   presets: [
     [
@@ -60,7 +79,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'general/Introduction/why-askui',
+            docId: 'general/Getting Started/start',
             position: 'left',
             label: 'Docs',
           },
@@ -74,6 +93,16 @@ const config = {
             type: 'docsVersionDropdown',
             position: 'left',
             dropdownActiveClassDisabled: true,
+          },
+          {
+            type: 'search',
+            position: 'left',
+          },
+          {
+            href: 'https://github.com/askui/askui',
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           },
         ],
       },
@@ -121,7 +150,8 @@ const config = {
                     <!-- Google Tag Manager (noscript) -->
                     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MPZ8G56"
                     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-                    <!-- End Google Tag Manager (noscript) --> 
+                    <!-- End Google Tag Manager (noscript) -->
+                    <script src="${segmentExternalLinkTracking}" async></script>
                   `,
               },
             ],

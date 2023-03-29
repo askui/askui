@@ -1,6 +1,10 @@
-# Zip Images and Upload them to Google Drive on Windows OS Tutorial
+---
+sidebar_position: 10
+---
 
-This tutorial will show you how to zip files on your file system and then upload them to Google Drive.
+# Zip Images and Upload to Google Drive on Windows
+
+This tutorial will show you how to zip files on your file system and then upload them to Google Drive with askui.
 
 <div class="cookieconsent-optout-marketing">
   Please <a href="javascript:Cookiebot.renew()">accept marketing-cookies</a> to watch this video.
@@ -10,7 +14,7 @@ This tutorial will show you how to zip files on your file system and then upload
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
 * Create a folder named _askui_ on your desktop and put some files into it
 * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
@@ -28,13 +32,13 @@ This tutorial will show you how to zip files on your file system and then upload
 
 :::
 
-## Test
+## Code
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
-describe(/* a string identifying the test suite */, () => {
-    ... (other tests)
+describe(/* a string identifying the askui suite */, () => {
+    ... (other workflows)
 
     it('Should upload screenshots folder on google drive', async () => {
 
@@ -56,7 +60,7 @@ Select the first image and then use the shortcut `Ctrl + A` to select all images
 ```ts
 // The text to insert here should be something in the opened explorer window.
 // Usually there is 'This PC' or 'Quick Access' there.
-// Watch the video if you are not sure how the selector works.
+// Watch the video if you are not sure how the element-descriptor works.
 await aui.click().image().nearestTo().text().withText('This PC').exec();
 await aui.pressTwoKeys('control', 'A').exec();
 
@@ -79,7 +83,7 @@ await aui.mouseDoubleLeftClick().exec();
 ## Navigate to Google Drive
 After opening Chrome the Google search page appears if you do not use profiles. The Google Drive-Link will be typed into the search field and thus opened when _Enter_-Key is pressed.
 
-Do not forget to replace `<Your Google drive link to the folder`!
+Do not forget to replace `<Your Google drive link to the folder>`!
 
 ```ts
 // Omit this step if you do not use profiles in chrome
@@ -104,7 +108,7 @@ await aui.click().text().withText('Open').exec();
 
 ## Complete Code
 ```ts
-describe(/* a string identifying the test suite */, () => {
+describe(/* a string identifying the askui suite */, () => {
 
     it('Should upload screenshots folder on google drive', async () => {
         await aui.click().text().withText('askui').exec();
@@ -147,4 +151,4 @@ If you have a recurring or persisting issue, don’t hesitate to [ask the commun
 
 If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 
-Best regards and happy testing!
+Best regards and happy automating!

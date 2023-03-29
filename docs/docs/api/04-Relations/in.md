@@ -2,6 +2,7 @@
 displayed_sidebar: apiSidebar
 ---
 # in
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
 Filters for an element inside another element.
 
@@ -20,4 +21,5 @@ Filters for an element inside another element.
 // Returns nothing because innerEl is not inside outerEl
 ...outerEl().in().innerEl()
 ```
+![](/img/gif/in.gif)
 

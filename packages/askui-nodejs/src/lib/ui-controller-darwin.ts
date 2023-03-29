@@ -10,7 +10,7 @@ export class UiControllerDarwin extends UiControllerFacade {
   }
 
   protected override getStartingCommand(): string {
-    return `"${path.dirname(this.binaryPath)}/askui-ui-controller.app/Contents/MacOS/askui-ui-controller"`;
+    return `"${path.dirname(this.binaryFilePath)}/askui-ui-controller.app/Contents/MacOS/askui-ui-controller"`;
   }
 
   private makeDiskImageExecutable() {
@@ -22,11 +22,11 @@ export class UiControllerDarwin extends UiControllerFacade {
       '-noautofsck',
       '-noautoopen',
       `-mountpoint "${mountPoint}"`,
-      `"${this.binaryPath}"`,
+      `"${this.binaryFilePath}"`,
     ].join(' '));
     const appBaseName = 'askui-ui-controller.app';
     const appSrcPath = `${mountPoint}/${appBaseName}`;
-    const appDestPath = `${path.dirname(this.binaryPath)}/${appBaseName}`;
+    const appDestPath = `${path.dirname(this.binaryFilePath)}/${appBaseName}`;
     fs.removeSync(appDestPath);
     fs.copySync(appSrcPath, appDestPath);
     exec(`hdiutil detach "${mountPoint}"`, (_exception, stdout) => logger.debug(stdout));

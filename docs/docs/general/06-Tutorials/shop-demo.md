@@ -1,20 +1,24 @@
-# Online Shop Test Tutorial
+---
+sidebar_position: 8
+---
 
-The following tutorial shows how to test the login process of a simple demo online shop.
+# Online Shop Login
+
+The following tutorial shows how to automate the login process of a simple demo online shop.
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">complete askui installation guide and write your first test</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
 * Open a browser on your screen
   * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
-## Test
+## Code
 
-After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new test inside the body of the callback passed to the `describe` function:
+After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
 describe(/* a string identifying the test suite */, () => {
-    ... (other tests)
+    ... (other workflows)
 
     it('Should log into account', async () => {
 
@@ -24,16 +28,37 @@ describe(/* a string identifying the test suite */, () => {
 
 ### 1. Open the Demo Shop
 
-First we need to open the demo shop in the browser. For that we can type the URL into the URL bar and hit enter:
+First we need to open the demo shop in the browser.
+For that we open the browser and then type the URL into the search bar and hit enter.
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    // First open the browser.
+    // If it is already open it should focus the current window
+    // macOS: open -a 'Google Chrome'
+    // Windows: start chrome
+    await aui.execOnShell("start chrome").exec();
+
+    // Open a new tab
+    // macOS: command + t
+    // windows: control + t
+    await aui.pressTwoKeys('control', 't').exec();
+
+    // Click the textfield or URL bar that contains
+    // the text 'Search Google or type a URL'
+    await aui.click()
+      .text()
+      .withText('Search Google or type a URL').exec();
+
+    // Type the text into the focused element
+    await aui.type('https://askui-demo-shop-6e358.web.app/').exec();
+
+    // Navigate to the website
     await aui.pressKey('enter').exec();
 });
 ```
 
-When you run this test with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
+When you run this code with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
 
 ### 2. Navigate to the Login Dialog
 
@@ -48,7 +73,7 @@ it('Should log into account', async () => {
 
 ### 3. Fill out Login Information
 
-After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` command. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
+After opening the login dialog, we need to enter an email address and a password. For this we will use the `typeIn` action. After filling in an email address, depending on the browser used the textfield may open an auto-complete drop-down that overlaps with the password field:
 
 ![Overlap](./images/login_overlap.png)
 
@@ -76,7 +101,7 @@ it('Should log into account', async () => {
 
 ### 5. Check whether Login worked & Log out
 
-Finally, we need to check whether the login worked. We can do this by checking if the text "Logout test@askui.com" is displayed in the header as this is only displayed if we are logged in. We complete the test by logging out so that the test can easily be rerun without having to log out manually.
+Finally, we need to check whether the login worked. We can do this by checking if the text "Logout test@askui.com" is displayed in the header as this is only displayed if we are logged in. We complete the workflow by logging out so that the workflow can easily be rerun without having to log out manually.
 
 ```ts
 it('Should log into account', async () => {
@@ -88,11 +113,31 @@ it('Should log into account', async () => {
 
 ## Result
 
-The following code block shows the finished test for the login of the web shop:
+The following code block shows the finished code for the login of the web shop:
 
 ```ts
 it('Should log into account', async () => {
-    await aui.typeIn('https://askui-demo-shop-6e358.web.app/').url().exec();
+    // First open the browser.
+    // If it is already open it should focus the current window
+    // macOS: open -a 'Google Chrome'
+    // Windows: start chrome
+    await aui.execOnShell("start chrome").exec();
+
+    // Open a new tab
+    // macOS: command + t
+    // windows: control + t
+    await aui.pressTwoKeys('control', 't').exec();
+
+    // Click the textfield or URL bar that contains
+    // the text 'Search Google or type a URL'
+    await aui.click()
+      .text()
+      .withText('Search Google or type a URL').exec();
+
+    // Type the text into the focused element
+    await aui.type('https://askui-demo-shop-6e358.web.app/').exec();
+
+    // Navigate to the website
     await aui.pressKey('enter').exec();
     await aui.click().text().withText('Login').exec();
     await aui.typeIn('test@askui.com').textfield().contains().text().withText('Email Address').exec();
@@ -104,4 +149,4 @@ it('Should log into account', async () => {
 });
 ```
 
-To run this test use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
+To run this code use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.

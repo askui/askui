@@ -1,16 +1,13 @@
 import { aui } from './helpers/askui-helper';
 
 describe('jest with askui', () => {
-  it('should click on text', async () => {
-    // Run this to see what askui annotates
+  it('should generate an interactive annotation', async () => {
     await aui.annotateInteractively();
+  });
 
-    await aui.moveMouse(0, 0).exec();
-
+  it('should click on my element', async () => {
     await aui
-      .click()
-      .text()
-      .withText('Click on this text right here!')
-      .exec();
+      .click();
+    // <INSERT YOUR COPIED ELEMENT-DESCRIPTION HERE AND UNCOMMENT THIS LINE>.exec();
   });
 });

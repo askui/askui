@@ -2,6 +2,7 @@
 displayed_sidebar: apiSidebar
 ---
 # or
+<span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
 Logic or operator
 
@@ -19,7 +20,7 @@ scene 2
 
 ```
 In case, that your reference element can have multiple values, in the following example, the element right of the button can be either icon or text.
-You can use **the `or()` relation**, so your teststep is valid for both scenes
+You can use **the `or()` relation**, so your instruction is valid for both scenes
 ```typescript 
 const button = await aui.get().button().rightOf().icon().or().text().exec();
 console.log(button);
@@ -30,7 +31,6 @@ Returns the same button for both cases
   DetectedElement {
      name: 'BUTTON',
      text: 'button',
-     colors: [ 'red', 'black', 'red' ],
      bndbox: BoundingBox {
         xmin: 900,
         ymin: 910,
