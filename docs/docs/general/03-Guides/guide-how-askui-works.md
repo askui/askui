@@ -61,7 +61,7 @@ await aui.click().button().withText('login').exec();
 
 To use the **askui Control Client**, user credentials are required. User credentials can be obtained via our [User Portal](https://app.v2.askui.com/).
 
-See our [API documentation](https://docs.askui.com/docs/api/Configuration/askui-ui-control-client) for more information on this component.
+See our [API documentation](../../api/08-Configuration/askui-ui-control-client.md) for more information on this component.
 
 ------
 
@@ -75,9 +75,9 @@ The **askui UI Controller** is a binary that controls the operating system. This
 - The **askui UI Controller** is responsible for:
     - Taking a screenshot.
     - Triggering the *InputEvent*, i.e MouseInputEvent, KeyboardInputEvent, or shell execution.
-    - Running the [interactive annotation](https://docs.askui.com/docs/general/Tooling/annotation#interactive-annotation).
+    - Running the [interactive annotation](../05-Tooling/annotation.md#interactive-annotation).
 
-See our [API documentation](https://docs.askui.com/docs/api/Configuration/askui-ui-controller) for more information on this component.
+See our [API documentation](../../api/08-Configuration/askui-ui-controller.md) for more information on this component.
 
 ------
 
@@ -101,7 +101,7 @@ For the inference, we use a machine-learning model that consists of several subm
 Assuming that we run askui on the same device we want to automate, the simplest synopsis can be described as such:
 
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0sdwshgchqzthw22kxm9.png)
+![Image description](./images/how_askui_works_architecture.png)
 
 When running askui, 
 1. The **askui Control Client** checks whether it is needed to be processed by the **Inference Server**.
@@ -113,7 +113,7 @@ When running askui,
     ```ts
     // an example of askui code containing an element-identifier
     await aui.click().button().withText('Confirm').exec();
-    // Here, the filter 'button()' is used together,
+    // Here, the element-description 'button()' is used together,
     // so the client will fire a request to the server.
     ```
 
