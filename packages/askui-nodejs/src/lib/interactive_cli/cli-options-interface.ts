@@ -4,5 +4,5 @@ export interface CliOptions {
   progLanguage: 'typescript',
   testFramework: 'jasmine' | 'jest',
   usingProxy: boolean,
-  addTsConfig: boolean,
+  typescriptConfig: boolean,
 }

@@ -10,7 +10,7 @@ import { replaceStringInFile } from './replace-string-in-file';
 import { addScript } from './add-script-package-json';
 
 export class CreateExampleProject {
-  private distexampleFolfderPath: string;
+  private distexampleFolderPath: string;
 
   private askuiHelperFilePath: string;
 
@@ -23,8 +23,8 @@ export class CreateExampleProject {
   constructor(readonly cliOptions: CliOptions) {
     this.baseDirPath = process.cwd();
     this.exampleFolderName = 'askui_example';
-    this.distexampleFolfderPath = path.join(this.baseDirPath, this.exampleFolderName);
-    this.askuiHelperFilePath = path.join(this.distexampleFolfderPath, 'helpers', 'askui-helper.ts');
+    this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
+    this.askuiHelperFilePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
   }
 
@@ -35,12 +35,18 @@ export class CreateExampleProject {
       this.exampleFolderName,
     );
 
+    const runCommand = promisify(exec);
+
     return [{
       title: 'Copy project files',
       task: async () => fs.copy(
         path.join(getPathToNodeModulesRoot(), exampleProjectPath),
-        this.distexampleFolfderPath,
+        this.distexampleFolderPath,
       ),
+    },
+    {
+      title: 'Install askui dependency',
+      task: async () => runCommand('npm i -D askui '),
     }];
   }
 
@@ -56,7 +62,7 @@ export class CreateExampleProject {
       frameworkConfigs[this.cliOptions.testFramework],
     );
     await fs.copyFile(configFilePath, path.join(
-      this.distexampleFolfderPath,
+      this.distexampleFolderPath,
       frameworkConfigs[this.cliOptions.testFramework],
     ));
   }
@@ -79,18 +85,9 @@ export class CreateExampleProject {
       jest: `jest --config ./${this.exampleFolderName}/jest.config.ts`,
     };
     await addScript(
-      this.baseDirPath+'/package.json',
+      `${this.baseDirPath}/package.json`,
       frameworkExecutionCommand[this.cliOptions.testFramework],
     );
-  }
-
-  private async installAskuiDependency() {
-    const runCommand = promisify(exec);
-
-    return [{
-      title: 'Install askui dependency',
-      task: async () => runCommand('npm i -D askui '),
-    }];
   }
 
   private async setupTestFrameWork() {
@@ -144,14 +141,14 @@ export class CreateExampleProject {
 
   private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
     const tsConfigFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, 'tsconfig.json');
+
     return [{
       title: 'Copy ts config file',
-      enabled: () => this.cliOptions.addTsConfig,
+      enabled: () => this.cliOptions.typescriptConfig,
       task: async () => fs.copyFile(
         path.join(getPathToNodeModulesRoot(), tsConfigFilePath),
         path.join(this.baseDirPath, 'tsconfig.json'),
       ),
-
     }];
   }
 
@@ -165,12 +162,26 @@ export class CreateExampleProject {
     }];
   }
 
+  private normalizeCliOptions() {
+    let useProxy: boolean | string = this.cliOptions.usingProxy;
+    if (typeof useProxy !== 'boolean') {
+      useProxy = (useProxy === 'true');
+    }
+
+    let { typescriptConfig } = this.cliOptions;
+    if (typeof typescriptConfig !== 'boolean') {
+      typescriptConfig = (typescriptConfig === 'true');
+    }
+    this.cliOptions.typescriptConfig = typescriptConfig;
+  }
+
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();
 
+    this.normalizeCliOptions();
+
     tasks.add([
       ...await this.copyTemplateProject(),
-      ...await this.installAskuiDependency(),
       ...await this.setupTestFrameWork(),
       ...await this.copyTsConfigFile(),
       ...await this.addUserCredentails(),
@@ -180,11 +191,11 @@ export class CreateExampleProject {
     await tasks.run();
     /* eslint-disable no-console */
     if (this.cliOptions.usingProxy) {
-      console.log(chalk.redBright('Since you are using a Proxy. Please don\'t forgot to configre it!!'));
+      console.log(chalk.redBright('Since you are using a Proxy. Please don\'t forgot to configure it!!'));
       console.log(chalk.gray(`You can find more information under ${this.proxyDocUrl}`));
     }
     console.log(chalk.greenBright('Congratulations!'));
-    console.log(`askui example was created under ${chalk.gray(this.distexampleFolfderPath)}`);
+    console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
     console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */
   }
