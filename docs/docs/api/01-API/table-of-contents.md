@@ -842,7 +842,7 @@ await aui.click().image().above().text().withText('The caption').exec();
         <tr>
             <td>
                 <details>
-                    <summary>match()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+                    <summary>matching()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
 Filters elements based on a textual description.  
