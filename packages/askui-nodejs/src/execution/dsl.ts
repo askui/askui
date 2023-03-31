@@ -396,8 +396,8 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  match(text: string): FluentFiltersOrRelations {
-    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(text: string): FluentFiltersOrRelations {
+    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -1010,8 +1010,8 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  match(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(text: string): FluentFiltersOrRelationsCondition {
+    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2218,8 +2218,8 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  match(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `match ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
