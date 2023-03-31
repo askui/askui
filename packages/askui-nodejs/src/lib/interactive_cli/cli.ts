@@ -15,26 +15,26 @@ const questions: QuestionCollection = [
   {
     type: 'list',
     name: 'testFramework',
-    message: 'Which test framework do you prefer',
+    message: 'Which framework do you prefer',
     choices: ['jasmine', 'jest'],
   },
   {
     type: 'input',
     name: 'workspaceId',
-    message: 'your workspace id',
+    message: 'Your workspace id',
     validate: nonEmpty('workspace id'),
   },
   {
     type: 'password',
     name: 'accessToken',
-    message: 'your access token',
+    message: 'Your access token',
     mask: '*',
     validate: nonEmpty('access token'),
   },
   {
     type: 'confirm',
     name: 'usingProxy',
-    message: 'are you using a proxy?',
+    message: 'Are you using a proxy?',
     default: false,
   },
   {
@@ -88,14 +88,13 @@ export function init(argv: string[]): Command {
   const args = argv || process.argv;
   const program = createProgram();
   const programInit = program.command('init');
-  programInit.description('creates a askui example project');
+  programInit.description('Creates a askui example project');
 
   // Loop through the options object and register each option with the program
-  options.forEach((element) => {
-    const { option, description, choices } = element;
-    const tempOption = new Option(option, description);
-    if (choices.length > 0) {
-      tempOption.choices(choices);
+  options.forEach((opt) => {
+    const tempOption = new Option(opt.option, opt.description);
+    if (opt.choices.length > 0) {
+      tempOption.choices(opt.choices);
     }
     programInit.addOption(tempOption);
   });
