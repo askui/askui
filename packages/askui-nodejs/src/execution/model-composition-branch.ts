@@ -4,5 +4,5 @@ export interface ModelCompositionBranch {
   version: string,
   interface: string,
   useCase: string,
-  tag: string[],
+  tags: string[],
 }
