@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.8.0](https://github.com/askui/askui/compare/0.7.2...0.8.0) (2023-04-01)
+
+
+### Features
+
+* add current version of dsl ([7c4c689](https://github.com/askui/askui/commit/7c4c68904616ec67c843210c8f8647becc17a459))
+* **dsl:** add matching (#AS-1710) ([fc4dca5](https://github.com/askui/askui/commit/fc4dca57cc6da094303f1e24a00a2a95d8c8c4fc)), closes [#AS-1710](https://github.com/askui/askui/issues/AS-1710)
+* **dsl:** add reduced class set (#AS-1710) ([5fff093](https://github.com/askui/askui/commit/5fff0939062b2857b686f07a7195c9da098a8a1b)), closes [#AS-1710](https://github.com/askui/askui/issues/AS-1710)
+* **match:** rename match to matching (#AS-1710) ([9734087](https://github.com/askui/askui/commit/9734087776b0d5ae69afe0c7c379d1f79f4b31fc)), closes [#AS-1710](https://github.com/askui/askui/issues/AS-1710)
+
+
+### Bug Fixes
+
+* **ui-control-client:** fix type and typeIn secret text bug ([108323d](https://github.com/askui/askui/commit/108323dfc128efbcca46c90cfe89ccb995925944))
+
 ## [0.7.2](https://github.com/askui/askui/compare/0.7.1...0.7.2) (2023-01-30)
 
 * **askui-nodejs:** warn user of usage running out ([b2dd16c](https://github.com/askui/askui/commit/b2dd16cf1108aaf075d72493e9f41ddde66485a4))
