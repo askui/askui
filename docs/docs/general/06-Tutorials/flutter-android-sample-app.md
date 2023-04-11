@@ -77,6 +77,7 @@ flutter run
 Now you should see the demo app running on your Android device.
 
 2. Setup ADBKeyboard
+
 In this example, we are going to automate the typing on the Android device. To let askui fluently type as desired, we will use a virtual keyboard that handles the keyboard input via adb: [ADBKeyboard.apk](https://github.com/senzhk/ADBKeyBoard)
 
 ‍

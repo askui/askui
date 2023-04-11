@@ -17,7 +17,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
-- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui* UI Controller*.
+- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded when an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui UI Controller*.
 
 - Follow this path and confirm that the binary exists:
 
@@ -29,26 +29,94 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/askui-ui-controller
 
     # Linux
-    node_modules/askui/dist/release/latest/linux/askui-ui-controller
+    node_modules/askui/dist/release/latest/linux/askui-ui-controller.AppImage
     ```
 
-- If the remote device runs the same platform as the local device, copy the binary from the local device to the remote device.
-- If the remote device runs a different platform, then download the binary for the respective platform: [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+- If the remote device runs the same OS as the local device, copy the binary from the local device to the remote device.
+- If the remote device runs a different OS, then download the binary for the respective platform:
+    - [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+- If the remote devices runs Android, see the chapter [Android Only](#android-only).
+
+
+## 2. Run the Controller on Each Device
+
+- This controller will trigger mouse/keyboard events on this local device.
+- On your local device, go to your project's root and run the *askui UI Controller* with the command below:
+    ```bash
+    # Windows powershell or cmd
+    node_modules/askui/dist/release/latest/win32/askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
+
+    # macOS
+    node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/askui-ui-controller --host 0.0.0.0 -d 0 -m
+
+    # Linux 
+    node_modules/askui/dist/release/latest/linux/askui-ui-controller.AppImage --host 0.0.0.0 -d 0 -m
+    ```
+
+
+- If running successfully, you should see the logs printed on the terminal, e.g:
+    ```bash
+    [2023-01-02 17:31:19.634 +0100] DEBUG (AskuiUiController): Window is minimized.
+    [2023-01-02 17:31:19.639 +0100] INFO (AskuiUiController): Selecting display number 0.
+    [2023-01-02 17:31:19.641 +0100] INFO (AskuiUiController): Successfully started.
+    ```
+
+- Next, we run another *askui UI Controller* that will run on the remote device and will trigger mouse/keyboard events on the remote device.
+- On your remote device, go to where you have saved the *askui UI Controller* and run it with the command below:
+
+    ```bash
+    # Windows powershell or cmd
+    /askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
+
+    # macOS
+    askui-ui-controller --host 0.0.0.0 -d 0 -m
+
+    # Linux 
+    askui-ui-controller.AppImage --host 0.0.0.0 -d 0 -m
+    ```
 
 
 ### Android Only:
- 
-- There is no need to save the binary to Android devices. They are controlled by the *askui UI Controller* running on the local device (desktop).
-
-- Be sure that your Android device is discoverable by the Android Debug Bridge `adb` from your local device:
-    ```bash
-    # Run this command to confirm that your Android device is discoverable
-    adb devices
-    ```
 
 - If you don't have the `adb` installed on your local device, set it up by following [this tutorial](setup-android.md).
+- If your remote device is an Android device, run the *askui UI Controller* on the **local device (desktop)** with an extra option as below:
 
-- Use the commands below, if you want to connect your Android device via `adb` wirelessly:
+    ```bash
+    # Windows powershell or cmd
+    askui-ui-controller.exe --host 0.0.0.0 -d 0 -r android
+
+    # macOS
+    askui-ui-controller --host 0.0.0.0 -d 0 -r android
+    ```
+
+- Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
+
+#### (optional) Running Multiple Android Devices
+- Run the commands below on the local device, to which your Android devices are connected.
+- The *askui UI Controller* considers all Android devices as a single device with multiple displays. See the screenshot below.
+- Set the `-d 0` option differently for each Android device.
+
+    ```bash
+    # Windows
+    # For the first Android device
+    askui-ui-controller.exe --host 0.0.0.0 -d 0 -r android
+    # For the second Android device
+    askui-ui-controller.exe --host 0.0.0.0 -d 1 -r android
+
+    # macOS
+    # For the first Android device
+    askui-ui-controller --host 0.0.0.0 -d 0 -r android
+    # For the second Android device
+    askui-ui-controller --host 0.0.0.0 -d 1 -r android
+    ```
+
+![multiple-android](images/multiple-android.png)
+
+
+#### (optional) Connecting the Android Device Wireless via adb
+
+- In case you  want to connect the Android device wirelessly, follow the commands below:
+
     ```bash
     # Make sure that the `USB Debugging Mode` is enabled in the Android device.
     # Connect the Android device with a USB cable, and run this command:
@@ -67,7 +135,9 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     adb devices
     ```
 
-## 2. Configure the `jest.setup.ts`
+
+
+## 3. Configure the `jest.setup.ts`
 
 - Figure out the local IP address of the remote device, and then change the `<local-ip-address>` of the `jest.setup.ts`:
     ```ts
@@ -80,7 +150,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
     beforeAll(async () => {
 
-        // Get your askui credentials from https://app.v2.askui.com/workspaces
+        // Get your askui credentials from https://app.v2.askui.com/
     const credentials = {
         workspaceId: '<your-workspace-id>',
         token: '<your-token>',
@@ -116,57 +186,6 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     ```
 
 
-## 3. Run the Controller on Each Device
-
-- Run the binary *askui UI Controller* on the local and remote devices with the following command:
-    ```bash
-    # Windows powershell or cmd
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
-
-    # macOS / Linux terminal
-    askui-ui-controller --host 0.0.0.0 -d 0 -m
-    ```
-
-
-- If running successfully, you should see the logs printed on the terminal, e.g:
-    ```bash
-    [2023-01-02 17:31:19.634 +0100] DEBUG (AskuiUiController): Window is minimized.
-    [2023-01-02 17:31:19.639 +0100] INFO (AskuiUiController): Selecting display number 0.
-    [2023-01-02 17:31:19.641 +0100] INFO (AskuiUiController): Successfully started.
-    ```
-
-### Android Only:
-- If your remote device is an Android device, run the *askui UI Controller* on the **local device (desktop)** with an extra option as below:
-
-    ```bash
-    # Windows powershell or cmd
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
-
-    # macOS / Linux terminal
-    askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
-    ```
-
-- Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
-
-#### (option) Running Multiple Android Devices
-- The *askui UI Controller* considers all Android devices as a single device with multiple displays. See the screenshot below.
-- Set the `-d 0` option of the binary differently for each Android device.
-
-    ```bash
-    # Windows
-    # For the first Android device
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
-    # For the second Android device
-    askui-ui-controller.exe --host 0.0.0.0 -d 1 -m -r android
-
-    # macOS / Linux
-    # For the first Android device
-    askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
-    # For the second Android device
-    askui-ui-controller --host 0.0.0.0 -d 1 -m -r android
-    ```
-
-![multiple-android](images/multiple-android.png)
 
 ## 4. Write the askui Code
 
