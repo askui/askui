@@ -59,11 +59,11 @@ ___
 
 AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
 
-`ALL`:  Runs the [annotate](/img/gif/interactive-annotate.gif) command after the execution of each test step.
+`ALL`:  Runs the [annotate](/img/gif/interactive-annotate.gif) command after the execution of each instruction.
 
-`ON_FAILURE`: Runs the annotate command if the test step fails
+`ON_FAILURE`: Runs the annotate command if the instruction fails.
 
-`DISABLED`: Never runs the annotate command after test steps
+`DISABLED`: Never runs the annotate command after an instruction.
 
 #### Example
 

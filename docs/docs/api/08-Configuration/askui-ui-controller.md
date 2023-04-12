@@ -17,7 +17,7 @@ ___
 
 You can choose on which display you want to excecute all
 tests. You can only perform all tests on one display.
-The application which you want to test should be open and selected on your chosen display.
+The application which you want to automate should be open and selected on your chosen display.
 
 The default value of display is `0` which is your main monitor. If you want to use your
 second monitor you can change the value to `1` (`2` for your third monitor etc.).
@@ -80,7 +80,7 @@ ___
 
 `actionDelayInMs` is the time that the askui UI controller waits between actions. This can be used to slow down or speed up the execution.
 
-Let's say, you want to click on the login button and then navigate to the home page by clicking on the home button but you have to wait 2s before clicking it because it takes some time logging in. You can increase the `actionDelayInMs` to `2000` in this case. But be careful, as it is going to slow down all your test steps. It may be better to use [waitFor()](../02-Actions/waitfor.md) between the two clicking actions.
+Let's say, you want to click on the login button and then navigate to the home page by clicking on the home button but you have to wait 2s before clicking it because it takes some time logging in. You can increase the `actionDelayInMs` to `2000` in this case. But be careful, as it is going to slow down all your instructions. It may be better to use [waitFor()](../02-Actions/waitfor.md) between the two clicking actions.
 
 ## Example
 

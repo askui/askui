@@ -17,6 +17,11 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
+:::info
+At the moment you need you need to run askui one time for the askui-ui-controller to be downloaded!
+Follow the instructions below.
+:::
+
 - If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui* UI Controller*.
 
 - Follow this path and confirm that the binary exists:
@@ -80,14 +85,14 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
     beforeAll(async () => {
 
-        // Get your askui credentials from https://app.v2.askui.com/workspaces
+    // Get your askui credentials from https://app.v2.askui.com/workspaces
     const credentials = {
         workspaceId: '<your-workspace-id>',
         token: '<your-token>',
     }
 
-        // This client will communicate with
-        // the controller running on this local device.
+    // This client will communicate with
+    // the controller running on this local device.
     localDevice = await UiControlClient.build({ 
         uiControllerUrl: "ws://127.0.0.1:6769",
         credentials: credentials,
@@ -95,10 +100,10 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
     await localDevice.connect();
 
-        // This client will communicate with
-        // the controller running on the remote device.
-        // Replace the <local-ip-address>
-        // In case of Android device, replace it with 127.0.0.1
+    // This client will communicate with
+    // the controller running on the remote device.
+    // Replace the <local-ip-address>
+    // In case of Android device, replace it with 127.0.0.1
     remoteDevice = await UiControlClient.build({    
         uiControllerUrl: "ws://<local-ip-address>:6769", 
         credentials: credentials,
@@ -108,8 +113,8 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     });
 
     afterAll(async () => {
-    localDevice.close();
-    remoteDevice.close();
+        localDevice.close();
+        remoteDevice.close();
     });
 
     export { localDevice, remoteDevice };
@@ -118,13 +123,20 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 
 ## 3. Run the Controller on Each Device
 
+:::danger
+Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
+:::
+
 - Run the binary *askui UI Controller* on the local and remote devices with the following command:
     ```bash
-    # Windows powershell or cmd
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
+    # Windows powershell
+    .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
+    
+    # Windows cmd
+    start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
 
     # macOS / Linux terminal
-    askui-ui-controller --host 0.0.0.0 -d 0 -m
+    ./askui-ui-controller --host 0.0.0.0 -d 0 -m
     ```
 
 
@@ -139,11 +151,14 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 - If your remote device is an Android device, run the *askui UI Controller* on the **local device (desktop)** with an extra option as below:
 
     ```bash
-    # Windows powershell or cmd
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
+    # Windows powershell
+    .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
 
+    # Windows cmd
+    start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
+    
     # macOS / Linux terminal
-    askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
+    ./askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
     ```
 
 - Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
@@ -153,17 +168,21 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 - Set the `-d 0` option of the binary differently for each Android device.
 
     ```bash
-    # Windows
+    # Windows Powershell
     # For the first Android device
-    askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
+    .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
     # For the second Android device
-    askui-ui-controller.exe --host 0.0.0.0 -d 1 -m -r android
+    .\askui-ui-controller.exe --host 0.0.0.0 -d 1 -m -r android
+
+    # Windows cmd
+    start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
+    start askui-ui-controller.exe --host 0.0.0.0 -d 1 -m -r android
 
     # macOS / Linux
     # For the first Android device
-    askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
+    ./askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
     # For the second Android device
-    askui-ui-controller --host 0.0.0.0 -d 1 -m -r android
+    ./askui-ui-controller --host 0.0.0.0 -d 1 -m -r android
     ```
 
 ![multiple-android](images/multiple-android.png)
