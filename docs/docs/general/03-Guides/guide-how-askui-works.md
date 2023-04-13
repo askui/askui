@@ -40,7 +40,7 @@ Throughout this article, we will use some terms that describe certain parts of a
 
 ## askui Control Client
 
-![control-client](./images/how_ask_works_client.png)
+![control-client](./images/how_askui_works_client.png)
 
 The **askui Control Client** provides the API that tells askui what/how to automate. Once you start using askui, you will mostly interact with askui via the **askui Control Client**. In most of our tutorials and demonstrations, you will see `let aui: UIControlClient` is declared and combined with an *Action* and *Element-descriptions* which ends up forming an instruction, e.g:
 
@@ -68,7 +68,7 @@ See our [API documentation](../../api/08-Configuration/askui-ui-control-client.m
 ## askui UI Controller
 
 
-![controller](./images/how_ask_works_controller.png)
+![controller](./images/how_askui_works_controller.png)
 
 The **askui UI Controller** is a binary that controls the operating system. This binary gets automatically downloaded when the `UiController` is initialized by calling `UiController.start()`. Once executed, it stays in the background and communicates with the **askui Control Client** on a specific port to receive the *ControlCommand*. Based on the given *ControlCommand*, it triggers *InputEvents* respectively.
 
@@ -84,7 +84,7 @@ See our [API documentation](../../api/08-Configuration/askui-ui-controller.md) f
 ## askui Inference Server
 
 
-![server](./images/how_ask_works_server.png)
+![server](./images/how_askui_works_server.png)
 
 The **askui Inference Server** is responsible for the prediction of UI elements within the given screenshot. As soon as it receives a request from the **askui Control Client**, it performs the prediction on the given image and returns the annotation to the **askui Control Client**. 
 
