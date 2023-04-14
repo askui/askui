@@ -12,9 +12,9 @@ Use following command to set up Jest:
 npm i -D jest @types/jest ts-jest typescript
 ```
 
-## How to execute the example test
+## How to execute the example
 
-This test can be executed with the following command:
+This can be executed with the following command:
 ```shell
 npx jest --config ./test/jest.config.ts
 ```

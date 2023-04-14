@@ -8,7 +8,7 @@ describe('jest with askui', () => {
   it('should click on my element', async () => {
     await aui
       .click();
-    // <INSERT YOUR COPIED FILTER HERE AND UNCOMMENT THIS AND THE NEXT LINE>
+    // <INSERT YOUR COPIED ELEMENT DESCRIPTION HERE AND UNCOMMENT THIS AND THE NEXT LINE>
     // .exec();
   });
 });
