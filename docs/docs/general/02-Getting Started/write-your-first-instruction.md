@@ -101,8 +101,8 @@ Add this instruction code block to the describe block in your test file just und
 it('should click on my element', async () => {
   await aui
     .click()
-    // <INSERT YOUR COPIED ELEMENT-DESCRIPTION HERE AND UNCOMMENT THIS LINE>
-    .exec();
+    // <INSERT YOUR COPIED ELEMENT-DESCRIPTION HERE AND UNCOMMENT THIS AND THE NEXT LINE>
+    // .exec();
 });
 ```
 
