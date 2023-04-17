@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/askui/askui/compare/0.8.0...0.9.0) (2023-04-17)
+
+
+### Features
+
+* enable model configuration (#CO-277) ([7c3ec81](https://github.com/askui/askui/commit/7c3ec8143c4f3927ea1f3e486f3d51021381c237)), closes [#CO-277](https://github.com/askui/askui/issues/CO-277)
+
 ## [0.8.0](https://github.com/askui/askui/compare/0.7.2...0.8.0) (2023-04-01)
 
 
