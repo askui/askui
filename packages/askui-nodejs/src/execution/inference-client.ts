@@ -11,6 +11,7 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 import { ConfigurationError } from './config-error';
 import { InferenceResponseBody } from '@/core/inference-response/inference-response';
 import { logger } from '../lib/logger';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 export class InferenceClient {
   url: string;
@@ -20,6 +21,7 @@ export class InferenceClient {
     public httpClient: HttpClientGot,
     public resize?: number,
     readonly workspaceId?: string,
+    readonly modelComposition?: ModelCompositionBranch[],
     public apiVersion = 'v3',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
@@ -67,6 +69,7 @@ export class InferenceClient {
       image: resizedImage.base64Image,
       instruction,
       customElements,
+      modelComposition: this.modelComposition,
     };
     const url = urljoin(this.url, 'inference');
     const response = await this.httpClient.post<InferenceResponseBody>(
