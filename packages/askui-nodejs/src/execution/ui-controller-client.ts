@@ -79,7 +79,7 @@ export class UiControllerClient {
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
           this.connectionState = UiControllerClientConnectionState.ERROR;
           reject(new UiControlClientError(`Connection to UI Controller cannot be established,
-          Probably it was not started. Makse sure you started UI Controller with this 
+          Probably it was not started. Make sure you started UI Controller with this 
           Url ${this.url}. Error message  ${error.message}`));
         });
       } catch (error) {
