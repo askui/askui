@@ -52,7 +52,7 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
 Writing and executing an instruction in askui can be done in three steps:
 
 1. Execute an interactive annotation.
-2. Extract from the interactive annotation the filter which identifies target element.
+2. Extract from the interactive annotation the element-description which identifies target element.
 3. Execute an instruction to control the keyboard and mouse to take action on target element.
 
 ### Step 1: Execute an Interactive Annotation
@@ -85,27 +85,28 @@ If you’d like a longer explanation as to what an interactive annotation is, re
 
 [Explanation of Interactive Annotations](../05-Tooling/annotation.md)
 
-### Step 2: Extract the filter
-Extract from the interactive annotation the filter which identifies target element.
-Locate any element you’d like the mouse to move to and copy the filter by clicking on it:
-Clicking an element will copy this filter, which we can then use in the step 3.
+### Step 2: Extract the Element-Description
+Extract from the interactive annotation the element-description which identifies target element.
+Locate any element you’d like the mouse to move to and copy the element-description by clicking on it:
+Clicking an element will copy this element-description, which we can then use in the step 3.
 
 To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
 
 ### Step 3: Execute an Instruction
 
-Add this instruction code block to the describe block in your test file just under your interactive annotation instruction, taking note to also add your copied filter from the annotation:
+Add this instruction code block to the describe block in your test file just under your interactive annotation instruction, taking note to also add your copied element-description from the annotation:
 
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
 it('should click on my element', async () => {
   await aui
     .click()
-    // <INSERT YOUR COPIED FILTER HERE AND UNCOMMENT THIS LINE>.exec();
+    // <INSERT YOUR COPIED ELEMENT-DESCRIPTION HERE AND UNCOMMENT THIS AND THE NEXT LINE>
+    // .exec();
 });
 ```
 
-Be sure to `xit` out the interactive annotation, as that is no longer needed. The final version should look like this, taking exception of course to whatever filter text you chose:
+Be sure to `xit` out the interactive annotation, as that is no longer needed. The final version should look like this, taking exception of course to whatever element-description text you chose:
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
@@ -131,8 +132,8 @@ Congratulations! You’ve just built your first instruction using askui. :tada:
 
 ### What other instructions are available?
 
-* [Commands API](../../api/01-API/table-of-contents.md#commands)
-* [Filters API](../../api/01-API/table-of-contents.md#filters)
+* [Actions API](../../api/01-API/table-of-contents.md#actions)
+* [Element-Descriptions API](../../api/01-API/table-of-contents.md#element-descriptions)
 * [Relations API](../../api/01-API/table-of-contents.md#relations)
 * [Checks API](../../api/01-API/table-of-contents.md#checks)
 * [Getters API](../../api/01-API/table-of-contents.md#getters)

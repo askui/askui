@@ -69,6 +69,7 @@ export class UiControlClient extends ApiCommands {
       this.httpClient,
       this.clientArgs.resize,
       this.workspaceId,
+      this.clientArgs.modelComposition,
     );
   }
 
