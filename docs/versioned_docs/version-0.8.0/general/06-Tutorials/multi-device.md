@@ -18,11 +18,11 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
 :::info
-At the moment you need you need to run askui one time for the askui-ui-controller to be downloaded!
+At the moment you need to run askui one time for the askui-ui-controller to be downloaded!
 Follow the instructions below.
 :::
 
-- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded if an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui* UI Controller*.
+- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded when an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui UI Controller*.
 
 - Follow this path and confirm that the binary exists:
 
@@ -34,11 +34,23 @@ Follow the instructions below.
     node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/askui-ui-controller
 
     # Linux
-    node_modules/askui/dist/release/latest/linux/askui-ui-controller
+    node_modules/askui/dist/release/latest/linux/askui-ui-controller.AppImage
     ```
 
-- If the remote device runs the same platform as the local device, copy the binary from the local device to the remote device.
-- If the remote device runs a different platform, then download the binary for the respective platform: [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+- If the remote device runs the same OS as the local device, copy the binary from the local device to the remote device.
+- If the remote device runs a different OS, then download the binary for the respective platform:
+    - [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+
+- **macOS** and **Linux** only: If you downloaded the `askui-ui-controller` manually from the link above, you have to make it executable.
+    - **macOS**: Mount the downloaded `askui-ui-controller.dmg` by double-clicking it and copy the `askui-ui-controller.app` to wherever you want to store it. Then, the executable binary will be within the `.app`:
+        ```bash
+        askui-ui-controller.app/Contents/MacOS/askui-ui-controller
+        ```
+    - **Linux**: Run the command below to make it executable:
+        ```bash
+        chmod +x askui-ui-controller.AppImage
+        ```
+- If the remote devices runs Android, see the chapter [Android Only](#android-only).
 
 
 ### Android Only:
@@ -135,8 +147,11 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
     # Windows cmd
     start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
 
-    # macOS / Linux terminal
+    # macOS
     ./askui-ui-controller --host 0.0.0.0 -d 0 -m
+
+    # Linux
+    ./askui-ui-controller.AppImage --host 0.0.0.0 -d 0 -m    
     ```
 
 
@@ -157,8 +172,11 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
     # Windows cmd
     start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
     
-    # macOS / Linux terminal
+    # macOS
     ./askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
+
+    # Linux
+    ./askui-ui-controller.AppImage --host 0.0.0.0 -d 0 -m -r android
     ```
 
 - Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
@@ -178,11 +196,17 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
     start askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
     start askui-ui-controller.exe --host 0.0.0.0 -d 1 -m -r android
 
-    # macOS / Linux
+    # macOS
     # For the first Android device
     ./askui-ui-controller --host 0.0.0.0 -d 0 -m -r android
     # For the second Android device
     ./askui-ui-controller --host 0.0.0.0 -d 1 -m -r android
+
+    # Linux
+    # For the first Android device
+    ./askui-ui-controller.AppImage --host 0.0.0.0 -d 0 -m -r android
+    # For the second Android device
+    ./askui-ui-controller.AppImage --host 0.0.0.0 -d 1 -m -r android
     ```
 
 ![multiple-android](images/multiple-android.png)
