@@ -1,5 +1,12 @@
 # Changelog
 
+### [v0.10.1](https://github.com/askui/askui/compare/0.9.0...v0.10.1) (2023-04-26)
+
+
+### Features
+
+* **dsl:** add element, other element and special selector (#ML-111) ([b8d9fd5](https://github.com/askui/askui/commit/b8d9fd524545b9557433c5219ceb3721c7712061)), closes [#ML-111](https://github.com/askui/askui/issues/ML-111)
+
 ## [0.9.0](https://github.com/askui/askui/compare/0.8.0...0.9.0) (2023-04-17)
 
 
