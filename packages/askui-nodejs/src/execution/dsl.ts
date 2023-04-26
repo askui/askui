@@ -104,6 +104,17 @@ export class Exec extends FluentBase implements Executable {
 
 export class FluentFilters extends FluentBase {
   /**
+   * Filters for a UI element 'other element'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  otherElement(): FluentFiltersOrRelations {
+    this._textStr = 'other element';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelations}
@@ -143,6 +154,40 @@ export class FluentFilters extends FluentBase {
    */
   checkbox(): FluentFiltersOrRelations {
     this._textStr = 'checkbox';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters for any UI element on the screen.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().exec()
+   * ```
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  element(): FluentFiltersOrRelations {
+    this._textStr = 'element';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters special elements
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().special("circle").exec()
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  special(text: string): FluentFiltersOrRelations {
+    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -718,6 +763,17 @@ export class FluentFiltersOrRelations extends FluentFilters {
 
 export class FluentFiltersCondition extends FluentBase {
   /**
+   * Filters for a UI element 'other element'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  otherElement(): FluentFiltersOrRelationsCondition {
+    this._textStr = 'other element';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsCondition}
@@ -757,6 +813,40 @@ export class FluentFiltersCondition extends FluentBase {
    */
   checkbox(): FluentFiltersOrRelationsCondition {
     this._textStr = 'checkbox';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters for any UI element on the screen.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().exec()
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  element(): FluentFiltersOrRelationsCondition {
+    this._textStr = 'element';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters special elements
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().special("circle").exec()
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  special(text: string): FluentFiltersOrRelationsCondition {
+    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1926,6 +2016,17 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
 
 export class FluentFiltersGetter extends FluentBase {
   /**
+   * Filters for a UI element 'other element'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  otherElement(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'other element';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
    * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsGetter}
@@ -1965,6 +2066,40 @@ export class FluentFiltersGetter extends FluentBase {
    */
   checkbox(): FluentFiltersOrRelationsGetter {
     this._textStr = 'checkbox';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for any UI element on the screen.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().exec()
+   * ```
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  element(): FluentFiltersOrRelationsGetter {
+    this._textStr = 'element';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters special elements
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.moveMouseTo().element().special("circle").exec()
+   * ```
+   *
+   * @param {string} text - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  special(text: string): FluentFiltersOrRelationsGetter {
+    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
