@@ -8,8 +8,13 @@ Press three keys like `CTRL+ALT+DEL`
 
 **Operating system specific mappings:**
 1. Windows: `command`-key maps to `windows`-key
----
 
+**Example:**
+```typescript
+await aui.pressThreeKeys('control', 'command' 'space').exec();
+```
+
+![](/img/gif/pressThreeKeys.gif)
 
    * @param {MODIFIER_KEY} first_key - A modifier key
    * @param {MODIFIER_KEY} second_key - A modifier key

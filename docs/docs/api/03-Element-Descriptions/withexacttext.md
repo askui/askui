@@ -7,8 +7,8 @@ displayed_sidebar: apiSidebar
 Filters for equal text.
 
 **Note:** This should be only used in cases where the similarity
- comparison of {@link FluentFilters.withText()} allows not for
- specific enough filtering (too many elements).
+ comparison of {@link FluentFilters.withText()} allows not for a
+ specific enough filtering (too many smilar elements).
 
 **Examples:** 
 ```typescript
@@ -16,7 +16,9 @@ Filters for equal text.
 'test' === withExactText('text') => false
 'other' === withExactText('text') => false
 
-await aui.moveMouseTo().text().withExactText('Password').exec()
+await aui.moveMouseTo().text().withExactText('Basketball').exec()
 ```
+
+![](/img/gif/withExactText.gif)
 
    * @param {string} text - A text to be matched.

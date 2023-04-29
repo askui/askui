@@ -12,7 +12,7 @@ Filters for a UI element 'image'.
 await aui.click().image().exec();
 
 // Works if you have an image with
-// a caption text below
-await aui.click().image().above().text().withText('The caption').exec();
+// a text below
+await aui.click().image().above().text().withText('Automating WebGL').exec();
 ```
-
+![](/img/gif/image.gif)
