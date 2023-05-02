@@ -8,7 +8,7 @@ Filters for equal text.
 
 **Note:** This should be only used in cases where the similarity
  comparison of {@link FluentFilters.withText()} allows not for a
- specific enough filtering (too many smilar elements).
+ specific enough filtering (too many similar elements).
 
 **Examples:** 
 ```typescript

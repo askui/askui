@@ -16,3 +16,5 @@ await aui.typeIn('Oh yeah').textfield().exec();
 await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
 ```
 
+![](/img/gif/textfield.gif)
+

@@ -4,7 +4,7 @@ displayed_sidebar: apiSidebar
 # mouseToggleUp
 <span class="theme-doc-version-badge badge badge--success">production</span><br/><br/>
 
-Toggles mouse up (Left mouse key/tap).This is equivelant to releasing the pressing mouse left button. Often combined with `mouseToggleDown()`to automate **drag-and-drop**.
+Toggles mouse up (Left mouse key/tap).This is equivalent to releasing the pressing mouse left button. Often combined with `mouseToggleDown()`to automate **drag-and-drop**.
 
 **Example:**
 ```typescript

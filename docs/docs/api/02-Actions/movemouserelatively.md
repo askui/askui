@@ -6,6 +6,12 @@ displayed_sidebar: apiSidebar
 
 Moves the mouse from the current position (relative) in x and y direction.
 
+:::caution
+
+**macOS only**: Due to the higher pixel density of the **retina display**, the input coordinates must be **doubled** in order to move the mouse as expected. For example, if you want to move the mouse for 100 pixels, use 200.
+
+:::
+
 **Example:**
 ```typescript
 await aui.moveMouseRelatively(0, 50).exec();
