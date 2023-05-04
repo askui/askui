@@ -654,7 +654,7 @@ await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfie
     </tbody>
 </table>
 
-## Element-Descriptions
+## Element-descriptions
 
 <table style={{display: 'table'}}>
     <thead>
@@ -791,6 +791,27 @@ of the given custom image.
         <tr>
             <td>
                 <details>
+                    <summary>element()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+<md-block>
+
+Filters for any UI element on the screen.
+
+**Examples:** 
+```typescript
+await aui.moveMouseTo().element().exec()
+```  
+
+</md-block>
+<md-block>
+
+
+</md-block>
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <details>
                     <summary>icon()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
@@ -842,15 +863,56 @@ await aui.click().image().above().text().withText('The caption').exec();
         <tr>
             <td>
                 <details>
-                    <summary>matching()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+                    <summary>matching()  <span class="theme-doc-version-badge badge badge--secondary">experimental</span> </summary>
 <md-block>
 
-Filters elements based on a textual description.  
+Filters elements based on a textual description.
+
+## What Should I Write as Matching Text
+The text description inside the `matching()` should describe the element visually.
+It understands color, some famous company/product names, general descriptions.
+
+It sometimes requires a bit of playing to find a matching description:
+E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+Generally the more detail the better.
+
+**Examples:** 
+```typescript
+await aui.click().matching('a mask on purple background and a firefox logo').exec()
+```  
 
 </md-block>
 <md-block>
 
 * @param {string} text - A description of the target element.
+
+</md-block>
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <details>
+                    <summary>special()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+<md-block>
+
+Filters special elements defined over a specifically trained custom element descriptor.
+
+Custom element descriptors are trained on your elements that were not detected with our 
+default models. Please contact us for further details on how to do this. We are working on 
+a solution to provide this in our User Portal. 
+
+In the example below circle refers to a circle shaped icon with specific properties.
+
+**Examples:** 
+```typescript
+await aui.moveMouseTo().element().special("circle").exec()
+```  
+
+</md-block>
+<md-block>
+
+* @param {string} text - A text to be matched.
 
 </md-block>
                 </details>
