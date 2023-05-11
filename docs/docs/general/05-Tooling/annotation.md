@@ -1,6 +1,13 @@
 # Annotation
 
 ## Interactive Annotation
+
+:::info
+**Windows Users**
+
+Please use `annotate()` as explained [in the section below](#static-annotation). The interactive annotation `aui.annotateInteractively()` currently leads to an error on Windows.
+:::
+
 An interactive annotation is in essence three components:
 
 1. A screenshot of whatever the askui controller is told to see, as defined in the config file:
