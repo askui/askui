@@ -7,6 +7,12 @@ displayed_sidebar: apiSidebar
 Moves the mouse relatively to an element in the direction.
 This can be used when the mouse should not hover over an element anymore.
 
+:::caution
+
+**macOS only**: Due to the higher pixel density of the **retina display**, the input coordinates must be **doubled** in order to move the mouse as expected. For example, if you want to move the mouse for 100 pixels, use 200.
+
+:::
+
 **Examples:**
 ```typescript 
 // Move mouse 30 pixels below button

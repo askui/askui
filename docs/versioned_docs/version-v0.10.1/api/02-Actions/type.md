@@ -17,11 +17,12 @@ case, `options.secretMask` is included in logs and sent over instead of the `tex
 
 **Examples:**
 ```typescript 
-await aui.type('Type some text').exec()
+await aui.type('askui@askui.com').exec()
 
 // mask the text so it is not send to the askui-inference server
 await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
 ```
+![](/img/gif/type.gif)
 
    * @param {string} text - A text to type
    * @param {Object} [options]

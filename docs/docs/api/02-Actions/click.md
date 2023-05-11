@@ -10,6 +10,8 @@ If you need a simple mouseleftclick/tap only, use `mouseLeftClick`.
 
 **Example:**
 ```typescript 
-await aui.click().button().withText('Submit').exec()
+await aui.click().button().withText('Google Search').exec();
 ```
+
+![](/img/gif/click.gif)
 
