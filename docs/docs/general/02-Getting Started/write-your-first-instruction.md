@@ -51,14 +51,20 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
 ## Run Your First Instruction
 Writing and executing an instruction in askui can be done in three steps:
 
-1. Execute an interactive annotation.
-2. Extract from the interactive annotation the element-description which identifies target element.
+1. Execute an (interactive) annotation.
+2. Extract from the (interactive) annotation the element-description which identifies target element.
 3. Execute an instruction to control the keyboard and mouse to take action on target element.
 
-### Step 1: Execute an Interactive Annotation
+### Step 1: Execute an (Interactive) Annotation
 
 :::info
 Before executing the instructions, open `test/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below.
+
+**Windows Users**
+
+Please use `annotate()` as outlined in the code below. The interactive annotation `aui.annotateInteractively()` currently leads to an error on Windows.
+
+**macOS Users**
 
 Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 :::
@@ -67,8 +73,16 @@ Some users have reported instability running askui on macOS with external displa
 import { aui } from './helper/jest.setup';
 
 describe('jest with askui', () => {
-  it('should generate an interactive annotation', async () => {
-    await aui.annotateInteractively();
+  it('should generate an (interactive) annotation', async () => {
+
+    // For Windows users:
+    // Use annotate() to create an annotated HTML file
+    // of your screen that is saved under <project_root>/report
+    await aui.annotate();
+
+    // Uncomment for macOS and Linux
+    // Delete the lines above to not trigger annotate()
+    // await aui.annotateInteractively();
   });
 });
 ```
@@ -79,14 +93,14 @@ To execute the instructions, enter into your terminal
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
 ```
 
-A few seconds later an interactive annotation will be generated.
+A few seconds later an (interactive) annotation will be generated.
 
-If you’d like a longer explanation as to what an interactive annotation is, read about here.
+If you’d like a longer explanation as to what an (interactive) annotation is, read about here.
 
-[Explanation of Interactive Annotations](../05-Tooling/annotation.md)
+[Explanation of (Interactive) Annotations](../05-Tooling/annotation.md)
 
 ### Step 2: Extract the Element-Description
-Extract from the interactive annotation the element-description which identifies target element.
+Extract from the (interactive) annotation the element-description which identifies target element.
 Locate any element you’d like the mouse to move to and copy the element-description by clicking on it:
 Clicking an element will copy this element-description, which we can then use in the step 3.
 
@@ -94,7 +108,7 @@ To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
 
 ### Step 3: Execute an Instruction
 
-Add this instruction code block to the describe block in your test file just under your interactive annotation instruction, taking note to also add your copied element-description from the annotation:
+Add this instruction code block to the describe block in your test file just under your (interactive) annotation instruction, taking note to also add your copied element-description from the annotation:
 
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
@@ -106,13 +120,20 @@ it('should click on my element', async () => {
 });
 ```
 
-Be sure to `xit` out the interactive annotation, as that is no longer needed. The final version should look like this, taking exception of course to whatever element-description text you chose:
+Be sure to `xit` out the (interactive) annotation, as that is no longer needed. The final version should look like this, taking exception of course to whatever element-description text you chose:
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
 
-  xit('should generate an interactive annotation', async () => {
-    await aui.annotateInteractively();
+  xit('should generate an (interactive) annotation', async () => {
+    // For Windows users:
+    // Use annotate() to create an annotated HTML file
+    // of your screen that is saved under <project_root>/report
+    await aui.annotate();
+
+    // Uncomment for macOS and Linux
+    // Delete the lines above to not trigger annotate()
+    // await aui.annotateInteractively();
   });
 
   it('should click on my element', async () => {
