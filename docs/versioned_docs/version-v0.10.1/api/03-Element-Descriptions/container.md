@@ -6,3 +6,8 @@ displayed_sidebar: apiSidebar
 
 Filters for a UI element 'container'.
 
+**Example:**
+```typescript
+await aui.moveMouseTo().container().contains().text().withText('typography').exec();
+```
+![](/img/gif/container.gif)

@@ -6,6 +6,8 @@ displayed_sidebar: apiSidebar
 
 Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
 
+See the tutorial - [Custom Element](../../general/06-Tutorials/custom-element.md) for more detail.
+
 **Example**
 ```typescript
 await aui
@@ -33,7 +35,5 @@ await aui
     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-of the given custom image.
-
 
    * @param {CustomElementJson} customElement - The custom element to filter for.

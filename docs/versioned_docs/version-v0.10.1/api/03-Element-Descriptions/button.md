@@ -8,6 +8,8 @@ Filters for a UI element 'button'.
 
 **Examples:** 
 ```typescript
-await aui.moveMouseTo().button().exec()
+await aui.click().button().contains().text().withText('Google Search').exec()
 ```
+
+![](/img/gif/button.gif)
 

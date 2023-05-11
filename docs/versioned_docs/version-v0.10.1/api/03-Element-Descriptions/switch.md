@@ -6,3 +6,9 @@ displayed_sidebar: apiSidebar
 
 Filters for a UI element 'switch'.
 
+**Example:**
+```typescript
+await aui.click().switch().rightOf()
+    .text().withText('Allow notification snoozing').exec();
+```
+![](/img/gif/switch.gif)

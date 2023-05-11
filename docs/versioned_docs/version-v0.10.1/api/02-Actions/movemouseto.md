@@ -8,6 +8,6 @@ Move mouse over the filtered element.
 
 **Example:**
 ```typescript 
-await aui.moveMouseTo().button().withText('Submit').exec()
+await aui.moveMouseTo().text().withText('Grinning_Face').exec()
 ```
-
+![](/img/gif/moveMouseTo.gif)

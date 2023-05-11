@@ -9,8 +9,6 @@ Filters for an UI element 'text'.
 Often combined with other element-descriptions like `withText()` as shown in the below examples.
 Check out the element-descriptions `withText()`, `withTextRegex()` and `withExactText()` for more detail.
 
-
-
 **Examples:**
 ```typescript
 await aui.click().text().withText('Password').exec();
