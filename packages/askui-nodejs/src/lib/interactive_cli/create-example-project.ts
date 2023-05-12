@@ -52,8 +52,8 @@ export class CreateExampleProject {
 
   private async copyTestFrameworkConfig() {
     const frameworkConfigs = {
-      jasmine: 'jasmine.config.json',
       jest: 'jest.config.ts',
+      jasmine: 'jasmine.config.json',
     };
     const configFilePath = path.join(
       getPathToNodeModulesRoot(),
@@ -69,8 +69,8 @@ export class CreateExampleProject {
 
   private async addTestFrameWorkTimeout() {
     const frameworkTimeoutstring = {
-      jasmine: 'jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;',
       jest: 'jest.setTimeout(60 * 1000 * 60);',
+      jasmine: 'jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;',
     };
     await replaceStringInFile(
       this.askuiHelperFilePath,
@@ -81,12 +81,21 @@ export class CreateExampleProject {
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
-      jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
       jest: `jest --config ./${this.exampleFolderName}/jest.config.ts`,
+      jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
     };
     await addScript(
       `${this.baseDirPath}/package.json`,
+      'askui',
       frameworkExecutionCommand[this.cliOptions.testFramework],
+    );
+  }
+
+  private async addESLintRunCommand() {
+    await addScript(
+      `${this.baseDirPath}/package.json`,
+      'lint',
+      'eslint . --ext .ts',
     );
   }
 
@@ -110,6 +119,10 @@ export class CreateExampleProject {
           title: 'Add askui run command',
           task: async () => this.addAskuiRunCommand(),
         },
+        {
+          title: 'Add eslint run command',
+          task: async () => this.addESLintRunCommand(),
+        },
       ]),
     }];
   }
@@ -117,8 +130,8 @@ export class CreateExampleProject {
   private async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDepencies = {
-      jest: 'npm i -D typescript ts-node @types/jest ts-jest jest',
-      jasmine: 'npm i -D typescript ts-node @types/jasmine jasmine',
+      jest: 'npm i -D typescript ts-node @types/jest ts-jest jest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
+      jasmine: 'npm i -D typescript ts-node @types/jasmine jasmine @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
     };
     await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
   }
@@ -134,6 +147,31 @@ export class CreateExampleProject {
         {
           title: 'Add access token',
           task: async () => replaceStringInFile(this.askuiHelperFilePath, '<your access token>', this.cliOptions.accessToken),
+        },
+      ]),
+    }];
+  }
+
+  private async copyESLintConfigFiles(): Promise<Listr.ListrTask<unknown>[]> {
+    const esLintRcFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintrc.json');
+    const esLintIgnoreFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintignore');
+
+    return [{
+      title: 'Copy ESLint config files',
+      task: async () => new Listr([
+        {
+          title: 'Add eslintrc.json',
+          task: async () => fs.copyFile(
+            path.join(getPathToNodeModulesRoot(), esLintRcFilePath),
+            path.join(this.baseDirPath, '.eslintrc.json'),
+          ),
+        },
+        {
+          title: 'Add .eslintignore',
+          task: async () => fs.copyFile(
+            path.join(getPathToNodeModulesRoot(), esLintIgnoreFilePath),
+            path.join(this.baseDirPath, '.eslintignore'),
+          ),
         },
       ]),
     }];
@@ -183,6 +221,7 @@ export class CreateExampleProject {
     tasks.add([
       ...await this.copyTemplateProject(),
       ...await this.setupTestFrameWork(),
+      ...await this.copyESLintConfigFiles(),
       ...await this.copyTsConfigFile(),
       ...await this.addUserCredentails(),
       ...await this.installProxy(),

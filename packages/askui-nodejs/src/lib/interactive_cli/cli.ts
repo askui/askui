@@ -16,7 +16,7 @@ const questions: QuestionCollection = [
     type: 'list',
     name: 'testFramework',
     message: 'Which framework do you prefer',
-    choices: ['jasmine', 'jest'],
+    choices: ['jest', 'jasmine'],
   },
   {
     type: 'input',
