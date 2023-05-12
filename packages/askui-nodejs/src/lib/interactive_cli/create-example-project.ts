@@ -153,8 +153,8 @@ export class CreateExampleProject {
   }
 
   private async copyESLintConfigFiles(): Promise<Listr.ListrTask<unknown>[]> {
-    const esLintRcFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintrc.json');
-    const esLintIgnoreFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintignore');
+    const esLintRcFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintrc.json-template');
+    const esLintIgnoreFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintignore-template');
 
     return [{
       title: 'Copy ESLint config files',
