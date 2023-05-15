@@ -9,7 +9,7 @@ import { IsImageRequired } from './is-image-required-interface';
 import { InferenceResponseError } from './inference-response-error';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ConfigurationError } from './config-error';
-import { InferenceResponseBody } from '@/core/inference-response/inference-response';
+import { InferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
 
