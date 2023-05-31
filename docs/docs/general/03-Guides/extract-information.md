@@ -59,7 +59,7 @@ You can extract the value by reading the `text`-property of the `DetectedElement
 ```typescript
 // Access by index
 // textFieldTextValue gets the value 'Search'
-const textFieldTextValue = textfieldText[0].text;
+const textFieldTextValue = textFieldText?[0]?.text;
 ```
 
 ## Use Extracted Value as Input
