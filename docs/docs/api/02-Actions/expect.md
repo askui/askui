@@ -6,7 +6,7 @@ displayed_sidebar: apiSidebar
 
 Expects a condition, e.g., `exists()` or `notExits()`.
 
-Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
+Use the structure `expect().<your filter>.exists()|notExists()` as shown in the examples below.
 
 **Examples:**
 ```typescript 
