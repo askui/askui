@@ -43,7 +43,7 @@ does not make it easy (which is good for your privacy but not so much for automa
 But be sure that we keep trying ;) 
 
 
-## Mouse Cursor Not Moving Expected
+## Mouse Cursor Not Moving as Expected
 
 Apple devices that have a display manufactured by Apple, i.e., Macbook, iMac have a so-called Retina Display, and they have a higher pixel density. 
 
