@@ -2,102 +2,61 @@ import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
 } from './dsl';
-import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
-import { UiControllerClient } from './ui-controller-client';
 import { ExecutionRuntime } from './execution-runtime';
-import { InferenceClient } from './inference-client';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
 import { TestStepState } from '../core/model/test-case-result-dto';
-import { ClientArgs, ClientArgsWithDefaults } from './ui-controller-client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
-import { envCredentials } from './read-environment-credentials';
-import { Analytics } from '../utils/analytics';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
-import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
-
-const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
-  uiControllerUrl: 'http://127.0.0.1:6769',
-  inferenceServerUrl: 'https://inference.askui.com',
-  annotationLevel: AnnotationLevel.DISABLED,
-  ...clientArgs,
-});
+import { ClientArgs, UiControlClientConfig } from './ui-controller-client-interface';
+import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 
 export class UiControlClient extends ApiCommands {
-  private _uiControllerClient?: UiControllerClient;
-
   private constructor(
-    private httpClient: HttpClientGot,
-    private clientArgs: ClientArgsWithDefaults,
-    private workspaceId?: string,
+    private executionRuntime: ExecutionRuntime,
+    private config: UiControlClientConfig,
   ) {
     super();
   }
 
-  static async build(clientArgs?: ClientArgs): Promise<UiControlClient> {
-    const analytics = new Analytics();
-    const analyticsHeaders = await analytics.getAnalyticsHeaders();
-    const analyticsCookies = await analytics.getAnalyticsCookies();
-    const cas = getClientArgsWithDefaults(clientArgs);
-    const credentialArgs = cas.credentials || envCredentials();
-    const proxyAgentArgs = cas.proxyAgents || await buildProxyAgentArgsFromEnvironment();
-    const httpClient = new HttpClientGot(
-      credentialArgs?.token,
-      analyticsHeaders,
-      analyticsCookies,
-      proxyAgentArgs,
-    );
-    return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
+  static async build(clientArgs: ClientArgs = {}): Promise<UiControlClient> {
+    const builder = UiControlClientDependencyBuilder;
+    const clientArgsWithDefaults = await builder.getClientArgsWithDefaults(clientArgs);
+    const { executionRuntime } = await builder.build(clientArgsWithDefaults);
+    return new UiControlClient(executionRuntime, {
+      annotationLevel: clientArgsWithDefaults.annotationLevel,
+    });
   }
 
-  private get uiControllerClient(): UiControllerClient {
-    if (!this._uiControllerClient) {
-      this._uiControllerClient = new UiControllerClient(
-        this.clientArgs.uiControllerUrl,
-      );
-    }
-    return this._uiControllerClient;
+  /**
+   * Connects to the askui UI Controller.
+   */
+  async connect(): Promise<UiControllerClientConnectionState> {
+    return this.executionRuntime.connect();
   }
 
-  private get inferenceClient(): InferenceClient {
-    return new InferenceClient(
-      this.clientArgs.inferenceServerUrl,
-      this.httpClient,
-      this.clientArgs.resize,
-      this.workspaceId,
-      this.clientArgs.modelComposition,
-    );
-  }
-
-  private get executionRuntime(): ExecutionRuntime {
-    return new ExecutionRuntime(this.uiControllerClient, this.inferenceClient);
+  private shouldAnnotateByDefault(testStepState: TestStepState): boolean {
+    return this.config.annotationLevel === AnnotationLevel.ALL
+      || (testStepState === TestStepState.FAILED
+        && this.config.annotationLevel === AnnotationLevel.ON_FAILURE);
   }
 
   private async annotateByDefault(
     testStepState: TestStepState,
     customElements: CustomElement[] = [],
   ) {
-    if ((testStepState === TestStepState.FAILED
-      && this.clientArgs.annotationLevel === AnnotationLevel.DISABLED)
-      || (testStepState === TestStepState.PASSED
-        && this.clientArgs.annotationLevel !== AnnotationLevel.ALL)) {
-      return;
+    if (this.shouldAnnotateByDefault(testStepState)) {
+      await this.annotate(
+        {
+          customElements,
+          fileNamePrefix: `${testStepState.toLowerCase()}_testStep_annotation`,
+        },
+      );
     }
-    await this.annotate(
-      {
-        customElements,
-        fileNamePrefix: `${testStepState.toLowerCase()}_testStep_annotation`,
-      },
-    );
-  }
-
-  async connect(): Promise<UiControllerClientConnectionState> {
-    const connectionState = await this.uiControllerClient.connect();
-    return connectionState;
   }
 
   async annotate(
@@ -238,9 +197,9 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-  * Closes the connection to the askui UI Controller
-  */
+   * Closes the connection to the askui UI Controller
+   */
   close(): void {
-    this.uiControllerClient.close();
+    this.executionRuntime.disconnect();
   }
 }

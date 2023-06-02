@@ -28,17 +28,21 @@ import { ModelCompositionBranch } from './model-composition-branch';
  * @param {ProxyAgentArgs} proxyAgents - To configure the proxy agents for http(s) requests.
  */
 export interface ClientArgs {
-  readonly uiControllerUrl?: string,
-  readonly inferenceServerUrl?: string,
-  readonly annotationLevel?: AnnotationLevel,
-  readonly credentials?: CredentialArgs,
-  readonly proxyAgents?: ProxyAgentArgs
+  readonly uiControllerUrl?: string
+  readonly inferenceServerUrl?: string
+  readonly annotationLevel?: AnnotationLevel
+  readonly credentials?: CredentialArgs | undefined
+  readonly proxyAgents?: ProxyAgentArgs | undefined
   readonly resize?: number
   readonly modelComposition?: ModelCompositionBranch[]
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
-  readonly uiControllerUrl: string,
-  readonly inferenceServerUrl: string,
+  readonly uiControllerUrl: string
+  readonly inferenceServerUrl: string
   readonly annotationLevel: AnnotationLevel
+}
+
+export interface UiControlClientConfig {
+  annotationLevel: AnnotationLevel;
 }

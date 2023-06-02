@@ -88,7 +88,7 @@ export class UiControllerClient {
     });
   }
 
-  close() {
+  disconnect(): void {
     this.ws?.close();
   }
 

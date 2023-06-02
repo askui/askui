@@ -10,12 +10,21 @@ import { CustomElementJson } from '../core/model/test-case-dto/custom-element-js
 import { logger } from '../lib/logger';
 import { Base64Image } from '../utils/base_64_image/base-64-image';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
+import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 
 export class ExecutionRuntime {
   constructor(
     private uiControllerClient: UiControllerClient,
     private inferenceClient: InferenceClient,
   ) { }
+
+  async connect(): Promise<UiControllerClientConnectionState> {
+    return this.uiControllerClient.connect();
+  }
+
+  disconnect(): void {
+    this.uiControllerClient.disconnect();
+  }
 
   async executeTestStep(step: TestStep): Promise<void> {
     await this.executeCommand(step);
