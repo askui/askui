@@ -39,6 +39,22 @@ export class UiControlClient extends ApiCommands {
     return this.executionRuntime.connect();
   }
 
+  /**
+   * Disconnects from the askui UI Controller.
+   */
+  disconnect(): void {
+    this.executionRuntime.disconnect();
+  }
+
+  /**
+   * Disconnects from the askui UI Controller.
+   *
+   * @deprecated Use {@link disconnect} instead.
+   */
+  close(): void {
+    this.disconnect();
+  }
+
   private shouldAnnotateByDefault(testStepState: TestStepState): boolean {
     return this.config.annotationLevel === AnnotationLevel.ALL
       || (testStepState === TestStepState.FAILED
@@ -194,12 +210,5 @@ export class UiControlClient extends ApiCommands {
         return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
       },
     };
-  }
-
-  /**
-   * Closes the connection to the askui UI Controller
-   */
-  close(): void {
-    this.executionRuntime.disconnect();
   }
 }
