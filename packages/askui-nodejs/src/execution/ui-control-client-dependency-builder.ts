@@ -7,7 +7,7 @@ import {
 } from './ui-controller-client-interface';
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
-import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
+import { envProxyAgents } from '../utils/proxy/proxy-builder';
 import { AnnotationLevel } from './annotation-level';
 import { ExecutionRuntime } from './execution-runtime';
 
@@ -67,9 +67,8 @@ export class UiControlClientDependencyBuilder {
       uiControllerUrl: 'http://127.0.0.1:6769',
       inferenceServerUrl: 'https://inference.askui.com',
       annotationLevel: AnnotationLevel.DISABLED,
-      credentials: envCredentials() ?? clientArgs.credentials,
-      proxyAgents:
-        (await buildProxyAgentArgsFromEnvironment()) ?? clientArgs.proxyAgents,
+      credentials: envCredentials(),
+      proxyAgents: await envProxyAgents(),
       ...clientArgs,
     };
   }

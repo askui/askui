@@ -55,6 +55,18 @@ export class UiControlClient extends ApiCommands {
     this.disconnect();
   }
 
+  async startRecording(): Promise<void> {
+    await this.executionRuntime.startRecording();
+  }
+
+  async stopRecording(): Promise<void> {
+    await this.executionRuntime.stopRecording();
+  }
+
+  async readRecording(): Promise<string> {
+    return this.executionRuntime.readRecording();
+  }
+
   private shouldAnnotateByDefault(testStepState: TestStepState): boolean {
     return this.config.annotationLevel === AnnotationLevel.ALL
       || (testStepState === TestStepState.FAILED
@@ -107,23 +119,22 @@ export class UiControlClient extends ApiCommands {
     instruction: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    const { secretText } = this;
+    const secretText = this.getAndResetSecretText();
     const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
-    const stringWithoutSeparators = this.escapeSeparatorString(instruction);
-    logger.debug(stringWithoutSeparators);
+    const readableInstruction = this.escapeSeparatorString(instruction);
+    logger.debug(readableInstruction);
     try {
       await this.executionRuntime.executeTestStep({
         instruction,
         customElements,
         secretText,
       });
-      this.secretText = undefined;
       await this.annotateByDefault(TestStepState.PASSED, customElements);
       return await Promise.resolve();
     } catch (error) {
       await this.annotateByDefault(TestStepState.FAILED, customElements);
       return Promise.reject(
-        new UiControlClientError(`A problem occurred while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
+        new UiControlClientError(`A problem occurred while executing the instruction: ${readableInstruction}. Reason ${error}`),
       );
     }
   }
@@ -139,6 +150,12 @@ export class UiControlClient extends ApiCommands {
   }
 
   private secretText: string | undefined = undefined;
+
+  private getAndResetSecretText(): string | undefined {
+    const { secretText } = this;
+    this.secretText = undefined;
+    return secretText;
+  }
 
   /**
    * Types a text inside the filtered element.

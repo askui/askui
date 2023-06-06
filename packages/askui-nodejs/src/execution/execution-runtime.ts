@@ -26,8 +26,17 @@ export class ExecutionRuntime {
     this.uiControllerClient.disconnect();
   }
 
-  async executeTestStep(step: TestStep): Promise<void> {
-    await this.executeCommand(step);
+  async startRecording(): Promise<void> {
+    await this.uiControllerClient.startRecording();
+  }
+
+  async stopRecording(): Promise<void> {
+    await this.uiControllerClient.stopRecording();
+  }
+
+  async readRecording(): Promise<string> {
+    const response = await this.uiControllerClient.readRecording();
+    return response.data.video;
   }
 
   private async requestControl(
@@ -39,7 +48,7 @@ export class ExecutionRuntime {
   /**
    * @param {TestStep} step - Test step used for predicting command.
    */
-  private async executeCommand(step: TestStep): Promise<void> {
+  async executeTestStep(step: TestStep): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(step);
     if (controlCommand.code === ControlCommandCode.OK) {
       return this.requestControl(controlCommand);

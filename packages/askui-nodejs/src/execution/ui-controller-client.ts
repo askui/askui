@@ -142,8 +142,8 @@ export class UiControllerClient {
   readRecording(): Promise<ReadRecordingPartResponse> {
     return new Promise<ReadRecordingPartResponse>((resolve, reject) => {
       const readRecordingStreamHandler = new ReadRecordingResponseStreamHandler(resolve, reject);
-      this.currentResolve = readRecordingStreamHandler.onMessage;
-      this.currentReject = readRecordingStreamHandler.onError;
+      this.currentResolve = readRecordingStreamHandler.onMessage.bind(readRecordingStreamHandler);
+      this.currentReject = readRecordingStreamHandler.onError.bind(readRecordingStreamHandler);
       this.send(new ReadRecordingRequest(), 60 * 15 * 1000);
     });
   }
