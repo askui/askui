@@ -22,7 +22,7 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 <div class="cookieconsent-optout-marketing">
   Please <a href="javascript:Cookiebot.renew()">accept marketing-cookies</a> to watch this video.
 </div>
-<iframe width="560" height="315" data-cookieblock-src="https://www.youtube.com/watch?v=M00BCweamDc" data-cookieconsent="marketing" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" data-cookieblock-src="https://www.youtube.com/watch?v=M00BCweamDc&embedded=true" data-cookieconsent="marketing" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Requirements
 
