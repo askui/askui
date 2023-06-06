@@ -1,11 +1,17 @@
-function retryReinitCookieConsent(retries) {
+function rerunCookieConsentScripts(retries) {
     if (retries < 3) {
         try {
-            CookieConsent.initConsent();
+            CookieConsent.runScripts();
         } catch(e) {
             console.log("Cookiebot is undefined: Retry " + retries);
             setTimeout(() => retryReinitCookieConsent(retries+1), 1000);
         }
     }
 }
-retryReinitCookieConsent(0);
+
+window.addEventListener('CookiebotOnConsentReady', function () {
+    const iframes = document.getElementsByTagName("iframe");
+    if (iframes.length > 0) {
+        rerunCookieConsentScripts(0);  
+    }
+})
