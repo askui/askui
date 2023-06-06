@@ -8,10 +8,3 @@ function rerunCookieConsentScripts(retries) {
         }
     }
 }
-
-window.addEventListener('CookiebotOnConsentReady', function () {
-    const iframes = document.getElementsByTagName("iframe");
-    if (iframes.length > 0) {
-        rerunCookieConsentScripts(0);  
-    }
-})
