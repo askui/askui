@@ -1,4 +1,5 @@
-import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
+import { CustomElement } from '../core/model/custom-element';
+import { CustomElementJson } from '../core/model/custom-element-json';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
 } from './dsl';
@@ -8,17 +9,18 @@ import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
-import { TestStepState } from '../core/model/test-case-result-dto';
 import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ClientArgs, UiControlClientConfig } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
+import { Instruction, StepReporter } from '../core/reporting';
 
 export class UiControlClient extends ApiCommands {
   private constructor(
-    private executionRuntime: ExecutionRuntime,
     private config: UiControlClientConfig,
+    private executionRuntime: ExecutionRuntime,
+    private stepReporter: StepReporter,
   ) {
     super();
   }
@@ -26,10 +28,14 @@ export class UiControlClient extends ApiCommands {
   static async build(clientArgs: ClientArgs = {}): Promise<UiControlClient> {
     const builder = UiControlClientDependencyBuilder;
     const clientArgsWithDefaults = await builder.getClientArgsWithDefaults(clientArgs);
-    const { executionRuntime } = await builder.build(clientArgsWithDefaults);
-    return new UiControlClient(executionRuntime, {
-      annotationLevel: clientArgsWithDefaults.annotationLevel,
-    });
+    const { executionRuntime, stepReporter } = await builder.build(clientArgsWithDefaults);
+    return new UiControlClient(
+      {
+        annotationLevel: clientArgsWithDefaults.annotationLevel,
+      },
+      executionRuntime,
+      stepReporter,
+    );
   }
 
   /**
@@ -55,36 +61,55 @@ export class UiControlClient extends ApiCommands {
     this.disconnect();
   }
 
-  async startRecording(): Promise<void> {
-    await this.executionRuntime.startRecording();
+  async startVideoRecording(): Promise<void> {
+    await this.executionRuntime.startVideoRecording();
   }
 
-  async stopRecording(): Promise<void> {
-    await this.executionRuntime.stopRecording();
+  async stopVideoRecording(): Promise<void> {
+    await this.executionRuntime.stopVideoRecording();
   }
 
-  async readRecording(): Promise<string> {
-    return this.executionRuntime.readRecording();
+  async readVideoRecording(): Promise<string> {
+    return this.executionRuntime.readVideoRecording();
   }
 
-  private shouldAnnotateByDefault(testStepState: TestStepState): boolean {
-    return this.config.annotationLevel === AnnotationLevel.ALL
-      || (testStepState === TestStepState.FAILED
-        && this.config.annotationLevel === AnnotationLevel.ON_FAILURE);
+  private shouldWriteAnntotationAfterCommandExecution(error?: Error): boolean {
+    const { annotationLevel } = this.config;
+    return annotationLevel === AnnotationLevel.ALL
+      || (annotationLevel === AnnotationLevel.ON_FAILURE && error !== undefined);
   }
 
-  private async annotateByDefault(
-    testStepState: TestStepState,
-    customElements: CustomElement[] = [],
-  ) {
-    if (this.shouldAnnotateByDefault(testStepState)) {
-      await this.annotate(
-        {
-          customElements,
-          fileNamePrefix: `${testStepState.toLowerCase()}_testStep_annotation`,
-        },
+  private shouldAnnotateAfterCommandExecution(error?: Error): boolean {
+    return this.shouldWriteAnntotationAfterCommandExecution(error)
+      || (this.stepReporter.config.withDetectedElements === 'onFailure' && error !== undefined)
+      || (this.stepReporter.config.withDetectedElements === 'always');
+  }
+
+  private async afterCommandExecution(instruction: Instruction, error?: Error): Promise<void> {
+    const createdAt = new Date();
+    let annotation: Annotation | undefined;
+    let screenshot: string | undefined;
+    if (this.shouldAnnotateAfterCommandExecution(error)) {
+      annotation = await this.executionRuntime.annotateImage(
+        undefined,
+        instruction.customElements,
       );
     }
+    if (annotation !== undefined && this.shouldWriteAnntotationAfterCommandExecution(error)) {
+      AnnotationWriter.write(
+        annotation.toHtml(),
+        undefined,
+        `${error !== undefined ? 'failed' : 'passed'}_testStep_annotation`,
+      );
+    }
+    if (annotation !== undefined || this.stepReporter.config.withScreenshots === 'always') {
+      screenshot = annotation?.image ?? await this.executionRuntime.getScreenshot();
+    }
+    await this.stepReporter.onStepEnd({
+      createdAt,
+      detectedElements: annotation?.detected_elements,
+      screenshot,
+    }, error);
   }
 
   async annotate(
@@ -115,26 +140,36 @@ export class UiControlClient extends ApiCommands {
     return instruction.split(Separators.STRING).join('"');
   }
 
+  private async buildInstruction(
+    instructionString: string,
+    customElementJson: CustomElementJson[] = [],
+  ): Promise<Instruction> {
+    return {
+      customElements: await CustomElement.fromJsonListWithImagePathOrImage(customElementJson),
+      value: instructionString,
+      secretText: this.getAndResetSecretText(),
+      valueHumanReadable: this.escapeSeparatorString(instructionString),
+    };
+  }
+
   async fluentCommandExecutor(
-    instruction: string,
+    instructionString: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    const secretText = this.getAndResetSecretText();
-    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
-    const readableInstruction = this.escapeSeparatorString(instruction);
-    logger.debug(readableInstruction);
+    const instruction = await this.buildInstruction(instructionString, customElementJson);
+    logger.debug(instruction);
     try {
-      await this.executionRuntime.executeTestStep({
-        instruction,
-        customElements,
-        secretText,
-      });
-      await this.annotateByDefault(TestStepState.PASSED, customElements);
+      await this.stepReporter.resetStep(instruction);
+      await this.executionRuntime.executeInstruction(instruction);
+      await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {
-      await this.annotateByDefault(TestStepState.FAILED, customElements);
+      await this.afterCommandExecution(
+        instruction,
+        error instanceof Error ? error : new Error(String(error)),
+      );
       return Promise.reject(
-        new UiControlClientError(`A problem occurred while executing the instruction: ${readableInstruction}. Reason ${error}`),
+        new UiControlClientError(`A problem occurred while executing the instruction: ${instruction.valueHumanReadable}. Reason ${error}`),
       );
     }
   }
