@@ -1,7 +1,7 @@
 import {
   array, number, object, ValidationError,
 } from 'yup';
-import { Base64Image } from '../../../utils/base_64_image/base-64-image';
+import { Base64Image } from '../../utils/base_64_image/base-64-image';
 import { CustomElementJson } from './custom-element-json';
 
 export class CustomElement implements CustomElementJson {

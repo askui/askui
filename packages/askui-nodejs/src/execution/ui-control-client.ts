@@ -1,103 +1,115 @@
-import { CustomElement, CustomElementJson } from '../core/model/test-case-dto';
+import { CustomElement } from '../core/model/custom-element';
+import { CustomElementJson } from '../core/model/custom-element-json';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
 } from './dsl';
-import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
-import { UiControllerClient } from './ui-controller-client';
 import { ExecutionRuntime } from './execution-runtime';
-import { InferenceClient } from './inference-client';
 import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
-import { TestStepState } from '../core/model/test-case-result-dto';
-import { ClientArgs, ClientArgsWithDefaults } from './ui-controller-client-interface';
 import { AnnotationLevel } from './annotation-level';
 import { UiControlClientError } from './ui-control-client-error';
-import { envCredentials } from './read-environment-credentials';
-import { Analytics } from '../utils/analytics';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
-import { buildProxyAgentArgsFromEnvironment } from '../utils/proxy/proxy-builder';
-
-const getClientArgsWithDefaults = (clientArgs: ClientArgs = {}): ClientArgsWithDefaults => ({
-  uiControllerUrl: 'http://127.0.0.1:6769',
-  inferenceServerUrl: 'https://inference.askui.com',
-  annotationLevel: AnnotationLevel.DISABLED,
-  ...clientArgs,
-});
+import { ClientArgs, UiControlClientConfig } from './ui-controller-client-interface';
+import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
+import { Instruction, StepReporter } from '../core/reporting';
 
 export class UiControlClient extends ApiCommands {
-  private _uiControllerClient?: UiControllerClient;
-
   private constructor(
-    private httpClient: HttpClientGot,
-    private clientArgs: ClientArgsWithDefaults,
-    private workspaceId?: string,
+    private config: UiControlClientConfig,
+    private executionRuntime: ExecutionRuntime,
+    private stepReporter: StepReporter,
   ) {
     super();
   }
 
-  static async build(clientArgs?: ClientArgs): Promise<UiControlClient> {
-    const analytics = new Analytics();
-    const analyticsHeaders = await analytics.getAnalyticsHeaders();
-    const analyticsCookies = await analytics.getAnalyticsCookies();
-    const cas = getClientArgsWithDefaults(clientArgs);
-    const credentialArgs = cas.credentials || envCredentials();
-    const proxyAgentArgs = cas.proxyAgents || await buildProxyAgentArgsFromEnvironment();
-    const httpClient = new HttpClientGot(
-      credentialArgs?.token,
-      analyticsHeaders,
-      analyticsCookies,
-      proxyAgentArgs,
+  static async build(clientArgs: ClientArgs = {}): Promise<UiControlClient> {
+    const builder = UiControlClientDependencyBuilder;
+    const clientArgsWithDefaults = await builder.getClientArgsWithDefaults(clientArgs);
+    const { executionRuntime, stepReporter } = await builder.build(clientArgsWithDefaults);
+    return new UiControlClient(
+      {
+        annotationLevel: clientArgsWithDefaults.annotationLevel,
+      },
+      executionRuntime,
+      stepReporter,
     );
-    return new UiControlClient(httpClient, cas, credentialArgs?.workspaceId);
   }
 
-  private get uiControllerClient(): UiControllerClient {
-    if (!this._uiControllerClient) {
-      this._uiControllerClient = new UiControllerClient(
-        this.clientArgs.uiControllerUrl,
+  /**
+   * Connects to the askui UI Controller.
+   */
+  async connect(): Promise<UiControllerClientConnectionState> {
+    return this.executionRuntime.connect();
+  }
+
+  /**
+   * Disconnects from the askui UI Controller.
+   */
+  disconnect(): void {
+    this.executionRuntime.disconnect();
+  }
+
+  /**
+   * Disconnects from the askui UI Controller.
+   *
+   * @deprecated Use {@link disconnect} instead.
+   */
+  close(): void {
+    this.disconnect();
+  }
+
+  async startVideoRecording(): Promise<void> {
+    await this.executionRuntime.startVideoRecording();
+  }
+
+  async stopVideoRecording(): Promise<void> {
+    await this.executionRuntime.stopVideoRecording();
+  }
+
+  async readVideoRecording(): Promise<string> {
+    return this.executionRuntime.readVideoRecording();
+  }
+
+  private shouldWriteAnntotationAfterCommandExecution(error?: Error): boolean {
+    const { annotationLevel } = this.config;
+    return annotationLevel === AnnotationLevel.ALL
+      || (annotationLevel === AnnotationLevel.ON_FAILURE && error !== undefined);
+  }
+
+  private shouldAnnotateAfterCommandExecution(error?: Error): boolean {
+    return this.shouldWriteAnntotationAfterCommandExecution(error)
+      || (this.stepReporter.config.withDetectedElements === 'onFailure' && error !== undefined)
+      || (this.stepReporter.config.withDetectedElements === 'always');
+  }
+
+  private async afterCommandExecution(instruction: Instruction, error?: Error): Promise<void> {
+    const createdAt = new Date();
+    let annotation: Annotation | undefined;
+    let screenshot: string | undefined;
+    if (this.shouldAnnotateAfterCommandExecution(error)) {
+      annotation = await this.executionRuntime.annotateImage(
+        undefined,
+        instruction.customElements,
       );
     }
-    return this._uiControllerClient;
-  }
-
-  private get inferenceClient(): InferenceClient {
-    return new InferenceClient(
-      this.clientArgs.inferenceServerUrl,
-      this.httpClient,
-      this.clientArgs.resize,
-      this.workspaceId,
-      this.clientArgs.modelComposition,
-    );
-  }
-
-  private get executionRuntime(): ExecutionRuntime {
-    return new ExecutionRuntime(this.uiControllerClient, this.inferenceClient);
-  }
-
-  private async annotateByDefault(
-    testStepState: TestStepState,
-    customElements: CustomElement[] = [],
-  ) {
-    if ((testStepState === TestStepState.FAILED
-      && this.clientArgs.annotationLevel === AnnotationLevel.DISABLED)
-      || (testStepState === TestStepState.PASSED
-        && this.clientArgs.annotationLevel !== AnnotationLevel.ALL)) {
-      return;
+    if (annotation !== undefined && this.shouldWriteAnntotationAfterCommandExecution(error)) {
+      AnnotationWriter.write(
+        annotation.toHtml(),
+        undefined,
+        `${error !== undefined ? 'failed' : 'passed'}_testStep_annotation`,
+      );
     }
-    await this.annotate(
-      {
-        customElements,
-        fileNamePrefix: `${testStepState.toLowerCase()}_testStep_annotation`,
-      },
-    );
-  }
-
-  async connect(): Promise<UiControllerClientConnectionState> {
-    const connectionState = await this.uiControllerClient.connect();
-    return connectionState;
+    if (annotation !== undefined || this.stepReporter.config.withScreenshots === 'always') {
+      screenshot = annotation?.image ?? await this.executionRuntime.getScreenshot();
+    }
+    await this.stepReporter.onStepEnd({
+      createdAt,
+      detectedElements: annotation?.detected_elements,
+      screenshot,
+    }, error);
   }
 
   async annotate(
@@ -128,27 +140,36 @@ export class UiControlClient extends ApiCommands {
     return instruction.split(Separators.STRING).join('"');
   }
 
+  private async buildInstruction(
+    instructionString: string,
+    customElementJson: CustomElementJson[] = [],
+  ): Promise<Instruction> {
+    return {
+      customElements: await CustomElement.fromJsonListWithImagePathOrImage(customElementJson),
+      value: instructionString,
+      secretText: this.getAndResetSecretText(),
+      valueHumanReadable: this.escapeSeparatorString(instructionString),
+    };
+  }
+
   async fluentCommandExecutor(
-    instruction: string,
+    instructionString: string,
     customElementJson: CustomElementJson[] = [],
   ): Promise<void> {
-    const { secretText } = this;
-    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
-    const stringWithoutSeparators = this.escapeSeparatorString(instruction);
-    logger.debug(stringWithoutSeparators);
+    const instruction = await this.buildInstruction(instructionString, customElementJson);
+    logger.debug(instruction);
     try {
-      await this.executionRuntime.executeTestStep({
-        instruction,
-        customElements,
-        secretText,
-      });
-      this.secretText = undefined;
-      await this.annotateByDefault(TestStepState.PASSED, customElements);
+      await this.stepReporter.resetStep(instruction);
+      await this.executionRuntime.executeInstruction(instruction);
+      await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {
-      await this.annotateByDefault(TestStepState.FAILED, customElements);
+      await this.afterCommandExecution(
+        instruction,
+        error instanceof Error ? error : new Error(String(error)),
+      );
       return Promise.reject(
-        new UiControlClientError(`A problem occurred while executing the instruction: ${stringWithoutSeparators}. Reason ${error}`),
+        new UiControlClientError(`A problem occurred while executing the instruction: ${instruction.valueHumanReadable}. Reason ${error}`),
       );
     }
   }
@@ -164,6 +185,12 @@ export class UiControlClient extends ApiCommands {
   }
 
   private secretText: string | undefined = undefined;
+
+  private getAndResetSecretText(): string | undefined {
+    const { secretText } = this;
+    this.secretText = undefined;
+    return secretText;
+  }
 
   /**
    * Types a text inside the filtered element.
@@ -235,12 +262,5 @@ export class UiControlClient extends ApiCommands {
         return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
       },
     };
-  }
-
-  /**
-  * Closes the connection to the askui UI Controller
-  */
-  close(): void {
-    this.uiControllerClient.close();
   }
 }

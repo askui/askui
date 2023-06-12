@@ -2,6 +2,7 @@ import { AnnotationLevel } from './annotation-level';
 import { CredentialArgs } from './credentials-args';
 import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { Reporter, ReporterConfig } from '@/core/reporting';
 
 /**
  * Configuration options for the askui UI Control Client
@@ -26,19 +27,26 @@ import { ModelCompositionBranch } from './model-composition-branch';
  * the authentication of the askui Inference Server.
  * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
  * @param {ProxyAgentArgs} proxyAgents - To configure the proxy agents for http(s) requests.
+ * @param {Reporter} reporter - To configure the reporter to report on step runs.
  */
 export interface ClientArgs {
-  readonly uiControllerUrl?: string,
-  readonly inferenceServerUrl?: string,
-  readonly annotationLevel?: AnnotationLevel,
-  readonly credentials?: CredentialArgs,
-  readonly proxyAgents?: ProxyAgentArgs
+  readonly uiControllerUrl?: string
+  readonly inferenceServerUrl?: string
+  readonly annotationLevel?: AnnotationLevel
+  readonly credentials?: CredentialArgs | undefined
+  readonly proxyAgents?: ProxyAgentArgs | undefined
   readonly resize?: number
   readonly modelComposition?: ModelCompositionBranch[]
+  readonly reporter?: Reporter | undefined
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
-  readonly uiControllerUrl: string,
-  readonly inferenceServerUrl: string,
+  readonly uiControllerUrl: string
+  readonly inferenceServerUrl: string
   readonly annotationLevel: AnnotationLevel
+  readonly reporter: Required<Reporter> & { config: Required<ReporterConfig> }
+}
+
+export interface UiControlClientConfig {
+  annotationLevel: AnnotationLevel;
 }
