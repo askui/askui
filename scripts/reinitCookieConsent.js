@@ -1,17 +1,15 @@
 function rerunCookieConsentScripts(retries) {
+
+    if (typeof retries === 'undefined') {
+        retries = 0;
+    }
+
     if (retries < 3) {
         try {
             CookieConsent.runScripts();
         } catch(e) {
-            console.log("Cookiebot is undefined: Retry " + retries);
-            setTimeout(() => retryReinitCookieConsent(retries+1), 1000);
+            console.log(`Cookiebot is undefined: Retry ${retries}`);
+            setTimeout(() => rerunCookieConsentScripts(retries+1), 1000);
         }
     }
 }
-
-window.addEventListener('CookiebotOnConsentReady', function () {
-    const iframes = document.getElementsByTagName("iframe");
-    if (iframes.length > 0) {
-        rerunCookieConsentScripts(0);  
-    }
-})
