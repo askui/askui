@@ -6,7 +6,7 @@ sidebar_position: 8
 
 This tutorial will show you how to zip files on your file system and then upload them to Google Drive.
 
-<video style="max-width: 100%;" controls>
+<video controls>
   <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/compress_photos_and_upload_them_on_google_drive_with_askui.mp4"/>
 </video>
 

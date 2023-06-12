@@ -19,7 +19,7 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 
 ## Demonstration
 
-<video style="max-width: 100%;" controls>
+<video controls>
   <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/blog_customElement_askui_google_street_view.mp4"/>
 </video>
 
