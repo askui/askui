@@ -283,7 +283,7 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   text(
-    text: string | undefined,
+    text?: string,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
@@ -738,8 +738,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   rightOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -771,8 +770,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   leftOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -807,8 +805,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   below(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -842,8 +839,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   above(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -1107,7 +1103,7 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   text(
-    text: string | undefined,
+    text?: string,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
@@ -1562,8 +1558,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   rightOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1595,8 +1590,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   leftOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1631,8 +1625,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   below(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1666,8 +1659,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   above(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2688,7 +2680,7 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   text(
-    text: string | undefined,
+    text?: string,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
@@ -3143,8 +3135,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   rightOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3176,8 +3167,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   leftOf(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3212,8 +3202,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   below(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3247,8 +3236,7 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   above(
-    optionalIndex: number | undefined
-    = 0,
+    optionalIndex = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
