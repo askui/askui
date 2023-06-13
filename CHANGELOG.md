@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.3](https://github.com/askui/askui/compare/v0.10.2...v0.10.3) (2023-06-13)
+
+### Features
+
+* update the dsl with the new table filters and optional params (#ML-7) ([58c63d5](https://github.com/askui/askui/commit/58c63d5fb52966afb3477780cc5825ed9ea7d179)), closes [#ML-7](https://github.com/askui/askui/issues/ML-7)
+
 ## [0.10.2](https://github.com/askui/askui/compare/v0.10.1...v0.10.2) (2023-06-12)
 
 ### ⚠ BREAKING CHANGES
