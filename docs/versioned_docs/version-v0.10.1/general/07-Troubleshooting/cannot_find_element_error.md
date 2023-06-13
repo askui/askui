@@ -27,7 +27,7 @@ If an element-description derived through this method does not work you may run 
 ## Selecting Icons
 There are millions of different icon sets out there. Detecting them all reliable is nearly impossible.
 
-You can use two strategies to make your instructions more stable.
+You can use three strategies to make your instructions more stable.
 
 ### 1. Use Relative Element-Descriptors
 Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational element-descriptors](../03-Guides/guide-relational-element-descriptions.md) to understand how those work:
@@ -41,11 +41,35 @@ await aui
   .withText('Please Enter your Name').exec();
 ```
 
-### 2. Use Custom Element Selection
+### 2. Use Generic Element-Descriptor
+It could be the case that the target element is not detected correctly, e.g, an icon could be possibly detected as a toggle or checkbox and vice versa. In such cases, the generic element-descriptor `element()` could be a good option.
+
+Be aware that `element()` alone specifies no particular property. It is recommended to be used in conjunction with a [relational element descriptor](../../api/04-Relations/above.md):
+
+```javascript
+await aui
+  .click()
+  .element()
+  .below()
+  .text()
+  .withText('Please Enter your Name').exec();
+```
+This method is not restricted to icon elements, but can also be used for a wide range of elements.
+
+
+### 3. Use Custom Element Selection
 Custom element selection is your last resort because it is slow as it uses image-in-image search. Check out our [Google Street View Tutorial](../06-Tutorials/custom-element.md) to see how you can make use of it.
 
+## Selecting Image
+Images are supposed to have a very certain visual property.
+
+- An image is expected to have a color contrasting against the background.
+- An image is expected to have a rectangular shape. (rounded corner in a certain degree can be accepted)
+
+Generally speaking, everything on the screen can be an image. For example, icons on a website are actually images. But in terms of visual semantics, we don't deal with the notion of image in general. So it is worth knowing that the above two conditions are critical when using the `image()` descriptor.
+
 ## Selecting Text
-OCR is tricky and we are working hard to improve it. But you will encounter cases where some text may not be recognized reliably depending on font size or style:
+OCR is tricky and we are working hard to improve it. But you will encounter cases where some text may not be recognized reliably depending on the font size, style or typeface:
 
 ### 1. Missing Whitespaces Between Words
 You can guard against missing whitespaces with `withTextRegex()`:

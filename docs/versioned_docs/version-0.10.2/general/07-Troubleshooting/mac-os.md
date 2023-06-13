@@ -41,3 +41,18 @@ be able to capture what is shown on the screen as well as execute instructions.
 We are actively searching for a solution to improve the current state of affairs but Apple
 does not make it easy (which is good for your privacy but not so much for automation frameworks). 
 But be sure that we keep trying ;) 
+
+
+## Mouse Cursor Not Moving as Expected
+
+Apple devices that have a display manufactured by Apple, i.e., Macbook, iMac have a so-called Retina Display, and they have a higher pixel density. 
+
+To use the actions such as `moveMouse()` or `moveMouseRelatively()`, the **coordinates should be doubled** in order to move the mouse cursor as expected.
+
+For example, let's say that your screen resolution is of 1920x1080. If you want to move the mouse cursor to the middle of the screen, the correct numeric arguments are as such:
+
+```javascript
+await aui.moveMouse(1920,1080).exec();
+```
+
+The coordinate of the middle of the screen is (960,540). But if you use these numbers, it will move the cursor only half of the expected distance.
