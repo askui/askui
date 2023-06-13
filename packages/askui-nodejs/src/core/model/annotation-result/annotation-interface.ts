@@ -1,4 +1,4 @@
-import { CustomElementJson } from '../test-case-dto';
+import { CustomElementJson } from '../custom-element-json';
 
 export interface AnnotationRequest {
   imagePath?: string,

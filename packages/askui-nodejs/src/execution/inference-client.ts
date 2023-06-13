@@ -2,7 +2,7 @@ import urljoin from 'url-join';
 import http from 'http';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { ControlCommand, InferenceResponse } from '../core/ui-control-commands';
-import { CustomElement } from '../core/model/test-case-dto';
+import { CustomElement } from '../core/model/custom-element';
 import { Annotation } from '../core/annotation/annotation';
 import { resizeBase64ImageWithSameRatio } from '../utils/transformations';
 import { IsImageRequired } from './is-image-required-interface';
