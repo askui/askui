@@ -90,7 +90,7 @@ For cut-off characters you can omit the first/last character:
 await aui
   .click()
   .text()
-  .withText('your nam').exec();
+  .withText('your name').exec();
 ```
 
 ## Missing Permissions for UiController on macOS
