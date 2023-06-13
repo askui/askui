@@ -12,7 +12,7 @@ async function dynmicImportHpagent() {
   }
 }
 
-export async function buildProxyAgentArgsFromEnvironment(): Promise<ProxyAgentArgs | undefined> {
+export async function envProxyAgents(): Promise<ProxyAgentArgs | undefined> {
   const httpProxyUrl = process.env['HTTP_PROXY'];
   const httpsProxyUrl = process.env['HTTPS_PROXY'];
 

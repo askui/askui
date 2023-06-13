@@ -1,6 +1,20 @@
 # Changelog
 
-### [v0.10.1](https://github.com/askui/askui/compare/0.9.0...v0.10.1) (2023-04-26)
+## [0.10.2](https://github.com/askui/askui/compare/v0.10.1...v0.10.2) (2023-06-12)
+
+### ⚠ BREAKING CHANGES
+
+* **packages/askui-nodejs:** - The close method will be removed in the next major release.
+- Please update your code to use the disconnect method.
+
+### Features
+
+* add copy to clipboard icon to the annotation ([292dd2d](https://github.com/askui/askui/commit/292dd2d27e20ee18091094aec0f5d63c363797c4))
+* **packages/askui-nodejs:** add ability to record video to ui control client api (#CL-186) ([e6dfbcb](https://github.com/askui/askui/commit/e6dfbcb3f59b95848026ab45756b4e6196391e48)), closes [#CL-186](https://github.com/askui/askui/issues/CL-186)
+* **packages/askui-nodejs:** add step level reporting (#CL-186) ([9257621](https://github.com/askui/askui/commit/92576211fbfc66ccfbd9a7cb4bfba722be5938bb)), closes [#CL-186](https://github.com/askui/askui/issues/CL-186)
+* **packages/askui-nodejs:** deprecate close() in favor of disconnect() (#CL-186) ([7318a7a](https://github.com/askui/askui/commit/7318a7ad5daa9dce890135da3d3dc6941ed17c64)), closes [#CL-186](https://github.com/askui/askui/issues/CL-186)
+
+## [v0.10.1](https://github.com/askui/askui/compare/0.9.0...v0.10.1) (2023-04-26)
 
 
 ### Features

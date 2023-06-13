@@ -88,7 +88,7 @@ export class UiControllerClient {
     });
   }
 
-  close() {
+  disconnect(): void {
     this.ws?.close();
   }
 
@@ -131,19 +131,19 @@ export class UiControllerClient {
     return this.sendAndReceive<GetProcessPidResponse>(new GetProcessPidRequest());
   }
 
-  startRecording(): Promise<StartRecordingResponse> {
+  startVideoRecording(): Promise<StartRecordingResponse> {
     return this.sendAndReceive<StartRecordingResponse>(new StartRecordingRequest());
   }
 
-  stopRecording(): Promise<StopRecordingResponse> {
+  stopVideoRecording(): Promise<StopRecordingResponse> {
     return this.sendAndReceive<StopRecordingResponse>(new StopRecordingRequest());
   }
 
-  readRecording(): Promise<ReadRecordingPartResponse> {
+  readVideoRecording(): Promise<ReadRecordingPartResponse> {
     return new Promise<ReadRecordingPartResponse>((resolve, reject) => {
       const readRecordingStreamHandler = new ReadRecordingResponseStreamHandler(resolve, reject);
-      this.currentResolve = readRecordingStreamHandler.onMessage;
-      this.currentReject = readRecordingStreamHandler.onError;
+      this.currentResolve = readRecordingStreamHandler.onMessage.bind(readRecordingStreamHandler);
+      this.currentReject = readRecordingStreamHandler.onError.bind(readRecordingStreamHandler);
       this.send(new ReadRecordingRequest(), 60 * 15 * 1000);
     });
   }

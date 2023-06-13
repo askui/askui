@@ -1,4 +1,4 @@
-import { CustomElementJson } from '../core/model/test-case-dto/custom-element-json';
+import { CustomElementJson } from '../core/model/custom-element-json';
 import { FluentCommand } from './dsl';
 
 class TestCommand extends FluentCommand {
