@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.4](https://github.com/askui/askui/compare/v0.10.3...v0.10.4) (2023-06-13)
+
+
+### Bug Fixes
+
+* **packages/askui-nodejs:** fix that text and index params are optional ([81515ca](https://github.com/askui/askui/commit/81515caee9a47e1bc69024958bf4910c1eca3c29))
+
 ## [0.10.3](https://github.com/askui/askui/compare/v0.10.2...v0.10.3) (2023-06-13)
 
 ### Features
