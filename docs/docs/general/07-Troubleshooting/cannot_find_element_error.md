@@ -42,7 +42,7 @@ await aui
 ```
 
 ### 2. Use Generic Element-Descriptor
-It could be the case that the target element is not detected correctly, e.g, an icon could be possibly detected as a toggle or checkbox and vice versa. In such cases, the generic element-descriptor `element()` could be a good option.
+It could be the case that the target element is not detected correctly, e.g, an icon could possibly be detected as a toggle or checkbox and vice versa. In such cases, the generic element-descriptor `element()` could be a good option.
 
 Be aware that `element()` alone specifies no particular property. It is recommended to be used in conjunction with a [relational element descriptor](../../api/04-Relations/above.md):
 
@@ -90,7 +90,7 @@ For cut-off characters you can omit the first/last character:
 await aui
   .click()
   .text()
-  .withText('our nam').exec();
+  .withText('your nam').exec();
 ```
 
 ## Missing Permissions for UiController on macOS
