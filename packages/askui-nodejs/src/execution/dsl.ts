@@ -109,18 +109,10 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   otherElement(): FluentFiltersOrRelations {
-    this._textStr = 'other element';
+    this._textStr = '';
 
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  table(): FluentFiltersOrRelations {
-    this._textStr = 'table';
+    this._textStr += 'other';
+    this._textStr += ' element';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -131,7 +123,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   switch(): FluentFiltersOrRelations {
-    this._textStr = 'switch';
+    this._textStr = '';
+
+    this._textStr += 'switch';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -142,7 +136,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   container(): FluentFiltersOrRelations {
-    this._textStr = 'container';
+    this._textStr = '';
+
+    this._textStr += 'container';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -153,7 +149,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   checkbox(): FluentFiltersOrRelations {
-    this._textStr = 'checkbox';
+    this._textStr = '';
+
+    this._textStr += 'checkbox';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -169,13 +167,21 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   element(): FluentFiltersOrRelations {
-    this._textStr = 'element';
+    this._textStr = '';
+
+    this._textStr += 'element';
 
     return new FluentFiltersOrRelations(this);
   }
 
   /**
-   * Filters special elements
+   * Filters special elements defined over a specifically trained custom element descriptor.
+   *
+   * Custom element descriptors are trained on your elements that were not detected with our
+   * default models. Please contact us for further details on how to do this. We are working on
+   * a solution to provide this in our User Portal.
+   *
+   * In the example below circle refers to a circle shaped icon with specific properties.
    *
    * **Examples:**
    * ```typescript
@@ -186,8 +192,13 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  special(text: string): FluentFiltersOrRelations {
-    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
+  special(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'special';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -203,7 +214,55 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   button(): FluentFiltersOrRelations {
-    this._textStr = 'button';
+    this._textStr = '';
+
+    this._textStr += 'button';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  row(
+    index: number,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'row';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  col(
+    index: number,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'col';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  table(): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'table';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -223,8 +282,15 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  text(): FluentFiltersOrRelations {
-    this._textStr = 'text';
+  text(
+    text?: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'text';
+    if (text !== undefined) {
+      this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    }
 
     return new FluentFiltersOrRelations(this);
   }
@@ -244,7 +310,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   icon(): FluentFiltersOrRelations {
-    this._textStr = 'icon';
+    this._textStr = '';
+
+    this._textStr += 'icon';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -286,10 +354,15 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
-    this._textStr = 'custom element';
-    this._params.set('customElement', customElement);
+  customElement(
+    customElement: CustomElementJson,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
 
+    this._textStr += 'custom';
+    this._textStr += ' element';
+
+    this._params.set('customElement', customElement);
     return new FluentFiltersOrRelations(this);
   }
 
@@ -309,7 +382,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   image(): FluentFiltersOrRelations {
-    this._textStr = 'image';
+    this._textStr = '';
+
+    this._textStr += 'image';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -330,7 +405,9 @@ export class FluentFilters extends FluentBase {
    * @return {FluentFiltersOrRelations}
    */
   textfield(): FluentFiltersOrRelations {
-    this._textStr = 'textfield';
+    this._textStr = '';
+
+    this._textStr += 'textfield';
 
     return new FluentFiltersOrRelations(this);
   }
@@ -358,8 +435,14 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withText(text: string): FluentFiltersOrRelations {
-    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
+  withText(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -381,8 +464,15 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelations {
-    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'match';
+    this._textStr += ' regex';
+    this._textStr += ' pattern';
+    this._textStr += ` ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -407,8 +497,14 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withExactText(text: string): FluentFiltersOrRelations {
-    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'equals';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -428,8 +524,14 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  containsText(text: string): FluentFiltersOrRelations {
-    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'contain';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -437,12 +539,30 @@ export class FluentFilters extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
+   * ## What Should I Write as Matching Text
+   * The text description inside the `matching()` should describe the element visually.
+   * It understands color, some famous company/product names, general descriptions.
+   *
+   * It sometimes requires a bit of playing to find a matching description:
+   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * ```
+   *
    * @param {string} text - A description of the target element.
    *
    * @return {FluentFiltersOrRelations}
    */
-  matching(text: string): FluentFiltersOrRelations {
-    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'matching';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -492,7 +612,9 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   or(): FluentFilters {
-    this._textStr = 'or';
+    this._textStr = '';
+
+    this._textStr += 'or';
 
     return new FluentFilters(this);
   }
@@ -560,7 +682,9 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   and(): FluentFilters {
-    this._textStr = 'and';
+    this._textStr = '';
+
+    this._textStr += 'and';
 
     return new FluentFilters(this);
   }
@@ -588,7 +712,9 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   in(): FluentFilters {
-    this._textStr = 'in';
+    this._textStr = '';
+
+    this._textStr += 'in';
 
     return new FluentFilters(this);
   }
@@ -611,8 +737,16 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *
    * @return {FluentFilters}
    */
-  rightOf(): FluentFilters {
-    this._textStr = 'right of';
+  rightOf(
+    optionalIndex = 0,
+  ): FluentFilters {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' right';
+    this._textStr += ' of';
 
     return new FluentFilters(this);
   }
@@ -635,8 +769,16 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *
    * @return {FluentFilters}
    */
-  leftOf(): FluentFilters {
-    this._textStr = 'left of';
+  leftOf(
+    optionalIndex = 0,
+  ): FluentFilters {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' left';
+    this._textStr += ' of';
 
     return new FluentFilters(this);
   }
@@ -662,8 +804,15 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *
    * @return {FluentFilters}
    */
-  below(): FluentFilters {
-    this._textStr = 'below';
+  below(
+    optionalIndex = 0,
+  ): FluentFilters {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' below';
 
     return new FluentFilters(this);
   }
@@ -689,8 +838,15 @@ export class FluentFiltersOrRelations extends FluentFilters {
    *
    * @return {FluentFilters}
    */
-  above(): FluentFilters {
-    this._textStr = 'above';
+  above(
+    optionalIndex = 0,
+  ): FluentFilters {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' above';
 
     return new FluentFilters(this);
   }
@@ -721,7 +877,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   nearestTo(): FluentFilters {
-    this._textStr = 'nearest to';
+    this._textStr = '';
+
+    this._textStr += 'nearest';
+    this._textStr += ' to';
 
     return new FluentFilters(this);
   }
@@ -749,7 +908,9 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   contains(): FluentFilters {
-    this._textStr = 'contains';
+    this._textStr = '';
+
+    this._textStr += 'contains';
 
     return new FluentFilters(this);
   }
@@ -768,18 +929,10 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   otherElement(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'other element';
+    this._textStr = '';
 
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  table(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'table';
+    this._textStr += 'other';
+    this._textStr += ' element';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -790,7 +943,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   switch(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'switch';
+    this._textStr = '';
+
+    this._textStr += 'switch';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -801,7 +956,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   container(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'container';
+    this._textStr = '';
+
+    this._textStr += 'container';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -812,7 +969,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   checkbox(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'checkbox';
+    this._textStr = '';
+
+    this._textStr += 'checkbox';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -828,13 +987,21 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   element(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'element';
+    this._textStr = '';
+
+    this._textStr += 'element';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
 
   /**
-   * Filters special elements
+   * Filters special elements defined over a specifically trained custom element descriptor.
+   *
+   * Custom element descriptors are trained on your elements that were not detected with our
+   * default models. Please contact us for further details on how to do this. We are working on
+   * a solution to provide this in our User Portal.
+   *
+   * In the example below circle refers to a circle shaped icon with specific properties.
    *
    * **Examples:**
    * ```typescript
@@ -845,8 +1012,13 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  special(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
+  special(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'special';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -862,7 +1034,55 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   button(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'button';
+    this._textStr = '';
+
+    this._textStr += 'button';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  row(
+    index: number,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'row';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  col(
+    index: number,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'col';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  table(): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'table';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -882,8 +1102,15 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  text(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'text';
+  text(
+    text?: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'text';
+    if (text !== undefined) {
+      this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    }
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -903,7 +1130,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   icon(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'icon';
+    this._textStr = '';
+
+    this._textStr += 'icon';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -945,10 +1174,15 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  customElement(customElement: CustomElementJson): FluentFiltersOrRelationsCondition {
-    this._textStr = 'custom element';
-    this._params.set('customElement', customElement);
+  customElement(
+    customElement: CustomElementJson,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
 
+    this._textStr += 'custom';
+    this._textStr += ' element';
+
+    this._params.set('customElement', customElement);
     return new FluentFiltersOrRelationsCondition(this);
   }
 
@@ -968,7 +1202,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   image(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'image';
+    this._textStr = '';
+
+    this._textStr += 'image';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -989,7 +1225,9 @@ export class FluentFiltersCondition extends FluentBase {
    * @return {FluentFiltersOrRelationsCondition}
    */
   textfield(): FluentFiltersOrRelationsCondition {
-    this._textStr = 'textfield';
+    this._textStr = '';
+
+    this._textStr += 'textfield';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1017,8 +1255,14 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
+  withText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1040,8 +1284,15 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'match';
+    this._textStr += ' regex';
+    this._textStr += ' pattern';
+    this._textStr += ` ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1066,8 +1317,14 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withExactText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'equals';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1087,8 +1344,14 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  containsText(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'contain';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1096,12 +1359,30 @@ export class FluentFiltersCondition extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
+   * ## What Should I Write as Matching Text
+   * The text description inside the `matching()` should describe the element visually.
+   * It understands color, some famous company/product names, general descriptions.
+   *
+   * It sometimes requires a bit of playing to find a matching description:
+   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * ```
+   *
    * @param {string} text - A description of the target element.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  matching(text: string): FluentFiltersOrRelationsCondition {
-    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'matching';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1151,7 +1432,9 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   or(): FluentFiltersCondition {
-    this._textStr = 'or';
+    this._textStr = '';
+
+    this._textStr += 'or';
 
     return new FluentFiltersCondition(this);
   }
@@ -1219,7 +1502,9 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   and(): FluentFiltersCondition {
-    this._textStr = 'and';
+    this._textStr = '';
+
+    this._textStr += 'and';
 
     return new FluentFiltersCondition(this);
   }
@@ -1247,7 +1532,9 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   in(): FluentFiltersCondition {
-    this._textStr = 'in';
+    this._textStr = '';
+
+    this._textStr += 'in';
 
     return new FluentFiltersCondition(this);
   }
@@ -1270,8 +1557,16 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * @return {FluentFiltersCondition}
    */
-  rightOf(): FluentFiltersCondition {
-    this._textStr = 'right of';
+  rightOf(
+    optionalIndex = 0,
+  ): FluentFiltersCondition {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' right';
+    this._textStr += ' of';
 
     return new FluentFiltersCondition(this);
   }
@@ -1294,8 +1589,16 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * @return {FluentFiltersCondition}
    */
-  leftOf(): FluentFiltersCondition {
-    this._textStr = 'left of';
+  leftOf(
+    optionalIndex = 0,
+  ): FluentFiltersCondition {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' left';
+    this._textStr += ' of';
 
     return new FluentFiltersCondition(this);
   }
@@ -1321,8 +1624,15 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * @return {FluentFiltersCondition}
    */
-  below(): FluentFiltersCondition {
-    this._textStr = 'below';
+  below(
+    optionalIndex = 0,
+  ): FluentFiltersCondition {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' below';
 
     return new FluentFiltersCondition(this);
   }
@@ -1348,8 +1658,15 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    *
    * @return {FluentFiltersCondition}
    */
-  above(): FluentFiltersCondition {
-    this._textStr = 'above';
+  above(
+    optionalIndex = 0,
+  ): FluentFiltersCondition {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' above';
 
     return new FluentFiltersCondition(this);
   }
@@ -1380,7 +1697,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   nearestTo(): FluentFiltersCondition {
-    this._textStr = 'nearest to';
+    this._textStr = '';
+
+    this._textStr += 'nearest';
+    this._textStr += ' to';
 
     return new FluentFiltersCondition(this);
   }
@@ -1408,7 +1728,9 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   contains(): FluentFiltersCondition {
-    this._textStr = 'contains';
+    this._textStr = '';
+
+    this._textStr += 'contains';
 
     return new FluentFiltersCondition(this);
   }
@@ -1437,7 +1759,9 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {ExecCondition}
    */
   exists(): ExecCondition {
-    this._textStr = 'exists';
+    this._textStr = '';
+
+    this._textStr += 'exists';
 
     return new ExecCondition(this);
   }
@@ -1466,7 +1790,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {ExecCondition}
    */
   notExists(): ExecCondition {
-    this._textStr = 'not exists';
+    this._textStr = '';
+
+    this._textStr += 'not';
+    this._textStr += ' exists';
 
     return new ExecCondition(this);
   }
@@ -1483,7 +1810,7 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Expects a condition, e.g., `exists()` or `notExits()`.
    *
-   * Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
+   * Use the structure `expect().<your filter>.(exists()|notExists())` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -1494,7 +1821,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {FluentFiltersCondition}
    */
   expect(): FluentFiltersCondition {
-    this._textStr = 'Expect';
+    this._textStr = '';
+
+    this._textStr += 'Expect';
 
     return new FluentFiltersCondition(this);
   }
@@ -1512,7 +1841,10 @@ export abstract class FluentCommand extends FluentBase {
    * @return {FluentFilters}
    */
   click(): FluentFilters {
-    this._textStr = 'Click on';
+    this._textStr = '';
+
+    this._textStr += 'Click';
+    this._textStr += ' on';
 
     return new FluentFilters(this);
   }
@@ -1528,7 +1860,11 @@ export abstract class FluentCommand extends FluentBase {
    * @return {FluentFilters}
    */
   moveMouseTo(): FluentFilters {
-    this._textStr = 'Move mouse to';
+    this._textStr = '';
+
+    this._textStr += 'Move';
+    this._textStr += ' mouse';
+    this._textStr += ' to';
 
     return new FluentFilters(this);
   }
@@ -1551,8 +1887,14 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  typeIn(text: string): FluentFilters {
-    this._textStr = `Type ${Separators.STRING}${text}${Separators.STRING} in`;
+  typeIn(
+    text: string,
+  ): FluentFilters {
+    this._textStr = '';
+
+    this._textStr += 'Type';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    this._textStr += ' in';
 
     return new FluentFilters(this);
   }
@@ -1572,8 +1914,18 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  scrollInside(x_offset: number, y_offset: number): FluentFilters {
-    this._textStr = `Scroll x ${x_offset} y ${y_offset} in`;
+  scrollInside(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
+    this._textStr = '';
+
+    this._textStr += 'Scroll';
+    this._textStr += ' x';
+    this._textStr += ` ${x_offset}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_offset}`;
+    this._textStr += ' in';
 
     return new FluentFilters(this);
   }
@@ -1594,8 +1946,19 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  moveMouseRelativelyTo(x_offset: number, y_offset: number): FluentFilters {
-    this._textStr = `Move mouse x ${x_offset} y ${y_offset} relatively to`;
+  moveMouseRelativelyTo(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
+    this._textStr = '';
+
+    this._textStr += 'Move';
+    this._textStr += ' mouse';
+    this._textStr += ' x';
+    this._textStr += ` ${x_offset}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_offset}`;
+    this._textStr += ' relatively to';
 
     return new FluentFilters(this);
   }
@@ -1617,8 +1980,17 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  swipe(x_offset: number, y_offset: number): FluentFilters {
-    this._textStr = `Swipe x ${x_offset} y ${y_offset}`;
+  swipe(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
+    this._textStr = '';
+
+    this._textStr += 'Swipe';
+    this._textStr += ' x';
+    this._textStr += ` ${x_offset}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_offset}`;
 
     return new FluentFilters(this);
   }
@@ -1641,8 +2013,13 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  type(text: string): Exec {
-    this._textStr = `Type ${Separators.STRING}${text}${Separators.STRING}`;
+  type(
+    text: string,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Type';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new Exec(this);
   }
@@ -1660,8 +2037,22 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  moveMouseRelatively(x_offset: number, y_offset: number): Exec {
-    this._textStr = `Move mouse from current position with x ${x_offset} y ${y_offset}`;
+  moveMouseRelatively(
+    x_offset: number,
+    y_offset: number,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Move';
+    this._textStr += ' mouse';
+    this._textStr += ' from';
+    this._textStr += ' current';
+    this._textStr += ' position';
+    this._textStr += ' with';
+    this._textStr += ' x';
+    this._textStr += ` ${x_offset}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_offset}`;
 
     return new Exec(this);
   }
@@ -1681,8 +2072,19 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  moveMouse(x_coordinate: number, y_coordinate: number): Exec {
-    this._textStr = `Move mouse to x ${x_coordinate} y ${y_coordinate}`;
+  moveMouse(
+    x_coordinate: number,
+    y_coordinate: number,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Move';
+    this._textStr += ' mouse';
+    this._textStr += ' to';
+    this._textStr += ' x';
+    this._textStr += ` ${x_coordinate}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_coordinate}`;
 
     return new Exec(this);
   }
@@ -1705,8 +2107,17 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  scroll(x_offset: number, y_offset: number): Exec {
-    this._textStr = `Scroll x ${x_offset} y ${y_offset}`;
+  scroll(
+    x_offset: number,
+    y_offset: number,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Scroll';
+    this._textStr += ' x';
+    this._textStr += ` ${x_offset}`;
+    this._textStr += ' y';
+    this._textStr += ` ${y_offset}`;
 
     return new Exec(this);
   }
@@ -1733,8 +2144,15 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  execOnShell(shell_command: string): Exec {
-    this._textStr = `Execute shell command ${Separators.STRING}${shell_command}${Separators.STRING}`;
+  execOnShell(
+    shell_command: string,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Execute';
+    this._textStr += ' shell';
+    this._textStr += ' command';
+    this._textStr += ` ${Separators.STRING}${shell_command}${Separators.STRING}`;
 
     return new Exec(this);
   }
@@ -1755,7 +2173,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseLeftClick(): Exec {
-    this._textStr = 'Mouse left click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse left click';
 
     return new Exec(this);
   }
@@ -1776,7 +2196,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseRightClick(): Exec {
-    this._textStr = 'Mouse right click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse right click';
 
     return new Exec(this);
   }
@@ -1797,7 +2219,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseMiddleClick(): Exec {
-    this._textStr = 'Mouse middle click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse middle click';
 
     return new Exec(this);
   }
@@ -1818,7 +2242,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseDoubleLeftClick(): Exec {
-    this._textStr = 'Mouse double left click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse double left click';
 
     return new Exec(this);
   }
@@ -1839,7 +2265,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseDoubleRightClick(): Exec {
-    this._textStr = 'Mouse double right click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse double right click';
 
     return new Exec(this);
   }
@@ -1860,7 +2288,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseDoubleMiddleClick(): Exec {
-    this._textStr = 'Mouse double middle click';
+    this._textStr = '';
+
+    this._textStr += 'Mouse double middle click';
 
     return new Exec(this);
   }
@@ -1876,7 +2306,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseToggleDown(): Exec {
-    this._textStr = 'Mouse toggle down';
+    this._textStr = '';
+
+    this._textStr += 'Mouse toggle down';
 
     return new Exec(this);
   }
@@ -1892,7 +2324,9 @@ export abstract class FluentCommand extends FluentBase {
    * @return {Exec}
    */
   mouseToggleUp(): Exec {
-    this._textStr = 'Mouse toggle up';
+    this._textStr = '';
+
+    this._textStr += 'Mouse toggle up';
 
     return new Exec(this);
   }
@@ -1911,8 +2345,18 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressThreeKeys(first_key: MODIFIER_KEY, second_key: MODIFIER_KEY, third_key: PC_KEY): Exec {
-    this._textStr = `Press key ${first_key} ${second_key} ${third_key}`;
+  pressThreeKeys(
+    first_key: MODIFIER_KEY,
+    second_key: MODIFIER_KEY,
+    third_key: PC_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' key';
+    this._textStr += ` ${first_key}`;
+    this._textStr += ` ${second_key}`;
+    this._textStr += ` ${third_key}`;
 
     return new Exec(this);
   }
@@ -1930,8 +2374,16 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressTwoKeys(first_key: MODIFIER_KEY, second_key: PC_KEY): Exec {
-    this._textStr = `Press key ${first_key} ${second_key}`;
+  pressTwoKeys(
+    first_key: MODIFIER_KEY,
+    second_key: PC_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' key';
+    this._textStr += ` ${first_key}`;
+    this._textStr += ` ${second_key}`;
 
     return new Exec(this);
   }
@@ -1948,8 +2400,14 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressKey(key: PC_AND_MODIFIER_KEY): Exec {
-    this._textStr = `Press key ${key}`;
+  pressKey(
+    key: PC_AND_MODIFIER_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' key';
+    this._textStr += ` ${key}`;
 
     return new Exec(this);
   }
@@ -1963,8 +2421,19 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidThirdKey(first_key: ANDROID_KEY, second_key: ANDROID_KEY, third_key: ANDROID_KEY): Exec {
-    this._textStr = `Press android key ${first_key} ${second_key} ${third_key}`;
+  pressAndroidThirdKey(
+    first_key: ANDROID_KEY,
+    second_key: ANDROID_KEY,
+    third_key: ANDROID_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' android';
+    this._textStr += ' key';
+    this._textStr += ` ${first_key}`;
+    this._textStr += ` ${second_key}`;
+    this._textStr += ` ${third_key}`;
 
     return new Exec(this);
   }
@@ -1977,8 +2446,17 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidTwoKey(first_key: ANDROID_KEY, second_key: ANDROID_KEY): Exec {
-    this._textStr = `Press android key ${first_key} ${second_key}`;
+  pressAndroidTwoKey(
+    first_key: ANDROID_KEY,
+    second_key: ANDROID_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' android';
+    this._textStr += ' key';
+    this._textStr += ` ${first_key}`;
+    this._textStr += ` ${second_key}`;
 
     return new Exec(this);
   }
@@ -1990,8 +2468,15 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidKey(key: ANDROID_KEY): Exec {
-    this._textStr = `Press android key ${key}`;
+  pressAndroidKey(
+    key: ANDROID_KEY,
+  ): Exec {
+    this._textStr = '';
+
+    this._textStr += 'Press';
+    this._textStr += ' android';
+    this._textStr += ' key';
+    this._textStr += ` ${key}`;
 
     return new Exec(this);
   }
@@ -2021,18 +2506,10 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   otherElement(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'other element';
+    this._textStr = '';
 
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  table(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'table';
+    this._textStr += 'other';
+    this._textStr += ' element';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2043,7 +2520,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   switch(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'switch';
+    this._textStr = '';
+
+    this._textStr += 'switch';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2054,7 +2533,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   container(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'container';
+    this._textStr = '';
+
+    this._textStr += 'container';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2065,7 +2546,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   checkbox(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'checkbox';
+    this._textStr = '';
+
+    this._textStr += 'checkbox';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2081,13 +2564,21 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   element(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'element';
+    this._textStr = '';
+
+    this._textStr += 'element';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
 
   /**
-   * Filters special elements
+   * Filters special elements defined over a specifically trained custom element descriptor.
+   *
+   * Custom element descriptors are trained on your elements that were not detected with our
+   * default models. Please contact us for further details on how to do this. We are working on
+   * a solution to provide this in our User Portal.
+   *
+   * In the example below circle refers to a circle shaped icon with specific properties.
    *
    * **Examples:**
    * ```typescript
@@ -2098,8 +2589,13 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  special(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `special ${Separators.STRING}${text}${Separators.STRING}`;
+  special(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'special';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2115,7 +2611,55 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   button(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'button';
+    this._textStr = '';
+
+    this._textStr += 'button';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  row(
+    index: number,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'row';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   *
+   * @param {number} index - element index
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  col(
+    index: number,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'col';
+    this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  table(): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'table';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2135,8 +2679,15 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  text(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'text';
+  text(
+    text?: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'text';
+    if (text !== undefined) {
+      this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    }
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2156,7 +2707,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   icon(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'icon';
+    this._textStr = '';
+
+    this._textStr += 'icon';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2198,10 +2751,15 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  customElement(customElement: CustomElementJson): FluentFiltersOrRelationsGetter {
-    this._textStr = 'custom element';
-    this._params.set('customElement', customElement);
+  customElement(
+    customElement: CustomElementJson,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
 
+    this._textStr += 'custom';
+    this._textStr += ' element';
+
+    this._params.set('customElement', customElement);
     return new FluentFiltersOrRelationsGetter(this);
   }
 
@@ -2221,7 +2779,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   image(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'image';
+    this._textStr = '';
+
+    this._textStr += 'image';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2242,7 +2802,9 @@ export class FluentFiltersGetter extends FluentBase {
    * @return {FluentFiltersOrRelationsGetter}
    */
   textfield(): FluentFiltersOrRelationsGetter {
-    this._textStr = 'textfield';
+    this._textStr = '';
+
+    this._textStr += 'textfield';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2270,8 +2832,14 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withText(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `with text ${Separators.STRING}${text}${Separators.STRING}`;
+  withText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2293,8 +2861,15 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `match regex pattern ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'match';
+    this._textStr += ' regex';
+    this._textStr += ' pattern';
+    this._textStr += ` ${Separators.STRING}${regex_pattern}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2319,8 +2894,14 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withExactText(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `equals text ${Separators.STRING}${text}${Separators.STRING}`;
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'equals';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2340,8 +2921,14 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  containsText(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `contain text ${Separators.STRING}${text}${Separators.STRING}`;
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'contain';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2349,12 +2936,30 @@ export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
+   * ## What Should I Write as Matching Text
+   * The text description inside the `matching()` should describe the element visually.
+   * It understands color, some famous company/product names, general descriptions.
+   *
+   * It sometimes requires a bit of playing to find a matching description:
+   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * ```
+   *
    * @param {string} text - A description of the target element.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  matching(text: string): FluentFiltersOrRelationsGetter {
-    this._textStr = `matching ${Separators.STRING}${text}${Separators.STRING}`;
+  matching(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'matching';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2404,7 +3009,9 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   or(): FluentFiltersGetter {
-    this._textStr = 'or';
+    this._textStr = '';
+
+    this._textStr += 'or';
 
     return new FluentFiltersGetter(this);
   }
@@ -2472,7 +3079,9 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   and(): FluentFiltersGetter {
-    this._textStr = 'and';
+    this._textStr = '';
+
+    this._textStr += 'and';
 
     return new FluentFiltersGetter(this);
   }
@@ -2500,7 +3109,9 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   in(): FluentFiltersGetter {
-    this._textStr = 'in';
+    this._textStr = '';
+
+    this._textStr += 'in';
 
     return new FluentFiltersGetter(this);
   }
@@ -2523,8 +3134,16 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * @return {FluentFiltersGetter}
    */
-  rightOf(): FluentFiltersGetter {
-    this._textStr = 'right of';
+  rightOf(
+    optionalIndex = 0,
+  ): FluentFiltersGetter {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' right';
+    this._textStr += ' of';
 
     return new FluentFiltersGetter(this);
   }
@@ -2547,8 +3166,16 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * @return {FluentFiltersGetter}
    */
-  leftOf(): FluentFiltersGetter {
-    this._textStr = 'left of';
+  leftOf(
+    optionalIndex = 0,
+  ): FluentFiltersGetter {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' left';
+    this._textStr += ' of';
 
     return new FluentFiltersGetter(this);
   }
@@ -2574,8 +3201,15 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * @return {FluentFiltersGetter}
    */
-  below(): FluentFiltersGetter {
-    this._textStr = 'below';
+  below(
+    optionalIndex = 0,
+  ): FluentFiltersGetter {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' below';
 
     return new FluentFiltersGetter(this);
   }
@@ -2601,8 +3235,15 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    *
    * @return {FluentFiltersGetter}
    */
-  above(): FluentFiltersGetter {
-    this._textStr = 'above';
+  above(
+    optionalIndex = 0,
+  ): FluentFiltersGetter {
+    this._textStr = '';
+
+    if (optionalIndex !== undefined) {
+      this._textStr += `index ${optionalIndex}`;
+    }
+    this._textStr += ' above';
 
     return new FluentFiltersGetter(this);
   }
@@ -2633,7 +3274,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   nearestTo(): FluentFiltersGetter {
-    this._textStr = 'nearest to';
+    this._textStr = '';
+
+    this._textStr += 'nearest';
+    this._textStr += ' to';
 
     return new FluentFiltersGetter(this);
   }
@@ -2661,7 +3305,9 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   contains(): FluentFiltersGetter {
-    this._textStr = 'contains';
+    this._textStr = '';
+
+    this._textStr += 'contains';
 
     return new FluentFiltersGetter(this);
   }
@@ -2708,7 +3354,10 @@ export abstract class Getter extends FluentCommand {
    * @return {FluentFiltersGetter}
    */
   get(): FluentFiltersGetter {
-    this._textStr = 'get element';
+    this._textStr = '';
+
+    this._textStr += 'get';
+    this._textStr += ' element';
 
     return new FluentFiltersGetter(this);
   }
@@ -2753,7 +3402,11 @@ export abstract class Getter extends FluentCommand {
    * @return {ExecGetter}
    */
   getAll(): ExecGetter {
-    this._textStr = 'get all elements';
+    this._textStr = '';
+
+    this._textStr += 'get';
+    this._textStr += ' all';
+    this._textStr += ' elements';
 
     return new ExecGetter(this);
   }
