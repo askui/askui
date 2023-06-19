@@ -19,13 +19,9 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 
 ## Demonstration
 
-<div class="cookieconsent-optout-marketing">
-  Please <a href="javascript:Cookiebot.renew()">accept marketing-cookies</a> to watch this video.
-</div>
-<div class="cookieconsent-optin-marketing">
-  <a href="javascript:rerunCookieConsentScripts()">Please click to watch this video.</a>
-</div>
-<iframe width="560" height="315" data-cookieblock-src="https://www.youtube.com/watch?v=M00BCweamDc&embedded=true" data-cookieconsent="marketing" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<video controls>
+  <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/blog_customElement_askui_google_street_view.mp4"/>
+</video>
 
 ## Requirements
 

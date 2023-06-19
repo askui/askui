@@ -6,17 +6,16 @@ displayed_sidebar: apiSidebar
 
 Filters for an UI element 'text'.
 
-Often combined with other element-descriptions like `withText()` as shown in the below examples.
-Check out the element-descriptions `withText()`, `withTextRegex()` and `withExactText()` for more detail.
+Takes an optional parameter to filter for a specific text.
+See the examples below.
+
+See also the filters `withTextRegex()` and `withExactText()`
 
 **Examples:**
 ```typescript
-await aui.click().text().withText('Password').exec();
-await aui.click().text().withExactText('Username').exec();
+await aui.click().text().exec();
+await aui.click().text('Username').exec();
 await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
-
-// Assertion is possible like this:
-// Check if there is any text on the screen
-await aui.expect().text().notExists().exec();
 ```
 
+   * @param {string} [text] - A text to be matched.
