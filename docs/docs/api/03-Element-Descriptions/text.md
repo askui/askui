@@ -15,6 +15,11 @@ See also the filters `withTextRegex()` and `withExactText()`
 ```typescript
 await aui.click().text().exec();
 await aui.click().text('Username').exec();
+
+// Matching with an exact text
+await aui.click().text().withExactText('Username').exec();
+
+// Matching with a regex
 await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
 ```
 
