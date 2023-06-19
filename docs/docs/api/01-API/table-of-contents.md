@@ -83,7 +83,7 @@ await aui.execOnShell("chrome").exec();
 
 Expects a condition, e.g., `exists()` or `notExits()`.
 
-Use the structure `expect().<your filter>.(exists()|notExists()` as shown in the examples below.
+Use the structure `expect().<your filter>.(exists()|notExists())` as shown in the examples below.
 
 **Examples:**
 ```typescript 
@@ -893,6 +893,22 @@ await aui.click().matching('a mask on purple background and a firefox logo').exe
         <tr>
             <td>
                 <details>
+                    <summary>otherElement()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
+<md-block>
+
+Filters for a UI element 'other element'.  
+
+</md-block>
+<md-block>
+
+
+</md-block>
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <details>
                     <summary>special()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
@@ -958,19 +974,22 @@ Filters for a UI element 'table'.
 
 Filters for an UI element 'text'.
 
-Often combined with the filter `withText()` as shown in the below examples.
+Takes an optional parameter to filter for a specific text.
+See the examples below.
+
 See also the filters `withTextRegex()` and `withExactText()`
 
 **Examples:**
 ```typescript
-await aui.click().text().withText('Password').exec();
-await aui.click().text().withExactText('Username').exec();
+await aui.click().text().exec();
+await aui.click().text('Username').exec();
 await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
 ```  
 
 </md-block>
 <md-block>
 
+* @param {string} [text] - A text to be matched.
 
 </md-block>
                 </details>
@@ -1112,17 +1131,25 @@ await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
 
 Filters for an element above another element.
 
+Takes an optional parameter `index` to select the `nth` element (starting with 0)
+
 **Examples:**
 ```typescript 
 --------------
-|    text    |
+|   text1    |
+--------------
+--------------
+|   text0    |
 --------------
 --------------
 |   button   |
 --------------
 
-// Returns text because text is above button
+// Returns text0 because text0 is the first element above button
 ...text().above().button()
+...text().above(0).button()
+// Returns text1 because text1 is the second element above button
+...text().above(1).button()
 // Returns no element because button is below text
 ...button().above().text()
 ```
@@ -1131,6 +1158,7 @@ Filters for an element above another element.
 </md-block>
 <md-block>
 
+* @param {number} [optionalIndex=0] - element index
 
 </md-block>
                 </details>
@@ -1217,17 +1245,25 @@ The get returns only the user icon although both elements are icons.
 
 Filters for an element below another element.
 
+Takes an optional parameter `index` to select the `nth` element (starting with 0)
+
 **Examples:**
 ```typescript 
 --------------
 |    text    |
 --------------
 --------------
-|   button   |
+|   button0  |
+--------------
+--------------
+|   button1  |
 --------------
 
-// Returns button because button is below text
+// Returns button0 because button0 is the first button below text
 ...button().below().text()
+...button().below(0).text()
+// Returns button1 because button1  is the second button below text
+...button().below(1).text()
 // Returns no element because text is above button
 ...text().below().button()
 ```
@@ -1236,6 +1272,7 @@ Filters for an element below another element.
 </md-block>
 <md-block>
 
+* @param {number} [optionalIndex=0] - element index
 
 </md-block>
                 </details>
@@ -1315,14 +1352,19 @@ Filters for an element inside another element.
 
 Filters for an element left of another element.
 
+Takes an optional parameter `index` to select the `nth` element (starting with 0)
+
 **Examples:**
 ```typescript 
---------------  --------------
-|  leftEl    |  |  rightEl   |
---------------  --------------
+--------------  --------------  --------------
+|  leftEl1   |  |  leftEl0   |  |  rightEl   |
+--------------  --------------  --------------
 
-// Returns leftEl because leftEl is left of rightEl
+// Returns leftEl0 because leftEl0 is the first element left of rightEl
 ...leftEl().leftOf().rightEl()
+...leftEl().leftOf(0).rightEl()
+// Returns leftEl1 because leftEl1 is the second element left of rightEl
+...leftEl().leftOf(1).rightEl()
 // Returns no element because rightEl is left of leftEl
 ...rightEl().leftOf().leftEl()
 ```
@@ -1331,6 +1373,7 @@ Filters for an element left of another element.
 </md-block>
 <md-block>
 
+* @param {number} [optionalIndex=0] - element index
 
 </md-block>
                 </details>
@@ -1431,14 +1474,19 @@ Returns the same button for both cases
 
 Filters for an element right of another element.
 
+Takes an optional parameter `index` to select the `nth` element (starting with 0)
+
 **Examples:**
 ```typescript 
---------------  --------------
-|  leftEl    |  |  rightEl   |
---------------  --------------
+--------------  --------------  --------------
+|  leftEl    |  |  rightEl0  |  |  rightEl1  |
+--------------  --------------  --------------
 
-// Returns rightEl because rightEl is right of leftEl
+// Returns rightEl0 because rightEl0 is the first element right of leftEl
 ...rightEl().rightOf().leftEl()
+...rightEl().rightOf(0).leftEl()
+// Returns rightEl1 because rightEl1 is the second element right of leftEl
+...rightEl().rightOf(1).leftEl()
 // Returns no element because leftEl is left of rightEl
 ...leftEl().rightOf().rightEl()
 ```
@@ -1447,6 +1495,7 @@ Filters for an element right of another element.
 </md-block>
 <md-block>
 
+* @param {number} [optionalIndex=0] - element index
 
 </md-block>
                 </details>
