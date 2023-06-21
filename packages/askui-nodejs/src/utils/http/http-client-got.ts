@@ -65,12 +65,14 @@ export class HttpClientGot {
             error.response !== undefined
             && error.response.headers['retry-after'] === undefined
           ) {
+            logger.debug(`Request to ${error.request?.requestUrl} failed with status code ${error.response?.statusCode}.\n${error.message}\nRetrying... (attempt ${attemptCount})`);
             return Math.min(
               1000 * 2 ** (attemptCount - 1) + Math.random() * 100,
               Number.MAX_SAFE_INTEGER,
             );
           }
 
+          logger.debug(`Request to ${error.request?.requestUrl} failed.\n${error.message}\nRetrying... (attempt ${attemptCount})`);
           return computedValue;
         },
       },
