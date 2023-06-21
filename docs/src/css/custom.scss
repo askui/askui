@@ -91,3 +91,38 @@ html[data-theme="dark"] {
     --ifm-footer-background-color: transparent;
   }
 }
+
+/* Docs Rating Box */
+
+.docsRating {
+  padding: 16px 30px 16px 0px;
+  min-height: 66px;
+  margin-top: 42px;
+  text-align: left;
+  line-height: 32px;
+  font-weight: 500;
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+
+  svg {
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0 0 0 6px;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      fill: var(--ifm-color-primary);
+    }
+  }
+
+  .i_thumbsup {
+    fill: #56a211;
+    transform: translateY(0.25em);
+    margin-left: 12px;
+  }
+
+  .i_thumbsdown {
+    fill: #e9430f;
+    transform: scale(-1, -1) translateY(-0.25em);
+  }
+}
