@@ -13,21 +13,31 @@ import { InferenceResponseBody } from '../core/inference-response/inference-resp
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
 
+interface InferenceClientUrls {
+  inference: string;
+  isImageRequired: string;
+}
+
 export class InferenceClient {
-  url: string;
+  private urls: InferenceClientUrls;
 
   constructor(
-    public baseUrl: string,
-    public httpClient: HttpClientGot,
-    public resize?: number,
+    private readonly baseUrl: string,
+    private readonly httpClient: HttpClientGot,
+    private readonly resize?: number,
     readonly workspaceId?: string,
     readonly modelComposition?: ModelCompositionBranch[],
-    public apiVersion = 'v3',
+    private readonly apiVersion = 'v3',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
-    this.url = workspaceId
+    const url = workspaceId
       ? urljoin(versionedBaseUrl, 'workspaces', workspaceId)
       : versionedBaseUrl;
+    this.urls = {
+      inference: urljoin(url, 'inference'),
+      isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
+    };
+    this.httpClient.urlsToRetry = Object.values(this.urls);
     if (this.resize !== undefined && this.resize <= 0) {
       throw new ConfigurationError(
         `Resize must be a positive number. The current resize value "${this.resize}" is not valid.`,
@@ -37,13 +47,11 @@ export class InferenceClient {
   }
 
   async isImageRequired(instruction: string): Promise<boolean> {
-    const url = urljoin(this.url, 'instruction', 'is-image-required');
-    const requestBody = {
-      instruction,
-    };
     const response = await this.httpClient.post<IsImageRequired>(
-      url,
-      requestBody,
+      this.urls.isImageRequired,
+      {
+        instruction,
+      },
     );
     return response.body.isImageRequired;
   }
@@ -65,16 +73,14 @@ export class InferenceClient {
     instruction?: string,
   ): Promise<ControlCommand | Annotation> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
-    const requestBody = {
-      image: resizedImage.base64Image,
-      instruction,
-      customElements,
-      modelComposition: this.modelComposition,
-    };
-    const url = urljoin(this.url, 'inference');
     const response = await this.httpClient.post<InferenceResponseBody>(
-      url,
-      requestBody,
+      this.urls.inference,
+      {
+        image: resizedImage.base64Image,
+        instruction,
+        customElements,
+        modelComposition: this.modelComposition,
+      },
     );
     InferenceClient.logMetaInformation(response);
     return InferenceResponse.fromJson(
