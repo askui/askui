@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.5](https://github.com/askui/askui/compare/v0.10.4...v0.10.5) (2023-06-21)
+
+
+### Features
+
+* **askui-nodejs:** retry failed requests to inference ([b4aaf2e](https://github.com/askui/askui/commit/b4aaf2e8d4b5ceb50479d966f52cd2c9c98b3a27))
+
 ## [0.10.4](https://github.com/askui/askui/compare/v0.10.3...v0.10.4) (2023-06-13)
 
 
