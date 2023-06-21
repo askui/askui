@@ -1,4 +1,10 @@
-import got, { Got, OptionsOfJSONResponseBody } from 'got';
+import got, {
+  ExtendOptions,
+  Got,
+  OptionsOfJSONResponseBody,
+  RequestError,
+  TimeoutError,
+} from 'got';
 import { CookieJar } from 'tough-cookie';
 import http from 'http';
 import https from 'https';
@@ -11,6 +17,8 @@ export class HttpClientGot {
 
   private askuiGot: Got;
 
+  urlsToRetry: string[] = [];
+
   constructor(
     readonly token?: string,
     readonly customHeaders?: Record<string, string>,
@@ -18,7 +26,74 @@ export class HttpClientGot {
     readonly proxyAgents?: { http: http.Agent; https: https.Agent },
   ) {
     this.initHeaders(token, customHeaders);
-    this.askuiGot = got.extend(proxyAgents ? { agent: proxyAgents } : {});
+    const gotExtendOptions = this.buildGotExtendOptions(proxyAgents);
+    this.askuiGot = got.extend(gotExtendOptions);
+  }
+
+  private buildGotExtendOptions(
+    proxyAgents?: { http: http.Agent; https: https.Agent } | undefined,
+  ): ExtendOptions {
+    const gotExtendOptions: ExtendOptions = {
+      retry: {
+        limit: 5,
+        methods: ['POST', 'GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'TRACE'],
+        statusCodes: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
+        errorCodes: [
+          'ETIMEDOUT',
+          'ECONNRESET',
+          'EADDRINUSE',
+          'ECONNREFUSED',
+          'EPIPE',
+          'ENOTFOUND',
+          'ENETUNREACH',
+          'EAI_AGAIN',
+        ],
+        calculateDelay: ({
+          attemptCount,
+          retryOptions,
+          error,
+          computedValue,
+        }) => {
+          if (
+            attemptCount > retryOptions.limit
+            || !this.shouldRetryOnError(error)
+          ) {
+            return 0;
+          }
+
+          if (
+            error.response !== undefined
+            && error.response.headers['retry-after'] === undefined
+          ) {
+            return Math.min(
+              1000 * 2 ** (attemptCount - 1) + Math.random() * 100,
+              Number.MAX_SAFE_INTEGER,
+            );
+          }
+
+          return computedValue;
+        },
+      },
+    };
+    if (proxyAgents) {
+      gotExtendOptions.agent = proxyAgents;
+    }
+    return gotExtendOptions;
+  }
+
+  private shouldRetryOnError(error: TimeoutError | RequestError): boolean {
+    return (
+      error.request?.options.method !== 'POST'
+      || this.shouldRetryPostRequest(error.request)
+    );
+  }
+
+  private shouldRetryPostRequest(
+    request: { requestUrl: string } | undefined,
+  ): boolean {
+    return (
+      request !== undefined && this.urlsToRetry.includes(request.requestUrl)
+    );
   }
 
   private initHeaders(
