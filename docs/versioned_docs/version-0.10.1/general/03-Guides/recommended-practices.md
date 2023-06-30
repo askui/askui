@@ -94,22 +94,23 @@ You can wait for an element to appear with the following helper function:
 ```javascript
 // Retry the command 5 times with a
 // wait time of 2 seconds between each try
-async function waitUntil(askuiCommand: Promise<void>, maxTry = 5) {
-    try {
-        await askuiCommand;
+async function waitUntil(askuiCommand: () => Promise<void>, maxTry = 5) {
+  try {
+    await askuiCommand();
+  }
+  catch (error) {
+    if (maxTry == 0) {
+      throw error
     }
-    catch (error) {
-        if (maxTry == 0) {
-            throw error;
-        }
-        console.log(`Retry predicting command, ${maxTry} tries left`);
-        await aui.waitFor(2000).exec();
-        await waitUntil(askuiCommand, maxTry - 1);
-    }
+    console.log(`Retry predicting command, ${maxTry} tries left`)
+    await aui.waitFor(2000).exec();
+    await waitUntil(askuiCommand, maxTry - 1)
+  }
 }
 
 // Wait for the text 'Github' to be displayed
 await waitUntil(
-    aui.expect().text().withText('Github').exists().exec();
-)
+  async () => 
+    aui.expect().text().withText('Github').exists().exec()
+  );
 ```
