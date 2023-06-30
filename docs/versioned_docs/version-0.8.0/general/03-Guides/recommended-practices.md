@@ -91,6 +91,7 @@ await aui.pressKey('pageup').exec()
 askui implements a conservative retry strategy to wait for an element to appear. But sometimes this is not long enough.
 You can wait for an element to appear with the following helper function:
 
+```javascript
 // Retry the command 5 times with a
 // wait time of 2 seconds between each try
 async function waitUntil(askuiCommand: () => Promise<void>, maxTry = 5) {
