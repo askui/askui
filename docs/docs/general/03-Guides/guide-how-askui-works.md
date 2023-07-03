@@ -31,7 +31,7 @@ Throughout this article, we will use some terms that describe certain parts of a
 
 | **Term**        | **Description** |
 | --------------- | --------------- |
-| *Element-description*    | A description for a UI element. In the askui Control Client API, for example, it is the coded description like `button()` or `textfield().contains().text().withText('Email')`. |
+| *Element-description*    | A description for a UI element. In the askui Control Client API, for example, it is the coded description like `button()` or `textfield().contains().text('Email')`. |
 | *Action*       | A method in the askui Control Client API that describes an action to be taken against the operating system. For example `click()`, `type()`. |
 | *InputEvent* (internal) | A specific type of action to be taken against the operating system. For example *MouseInputEvent* or *KeyboardInputEvent*. |
 | *ControlCommand* (internal) | A command sent to the UI controller telling what to perform on the operating system. It consists of one or more *InputEvents*. |

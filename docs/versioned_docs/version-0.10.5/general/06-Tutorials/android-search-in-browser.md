@@ -194,7 +194,7 @@ describe('jest with askui', () => {
     await aui.waitFor(1500).exec(); 
 
     // Then click the icon that is above the text 'chrome'
-    await aui.click().icon().above().text().withText('chrome').exec();
+    await aui.click().icon().above().text('chrome').exec();
   });
 });
 ```
@@ -216,7 +216,7 @@ Add this code block to the bottom of our code:
 
 ```ts
 // We first look for the search bar. Depending on the system language of your device, the default text within the search bar may differ.
-await aui.click().text().withText('search or type web address').exec();
+await aui.click().text('search or type web address').exec();
 
 // Type our desired keyword and hit enter
 await aui.type('spacecraft').exec();
@@ -232,9 +232,9 @@ try {
     // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
     await aui.expect().text().containsText('cookies').notExists().exec();
 } catch (error) {
-    await aui.click().text().withText('read more').exec();
+    await aui.click().text('read more').exec();
     await aui.waitFor(1000).exec(); // wait until the scrolling animation has been finished
-    await aui.click().text().withText('accept all').exec();
+    await aui.click().text('accept all').exec();
 }
 // From here, we can write our next instructions
 ```
@@ -289,13 +289,13 @@ describe('jest with askui', () => {
     // We wait for 1500 miliseconds, to make sure that the search result has been loaded before askui start to look for the search result. 
     await aui.waitFor(1500).exec(); 
     // Then click the icon that is above the text 'chrome'
-    await aui.click().icon().above().text().withText('chrome').exec();
+    await aui.click().icon().above().text('chrome').exec();
 
     // We wait the Chrome app to be launched
     await aui.waitFor(1500).exec();
 
     // We first look for the search bar. Depending on the system language of your device, the default text within the search bar may differ.
-    await aui.click().text().withText('search or type web address').exec();
+    await aui.click().text('search or type web address').exec();
 
     // Type our desired keyword and hit enter
     await aui.type('spacecraft').exec();
@@ -309,9 +309,9 @@ describe('jest with askui', () => {
         // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
         await aui.expect().text().containsText('cookies').notExists().exec();
     } catch (error) {
-        await aui.click().text().withText('read more').exec();
+        await aui.click().text('read more').exec();
         await aui.waitFor(1000).exec(); // wait until the scrolling animation has been finished
-        await aui.click().text().withText('accept all').exec();
+        await aui.click().text('accept all').exec();
     }
 
     // We ask the askui to click the text that contains 'wikipedia' which is the text that is nearest to the text containing 'wikipedia.org'

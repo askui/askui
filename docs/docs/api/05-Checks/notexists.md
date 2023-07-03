@@ -13,12 +13,12 @@ Always use together with `expect()`.
 **Examples:**
 ```typescript
 // Stops execution at this point when the element does exist.
-await aui.expect().text().withText('Login').notExists().exec()
+await aui.expect().text('Login').notExists().exec()
 
 // This will catch the error and log a message
 // But the execution will continue afterwards
 try {
-    await aui.expect().text().withText('Login').notExists().exec()
+    await aui.expect().text('Login').notExists().exec()
 } catch (error) {
     console.log('Too bad we could find the element!');
 }

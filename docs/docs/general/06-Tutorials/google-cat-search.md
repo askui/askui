@@ -109,7 +109,7 @@ describe('jest with askui', () => {
       .click()
       .text().withTextRegex("Image*")
       .rightOf()
-      .text().withText("Gmail")
+      .text("Gmail")
       .exec();
 
     // Type in cat into search field
@@ -118,7 +118,7 @@ describe('jest with askui', () => {
       .typeIn("cat")
       .textfield()
       .contains()
-      .icon().withText('microphone')
+      .icon('microphone')
       .exec();
 
     await aui
@@ -183,7 +183,7 @@ await aui
     .click()
     .text().withTextRegex("Image*")
     .rightOf()
-    .text().withText("Gmail")
+    .text("Gmail")
     .exec();
 ```
 

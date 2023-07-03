@@ -13,6 +13,6 @@ await aui.click().image().exec();
 
 // Works if you have an image with
 // a text below
-await aui.click().image().above().text().withText('Automating WebGL').exec();
+await aui.click().image().above().text('Automating WebGL').exec();
 ```
 ![](/img/gif/image.gif)

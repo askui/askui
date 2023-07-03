@@ -17,10 +17,10 @@ await aui.click().text().exec();
 await aui.click().text('Username').exec();
 
 // Matching with an exact text
-await aui.click().text().withExactText('Username').exec();
+await aui.click().text('Username').exec();
 
 // Matching with a regex
-await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
+await aui.click().text('\b[Ss]\w+').exec();
 ```
 
    * @param {string} [text] - A text to be matched.

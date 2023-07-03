@@ -8,7 +8,7 @@ Filters for a UI element 'checkbox'.
 
 **Example:**
 ```typescript
-await aui.moveMouseTo().checkbox().leftOf().text().withText('Save the world').exec();
+await aui.moveMouseTo().checkbox().leftOf().text('Save the world').exec();
 ```
 
 ![](/img/gif/checkbox.gif)

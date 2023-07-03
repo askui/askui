@@ -48,7 +48,7 @@ describe(/* a string identifying the askui suite */, () => {
 Next, we want to click on the folder where our images are stored and open it.
 
 ```ts
-await aui.click().text().withText('askui').exec();
+await aui.click().text('askui').exec();
 await aui.mouseDoubleLeftClick().exec();
 ```
 
@@ -59,11 +59,11 @@ Select the first image and then use the shortcut `Ctrl + A` to select all images
 // The text to insert here should be something in the opened explorer window.
 // Usually there is 'This PC' or 'Quick Access' there.
 // Watch the video if you are not sure how the element-descriptor works.
-await aui.click().image().nearestTo().text().withText('This PC').exec();
+await aui.click().image().nearestTo().text('This PC').exec();
 await aui.pressTwoKeys('control', 'A').exec();
 
 await aui.mouseRightClick().exec();
-await aui.click().text().withText('Compress to Zip file').exec();
+await aui.click().text('Compress to Zip file').exec();
 await aui.type('askui screenshots').exec();
 await aui.pressKey('enter').exec();
 ```
@@ -74,7 +74,7 @@ The mouse pointer moves to it and double-clicks to open it.
 
 ```ts
 await aui.click().icon().withText('minus').nearestTo().icon().withText('stop').exec();
-await aui.click().text().withText('Google').exec();
+await aui.click().text('Google').exec();
 await aui.mouseDoubleLeftClick().exec();
 ```
 
@@ -85,9 +85,9 @@ Do not forget to replace `<Your Google drive link to the folder>`!
 
 ```ts
 // Omit this step if you do not use profiles in chrome
-await aui.click().text().withText('<Your profile>').nearestTo().text().withText('work').exec();
+await aui.click().text('<Your profile>').nearestTo().text('work').exec();
 
-await aui.typeIn('<Your Google drive link to the folder').textfield().contains().text().withText('Search Google or type a URL').exec();
+await aui.typeIn('<Your Google drive link to the folder').textfield().contains().text('Search Google or type a URL').exec();
 await aui.pressKey('enter').exec();
 ```
 
@@ -96,12 +96,12 @@ Within the Google Drive folder, a mouse-right-click opens the context menu. Ther
 
 ```ts
 await aui.mouseRightClick().exec();
-await aui.click().text().withText('File upload').exec();
-await aui.click().text().withText('Desktop').exec();
-await aui.click().text().withText('askui').exec();
+await aui.click().text('File upload').exec();
+await aui.click().text('Desktop').exec();
+await aui.click().text('askui').exec();
 await aui.pressKey('enter').exec();
-await aui.click().text().withText('askui screenshots').exec();
-await aui.click().text().withText('Open').exec();
+await aui.click().text('askui screenshots').exec();
+await aui.click().text('Open').exec();
 ```
 
 ## Complete Code
@@ -109,36 +109,36 @@ await aui.click().text().withText('Open').exec();
 describe(/* a string identifying the askui suite */, () => {
 
     it('Should upload screenshots folder on google drive', async () => {
-        await aui.click().text().withText('askui').exec();
+        await aui.click().text('askui').exec();
         await aui.mouseDoubleLeftClick().exec();
 
         // The text to insert here should be something in the opened explorer window.
         // Usually there is 'This PC' or 'Quick Access' there.
         // Watch the video if you are not sure how the selector works.
-        await aui.click().image().nearestTo().text().withText('This PC').exec();
+        await aui.click().image().nearestTo().text('This PC').exec();
         await aui.pressTwoKeys('control', 'A').exec();
 
         await aui.mouseRightClick().exec();
-        await aui.click().text().withText('Compress to Zip file').exec();
+        await aui.click().text('Compress to Zip file').exec();
         await aui.type('askui screenshots').exec();
         await aui.pressKey('enter').exec();
 
         await aui.click().icon().withText('minus').nearestTo().icon().withText('stop').exec();
-        await aui.click().text().withText('Google').exec();
+        await aui.click().text('Google').exec();
         await aui.mouseDoubleLeftClick().exec();
 
         // Omit this step if you do not use profiles in chrome
-        await aui.click().text().withText('<Your profile>').nearestTo().text().withText('work').exec();
-        await aui.typeIn('<Your Google drive link to the folder').textfield().contains().text().withText('Search Google or type a URL').exec();
+        await aui.click().text('<Your profile>').nearestTo().text('work').exec();
+        await aui.typeIn('<Your Google drive link to the folder').textfield().contains().text('Search Google or type a URL').exec();
         await aui.pressKey('enter').exec();
 
         await aui.mouseRightClick().exec();
-        await aui.click().text().withText('File upload').exec();
-        await aui.click().text().withText('Desktop').exec();
-        await aui.click().text().withText('askui').exec();
+        await aui.click().text('File upload').exec();
+        await aui.click().text('Desktop').exec();
+        await aui.click().text('askui').exec();
         await aui.pressKey('enter').exec();
-        await aui.click().text().withText('askui screenshots').exec();
-        await aui.click().text().withText('Open').exec();
+        await aui.click().text('askui screenshots').exec();
+        await aui.click().text('Open').exec();
     });
 });
 ```

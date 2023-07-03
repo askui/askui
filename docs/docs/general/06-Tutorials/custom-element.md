@@ -160,7 +160,7 @@ describe('Explore the world in google maps', ()=>{
     // drag the custom element(our human) to the location we want to explore
     // note the offset of -50 pixels along the y axis
     // we drag the human 10 pixels higher than the location Aguas Calientes
-    await aui.moveMouseRelativelyTo(0, -10).text().withText('Aguas Calientes').exec();
+    await aui.moveMouseRelativelyTo(0, -10).text('Aguas Calientes').exec();
 
     // release the mouse button
     await aui.mouseToggleUp().exec();
@@ -240,7 +240,7 @@ it('enable street view', async ()=>{
     // drag the custom element(our human) to the location we want to explore
     // note the offset of -10 pixels in the y axis
     // we drag the human to 10 pixels higher than the location Aguas Calientes
-    await aui.moveMouseRelativelyTo(0,-10).text().withText('Aguas Calientes').exec();
+    await aui.moveMouseRelativelyTo(0,-10).text('Aguas Calientes').exec();
 
     // release the mouse button
     await aui.mouseToggleUp().exec();

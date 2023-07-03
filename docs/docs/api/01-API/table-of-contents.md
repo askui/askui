@@ -87,8 +87,8 @@ Use the structure `expect().<your filter>.(exists()|notExists())` as shown in th
 
 **Examples:**
 ```typescript 
-await aui.expect().text().withText('Login').exists().exec()
-await aui.expect().text().withText('Login').notExists().exec()
+await aui.expect().text('Login').exists().exec()
+await aui.expect().text('Login').notExists().exec()
 ```  
 
 </md-block>
@@ -849,7 +849,7 @@ await aui.click().image().exec();
 
 // Works if you have an image with
 // a caption text below
-await aui.click().image().above().text().withText('The caption').exec();
+await aui.click().image().above().text('The caption').exec();
 ```  
 
 </md-block>
@@ -1010,7 +1010,7 @@ await aui.typeIn('Oh yeah').textfield().exec();
 
 // Works if you have a labeled textfield
 // Label is above the textfield
-await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+await aui.typeIn('Oh yeah').textfield().below().text('E-Mail Address').exec();
 ```  
 
 </md-block>
@@ -1528,12 +1528,12 @@ Always use together with `expect()`.
 **Examples:**
 ```typescript
 // Stops execution at this point when the element does not exist.
-await aui.expect().text().withText('Login').exists().exec()
+await aui.expect().text('Login').exists().exec()
 
 // This will catch the error and log a message
 // But the execution will continue afterwards
 try {
-    await aui.expect().text().withText('Login').exists().exec()
+    await aui.expect().text('Login').exists().exec()
 } catch (error) {
     console.log('Too bad we could not find the element!');
 }
@@ -1562,12 +1562,12 @@ Always use together with `expect()`.
 **Examples:**
 ```typescript
 // Stops execution at this point when the element does exist.
-await aui.expect().text().withText('Login').notExists().exec()
+await aui.expect().text('Login').notExists().exec()
 
 // This will catch the error and log a message
 // But the execution will continue afterwards
 try {
-    await aui.expect().text().withText('Login').notExists().exec()
+    await aui.expect().text('Login').notExists().exec()
 } catch (error) {
     console.log('Too bad we could find the element!');
 }
@@ -1607,7 +1607,7 @@ A detected element has the following properties:
 
 **Examples:**
 ```typescript 
-const text = await aui.get().text().withText('Sign').exec();
+const text = await aui.get().text('Sign').exec();
 console.log(text);
 ```
 ```text 

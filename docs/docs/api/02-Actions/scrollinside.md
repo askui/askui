@@ -10,7 +10,7 @@ Moves mouse to the filtered element and scrolls in the x and y direction.
 
 **Example:**
 ```typescript 
-await aui.scrollInside(0,-500).text().withText('Bottom sheet').exec();
+await aui.scrollInside(0,-500).text('Bottom sheet').exec();
 ```
 
 ![](/img/gif/scrollInside.gif)

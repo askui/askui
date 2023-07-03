@@ -8,7 +8,7 @@ Filters for any UI element on the screen. Since the `element()` itself doesn't d
 
 **Examples:** 
 ```typescript
-await aui.moveMouseTo().element().below().text().withText('Layers').exec();
+await aui.moveMouseTo().element().below().text('Layers').exec();
 ```
 ![](/img/gif/element.gif)
 
