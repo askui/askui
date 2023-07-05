@@ -1,3 +1,4 @@
+import { ControlCommandError } from '../../execution/control-command-error';
 import { Instruction } from './instruction';
 import { Snapshot } from './snapshot';
 import { Step } from './step';
@@ -85,8 +86,11 @@ export class DefaultStep implements Step {
   }
 
   private static determineLastRunStatus(error?: Error): StepStatusEnd {
-    if (error !== undefined) {
+    if (error instanceof ControlCommandError) {
       return 'failed';
+    }
+    if (error !== undefined) {
+      return 'erroneous';
     }
     return 'passed';
   }
