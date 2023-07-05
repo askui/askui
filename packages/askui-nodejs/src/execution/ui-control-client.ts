@@ -10,7 +10,6 @@ import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
 import { AnnotationLevel } from './annotation-level';
-import { UiControlClientError } from './ui-control-client-error';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ClientArgs, UiControlClientConfig } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
@@ -168,9 +167,7 @@ export class UiControlClient extends ApiCommands {
         instruction,
         error instanceof Error ? error : new Error(String(error)),
       );
-      return Promise.reject(
-        new UiControlClientError(`A problem occurred while executing the instruction: ${instruction.valueHumanReadable}. Reason ${error}`),
-      );
+      return Promise.reject(error);
     }
   }
 
