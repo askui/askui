@@ -14,7 +14,7 @@ Filters for texts, which match the regex pattern.
 'The rain in switzerland' === withTextRegex('\b[Ss]\w+') => true
 
 // this filters any text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
-await aui.get().text('.*([Pp]ie|[Cc]ake).*').exec();
+await aui.get().text.withTextRegex('.*([Pp]ie|[Cc]ake).*').exec();
 ```
 ![](/img/gif/withTextRegex.gif)
 
