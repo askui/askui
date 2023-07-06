@@ -22,7 +22,7 @@ import { ControlCommand } from '../core/ui-control-commands';
 import { logger } from '../lib/logger';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ReadRecordingResponseStreamHandler } from './read-recording-response-stream-handler';
-import { UiControlClientError } from './ui-control-client-error';
+import { UiControllerClientError } from './ui-controller-client-error';
 
 export class UiControllerClient {
   private static readonly EMPTY_REJECT = (_reason?: unknown) => { };
@@ -78,12 +78,12 @@ export class UiControllerClient {
         });
         this.ws.on('error', (error: WebSocket.ErrorEvent) => {
           this.connectionState = UiControllerClientConnectionState.ERROR;
-          reject(new UiControlClientError(`Connection to UI Controller cannot be established,
+          reject(new UiControllerClientError(`Connection to UI Controller cannot be established,
           Probably it was not started. Make sure you started UI Controller with this 
-          Url ${this.url}. Error message  ${error.message}`));
+          Url ${this.url}. Cause: ${error}`));
         });
       } catch (error) {
-        reject(new UiControlClientError(`Connection to UI Controller cannot be established. Reason: ${error}`));
+        reject(new UiControllerClientError(`Connection to UI Controller cannot be established. Cause: ${error}`));
       }
     });
   }
@@ -102,12 +102,11 @@ export class UiControllerClient {
       try {
         this.send(msg, requestTimeout);
         this.timeout = setTimeout(
-          () => this.currentReject(`Request to UI Controller timed out.
-          It seems that the UI Controller is not running. Please, make sure that it is running when executing tests.`),
+          () => this.currentReject(new UiControllerClientError('Request to UI Controller timed out. It seems that the UI Controller is not running. Please, make sure that it is running when executing tests.')),
           UiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
-        this.currentReject(`The communication to the UI Controller is broken. Reason: ${error}`);
+        this.currentReject(new UiControllerClientError(`The communication to the UI Controller is broken. Cause: ${error}`));
       }
     });
   }
@@ -117,7 +116,7 @@ export class UiControllerClient {
     _requestTimeout = UiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ) {
     if (!this.currentReject || !this.currentResolve) {
-      throw Error('Request is not finished! It is not possible to have multiple requests at the same time.');
+      throw new UiControllerClientError('Request is not finished! It is not possible to have multiple requests at the same time.');
     }
     logger.debug(`Send: ${JSON.stringify(msg.msgName)}`);
     this.ws.send(JSON.stringify(msg));
