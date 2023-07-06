@@ -50,29 +50,6 @@ ___
   The side length of the target image to resize to in px. Your screenshot image will be resized with the original aspect ratio, and the lengths image side will be equal to this number. This can be used to reduce the inference time by reducing the request size in case of a bad internet connection. But it can cause a decrease in the prediction quality.
   The resizing will be skipped if it's undefined.
 
-
-___
-
-### annotationLevel
-
-- **annotationLevel**: `AnnotationLevel` - Default: `AnnotationLevel.DISABLED`
-
-AnnotationLevel is implemented as an enum. You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
-
-`ALL`:  Runs the [annotate](/img/gif/interactive-annotate.gif) command after the execution of each instruction.
-
-`ON_FAILURE`: Runs the annotate command if the instruction fails.
-
-`DISABLED`: Never runs the annotate command after an instruction.
-
-#### Example
-
-```typescript
- let aui = await UiControlClient.build({
-    annotationLevel: AnnotationLevel.DISABLED
-  });
-```
-
 ___
 
 ### credentials

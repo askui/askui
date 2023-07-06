@@ -8,7 +8,6 @@ import {
 import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
 import { envProxyAgents } from '../utils/proxy/proxy-builder';
-import { AnnotationLevel } from './annotation-level';
 import { ExecutionRuntime } from './execution-runtime';
 import {
   DEFAULT_REPORTER, Reporter, ReporterConfig, StepReporter,
@@ -92,8 +91,6 @@ export class UiControlClientDependencyBuilder {
       ...clientArgs,
       uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
       inferenceServerUrl: clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
-      annotationLevel: clientArgs.annotationLevel
-        ?? AnnotationLevel.DISABLED,
       credentials: clientArgs.credentials ?? envCredentials(),
       proxyAgents: clientArgs.proxyAgents ?? await envProxyAgents(),
       reporter: UiControlClientDependencyBuilder.buildReporter(clientArgs.reporter),

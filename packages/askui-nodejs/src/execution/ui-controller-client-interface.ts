@@ -1,4 +1,3 @@
-import { AnnotationLevel } from './annotation-level';
 import { CredentialArgs } from './credentials-args';
 import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
@@ -19,10 +18,6 @@ import { Reporter, ReporterConfig } from '@/core/reporting';
  * But it can cause a decrease in the prediction quality.
  * @param {string} inferenceServerUrl - Default: https://inference.askui.com`
  * Address of the askui Inference server.
- * @param {AnnotationLevel} annotationLevel - Default: AnnotationLevel.DISABLED
- * Usage of annotate command
- * after execution of test steps.
- * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
  * @param {CredentialArgs} credentials - We need to provide credentials for
  * the authentication of the askui Inference Server.
  * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
@@ -32,7 +27,6 @@ import { Reporter, ReporterConfig } from '@/core/reporting';
 export interface ClientArgs {
   readonly uiControllerUrl?: string
   readonly inferenceServerUrl?: string
-  readonly annotationLevel?: AnnotationLevel
   readonly credentials?: CredentialArgs | undefined
   readonly proxyAgents?: ProxyAgentArgs | undefined
   readonly resize?: number
@@ -43,10 +37,5 @@ export interface ClientArgs {
 export interface ClientArgsWithDefaults extends ClientArgs {
   readonly uiControllerUrl: string
   readonly inferenceServerUrl: string
-  readonly annotationLevel: AnnotationLevel
   readonly reporter: Required<Reporter> & { config: Required<ReporterConfig> }
-}
-
-export interface UiControlClientConfig {
-  annotationLevel: AnnotationLevel;
 }

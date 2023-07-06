@@ -9,15 +9,13 @@ import { Annotation } from '../core/annotation/annotation';
 import { AnnotationWriter } from '../core/annotation/annotation-writer';
 import { AnnotationRequest } from '../core/model/annotation-result/annotation-interface';
 import { logger } from '../lib/logger';
-import { AnnotationLevel } from './annotation-level';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
-import { ClientArgs, UiControlClientConfig } from './ui-controller-client-interface';
+import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
 
 export class UiControlClient extends ApiCommands {
   private constructor(
-    private config: UiControlClientConfig,
     private executionRuntime: ExecutionRuntime,
     private stepReporter: StepReporter,
   ) {
@@ -29,9 +27,6 @@ export class UiControlClient extends ApiCommands {
     const clientArgsWithDefaults = await builder.getClientArgsWithDefaults(clientArgs);
     const { executionRuntime, stepReporter } = await builder.build(clientArgsWithDefaults);
     return new UiControlClient(
-      {
-        annotationLevel: clientArgsWithDefaults.annotationLevel,
-      },
       executionRuntime,
       stepReporter,
     );
@@ -72,15 +67,8 @@ export class UiControlClient extends ApiCommands {
     return this.executionRuntime.readVideoRecording();
   }
 
-  private shouldWriteAnntotationAfterCommandExecution(error?: Error): boolean {
-    const { annotationLevel } = this.config;
-    return annotationLevel === AnnotationLevel.ALL
-      || (annotationLevel === AnnotationLevel.ON_FAILURE && error !== undefined);
-  }
-
   private shouldAnnotateAfterCommandExecution(error?: Error): boolean {
-    return this.shouldWriteAnntotationAfterCommandExecution(error)
-      || (this.stepReporter.config.withDetectedElements === 'onFailure' && error !== undefined)
+    return (this.stepReporter.config.withDetectedElements === 'onFailure' && error !== undefined)
       || (this.stepReporter.config.withDetectedElements === 'always');
   }
 
@@ -92,13 +80,6 @@ export class UiControlClient extends ApiCommands {
       annotation = await this.executionRuntime.annotateImage(
         undefined,
         instruction.customElements,
-      );
-    }
-    if (annotation !== undefined && this.shouldWriteAnntotationAfterCommandExecution(error)) {
-      AnnotationWriter.write(
-        annotation.toHtml(),
-        undefined,
-        `${error !== undefined ? 'failed' : 'passed'}_testStep_annotation`,
       );
     }
     if (annotation !== undefined || this.stepReporter.config.withScreenshots === 'always') {
