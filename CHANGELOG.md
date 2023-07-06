@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.11.0](https://github.com/askui/askui/compare/v0.10.5...v0.11.0) (2023-07-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **packages/askui-nodejs:** Deprecate creating annotation file after instruction including configuration via
+UiControlClient's ClientArgs.annotationLevel. Use reporter instead.
+
+### Features
+
+* **packages/askui-nodejs:** deprecate creating annotation file after instruc. (incl. config) ([029c04a](https://github.com/askui/askui/commit/029c04a94855c76462cb6226012676743afd04b2))
+
+
+### Bug Fixes
+
+* **askui-nodejs/error-handling:** use UiControllerClientError correctly (#CL-322) ([3c08093](https://github.com/askui/askui/commit/3c08093f9c51e1a89d8aed09a04231887a803302))
+* **askui-nodejs/reporting:** differentiate correctly between failed and erroneous instructions ([2b3732e](https://github.com/askui/askui/commit/2b3732e6cc04938885d10fed7c4c9c402f7f1a21))
+* **packages/askui-nodejs:** fix auto-completion for reporter in UiControlClient's ClientArgs ([c55b4e6](https://github.com/askui/askui/commit/c55b4e6f3f0587de11d2af910a33aecb0bce69bd))
+
 ## [0.10.5](https://github.com/askui/askui/compare/v0.10.4...v0.10.5) (2023-06-21)
 
 
