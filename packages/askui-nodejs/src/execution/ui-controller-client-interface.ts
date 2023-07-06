@@ -1,7 +1,7 @@
 import { CredentialArgs } from './credentials-args';
 import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
-import { Reporter, ReporterConfig } from '@/core/reporting';
+import { Reporter, ReporterConfig } from '../core/reporting';
 
 /**
  * Configuration options for the askui UI Control Client
