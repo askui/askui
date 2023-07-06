@@ -129,8 +129,6 @@ url
 dropdown
 uiControllerUrl
 inferenceServerUrl
-annotationLevel
-AnnotationLevel
 progressbar
 macOS
 SDK

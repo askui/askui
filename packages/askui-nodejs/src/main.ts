@@ -1,5 +1,5 @@
 export { UiController } from './lib';
-export { AnnotationLevel, UiControlClient } from './execution';
+export { UiControlClient } from './execution';
 export {
   Instruction,
   Reporter,

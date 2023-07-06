@@ -1,4 +1,4 @@
-import { CustomElement } from '@/core/model/custom-element';
+import { CustomElement } from '../model/custom-element';
 
 export interface Instruction {
   readonly value: string;
