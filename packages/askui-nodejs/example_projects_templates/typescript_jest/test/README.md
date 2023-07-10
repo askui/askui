@@ -3,7 +3,7 @@ Example to introduce how to use the askui SDK.
 The lib helps to control the operating system with
 commands.
 Using Jest as runner framework to execute all your
-AskUI workflows..
+AskUI workflows.
 
 ## Installation of Jest and Typescript
 

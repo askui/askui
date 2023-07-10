@@ -32,7 +32,7 @@ This will create a `package.json` file inside your present working directory whi
 Install `askui` and other dependencies for writing and executing tests:
 
 ```shell
-npm i -D askui askui-reporters typescript ts-node @types/jest ts-jest jest jest-allure-circus
+npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jest
 ```
 
 <details>
@@ -45,7 +45,6 @@ npm i -D askui askui-reporters typescript ts-node @types/jest ts-jest jest jest-
 - [jest](https://www.npmjs.com/package/jest): Allowing you to write and run tests (`describe`, `it`, assertions, mocking etc.)
 - [ts-jest](https://www.npmjs.com/package/ts-jest): A Jest transformer with source map support that lets you use Jest to test projects written in TypeScript
 - [@types/jest](https://www.npmjs.com/package/@types/jest): Types for Jest
-- [jest-allure-circus](https://www.npmjs.com/package/jest-allure-circus): Needed for the AskUI reporter which uses [Allure](https://github.com/allure-framework) under the hood.
 
 </details>
 
