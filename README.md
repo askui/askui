@@ -13,8 +13,7 @@
 This repo is a [monorepo](https://en.wikipedia.org/wiki/Monorepo#:~:text=In%20version%20control%20systems%2C%20a,as%20a%20'shared%20codebase'.) consisting mainly of npm packages. We use [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) to managing the different npm packages etc. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of askui available to non-typescript/-javascript developers as well.
 
 ## Installation
-
-Simply run an `npm install` inside the root directory.
+Run an `npm install` inside the root directory.
 
 ```sh
 $ npm install
