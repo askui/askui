@@ -209,7 +209,7 @@ To type into a textfield, we first need to get focus on the desired textfield. W
 ```typescript
 // click on the textfield and type characters
 // repeat this as many times as the textfields
-await aui.click().text().withText('Enter your username').exec();
+await aui.click().text('Enter your username').exec();
 await aui.type('askui').exec();
 ```
 
@@ -218,15 +218,15 @@ As we have multiple of textfields in our demo app, we can iterate the same proce
 ```typescript
 // click on the textfield and type characters
 // repeat this as many times as the textfields
-await aui.click().text().withText('Enter your username').exec();
+await aui.click().text('Enter your username').exec();
 await aui.type('askui').exec();
 
 // click and type the email address
-await aui.click().text().withText('Enter your email').exec();
+await aui.click().text('Enter your email').exec();
 await aui.type('askui@askui.com').exec();
 
 // Click and type the address
-await aui.click().text().withText('Enter your address').exec();
+await aui.click().text('Enter your address').exec();
 await aui.type('Haid-und-Neu-Straße 18').exec();
 
 // Pressing enter is the equivalent of pressing the return button on the on-screen-keyboard
@@ -238,17 +238,17 @@ After filling up the textfields, we can push the buttons at the bottom of the pa
 
 ```typescript
 // Press the 'Submit' button
-await aui.click().text().withText('Submit').exec();
+await aui.click().text('Submit').exec();
 
 // We will have a popup window that has two buttons. Press the 'Refuse' button
-await aui.click().text().withText('Refuse').exec();
+await aui.click().text('Refuse').exec();
 
 // Here we press multiple toggle buttons one by one
-await aui.click().text().withText('Banana').exec();
-await aui.click().text().withText('Mango').exec();
-await aui.click().text().withText('Sunny').exec();
-await aui.click().text().withText('Rainy').exec();
-await aui.click().text().withText('Windy').exec();
+await aui.click().text('Banana').exec();
+await aui.click().text('Mango').exec();
+await aui.click().text('Sunny').exec();
+await aui.click().text('Rainy').exec();
+await aui.click().text('Windy').exec();
 
 // Attention for swiping!
 /*  Swipe/scroll within the page
@@ -276,9 +276,9 @@ First, we select and type characters into two different textfields:
 
 ```typescript
 // First, we type in the desired values into the textfields.
-await aui.click().text().withText('Title').exec();
+await aui.click().text('Title').exec();
 await aui.type('My vacation plan').exec();
-await aui.click().text().withText('Description').exec();
+await aui.click().text('Description').exec();
 await aui.type('0. Drink a lot of water').exec();
 await aui.pressAndroidKey('tab').exec();
 ```
@@ -288,31 +288,31 @@ Thereafter, we interact with two different date picker widgets that are represen
 ```typescript
 // Second, we select a desired date from the Datepicker widget.
 // Notice how we select the icon 'chevron right/left' to shift the calendar month.
-await aui.click().text().withText('edit').nearestTo().text().withText('Depature').exec(); // this will open up the calendar
+await aui.click().text('edit').nearestTo().text('Depature').exec(); // this will open up the calendar
 await aui.click().icon().withText('chevron right').exec();
 
 // within the calendar, we push the > icon on the top right corner
 await aui.click().icon().withText('chevron right').exec();
-await aui.click().text().withText('7').exec(); // select 7
-await aui.click().text().withText('ok').exec(); // then, press OK
+await aui.click().text('7').exec(); // select 7
+await aui.click().text('ok').exec(); // then, press OK
 
 // Repeat the step for the next Datepicker widget.
-await aui.click().text().withText('edit').nearestTo().text().withText('Return').exec();
+await aui.click().text('edit').nearestTo().text('Return').exec();
 await aui.click().icon().withText('chevron right').exec();
 await aui.click().icon().withText('chevron right').exec();
 await aui.click().icon().withText('chevron right').exec();
-await aui.click().text().withText('5').exec();
-await aui.click().text().withText('ok').exec();
+await aui.click().text('5').exec();
+await aui.click().text('ok').exec();
 ```
 
 Let's go further below to the bottom of the page, and then interact with more interfaces:
 
 ```typescript
 // click and check the checkbox
-await aui.click().checkboxUnchecked().nearestTo().text().withText('Brushed Teeth').exec();
+await aui.click().checkboxUnchecked().nearestTo().text('Brushed Teeth').exec();
 
 // finally, we turn on the switch
-await aui.click().switchDisabled().nearestTo().text().withText('Enable feature').exec();
+await aui.click().switchDisabled().nearestTo().text('Enable feature').exec();
 
 // Swipe the page to the Camera tab
 await aui.execOnShell('input swipe 1000 1000 100 1000').exec();
@@ -325,7 +325,7 @@ In the final tab **Camera**, we can launch the device's camera and take a pictur
 
 ```typescript
 // Click on the button 'Take a Picture', then it will launch the camera
-await aui.click().button().contains().text().withText('Take a Picture').exec();
+await aui.click().button().contains().text('Take a Picture').exec();
 
 // Notice how we select the record button.
 // Our demo-app intends to have the record button in a circular shape.
@@ -348,15 +348,15 @@ describe('jest with askui', () => {
     it('should fill up the textfields and push buttons', async () => {
         // click on the textfield and type characters
         // repeat this as many times as the textfields
-        await aui.click().text().withText('Enter your username').exec();
+        await aui.click().text('Enter your username').exec();
         await aui.type('askui').exec();
 
         // click on the textfield and type the email        
-        await aui.click().text().withText('Enter your email').exec();
+        await aui.click().text('Enter your email').exec();
         await aui.type('askui@askui.com').exec();
 
         // Click and type the address
-        await aui.click().text().withText('Enter your address').exec();
+        await aui.click().text('Enter your address').exec();
         await aui.type('Haid-und-Neu-Straße 18').exec();
 
         // Pressing enter is the equivelant to pressing the return button on the on-screen-keyboard
@@ -364,17 +364,17 @@ describe('jest with askui', () => {
         await aui.pressAndroidKey('enter').exec();
 
         // Press the 'Submit' button
-        await aui.click().text().withText('Submit').exec();
+        await aui.click().text('Submit').exec();
 
         // We will have a popup window that has two buttons. Press the 'Refuse' button
-        await aui.click().text().withText('Refuse').exec();
+        await aui.click().text('Refuse').exec();
 
         // Here we press multiple of toggle buttons one by one
-        await aui.click().text().withText('Banana').exec();
-        await aui.click().text().withText('Mango').exec();
-        await aui.click().text().withText('Sunny').exec();
-        await aui.click().text().withText('Rainy').exec();
-        await aui.click().text().withText('Windy').exec();
+        await aui.click().text('Banana').exec();
+        await aui.click().text('Mango').exec();
+        await aui.click().text('Sunny').exec();
+        await aui.click().text('Rainy').exec();
+        await aui.click().text('Windy').exec();
 
 
         // Attention for swiping!
@@ -397,34 +397,34 @@ describe('jest with askui', () => {
 
     it('should pick the dates', async () => {
         // First, we type in the desired values into the textfields.
-        await aui.click().text().withText('Title').exec();
+        await aui.click().text('Title').exec();
         await aui.type('My vacation plan').exec();
-        await aui.click().text().withText('Description').exec();
+        await aui.click().text('Description').exec();
         await aui.type('0. Drink a lot of water').exec();
         await aui.pressAndroidKey('tab').exec();
 
         // Second, we select a desired date from the Datepicker widget.
         // Notice how we select the icon 'chevron right/left' to shift the calendar month.
-        await aui.click().text().withText('edit').nearestTo().text().withText('Depature').exec(); // this will open up the calendar
+        await aui.click().text('edit').nearestTo().text('Depature').exec(); // this will open up the calendar
         await aui.click().icon().withText('chevron right').exec(); // within the calendar, we push the > icon on the top right corner
         await aui.click().icon().withText('chevron right').exec();
-        await aui.click().text().withText('7').exec(); // select 7
-        await aui.click().text().withText('ok').exec(); // then, press OK
+        await aui.click().text('7').exec(); // select 7
+        await aui.click().text('ok').exec(); // then, press OK
 
 
         // Repeat the step for the next Datepicker widget.
-        await aui.click().text().withText('edit').nearestTo().text().withText('Return').exec();
+        await aui.click().text('edit').nearestTo().text('Return').exec();
         await aui.click().icon().withText('chevron right').exec();
         await aui.click().icon().withText('chevron right').exec();
         await aui.click().icon().withText('chevron right').exec();
-        await aui.click().text().withText('5').exec();
-        await aui.click().text().withText('ok').exec();
+        await aui.click().text('5').exec();
+        await aui.click().text('ok').exec();
 
         // click and check the checkbox
-        await aui.click().checkboxUnchecked().nearestTo().text().withText('Brushed Teeth').exec();
+        await aui.click().checkboxUnchecked().nearestTo().text('Brushed Teeth').exec();
 
         // finally, we turn on the switch
-        await aui.click().switchDisabled().nearestTo().text().withText('Enable feature').exec();
+        await aui.click().switchDisabled().nearestTo().text('Enable feature').exec();
 
         // Swipe the page to the Camera tab
         await aui.execOnShell('input swipe 1000 1000 100 1000').exec();
@@ -433,7 +433,7 @@ describe('jest with askui', () => {
 
     it('should take a picture', async ()=>{
         // Click on the button 'Take a Picture', then it will launch the camera
-        await aui.click().button().contains().text().withText('Take a Picture').exec();
+        await aui.click().button().contains().text('Take a Picture').exec();
 
         // Notice how we select the record button.
         // Our demo-app intends to have the record button in a circular shape.

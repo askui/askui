@@ -13,7 +13,7 @@ await aui.typeIn('Oh yeah').textfield().exec();
 
 // Works if you have a labeled textfield
 // Label is above the textfield
-await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
+await aui.typeIn('Oh yeah').textfield().below().text('E-Mail Address').exec();
 ```
 
 ![](/img/gif/textfield.gif)

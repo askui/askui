@@ -7,7 +7,7 @@
 | bounding box           | Rectangle described by coordinates that describe an element's location. Displayed visually as red rectangle. |
 | credentials            | Combination of `workspace id` and `access token` living in the same workspace. |
 | element                | A user interface component which websites and blocks are build from. |
-| element-description    | A description for a UI element. In the askui Control Client API, for example, it is the coded description like `button()` or `textfield().contains().text().withText('Email')`. |
+| element-description    | A description for a UI element. In the askui Control Client API, for example, it is the coded description like `button()` or `textfield().contains().text('Email')`. |
 | inference              | The process of annotating a user interface. |
 | inference server       | Backend which performs the inference. |
 | instruction            | Single askui directive which usually has following parts: _action_ + (optional)_element-description_.|

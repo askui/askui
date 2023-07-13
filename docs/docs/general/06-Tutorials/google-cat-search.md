@@ -109,7 +109,7 @@ describe('jest with askui', () => {
       .click()
       .text().withTextRegex("Image*")
       .rightOf()
-      .text().withText("Gmail")
+      .text("Gmail")
       .exec();
 
     // Type in cat into search field
@@ -183,7 +183,7 @@ await aui
     .click()
     .text().withTextRegex("Image*")
     .rightOf()
-    .text().withText("Gmail")
+    .text("Gmail")
     .exec();
 ```
 

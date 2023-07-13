@@ -12,10 +12,10 @@ To validate if an element exists or not we use [expect()](../../api/02-Actions/e
 
 ```typescript
 // Expect that a button with text 'Go for it' exists
-await aui.expect().text().withText('Login').exists().exec();
+await aui.expect().text('Login').exists().exec();
 
 // Expect that a text 'Do not go for it' not exists
-await aui.expect().text().withText('Login').notExists().exec();
+await aui.expect().text('Login').notExists().exec();
 ```
 
 ## Assert the Correctness of Values
@@ -26,10 +26,10 @@ This technique is useful if the text you entered is unique on the screen.
 
 ```typescript
 // Type something into a textfield
-await aui.typeIn("Please find me").textfield().contains().text().withText("Enter email").exec();
+await aui.typeIn("Please find me").textfield().contains().text("Enter email").exec();
 
 // Assert if the textfield contains the value
-await aui.expect().textfield().contains().text().withText('Please find me').exists().exec();
+await aui.expect().textfield().contains().text('Please find me').exists().exec();
 ```
 
 ### 2. Retrieve the element with [get()](../../api/06-Getters/get.md) and use an assertions library
@@ -46,11 +46,11 @@ Do not forget the import mentioned at the start of the snippet!
 import {expect, jest, test} from '@jest/globals';
 
 // Type something into a textfield
-await aui.typeIn("Please find me").textfield().contains().text().withText("Enter email").exec();
+await aui.typeIn("Please find me").textfield().contains().text("Enter email").exec();
 
 // You have to retrieve the text you wrote inside the textfield here
 // If you retrieve the textfield it does not contain the text inside of it
-const textfield = await aui.get().text().below().text().withText("User email").exec();
+const textfield = await aui.get().text().below().text("User email").exec();
 
 // below() returns an array. We want the first element of that array!
 expect(textfield[0].text).toBe("Please find me");

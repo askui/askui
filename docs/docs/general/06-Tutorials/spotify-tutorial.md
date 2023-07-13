@@ -55,9 +55,9 @@ On the search result page we need to right click a song to open the menu for the
 ```ts
 it('should like Spotify song', async () => {
     ...
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Songs').exec();
+    await aui.moveMouseTo().text('Bohemian Rhapsody').below().text('Songs').exec();
     await aui.mouseRightClick().exec();
-    await aui.click().text().withText('Save to your Liked Songs').exec();
+    await aui.click().text('Save to your Liked Songs').exec();
 });
 ```
 
@@ -74,8 +74,8 @@ Finally, we want to check whether the song was actually added to the liked songs
 ```ts
 it('should like Spotify song', async () => {
     ...
-    await aui.click().text().withText('Liked Songs').exec();
-    await aui.expect().text().withText('Bohemian Rhapsody').exists().exec();
+    await aui.click().text('Liked Songs').exec();
+    await aui.expect().text('Bohemian Rhapsody').exists().exec();
 });
 ```
 
@@ -86,9 +86,9 @@ To be able to run the workflow again, it is necessary to reset the state of Spot
 ```ts
 it('should like Spotify song', async () => {
     ...
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Title').exec();
+    await aui.moveMouseTo().text('Bohemian Rhapsody').below().text('Title').exec();
     await aui.mouseRightClick().exec();
-    await aui.click().text().withText('Remove from your Liked Songs').exec();
+    await aui.click().text('Remove from your Liked Songs').exec();
 });
 ```
 
@@ -101,14 +101,14 @@ it('should like Spotify song', async () => {
     await aui.click().icon().withText('search').exec();
     await aui.typeIn('Bohemian Rhapsody').textfield().exec();
     await aui.pressKey('enter').exec();
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Songs').exec();
+    await aui.moveMouseTo().text('Bohemian Rhapsody').below().text('Songs').exec();
     await aui.mouseRightClick().exec();
-    await aui.click().text().withText('Save to your Liked Songs').exec();
-    await aui.click().text().withText('Liked Songs').exec();
-    await aui.expect().text().withText('Bohemian Rhapsody').exists().exec();
-    await aui.moveMouseTo().text().withText('Bohemian Rhapsody').below().text().withText('Title').exec();
+    await aui.click().text('Save to your Liked Songs').exec();
+    await aui.click().text('Liked Songs').exec();
+    await aui.expect().text('Bohemian Rhapsody').exists().exec();
+    await aui.moveMouseTo().text('Bohemian Rhapsody').below().text('Title').exec();
     await aui.mouseRightClick().exec();
-    await aui.click().text().withText('Remove from your Liked Songs').exec();
+    await aui.click().text('Remove from your Liked Songs').exec();
 });
 ```
 

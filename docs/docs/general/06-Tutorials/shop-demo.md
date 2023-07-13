@@ -67,7 +67,7 @@ Next, to open the login dialog, we need to click the text login at the top of th
 ```ts
 it('Should log into account', async () => {
     ...
-    await aui.click().text().withText('Login').exec();
+    await aui.click().text('Login').exec();
 });
 ```
 
@@ -82,9 +82,9 @@ To keep the password field visible, we have to hide the auto-complete drop-down.
 ```ts
 it('Should log into account', async () => {
     ...
-    await aui.typeIn('test@askui.com').textfield().contains().text().withText('Email Address').exec();
-    await aui.click().text().withText('Login').above().textfield().exec();
-    await aui.typeIn('passwort').textfield().contains().text().withText('Password').exec();
+    await aui.typeIn('test@askui.com').textfield().contains().text('Email Address').exec();
+    await aui.click().text('Login').above().textfield().exec();
+    await aui.typeIn('passwort').textfield().contains().text('Password').exec();
 });
 ```
 
@@ -95,7 +95,7 @@ After filling in email and password, we need to click the login button. The foll
 ```ts
 it('Should log into account', async () => {
     ...
-    await aui.click().button().contains().text().withText('Log in').exec();
+    await aui.click().button().contains().text('Log in').exec();
 });
 ```
 
@@ -106,8 +106,8 @@ Finally, we need to check whether the login worked. We can do this by checking i
 ```ts
 it('Should log into account', async () => {
     ...
-    await aui.expect().text().withText('Logout test@askui.com').exists().exec();
-    await aui.click().text().withText('Logout test@askui.com').exec();
+    await aui.expect().text('Logout test@askui.com').exists().exec();
+    await aui.click().text('Logout test@askui.com').exec();
 });
 ```
 
@@ -139,13 +139,13 @@ it('Should log into account', async () => {
 
     // Navigate to the website
     await aui.pressKey('enter').exec();
-    await aui.click().text().withText('Login').exec();
-    await aui.typeIn('test@askui.com').textfield().contains().text().withText('Email Address').exec();
-    await aui.click().text().withText('Login').above().textfield().exec();
-    await aui.typeIn('passwort').textfield().contains().text().withText('Password').exec();
-    await aui.click().button().contains().text().withText('Log in').exec();
-    await aui.expect().text().withText('test@askui.com').exists().exec();
-    await aui.click().text().withText('Logout test@askui.com').exec();
+    await aui.click().text('Login').exec();
+    await aui.typeIn('test@askui.com').textfield().contains().text('Email Address').exec();
+    await aui.click().text('Login').above().textfield().exec();
+    await aui.typeIn('passwort').textfield().contains().text('Password').exec();
+    await aui.click().button().contains().text('Log in').exec();
+    await aui.expect().text('test@askui.com').exists().exec();
+    await aui.click().text('Logout test@askui.com').exec();
 });
 ```
 

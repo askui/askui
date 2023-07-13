@@ -8,7 +8,7 @@ Filters for a UI element 'button'.
 
 **Examples:** 
 ```typescript
-await aui.click().button().contains().text().withText('Google Search').exec()
+await aui.click().button().contains().text('Google Search').exec()
 ```
 
 ![](/img/gif/button.gif)

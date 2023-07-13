@@ -10,7 +10,7 @@ Use the structure `expect().<your filter>.(exists()|notExists())` as shown in th
 
 **Examples:**
 ```typescript 
-await aui.expect().text().withText('Login').exists().exec()
-await aui.expect().text().withText('Login').notExists().exec()
+await aui.expect().text('Login').exists().exec()
+await aui.expect().text('Login').notExists().exec()
 ```
 

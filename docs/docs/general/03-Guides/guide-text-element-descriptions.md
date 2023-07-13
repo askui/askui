@@ -22,7 +22,7 @@ For a convenient demonstration, we will use a [Flutter web demo](https://gallery
 The simplest way to interact with a text element is to use `withText()`. Go to the demo app page and run the code below:
 
 ```ts
-await aui.moveMouseTo().text().withText('matrial').exec();
+await aui.moveMouseTo().text('matrial').exec();
 await aui.mouseLeftClick().exec();
 ```
 
@@ -84,7 +84,7 @@ function getCentroid(element: any): any {
 }
 
 // Find all the text elements that matches '25.0'
-const elts = await aui.get().text().withText('25.0').exec();
+const elts = await aui.get().text('25.0').exec();
 
 // Then, iterate through the found elements and click on them
 for(let i=0; i<elts.length; ++i){

@@ -22,7 +22,7 @@ If you use `containsText()`, `withText()`, `withExactText()` or `withTextRegex()
 ```javascript
 // Do this
 await aui.click().button().withText('See here').exec();
-await aui.click().text().withText('Sign in').exec();
+await aui.click().text('Sign in').exec();
 
 // And NOT this
 await aui.click().withText('See here').exec();
@@ -36,7 +36,7 @@ If you use `customElement()` you are doing an image-in-image search. Use this sp
 ```javascript
 // Do this
 await aui.click().button().withText('Login').exec();
-await aui.click().text().withText('Overview').exec();
+await aui.click().text('Overview').exec();
 
 // And NOT this
 await aui.click().customElement({
@@ -111,6 +111,6 @@ async function waitUntil(askuiCommand: () => Promise<void>, maxTry = 5) {
 // Wait for the text 'Github' to be displayed
 await waitUntil(
   async () => 
-    aui.expect().text().withText('Github').exists().exec()
+    aui.expect().text('Github').exists().exec()
   );
 ```

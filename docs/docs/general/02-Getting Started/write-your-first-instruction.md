@@ -139,7 +139,7 @@ describe('jest with askui', () => {
   it('should click on my element', async () => {
     await aui
       .click()
-      .text().withText("node_nodu")
+      .text("node_nodu")
       .exec();
   });
 });

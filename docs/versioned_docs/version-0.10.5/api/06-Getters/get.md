@@ -12,7 +12,7 @@ A detected element has the following properties:
 
 **Examples:**
 ```typescript 
-const text = await aui.get().text().withText('Sign').exec();
+const text = await aui.get().text('Sign').exec();
 console.log(text);
 ```
 ```text 

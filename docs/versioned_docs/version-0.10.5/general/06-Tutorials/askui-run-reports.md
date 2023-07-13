@@ -25,22 +25,22 @@ describe('Login',()=>{
   describe('Simple Form',()=>{
     
     it('should click the button',async ()=>{
-      await aui.moveMouseTo().button().contains().text().withText('Simple Form Auth').exec();
+      await aui.moveMouseTo().button().contains().text('Simple Form Auth').exec();
 
       await aui.mouseLeftClick().exec(); // This first click is to get the focus on the test app
       await aui.mouseLeftClick().exec(); // Thereafter, we click the button
     });
 
     it('should type in the email address',async ()=>{
-      await aui.typeIn('simpleForm@authenticationtest.com').textfield().contains().text().withText('E-mail Address').exec();
+      await aui.typeIn('simpleForm@authenticationtest.com').textfield().contains().text('E-mail Address').exec();
     });
 
     it('should type in the password',async ()=>{
-      await aui.typeIn('pa$$wOrd').textfield().contains().text().withText('Password').exec();
+      await aui.typeIn('pa$$wOrd').textfield().contains().text('Password').exec();
     });
 
     it('should click the login button',async ()=>{
-      await aui.click().button().contains().text().withText('Log In').exec();
+      await aui.click().button().contains().text('Log In').exec();
     });
   });
 });
@@ -268,7 +268,7 @@ describe('Login',()=>{
           context:''
       });
 
-      await aui.moveMouseTo().button().contains().text().withText('Simple Form Auth').exec();
+      await aui.moveMouseTo().button().contains().text('Simple Form Auth').exec();
       await aui.mouseLeftClick().exec(); // This first click is to get the focus on the test app
       await aui.mouseLeftClick().exec(); // Thereafter, we click the button
     });
