@@ -39,7 +39,7 @@ npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jes
   <summary>Quick explanation of all the dependencies</summary>
 
 - [askui](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
-- [askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
+- [@askui/askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
 - [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
 - [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
 - [jest](https://www.npmjs.com/package/jest): Allowing you to write and run tests (`describe`, `it`, assertions, mocking etc.)
