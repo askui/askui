@@ -1,15 +1,15 @@
-# Askui first test
-
-Example to introduce  how to use the askui lib.
-The lib is helps to control the operating system with
+# AskUI First Run
+Example of using the askui SDK.
+The lib helps to control the operating system with
 commands.
-Using Jest as test framework to execute all tests.
+Using Jest as runner framework to execute all your
+AskUI workflows.
 
 ## Installation of Jest and Typescript
 
 Use following command to set up Jest:
 ```shell
-npm i -D jest @types/jest ts-jest typescript
+npm i -D jest @types/jest ts-jest typescript 
 ```
 
 ## How to execute the example

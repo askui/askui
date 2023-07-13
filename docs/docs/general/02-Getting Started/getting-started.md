@@ -32,13 +32,14 @@ This will create a `package.json` file inside your present working directory whi
 Install `askui` and other dependencies for writing and executing tests:
 
 ```shell
-npm i -D askui typescript ts-node @types/jest ts-jest jest
+npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jest
 ```
 
 <details>
   <summary>Quick explanation of all the dependencies</summary>
 
 - [askui](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
+- [@askui/askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
 - [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
 - [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
 - [jest](https://www.npmjs.com/package/jest): Allowing you to write and run tests (`describe`, `it`, assertions, mocking etc.)
@@ -46,6 +47,12 @@ npm i -D askui typescript ts-node @types/jest ts-jest jest
 - [@types/jest](https://www.npmjs.com/package/@types/jest): Types for Jest
 
 </details>
+
+::: note
+
+To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory.
+
+:::
 
 ## Access Token
 

@@ -1,4 +1,6 @@
 import { UiControlClient, UiController } from 'askui';
+import 'jest-allure-circus';
+import { AskUIAllureStepReporter } from '@askui/askui-reporters';
 
 // Server for controlling the operating system
 let uiController: UiController;
@@ -25,13 +27,24 @@ beforeAll(async () => {
       workspaceId: '<your workspace id>',
       token: '<your access token>',
     },
+    reporter: new AskUIAllureStepReporter(),
   });
 
   await aui.connect();
 });
 
+beforeEach(async () => {
+  await aui.startVideoRecording();
+});
+
+afterEach(async () => {
+  await aui.stopVideoRecording();
+  const video = await aui.readVideoRecording();
+  AskUIAllureStepReporter.createAllureAttachment(video);
+});
+
 afterAll(async () => {
-  aui.close();
+  aui.disconnect();
 
   await uiController.stop();
 });
