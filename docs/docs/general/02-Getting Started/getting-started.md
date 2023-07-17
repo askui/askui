@@ -8,6 +8,7 @@ sidebar_position: 2
 
 - [Node.js](https://nodejs.org/) version 16 or above
 - [npm.js](https://www.npmjs.com/) version 7.10 or above
+- A text editor/IDE like [Visual Studio Code](https://code.visualstudio.com/)
 - :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/linux.md#wayland).
 
 
