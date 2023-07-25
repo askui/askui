@@ -78,7 +78,7 @@ If you want to scroll with a key press you could use your arrow keys (`up`, `dow
 await aui.pressKey('down').exec()
 
 // Press up arrow key
-await aui.pressKey('down').exec()
+await aui.pressKey('up').exec()
 
 // Scroll down a page
 await aui.pressKey('pagedown').exec()
