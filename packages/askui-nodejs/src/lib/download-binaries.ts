@@ -45,7 +45,7 @@ export function getBinaryFilePath(version: string): string {
 }
 
 function getBinaryDownloadUrl(binaryVersion: string): string {
-  const baseUrl = `https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/${binaryVersion}`;
+  const baseUrl = `https://files.askui.com/releases/askui-ui-controller/${binaryVersion}`;
   const arch = os.arch();
   return `${baseUrl}/${platform()}/${arch}/${binarySubPathsByPlatform[platform()][1]}`;
 }
