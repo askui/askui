@@ -49,7 +49,7 @@ npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jes
 
 </details>
 
-::: note
+:::note
 
 To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory.
 
