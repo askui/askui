@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/askui/askui/compare/v0.11.1...v0.11.2) (2023-07-26)
+
+
+### Bug Fixes
+
+* example template for npx askui init uses correct function attachVideo from AllureReporter ([47aaa74](https://github.com/askui/askui/commit/47aaa74719875facae162d592c767572e4a68974))
+
 ## [0.11.1](https://github.com/askui/askui/compare/v0.11.0...v0.11.1) (2023-07-26)
 
 
