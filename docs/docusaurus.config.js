@@ -8,7 +8,7 @@ const tagline = 'Humanizing UI Automation';
 // This is a hacky way to get GTM working //////////
 // See also the 'scripts' tag in config ////////////
 var headScript = '/scripts/googleTagManager.js';
-var utm2CookieScript = 'https://askui-public.s3.eu-central-1.amazonaws.com/assets/set-analytics-cookies-from-query-parameters.js';
+var utm2CookieScript = 'https://files.askui.com/assets/set-analytics-cookies-from-query-parameters.js';
 var segmentExternalLinkTracking = '/scripts/segmentExternalLinks.js';
 const isProd = process.env.NODE_ENV === 'production';
 if (!isProd) {

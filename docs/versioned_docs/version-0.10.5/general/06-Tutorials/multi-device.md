@@ -39,7 +39,7 @@ Follow the instructions below.
 
 - If the remote device runs the same OS as the local device, copy the binary from the local device to the remote device.
 - If the remote device runs a different OS, then download the binary for the respective platform:
-    - [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+    - [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 - **macOS** and **Linux** only: If you downloaded the `askui-ui-controller` manually from the link above, you have to make it executable.
     - **macOS**: Mount the downloaded `askui-ui-controller.dmg` by double-clicking it and copy the `askui-ui-controller.app` to wherever you want to store it. Then, the executable binary will be within the `.app`:

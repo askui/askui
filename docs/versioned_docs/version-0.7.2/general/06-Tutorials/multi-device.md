@@ -34,7 +34,7 @@ Let's have a look at the askui library and see how we can accomplish a Cross-pla
     ```
 
 - If the remote device runs the same platform as the local device, simply copy the binary from the local device to the remote device.
-- If the remote device runs a different platform, then download the binary for the respective platform: [Windows](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [Linux](https://askui-public.s3.eu-central-1.amazonaws.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
+- If the remote device runs a different platform, then download the binary for the respective platform: [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS](https://files.askui.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 
 ### Android Only:
