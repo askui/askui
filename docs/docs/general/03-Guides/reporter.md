@@ -3,11 +3,7 @@ sidebar_position: 8
 ---
 
 # AskUI Reporter
-We provide a package `askui-reporters` with reporters ready-to-use to create reports for your AskUI runs.
-
-On this page you will learn how to use the Allure-reporter from this package and how you can implement your own reporter for your reporting tool.
-
-Also [check out the repository](https://github.com/askui/askui-reporters) for more details.
+We provide a package `@askui/askui-reporters` with third-party integration of reporters ready-to-use into your AskUI runs. [Check out the repository](https://github.com/askui/askui-reporters) for more details.
 
 ## Installation
 Install `@askui/askui-reporters` as a dev-dependency:
@@ -23,46 +19,35 @@ Add the reporter to the `UiControlClient` in `jest.setup.ts`:
 // Do not forget this import at the start of the file
 import { AskUIAllureStepReporter } from "@askui/askui-reporters";
 ...
+  const reporterConfig: ReporterConfig = {
+    withScreenshots: 'always', // See below for possible values
+    withDetectedElements: 'always', // See below for possible values
+  }
+
   aui = await UiControlClient.build({
-    reporter: new AskUIAllureStepReporter({
-      withScreenshots: 'always' as const, // See below for possible values
-      withDetectedElements: 'always' as const, // See below for possible values
-    })
+    reporter: new AskUIAllureStepReporter(
+      reportConfig
+    )
   });
 ...
 ```
 
-You can pass a `ReporterConfig` object to the reporter to configure the level of detail for screenshots and detected elements. The default values are `'onFailure'` for both:
+You can pass a `ReporterConfig` object to the reporter to configure the level of detail for screenshots and detected elements.
 
-```typescript
-/**
- * SnapshotDetailLevel represents various levels of detail for the snapshot.
- * There are four possible values for this type.
- *
- * @typedef {'required'|'onFailure'|'begin'|'always'} SnapshotDetailLevel
- *
- * @property {'required'} required - Snapshot details, like screenshots or detected elements, may be available if required by the step. However, their presence is not guaranteed.
- * @property {'onFailure'} onFailure - Snapshot details are available when the step fails, primarily for debugging purposes. This level includes everything provided by 'required'.
- * @property {'begin'} begin - Snapshot details are available when the command starts, useful for determining why certain elements were interacted with. This level includes everything provided by 'onFailure'.
- * @property {'always'} always - Snapshot details are consistently available, irrespective of whether a step has failed or not, aiding in debugging. 
- */
+There are four possible values (See [the @askui/askui-reporters README for a detailed explanation](https://github.com/askui/askui-reporters/tree/main#allure-reporter)):
 
-/**
- * The ReporterConfig interface encapsulates the configuration options for the reporter.
- *
- * @interface ReporterConfig
- *
- * @property {SnapshotDetailLevel} [withScreenshots='onFailure'] - Defines the detail level for screenshots. Acceptable values: 'required', 'onFailure', 'begin', 'always'. Note: Higher levels of detail may impede step execution speed.
- * @property {SnapshotDetailLevel} [withDetectedElements='onFailure'] - Defines the detail level for detecting elements. Acceptable values: 'required', 'onFailure', 'begin', 'always'. Note: Higher levels of detail may impede step execution speed and incur additional costs.
- */
-```
+* onFailure (Default for both)
+* required
+* begin
+* always
 
-#### Configure `beforeEach()` and `afterEach()` in `jest.setup.ts`
+### Configure `beforeEach()` and `afterEach()` in `jest.setup.ts`
 The `UiControlClient` retrieves the videos and images from your `UiController`. You have to implement `beforeEach()` and `afterEach()` in `jest.setup.ts` to start the recording and then add it to your report:
 
 1. Allure Reporter
 ```typescript
 // Do not forget this import at the start of the file
+// as it is needed for the Allure reporting to work
 import "jest-allure-circus";
 
 beforeEach(async () => {
@@ -76,7 +61,7 @@ afterEach(async () => {
 });
 ```
 
-#### Enable the Test Environment `jest-allure-circus` in `jest.config.ts`
+### Enable the Test Environment `jest-allure-circus` in `jest.config.ts`
 
 ```typescript
 import type { Config } from '@jest/types';
@@ -87,7 +72,10 @@ const config: Config.InitialOptions = {
   sandboxInjectedGlobals: [
     'Math',
   ],
+  // highlight-start
+  // Enables the test environment for Allure
   testEnvironment: 'jest-allure-circus',
+  // highlight-end
 };
 
 // eslint-disable-next-line import/no-default-export

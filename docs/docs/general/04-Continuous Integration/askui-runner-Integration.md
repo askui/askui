@@ -48,6 +48,8 @@ EOF
 # Example uses Github Actions syntax
 # You might have to change the path for
 # the directory root
+#
+# ATTENTION: Big workflows might need more than 2g for --shm-size
 docker run --shm-size="2g" --rm -v ${{ github.workspace }}/config.yaml:/home/askui/config.yaml -v ${{ github.workspace }}/allure-results:/home/askui/test_project/allure-results askuigmbh/askui-runner:v0.13.1-github
 ```
 
