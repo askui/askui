@@ -40,7 +40,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
-  AskUIAllureStepReporter.createAllureAttachment(video);
+  AskUIAllureStepReporter.attachVideo(video);
 });
 
 afterAll(async () => {

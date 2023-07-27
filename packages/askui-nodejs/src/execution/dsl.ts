@@ -244,13 +244,35 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  col(
+  column(
     index: number,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
-    this._textStr += 'col';
+    this._textStr += 'column';
     this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   *
+   * @param {number} row_index - row index
+   * @param {number} column_index - column index
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  cell(
+    row_index: number,
+    column_index: number,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'cell';
+    this._textStr += ' row';
+    this._textStr += ` ${row_index}`;
+    this._textStr += ' column';
+    this._textStr += ` ${column_index}`;
 
     return new FluentFiltersOrRelations(this);
   }
@@ -738,7 +760,8 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   rightOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -770,7 +793,8 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   leftOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -805,7 +829,8 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   below(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -839,7 +864,8 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   above(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFilters {
     this._textStr = '';
 
@@ -1064,13 +1090,35 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  col(
+  column(
     index: number,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
-    this._textStr += 'col';
+    this._textStr += 'column';
     this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   *
+   * @param {number} row_index - row index
+   * @param {number} column_index - column index
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  cell(
+    row_index: number,
+    column_index: number,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'cell';
+    this._textStr += ' row';
+    this._textStr += ` ${row_index}`;
+    this._textStr += ' column';
+    this._textStr += ` ${column_index}`;
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -1558,7 +1606,8 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   rightOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1590,7 +1639,8 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   leftOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1625,7 +1675,8 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   below(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -1659,7 +1710,8 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   above(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2641,13 +2693,35 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  col(
+  column(
     index: number,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
-    this._textStr += 'col';
+    this._textStr += 'column';
     this._textStr += ` ${index}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   *
+   * @param {number} row_index - row index
+   * @param {number} column_index - column index
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  cell(
+    row_index: number,
+    column_index: number,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'cell';
+    this._textStr += ' row';
+    this._textStr += ` ${row_index}`;
+    this._textStr += ' column';
+    this._textStr += ` ${column_index}`;
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -3135,7 +3209,8 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   rightOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3167,7 +3242,8 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   leftOf(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3202,7 +3278,8 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   below(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -3236,7 +3313,8 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   above(
-    optionalIndex = 0,
+    optionalIndex
+    = 0,
   ): FluentFiltersGetter {
     this._textStr = '';
 
