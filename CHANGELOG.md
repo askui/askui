@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.11.3](https://github.com/askui/askui/compare/v0.11.2...v0.11.3) (2023-07-31)
+
+
+### Bug Fixes
+
+* fix user identifier (#CO-411) ([f31a2a0](https://github.com/askui/askui/commit/f31a2a0dc80bc456ac50a3b863c44866122fd6d0)), closes [#CO-411](https://github.com/askui/askui/issues/CO-411)
+
 ## [0.11.2](https://github.com/askui/askui/compare/v0.11.1...v0.11.2) (2023-07-26)
 
 
