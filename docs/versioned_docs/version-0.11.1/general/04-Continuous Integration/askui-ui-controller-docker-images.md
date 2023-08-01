@@ -3,7 +3,9 @@
 We maintain Docker Images for running instructions with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the instructions inside it.
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
-:warning: **ARM CPUs**: are currently not supported
+:::caution
+If you are on an ARM architecture such as Apple Silicon, you have to install an [Emulator like Rosetta](https://support.apple.com/en-us/HT211861).
+:::
 
 ## Configuration
 
@@ -19,17 +21,16 @@ The following environment variables can be used for configuring the Docker Conta
 The askui UI Controller is bound to port `6769` of the container so this needs to be exposed.
 
 ### Starting Container *Manually*
-
 You can pull an image using `docker pull`, e.g.,
 
 ```shell
-docker pull askuigmbh/askui-ui-controller:v0.10.0-firefox-82.0.3-amd64
+docker pull askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
 ```
 
 and, then, start the corresponding container using:
 
 ```shell
-docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:v0.10.0-firefox-82.0.3-amd64
+docker run -e ENABLE_VNC=true -p 6769:6769 -p 5900:5900 askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
 ```
 
 ### Starting Container from Within `beforeAll()` Using Testcontainers
