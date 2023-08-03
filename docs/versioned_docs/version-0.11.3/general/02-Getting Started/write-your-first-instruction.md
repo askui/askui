@@ -196,4 +196,3 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 
 ### Continuous Integration
 - Read the [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running askui inside a Docker container.
-- Read the [Gitlab CI/CD](../04-Continuous%20Integration/gitlab-ci.md) to learn about integrating askui into your Gitlab CI/CD.
