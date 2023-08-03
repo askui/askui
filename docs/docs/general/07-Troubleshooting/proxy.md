@@ -51,7 +51,7 @@ noproxy=<db-company-registry-url>
 ```
 
 ### Set Environment Variables
-Setting the proxy inside `.npmrc` does not cover all cases. Sometimes a seperate `node` command spawns a new process which does not inherit the proxy settings. Therefore you need to set the environment variable `HTTPS_PROXY` like this:
+Setting the proxy inside `.npmrc` does not cover all cases. Sometimes a separate `node` command spawns a new process which does not inherit the proxy settings. Therefore you need to set the environment variable `HTTPS_PROXY` like this:
 
 * [Windows instructions](https://docs.oracle.com/en/database/oracle/machine-learning/oml4r/1.5.1/oread/creating-and-modifying-environment-variables-on-windows.html#GUID-DD6F9982-60D5-48F6-8270-A27EC53807D0)
 
