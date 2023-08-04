@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Installing askui
+# Installing AskUI
 
 ## Requirements
 
@@ -16,13 +16,13 @@ sidebar_position: 2
 
 :::danger
 
-Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 
 :::
 
 ## Installation
 
-Open a directory where you would like to place the askui setup. If you haven’t already, set up an NPM project by running:
+Open a directory where you would like to place the AskUI setup. If you haven’t already, set up an NPM project by running:
 
 ```shell
 npm init -y
@@ -39,7 +39,7 @@ npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jes
 <details>
   <summary>Quick explanation of all the dependencies</summary>
 
-- [askui](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
+- [AskUI](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
 - [@askui/askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
 - [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
 - [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
@@ -57,4 +57,4 @@ To create and serve a static HTML-Report you have to install [Allure](https://gi
 
 ## Access Token
 
-As we need to prevent misuse of our API, we need you to create some credentials through our [askui user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+As we need to prevent misuse of our API, we need you to create some credentials through our [AskUI user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.

@@ -11,7 +11,7 @@ sidebar_position: 1
 
 ## Overview
 
-**Custom Element Selection** is a feature in askui that enables you to create custom element-descriptions for elements on the screen, instead of relying on the standard element-descriptions provided such as **Button**, **Textfield**, etc.
+**Custom Element Selection** is a feature in AskUI that enables you to create custom element-descriptions for elements on the screen, instead of relying on the standard element-descriptions provided such as **Button**, **Textfield**, etc.
 
 With this feature, you can define a custom element-descriptions based on how the element is displayed on the screen. This can be particularly useful in situations where standard element-descriptions are unreliable due to the non-standard properties of the element. It provides greater flexibility and control, allowing you to tailor the automation to meet the specific needs of your application.
 
@@ -25,10 +25,10 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 
 ## Requirements
 
-- **askui** - Follow [this tutorial](https://docs.askui.com/docs/general/Getting%20Started/getting-started) if you haven't installed it yet.
+- **AskUI** - Follow [this tutorial](https://docs.askui.com/docs/general/Getting%20Started/getting-started) if you haven't installed it yet.
 - **Web Browser** - We use Safari in this demonstration, but you can use any web browser you have.
 
-## Understanding the `customElement()` in askui
+## Understanding the `customElement()` in AskUI
 
 - `customElement()` is an element to look for on the screen that is defined by the user with a given image.
 
@@ -69,7 +69,7 @@ await aui
 
 ![match-cases](images/heart-custom-element-description.jpg)
 
-- Note the **left-bottom case** of the illustration. A rotated element can be also matched, but **only if** everything else except the rotation are staying the same as it is displayed on the screen. If you can assure that your custom image is exactly the same as it is displayed on the screen + if you know the degree of the rotation, then you could consider using the **rotationDegreePerStep** parameter. And because askui will try to rotate the custom element for the whole revolution, a divisor of the rotated degree could be also used, e.g in the illustrated case, we can use not only `90` but also `45`, `30`, `15`, etc. But since smaller degrees will require more iteration steps, it will increase the runtime by a notable amount.
+- Note the **left-bottom case** of the illustration. A rotated element can be also matched, but **only if** everything else except the rotation are staying the same as it is displayed on the screen. If you can assure that your custom image is exactly the same as it is displayed on the screen + if you know the degree of the rotation, then you could consider using the **rotationDegreePerStep** parameter. And because AskUI will try to rotate the custom element for the whole revolution, a divisor of the rotated degree could be also used, e.g in the illustrated case, we can use not only `90` but also `45`, `30`, `15`, etc. But since smaller degrees will require more iteration steps, it will increase the runtime by a notable amount.
 
 - **The simplest way** to accomplish it might be **to screen capture and crop the desired image from your screen directly.** In Windows and macOS, you can use the built-in screen capture tool:
 
@@ -82,7 +82,7 @@ await aui
 
 **2) The Time of the Execution will Increase by a Notable Amount**
 
-- To examine whether the custom image matches the given screen, askui iterates through the whole pixels of the given screen as well as the custom image. So it is likely to increase the runtime by a notable amount. Therefore, if the task could be accomplished with other element-descriptions such as `icon()`, `button()`, or `text()`, then it's maybe better to avoid using the `customElement()`.
+- To examine whether the custom image matches the given screen, AskUI iterates through the whole pixels of the given screen as well as the custom image. So it is likely to increase the runtime by a notable amount. Therefore, if the task could be accomplished with other element-descriptions such as `icon()`, `button()`, or `text()`, then it's maybe better to avoid using the `customElement()`.
 
 
 ## Capture the Custom Element
@@ -106,7 +106,7 @@ project_root/
 ├─ human-figure.png
 ```
 
-## Write the askui Code
+## Write the AskUI Code
 
 - If you are prepared with the image above, let's jump into our code:
 
@@ -256,7 +256,7 @@ it('enable street view', async ()=>{
 
 ## Conclusion
 
-If you plan to program an automation where you have elements with non-standard properties, you might want to consider using the custom element feature of askui. But as mentioned above, keep in mind that, as a trade-off, it consumes more time than other features. Taking it into account, using a custom element to interact with the given UI can be a huge help, especially if the element lacks standard properties such as tag or appearance. 
+If you plan to program an automation where you have elements with non-standard properties, you might want to consider using the custom element feature of AskUI. But as mentioned above, keep in mind that, as a trade-off, it consumes more time than other features. Taking it into account, using a custom element to interact with the given UI can be a huge help, especially if the element lacks standard properties such as tag or appearance. 
 
 
 If you got any issues while following this article, don't hesitate to ask for help in our [Discord Community!](https://discord.gg/Gu35zMGxbx) We are more than glad to hear about your experience and help!

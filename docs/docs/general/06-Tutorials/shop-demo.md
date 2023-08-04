@@ -8,7 +8,7 @@ The following tutorial shows how to automate the login process of a simple demo 
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">AskUI installation guide and write your first instruction</a>
 * Open a browser on your screen
   * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 

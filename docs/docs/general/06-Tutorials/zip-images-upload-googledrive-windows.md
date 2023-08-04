@@ -4,7 +4,7 @@ sidebar_position: 10
 
 # Zip Images and Upload to Google Drive on Windows
 
-This tutorial will show you how to zip files on your file system and then upload them to Google Drive with askui.
+This tutorial will show you how to zip files on your file system and then upload them to Google Drive with AskUI.
 
 <video controls>
   <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/compress_photos_and_upload_them_on_google_drive_with_askui.mp4"/>
@@ -12,7 +12,7 @@ This tutorial will show you how to zip files on your file system and then upload
 
 ## Setup
 
-* Follow the <a href="../Getting%20Started/getting-started" target="_blank">askui installation guide and write your first instruction</a>
+* Follow the <a href="../Getting%20Started/getting-started" target="_blank">AskUI installation guide and write your first instruction</a>
 * Create a folder named _askui_ on your desktop and put some files into it
 * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
 
@@ -35,7 +35,7 @@ This tutorial will show you how to zip files on your file system and then upload
 After running the `npx askui init` command as described in the setup you will have a file `test/my-first-askui-test-suite.test.ts`. In this file, add a new workflow (`it`-code-block) inside the body of the callback passed to the `describe` function:
 
 ```ts
-describe(/* a string identifying the askui suite */, () => {
+describe(/* a string identifying the AskUI suite */, () => {
     ... (other workflows)
 
     it('Should upload screenshots folder on google drive', async () => {
@@ -44,7 +44,7 @@ describe(/* a string identifying the askui suite */, () => {
 });
 ```
 
-## Open the Folder askui
+## Open the Folder AskUI
 Next, we want to click on the folder where our images are stored and open it.
 
 ```ts
@@ -106,7 +106,7 @@ await aui.click().text('Open').exec();
 
 ## Complete Code
 ```ts
-describe(/* a string identifying the askui suite */, () => {
+describe(/* a string identifying the AskUI suite */, () => {
 
     it('Should upload screenshots folder on google drive', async () => {
         await aui.click().text('askui').exec();
@@ -145,7 +145,7 @@ describe(/* a string identifying the askui suite */, () => {
 
 To run this automation use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts` command.
 
-If you have a recurring or persisting issue, don’t hesitate to [ask the community](https://bit.ly/3ekHnGR) for help. You can be sure that your questions will be answered there. We’re excited to hear about how you apply askui to your projects.
+If you have a recurring or persisting issue, don’t hesitate to [ask the community](https://bit.ly/3ekHnGR) for help. You can be sure that your questions will be answered there. We’re excited to hear about how you apply AskUI to your projects.
 
 If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 

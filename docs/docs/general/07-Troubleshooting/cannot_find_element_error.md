@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Cannot Find Element Error
 
-If you see this error message when you run askui you have a few different options you can try to resolve it. We will go over all of them on this page:
+If you see this error message when you run AskUI you have a few different options you can try to resolve it. We will go over all of them on this page:
 
 ```bash
 # Executed instruction:
@@ -22,7 +22,7 @@ When you develop an automation you can use interactive annotation to extract fil
 This gif illustrates the process:
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 
-If an element-description derived through this method does not work you may run the interactive annotation again and check if askui gives you the same element-description. Sometimes elements are hard to identify correctly, like icons or specific fonts. Read the next sections on how to tackle this 🙂
+If an element-description derived through this method does not work you may run the interactive annotation again and check if AskUI gives you the same element-description. Sometimes elements are hard to identify correctly, like icons or specific fonts. Read the next sections on how to tackle this 🙂
 
 ## Selecting Icons
 There are millions of different icon sets out there. Detecting them all reliable is nearly impossible.
@@ -94,4 +94,4 @@ await aui
 ```
 
 ## Missing Permissions for UiController on macOS
-askui controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing actually!). The askui UiController needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).
+AskUI controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing actually!). The AskUI UiController needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).

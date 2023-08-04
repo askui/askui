@@ -10,10 +10,10 @@ If you have already set up your development environment, go directly to [3. Auto
 
 **Index**
 
-[1. Prepare the askui Development Environment](#1-prepare-the-askui-development-environment)  
+[1. Prepare the AskUI Development Environment](#1-prepare-the-askui-development-environment)  
 [2. Try Annotation](#2-try-annotating)  
 [3. Automate Web Searching](#3-automate-web-searching)  
-[4. Complete askui Code](#4-complete-askui-code)  
+[4. Complete AskUI Code](#4-complete-askui-code)  
 [5. Conclusion](#5-conclusion)  
 
 
@@ -26,19 +26,19 @@ If you have already set up your development environment, go directly to [3. Auto
 
 ------
 
-## 1. Prepare the askui Development Environment
+## 1. Prepare the AskUI Development Environment
 
-### Install and initialize askui
+### Install and initialize AskUI
 
 First, go to the directory where you have your node.js project. If you don't have one, you can create it with `npm init`
 
-Then, use the commands below to install askui alongside a few additional tools:
+Then, use the commands below to install AskUI alongside a few additional tools:
 ```bash
 npm i -D askui typescript ts-node @types/jest ts-jest jest
 npx askui init # this generates a askui suite within the project directory
 ```
 
-After creating the **askui suite**, add your credentials in `helper/jest.setup.ts`:
+After creating the **AskUI suite**, add your credentials in `helper/jest.setup.ts`:
 
 ```ts
  aui = await UiControlClient.build({
@@ -48,14 +48,14 @@ After creating the **askui suite**, add your credentials in `helper/jest.setup.t
     }
   });
   ```
-💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.askui.com/) for free.
+💡 **AskUI credentials**: You can get your AskUI credentials from the [AskUI user portal](https://app.askui.com/) for free.
 
 
-If you have any issues while setting up **askui**, you can have a look at the more descriptive [Getting Started](../02-Getting%20Started/getting-started.md) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.
+If you have any issues while setting up **AskUI**, you can have a look at the more descriptive [Getting Started](../02-Getting%20Started/getting-started.md) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.
 
-**Configure askui for Android**
+**Configure AskUI for Android**
 
-We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of askui(version 0.7.2) doesn't provide the API for running it with the runtime option yet:
+We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of AskUI(version 0.7.2) doesn't provide the API for running it with the runtime option yet:
 
 ```bash
 # first, go to the folder that contains the binary
@@ -68,9 +68,9 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 ./askui-ui-controller -r android
 
 # If you can't find the binary as described above,
-# then you might have askui freshly installed and haven't run it yet.
-# The binary gets downloaded as the askui code runs the first time.
-# Run the command below to run the askui code:
+# then you might have AskUI freshly installed and haven't run it yet.
+# The binary gets downloaded as the AskUI code runs the first time.
+# Run the command below to run the AskUI code:
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 ```
 
@@ -130,7 +130,7 @@ export { aui };
 ## 2. Try Annotating
 Make sure that your Android device is connected, or if you are using the Android Emulator, make sure that it is open and running on your local machine.
 
-**askui** provides a feature where you can monitor how the visible elements are understood by **askui**. Try to change the code within `test/my-first-askui-test-suite.test.ts` to the following:
+**AskUI** provides a feature where you can monitor how the visible elements are understood by **AskUI**. Try to change the code within `test/my-first-askui-test-suite.test.ts` to the following:
 ```ts
 import { aui } from './helper/jest.setup';
 
@@ -150,7 +150,7 @@ npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 
 
 💡 **Annotation is Interactive**
-*Try to hover your mouse on the red bounding box. It will let you know how to manipulate that element via askui*
+*Try to hover your mouse on the red bounding box. It will let you know how to manipulate that element via AskUI*
 
 ## 3. Automate Web Searching
 Now we are good to go for the actual automation process.
@@ -161,9 +161,9 @@ The automation consist of three steps:
 3. Click on the desired search result
 
 ### 1) Open Chrome
-To open Chrome, we first have to figure out how we can let **askui** know where to click on.
+To open Chrome, we first have to figure out how we can let **AskUI** know where to click on.
 
-As we can see in the annotated image above, the Chrome icon is recognized as an `icon: undo`. Indeed, we could also tell **askui** to select the `icon: undo`, but we will try to do it in a more precise way.
+As we can see in the annotated image above, the Chrome icon is recognized as an `icon: undo`. Indeed, we could also tell **AskUI** to select the `icon: undo`, but we will try to do it in a more precise way.
 
 What we're gonna do is:
 
@@ -190,7 +190,7 @@ describe('jest with askui', () => {
     await aui.type('chrome').exec();
 
     // We wait for 1500 milliseconds, to make sure that the search result 
-    // has been loaded before askui start to look for the search result. 
+    // has been loaded before AskUI start to look for the search result. 
     await aui.waitFor(1500).exec(); 
 
     // Then click the icon that is above the text 'chrome'
@@ -246,7 +246,7 @@ try {
 After clearing the cookie consent pop-up, we can see and click our desired search result. In our case, we will look for the result from Wikipedia:
 
 ```ts
-// We ask the askui to click the text that contains 'wikipedia',
+// We ask the AskUI to click the text that contains 'wikipedia',
 // which is the text that is nearest to the text containing 'wikipedia.org'
 await aui.click()
     .text()
@@ -259,7 +259,7 @@ await aui.click()
 
 Pay attention to the relational element-description `nearestTo()` that is interconnecting two different text elements.
 
-**askui** offers several **Relational Element-Descriptions**, which enable you to select the desired element by their screen position:
+**AskUI** offers several **Relational Element-Descriptions**, which enable you to select the desired element by their screen position:
 
 - [above()](https://docs.askui.com/docs/api/Relations/above)
 - [below()](https://docs.askui.com/docs/api/Relations/below)
@@ -275,7 +275,7 @@ You might wonder how `withText()` and `containsText()` differ. `withText()` trie
 
 ------
 
-## 4. Complete askui Code
+## 4. Complete AskUI Code
 ```ts
 import { aui } from './helper/jest.setup';
 
@@ -286,7 +286,7 @@ describe('jest with askui', () => {
 
     // Type the desired keyword into the search bar
     await aui.type('chrome').exec();
-    // We wait for 1500 miliseconds, to make sure that the search result has been loaded before askui start to look for the search result. 
+    // We wait for 1500 miliseconds, to make sure that the search result has been loaded before AskUI start to look for the search result. 
     await aui.waitFor(1500).exec(); 
     // Then click the icon that is above the text 'chrome'
     await aui.click().icon().above().text('chrome').exec();
@@ -314,7 +314,7 @@ describe('jest with askui', () => {
         await aui.click().text('accept all').exec();
     }
 
-    // We ask the askui to click the text that contains 'wikipedia' which is the text that is nearest to the text containing 'wikipedia.org'
+    // We ask the AskUI to click the text that contains 'wikipedia' which is the text that is nearest to the text containing 'wikipedia.org'
     await aui.click().text().containsText('wikipedia').nearestTo().text().containsText('wikipedia.org').exec();
   });
 });
@@ -324,4 +324,4 @@ describe('jest with askui', () => {
 
 ## 5. Conclusion
 
-We have covered a use case of askui to automate Web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!
+We have covered a use case of AskUI to automate Web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!

@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Flutter Sample Android App
 
-This tutorial shows how to use askui to automate an Android app built with [Flutter](https://flutter.dev/). We provide the source code for the Flutter demo app used in this tutorial ([GitHub repository](https://github.com/askui/flutter-example-automation)). Set up the demo app by following the instructions below. This tutorial assumes that you already have your Android device prepared. It can be a real Android device or an Android Emulator.
+This tutorial shows how to use AskUI to automate an Android app built with [Flutter](https://flutter.dev/). We provide the source code for the Flutter demo app used in this tutorial ([GitHub repository](https://github.com/askui/flutter-example-automation)). Set up the demo app by following the instructions below. This tutorial assumes that you already have your Android device prepared. It can be a real Android device or an Android Emulator.
 
 **If you haven't set up your Android device or Emulator yet, [follow this tutorial](setup-android.md).**
 
@@ -77,7 +77,7 @@ flutter run
 Now you should see the demo app running on your Android device.
 
 2. Setup ADBKeyboard
-In this example, we are going to automate the typing on the Android device. To let askui fluently type as desired, we will use a virtual keyboard that handles the keyboard input via adb: [ADBKeyboard.apk](https://github.com/senzhk/ADBKeyBoard)
+In this example, we are going to automate the typing on the Android device. To let AskUI fluently type as desired, we will use a virtual keyboard that handles the keyboard input via adb: [ADBKeyboard.apk](https://github.com/senzhk/ADBKeyBoard)
 
 ‍
 1) Download the ADBKeyboard package (Important: Version 2.0): [Link to GitHub Repository](https://github.com/senzhk/ADBKeyBoard/releases/tag/v2.0)
@@ -116,10 +116,10 @@ adb -s <your device id> shell ime enable com.android.adbkeyboard/.AdbIME
 
 Click on a textfield in an app and see if the `ADB Keyboard {ON}` notification is shown at the bottom of the screen.
 
-## 3. Setup askui
-1) Setup askui by following the [Getting Started Guide](../02-Getting%20Started/getting-started.md).
+## 3. Setup AskUI
+1) Setup AskUI by following the [Getting Started Guide](../02-Getting%20Started/getting-started.md).
 
-2) We need to run the UiController directly with an extra argument to specify the runtime mode, as the current version of askui(version 0.7.2) doesn't provide the API for running it with the runtime argument yet.
+2) We need to run the UiController directly with an extra argument to specify the runtime mode, as the current version of AskUI(version 0.7.2) doesn't provide the API for running it with the runtime argument yet.
 From within your npm project path, go to the directory that contains the `askui-ui-controller` binary:
 
 ```shell
@@ -127,9 +127,9 @@ cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFOR
 ./askui-ui-controller -r android
 # for example, macOS: cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Contents/MacOS/./askui-ui-controller -r android
 # If you can't find the binary as described above,
-# then you might have askui freshly installed and haven't run it yet.
-# The binary gets downloaded as the askui code runs.
-# Run the command below to run the askui code:
+# then you might have AskUI freshly installed and haven't run it yet.
+# The binary gets downloaded as the AskUI code runs.
+# Run the command below to run the AskUI code:
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 ```
 
@@ -180,7 +180,7 @@ aui.close();
 export { aui };
 ```
 
-## Breaking Down the askui Code
+## Breaking Down the AskUI Code
 This chapter will walk you through the provided `askui-test/demo-automation.ts` step by step.
 The code is divided into three parts, and each part automates a different tab within the demo app:
 
@@ -188,17 +188,17 @@ The code is divided into three parts, and each part automates a different tab wi
 * **Datepicker tab**: Select a desired date within the date picker widget.
 * **Camera tab**: Open the camera and push the record button.
 
-## 0. General Tips for Using askui as a More Friendly Tool:
-1) Try to annotate : Use `await aui.annotateInteractively()` or `await aui.annotate()` in order to see how askui is understanding the visible elements on your screen. By using `await aui.annotate()`, the result of the annotation will be saved in the folder `report/` as an HTML file.
+## 0. General Tips for Using AskUI as a More Friendly Tool:
+1) Try to annotate : Use `await aui.annotateInteractively()` or `await aui.annotate()` in order to see how AskUI is understanding the visible elements on your screen. By using `await aui.annotate()`, the result of the annotation will be saved in the folder `report/` as an HTML file.
 
-2) **Be aware of the screen size of your device**: askui understands your application based on the screen shown and captured. Therefore, on some occasions, you may want to know your screen size to e.g. properly scroll or swipe within your application. You may need to change the numbers for the `input swipe` command within the provided code so that it suits the screen size of your device.
+2) **Be aware of the screen size of your device**: AskUI understands your application based on the screen shown and captured. Therefore, on some occasions, you may want to know your screen size to e.g. properly scroll or swipe within your application. You may need to change the numbers for the `input swipe` command within the provided code so that it suits the screen size of your device.
 
 3) **Try to select the elements by their text**
 
 *tip: If you are using a device with a bigger screen e.g. Tablet, then the screen of your device (real Android device or emulator) might be big enough to see the whole page without scrolling.*
 
 ### 1. Click and Type
-The code is within the file `askui-test/demo-automation.ts`. Copy and paste the code into your askui code.
+The code is within the file `askui-test/demo-automation.ts`. Copy and paste the code into your AskUI code.
 
 We start the run from the very first tab of our demo app.
 
@@ -334,8 +334,8 @@ await aui.click().button().contains().text('Take a Picture').exec();
 await aui.click().icon().containsText('circle').exec();
 ```
 
-## Complete askui Code
-This is the complete code that runs askui to automate our workflow:
+## Complete AskUI Code
+This is the complete code that runs AskUI to automate our workflow:
 
 ```typescript
 import { aui } from './helper/jest.setup';
@@ -445,6 +445,6 @@ describe('jest with askui', () => {
 ```
 
 ## Conclusion
-After following through this tutorial, you should be able to automate the interaction with the provided demo app. Although this example specifically provides a demo app built with Flutter, the overall method of using askui should also work with any mobile app running on an Android device.
+After following through this tutorial, you should be able to automate the interaction with the provided demo app. Although this example specifically provides a demo app built with Flutter, the overall method of using AskUI should also work with any mobile app running on an Android device.
 
 If you got an issue while following this example, or in case you would like to share your use case, don't hesitate to join our [community on Discord](https://discord.gg/Gu35zMGxbx)!
