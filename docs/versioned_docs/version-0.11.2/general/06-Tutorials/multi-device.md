@@ -97,7 +97,7 @@ Follow the instructions below.
 
     beforeAll(async () => {
 
-    // Get your askui credentials from https://app.v2.askui.com/workspaces
+    // Get your askui credentials from https://app.askui.com/workspaces
     const credentials = {
         workspaceId: '<your-workspace-id>',
         token: '<your-token>',

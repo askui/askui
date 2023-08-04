@@ -35,7 +35,7 @@ npx askui init
 
 ## Configuration
 
-Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!).
+Generate credentials through the [user portal](https://app.askui.com/) (usage is free!).
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 

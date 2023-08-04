@@ -21,4 +21,4 @@ Please follow the _Getting Started_ of your respective operating system:
 
 ## Access Token
 
-As we need to prevent misuse of our API, we need you to create some credentials through our [askui user portal](https://app.v2.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+As we need to prevent misuse of our API, we need you to create some credentials through our [askui user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
