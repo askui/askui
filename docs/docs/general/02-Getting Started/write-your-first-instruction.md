@@ -7,7 +7,7 @@ sidebar_position: 3
 :::tip
 What you will learn
 
-- Initialize your first askui suite
+- Initialize your first AskUI suite
 - Configure your credentials (workspace id and access token)
 - Run your first instruction
 - Troubleshooting any issues
@@ -16,7 +16,7 @@ What you will learn
 
 ## Initialization
 
-To create your first askui suite, enter into your terminal
+To create your first AskUI suite, enter into your terminal
 
 ```shell
 npx askui init
@@ -27,7 +27,7 @@ npx askui init
 
 -   a `tsconfig.json`: [a json file specifying the root files and the compiler options required to compile the project](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html),
 -   a folder called `test` which includes:
-    -   `test/my-first-askui-test-suite.test.ts`: an example test with askui,
+    -   `test/my-first-askui-test-suite.test.ts`: an example workflow with AskUI,
     -   a folder called `helper` which contains the `jest.setup.ts` file for setting up the test environment
     -   a `jest.config.ts` configuration file
 
@@ -35,7 +35,7 @@ npx askui init
 
 ## Configuration
 
-Generate credentials through the [user portal](https://app.v2.askui.com/) (usage is free!).
+Generate credentials through the [user portal](https://app.askui.com/) (usage is free!).
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
@@ -49,7 +49,7 @@ Then, go to your `helper/jest.setup.ts` and add the configuration for your `work
 ```
 
 ## Run Your First Instruction
-Writing and executing an instruction in askui can be done in three steps:
+Writing and executing an instruction in AskUI can be done in three steps:
 
 1. Execute an (interactive) annotation.
 2. Extract from the (interactive) annotation the element-description which identifies target element.
@@ -66,7 +66,7 @@ Please use `annotate()` as outlined in the code below. The interactive annotatio
 
 **macOS Users**
 
-Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
 :::
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
@@ -147,9 +147,9 @@ describe('jest with askui', () => {
 
 As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts `
 
-You should see askui take over your mouse, mouse over the element you chose and click.
+You should see AskUI take over your mouse, mouse over the element you chose and click.
 
-Congratulations! You’ve just built your first instruction using askui. :tada:
+Congratulations! You’ve just built your first instruction using AskUI. :tada:
 
 ### What other instructions are available?
 
@@ -161,7 +161,7 @@ Congratulations! You’ve just built your first instruction using askui. :tada:
 
 ## Troubleshooting
 
-### askui moves to the wrong element?
+### AskUI moves to the wrong element?
 Have a look at [Relational Selectors](../03-Guides/guide-relational-element-descriptions.md) to select elements via a visual relation instead.
 
 ### Technical
@@ -170,7 +170,7 @@ For technical problems with the execution, take a look at our [Troubleshooting p
 You will find the following pages there:
 
 * [Linux Wayland window manager and libfuse2](../07-Troubleshooting/linux.md)
-* [askui behind a corporate proxy](../07-Troubleshooting/proxy.md)
+* [AskUI behind a corporate proxy](../07-Troubleshooting/proxy.md)
 * [macOS missing permissions for UiController](../07-Troubleshooting/mac-os.md)
 
 ## Where to Go Next?
@@ -178,7 +178,7 @@ You will find the following pages there:
 Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
 
 ### Tutorials
-If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of askui in depth:
+If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of AskUI in depth:
 
 * [Search Image in Google](../06-Tutorials/google-cat-search.md)
 * [Login at an Online Shop](../06-Tutorials/shop-demo.md)
@@ -187,12 +187,12 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
 ### Guides
-* Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-element-descriptions.md) to understand the *Relational Selectors* in askui.
-* Read [Selecting an Element with Text](../03-Guides/guide-text-element-descriptions.md) to learn about *Text Element-Descriptions* in askui.
+* Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-element-descriptions.md) to understand the *Relational Selectors* in AskUI.
+* Read [Selecting an Element with Text](../03-Guides/guide-text-element-descriptions.md) to learn about *Text Element-Descriptions* in AskUI.
 * Read [Recommended Practices](../03-Guides/recommended-practices.md).
 
 ### Annotation
 * Read [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature**.
 
 ### Continuous Integration
-- Read the [askui UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running askui inside a Docker container.
+- Read the [AskUI UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running AskUI inside a Docker container.

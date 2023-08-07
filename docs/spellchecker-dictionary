@@ -192,7 +192,7 @@ basepath
 jest-html-reporter(s){0,1}
 customizable
 \.xml
-askui-file
+AskUI-file
 Submodel
 InputEvent
 MouseInputEvent

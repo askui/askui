@@ -48,7 +48,7 @@ After creating the **askui test suite**, add your credentials in `helper/jest.se
     }
   });
   ```
-💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.v2.askui.com/) for free.
+💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.askui.com/) for free.
 
 
 If you have any issues while setting up **askui**, you can have a look at the more descriptive [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/getting-started) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.

@@ -15,6 +15,6 @@
 | selector               | Selects elements on the user interface. |
 | UI Controller          | Service to control inputs and observe the visuals on the operating system. |
 | UI Control Client      | Retrieves the annotations from the inference server and uses the given instructions to execute inputs on the operating system through the UI Controller. |
-| User Portal            | In the [askui User Portal](https://app.v2.askui.com/) you can create `access tokens` for your workspace. |
+| User Portal            | In the [askui User Portal](https://app.askui.com/) you can create `access tokens` for your workspace. |
 | workspace              | Every registered user has exactly one workspace. Every workspace can contain multiple access tokens. |
 | workspace id           | The id of your workspace. Gives you access to the askui inference in combination with your `access token`. |

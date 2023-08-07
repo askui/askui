@@ -8,7 +8,7 @@ sidebar_position: 5
 
 ![macOS empty screen captured](./macos-empty-screen.png)
 
-macOS sometimes does not recognize an installation of an askui UI Controller and, therefore,
+macOS sometimes does not recognize an installation of an AskUI UI Controller and, therefore,
 does not give it proper permissions although it looks like it. 
 
 You can fix this, by heading 
@@ -21,19 +21,19 @@ the corresponding checkboxes and removing the application from each list by clic
 
 ![macOS Privacy settings](./macos-privacy-settings.png)
 
-Head over to the installation of the askui UI Controller. If you did not install it manually, 
+Head over to the installation of the AskUI UI Controller. If you did not install it manually, 
 you can find it under `node_modules/askui/dist/release/<version>/darwin`. 
 `<version>` may be `latest` or a semantic version like `v0.8.0`. In there, you should find 
-corresponding `.app` directory which is your installation of the askui UI Controller.
+corresponding `.app` directory which is your installation of the AskUI UI Controller.
 Start it by double-clicking it in the *Finder*.
 
 The application should ask for 
 *Screen Recording* permissions which you have to grant for it to work. You should 
 remove every reference to `UiController` in your `helper/jest.setup.ts` so that 
-the askui lib does not override the installation or tries to start it automatically.
+the AskUI lib does not override the installation or tries to start it automatically.
 
 Now, you can 
-run your instructions starting the askui UI Controller manually each time. On the first run,
+run your instructions starting the AskUI UI Controller manually each time. On the first run,
 you are going to be asked for *Accessibility* permissions 
 which you also have to grant. After that, your instructions should run flawlessly as and you should 
 be able to capture what is shown on the screen as well as execute instructions.

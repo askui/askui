@@ -35,14 +35,14 @@ await aui.expect().textfield().contains().text('Please find me').exists().exec()
 ### 2. Retrieve the element with [get()](../../api/06-Getters/get.md) and use an assertions library
 If your value is not unique on your screen you can retrieve the element with [get()](../../api/06-Getters/get.md) and a different selector. For example with a relational selector like [below()](../../api/04-Relations/below.md). With an assertion library you can assert if the value is correct.
 
-Jest comes with assertions. You only have to import them into your askui-file.
+Jest comes with assertions. You only have to import them into your AskUI-file.
 
 :::info
 Do not forget the import mentioned at the start of the snippet!
 :::
 
 ```typescript
-// Add this to the start of your askui-file containing your workflows/instructions
+// Add this to the start of your AskUI-file containing your workflows/instructions
 import {expect, jest, test} from '@jest/globals';
 
 // Type something into a textfield

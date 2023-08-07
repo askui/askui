@@ -4,19 +4,19 @@ sidebar_position: 7
 
 # Google Cat Image Search
 
-The following tutorial shows you how to search for cat images on Google Image Search with askui.
+The following tutorial shows you how to search for cat images on Google Image Search with AskUI.
 
 ## Setup
 
-* Follow one of the two options under <a href="../Getting%20Started/start" target="_blank">Start to install askui</a>
+* Follow one of the two options under <a href="../Getting%20Started/start" target="_blank">Start to install AskUI</a>
 * Open a Chrome browser window on your screen
   * If you have multiple screens, configure the used display by setting the display variable in `test/helper/jest.setup.js`
 
-## Setting Up askui
+## Setting Up AskUI
 
 💭 Let’s say we’re on [google.com](http://google.com) and we want to **search for an image of a cat and then download it to our computer**.
 
-First, we break this task down into steps that a user would take. Then we can recreate those steps with askui instructions in code.
+First, we break this task down into steps that a user would take. Then we can recreate those steps with AskUI instructions in code.
 
 1. Go to Google Search page 
 2. Go to google images
@@ -56,7 +56,7 @@ You can click on them to copy them into your clipboard.
 
 If you are having problems with the execution, [have a look at our Troubleshooting page](../07-Troubleshooting/index.md).
 
-## Writing and Debugging an askui Workflow
+## Writing and Debugging an AskUI Workflow
 
 Now we can start to write our workflow, by locating the elements and then executing an instruction on them.
 Remember the steps, that we wanted to recreate?
@@ -189,7 +189,7 @@ await aui
 
 It is always a good idea to try to play around with the functions and see if you can tackle the problem from a different angle.
 
-If you have a recurring or persisting issue, don’t hesitate to [ask the community](https://bit.ly/3ekHnGR) for help. You can be sure that your questions will be answered there. We’re excited to hear about how you apply askui to your projects.
+If you have a recurring or persisting issue, don’t hesitate to [ask the community](https://bit.ly/3ekHnGR) for help. You can be sure that your questions will be answered there. We’re excited to hear about how you apply AskUI to your projects.
 
 If you have any feature requests, please feel free to [post them in our Featurebase board](https://bit.ly/3AP20T7).
 

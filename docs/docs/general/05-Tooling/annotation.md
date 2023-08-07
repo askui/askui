@@ -10,7 +10,7 @@ Please use `annotate()` as explained [in the section below](#static-annotation).
 
 An interactive annotation is in essence three components:
 
-1. A screenshot of whatever the askui controller is told to see, as defined in the config file:
+1. A screenshot of whatever the AskUI controller is told to see, as defined in the config file:
 
 ![Screenshot of Visual Studio Code without annotations.](images/interactive_annotation1.png)
 

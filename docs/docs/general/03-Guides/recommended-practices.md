@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Recommended Practices
 
-This page will give you examples of how to use askui efficiently and effectively. 
+This page will give you examples of how to use AskUI efficiently and effectively. 
 
 ## General Considerations on Speed of Inference for Different Element-Descriptions
 
@@ -17,7 +17,7 @@ This page will give you examples of how to use askui efficiently and effectively
 
 ### Avoid Optical Character Recognition (OCR) on Too Many Element
 
-If you use `containsText()`, `withText()`, `withExactText()` or `withTextRegex()` **OCR** is applied to all elements detected on your screen. This can slow down askui. It is more efficient to narrow down the elements first. For example, if you want to click a `button` with a specific text you should select all buttons first.
+If you use `containsText()`, `withText()`, `withExactText()` or `withTextRegex()` **OCR** is applied to all elements detected on your screen. This can slow down AskUI. It is more efficient to narrow down the elements first. For example, if you want to click a `button` with a specific text you should select all buttons first.
 
 ```javascript
 // Do this
@@ -50,7 +50,7 @@ await aui.click().customElement({
 ```
 
 ## Scrolling
-When you use askui you can only interact with elements that you can see on your screen. Therefore you have to scroll down/sideways to interact with currently invisible elements.
+When you use AskUI you can only interact with elements that you can see on your screen. Therefore you have to scroll down/sideways to interact with currently invisible elements.
 
 ### Scrolling on Touch Displays
 On touch displays you have to recreate the swipe gesture:
@@ -88,7 +88,7 @@ await aui.pressKey('pageup').exec()
 ```
 
 ## Wait for an Element to Appear
-askui implements a conservative retry strategy to wait for an element to appear. But sometimes this is not long enough.
+AskUI implements a conservative retry strategy to wait for an element to appear. But sometimes this is not long enough.
 You can wait for an element to appear with the following helper function:
 
 ```javascript

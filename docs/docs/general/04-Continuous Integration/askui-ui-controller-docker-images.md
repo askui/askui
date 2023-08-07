@@ -18,7 +18,7 @@ The following environment variables can be used for configuring the Docker Conta
 
 ## Usage
 
-The askui UI Controller is bound to port `6769` of the container so this needs to be exposed.
+The AskUI UI Controller is bound to port `6769` of the container so this needs to be exposed.
 
 ### Starting Container *Manually*
 You can pull an image using `docker pull`, e.g.,
@@ -43,7 +43,7 @@ To use it, first install it:
 npm i -D testcontainers
 ```
 
-After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the askui UI Controller container just before all instructions are run and connecting to it:
+After that, you can adjust the `jest.setup.ts` that is created when running `npx askui init` like in the following example starting the AskUI UI Controller container just before all instructions are run and connecting to it:
 
 ```typescript
 import { UiControlClient } from 'askui';

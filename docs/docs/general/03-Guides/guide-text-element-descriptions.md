@@ -4,9 +4,9 @@ sidebar_position: 3
 
 # Text Element-Descriptions
 
-When using askui for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text element-description can become critical in scaffolding a robust set of instructions.
+When using AskUI for automated tests, text elements are playing a big role, since they typically appear more distinctively than other elements such as icons or text fields. Hence, knowing the benefits of using different text element-description can become critical in scaffolding a robust set of instructions.
 
-askui provides four different element-descriptions to handle text elements:
+AskUI provides four different element-descriptions to handle text elements:
 
 - `containsText()`
 - `withExactText()`
@@ -28,7 +28,7 @@ await aui.mouseLeftClick().exec();
 
 ![withText](/img/gif/withText.gif)
 
-`withText()` tries to find a text that matches the whole sequence. In most cases, you will want to stick to this method, as it supports **Fuzzy Matching** and tolerates misspelled text. **Note that the above example code has two typos**. `matrial` doesn't match the text in the demo app, which is `Material`, although askui will find the text element that roughly matches the text on the screen.
+`withText()` tries to find a text that matches the whole sequence. In most cases, you will want to stick to this method, as it supports **Fuzzy Matching** and tolerates misspelled text. **Note that the above example code has two typos**. `matrial` doesn't match the text in the demo app, which is `Material`, although AskUI will find the text element that roughly matches the text on the screen.
 
 ------
 
@@ -50,7 +50,7 @@ Be aware that even if the `containsText()` also supports **Fuzzy Matching**, it 
 await aui.moveMouseTo().text().containsText('Bottm').exec(); 
 ```
 
-You will notice that askui fails to match the given text `Bottm`, whereas this code will work:
+You will notice that AskUI fails to match the given text `Bottm`, whereas this code will work:
 
 ```ts
 // this will succeed
@@ -97,7 +97,7 @@ for(let i=0; i<elts.length; ++i){
 
 ![withText2](/img/gif/withText2.gif)
 
-You will see that askui clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
+You will see that AskUI clicks not only the **25.0** but also the **26.0**, which is the fat of the **Apple pie**. The result of this test code may differ in your case, because of the different screen resolution and the rendered-size of the demo app.
 
 It will give you a clear idea where you will need to use the element-description `withExactText()` instead of `withText()`. Try to run the same code after replacing the `withText()` to `withExactText()`:
 

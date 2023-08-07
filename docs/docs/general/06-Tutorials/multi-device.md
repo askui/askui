@@ -4,25 +4,25 @@ sidebar_position: 2
 
 # Automate Multiple Devices
 
-This tutorial shows how to automate multiple devices on the same network by using askui. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with askui library.
+This tutorial shows how to automate multiple devices on the same network by using AskUI. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with AskUI library.
 
-In fact, there are many automation tools in the wild that you can use to automate different devices, although most of them require different configurations and different code for different platforms. By using askui library, an automation tool that operates on the OS level, you can use the same code for any application running on different devices even without so much change. And this makes askui a powerful Cross-platform automation tool. 
+In fact, there are many automation tools in the wild that you can use to automate different devices, although most of them require different configurations and different code for different platforms. By using AskUI library, an automation tool that operates on the OS level, you can use the same code for any application running on different devices even without so much change. And this makes AskUI a powerful Cross-platform automation tool. 
 
-Let's have a look at the askui library and see how we can accomplish a Cross-platform/-device automation test🔥
+Let's have a look at the AskUI library and see how we can accomplish a Cross-platform/-device automation test🔥
 
 
-📌 *The following tutorial assumes that you have already installed and set up the askui library on your local device. The code for the configuration is based on the generated code: `npx askui init`. See [Getting Started](../02-Getting%20Started/write-your-first-instruction.md) for more details.*
+📌 *The following tutorial assumes that you have already installed and set up the AskUI library on your local device. The code for the configuration is based on the generated code: `npx askui init`. See [Getting Started](../02-Getting%20Started/write-your-first-instruction.md) for more details.*
 
 ![multi-device-automation](images/multi-device-diagram.png)
 
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
 :::info
-At the moment you need to run askui one time for the askui-ui-controller to be downloaded!
+At the moment you need to run AskUI one time for the askui-ui-controller to be downloaded!
 Follow the instructions below.
 :::
 
-- If you already used the askui library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded when an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *askui UI Controller*.
+- If you already used the AskUI library once, then the binary for your platform already exists in the `node_modules/` directory, as the binary gets automatically downloaded when an instance of `UiController` gets initialized. [See here](../../api/08-Configuration/askui-ui-controller.md) for more details on the *AskUI UI Controller*.
 
 - Follow this path and confirm that the binary exists:
 
@@ -55,7 +55,7 @@ Follow the instructions below.
 
 ### Android Only:
  
-- There is no need to save the binary to Android devices. They are controlled by the *askui UI Controller* running on the local device (desktop).
+- There is no need to save the binary to Android devices. They are controlled by the *AskUI UI Controller* running on the local device (desktop).
 
 - Be sure that your Android device is discoverable by the Android Debug Bridge `adb` from your local device:
     ```bash
@@ -97,7 +97,7 @@ Follow the instructions below.
 
     beforeAll(async () => {
 
-    // Get your askui credentials from https://app.v2.askui.com/workspaces
+    // Get your AskUI credentials from https://app.askui.com/workspaces
     const credentials = {
         workspaceId: '<your-workspace-id>',
         token: '<your-token>',
@@ -139,7 +139,7 @@ Follow the instructions below.
 Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
 :::
 
-- Run the binary *askui UI Controller* on the local and remote devices with the following command:
+- Run the binary *AskUI UI Controller* on the local and remote devices with the following command:
     ```bash
     # Windows powershell
     .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
@@ -163,7 +163,7 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
     ```
 
 ### Android Only:
-- If your remote device is an Android device, run the *askui UI Controller* on the **local device (desktop)** with an extra option as below:
+- If your remote device is an Android device, run the *AskUI UI Controller* on the **local device (desktop)** with an extra option as below:
 
     ```bash
     # Windows powershell
@@ -182,7 +182,7 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
 - Make sure that your local device (desktop) is running **TWO DIFFERENT `askui-ui-controller`**, if you want to control the local device and the Android device at the same time.
 
 #### (option) Running Multiple Android Devices
-- The *askui UI Controller* considers all Android devices as a single device with multiple displays. See the screenshot below.
+- The *AskUI UI Controller* considers all Android devices as a single device with multiple displays. See the screenshot below.
 - Set the `-d 0` option of the binary differently for each Android device.
 
     ```bash
@@ -211,9 +211,9 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
 
 ![multiple-android](images/multiple-android.png)
 
-## 4. Write the askui Code
+## 4. Write the AskUI Code
 
-- Write the askui code in `test/my-first-askui-test-suite.test.ts`:
+- Write the AskUI code in `test/my-first-askui-test-suite.test.ts`:
     ```ts
     import { localDevice, remoteDevice } from './helper/jest.setup';
 
@@ -231,7 +231,7 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
 
 ## 5. Run the Code
 
-- Run the command below to run the askui code:
+- Run the command below to run the AskUI code:
     ```bash
     npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
     ```
