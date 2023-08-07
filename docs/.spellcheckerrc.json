@@ -3,6 +3,7 @@
         "docs/general/**",
         "docs/api/**",
         "!**/**/06-Tutorials/index.mdx",
+        "!**/**/api/09-Supported-Keys.md",
         "!(**/*.gif)",
         "!(**/*.png)",
         "!(**/*.jpg)",
