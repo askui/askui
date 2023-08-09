@@ -13,7 +13,7 @@ sidebar_position: 1
 
 **Custom Element Selection** is a feature in AskUI that enables you to create custom element-descriptions for elements on the screen, instead of relying on the standard element-descriptions provided such as **Button**, **Textfield**, etc.
 
-With this feature, you can define a custom element-descriptions based on how the element is displayed on the screen. This can be particularly useful in situations where standard element-descriptions are unreliable due to the non-standard properties of the element. It provides greater flexibility and control, allowing you to tailor the automation to meet the specific needs of your application.
+With this feature, you can define a custom element-description based on how the element is displayed on the screen. This can be particularly useful in situations where standard element-descriptions are unreliable due to the non-standard properties of the element. It provides greater flexibility and control, allowing you to tailor the automation to meet the specific needs of your application.
 
 Here we will demonstrate how to use a custom element to explore Google Street View.
 
@@ -78,7 +78,12 @@ await aui
 
 - In both cases, you will be asked to select a certain portion of the screen. On Windows, the captured image will be stored in the clipboard, so you will need to save it to an image file. On macOS, the image will be saved in the `~/Desktop` by default.
 
+:::tip
+The quality of the __crop-out__ determines how good the element will be recognized. Make sure to:
 
+* Save it as a __PNG__ to avoid artifacts from compression
+* Crop it out as tight as possible. At best with no pixel space on the borders.
+:::
 
 **2) The Time of the Execution will Increase by a Notable Amount**
 
@@ -255,8 +260,6 @@ it('enable street view', async ()=>{
     - 2) Keep the `threshold` relatively higher, but below `1.0`
 
 ## Conclusion
-
 If you plan to program an automation where you have elements with non-standard properties, you might want to consider using the custom element feature of AskUI. But as mentioned above, keep in mind that, as a trade-off, it consumes more time than other features. Taking it into account, using a custom element to interact with the given UI can be a huge help, especially if the element lacks standard properties such as tag or appearance. 
-
 
 If you got any issues while following this article, don't hesitate to ask for help in our [Discord Community!](https://discord.gg/Gu35zMGxbx) We are more than glad to hear about your experience and help!
