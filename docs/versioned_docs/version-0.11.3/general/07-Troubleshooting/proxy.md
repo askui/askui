@@ -44,10 +44,10 @@ Create a `.npmrc` file in your AskUI project. You want to make sure that:
 * `proxy` and `https-proxy` point to the local _Px_ proxy
 
 ```bash
-registry=<db-company-registry-url>
+registry=<company-registry-url>
 proxy=http://127.0.0.1:3128
 https-proxy=http://127.0.0.1:3128
-noproxy=<db-company-registry-url>
+noproxy=<company-registry-url>
 ```
 
 ### Set Environment Variables
