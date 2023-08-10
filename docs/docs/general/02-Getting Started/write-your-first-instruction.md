@@ -66,7 +66,7 @@ Please use `annotate()` as outlined in the code below. The interactive annotatio
 
 **macOS Users**
 
-Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Environments/containers.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../05-Integrations/containers.md).
 :::
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
@@ -97,7 +97,7 @@ A few seconds later an (interactive) annotation will be generated.
 
 If you’d like a longer explanation as to what an (interactive) annotation is, read about here.
 
-[Explanation of (Interactive) Annotations](../03-Element-Selection/annotations-and-screenshots.md)
+[Explanation of (Interactive) Annotations](../03-Element Selection/annotations-and-screenshots.md)
 
 ### Step 2: Extract the Element-Description
 Extract from the (interactive) annotation the element-description which identifies target element.
@@ -162,7 +162,7 @@ Congratulations! You’ve just built your first instruction using AskUI. :tada:
 ## Troubleshooting
 
 ### AskUI moves to the wrong element?
-Have a look at [Relational Selectors](../03-Element-Selection/relational-selectors.md) to select elements via a visual relation instead.
+Have a look at [Relational Selectors](../03-Element Selection/relational-selectors.md) to select elements via a visual relation instead.
 
 ### Technical
 For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
@@ -186,4 +186,4 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
 ### Annotation
-* Read [Debug with Annotation](../03-Element-Selection/annotations-and-screenshots.md) to learn how to use the **Image Annotation Feature**.
+* Read [Debug with Annotation](../03-Element Selection/annotations-and-screenshots.md) to learn how to use the **Image Annotation Feature**.
