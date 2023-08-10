@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Installing AskUI
@@ -16,7 +16,7 @@ sidebar_position: 2
 
 :::danger
 
-Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Environments/containers.md).
 
 :::
 
@@ -57,4 +57,4 @@ To create and serve a static HTML-Report you have to install [Allure](https://gi
 
 ## Access Token
 
-As we need to prevent misuse of our API, we need you to create some credentials through our [AskUI user portal](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+As we need to prevent misuse of our API, we need you to create some credentials through our [AskUI Studio](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.

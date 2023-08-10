@@ -1,18 +1,121 @@
 ---
 sidebar_position: 3
+title: Reporting
 ---
 
-# Create Run Reports
+**Index**
+
+[AskUI Reporters](#askui-reporters)
+
+[Jest Reports](#jest-reports)
+
+## AskUI Reporters
+
+We provide a package `@askui/askui-reporters` with third-party integration of reporters ready-to-use into your AskUI runs. [Check out the repository](https://github.com/askui/askui-reporters) for more details.
+
+### Installation
+Install `@askui/askui-reporters` as a dev-dependency:
+
+```bash
+npm install --save-dev @askui/askui-reporters
+```
+
+### Usage of Allure-Reporter
+Add the reporter to the `UiControlClient` in `jest.setup.ts`:
+
+```typescript
+// Do not forget this import at the start of the file
+import { AskUIAllureStepReporter } from "@askui/askui-reporters";
+...
+  const reporterConfig: ReporterConfig = {
+    withScreenshots: 'always', // See below for possible values
+    withDetectedElements: 'always', // See below for possible values
+  }
+
+  aui = await UiControlClient.build({
+    reporter: new AskUIAllureStepReporter(
+      reportConfig
+    )
+  });
+...
+```
+
+You can pass a `ReporterConfig` object to the reporter to configure the level of detail for screenshots and detected elements.
+
+There are four possible values (See [the @askui/askui-reporters README for a detailed explanation](https://github.com/askui/askui-reporters/tree/main#allure-reporter)):
+
+* onFailure (Default for both)
+* required
+* begin
+* always
+
+#### Configure `beforeEach()` and `afterEach()` in `jest.setup.ts`
+The `UiControlClient` retrieves the videos and images from your `UiController`. You have to implement `beforeEach()` and `afterEach()` in `jest.setup.ts` to start the recording and then add it to your report:
+
+1. Allure Reporter
+```typescript
+// Do not forget this import at the start of the file
+// as it is needed for the Allure reporting to work
+import "jest-allure-circus";
+
+beforeEach(async () => {
+  await aui.startVideoRecording();
+});
+
+afterEach(async () => {
+  await aui.stopVideoRecording();
+  const video = await aui.readVideoRecording();
+  AskUIAllureStepReporter.attachVideo(video);
+});
+```
+
+#### Enable the Test Environment `jest-allure-circus` in `jest.config.ts`
+
+```typescript
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
+  preset: 'ts-jest',
+  setupFilesAfterEnv: ['./helper/jest.setup.ts'],
+  sandboxInjectedGlobals: [
+    'Math',
+  ],
+  // highlight-start
+  // Enables the test environment for Allure
+  testEnvironment: 'jest-allure-circus',
+  // highlight-end
+};
+
+// eslint-disable-next-line import/no-default-export
+export default config;
+```
+
+### Implement Your Own Reporter
+To write your own reporter you have to implement AskUI's `Reporter` interface. It offers three optional methods you can overwrite to adapt to your specific reporter framework:
+
+```typescript
+export interface Reporter {
+    config?: ReporterConfig;
+    onStepBegin?(step: Step): Promise<void>;
+    onStepRetry?(step: Step): Promise<void>;
+    onStepEnd?(step: Step): Promise<void>;
+}
+```
+
+See the [Example implementation for Allure](https://github.com/askui/askui-reporters/blob/main/src/allure/askui-allure-step-reporter.ts) on how that is used to extract the screenshot before/after each step and how to record a video of each step.
+
+
+## Jest Reports
 
 When using Jest as the runner framework for AskUI, it's often desired to have a report that summarizes the run result neatly. Although Jest comes with a default reporter, which prints out the report in the console directly, one could wish to have a discrete report, e.g as an XML or HTML, that can be stored and shared among team members.This article covers the usage of several reporter within Jest framework. Particularly, we will set up the [jest-junit](https://www.npmjs.com/package/jest-junit), [jest-html-reporter](https://www.npmjs.com/package/jest-html-reporte), and [jest-html-reporters](https://www.npmjs.com/package/jest-html-reporters).
 
-## Requirements
+### Requirements
 
 * AskUI installed (follow the [getting started](../02-Getting%20Started/write-your-first-instruction.md))
 * Jest (should be set up after following the getting started)
 * For the demonstration, we will use the website [Authentication Test](https://authenticationtest.com/) as an automation target.
 
-## 1. Prepare the AskUI Suite within Jest
+### 1. Prepare the AskUI Suite within Jest
 
 Let's say that, we want to use the AskUI Library to automate the login procedure in the example website.
 Go to the [example website](https://authenticationtest.com/) in your web browser, and run the code provided below to automate the login:
@@ -52,7 +155,7 @@ If AskUI has run successfully, then you will see the default report printed on y
 
 Now let's try to use reporters other than the default one.
 
-## 2. Using jest-junit with AskUI
+### 2. Using jest-junit with AskUI
 **jest-junit** is an npm library that creates an **XML** report file per test run in the format of the **JUnit XML** that can be understood by other development automation tools such as the Jenkins JUnit plugin. As JUnit is one of those unit test frameworks which were initially used by many Java applications as a unit test framework, **jest-junit** reporter facilitates a smooth integration of your test suite. Run this command to install the reporter within your project root directory:
 
 ```shell
@@ -136,7 +239,7 @@ export default config;
 
 To see more options for the configuration, please refer to the [official README](https://github.com/jest-community/jest-junit#configuration) of **jest-junit**.
 
-## Using jest-html-reporter with AskUI
+### Using jest-html-reporter with AskUI
 If we want to have a more friendly and readable report than XML, we could give **jest-html-reporter** a try. This reporter generates an HTML file that, if opened in a web browser, visualizes the run result in a much more human-friendly way.‍
 
 Run the command below to install **jest-html-reporter**:
@@ -187,7 +290,7 @@ After running the test suite again, you will have an HTML file reports/test-repo
 
 ![Output of jest-html-reporter](images/askui-run-reports-jest-html-reporter.png)
 
-## 2.3. Using jest-html-reporters with AskUI
+### 2.3. Using jest-html-reporters with AskUI
 [jest-html-reporters](https://www.npmjs.com/package/jest-html-reporters) is another reporter that generates an HTML that summarizes the run result within Jest. It might be similar to the above-mentioned reporter. But this one, **jest-html-reporters**, has a feature that can **attach an image to the report**, thus can assist your debugging process, especially for UI automations.
 
 Run the command below to install the **jest-html-reporter**:
@@ -284,7 +387,7 @@ It will show the attached image beside the text elements we've added:
 
 ![jest-html-reporters report with image for a single test.](images/askui-run-reports-jest-html-reporters2.png)
 
-## 3. Conclusion
+### 3. Conclusion
 Although we covered only two ready-made Jest reporters in this article, reporters in Jest are fully configurable and customizable. To properly configure your pipeline, you maybe could wish to have a custom reporter that fits nicely into your pipeline. As AskUI provides a well-suited TypeScript Library, combining it with jest and proper reporters can become a huge benefit to scaffolding a robust automation.
 
 If you got any issues while following this tutorial, don't hesitate to ask our [Discord Community](https://bit.ly/3T2je6C)!

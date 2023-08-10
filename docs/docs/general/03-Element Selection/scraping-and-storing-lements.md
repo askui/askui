@@ -1,8 +1,9 @@
 ---
-sidebar_position: 7
+sidebar_position: 5
 ---
 
-# Extract Information with get()
+# Scraping and Storing Elements
+
 In this guide you will learn how to extract elements and their values out of your User Interface.
 
 We will also cover on how to use the extracted information in your code, so you can introduce real interactivity into your workflow.
@@ -71,6 +72,8 @@ await aui
   .textfield()
   .contains()
   .text()
-  .withText("askui")
+  .withText("AskUI")
   .exec();
 ```
+
+

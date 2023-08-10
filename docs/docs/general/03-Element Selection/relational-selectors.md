@@ -1,8 +1,9 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
-# Relational Element-Descriptions
+# Relational Selectors
+
 A common problem while writing instructions which one encounters is interacting with elements which share the same text.
 
 An example can be seen when you interactively annotate your Visual Studio Code Editor.
@@ -170,3 +171,4 @@ await aui
   .withText('Submit')
   .exec()
 ```
+

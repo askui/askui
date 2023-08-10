@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Automate Multiple Devices
+# Multi Device Automation
 
 This tutorial shows how to automate multiple devices on the same network by using AskUI. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android, with a single setup with AskUI library.
 
@@ -63,7 +63,7 @@ Follow the instructions below.
     adb devices
     ```
 
-- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](setup-android.md).
+- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](single-device-automation.md).
 
 - Use the commands below, if you want to connect your Android device via `adb` wirelessly:
     ```bash

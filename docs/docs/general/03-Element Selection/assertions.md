@@ -1,11 +1,10 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Assertions
-In this guide we will first show you how to assert if an element is there or not.
 
-Then we will
+In this guide we will first show you how to assert if an element is there or not.
 
 ## Assert the (non) Existence of Elements
 To validate if an element exists or not we use [expect()](../../api/02-Actions/expect.md) in combination with [exists()](../../api/05-Checks/exists.md) or [notExists](../../api/05-Checks/notexists.md).
@@ -55,3 +54,5 @@ const textfield = await aui.get().text().below().text("User email").exec();
 // below() returns an array. We want the first element of that array!
 expect(textfield[0].text).toBe("Please find me");
 ```
+
+

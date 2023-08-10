@@ -1,4 +1,12 @@
-# askui UI Controller Docker Images
+---
+sidebar_position: 2
+title: Docker
+---
+
+
+# Docker
+
+## AskUI Device Controller Docker Images
 
 We maintain Docker Images for running instructions with askui inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. Currently, we offer some of the latest versions of Chrome and Firefox. The askui library connects to the askui UI Controller inside the Docker container to execute the instructions inside it.
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
@@ -7,7 +15,7 @@ You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-
 If you are on an ARM architecture such as Apple Silicon, you have to install an [Emulator like Rosetta](https://support.apple.com/en-us/HT211861).
 :::
 
-## Configuration
+### Configuration
 
 The following environment variables can be used for configuring the Docker Container started from one of our Docker Images:
 
@@ -16,7 +24,7 @@ The following environment variables can be used for configuring the Docker Conta
 | ENABLE_VNC | false | `true` to enable VNC so that you can connect and observe whats happening inside the container. The VNC server is bound to port `5900` of the container. |
 | SCREEN_RESOLUTION | 1920x1080 | The screen resolution used inside the container in the format `<width>x<height>`. |
 
-## Usage
+### Usage
 
 The AskUI UI Controller is bound to port `6769` of the container so this needs to be exposed.
 
@@ -104,4 +112,8 @@ When connecting, enter the password `askui` when asked.
 
 Example of a VNC connection with a Chrome browser running inside a container:
 
-![VNC Example](./vnc-example.png)
+![VNC Example](./images/vnc-example.png)
+
+
+
+
