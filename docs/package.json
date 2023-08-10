@@ -31,7 +31,7 @@
     "@docusaurus/types": "2.4.1",
     "alex": "11.0.0",
     "docusaurus-plugin-sass": "0.2.2",
-    "sass": "1.54.8",
+    "sass": "1.65.1",
     "spellchecker-cli": "6.0.2"
   },
   "browserslist": {
