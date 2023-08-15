@@ -98,6 +98,7 @@ export class UiControlClient extends ApiCommands {
     const annotation = await this.executionRuntime.annotateImage(
       annotationRequest.imagePath,
       annotationRequest.customElements,
+      annotationRequest.elements,
     );
     AnnotationWriter.write(
       annotation.toHtml(),

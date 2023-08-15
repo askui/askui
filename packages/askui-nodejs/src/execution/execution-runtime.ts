@@ -197,9 +197,16 @@ export class ExecutionRuntime {
   async annotateImage(
     imagePath?: string,
     customElementJson?: CustomElementJson[],
+    elements?: DetectedElement[],
   ): Promise<Annotation> {
     let customElements: CustomElement[] = [];
     const base64Image = await this.takeScreenshotIfImageisNotProvided(imagePath);
+    if (elements !== undefined) {
+      if (elements.length === 0) {
+        logger.warn("Parameter 'elements' is an empty list.");
+      }
+      return new Annotation(base64Image, elements);
+    }
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }
