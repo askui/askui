@@ -17,7 +17,7 @@ Reason ControlCommandError: Cannot find "button contains with text 'I feel happy
 ```
 
 ## Use Interactive Annotation to Debug
-When you develop an automation you can use interactive annotation to extract filters as described on our [interactive annotation page](../05-Tooling/annotation.md).
+When you develop an automation you can use interactive annotation to extract filters as described on our [interactive annotation page](../03-Element Selection/annotations-and-screenshots.md).
 
 This gif illustrates the process:
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
@@ -30,7 +30,7 @@ There are millions of different icon sets out there. Detecting them all reliable
 You can use three strategies to make your instructions more stable.
 
 ### 1. Use Relative Element-Descriptors
-Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational element-descriptors](../03-Guides/guide-relational-element-descriptions.md) to understand how those work:
+Often there is text near a specific icon. You can use this to your advantage, like in the following example, where the icon below a specific text is clicked. See our [guide about relational element-descriptors](../03-Element Selection/relational-selectors.md) to understand how those work:
 
 ```javascript
 await aui
@@ -58,7 +58,7 @@ This method is not restricted to icon elements, but can also be used for a wide 
 
 
 ### 3. Use Custom Element Selection
-Custom element selection is your last resort because it is slow as it uses image-in-image search. Check out our [Google Street View Tutorial](../06-Tutorials/custom-element.md) to see how you can make use of it.
+Custom element selection is your last resort because it is slow as it uses image-in-image search. Check out our [Google Street View Tutorial](../03-Element Selection/text-and-element-selectors.md#custom-elements) to see how you can make use of it.
 
 ## Selecting Image
 Images are supposed to have a very certain visual property.

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # Write Your First Instruction
@@ -35,7 +35,7 @@ npx askui init
 
 ## Configuration
 
-Generate credentials through the [user portal](https://app.askui.com/) (usage is free!).
+Generate credentials through the [AskUI Studio](https://app.askui.com/) (usage is free!).
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
@@ -66,7 +66,7 @@ Please use `annotate()` as outlined in the code below. The interactive annotatio
 
 **macOS Users**
 
-Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../05-Integrations/containers.md).
 :::
 
 ```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
@@ -97,7 +97,7 @@ A few seconds later an (interactive) annotation will be generated.
 
 If you’d like a longer explanation as to what an (interactive) annotation is, read about here.
 
-[Explanation of (Interactive) Annotations](../05-Tooling/annotation.md)
+[Explanation of (Interactive) Annotations](../03-Element Selection/annotations-and-screenshots.md)
 
 ### Step 2: Extract the Element-Description
 Extract from the (interactive) annotation the element-description which identifies target element.
@@ -162,7 +162,7 @@ Congratulations! You’ve just built your first instruction using AskUI. :tada:
 ## Troubleshooting
 
 ### AskUI moves to the wrong element?
-Have a look at [Relational Selectors](../03-Guides/guide-relational-element-descriptions.md) to select elements via a visual relation instead.
+Have a look at [Relational Selectors](../03-Element Selection/relational-selectors.md) to select elements via a visual relation instead.
 
 ### Technical
 For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
@@ -183,16 +183,7 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Search Image in Google](../06-Tutorials/google-cat-search.md)
 * [Login at an Online Shop](../06-Tutorials/shop-demo.md)
 * [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
-* [Upload a Zip File to Google Drive](../06-Tutorials/zip-images-upload-googledrive-windows.md)
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
-### Guides
-* Read [Selecting an Element by Visual Relation](../03-Guides/guide-relational-element-descriptions.md) to understand the *Relational Selectors* in AskUI.
-* Read [Selecting an Element with Text](../03-Guides/guide-text-element-descriptions.md) to learn about *Text Element-Descriptions* in AskUI.
-* Read [Recommended Practices](../03-Guides/recommended-practices.md).
-
 ### Annotation
-* Read [Debug with Annotation](../05-Tooling/annotation.md) to learn how to use the **Image Annotation Feature**.
-
-### Continuous Integration
-- Read the [AskUI UI Controller Docker Images](../04-Continuous%20Integration/askui-ui-controller-docker-images.md) to learn more about running AskUI inside a Docker container.
+* Read [Debug with Annotation](../03-Element Selection/annotations-and-screenshots.md) to learn how to use the **Image Annotation Feature**.
