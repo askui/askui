@@ -468,7 +468,7 @@ export class FluentFilters extends FluentBase {
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
     if (similarityScore !== undefined) {
-      this._textStr += ` that matches to ${similarityScore}`;
+      this._textStr += ` that matches to ${similarityScore} %`;
     }
 
     return new FluentFiltersOrRelations(this);
@@ -1319,7 +1319,7 @@ export class FluentFiltersCondition extends FluentBase {
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
     if (similarityScore !== undefined) {
-      this._textStr += ` that matches to ${similarityScore}`;
+      this._textStr += ` that matches to ${similarityScore} %`;
     }
 
     return new FluentFiltersOrRelationsCondition(this);
@@ -2927,7 +2927,7 @@ export class FluentFiltersGetter extends FluentBase {
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
     if (similarityScore !== undefined) {
-      this._textStr += ` that matches to ${similarityScore}`;
+      this._textStr += ` that matches to ${similarityScore} %`;
     }
 
     return new FluentFiltersOrRelationsGetter(this);
