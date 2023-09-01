@@ -460,7 +460,7 @@ export class FluentFilters extends FluentBase {
   withText(
     text: string,
     similarityScore
-    = 80,
+    = 70,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
@@ -1311,7 +1311,7 @@ export class FluentFiltersCondition extends FluentBase {
   withText(
     text: string,
     similarityScore
-    = 80,
+    = 70,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
@@ -2919,7 +2919,7 @@ export class FluentFiltersGetter extends FluentBase {
   withText(
     text: string,
     similarityScore
-    = 80,
+    = 70,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
