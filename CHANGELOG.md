@@ -1,6 +1,18 @@
 # Changelog
 
-### [0.11.3](https://github.com/askui/askui/compare/v0.11.2...v0.11.3) (2023-07-31)
+## [0.11.4](https://github.com/askui/askui/compare/v0.11.3...v0.11.4) (2023-09-05)
+
+
+### Features
+
+* add detectedElements as optional input to the annoation command (#CO-416) ([fce3608](https://github.com/askui/askui/commit/fce3608a1fbc5d06d1af486e84fa1ed8575eb971)), closes [#CO-416](https://github.com/askui/askui/issues/CO-416)
+
+
+### Bug Fixes
+
+* fix broken links ([be02cb3](https://github.com/askui/askui/commit/be02cb3bc1b93e247001a9e2abdd669e74e3d174))
+
+## [0.11.3](https://github.com/askui/askui/compare/v0.11.2...v0.11.3) (2023-07-31)
 
 
 ### Bug Fixes
