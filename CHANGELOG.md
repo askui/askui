@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.11.5](https://github.com/askui/askui/compare/v0.11.3...v0.11.5) (2023-09-05)
+
+
+### Features
+
+* add detectedElements as optional input to the annoation command (#CO-416) ([fce3608](https://github.com/askui/askui/commit/fce3608a1fbc5d06d1af486e84fa1ed8575eb971)), closes [#CO-416](https://github.com/askui/askui/issues/CO-416)
+
+
+### Bug Fixes
+
+* **askui-nodejs:** allow to diff between failure and other errors in jest ([cd3d558](https://github.com/askui/askui/commit/cd3d558819cab0009b437cd1844f105be3e18d46))
+* **askui-nodejs:** handle errors in reporter silently ([72c6cee](https://github.com/askui/askui/commit/72c6cee241ce3638030293f9f92163400f166b58))
+* fix broken links ([be02cb3](https://github.com/askui/askui/commit/be02cb3bc1b93e247001a9e2abdd669e74e3d174))
+
 ## [0.11.4](https://github.com/askui/askui/compare/v0.11.3...v0.11.4) (2023-09-05)
 
 
