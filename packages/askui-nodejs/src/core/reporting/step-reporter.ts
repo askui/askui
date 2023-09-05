@@ -3,6 +3,7 @@ import { Instruction } from './instruction';
 import { Reporter } from './reporter';
 import { ReporterConfig } from './reporter-config';
 import { DefaultStep } from './default-step';
+import { logger } from '../../lib/logger';
 
 export class StepReporter {
   currentStep?: DefaultStep | undefined;
@@ -27,7 +28,11 @@ export class StepReporter {
     }
 
     this.currentStep.onBegin(snapshot);
-    await this.reporter.onStepBegin?.(this.currentStep);
+    try {
+      await this.reporter.onStepBegin?.(this.currentStep);
+    } catch (reporterError) {
+      logger.error(reporterError);
+    }
   }
 
   async onStepRetry(snapshot: Snapshot, error: Error): Promise<void> {
@@ -40,7 +45,11 @@ export class StepReporter {
     }
 
     this.currentStep.onRetry(snapshot, error);
-    await this.reporter.onStepRetry?.(this.currentStep);
+    try {
+      await this.reporter.onStepRetry?.(this.currentStep);
+    } catch (reporterError) {
+      logger.error(reporterError);
+    }
   }
 
   async onStepEnd(snapshot: Snapshot, error?: Error): Promise<void> {
@@ -53,6 +62,10 @@ export class StepReporter {
     }
 
     this.currentStep.onEnd(snapshot, error);
-    await this.reporter.onStepEnd?.(this.currentStep);
+    try {
+      await this.reporter.onStepEnd?.(this.currentStep);
+    } catch (reporterError) {
+      logger.error(reporterError);
+    }
   }
 }
