@@ -1,5 +1,4 @@
 import { UiControlClient, UiController } from 'askui';
-import 'jest-allure-circus';
 import { AskUIAllureStepReporter } from '@askui/askui-reporters';
 
 // Server for controlling the operating system
