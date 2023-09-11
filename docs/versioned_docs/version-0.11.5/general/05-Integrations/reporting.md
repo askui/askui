@@ -24,7 +24,6 @@ npm install --save-dev @askui/askui-reporters
 Add the reporter to the `UiControlClient` in `jest.setup.ts`:
 
 ```typescript
-// Do not forget this import at the start of the file
 import { AskUIAllureStepReporter } from "@askui/askui-reporters";
 ...
   const reporterConfig: ReporterConfig = {
@@ -54,10 +53,6 @@ The `UiControlClient` retrieves the videos and images from your `UiController`. 
 
 1. Allure Reporter
 ```typescript
-// Do not forget this import at the start of the file
-// as it is needed for the Allure reporting to work
-import "jest-allure-circus";
-
 beforeEach(async () => {
   await aui.startVideoRecording();
 });
@@ -69,7 +64,7 @@ afterEach(async () => {
 });
 ```
 
-#### Enable the Test Environment `jest-allure-circus` in `jest.config.ts`
+#### Enable the Test Environment `@askui/jest-allure-circus` in `jest.config.ts`
 
 ```typescript
 import type { Config } from '@jest/types';
@@ -82,7 +77,7 @@ const config: Config.InitialOptions = {
   ],
   // highlight-start
   // Enables the test environment for Allure
-  testEnvironment: 'jest-allure-circus',
+  testEnvironment: '@askui/jest-allure-circus',
   // highlight-end
 };
 
