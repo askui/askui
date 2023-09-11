@@ -21,7 +21,7 @@ If you have already set up your development environment, go directly to [3. Auto
 ------
 
 ## Requirements
-- **Android Studio** or **Android SDK Command-line Tools** installed (See [Setup Android tutorial](../04-Executing Automations/mobile-automation.md#android-automation)).
+- **Android Studio** or **Android SDK Command-line Tools** installed (See [Setup Android tutorial](../06-Tutorials/setup-android.md#android-automation)).
 - (optional) Android device, if you want to run your app on a real device.
 
 ------
