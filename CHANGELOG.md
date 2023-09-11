@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.6](https://github.com/askui/askui/compare/v0.11.5...v0.11.6) (2023-09-11)
+
+
+### Bug Fixes
+
+* fix allure-reporting by using fixed fork of @askui/jest-allure-circus ([9e82d12](https://github.com/askui/askui/commit/9e82d127c0cd68cf838da9c82c3c7b4825074852))
+
 ## [0.11.5](https://github.com/askui/askui/compare/v0.11.3...v0.11.5) (2023-09-05)
 
 
