@@ -30,32 +30,11 @@ If you have already set up your development environment, go directly to [3. Auto
 
 ### Install and initialize AskUI
 
-First, go to the directory where you have your node.js project. If you don't have one, you can create it with `npm init`
-
-Then, use the commands below to install AskUI alongside a few additional tools:
-```bash
-npm i -D askui typescript ts-node @types/jest ts-jest jest
-npx askui init # this generates a askui suite within the project directory
-```
-
-After creating the **AskUI suite**, add your credentials in `helper/jest.setup.ts`:
-
-```ts
- aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '<your workspace id>',
-      token: '<your access token>',
-    }
-  });
-  ```
-💡 **AskUI credentials**: You can get your AskUI credentials from the [AskUI user portal](https://app.askui.com/) for free.
-
-
-If you have any issues while setting up **AskUI**, you can have a look at the more descriptive [Getting Started](../02-Getting%20Started/getting-started.md) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.
+Please follow the [Getting Started](../02-Getting%20Started/getting-started.md) tutorial.
 
 **Configure AskUI for Android**
 
-We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of AskUI(version 0.7.2) doesn't provide the API for running it with the runtime option yet:
+We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of AskUI doesn't provide the API for running it with the runtime option yet:
 
 ```bash
 # first, go to the folder that contains the binary
@@ -74,7 +53,7 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
 ```
 
-If the UiController starts to run, it will display the log of it on the shell. We can leave it in the background, and prepare a new terminal window for the next step.
+If the UiController starts, it will display the log of it on the shell. We can leave it in the background, and prepare a new terminal window for the next step.
 
 💡*If you got any errors after running the binary, please check if your android device/emulator is properly connected and recognized by the Android Debug Bridge `adb` by using this command: `adb devices`. You should see a list of recognized devices.*
 
@@ -183,8 +162,7 @@ import { aui } from './helper/jest.setup';
 describe('jest with askui', () => {
   it('should open chrome', async () => {
 
-    await aui.click().textfield().exec();    
-    await aui.click().textfield().exec();    
+    await aui.click().textfield().exec();
 
     // Type the desired keyword into the search bar
     await aui.type('chrome').exec();
@@ -228,8 +206,8 @@ To avoid our execution from failing, we have to examine whether we got a pop-up 
 
 ```ts
 try {
-    // The `expect()` examines whether a specific element is detected or not.
-    // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
+    // The 'expect()' examines whether a specific element is detected or not.
+    // An instruction starting with 'expect()' must always end with 'exists()' or 'notExists()'
     await aui.expect().text().containsText('cookies').notExists().exec();
 } catch (error) {
     await aui.click().text('read more').exec();
@@ -299,14 +277,14 @@ describe('jest with askui', () => {
 
     // Type our desired keyword and hit enter
     await aui.type('spacecraft').exec();
-    await aui.pressAndroidKey('enter');
+    await aui.pressAndroidKey('enter').exec();
 
     // We wait for the search result to be loaded
     await aui.waitFor(3000).exec();
 
     try {
-        // The `expect()` examines whether a specific element is detected or not.
-        // An instruction starting with `expect()` must always end with `exists()` or `notExists()`
+        // The 'expect()' examines whether a specific element is detected or not.
+        // An instruction starting with 'expect()' must always end with 'exists()' or 'notExists()'
         await aui.expect().text().containsText('cookies').notExists().exec();
     } catch (error) {
         await aui.click().text('read more').exec();
@@ -324,4 +302,4 @@ describe('jest with askui', () => {
 
 ## 5. Conclusion
 
-We have covered a use case of AskUI to automate Web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!
+We have covered a use case of AskUI to automate web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!
