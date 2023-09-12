@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/askui/askui/compare/v0.11.6...v0.12.0) (2023-09-12)
+
+
+### Features
+
+* add similarityScore to withText filter (#CO-444) ([0957dba](https://github.com/askui/askui/commit/0957dba46ce17ddcf9444dc773e9d4ae60b471be)), closes [#CO-444](https://github.com/askui/askui/issues/CO-444)
+
 ## [0.11.6](https://github.com/askui/askui/compare/v0.11.5...v0.11.6) (2023-09-11)
 
 
