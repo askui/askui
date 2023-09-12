@@ -21,6 +21,11 @@ npm install --save-dev @askui/askui-reporters
 ```
 
 ### Usage of Allure-Reporter
+
+:::warning
+Do NOT configure multiple reporters as this will break your project in unexpected ways!
+:::
+
 Add the reporter to the `UiControlClient` in `jest.setup.ts`:
 
 ```typescript
