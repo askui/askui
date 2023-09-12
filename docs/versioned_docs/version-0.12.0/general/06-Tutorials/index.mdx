@@ -1,0 +1,53 @@
+# Tutorials
+import {TutorialCardsRows} from '@site/src/components/TutorialCards';
+
+export const androidRow = () => [
+  {
+    name: 'Web Search on Android',
+    image: require('@site/static/img/tutorial-cards/web-search-android.png'),
+    url: 'Tutorials/android-search-in-browser',
+    cta: 'Go to Tutorial',
+  },
+  {
+    name: 'Flutter Android App',
+    image: require('@site/static/img/tutorial-cards/flutter-sample-app.png'),
+    url: 'Tutorials/flutter-android-sample-app',
+    cta: 'Go to Tutorial',
+  }
+];
+
+export const webRow = () => [
+  {
+    name: 'Google Cat Search',
+    image: require('@site/static/img/tutorial-cards/cat-search.png'),
+    url: 'Tutorials/google-cat-search',
+    cta: 'Go to Tutorial',
+  },
+  {
+    name: 'Online Shop',
+    image: require('@site/static/img/tutorial-cards/online-shop.png'),
+    url: 'Tutorials/shop-demo',
+    cta: 'Go to Tutorial',
+  }
+];
+
+export const desktopRow = () => [
+  {
+    name: 'Spotify Like',
+    image: require('@site/static/img/tutorial-cards/spotify-like.png'),
+    url: 'Tutorials/spotify-tutorial',
+    cta: 'Go to Tutorial',
+  }
+];
+
+export const integrationsRow = () => [];
+
+
+## 🤖 Android
+<TutorialCardsRows row={androidRow}/>
+
+## 🕸️ Browser
+<TutorialCardsRows row={webRow}/>
+
+## 💻 Desktop
+<TutorialCardsRows row={desktopRow}/>
