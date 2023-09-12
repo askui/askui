@@ -43,6 +43,7 @@ export interface UiControllerArgs {
   readonly logLevel?: LogLevels;
   readonly logFilePath?: string;
   readonly proxyAgents?: ProxyAgentArgs
+  readonly runtime?: 'desktop' | 'android'
 }
 
 export interface UiControllerArgsWithDefaults extends UiControllerArgs {
@@ -80,5 +81,6 @@ export function createCliFlagsFromArgs(args: UiControllerArgsWithDefaults): stri
     args?.minimize ? '-m ' : '',
     args?.logLevel ? `--log-level ${args.logLevel}` : '',
     args?.logFilePath ? `--log-file ${args.logFilePath}` : '',
+    args?.runtime ? `--runtime ${args.runtime}` : '',
   ].filter((arg) => !!arg);
 }
