@@ -459,12 +459,17 @@ export class FluentFilters extends FluentBase {
    */
   withText(
     text: string,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'with';
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    if (similarityScore !== undefined) {
+      this._textStr += ` that matches to ${similarityScore} %`;
+    }
 
     return new FluentFiltersOrRelations(this);
   }
@@ -1305,12 +1310,17 @@ export class FluentFiltersCondition extends FluentBase {
    */
   withText(
     text: string,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'with';
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    if (similarityScore !== undefined) {
+      this._textStr += ` that matches to ${similarityScore} %`;
+    }
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2908,12 +2918,17 @@ export class FluentFiltersGetter extends FluentBase {
    */
   withText(
     text: string,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'with';
     this._textStr += ' text';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+    if (similarityScore !== undefined) {
+      this._textStr += ` that matches to ${similarityScore} %`;
+    }
 
     return new FluentFiltersOrRelationsGetter(this);
   }

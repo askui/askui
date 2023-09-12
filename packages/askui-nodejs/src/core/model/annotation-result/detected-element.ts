@@ -14,6 +14,7 @@ export class DetectedElement {
     public text: string,
     public bndbox: BoundingBox,
     public colors?: string[],
+    public similarityScore?: number,
   ) { }
 
   static fromJson(detectedElement: DetectedElement, resizeRatio = 1) {
@@ -21,7 +22,8 @@ export class DetectedElement {
       detectedElement.name,
       detectedElement.text,
       BoundingBox.fromJson(detectedElement.bndbox, resizeRatio),
-      detectedElement.colors ? detectedElement.colors : undefined,
+      detectedElement.colors || undefined,
+      detectedElement.similarityScore || 0,
 
     );
   }
