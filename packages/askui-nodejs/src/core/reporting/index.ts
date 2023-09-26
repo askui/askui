@@ -1,4 +1,3 @@
-export * from './default-reporter';
 export * from './instruction';
 export * from './reporter-config';
 export * from './reporter';

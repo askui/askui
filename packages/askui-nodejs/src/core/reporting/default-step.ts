@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { ControlCommandError } from '../../execution/control-command-error';
 import { Instruction } from './instruction';
 import { Snapshot } from './snapshot';
@@ -64,13 +65,13 @@ export class DefaultStep implements Step {
       status: 'running',
       begin: snapshot,
     }];
-    return this;
+    return cloneDeep(this);
   }
 
   onRetry(snapshot: Snapshot, error: Error): DefaultStep {
     this.onEnd(snapshot, error);
     this.onBegin(snapshot);
-    return this;
+    return cloneDeep(this);
   }
 
   onEnd(snapshot: Snapshot, error?: Error): DefaultStep {
@@ -82,7 +83,7 @@ export class DefaultStep implements Step {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       duration: snapshot.createdAt.getTime() - this.lastRun!.begin!.createdAt.getTime(),
     }];
-    return this;
+    return cloneDeep(this);
   }
 
   private static determineLastRunStatus(error?: Error): StepStatusEnd {

@@ -9,9 +9,7 @@ import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
 import { envProxyAgents } from '../utils/proxy/proxy-builder';
 import { ExecutionRuntime } from './execution-runtime';
-import {
-  DEFAULT_REPORTER, Reporter, ReporterConfig, StepReporter,
-} from '../core/reporting';
+import { StepReporter } from '../core/reporting';
 
 export class UiControlClientDependencyBuilder {
   private static async buildHttpClient(
@@ -65,25 +63,6 @@ export class UiControlClientDependencyBuilder {
     };
   }
 
-  private static buildReporter(
-    reporterArg?: Reporter | undefined,
-  ): Required<Reporter> & { config: Required<ReporterConfig> } {
-    return {
-      config: {
-        withScreenshots: reporterArg?.config?.withScreenshots
-          ?? DEFAULT_REPORTER.config.withScreenshots,
-        withDetectedElements: reporterArg?.config?.withDetectedElements
-          ?? DEFAULT_REPORTER.config.withDetectedElements,
-      },
-      onStepBegin: reporterArg?.onStepBegin?.bind(reporterArg)
-        ?? DEFAULT_REPORTER.onStepBegin.bind(DEFAULT_REPORTER),
-      onStepRetry: reporterArg?.onStepRetry?.bind(reporterArg)
-        ?? DEFAULT_REPORTER.onStepRetry.bind(DEFAULT_REPORTER),
-      onStepEnd: reporterArg?.onStepEnd?.bind(reporterArg)
-        ?? DEFAULT_REPORTER.onStepEnd.bind(DEFAULT_REPORTER),
-    };
-  }
-
   static async getClientArgsWithDefaults(
     clientArgs: ClientArgs,
   ): Promise<ClientArgsWithDefaults> {
@@ -93,7 +72,6 @@ export class UiControlClientDependencyBuilder {
       inferenceServerUrl: clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       credentials: clientArgs.credentials ?? envCredentials(),
       proxyAgents: clientArgs.proxyAgents ?? await envProxyAgents(),
-      reporter: UiControlClientDependencyBuilder.buildReporter(clientArgs.reporter),
     };
   }
 }
