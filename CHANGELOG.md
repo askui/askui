@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.1](https://github.com/askui/askui/compare/v0.12.0...v0.12.1) (2023-09-27)
+
+
+* docs: delete a lot of versions; Add warning not to configure multiple reporter simultaneously by @JohannesDienst-askui in https://github.com/askui/askui/pull/560
+* feat(packages/askui-nodejs): allow passing multiple reporters to ui control client (#CL-457) by @adi-wan-askui in https://github.com/askui/askui/pull/562
+
 ## [0.12.0](https://github.com/askui/askui/compare/v0.11.6...v0.12.0) (2023-09-12)
 
 
