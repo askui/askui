@@ -4,11 +4,9 @@ import { FluentCommand } from './dsl';
 class TestCommand extends FluentCommand {
   // eslint-disable-next-line class-methods-use-this
   async fluentCommandExecutor(
-    instruction: string,
-    customElements: CustomElementJson[],
+    _instruction: string,
+    _customElements: CustomElementJson[],
   ): Promise<void> {
-    // eslint-disable-next-line no-console
-    console.log(`${instruction} ${customElements}`);
     return Promise.resolve();
   }
 }

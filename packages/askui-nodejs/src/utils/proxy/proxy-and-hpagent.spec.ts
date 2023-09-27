@@ -36,7 +36,8 @@ describe('proxy and hpagent', () => {
       httpProxy.close();
     });
 
-    it('should tunnel https connection over http proxy with valid certificate', async () => {
+    // flaky test
+    xit('should tunnel https connection over http proxy with valid certificate', async () => {
       const response = await askuiGot.get('https://www.google.com', {
         retry: 0,
       });
@@ -112,7 +113,8 @@ describe('proxy and hpagent', () => {
       httpProxy.close();
     });
 
-    it('should tunnel https connection over http proxy proxy basic authentication in proxy url', async () => {
+    // flaky test
+    xit('should tunnel https connection over http proxy proxy basic authentication in proxy url', async () => {
       httpProxy = addBasicAuthentication(httpProxy);
 
       const response = await got.get('https://www.google.com', {

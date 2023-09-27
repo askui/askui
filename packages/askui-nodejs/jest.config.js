@@ -4,6 +4,7 @@ module.exports = {
     '<rootDir>/dist',
     '<rootDir>/e2e',
   ],
+  setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'node',
   globals: {
     'ts-jest': {

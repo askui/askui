@@ -19,3 +19,13 @@ export type SnapshotDetailLevel =
      *  before and after a step has been run no matter if it failed or not for debugging.
      */
     'always';
+
+const levelsOrdered: SnapshotDetailLevel[] = ['required', 'onFailure', 'begin', 'always'];
+const levelValues = levelsOrdered.reduce((acc, level, index) => ({
+  ...acc,
+  [level]: index,
+}), {} as Record<SnapshotDetailLevel, number>);
+
+export function maxSnapshotDetailLevel(...levels: SnapshotDetailLevel[]): SnapshotDetailLevel {
+  return levelsOrdered[Math.max(...levels.map((level) => levelValues[level]))] ?? 'required';
+}
