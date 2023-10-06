@@ -8,7 +8,11 @@ async function dynmicImportHpagent() {
     // eslint-disable-next-line import/no-extraneous-dependencies
     return await import('hpagent');
   } catch (err: unknown) {
-    throw new ProxyImportError('Can\'t find "hpagent" module to configure proxy! Please, install hpagent for proxy support with "npm install --save-dev hpagent".');
+    throw new ProxyImportError(
+      'Can\'t find "hpagent" module to configure proxy!'
+      + ' Please, install hpagent for proxy support with'
+      + ' "npm install --save-dev hpagent" or "npm install --save hpagent".',
+    );
   }
 }
 

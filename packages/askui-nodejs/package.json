@@ -58,7 +58,6 @@
         "node-machine-id": "1.1.12",
         "pino": "7.8.1",
         "pino-pretty": "7.5.3",
-        "sharp": "0.30.6",
         "tough-cookie": "4.1.2",
         "url-join": "4.0.1",
         "wait-port": "0.2.9",
@@ -79,12 +78,14 @@
         "jest-extended": "^4.0.1",
         "proxy": "^1.0.2",
         "proxy-agent": "^5.0.0",
-        "sharp": "0.30.6",
         "shx": "0.3.4",
         "ts-jest": "28.0.4",
         "typescript": "4.5.4"
     },
     "lint-staged": {
         "./**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"
+    },
+    "optionalDependencies": {
+        "sharp": "^0.32.6"
     }
 }

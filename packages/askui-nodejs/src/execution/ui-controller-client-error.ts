@@ -1,6 +1,6 @@
 export class UiControllerClientError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = 'UiControllerClientError';
-    }
+  constructor(message: string) {
+    super(message);
+    this.name = 'UiControllerClientError';
+  }
 }
