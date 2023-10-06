@@ -1,5 +1,7 @@
 # Changelog
 
+### [0.12.2](https://github.com/askui/askui/compare/v0.12.1...v0.12.2) (2023-10-06)
+
 ## [0.12.1](https://github.com/askui/askui/compare/v0.12.0...v0.12.1) (2023-09-27)
 
 
