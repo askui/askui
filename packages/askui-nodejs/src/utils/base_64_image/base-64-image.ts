@@ -1,33 +1,25 @@
-import sharp from 'sharp';
+import type sharp from 'sharp';
+import fs from 'fs';
+import { getSharpFactory } from './sharp';
 import { Base64ImageStringError } from './base-64-image-string-error';
 
 export class Base64Image {
   static readonly strPrefix = 'data:image/png;base64,';
 
-  private constructor(
-    private readonly aSharp: sharp.Sharp,
-    private info: sharp.OutputInfo,
-    private buffer: Buffer,
-  ) {}
+  private _sharp?: sharp.Sharp;
 
-  private static async fromSharp(s: sharp.Sharp): Promise<Base64Image> {
-    const { info, data } = await s.toBuffer({ resolveWithObject: true });
-    return new Base64Image(s, info, data);
-  }
+  private constructor(private buffer: Buffer) {}
 
   static async fromPathOrString(pathOrStr: string): Promise<Base64Image> {
-    try {
-      return await Base64Image.fromString(pathOrStr);
-    } catch (error) {
-      if (!(error instanceof Base64ImageStringError)) {
-        throw error;
-      }
+    if (pathOrStr.startsWith(Base64Image.strPrefix)) {
+      return Base64Image.fromString(pathOrStr);
     }
     return Base64Image.fromPath(pathOrStr);
   }
 
-  static async fromPath(path: string): Promise<Base64Image> {
-    return Base64Image.fromSharp(sharp(path));
+  static async fromPath(filePath: string): Promise<Base64Image> {
+    const data = await fs.promises.readFile(filePath, 'base64');
+    return Base64Image.fromString(`${Base64Image.strPrefix}${data}`);
   }
 
   static async fromString(str: string): Promise<Base64Image> {
@@ -35,36 +27,40 @@ export class Base64Image {
       throw new Base64ImageStringError(str, Base64Image.strPrefix);
     }
     const data = str.substring(Base64Image.strPrefix.length);
-    return Base64Image.fromSharp(sharp(Buffer.from(data, 'base64')));
+    return new Base64Image(Buffer.from(data, 'base64'));
   }
 
-  static async fromBuffer(buffer: Buffer): Promise<Base64Image> {
-    return Base64Image.fromSharp(sharp(buffer));
+  private static async fromBuffer(buffer: Buffer): Promise<Base64Image> {
+    return new Base64Image(buffer);
   }
 
-  get width(): number {
-    return this.info.width;
+  private async getSharp(): Promise<sharp.Sharp> {
+    if (this._sharp === undefined) {
+      const createSharp = await getSharpFactory();
+      this._sharp = createSharp(this.buffer);
+    }
+    return this._sharp;
   }
 
-  get height(): number {
-    return this.info.height;
+  async getInfo(): Promise<sharp.OutputInfo> {
+    return (await this.getSharp())
+      .toBuffer({ resolveWithObject: true })
+      .then(({ info }) => info);
   }
 
   async resizeToFitInto(dimension: number): Promise<Base64Image> {
-    const buffer = await this.aSharp.resize({
-      width: this.width >= this.height ? dimension : undefined,
-      height: this.height > this.width ? dimension : undefined,
-      fit: sharp.fit.contain,
-    }).toBuffer();
-
+    const { width, height } = await this.getInfo();
+    const buffer = await (await this.getSharp())
+      .resize({
+        width: width >= height ? dimension : undefined,
+        height: height > width ? dimension : undefined,
+        fit: 'contain',
+      })
+      .toBuffer();
     return Base64Image.fromBuffer(buffer);
   }
 
   toString(): string {
     return `${Base64Image.strPrefix}${this.buffer.toString('base64')}`;
-  }
-
-  toBuffer(): Buffer {
-    return this.buffer;
   }
 }

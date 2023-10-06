@@ -20,14 +20,16 @@ export async function resizeBase64ImageWithSameRatio(
   logger.debug('Image resizing');
   try {
     const image = await Base64Image.fromString(base64ImageString);
-    if (image.height <= maxEdge && image.width <= maxEdge) {
+    const imageInfo = await image.getInfo();
+    if (imageInfo.height <= maxEdge && imageInfo.width <= maxEdge) {
       return { base64Image: base64ImageString, resizeRatio: 1 };
     }
 
     const resizedImage = await image.resizeToFitInto(maxEdge);
+    const resizedImageInfo = await resizedImage.getInfo();
     return {
       base64Image: resizedImage.toString(),
-      resizeRatio: image.width / resizedImage.width,
+      resizeRatio: imageInfo.width / resizedImageInfo.width,
     };
   } catch (error) {
     throw new ImageResizingError(`A Problem has occured during the resizing of the image. Error: ${error}`);
