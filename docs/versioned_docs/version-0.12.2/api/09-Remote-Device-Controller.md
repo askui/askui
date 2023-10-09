@@ -2,7 +2,7 @@
 
 :::caution
 
-The remote device controller is currently in __preview__ release and only works on __Windows__ and for __Android__ devices controlled from a windows machine.
+The remote device controller is currently in __preview__ release and only works on __Windows__ and for __Android__ devices controlled from a __Windows__ machine.
 
 The installer only works on __Windows__.
 
