@@ -81,7 +81,7 @@ Make use of our preview build to use the latest features by following the mentio
 ## Features
 
 ### Type Like a Human
-Together wit the asynchronous execution of actions we also introduce natural typing. The 
+Together with the asynchronous execution of actions we also introduce natural typing. The 
 first iteration of this feature uses the typical typing speed of a human.
 
 ### Experimental Unicode Support
@@ -93,7 +93,7 @@ instance gets started the previous one gets killed. Later this will be managed b
 operating system service to avoid interruptions of running workflows.
 
 ### Android on Windows
-AskUI automation works on an Android device that is controlled from a Windows machine. It allows you to run a workflow on a Android device, including recording the session. Instructions how to setup the Android workflow can be found in our [documentation](../general/04-Executing%20Automations/mobile-automation.md#android-automation]).
+AskUI automation works on an Android device that is controlled from a Windows machine. It allows you to run a workflow on an Android device, including recording the session. Instructions how to setup the Android workflow can be found in our [documentation](../general/04-Executing%20Automations/mobile-automation.md#android-automation]).
 
 > Please also read the knows issues section since this is just a preview feature.
 
