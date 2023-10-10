@@ -84,8 +84,6 @@ Make use of our preview build to use the latest features by following the mentio
 Together with the asynchronous execution of actions we also introduce natural typing. The 
 first iteration of this feature uses the typical typing speed of a human.
 
-### Experimental Unicode Support
-
 ### Android on Windows
 AskUI automation works on an Android device that is controlled from a Windows machine. It allows you to run a workflow on an Android device, including recording the session. Instructions how to setup the Android workflow can be found in our [documentation](../general/04-Executing%20Automations/mobile-automation.md#android-automation]).
 
@@ -97,7 +95,7 @@ AskUI automation works on an Android device that is controlled from a Windows ma
 - You may encounter issues when mouse pointer acceleration is enabled.
 
 ### Log Files
-- Log files disk space usage. They are stored in `<YOUR_USER_FOLDER>/.askui/` and can be deleted if that causes any issues.
+Log files are stored under `<YOUR_USER_FOLDER>/.askui/`.
 
 ### Android
 - Recording on an Android device is not stable.
