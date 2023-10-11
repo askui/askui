@@ -57,4 +57,6 @@ To create and serve a static HTML-Report you have to install [Allure](https://gi
 
 ## Access Token
 
-As we need to prevent misuse of our API, we need you to create some credentials through our [AskUI Studio](https://app.askui.com/) (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+As we need to prevent misuse of our API, we need you to create some credentials through our __AskUI Studio__ (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
+
+Please [fill out this form](https://xa5a040gvfz.typeform.com/to/DmarVHMn) to schedule a demonstration or request a trial to obtain access to __AskUI Studio__.
