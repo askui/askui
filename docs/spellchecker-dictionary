@@ -218,3 +218,8 @@ Artifactory
 PNG
 CLI
 VMs
+AskUIAllureStepReporter
+AskUIJestHtmlStepReporter
+AskUIAnnotationStepReporter
+ffmpeg
+Jest-Html-Reporters
