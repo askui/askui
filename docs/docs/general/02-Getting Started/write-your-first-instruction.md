@@ -90,8 +90,12 @@ describe('jest with askui', () => {
 To execute the instructions, enter into your terminal
 
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
+npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts --runInBand
 ```
+
+:::info
+We use the `--runInBand` CLI option here to run the workflows from the `it`-code blocks sequentially and not in parallel. This is usually what you want on your local machine without isolated environments like containers or VMs.
+:::
 
 A few seconds later an (interactive) annotation will be generated.
 
@@ -145,7 +149,7 @@ describe('jest with askui', () => {
 });
 ````
 
-As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts `
+As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts --runInBand`
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.
 

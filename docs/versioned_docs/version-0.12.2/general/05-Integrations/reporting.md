@@ -186,7 +186,7 @@ export default config;
 And run the AskUI suite again:
 
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts --runInBand
 ```
 
 By default, **jest-junit** will save the *.xml* report in your project root directory, with the file name **junit.xml**:
