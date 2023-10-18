@@ -32,10 +32,11 @@ To verify the installation of them,
 - Then, select `Android SDK` from the list on the left side of the window.
 - Go to the `SDK Tools` tab, and check the `Android SDK Command-line Tools` and the `Android SDK Platform-Tools`. After clicking the OK button, it will start to install the tools we have selected.
 
-
+:::info
+The command `adb` is usually not added to your `$PATH` and will not be available globally. Please [follow the official docs](https://developer.android.com/tools#environment-variables) to set it up.
+:::
 
 ![android-sdk-tools](images/android-sdk-tools.png)
-
 
 
 ### 2. Set up the Test Device
@@ -59,7 +60,7 @@ After enabling the `Developer Options`, we can enable the `USB debugging` option
 
 #### Set up an Android Emulator
 
-If you want to use the Android Emulator for automation purposes, we have to create a virtual device that runs in the emulator. After running the Android Studio,
+If you want to use the Android Emulator for automation purposes, we have to create a virtual device that runs in the emulator. After running Android Studio,
 
 - Click on the `More Actions` button, and then
 - Open the `Virtual Device Manager`
@@ -91,9 +92,10 @@ After finishing creating a new virtual device, we will be able to see our new de
 
 
 ### Set Up SDK Command Line Tools without Android Studio
+
 #### Case01: Set Up for the Android Emulator
 
-1. Download the [Android SDK Command-Line Tools](https://developer.android.com/studio#command-tools)
+1. Download the [Android SDK Command-Line Tools](https://developer.android.com/studio#command-line-tools-only)
 
 2. Install the necessary tools:
 ```bash
@@ -121,6 +123,10 @@ bin/sdkmanager --list
 bin/sdkmanager --install "system-images;android-33;google_apis;x86_64"
 # The above command will download and install the tools in the sdk_root (android_sdk/)
 ```
+
+:::info
+The command `adb` is usually not added to your `$PATH` and will not be available globally. Please [follow the official docs](https://developer.android.com/tools#environment-variables) to set it up.
+:::
 
 3. Download and install the Emulator:
 ```bash
@@ -155,6 +161,9 @@ cd platform-tools
 ./adb devices
 ```
 
+:::info
+The command `adb` is usually not added to your `$PATH` and will not be available globally. Please [follow the official docs](https://developer.android.com/tools#environment-variables) to set it up.
+:::
 
 ### 3. Set Up the ADBKeyboard
 

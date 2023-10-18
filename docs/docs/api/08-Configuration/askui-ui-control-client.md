@@ -1,8 +1,8 @@
-# askui UI Control Client
+# AskUI UI Control Client
 
 ## Log Level
 
-Set the log level of the askui UI Control Client using the `LOG_LEVEL` environment variable.
+Set the log level of the AskUI UI Control Client using the `LOG_LEVEL` environment variable.
 The following log levels are available:
 
 - `"fatal"`
@@ -34,14 +34,14 @@ $env:LOG_LEVEL="verbose"
 
 - **uiControllerUrl**: `string` - Default: `http://127.0.0.1:6769`
 
-The url of the askui UI Controller controlling the OS.
+The url of the AskUI UI Controller controlling the OS.
 ___
 
 ### inferenceServerUrl
 
 - **inferenceServerUrl**: `string` - Default: `https://inference.askui.com`
 
-The address of the askui Inference server.
+The address of the AskUI Inference server.
 ___
 
 ### resize
@@ -56,9 +56,9 @@ ___
 
 - **credentials**: `Credentials` Your user credentials - Optional.
   - **workspaceId**: `string` Your workspace id
-  - **token**: `string` An access token for authentication with the askui Inference Server
+  - **token**: `string` An access token for authentication with the AskUI Inference Server
 
-Provide credentials for authentication with the askui Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_WORKSPACE_ID` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the `workspace id` via setting the `ASKUI_WORKSPACE_ID` environment variable, you need to set token with environment variables as well.
+Provide credentials for authentication with the AskUI Inference Server if you would like to use dedicated, more powerful and stable resources instead of public resources. Credentials can also be provided using the environment variables `ASKUI_WORKSPACE_ID` and `ASKUI_TOKEN` but in-code configuration takes precedence over these environment variables. Independent of how you configure the credentials, make sure to use one way to configure all the credentials, i.e., if you set the `workspace id` via setting the `ASKUI_WORKSPACE_ID` environment variable, you need to set token with environment variables as well.
 
 Setting credentials in code:
 
@@ -86,3 +86,29 @@ export ASKUI_TOKEN=<your access token>
 ```
 
 ___
+
+### reporter
+
+- **reporter**: `Reporter` or `Reporter[]` the reporter(s) to report on step runs/executions - optional.
+
+Set one or multiple AskUI step reporters that implement AskUI's `Reporter` interface. We provide step reporters through the [`askui-reporters`](https://github.com/askui/askui-reporters) package. See [our reporting page](../../general/05-Integrations/reporting.md#implement-your-own-reporter) for instructions on how to implement your own reporter.
+
+Setting multiple reporters in code (example):
+
+```typescript
+aui = await UiControlClient.build({
+    reporter: [
+        new AskUIAnnotationStepReporter(
+          AnnotationLevel.ALL,
+          "annotation_report",
+          "_annotation"
+        ),
+        new AskUIJestHtmlStepReporter({
+          withScreenshots: 'always' as const,
+          withDetectedElements: 'always' as const,
+        })
+      ],
+  });
+```
+
+See [our reporting page](../../general/05-Integrations/reporting.md) for a comprehensive overview.

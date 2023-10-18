@@ -63,7 +63,7 @@ Follow the instructions below.
     adb devices
     ```
 
-- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](single-device-automation.md).
+- If you don't have the `adb` installed on your local device, set it up by following [this tutorial](mobile-automation.md#case02-set-up-for-a-real-android-device).
 
 - Use the commands below, if you want to connect your Android device via `adb` wirelessly:
     ```bash
