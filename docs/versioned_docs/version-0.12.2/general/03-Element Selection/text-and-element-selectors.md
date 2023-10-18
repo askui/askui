@@ -164,7 +164,7 @@ As the result, it will try to match every text that has a sequence starting with
 
 :::caution
 
-This page is currently under construction. If you have any questions, please feel free to reach out to info@AskUI.com or book a meeting with Jonas https://calendly.com/jonas-menesklou/asui
+This page is currently under construction. If you have any questions, please feel free to reach out to info@AskUI.com or book a meeting with Jonas [over Calendly](https://calendly.com/jonas-menesklou/digital-get-to-know).
 
 :::
 
