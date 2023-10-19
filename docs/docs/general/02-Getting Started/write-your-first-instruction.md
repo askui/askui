@@ -35,7 +35,7 @@ npx askui init
 
 ## Configuration
 
-Generate credentials through the __AskUI Studio__ (usage is free!). Please [fill out this form](https://xa5a040gvfz.typeform.com/to/DmarVHMn) to schedule a demonstration or request a trial to obtain access to __AskUI Studio__.
+Generate credentials through the __AskUI Studio__ (usage is free!). Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
