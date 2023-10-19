@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
 # Installing askui

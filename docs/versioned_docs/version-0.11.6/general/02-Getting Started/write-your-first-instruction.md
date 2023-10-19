@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 7
 ---
 
 # Write Your First Instruction
@@ -35,7 +35,7 @@ npx askui init
 
 ## Configuration
 
-Generate credentials through the [AskUI Studio](https://app.askui.com/) (usage is free!).
+Generate credentials through the __AskUI Studio__ (usage is free!). Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.
 
 Then, go to your `helper/jest.setup.ts` and add the configuration for your `workspace id` and your `access token` to the `UiControlClient`.
 
@@ -90,14 +90,16 @@ describe('jest with askui', () => {
 To execute the instructions, enter into your terminal
 
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
+npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts --runInBand
 ```
+
+:::info
+We use the `--runInBand` CLI option here to run the workflows from the `it`-code blocks sequentially and not in parallel. This is usually what you want on your local machine without isolated environments like containers or VMs.
+:::
 
 A few seconds later an (interactive) annotation will be generated.
 
-If you’d like a longer explanation as to what an (interactive) annotation is, read about here.
-
-[Explanation of (Interactive) Annotations](../03-Element Selection/annotations-and-screenshots.md)
+If you’d like a longer explanation as to what an (interactive) annotation is, read about it here. [Explanation of (Interactive) Annotations](../03-Element Selection/annotations-and-screenshots.md)
 
 ### Step 2: Extract the Element-Description
 Extract from the (interactive) annotation the element-description which identifies target element.
@@ -145,7 +147,7 @@ describe('jest with askui', () => {
 });
 ````
 
-As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts `
+As before, run your code with `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts --runInBand`
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.
 
@@ -167,18 +169,12 @@ Have a look at [Relational Selectors](../03-Element Selection/relational-selecto
 ### Technical
 For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
 
-You will find the following pages there:
-
-* [Linux Wayland window manager and libfuse2](../07-Troubleshooting/linux.md)
-* [AskUI behind a corporate proxy](../07-Troubleshooting/proxy.md)
-* [macOS missing permissions for UiController](../07-Troubleshooting/mac-os.md)
-
 ## Where to Go Next?
 
-Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
+Our [Outverse-Community](https://app.outverse.com/askui/community/home) is there to help you out!
 
 ### Tutorials
-If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of AskUI in depth:
+If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of use cases of AskUI in depth:
 
 * [Search Image in Google](../06-Tutorials/google-cat-search.md)
 * [Login at an Online Shop](../06-Tutorials/shop-demo.md)

@@ -41,7 +41,7 @@ const Playgrounds = [
   },
   {
     name: '🤖 Android',
-    url: 'getting-started',
+    url: 'getting-started-android',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -54,7 +54,7 @@ const Playgrounds = [
   },
   {
     name: '👩🏻‍💻 macOS',
-    url: 'getting-started',
+    url: 'getting-started-macos',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -67,7 +67,7 @@ const Playgrounds = [
   },
   {
     name: '💻 Linux',
-    url: 'getting-started',
+    url: 'getting-started-linux',
     description: (
       <Translate id="gettingstarted.installlinux.description">
         {
@@ -80,7 +80,7 @@ const Playgrounds = [
   },
   {
     name: '🏢 Enterprise Checklist',
-    url: 'getting-started',
+    url: 'enterprise-checklist',
     description: (
       <Translate id="gettingstarted.installenterprise.description">
         {
