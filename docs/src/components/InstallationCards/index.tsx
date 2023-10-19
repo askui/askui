@@ -16,57 +16,111 @@ import Heading from '@theme/Heading';
 
 const Playgrounds = [
   {
-    name: '📦 Gitpod',
-    image: require('@site/static/img/installation-cards/gitpod.png'),
+    name: '📦 Quickstart',
     url: 'https://github.com/askui/askui-try-out',
     description: (
       <Translate id="gettingstarted.gitpod.description">
-        Gitpod runs askui in a remote Docker container in the cloud. We prepared a Github Repository for you to get you started without any hassle.
+        Try AskUI without any hassle in Gitpod.
       </Translate>
     ),
     cta: 'Try it now!',
-    idimage: 'github-try-out-image',
     idbutton: 'github-try-out-button',
   },
   {
-    name: '💻 Local Installation',
-    image: require('@site/static/img/installation-cards/local.png'),
+    name: '🪟 Windows',
     url: 'getting-started',
     description: (
-      <Translate id="gettingstarted.installlocally.description">
+      <Translate id="gettingstarted.installwindows.description">
         {
-          'Install askui locally to experience it without the limitations of a cloud environment. Run your first instruction on your own machine.'
+          'Learn how to automate on Windows.'
         }
       </Translate>
     ),
-    cta: 'Install on your machine!',
-    idimage: 'install-local-image',
-    idbutton: 'install-local-button',
+    cta: 'Get started!',
+    idbutton: 'install-windows-button',
+  },
+  {
+    name: '🤖 Android',
+    url: 'getting-started',
+    description: (
+      <Translate id="gettingstarted.installandroid.description">
+        {
+          'Learn how to automate an Android device.'
+        }
+      </Translate>
+    ),
+    cta: 'Get started!',
+    idbutton: 'install-android-button',
+  },
+  {
+    name: '👩🏻‍💻 macOS',
+    url: 'getting-started',
+    description: (
+      <Translate id="gettingstarted.installandroid.description">
+        {
+          'Learn how to automate on macOS'
+        }
+      </Translate>
+    ),
+    cta: 'Get started!',
+    idbutton: 'install-macos-button',
+  },
+  {
+    name: '💻 Linux',
+    url: 'getting-started',
+    description: (
+      <Translate id="gettingstarted.installlinux.description">
+        {
+          'Learn how to automate on Linux.'
+        }
+      </Translate>
+    ),
+    cta: 'Get started!',
+    idbutton: 'install-linux-button',
+  },
+  {
+    name: '🏢 Enterprise Checklist',
+    url: 'getting-started',
+    description: (
+      <Translate id="gettingstarted.installenterprise.description">
+        {
+          'Setup in an enterprise environment.'
+        }
+      </Translate>
+    ),
+    cta: 'Get started!',
+    idbutton: 'install-enterprise-button',
+  },
+  {
+    name: '📱 iOS',
+    url: 'getting-started',
+    description: (
+      <Translate id="gettingstarted.installenterprise.description">
+        {
+          '🚧 Coming soon! 🚧'
+        }
+      </Translate>
+    ),
+    cta: 'Get started!',
+    idbutton: 'install-iOS-button',
   },
 ];
 
 interface Props {
   name: string;
-  image: string;
   url: string;
   description: JSX.Element;
   cta: string;
-  idimage: string;
   idbutton: string;
 }
 
-function PlaygroundCard({name, image, url, description, cta, idimage, idbutton}: Props) {
+function PlaygroundCard({name, url, description, cta, idbutton}: Props) {
   return (
-    <div className="col col--6 margin-bottom--lg">
+    <div className="col col--4 margin-bottom--lg">
       <div className={clsx('card')}>
         <div className="card__body">
           <Heading as="h3">{name}</Heading>
           <p>{description}</p>
-        </div>
-        <div className={clsx('card__image')}>
-          <Link to={url} id={idimage}>
-            <Image img={image} alt={`${name}'s image`} />
-          </Link>
         </div>
         <div className="card__footer">
           <div className="button-group button-group--block">
