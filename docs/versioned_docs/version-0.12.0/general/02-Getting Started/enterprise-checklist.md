@@ -40,7 +40,7 @@ Python `3.10` or higher needs to be installed. Open a terminal/Powershell and ru
 ### Windows
 When you want to use the `AskUI Runner` you will create a virtual environment.
 
-* Follow [these instruction](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html). And consult your 
+* Follow [these instruction](https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html). And consult your IT-department if you run into problems.
 
 ### Install Dependencies
 You will probably have to install dependencies like node-packages over a company internal repository management system like Artifactory.
