@@ -433,7 +433,7 @@ it('enable street view', async ()=>{
 ### Conclusion
 If you plan to program an automation where you have elements with non-standard properties, you might want to consider using the custom element feature of AskUI. But as mentioned above, keep in mind that, as a trade-off, it consumes more time than other features. Taking it into account, using a custom element to interact with the given UI can be a huge help, especially if the element lacks standard properties such as tag or appearance. 
 
-If you got any issues while following this article, don't hesitate to ask for help in our [Discord Community!](https://discord.gg/Gu35zMGxbx) We are more than glad to hear about your experience and help!
+If you got any issues while following this article, don't hesitate to ask for help in our [Outverse-Community](https://app.outverse.com/askui/community/home). We are more than glad to hear about your experience and help!
 
 ## Recommended Practices
 

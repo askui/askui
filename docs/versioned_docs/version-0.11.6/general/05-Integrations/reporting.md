@@ -385,4 +385,4 @@ It will show the attached image beside the text elements we've added:
 ### 3. Conclusion
 Although we covered only two ready-made Jest reporters in this article, reporters in Jest are fully configurable and customizable. To properly configure your pipeline, you maybe could wish to have a custom reporter that fits nicely into your pipeline. As AskUI provides a well-suited TypeScript Library, combining it with jest and proper reporters can become a huge benefit to scaffolding a robust automation.
 
-If you got any issues while following this tutorial, don't hesitate to ask our [Discord Community](https://bit.ly/3T2je6C)!
+If you got any issues while following this tutorial, don't hesitate to ask our [Outverse-Community](https://app.outverse.com/askui/community/home)!

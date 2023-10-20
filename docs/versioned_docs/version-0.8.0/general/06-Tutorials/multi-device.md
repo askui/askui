@@ -238,4 +238,4 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
 
 
 ## 6. Conclusion
-Now you should be able to automate multiple devices in the network. If you got any issues while following this tutorial, don't hesitate to ask our [Discord Community](https://bit.ly/3T2je6C)!
+Now you should be able to automate multiple devices in the network. If you got any issues while following this tutorial, don't hesitate to ask our [Outverse-Community](https://app.outverse.com/askui/community/home)!

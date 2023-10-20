@@ -15,4 +15,4 @@ challenge after you have read through the pages, please drop us a note. We are h
 
 # Support
 
-* Join our [Discord Community](https://discord.gg/UHSZ99Xhx2) to get help from fellow users and askui staff. You need to [create a Discord account](https://support.discord.com/hc/en-us/articles/360033931551-Getting-Started) first if you do not have one already.
+* Join our [Outverse-Community](https://app.outverse.com/askui/community/home) to get help from fellow users and askui staff.

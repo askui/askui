@@ -447,4 +447,4 @@ describe('jest with askui', () => {
 ## Conclusion
 After following through this tutorial, you should be able to automate the interaction with the provided demo app. Although this example specifically provides a demo app built with Flutter, the overall method of using askui should also work with any mobile app running on an Android device.
 
-If you got an issue while following this example, or in case you would like to share your use case, don't hesitate to join our [community on Discord](https://discord.gg/Gu35zMGxbx)!
+If you got an issue while following this example, or in case you would like to share your use case, don't hesitate to join our [community on Outverse](https://app.outverse.com/askui/community/home)!
