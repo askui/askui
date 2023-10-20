@@ -11,15 +11,6 @@ pagination_next: general/Getting Started/write-your-first-instruction
 - [npm.js](https://www.npmjs.com/) version 7.10 or above
 - :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/linux.md#wayland).
 
-
-## macOS
-
-:::danger
-
-Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
-
-:::
-
 ## Installation
 
 Open a directory where you would like to place the askui setup. If you haven’t already, set up an NPM project by running:
