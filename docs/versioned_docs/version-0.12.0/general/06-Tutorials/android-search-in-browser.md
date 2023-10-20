@@ -302,4 +302,4 @@ describe('jest with askui', () => {
 
 ## 5. Conclusion
 
-We have covered a use case of AskUI to automate web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!
+We have covered a use case of AskUI to automate web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Outverse-Community](https://app.outverse.com/askui/community/home)!

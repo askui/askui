@@ -51,7 +51,7 @@ After creating the **askui test suite**, add your credentials in `helper/jest.se
 💡 **askui credentials**: You can get your askui credentials from the [askui user portal](https://app.askui.com/) for free.
 
 
-If you have any issues while setting up **askui**, you can have a look at the more descriptive [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/getting-started) tutorial, or just drop by our [Discord](https://bit.ly/3ekHnGR) and ask the community.
+If you have any issues while setting up **askui**, you can have a look at the more descriptive [Getting Started](https://docs.askui.com/docs/general/Getting%20Started/getting-started) tutorial, or just drop by our [Outverse-Community](https://app.outverse.com/askui/community/home) and ask the community.
 
 **Configure askui for Android**
 
@@ -332,4 +332,4 @@ describe('jest with askui', () => {
 
 ## 5. Conclusion
 
-We have covered a use case of askui to automate Web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Discord](https://discord.gg/Gu35zMGxbx)!
+We have covered a use case of askui to automate Web searching in Android devices. If you got any issues while following the instruction, feel free to ask in our [Outverse-Community](https://app.outverse.com/askui/community/home)!

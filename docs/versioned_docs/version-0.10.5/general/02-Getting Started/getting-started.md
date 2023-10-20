@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
 # Installing askui
@@ -8,16 +9,6 @@ sidebar_position: 2
 
 - [Node.js](https://nodejs.org/) version 16 or above
 - [npm.js](https://www.npmjs.com/) version 7.10 or above
-- :warning: **Linux**: [Information for Wayland](../07-Troubleshooting/linux.md#wayland).
-
-
-## macOS
-
-:::danger
-
-Some users have reported instability running askui on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running askui in Docker](../04-Continuous%20Integration/askui-ui-controller-docker-images.md).
-
-:::
 
 ## Installation
 

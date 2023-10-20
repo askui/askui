@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 8
 ---
 
 # How AskUI Works
@@ -59,7 +59,7 @@ await aui.click().button().withText('login').exec();
     - to receive the annotation, e.g. detected elements.
 
 
-To use the **AskUI Control Client**, user credentials are required. User credentials can be obtained via our [User Portal](https://app.askui.com/).
+To use the **AskUI Control Client**, user credentials are required. User credentials can be obtained via our __AskUI Studio__. Please [fill out this form](https://xa5a040gvfz.typeform.com/to/DmarVHMn) to schedule a demonstration or request a trial to obtain access to __AskUI Studio__.
 
 See our [API documentation](../../api/08-Configuration/askui-ui-control-client.md) for more information on this component.
 
@@ -136,4 +136,4 @@ Please visit our [API Docs](../../api/01-API/table-of-contents.md), if you want 
 
 ## Conclusion
 
-Here we have seen the three core components of AskUI. If you aim to use AskUI in a more advanced way, e.g. integrating it into your CI/CD pipeline, it may be worthwhile to get an overview of how it is composed. For more practical examples, please refer to our [Tutorials](../06-Tutorials/index.mdx) and [API docs](../../api/01-API/table-of-contents.md). And don't forget to come over to our [Discord community](https://discord.gg/Gu35zMGxbx), if you have any questions about AskUI!
+Here we have seen the three core components of AskUI. If you aim to use AskUI in a more advanced way, e.g. integrating it into your CI/CD pipeline, it may be worthwhile to get an overview of how it is composed. For more practical examples, please refer to our [Tutorials](../06-Tutorials/index.mdx) and [API docs](../../api/01-API/table-of-contents.md). And don't forget to come over to our [Outverse-Community](https://app.outverse.com/askui/community/home), if you have any questions about AskUI!

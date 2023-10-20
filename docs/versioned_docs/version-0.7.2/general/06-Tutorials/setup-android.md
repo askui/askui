@@ -197,5 +197,5 @@ Click on a textfield in an app and see if the `ADB Keyboard {ON}` notification i
 
 We are finally done with the preparation for testing apps running on Android devices. In the next post, we will cover a simple test automation case utilizing [askui](https://bit.ly/3FGspGO) on the device we set up in this article.
 
-If you have a recurring or persisting issue while following this tutorial, don’t hesitate to ask the [Discord community](https://bit.ly/3T2je6C) for help!
+If you have a recurring or persisting issue while following this tutorial, don’t hesitate to ask the [Outverse-Community](https://app.outverse.com/askui/community/home) for help!
 

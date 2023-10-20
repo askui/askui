@@ -153,7 +153,7 @@ You will find the following pages there:
 
 ## Where to Go Next?
 
-Also our [Discord-Community](https://discord.gg/KFYJ5xuyBA) is there to help you out!
+Also our [Outverse-Community](https://app.outverse.com/askui/community/home) is there to help you out!
 
 ### Tutorials
 If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of the typical use cases of askui in depth:
