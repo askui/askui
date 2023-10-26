@@ -1,32 +1,25 @@
 import { UiControlClient, UiController } from 'askui';
-import { AskUIAllureStepReporter } from '@askui/askui-reporters';
+// allure_stepreporter_import
 
 // Server for controlling the operating system
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let uiController: UiController;
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
 let aui: UiControlClient;
 
-jest.setTimeout(60 * 1000 * 60);
+// timeout_placeholder
 
 beforeAll(async () => {
-  uiController = new UiController({
-    /**
-     * Select the display you want to run your tests on, display 0 is your main display;
-     * ignore if you have only one display
-     */
-    display: 0,
-  });
-
-  await uiController.start();
+  // uicontroller_init_placeholder
 
   aui = await UiControlClient.build({
     credentials: {
       workspaceId: '<your workspace id>',
       token: '<your access token>',
     },
-    reporter: new AskUIAllureStepReporter(),
+    // reporter_placeholder
   });
 
   await aui.connect();
@@ -38,14 +31,15 @@ beforeEach(async () => {
 
 afterEach(async () => {
   await aui.stopVideoRecording();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const video = await aui.readVideoRecording();
-  AskUIAllureStepReporter.attachVideo(video);
+  // allure_stepreporter_attach_video
 });
 
 afterAll(async () => {
   aui.disconnect();
 
-  await uiController.stop();
+  // uicontroller_stop_placeholder
 });
 
 export { aui };

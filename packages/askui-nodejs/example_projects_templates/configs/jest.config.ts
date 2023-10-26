@@ -3,7 +3,7 @@ import type { Config } from '@jest/types';
 const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: '@askui/jest-allure-circus',
-  setupFilesAfterEnv: ['./helper/jest.setup.ts'],
+  setupFilesAfterEnv: ['./helpers/askui-helper.ts'],
   sandboxInjectedGlobals: [
     'Math',
   ],
