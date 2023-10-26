@@ -25,11 +25,11 @@ The installer only works on __Windows__.
 
 6. Remove `await uiController.stop();` in `afterAll` function.
 
-7. Start the installed UI Controller manually and select the screen you want to use. 
+7. Start the installed __Remote Device Controller__ manually and select the screen you want to use. 
     > Note: Either through the start menu, desktop shortcut or the executable in the install directory.
 
 8. You should be good to go now to run your workflows as described in documentation.
-    > Note: Ensure that the UI Controller is running before you start a workflow.
+    > Note: Ensure that the __Remote Device Controller__ is running before you start a workflow.
 
 ### Manual Update of Remote Device Controller
 

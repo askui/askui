@@ -127,7 +127,7 @@ export class CreateExampleProject {
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
-      jest: `jest --config ./${this.exampleFolderName}/jest.config.ts`,
+      jest: `jest --config ./${this.exampleFolderName}/jest.config.ts --runInBand`,
       jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
     };
     await addScript(

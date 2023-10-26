@@ -8,27 +8,15 @@ You can use this to write end-to-end tests or automate any kind of application.
 
 To use **AskUI** follow these steps:
 
-### 0. Create *node.js* project
-
-```
-npm init -y
-```
-
-### 1. Install AskUI with Needed Dependencies
-
-```
-npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jest
-```
-
-### 2. Initialize AskUI
+### 0. Initialize AskUI with All Needed Dependencies
 
 Answer the questions to set up **AskUI** when you run this command.
 
 ```
-npx askui init
+npx askui@latest init
 ```
 
-### 3. Execute Your First Instruction
+### 1. Execute Your First Instruction
 
 [Request an **Access Token** first.](https://docs.askui.com/docs/general/Getting%20Started/getting-started#access-token)
 
