@@ -5,7 +5,7 @@ pagination_next: general/Getting Started/write-your-first-instruction
 
 # Install AskUI Android
 
-To automate an Android device with AskUI you need to have AskUI setup on your machine and connect your device to it.
+To automate an Android device with AskUI you need to have AskUI set up on your machine and connect your device to it.
 
 Please follow the __Getting Started__ for the operating system that connects to your Android device and then come back here:
 

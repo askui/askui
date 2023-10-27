@@ -50,7 +50,7 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 # then you might have AskUI freshly installed and haven't run it yet.
 # The binary gets downloaded as the AskUI code runs the first time.
 # Run the command below to run the AskUI code:
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 If the UiController starts, it will display the log of it on the shell. We can leave it in the background, and prepare a new terminal window for the next step.
@@ -122,7 +122,7 @@ describe('jest with askui', () => {
 
 and run,
 ```bash
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 ![annotated-chrome](images/annotation-chrome.png)
@@ -180,7 +180,7 @@ describe('jest with askui', () => {
 and run,
 
 ```bash
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 Now you will be able to see that Chrome has been opened.

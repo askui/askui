@@ -58,7 +58,7 @@ it('Should log into account', async () => {
 });
 ```
 
-When you run this code with `npx jest --config ./test/jest.config.ts`, you should see the demo online shop opening in the browser you opened.
+When you run this code with `npm run askui`, you should see the demo online shop opening in the browser you opened.
 
 ### 2. Navigate to the Login Dialog
 
@@ -149,4 +149,4 @@ it('Should log into account', async () => {
 });
 ```
 
-To run this code use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
+To run this code use the `npm run askui` command.

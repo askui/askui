@@ -1,0 +1,35 @@
+import { UiControlClient } from 'askui';
+{{ allure_stepreporter_import }}
+
+// Client is necessary to use the askui API
+// eslint-disable-next-line import/no-mutable-exports
+let aui: UiControlClient;
+
+{{ timeout_placeholder }}
+
+beforeAll(async () => {
+  aui = await UiControlClient.build({
+    credentials: {
+      workspaceId: '{{ workspace_id}}',
+      token: '{{ access_token }}',
+    },
+    {{ reporter_placeholder }}
+  });
+
+  await aui.connect();
+});
+
+beforeEach(async () => {
+  await aui.startVideoRecording();
+});
+
+afterEach(async () => {
+  await aui.stopVideoRecording();
+  {{ allure_stepreporter_attach_video }}
+});
+
+afterAll(async () => {
+  aui.disconnect();
+});
+
+export { aui };

@@ -4,15 +4,13 @@ import { promisify } from 'util';
 import { exec } from 'child_process';
 import Listr from 'listr';
 import chalk from 'chalk';
+import nunjucks from 'nunjucks';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
-import { replaceStringInFile } from './replace-string-in-file';
 import { addScript } from './add-script-package-json';
 
 export class CreateExampleProject {
   private distexampleFolderPath: string;
-
-  private askuiHelperFilePath: string;
 
   private exampleFolderName: string;
 
@@ -20,12 +18,17 @@ export class CreateExampleProject {
 
   private proxyDocUrl: string;
 
+  private remoteDeviceControllerUrl: string;
+
+  private helperTemplateConfig: { [key: string]: string };
+
   constructor(readonly cliOptions: CliOptions) {
     this.baseDirPath = process.cwd();
     this.exampleFolderName = 'askui_example';
     this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
-    this.askuiHelperFilePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
+    this.remoteDeviceControllerUrl = 'https://docs.askui.com/docs/api/Remote-Device-Controller';
+    this.helperTemplateConfig = {};
   }
 
   private async copyTemplateProject(): Promise<Listr.ListrTask<unknown>[]> {
@@ -67,61 +70,20 @@ export class CreateExampleProject {
     ));
   }
 
-  private async addUiControllerConfig() {
-    if (this.cliOptions.operatingSystem !== 'windows') {
-      await replaceStringInFile(
-        this.askuiHelperFilePath,
-        '// uicontroller_init_placeholder',
-        `uiController = new UiController({
-          /**
-           * Select the display you want to run your tests on, display 0 is your main display;
-           * ignore if you have only one display
-           */
-          display: 0,
-        });
-      
-        await uiController.start();`,
-      );
-
-      await replaceStringInFile(
-        this.askuiHelperFilePath,
-        '// uicontroller_stop_placeholder',
-        'await uiController.stop();',
-      );
-    }
-  }
-
   private async addTestFrameWorkTimeout() {
     const frameworkTimeoutstring = {
       jest: 'jest.setTimeout(60 * 1000 * 60);',
       jasmine: 'jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;',
     };
-    await replaceStringInFile(
-      this.askuiHelperFilePath,
-      '// timeout_placeholder',
-      frameworkTimeoutstring[this.cliOptions.testFramework],
-    );
+    this.helperTemplateConfig['timeout_placeholder'] = frameworkTimeoutstring[this.cliOptions.testFramework];
   }
 
   private async addReporterConfig() {
     if (this.cliOptions.testFramework === 'jest') {
-      await replaceStringInFile(
-        this.askuiHelperFilePath,
-        '// reporter_placeholder',
-        'reporter: new AskUIAllureStepReporter(),',
-      );
-
-      await replaceStringInFile(
-        this.askuiHelperFilePath,
-        '// allure_stepreporter_import',
-        "import { AskUIAllureStepReporter } from '@askui/askui-reporters';",
-      );
-
-      await replaceStringInFile(
-        this.askuiHelperFilePath,
-        '// allure_stepreporter_attach_video',
-        'AskUIAllureStepReporter.attachVideo(video);',
-      );
+      this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
+      this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
+      this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
+  AskUIAllureStepReporter.attachVideo(video);`;
     }
   }
 
@@ -145,6 +107,24 @@ export class CreateExampleProject {
     );
   }
 
+  private async createAskUIHelperFromTemplate() {
+    const askuiHelperTemplateFilePath = path.join(
+      getPathToNodeModulesRoot(),
+      'example_projects_templates',
+      'templates',
+    );
+
+    let templateFileName = 'askui-helper.nj';
+    if (this.cliOptions.operatingSystem === 'windows') {
+      templateFileName = 'askui-helper-windows.nj';
+    }
+
+    nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
+    const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
+    const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
+    await fs.writeFile(filePath, result, 'utf8');
+  }
+
   private async setupTestFrameWork() {
     return [{
       title: 'Setup Test framework',
@@ -156,10 +136,6 @@ export class CreateExampleProject {
         {
           title: 'Copy config file',
           task: async () => this.copyTestFrameworkConfig(),
-        },
-        {
-          title: 'Add UiController config (Linux/macOS only)',
-          task: async () => this.addUiControllerConfig(),
         },
         {
           title: 'Add timeout',
@@ -196,11 +172,15 @@ export class CreateExampleProject {
       task: async () => new Listr([
         {
           title: 'Add workspace id ',
-          task: async () => replaceStringInFile(this.askuiHelperFilePath, '<your workspace id>', this.cliOptions.workspaceId),
+          task: async () => { this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId; },
         },
         {
           title: 'Add access token',
-          task: async () => replaceStringInFile(this.askuiHelperFilePath, '<your access token>', this.cliOptions.accessToken),
+          task: async () => { this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken; },
+        },
+        {
+          title: 'Write configuration file',
+          task: async () => this.createAskUIHelperFromTemplate(),
         },
       ]),
     }];
@@ -288,8 +268,13 @@ export class CreateExampleProject {
       console.log(chalk.redBright('Since you are using a Proxy. Please don\'t forget to configure it!'));
       console.log(chalk.gray(`You can find more information under ${this.proxyDocUrl}`));
     }
-    console.log(chalk.greenBright('Congratulations!'));
+    console.log(chalk.greenBright('\nCongratulations!'));
     console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
+
+    if (this.cliOptions.operatingSystem === 'windows') {
+      console.log(chalk.redBright(`\nPlease install and start the Remote Device Controller: ${this.remoteDeviceControllerUrl}\n`));
+    }
+
     console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */
   }

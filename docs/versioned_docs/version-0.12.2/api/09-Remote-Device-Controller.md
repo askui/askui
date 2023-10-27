@@ -95,7 +95,7 @@ AskUI automation works on an Android device that is controlled from a Windows ma
 - You may encounter issues when mouse pointer acceleration is enabled.
 
 ### Log Files
-Log files are stored under `<YOUR_USER_FOLDER>/.askui/`.
+- Log files are stored under `<YOUR_USER_FOLDER>/.askui/`.
 
 ### Android
 - Recording on an Android device is not stable.
