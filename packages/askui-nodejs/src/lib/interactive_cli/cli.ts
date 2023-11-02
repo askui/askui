@@ -88,7 +88,7 @@ export function init(argv: string[]): Command {
     programInit.addOption(tempOption);
   });
 
-  programInit.usage('[-l typescript] [-f test_framework] [-w workspace_id] [-a access_token] [-p boolean] [-t boolean]');
+  programInit.usage('[-f test_framework] [-w workspace_id] [-a access_token] [-p boolean] [-t boolean]');
 
   programInit
     .action(async (_opts: OptionValues) => {

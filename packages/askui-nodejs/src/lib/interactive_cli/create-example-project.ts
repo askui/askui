@@ -48,8 +48,14 @@ export class CreateExampleProject {
             this.cliOptions.operatingSystem = 'windows';
           } else if (process.platform === 'darwin') {
             this.cliOptions.operatingSystem = 'macos';
-          } else {
+          } else if (
+            process.platform === 'linux'
+              || process.platform === 'freebsd'
+              || process.platform === 'openbsd'
+          ) {
             this.cliOptions.operatingSystem = 'linux';
+          } else {
+            throw new Error(`The detected operating system is ${process.platform}. We only support 'windows', 'macos' and 'linux'`);
           }
         },
       },
