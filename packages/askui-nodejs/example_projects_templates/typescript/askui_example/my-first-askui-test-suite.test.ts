@@ -1,4 +1,4 @@
-import { aui } from './helper/jest.setup';
+import { aui } from './helpers/askui-helper';
 
 describe('jest with askui', () => {
   it('should generate an (interactive) annotation', async () => {
@@ -12,7 +12,7 @@ describe('jest with askui', () => {
     // await aui.annotateInteractively();
   });
 
-  it('should click on my element', async () => {
+  xit('should click on my element', async () => {
     await aui
       .click();
     // <INSERT YOUR COPIED ELEMENT DESCRIPTION HERE AND UNCOMMENT THIS AND THE NEXT LINE>

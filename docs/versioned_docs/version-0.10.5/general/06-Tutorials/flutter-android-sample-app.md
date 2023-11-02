@@ -163,8 +163,8 @@ beforeAll(async () => {
 
 aui = await UiControlClient.build({
     credentials:{
-        workspaceId: 'YOUR_WORKSPACEID_FROM_USER_PORTAL',
-        token: 'YOUR_TOKEN_FROM_USER_PORTAL',
+        workspaceId: 'YOUR_WORKSPACEID_FROM_ASKUI_STUDIO',
+        token: 'YOUR_TOKEN_FROM_ASKUI_STUDIO',
     }
 });
 

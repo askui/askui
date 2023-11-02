@@ -1,0 +1,12 @@
+{
+    "spec_dir": "askui_example",
+    "spec_files": [
+        "**/*[sS]pec.ts",
+        "**/*[tT]est.ts"
+    ],
+    "helpers": [
+        "../node_modules/ts-node/register/type-check.js",
+        "./helpers/askui-helper.ts"
+    ],
+    "random": false
+}

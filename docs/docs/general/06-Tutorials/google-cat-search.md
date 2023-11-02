@@ -37,7 +37,7 @@ it('annotate', async () => {
 Run the code from your terminal to create an annotated screenshot. A folder _report_ in your project folder will appear.
 
 ```shell
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 If you want to annotate interactively change it to the following:

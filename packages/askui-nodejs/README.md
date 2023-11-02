@@ -1,50 +1,44 @@
-# askui - Humanizing UI Automation
+# AskUI - Humanizing UI Automation
 
-**askui** allows you to automate the interaction with an application, multiple applications or even the entire operating system. 
+**AskUI** allows you to automate the interaction with an application, multiple applications or even the entire operating system. 
 You can use this to write end-to-end tests or automate any kind of application.
 
 
 ## Start
 
-To use **askui** follow these steps:
+To use **AskUI** follow these steps:
 
-### 0. Create *node.js* project
+### 0. Initialize AskUI with All Needed Dependencies
 
-```
-npm init
-```
-
-### 1. Install askui with Needed Dependencies
+Answer the questions to set up **AskUI** when you run this command.
 
 ```
-npm i -D askui typescript ts-node @types/jest ts-jest jest
+npx askui@latest init
 ```
 
-### 2. Create your First Test
+### 1. Execute Your First Instruction
+
+[Request an **Access Token** first.](https://docs.askui.com/docs/general/Getting%20Started/getting-started#access-token)
+
+Then follow [our guide](https://docs.askui.com/docs/general/Getting%20Started/write-your-first-instruction#configuration) to run your first instruction: 
 
 ```
-npx askui init
-```
-
-### 3. Execute the Test
-
-```
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts 
+npm run askui
 ```
 
 ## Documentation
 
-Visit our [documentation](https://docs.askui.com) for examples and a full list of supported commands.
+Visit our [documentation](https://docs.askui.com) for examples and a [full list of supported instructions](https://docs.askui.com/docs/api/API/table-of-contents).
 
 ### Notes
 
 Important note for Linux users: Currently, Wayland is not supported.
 You can read more in our [troubleshooting chapter](https://docs.askui.com/docs/general/Troubleshooting/linux#wayland).
-If you want to use the askui library libfuse2 is needed ([libfuse2 installation](https://docs.askui.com/docs/general/Troubleshooting/linux#libfuse2)).
+If you want to use the AskUI library `libfuse2`` is needed ([libfuse2 installation](https://docs.askui.com/docs/general/Troubleshooting/linux#libfuse2)).
 
 ## Example
 
-The following example shows the use of **askui** for testing a desktop application.
+The following example shows the use of **AskUI** for testing a desktop application.
 
 ```typescript
 it('should be able to add to liked songs', async () => {

@@ -112,4 +112,4 @@ it('should like Spotify song', async () => {
 });
 ```
 
-To run this workflow use the `npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts ` command.
+To run this workflow use the `npm run askui` command.

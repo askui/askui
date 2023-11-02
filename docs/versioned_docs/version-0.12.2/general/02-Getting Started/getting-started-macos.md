@@ -17,43 +17,22 @@ Some users have reported instability running AskUI on macOS with external displa
 
 :::
 
+## Access Token
+
+As we need to prevent misuse of our API, we need you to create some credentials through our __AskUI Studio__ (for free).
+
+Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.
+
 ## Installation
 
-Open a directory where you would like to place the AskUI setup. If you haven’t already, set up an NPM project by running:
+Open a directory where you would like to place the AskUI setup and run this command. Answer all the questions:
 
 ```shell
-npm init -y
+npx askui@latest init -s macos
 ```
-
-This will create a `package.json` file inside your present working directory which contains the configuration of your project including a description of its dependencies.
-
-Install `askui` and other dependencies for writing and executing tests:
-
-```shell
-npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jest
-```
-
-<details>
-  <summary>Quick explanation of all the dependencies</summary>
-
-- [AskUI](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
-- [@askui/askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
-- [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
-- [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
-- [jest](https://www.npmjs.com/package/jest): Allowing you to write and run tests (`describe`, `it`, assertions, mocking etc.)
-- [ts-jest](https://www.npmjs.com/package/ts-jest): A Jest transformer with source map support that lets you use Jest to test projects written in TypeScript
-- [@types/jest](https://www.npmjs.com/package/@types/jest): Types for Jest
-
-</details>
 
 :::note
 
 To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory.
 
 :::
-
-## Access Token
-
-As we need to prevent misuse of our API, we need you to create some credentials through our __AskUI Studio__ (while still free) and [configure our library to use these credentials](../../api/Configuration/askui-ui-control-client#credentials) for authenticating and authorizing with our API.
-
-Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.

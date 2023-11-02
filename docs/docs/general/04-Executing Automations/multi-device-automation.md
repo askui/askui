@@ -183,7 +183,7 @@ describe('jest with askui', () => {
 Run the command below to run the AskUI code:
 
 ```bash
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 ## 6. Conclusion

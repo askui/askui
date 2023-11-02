@@ -130,7 +130,7 @@ cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFOR
 # then you might have AskUI freshly installed and haven't run it yet.
 # The binary gets downloaded as the AskUI code runs.
 # Run the command below to run the AskUI code:
-npx jest test/my-first-askui-test-suite.test.ts --config ./test/jest.config.ts
+npm run askui
 ```
 
 If you got them both (emulator and UiController) running, then we are ready to go for the UI automation.
@@ -151,30 +151,30 @@ let aui: UiControlClient;
 jest.setTimeout(60 * 1000 * 60);
 
 beforeAll(async () => {
-//   uiController = new UiController({
-//     /**
-//      * Select the display you want to run your tests on, display 0 is your main display;
-//      * ignore if you have only one display
-//      */
-//     display: 0,
-//   });
+    //   uiController = new UiController({
+    //     /**
+    //      * Select the display you want to run your tests on, display 0 is your main display;
+    //      * ignore if you have only one display
+    //      */
+    //     display: 0,
+    //   });
 
-//   await uiController.start();
+    //   await uiController.start();
 
-aui = await UiControlClient.build({
-    credentials:{
-        workspaceId: 'YOUR_WORKSPACEID_FROM_USER_PORTAL',
-        token: 'YOUR_TOKEN_FROM_USER_PORTAL',
-    }
-});
+    aui = await UiControlClient.build({
+        credentials:{
+            workspaceId: 'YOUR_WORKSPACEID_FROM_ASKUI_STUDIO',
+            token: 'YOUR_TOKEN_FROM_ASKUI_STUDIO',
+        }
+    });
 
-await aui.connect();
-});
+    await aui.connect();
+    });
 
-afterAll(async () => {
-//   await uiController.stop();
+    afterAll(async () => {
+    //   await uiController.stop();
 
-aui.close();
+    aui.close();
 });
 
 export { aui };
