@@ -34,7 +34,7 @@ export class CreateExampleProject {
   private async copyTemplateProject(): Promise<Listr.ListrTask<unknown>[]> {
     const exampleProjectPath = path.join(
       'example_projects_templates',
-      this.cliOptions.progLanguage,
+      'typescript',
       this.exampleFolderName,
     );
 
@@ -187,8 +187,8 @@ export class CreateExampleProject {
   }
 
   private async copyESLintConfigFiles(): Promise<Listr.ListrTask<unknown>[]> {
-    const esLintRcFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintrc.json-template');
-    const esLintIgnoreFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, '.eslintignore-template');
+    const esLintRcFilePath = path.join('example_projects_templates', 'typescript', '.eslintrc.json-template');
+    const esLintIgnoreFilePath = path.join('example_projects_templates', 'typescript', '.eslintignore-template');
 
     return [{
       title: 'Copy ESLint config files',
@@ -212,7 +212,7 @@ export class CreateExampleProject {
   }
 
   private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
-    const tsConfigFilePath = path.join('example_projects_templates', this.cliOptions.progLanguage, 'tsconfig.json');
+    const tsConfigFilePath = path.join('example_projects_templates', 'typescript', 'tsconfig.json');
 
     return [{
       title: 'Copy ts config file',

@@ -14,12 +14,6 @@ const questions: QuestionCollection = [
   },
   {
     type: 'list',
-    name: 'progLanguage',
-    message: 'Which language do you prefer?',
-    choices: ['typescript'],
-  },
-  {
-    type: 'list',
     name: 'testFramework',
     message: 'Which framework do you prefer',
     choices: ['jest', 'jasmine'],
