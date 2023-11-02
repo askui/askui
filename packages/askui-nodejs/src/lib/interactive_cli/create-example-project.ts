@@ -40,17 +40,31 @@ export class CreateExampleProject {
 
     const runCommand = promisify(exec);
 
-    return [{
-      title: 'Copy project files',
-      task: async () => fs.copy(
-        path.join(getPathToNodeModulesRoot(), exampleProjectPath),
-        this.distexampleFolderPath,
-      ),
-    },
-    {
-      title: 'Install askui dependency',
-      task: async () => runCommand('npm i -D askui '),
-    }];
+    return [
+      {
+        title: 'Detect Operating System',
+        task: async () => {
+          if (process.platform === 'win32') {
+            this.cliOptions.operatingSystem = 'windows';
+          } else if (process.platform === 'darwin') {
+            this.cliOptions.operatingSystem = 'macos';
+          } else {
+            this.cliOptions.operatingSystem = 'linux';
+          }
+        },
+      },
+      {
+        title: 'Copy project files',
+        task: async () => fs.copy(
+          path.join(getPathToNodeModulesRoot(), exampleProjectPath),
+          this.distexampleFolderPath,
+        ),
+      },
+      {
+        title: 'Install askui dependency',
+        task: async () => runCommand('npm i -D askui '),
+      },
+    ];
   }
 
   private async copyTestFrameworkConfig() {
@@ -108,21 +122,32 @@ export class CreateExampleProject {
   }
 
   private async createAskUIHelperFromTemplate() {
-    const askuiHelperTemplateFilePath = path.join(
-      getPathToNodeModulesRoot(),
-      'example_projects_templates',
-      'templates',
-    );
+    return [{
+      title: 'Write askui config',
+      task: async () => new Listr([
+        {
+          title: 'Create askui-helper.ts ',
+          task: async () => {
+            const askuiHelperTemplateFilePath = path.join(
+              getPathToNodeModulesRoot(),
+              'example_projects_templates',
+              'templates',
+            );
 
-    let templateFileName = 'askui-helper.nj';
-    if (this.cliOptions.operatingSystem === 'windows') {
-      templateFileName = 'askui-helper-windows.nj';
-    }
+            let templateFileName = 'askui-helper.nj';
+            if (this.cliOptions.operatingSystem === 'windows') {
+              templateFileName = 'askui-helper-windows.nj';
+            }
 
-    nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
-    const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
-    const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
-    await fs.writeFile(filePath, result, 'utf8');
+            nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
+            const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
+            const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
+            await fs.mkdir(path.join(this.distexampleFolderPath, 'helpers'));
+            await fs.writeFile(filePath, result, 'utf8');
+          },
+        },
+      ]),
+    }];
   }
 
   private async setupTestFrameWork() {
@@ -177,10 +202,6 @@ export class CreateExampleProject {
         {
           title: 'Add access token',
           task: async () => { this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken; },
-        },
-        {
-          title: 'Write configuration file',
-          task: async () => this.createAskUIHelperFromTemplate(),
         },
       ]),
     }];
@@ -259,6 +280,7 @@ export class CreateExampleProject {
       ...await this.copyESLintConfigFiles(),
       ...await this.copyTsConfigFile(),
       ...await this.addUserCredentails(),
+      ...await this.createAskUIHelperFromTemplate(),
       ...await this.installProxy(),
     ]);
 

@@ -1,17 +1,11 @@
-import inquirer, { QuestionCollection } from 'inquirer';
+import inquirer from 'inquirer';
 import { Command, Option, OptionValues } from 'commander';
 import { CreateExampleProject } from './create-example-project';
 import { CliOptions } from './cli-options-interface';
 
 const nonEmpty = (subject: string) => (input: string) => (input.trim().length > 0) || `${subject} is required.`;
 
-const questions: QuestionCollection = [
-  {
-    type: 'list',
-    name: 'operatingSystem',
-    message: 'Which operating system are you on?',
-    choices: ['windows', 'linux', 'macos'],
-  },
+const questions = [
   {
     type: 'list',
     name: 'testFramework',
@@ -46,16 +40,6 @@ const questions: QuestionCollection = [
 ];
 
 const options = [
-  {
-    option: '-s, --operating-system <value>',
-    choices: ['windows', 'linux', 'macos'],
-    description: 'the operating system',
-  },
-  {
-    option: '-l, --prog-language <value>',
-    choices: ['typescript'],
-    description: 'the programming language',
-  },
   {
     option: '-f, --test-framework <value>',
     choices: ['jasmine', 'jest'],
@@ -104,39 +88,24 @@ export function init(argv: string[]): Command {
     programInit.addOption(tempOption);
   });
 
-  programInit.usage('[-s windows] [-l typescript] [-f test_framework] [-w workspace_id] [-a access_token] [-p boolean] [-t boolean]');
+  programInit.usage('[-l typescript] [-f test_framework] [-w workspace_id] [-a access_token] [-p boolean] [-t boolean]');
 
   programInit
     .action(async (_opts: OptionValues) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const userAnswers: { [key: string]: any } = {};
-
-      // Check which options are provided via command line arguments
-      Object.entries(programInit.opts()).forEach((element) => {
-        const [name, value] = element;
-        userAnswers[name] = value;
-      });
+      const userAnswers = programInit.opts<CliOptions>();
 
       // Check which options are missing and prompt the user for them
-      const missingOptions = Object.entries(questions)
-        .filter((entry) => !(entry[1].name in userAnswers))
-        .map((entry) => ({
-          type: entry[1].type,
-          name: entry[1].name,
-          message: entry[1].message,
-          choices: entry[1].choices,
-          default: entry[1].default,
-          validate: entry[1].validate,
-        }));
+      const missingOptions = questions.filter((entry) => !(entry.name in userAnswers));
 
       if (missingOptions.length > 0) {
-        inquirer.prompt(missingOptions)
-          .then(async (answers) => {
-            Object.assign(userAnswers, answers);
-            await (new CreateExampleProject(userAnswers as CliOptions)).createExampleProject();
-          });
+        inquirer.prompt(missingOptions).then(async (answers) => {
+          await new CreateExampleProject({
+            ...userAnswers,
+            ...answers,
+          }).createExampleProject();
+        });
       } else {
-        await (new CreateExampleProject(userAnswers as CliOptions)).createExampleProject();
+        await new CreateExampleProject(userAnswers as CliOptions).createExampleProject();
       }
     });
   return program.parse(args);
