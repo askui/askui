@@ -95,7 +95,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  aui.close();
+  aui.disconnect();
 
   await testContainer.stop();
 });

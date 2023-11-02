@@ -98,7 +98,7 @@ beforeAll(async () => {
 afterAll(async () => {
 //   await uiController.stop();
 
-  aui.close();
+  aui.disconnect();
 });
 
 export { aui };
