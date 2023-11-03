@@ -53,11 +53,16 @@ beforeEach(async () => {
 afterEach(async () => {
   await aui.stopVideoRecording();
   const video = await aui.readVideoRecording();
-  AskUIAllureStepReporter.attachVideo(video);
+  await AskUIAllureStepReporter.attachVideo(video);
 });
 ```
 
 #### Enable the Test Environment `@askui/jest-allure-circus` in `jest.config.ts`
+Install `@askui/jest-allure-circus`` environment:
+
+```bash
+npm install @askui/jest-allure-circus
+```
 
 ```typescript
 import type { Config } from '@jest/types';
@@ -134,7 +139,7 @@ afterEach(async () => {
 Install `jest-html-reporters` environment:
 
 ```bash
-npm install jest-html-reporters
+npm install --save-dev jest-html-reporters
 ```
 
 ```typescript

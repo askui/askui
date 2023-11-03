@@ -37,19 +37,5 @@ module.exports = {
         'import/no-extraneous-dependencies': ['error', { optionalDependencies: true }],
       },
     },
-    {
-      files: ['example_projects_templates/**/*.ts'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'airbnb-typescript/base',
-      ],
-      parserOptions: {
-        project: ['./tsconfig.json'],
-        createDefaultProgram: true,
-      },
-      rules: {
-        'import/no-extraneous-dependencies': 'off',
-      },
-    },
   ],
 };

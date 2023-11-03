@@ -96,7 +96,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-//   await uiController.stop();
+  //   await uiController.stop();
 
   aui.close();
 });

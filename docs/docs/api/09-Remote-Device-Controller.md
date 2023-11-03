@@ -71,7 +71,7 @@ Make use of our preview build to use the latest features by following the mentio
 
 7. Ensure that in function `afterAll` the controller gets stopped after the ui controller client closes the connection:
 
-        aui.close();
+        aui.disconnect();
         await uiController.stop(true);
 
 8. You should be good to go now to run your workflows as described in documentation.
