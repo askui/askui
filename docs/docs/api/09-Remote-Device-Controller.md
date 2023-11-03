@@ -35,7 +35,7 @@ The installer only works on __Windows__.
 
 Make use of our preview build to use the latest features by following the mentioned steps below.
 
-1. Go to function `beforeAll` there you must modify in file `test/helper/jest.setup.ts`.
+1. Go to function `beforeAll` there you must modify in file `test/helper/helpers/askui-helper.ts`.
 
 2. Ensure that you have the required import `UiController`.
 
