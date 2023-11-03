@@ -61,7 +61,7 @@ afterEach(async () => {
 Install `@askui/jest-allure-circus`` environment:
 
 ```bash
-npm install @askui/jest-allure-circus
+npm install --save-dev @askui/jest-allure-circus
 ```
 
 ```typescript
