@@ -6,8 +6,6 @@
 ### Features
 
 * final version of the interactive CLI; Using templating engine nunjuks; Docs adapted ([400b728](https://github.com/askui/askui/commit/400b728e76762131f086ddc67f78ca03252bb16e))
-* first working version of interactive CLI ([025adf2](https://github.com/askui/askui/commit/025adf291f1442b2973239cf2edf32d419eebb7c))
-
 
 ### Bug Fixes
 
