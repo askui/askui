@@ -10,7 +10,7 @@ The following tutorial shows how to automate a desktop application. As an exampl
 
 * Follow the <a href="../Getting%20Started/getting-started" target="_blank">AskUI installation guide and write your first instruction</a>
 * Open the Spotify desktop application on your screen
-  * If you have multiple screens, configure the used display by setting the display variable at `test/helper/jest.setup.js`
+  * If you have multiple screens, configure the used display by setting the display variable at `test/helpers/askui-helper.ts`
 
 ## Code
 

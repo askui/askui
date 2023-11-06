@@ -91,7 +91,7 @@ In the following example we are going to use [hpagent](https://github.com/delved
 npm install --save-dev hpagent 
 ```
 
-2. Import `hpagent` (or the agent(s) you would like to use) and configure the **UiController** and/or the **UiControlClient** inside the `test/helper/jest.setup.ts` file.
+2. Import `hpagent` (or the agent(s) you would like to use) and configure the **UiController** and/or the **UiControlClient** inside the `test/helpers/askui-helper.ts` file.
 ```typescript
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent'; // <-- Add imports
 // other code

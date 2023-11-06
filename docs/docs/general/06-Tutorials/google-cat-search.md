@@ -10,7 +10,7 @@ The following tutorial shows you how to search for cat images on Google Image Se
 
 * Follow one of the two options under <a href="../Getting%20Started/start" target="_blank">Start to install AskUI</a>
 * Open a Chrome browser window on your screen
-  * If you have multiple screens, configure the used display by setting the display variable in `test/helper/jest.setup.js`
+  * If you have multiple screens, configure the used display by setting the display variable in `test/helpers/askui-helper.ts`
 
 ## Setting Up AskUI
 

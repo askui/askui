@@ -136,10 +136,10 @@ npm run askui
 If you got them both (emulator and UiController) running, then we are ready to go for the UI automation.
 
 ‍
-3) You need to deactivate a few lines of the code in `test/helper/jest.setup.ts` that is running the UiController, because we are already running it manually in the previous step:
+3) You need to deactivate a few lines of the code in `test/helpers/askui-helper.ts` that is running the UiController, because we are already running it manually in the previous step:
 
 ```typescript
-// file location: test/helper/jest.setup.ts
+// file location: test/helpers/askui-helper.ts
 // comment out every line that uses uiController
 
 import { UiControlClient, UiController } from 'askui';

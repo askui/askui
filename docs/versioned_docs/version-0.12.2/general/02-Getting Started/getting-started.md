@@ -24,13 +24,13 @@ This will create a `package.json` file inside your present working directory whi
 Install `askui` and other dependencies for writing and executing tests:
 
 ```shell
-npm i -D askui @askui/askui-reporters typescript ts-node @types/jest ts-jest jest
+npm i --save-dev askui @askui/askui-reporters @askui/jest-allure-circus typescript ts-node @types/jest ts-jest jest
 ```
 
 <details>
   <summary>Quick explanation of all the dependencies</summary>
 
-- [AskUI](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
+- [askui](https://www.npmjs.com/package/askui): Controlling a multitude of operating systems with commands based on automatically detected screen elements etc.
 - [@askui/askui-reporters](https://www.npmjs.com/package/askui-reporters): AskUI reporters for nice looking reports.
 - [typescript](https://www.npmjs.com/package/typescript): Allowing you to write your tests in [TypeScript](https://www.typescriptlang.org/) instead of JavaScript
 - [ts-node](https://www.npmjs.com/package/ts-node): TypeScript execution and REPL for node.js, with source map and native ESM support.
