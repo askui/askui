@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.13.0](https://github.com/askui/askui/compare/v0.12.2...v0.13.0) (2023-11-06)
+
+
+### Features
+
+* final version of the interactive CLI; Using templating engine nunjuks; Docs adapted ([400b728](https://github.com/askui/askui/commit/400b728e76762131f086ddc67f78ca03252bb16e))
+* first working version of interactive CLI ([025adf2](https://github.com/askui/askui/commit/025adf291f1442b2973239cf2edf32d419eebb7c))
+
+
+### Bug Fixes
+
+* add missing await when using Reporter.attachVideo() in example template project ([d7c6c7d](https://github.com/askui/askui/commit/d7c6c7dd843ba235e48dff08c5a3cd14e1fea6de))
+* ignore example_projects_templates for linting ([81a41ff](https://github.com/askui/askui/commit/81a41ffe304487c14bc496cc780285739245645f))
+* take another shot at proper feedback tracking for the docs-pages, pagename is missing in event ([58b3822](https://github.com/askui/askui/commit/58b3822476b8085fa518e61c5e7c25ac356cd417))
+
 ### [0.12.2](https://github.com/askui/askui/compare/v0.12.1...v0.12.2) (2023-10-06)
 
 ## [0.12.1](https://github.com/askui/askui/compare/v0.12.0...v0.12.1) (2023-09-27)
