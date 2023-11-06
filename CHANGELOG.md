@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/askui/askui/compare/v0.13.0...v0.13.1) (2023-11-06)
+
+
+### Bug Fixes
+
+* Check if folder for helper files exists when running askui init command ([7799763](https://github.com/askui/askui/commit/779976331591eae6aba301ca843294f6e2e5376a))
+
 ## [0.13.0](https://github.com/askui/askui/compare/v0.12.2...v0.13.0) (2023-11-06)
 
 
