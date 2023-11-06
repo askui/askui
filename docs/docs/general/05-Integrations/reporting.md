@@ -58,7 +58,7 @@ afterEach(async () => {
 ```
 
 #### Enable the Test Environment `@askui/jest-allure-circus` in `jest.config.ts`
-Install `@askui/jest-allure-circus`` environment:
+Install `@askui/jest-allure-circus` environment:
 
 ```bash
 npm install --save-dev @askui/jest-allure-circus
