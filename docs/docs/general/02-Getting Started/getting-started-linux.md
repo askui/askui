@@ -23,7 +23,7 @@ Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to sch
 Open a directory where you would like to place the AskUI setup and run this command. Answer all the questions:
 
 ```shell
-npx askui@latest init -s linux
+npx askui@latest init
 ```
 
 :::note

@@ -191,7 +191,7 @@ export class CreateExampleProject {
   private async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDepencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
       jasmine: 'npm i -D @askui/askui-reporters typescript ts-node @types/jasmine jasmine @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
     };
     await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
