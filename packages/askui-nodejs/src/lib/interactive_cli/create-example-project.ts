@@ -148,7 +148,9 @@ export class CreateExampleProject {
             nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
             const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
             const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
-            await fs.mkdir(path.join(this.distexampleFolderPath, 'helpers'));
+            if (!fs.existsSync(path.join(this.distexampleFolderPath, 'helpers'))) {
+              await fs.mkdir(path.join(this.distexampleFolderPath, 'helpers'));
+            }
             await fs.writeFile(filePath, result, 'utf8');
           },
         },
