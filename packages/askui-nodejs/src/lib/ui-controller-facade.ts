@@ -40,7 +40,7 @@ export abstract class UiControllerFacade {
     await this.getBinary(
       argsWithLogPath.binaryVersion,
       argsWithLogPath.overWriteBinary,
-      argsWithLogPath.proxyAgents || (await envProxyAgents()),
+      argsWithLogPath.proxyAgents || await envProxyAgents(),
     );
     this.makeBinaryExecutable();
     logger.debug(`UI Controller log path "${this.serverLogFile}"`);
@@ -77,7 +77,7 @@ export abstract class UiControllerFacade {
   // eslint-disable-next-line class-methods-use-this
   protected killPort(port: number, forceStop?: boolean): Promise<void> {
     return fkill(`:${port}`, {
-      force: forceStop || false,
+      force: forceStop || true,
       silent: true,
     });
   }
