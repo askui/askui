@@ -18,8 +18,6 @@ export class CreateExampleProject {
 
   private proxyDocUrl: string;
 
-  private remoteDeviceControllerUrl: string;
-
   private helperTemplateConfig: { [key: string]: string };
 
   constructor(readonly cliOptions: CliOptions) {
@@ -27,7 +25,6 @@ export class CreateExampleProject {
     this.exampleFolderName = 'askui_example';
     this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
-    this.remoteDeviceControllerUrl = 'https://docs.askui.com/docs/api/Remote-Device-Controller';
     this.helperTemplateConfig = {};
   }
 
@@ -41,24 +38,6 @@ export class CreateExampleProject {
     const runCommand = promisify(exec);
 
     return [
-      {
-        title: 'Detect Operating System',
-        task: async () => {
-          if (process.platform === 'win32') {
-            this.cliOptions.operatingSystem = 'windows';
-          } else if (process.platform === 'darwin') {
-            this.cliOptions.operatingSystem = 'macos';
-          } else if (
-            process.platform === 'linux'
-              || process.platform === 'freebsd'
-              || process.platform === 'openbsd'
-          ) {
-            this.cliOptions.operatingSystem = 'linux';
-          } else {
-            throw new Error(`The detected operating system is ${process.platform}. We only support 'windows', 'macos' and 'linux'`);
-          }
-        },
-      },
       {
         title: 'Copy project files',
         task: async () => fs.copy(
@@ -140,11 +119,7 @@ export class CreateExampleProject {
               'templates',
             );
 
-            let templateFileName = 'askui-helper.nj';
-            if (this.cliOptions.operatingSystem === 'windows') {
-              templateFileName = 'askui-helper-windows.nj';
-            }
-
+            const templateFileName = 'askui-helper.nj';
             nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
             const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
             const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
@@ -298,10 +273,6 @@ export class CreateExampleProject {
     }
     console.log(chalk.greenBright('\nCongratulations!'));
     console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
-
-    if (this.cliOptions.operatingSystem === 'windows') {
-      console.log(chalk.redBright(`\nPlease install and start the Remote Device Controller: ${this.remoteDeviceControllerUrl}\n`));
-    }
 
     console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */

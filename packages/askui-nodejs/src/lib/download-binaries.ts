@@ -39,8 +39,15 @@ function buildBinaryNotAvailableError(binaryVersion: string): Error {
    for your system "${platform()} ${os.arch}" is not available. 
    If this problem still occurs, please contact us at info@askui.com for more information`);
 }
+export function getAskuiInstallationDirectory(): string | undefined {
+  return process.env['ASKUI_INSTALLATION_DIRECTORY'];
+}
 
 export function getBinaryFilePath(version: string): string {
+  const askuiInstallationDirectory = getAskuiInstallationDirectory();
+  if (askuiInstallationDirectory) {
+    return path.join(askuiInstallationDirectory, 'Binaries', binarySubPathsByPlatform[platform()][1]);
+  }
   return path.join(getPathToNodeModulesRoot(), 'release', version, ...binarySubPathsByPlatform[platform()]);
 }
 
