@@ -1,5 +1,5 @@
-![askui logo](./docs/static/img/askui_logo-horizontal_negative_rgb_thin.svg#gh-dark-mode-only)
-![askui logo](./docs/static/img/askui_logo-horizontal_positive_rgb_thin.svg#gh-light-mode-only)
+![askui logo](./docs/static/img/askui-logo-white.svg.svg#gh-dark-mode-only)
+![askui logo](./docs/static/img/askui-logo.svg#gh-light-mode-only)
 
 *Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on*
 
