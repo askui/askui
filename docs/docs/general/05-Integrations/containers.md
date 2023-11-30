@@ -137,7 +137,3 @@ When connecting, enter the password `secret` when asked.
 Example of a VNC connection with a Chrome browser running inside a container:
 
 ![VNC Example](./images/vnc-example.png)
-
-
-
-
