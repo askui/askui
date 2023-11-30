@@ -126,7 +126,7 @@ We use the following tag schema:
 0.11.2-chrome-119.0.6045.123-amd64
 ```
 
-> ❗️ `<controller-version>` is _NOT_ the AskUI version ❗️
+> ❗️ `<controller-version>` is _NOT_ the `AskUI SDK` version ❗️
 
 ## Connect via VNC
 
