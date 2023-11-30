@@ -73,8 +73,8 @@ const config = {
       navbar: {
         logo: {
           alt: 'askui logo',
-          src: 'img/askui_logo-horizontal_positive_rgb.svg',
-          srcDark: 'img/askui_logo-horizontal_negative_rgb.svg',
+          src: 'img/askui-logo.svg',
+          srcDark: 'img/askui-logo-white.svg',
         },
         items: [
           {
