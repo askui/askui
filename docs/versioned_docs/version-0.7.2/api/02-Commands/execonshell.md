@@ -18,4 +18,4 @@ await aui.execOnShell("open -a 'Google Chrome'").exec();
 await aui.execOnShell("chrome").exec();
 ```
 
-   * @param {string} shell_command - A shell command which is executed.
+   * @param \{string} shell_command - A shell command which is executed.

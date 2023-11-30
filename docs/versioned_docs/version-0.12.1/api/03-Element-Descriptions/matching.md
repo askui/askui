@@ -19,4 +19,4 @@ Generally the more detail the better.
 await aui.click().matching('a mask on purple background and a firefox logo').exec()
 ```
 
-   * @param {string} text - A description of the target element.
+   * @param \{string} text - A description of the target element.

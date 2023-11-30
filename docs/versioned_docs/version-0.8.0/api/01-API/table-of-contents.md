@@ -69,7 +69,7 @@ await aui.execOnShell("chrome").exec();
 </md-block>
 <md-block>
 
-* @param {string} shell_command - A shell command which is executed.
+* @param \{string} shell_command - A shell command which is executed.
 
 </md-block>
                 </details>
@@ -315,8 +315,8 @@ await aui.moveMouse(500, 500).exec();
 </md-block>
 <md-block>
 
-* @param {number} x_coordinate - A (positive/negative) x coordinate.
-* @param {number} y_coordinate - A (positive/negative) y coordinate.
+* @param \{number} x_coordinate - A (positive/negative) x coordinate.
+* @param \{number} y_coordinate - A (positive/negative) y coordinate.
 
 </md-block>
                 </details>
@@ -338,8 +338,8 @@ await aui.moveMouseRelatively(20, 20).exec();
 </md-block>
 <md-block>
 
-* @param {number} x_offset - A (positive/negative) x direction.
-* @param {number} y_offset - A (positive/negative) y direction.
+* @param \{number} x_offset - A (positive/negative) x direction.
+* @param \{number} y_offset - A (positive/negative) y direction.
 
 </md-block>
                 </details>
@@ -364,8 +364,8 @@ await aui.moveMouseRelativelyTo(0, 30).button().withText('Submit').exec()
 </md-block>
 <md-block>
 
-* @param {number} x_offset - A (positive/negative) x direction.
-* @param {number} y_offset - A (positive/negative) y direction.
+* @param \{number} x_offset - A (positive/negative) x direction.
+* @param \{number} y_offset - A (positive/negative) y direction.
 
 </md-block>
                 </details>
@@ -403,7 +403,7 @@ Press one Android key like `DEL`
 </md-block>
 <md-block>
 
-* @param {ANDROID_KEY} key - A Android key
+* @param \{ANDROID_KEY} key - A Android key
 
 </md-block>
                 </details>
@@ -420,9 +420,9 @@ Press three Android keys like `CTRL+ALT+DEL`
 </md-block>
 <md-block>
 
-* @param {ANDROID_KEY} first_key - A Android key
-* @param {ANDROID_KEY} second_key - A Android key
-* @param {ANDROID_KEY} third_key - A Android key
+* @param \{ANDROID_KEY} first_key - A Android key
+* @param \{ANDROID_KEY} second_key - A Android key
+* @param \{ANDROID_KEY} third_key - A Android key
 
 </md-block>
                 </details>
@@ -439,8 +439,8 @@ Press two Android keys like `ALT+F4`
 </md-block>
 <md-block>
 
-* @param {ANDROID_KEY} first_key - A Android key
-* @param {ANDROID_KEY} second_key - A Android key
+* @param \{ANDROID_KEY} first_key - A Android key
+* @param \{ANDROID_KEY} second_key - A Android key
 
 </md-block>
                 </details>
@@ -462,7 +462,7 @@ Press one keys like `DEL`
 </md-block>
 <md-block>
 
-* @param {PC_AND_MODIFIER_KEY} key - A key
+* @param \{PC_AND_MODIFIER_KEY} key - A key
 
 </md-block>
                 </details>
@@ -484,9 +484,9 @@ Press three keys like `CTRL+ALT+DEL`
 </md-block>
 <md-block>
 
-* @param {MODIFIER_KEY} first_key - A modifier key
-* @param {MODIFIER_KEY} second_key - A modifier key
-* @param {PC_KEY} third_key - A key
+* @param \{MODIFIER_KEY} first_key - A modifier key
+* @param \{MODIFIER_KEY} second_key - A modifier key
+* @param \{PC_KEY} third_key - A key
 
 </md-block>
                 </details>
@@ -508,8 +508,8 @@ Press two keys like `ALT+F4`
 </md-block>
 <md-block>
 
-* @param {MODIFIER_KEY} first_key - A modifier key
-* @param {PC_KEY} second_key - A key
+* @param \{MODIFIER_KEY} first_key - A modifier key
+* @param \{PC_KEY} second_key - A key
 
 </md-block>
                 </details>
@@ -536,8 +536,8 @@ await aui.scroll(0, 10).exec()
 </md-block>
 <md-block>
 
-* @param {number} x_offset - A (positive/negative) x direction.
-* @param {number} y_offset - A (positive/negative) y direction.
+* @param \{number} x_offset - A (positive/negative) x direction.
+* @param \{number} y_offset - A (positive/negative) y direction.
 
 </md-block>
                 </details>
@@ -561,8 +561,8 @@ await aui.scroll(0, 10).textarea().exec()
 </md-block>
 <md-block>
 
-* @param {number} x_offset - A (positive/negative) x direction.
-* @param {number} y_offset - A (positive/negative) y direction.
+* @param \{number} x_offset - A (positive/negative) x direction.
+* @param \{number} y_offset - A (positive/negative) y direction.
 
 </md-block>
                 </details>
@@ -588,8 +588,8 @@ await aui.swipe(500, 0).image().exec()
 </md-block>
 <md-block>
 
-* @param {number} x_offset - A x direction. positive and negative values are accepted
-* @param {number} y_offset - A y direction. positive and negative values are accepted
+* @param \{number} x_offset - A x direction. positive and negative values are accepted
+* @param \{number} y_offset - A y direction. positive and negative values are accepted
 
 </md-block>
                 </details>
@@ -617,7 +617,7 @@ await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
 </md-block>
 <md-block>
 
-* @param {string} text - A text to type
+* @param \{string} text - A text to type
 
 </md-block>
                 </details>
@@ -645,7 +645,7 @@ await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfie
 </md-block>
 <md-block>
 
-* @param {string} text - A text to type
+* @param \{string} text - A text to type
 
 </md-block>
                 </details>
@@ -735,7 +735,7 @@ Filters for text containing the text provided as an argument.
 </md-block>
 <md-block>
 
-* @param {string} text - A text to be matched.
+* @param \{string} text - A text to be matched.
 
 </md-block>
                 </details>
@@ -782,7 +782,7 @@ of the given custom image.
 </md-block>
 <md-block>
 
-* @param {CustomElementJson} customElement - The custom element to filter for.
+* @param \{CustomElementJson} customElement - The custom element to filter for.
 
 </md-block>
                 </details>
@@ -850,7 +850,7 @@ Filters elements based on a textual description.
 </md-block>
 <md-block>
 
-* @param {string} text - A description of the target element.
+* @param \{string} text - A description of the target element.
 
 </md-block>
                 </details>
@@ -949,7 +949,7 @@ await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address'
 Filters for equal text.
 
 **Note:** This should be only used in cases where the similarity
- comparison of {@link FluentFilters.withText()} allows not for
+ comparison of \{@link FluentFilters.withText()} allows not for
  specific enough filtering (too many elements).
 
 **Examples:** 
@@ -964,7 +964,7 @@ await aui.moveMouseTo().text().withExactText('Password').exec()
 </md-block>
 <md-block>
 
-* @param {string} text - A text to be matched.
+* @param \{string} text - A text to be matched.
 
 </md-block>
                 </details>
@@ -997,7 +997,7 @@ Filters for similar (doesn't need to be a 100% equal) text.
 </md-block>
 <md-block>
 
-* @param {string} text - A text to be matched.
+* @param \{string} text - A text to be matched.
 
 </md-block>
                 </details>
@@ -1024,7 +1024,7 @@ await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
 </md-block>
 <md-block>
 
-* @param {string} regex_pattern - A regex pattern
+* @param \{string} regex_pattern - A regex pattern
 
 </md-block>
                 </details>

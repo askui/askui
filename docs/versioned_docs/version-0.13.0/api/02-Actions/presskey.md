@@ -15,4 +15,4 @@ await aui.pressKey('tab').exec();
 ```
 ![](/img/gif/pressKey.gif)
 
-   * @param {PC_AND_MODIFIER_KEY} key - A key
+   * @param \{PC_AND_MODIFIER_KEY} key - A key

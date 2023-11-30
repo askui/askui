@@ -19,6 +19,6 @@ Filters for similar (doesn't need to be a 100% equal) text.
 'other' === withText('text') => false
 ```
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.
 
 ![](/img/gif/withText.gif)

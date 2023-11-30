@@ -15,5 +15,5 @@ await aui.swipe(500, 0).image().exec()
 ```
 ![](/img/gif/swipe.gif)
 
-   * @param {number} x_offset - A x direction. positive and negative values are accepted
-   * @param {number} y_offset - A y direction. positive and negative values are accepted
+   * @param \{number} x_offset - A x direction. positive and negative values are accepted
+   * @param \{number} y_offset - A y direction. positive and negative values are accepted

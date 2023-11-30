@@ -14,4 +14,4 @@ Filters for text containing the text provided as an argument.
 ```
 ![](/img/gif/containsText.gif)
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.

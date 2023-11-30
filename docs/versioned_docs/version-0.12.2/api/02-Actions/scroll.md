@@ -17,5 +17,5 @@ await aui.scroll(0, -500).exec()
 ```
 ![](/img/gif/scroll.gif)
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.

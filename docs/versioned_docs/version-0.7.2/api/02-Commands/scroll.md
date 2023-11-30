@@ -15,5 +15,5 @@ Scrolls based on the current mouse position in the x and y direction.
 await aui.scroll(0, 10).exec()
 ```
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.

@@ -21,5 +21,5 @@ await aui.pressAndroidTwoKey('volume_down', 'power').exec()
 
 ![](/img/gif/pressAndroidTwoKeys.gif)
 
-   * @param {ANDROID_KEY} first_key - An Android key
-   * @param {ANDROID_KEY} second_key - An Android key
+   * @param \{ANDROID_KEY} first_key - An Android key
+   * @param \{ANDROID_KEY} second_key - An Android key

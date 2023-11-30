@@ -16,4 +16,4 @@ Filters for texts, which match the regex pattern.
 await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
 ```
 
-   * @param {string} regex_pattern - A regex pattern
+   * @param \{string} regex_pattern - A regex pattern

@@ -17,4 +17,4 @@ In the example below circle refers to a circle shaped icon with specific propert
 await aui.moveMouseTo().element().special("circle").exec()
 ```
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.

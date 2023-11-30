@@ -16,5 +16,5 @@ await aui.scrollInside(0,-500).text('Bottom sheet').exec();
 ![](/img/gif/scrollInside.gif)
 
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.

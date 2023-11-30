@@ -21,5 +21,5 @@ await aui.moveMouse(500, 500).exec();
 ![](/img/gif/moveMouse.gif)
 
 
-   * @param {number} x_coordinate - A (positive/negative) x coordinate.
-   * @param {number} y_coordinate - A (positive/negative) y coordinate.
+   * @param \{number} x_coordinate - A (positive/negative) x coordinate.
+   * @param \{number} y_coordinate - A (positive/negative) y coordinate.
