@@ -28,7 +28,7 @@ const config = {
   baseUrl: process.env.DOCS_BASE_URL || '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/askui_icon_positive_rgb-150x150.png',
+  favicon: 'img/askui_favicon.png',
   organizationName: 'askui',
   trailingSlash: false,
   plugins: [

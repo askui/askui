@@ -75,7 +75,7 @@ The **AskUI UI Controller** is a binary that controls the operating system. This
 - The **AskUI UI Controller** is responsible for:
     - Taking a screenshot.
     - Triggering the *InputEvent*, i.e MouseInputEvent, KeyboardInputEvent, or shell execution.
-    - Running the [interactive annotation](../03-Element Selection/annotations-and-screenshots.md#interactive-annotation).
+    - Running the [interactive annotation](../03-Element%20Selection/annotations-and-screenshots.md#interactive-annotation).
 
 See our [API documentation](../../api/08-Configuration/askui-ui-controller.md) for more information on this component.
 

@@ -9,7 +9,7 @@ Creates an annotated HTML file of the given image and saves it into the given pa
 
 The annotated image is saved to `<project_root>/report`.
 
-See also [the detailed explanation](../../general/03-Element Selection/annotations-and-screenshots.md#static-annotation).
+See also [the detailed explanation](../../general/03-Element%20Selection/annotations-and-screenshots.md#static-annotation).
 
 **Examples:**
 ```typescript 
