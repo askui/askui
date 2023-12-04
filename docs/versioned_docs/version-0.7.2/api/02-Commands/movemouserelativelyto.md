@@ -12,7 +12,7 @@ This can be used when the mouse should not hover over an element anymore.
 await aui.moveMouseRelativelyTo(0, 30).button().withText('Submit').exec()
 ```
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.
 
 ![](/img/gif/moveMouseRelativelyTo.gif)

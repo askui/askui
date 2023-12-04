@@ -20,5 +20,5 @@ await aui.moveMouseRelativelyTo(0, 30).button().withText('Submit').exec()
 ```
 ![](/img/gif/moveMouseRelativelyTo.gif)
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.

@@ -39,7 +39,7 @@ Make use of our preview build to use the latest features by following the mentio
 
 2. Ensure that you have the required import `UiController`.
 
-        import { UiController } from 'askui';
+        "import \{ UiController } from 'askui'";
 
 3. Also add the global variable if it is missing:
 
@@ -47,20 +47,20 @@ Make use of our preview build to use the latest features by following the mentio
 
 4. Modify the creation of `uiController` in file `test/helpers/jest.setup.ts`:
 
-        uiController = new UiController({
+        uiController = new UiController(\{
           /**
             * Select the display you want to run your tests on, display 0 is your main display;
             * ignore if you have only one display
             */
-          display: <YOUR_DISPLAY_ID>,
+          display: \<YOUR_DISPLAY_ID>,
           binaryVersion: "tdk-23.10.1-preview-release-1"
         });
 
    > Note: The ui controller creation starts typically with `uiController = await UiController({ ...` but the instance name might be different.
 
-5. Replace `<YOUR_DISPLAY_ID>` with the display (starting with 0 for the first display) that you want to use:
+5. Replace `\<YOUR_DISPLAY_ID>` with the display (starting with 0 for the first display) that you want to use:
 
-        display: <YOUR_DISPLAY_ID>,
+        display: \<YOUR_DISPLAY_ID>,
 
 6. Ensure that the controller gets started before the UI controller client tries (`aui`) to connect. Therefore the last two lines of the function should do:
 

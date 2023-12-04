@@ -36,4 +36,4 @@ await aui
 - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
 
-   * @param {CustomElementJson} customElement - The custom element to filter for.
+   * @param \{CustomElementJson} customElement - The custom element to filter for.

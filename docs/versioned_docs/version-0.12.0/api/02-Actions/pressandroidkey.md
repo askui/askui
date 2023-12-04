@@ -20,5 +20,5 @@ await aui.pressAndroidKey('notification').exec;
 
 ![](/img/gif/pressAndroidKey.gif)
 
-   * @param {ANDROID_KEY} key - An Android key
+   * @param \{ANDROID_KEY} key - An Android key
 

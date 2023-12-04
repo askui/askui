@@ -19,5 +19,5 @@ await aui.moveMouseRelatively(0, 50).exec();
 
 ![](/img/gif/moveMouseRelatively.gif)
 
-   * @param {number} x_offset - A (positive/negative) x direction.
-   * @param {number} y_offset - A (positive/negative) y direction.
+   * @param \{number} x_offset - A (positive/negative) x direction.
+   * @param \{number} y_offset - A (positive/negative) y direction.

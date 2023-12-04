@@ -12,6 +12,6 @@ Filters for text containing the text provided as an argument.
 'This is an text' === containsText('other') => false
 ```
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.
 
 ![](/img/gif/containsText.gif)

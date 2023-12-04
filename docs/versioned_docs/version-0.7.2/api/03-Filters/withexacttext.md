@@ -6,7 +6,7 @@ displayed_sidebar: apiSidebar
 Filters for equal text.
 
 **Note:** This should be only used in cases where the similarity
- comparison of {@link FluentFilters.withText()} allows not for
+ comparison of \{@link FluentFilters.withText()} allows not for
  specific enough filtering (too many elements).
 
 **Examples:** 
@@ -18,4 +18,4 @@ Filters for equal text.
 await aui.moveMouseTo().text().withExactText('Password').exec()
 ```
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.

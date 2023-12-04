@@ -36,4 +36,4 @@ await aui
 of the given custom image.
 
 
-   * @param {CustomElementJson} customElement - The custom element to filter for.
+   * @param \{CustomElementJson} customElement - The custom element to filter for.

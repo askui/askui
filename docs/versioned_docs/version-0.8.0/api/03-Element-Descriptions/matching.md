@@ -6,4 +6,4 @@ displayed_sidebar: apiSidebar
 
 Filters elements based on a textual description.
 
-   * @param {string} text - A description of the target element.
+   * @param \{string} text - A description of the target element.

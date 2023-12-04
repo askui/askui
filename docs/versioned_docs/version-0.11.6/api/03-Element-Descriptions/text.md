@@ -23,4 +23,4 @@ await aui.click().text().withExactText('Username').exec();
 await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
 ```
 
-   * @param {string} [text] - A text to be matched.
+   * @param \{string} [text] - A text to be matched.

@@ -6,4 +6,4 @@ displayed_sidebar: apiSidebar
 
 Press one Android key like `DEL`
 
-   * @param {ANDROID_KEY} key - A Android key
+   * @param \{ANDROID_KEY} key - A Android key

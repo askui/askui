@@ -22,4 +22,4 @@ Filters for similar (doesn't need to be a 100% equal) text.
 ```
 ![](/img/gif/withText.gif)
 
-   * @param {string} text - A text to be matched.
+   * @param \{string} text - A text to be matched.

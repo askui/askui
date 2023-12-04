@@ -30,4 +30,4 @@ Takes an optional parameter `index` to select the `nth` element (starting with 0
 ```
 ![](/img/gif/above.gif)
 
-   * @param {number} [optionalIndex=0] - element index
+   * @param \{number} [optionalIndex=0] - element index

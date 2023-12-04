@@ -18,4 +18,4 @@ await aui.get().text().withTextRegex('.*([Pp]ie|[Cc]ake).*').exec();
 ```
 ![](/img/gif/withTextRegex.gif)
 
-   * @param {string} regex_pattern - A regex pattern
+   * @param \{string} regex_pattern - A regex pattern
