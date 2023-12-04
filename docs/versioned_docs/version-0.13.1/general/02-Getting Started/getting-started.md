@@ -34,5 +34,11 @@ To create and serve a static HTML-Report you have to install [Allure](https://gi
 ## Download Remote Device Controller
 Download the installer [here](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe). Start it and follow the installation process.
 
+:::info
+You **_MUST_** start the Remote Device Controller as administrator:
+
+* Right-Click the application and click **Run as administrator**.
+:::
+
 Start the installed __Remote Device Controller__ manually and select the screen you want to use. 
 > Note: Either through the start menu, desktop shortcut or the executable in the install directory.
