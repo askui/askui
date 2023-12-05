@@ -133,7 +133,7 @@ await aui.annotate(
 /*
 Annotates only the text elements with the text 'User Interfaces?'
 */
-const detectedElements = await aui.get().text().withText("User Interfaces?", 92).exec();
+const detectedElements = await aui.get().text().withText("User Interfaces?").exec();
 await aui.annotate(
     { 
         elements: detectedElements

@@ -32,7 +32,7 @@ The method also accepts an optional parameter of type `AnnotationRequest`. You c
 
 **Example:**
 ```typescript
-const detectedElements = await aui.get().text().withText("User Interfaces?", 92).exec();
+const detectedElements = await aui.get().text().withText("User Interfaces?").exec();
 await aui.annotate({ elements: detectedElements });
 ```
 
