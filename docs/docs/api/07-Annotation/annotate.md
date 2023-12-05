@@ -27,7 +27,7 @@ UiControlClient.annotate({
 });
 ```
 
-## Annotate `DetectedElements`` from `get()`
+## Annotate `DetectedElements` from `get()`
 The method also accepts an optional parameter of type `AnnotationRequest`. You can use this to annotate only the elements that where returned with a `get()`.
 
 **Example:**
