@@ -868,7 +868,8 @@ await aui.click().image().above().text('The caption').exec();
 
 Filters elements based on a textual description.
 
-## What Should I Write as Matching Text
+**What Should I Write as Matching Text**
+
 The text description inside the `matching()` should describe the element visually.
 It understands color, some famous company/product names, general descriptions.
 
