@@ -22,7 +22,20 @@ UiControlClient.annotate({
     imagePath: '<your-image-path>',
     outputPath: '<path-of-the-generated-html>',
     fileNamePrefix: '<prefix-of-the-output-file>',
-    customElements: CustomElementJson[] // A list of custom elements. The AI model will use them to detect elements similar to them.
+    customElements: CustomElementJson[], // A list of custom elements. The AI model will use them to detect elements similar to them.
+    elements: DetectedElement[] // A list of detected elements obtained with get()
 });
 ```
 
+## Annotate `DetectedElements` from `get()`
+The method also accepts an optional parameter of type `AnnotationRequest`. You can use this to annotate only the elements that where returned with a `get()`.
+
+**Example:**
+```typescript
+const detectedElements = await aui.get().text().withText("User Interfaces?").exec();
+await aui.annotate({ elements: detectedElements });
+```
+
+Resulting annotation from a screen displaying the website [askui.com](https://www.askui.com/) where only the text `User Interfaces?` has a bounding box:
+
+![Screenshot of askui.com website with a bounding box around the detected element User Interfaces?](annotate_with_detected_elements.png)

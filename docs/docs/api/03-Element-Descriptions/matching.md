@@ -10,8 +10,8 @@ Filters elements based on a textual description.
 The text description inside the `matching()` should describe the element visually.
 It understands color, some famous company/product names, general descriptions.
 
-It sometimes requires a bit of playing to find a matching description:
-E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+It sometimes requires a bit of playing around to find a matching description:
+E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
 Generally the more detail the better.
 
 **Examples:** 

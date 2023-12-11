@@ -75,6 +75,8 @@ UiControlClient.annotate({
 
 - `customElements`: A *list* of custom elements. The AI model will use them to detect elements similar to them.
 
+- `elements`: A *list* of detected elements obtained with `get()`. Only the bounding boxes for those elements will be rendered.
+
 </details>
 
 
@@ -96,8 +98,8 @@ the output path 'annotation-reports/'
 */
 await aui.annotate(
     {
-    imagePath: 'my-screenshot.png',
-    outputPath: 'annotation-reports/'
+        imagePath: 'my-screenshot.png',
+        outputPath: 'annotation-reports/'
     });
 
 
@@ -112,20 +114,29 @@ await aui.annotate(
     outputPath: 'annotaion-reports/',
     customElements: [
         {
-        customImage: '<custom_image_path|base64Image>',
-        imageCompareFormat: 'grayscale',
-        name: 'custom element 1'
+            customImage: '<custom_image_path|base64Image>',
+            imageCompareFormat: 'grayscale',
+            name: 'custom element 1'
         },
         {
-        /*
-        for this custom element the OCR AI model
-        will be used to extract text from the image,
-        since no name was given.
-        */
-        customImage: '<custom_image2_path|base64Image>',
-        imageCompareFormat: 'RGB',
+            /*
+            for this custom element the OCR AI model
+            will be used to extract text from the image,
+            since no name was given.
+            */
+            customImage: '<custom_image2_path|base64Image>',
+            imageCompareFormat: 'RGB',
         }
     ]
+    });
+
+/*
+Annotates only the text elements with the text 'User Interfaces?'
+*/
+const detectedElements = await aui.get().text().withText("User Interfaces?").exec();
+await aui.annotate(
+    { 
+        elements: detectedElements
     });
 ```
 

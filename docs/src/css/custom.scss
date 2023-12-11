@@ -3,6 +3,12 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+ @font-face {
+  font-family: Figtree;
+  src: url(/fonts/Figtree-VariableFont_wght.ttf) format("truetype");
+  font-display: swap
+}
+
 .navbar {
   height: 95px;
   box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 47%);
@@ -38,7 +44,7 @@ video {
   --ifm-code-font-size: 95%;
   --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.5;
-  --ifm-font-family-base: "Mulish", "Verdana", sans-serif;
+  --ifm-font-family-base: "Figtree", "Verdana", sans-serif;
 }
 
 .header-github-link:hover {
