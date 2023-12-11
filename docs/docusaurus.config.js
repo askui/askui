@@ -43,6 +43,26 @@ const config = {
         disableInDev: false,
       },
     ],
+    [
+      require.resolve('docusaurus-lunr-search'),
+      {
+        indexBaseUrl: true,
+        includeRoutes: [
+          '/docs/api/API/*',
+          '/docs/general/*',
+          '/docs/general/**/*',
+          '/docs/next/api/API/*',
+          '/docs/next/general/*',
+          '/docs/next/general/**/*',
+          '/docs/0.11.6/api/API/*',
+          '/docs/0.11.6/general/*',
+          '/docs/0.11.6/general/**/*',
+          '/docs/0.12.2/api/API/*',
+          '/docs/0.12.2/general/*',
+          '/docs/0.12.2/general/**/*',
+        ]
+      }
+    ],
     () => ({
       name: 'resolve-react',
       configureWebpack() {
@@ -126,15 +146,15 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Discord',
-                href: 'https://discord.gg/EgHmgmPUhT',
+                label: 'Outverse',
+                href: 'https://app.outverse.com/askui/community/home',
               },
               {
                 label: 'Linkedin',
                 href: 'https://www.linkedin.com/company/askyourui',
               },
               {
-                label: 'Twitter',
+                label: 'X',
                 href: 'https://twitter.com/ask_ui',
               },
               {
@@ -178,15 +198,7 @@ const config = {
       },
     }),
 
-  themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        // `hashed` is recommended as long-term-cache of index file is possible.
-        hashed: true,
-      },
-    ],
-  ]
+  themes: []
 };
 
 module.exports = config;

@@ -47,11 +47,26 @@ video {
   --ifm-font-family-base: "Figtree", "Verdana", sans-serif;
 }
 
+.navbar__search-input {
+  height: 2.5rem;
+  width: 17.5rem;
+}
+
 .header-github-link:hover {
   opacity: 0.6;
 }
 
 .header-github-link:before {
+  content: '';
+  width: 26px;
+  height: 26px;
+  display: flex;
+  background: url("/img/icons/github_black.svg") no-repeat;
+  background-size: 26px 26px;
+  margin-top: 5px;
+}
+
+.gettingstarted div:before {
   content: '';
   width: 26px;
   height: 26px;
