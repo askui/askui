@@ -75,7 +75,7 @@ UiControlClient.annotate({
 
 - `customElements`: A *list* of custom elements. The AI model will use them to detect elements similar to them.
 
-- `elements` A *list* of detected elements obtained with `get()`. Only the bounding boxes for those elements will be rendered.
+- `elements`: A *list* of detected elements obtained with `get()`. Only the bounding boxes for those elements will be rendered.
 
 </details>
 
