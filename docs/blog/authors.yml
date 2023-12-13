@@ -1,0 +1,11 @@
+leonmeier:
+  name: Leon Meier
+  title: Head of Product
+  email: leon.meier@askui.com
+  image_url: /img/leonmeier.jpeg
+
+johannesdienst:
+  name: Johannes Dienst
+  title: Developer Advocate
+  email: johannes.dienst@askui.com
+  image_url: /img/johannesdienst.jpeg
