@@ -611,7 +611,7 @@ If you need to focus the element first, use typeIn()
 await aui.type('Type some text').exec()
 
 // mask the text so it is not send to the askui-inference server
-await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
+await aui.type('Type some text', \{ isSecret: true, secretMask: '**' }).exec()
 ```  
 
 </md-block>
@@ -638,7 +638,7 @@ Puts the focus on the filtered element and types in the text.
 await aui.typeIn('Type some text').textfield().exec()
 
 // mask the text so it is not send to the askui-inference server
-await aui.typeIn('Type some text', { isSecret: true, secretMask: '**' }).textfield().exec()
+await aui.typeIn('Type some text', \{ isSecret: true, secretMask: '**' }).textfield().exec()
 ```
 ![](/img/gif/typeIn.gif)  
 
@@ -869,16 +869,32 @@ await aui.click().image().above().text('The caption').exec();
 Filters elements based on a textual description.
 
 **What Should I Write as Matching Text**
+
 The text description inside the `matching()` should describe the element visually.
 It understands color, some famous company/product names, general descriptions.
 
-It sometimes requires a bit of playing around to find a matching description:
+**Important: _Matching only returns the best matching element when you use it with `get()`_**
+
+A bit of playing around to find a matching description is sometimes needed:
 E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
 Generally the more detail the better.
 
+We also recommend to not restrict the type of element by using the general
+selector `element()` as shown in the examples below.
+
 **Examples:** 
 ```typescript
-await aui.click().matching('a mask on purple background and a firefox logo').exec()
+// Select the black sneaker from a bunch of sneakers
+await aui.click().element().matching('a black sneaker shoe').exec();
+
+// Select an image that has text in it
+await aui.click().element().matching('has Burger King in it').exec();
+await aui.click().element().matching('has adidas in it').exec();
+
+// Target a logo/image by describing it
+await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+await aui.click().element().matching('logo looking like a seashell').exec();
 ```  
 
 </md-block>
