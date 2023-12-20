@@ -43,6 +43,29 @@ To run the spellchecker manually before committing:
 npm run spellcheck-docs
 ```
 
+### Create a New Release Notes Entry
+
+The blog is stored under `docs/blog`. Every entry gets its own folder and we use the following format as a naming convention `YYYY-MM-DD`. This makes sorting easier. Inside the folder you can store images and _maximal_ one Markdown file (`.md` file extension). The Markdown file contains your **Release Note** entry.
+
+#### Anatomy of a Release Note File
+
+Every **Release Note** has a metadata header which looks like this.
+Choose a unique title and slug.
+
+```yaml
+---
+title: 2023.12.13 Annotate DetectedElements from get()
+slug: release-notes-annotate-detected-elements
+authors: [leonmeier, johannesdienst]
+tags: [ReleaseNotes]
+hide_table_of_contents: false
+---
+```
+
+#### Add an Author
+
+If you want to add a new author follow the convention in `authors.yml`. The author-image has to be added to `docs/static/img`.
+
 ### Regenerate API Documentation
 
 1. Head over to [askui-inference](https://github.com/askui/askui-inference#generate-fluent-api-and-documentation)
