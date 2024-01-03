@@ -199,9 +199,9 @@ export class CreateExampleProject {
     await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
   }
 
-  private async addUserCredentails() {
+  private async addUserCredentials() {
     return [{
-      title: 'Add user credentails',
+      title: 'Add user credentials',
       task: async () => new Listr([
         {
           title: 'Add workspace id ',
@@ -287,7 +287,7 @@ export class CreateExampleProject {
       ...await this.setupTestFrameWork(),
       ...await this.copyESLintConfigFiles(),
       ...await this.copyTsConfigFile(),
-      ...await this.addUserCredentails(),
+      ...await this.addUserCredentials(),
       ...await this.createAskUIHelperFromTemplate(),
       ...await this.installProxy(),
     ]);
