@@ -20,7 +20,7 @@ Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to sch
 
 ## Installation
 
-Open a directory where you would like to place the AskUI setup and run this command. Answer all the questions:
+Open a directory where you would like to place the AskUI setup and run this command. The command will ask you a few questions on how to customize your setup. If you are unsure which value to select press the `Enter`-key to select the default value. Also keep your `workspace id` and your `access token` ready which you [created just before](#access-token) (We hope so 😉).
 
 ```shell
 npx askui@latest init
