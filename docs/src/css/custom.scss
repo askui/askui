@@ -66,16 +66,6 @@ video {
   margin-top: 5px;
 }
 
-.gettingstarted div:before {
-  content: '';
-  width: 26px;
-  height: 26px;
-  display: flex;
-  background: url("/img/icons/github_black.svg") no-repeat;
-  background-size: 26px 26px;
-  margin-top: 5px;
-}
-
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;
