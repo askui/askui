@@ -85,10 +85,31 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          sidebarItemsGenerator: async ({defaultSidebarItemsGenerator, ...args}) => {
+              const sidebarItems = await defaultSidebarItemsGenerator(args);
+              sidebarItems.push(
+                {
+                  type: "link",
+                  label: "Release Notes",
+                  href: "/blog",
+                  className:'release_notes_sidebar_item'
+                }
+              );
+              return sidebarItems;
+            },
           sidebarPath: require.resolve('./sidebars.js'),
           breadcrumbs: true,
           editUrl: ({versionDocsDirPath, docPath}) =>
             `https://github.com/askui/askui/tree/main/docs/${versionDocsDirPath}/${docPath}`,
+        },
+        blog: {
+          postsPerPage: 'ALL',
+          feedOptions: {
+            type: 'all',
+            copyright: `Copyright © ${new Date().getFullYear()} askui GmbH.`,
+          },
+          blogSidebarCount: 'ALL',
+          blogSidebarTitle: 'All Release Notes',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
