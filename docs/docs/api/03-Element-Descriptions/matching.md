@@ -13,8 +13,8 @@ It understands color, some famous company/product names, general descriptions.
 **Important: _Matching only returns the best matching element when you use it with `get()`_**
 
 A bit of playing around to find a matching description is sometimes needed:
-E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-Generally the more detail the better.
+E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+Generally, the more detail the better.
 
 We also recommend to not restrict the type of element by using the general
 selector `element()` as shown in the examples below.
