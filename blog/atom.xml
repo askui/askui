@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://docs.askui.com/blog</id>
+    <title>askui - Humanizing UI Automation Blog</title>
+    <updated>2023-12-13T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://docs.askui.com/blog"/>
+    <subtitle>askui - Humanizing UI Automation Blog</subtitle>
+    <icon>https://docs.askui.com/img/askui_favicon.png</icon>
+    <rights>Copyright © 2024 askui GmbH.</rights>
+    <entry>
+        <title type="html"><![CDATA[2023.12.13 Annotate DetectedElements from get()]]></title>
+        <id>https://docs.askui.com/blog/release-notes-annotate-detected-elements</id>
+        <link href="https://docs.askui.com/blog/release-notes-annotate-detected-elements"/>
+        <updated>2023-12-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Overview]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="overview">Overview<a href="https://docs.askui.com/blog/release-notes-annotate-detected-elements#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
+<p>This update introduces an optional <code>AnnotationRequest</code> parameter to the <code>annotate()</code> method, allowing users to annotate specific elements retrieved from user interfaces by the <code>get()</code> method.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="benefits">Benefits<a href="https://docs.askui.com/blog/release-notes-annotate-detected-elements#benefits" class="hash-link" aria-label="Direct link to Benefits" title="Direct link to Benefits">​</a></h2>
+<ul>
+<li>Users can now annotate elements fetched by <code>get()</code>, enhancing visibility and interaction with these elements.</li>
+<li>Simplifies UI element selection debugging with targeted annotations.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-use">How to Use<a href="https://docs.askui.com/blog/release-notes-annotate-detected-elements#how-to-use" class="hash-link" aria-label="Direct link to How to Use" title="Direct link to How to Use">​</a></h2>
+<ol>
+<li>Use the <code>get()</code> method to retrieve elements.</li>
+<li>Pass the <code>AnnotationRequest</code> parameter to specify which elements to annotate.</li>
+<li>Execute the annotation command as shown in the provided example.</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="example">Example<a href="https://docs.askui.com/blog/release-notes-annotate-detected-elements#example" class="hash-link" aria-label="Direct link to Example" title="Direct link to Example">​</a></h2>
+<div class="language-typescript codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-typescript codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> detectedElements </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">await</span><span class="token plain"> aui</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">get</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">text</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">withText</span><span class="token punctuation" style="color:#393A34">(</span><span class="token string" style="color:#e3116c">"User Interfaces?"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">exec</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">await</span><span class="token plain"> aui</span><span class="token punctuation" style="color:#393A34">.</span><span class="token function" style="color:#d73a49">annotate</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"> elements</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> detectedElements </span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><em>Result: Annotated bounding box around the text "User Interfaces?" on askui.com.</em></p>
+<p><img loading="lazy" alt="Screenshot of askui.com website with a bounding box around the detected element User Interfaces?" src="https://docs.askui.com/assets/images/annotate_with_detected_elements-44889f673564afd1a7d443a0bd1a2b74.png" width="1275" height="563" class="img_ev3q"></p>]]></content>
+        <author>
+            <name>Leon Meier</name>
+            <email>leon.meier@askui.com</email>
+        </author>
+        <author>
+            <name>Johannes Dienst</name>
+            <email>johannes.dienst@askui.com</email>
+        </author>
+        <category label="ReleaseNotes" term="ReleaseNotes"/>
+    </entry>
+</feed>
