@@ -1,7 +1,7 @@
 // @ts-check
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 const tagline = 'Humanizing UI Automation';
 const path = require('path');
@@ -42,6 +42,23 @@ const config = {
         steps: 2, // the max number of images generated between min and max (inclusive)
         disableInDev: false,
       },
+    ],
+    [
+      require.resolve('docusaurus-lunr-search'),
+      {
+        indexBaseUrl: true,
+        includeRoutes: [
+          '/docs/**/api/API/*',
+          '/docs/**/general/*',
+          '/docs/**/general/**/*',
+          '/docs/api/API/*',
+          '/docs/general/*',
+          '/docs/general/**/*',
+          '/docs/next/api/API/*',
+          '/docs/next/general/*',
+          '/docs/next/general/**/*',
+        ]
+      }
     ],
     () => ({
       name: 'resolve-react',
@@ -126,15 +143,15 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Discord',
-                href: 'https://discord.gg/EgHmgmPUhT',
+                label: 'Outverse',
+                href: 'https://app.outverse.com/askui/community/home',
               },
               {
                 label: 'Linkedin',
                 href: 'https://www.linkedin.com/company/askyourui',
               },
               {
-                label: 'Twitter',
+                label: 'X',
                 href: 'https://twitter.com/ask_ui',
               },
               {
@@ -178,15 +195,7 @@ const config = {
       },
     }),
 
-  themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        // `hashed` is recommended as long-term-cache of index file is possible.
-        hashed: true,
-      },
-    ],
-  ]
+  themes: []
 };
 
 module.exports = config;

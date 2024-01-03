@@ -47,6 +47,11 @@ video {
   --ifm-font-family-base: "Figtree", "Verdana", sans-serif;
 }
 
+.navbar__search-input {
+  height: 2.5rem;
+  width: 17.5rem;
+}
+
 .header-github-link:hover {
   opacity: 0.6;
 }
