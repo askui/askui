@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[4195],{52295:(t,e,s)=>{s.r(e),s.d(e,{default:()=>c});s(67294);var r=s(3620),a=s(85893);function c(){return(0,a.jsx)(r.l_,{to:"/docs/general/Getting Started/start"})}}}]);
