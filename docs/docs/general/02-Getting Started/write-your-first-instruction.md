@@ -39,7 +39,7 @@ Some users have reported instability running AskUI on macOS with external displa
 <Tabs>
   <TabItem value="windows" label="Windows" default>
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 import { aui } from './helpers/askui-helper';
 
 describe('jest with askui', () => {
@@ -53,7 +53,7 @@ describe('jest with askui', () => {
   </TabItem>
   <TabItem value="macos" label="macOS">
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 import { aui } from './helpers/askui-helper';
 
 describe('jest with askui', () => {
@@ -65,7 +65,7 @@ describe('jest with askui', () => {
   </TabItem>
   <TabItem value="linux" label="Linux">
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 import { aui } from './helpers/askui-helper';
 
 describe('jest with askui', () => {
@@ -113,7 +113,7 @@ Be sure to `xit` out the (interactive) annotation, as that is no longer needed. 
 <Tabs>
   <TabItem value="windows" label="Windows" default>
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
 
   xit('should generate an (interactive) annotation', async () => {
@@ -133,7 +133,7 @@ describe('jest with askui', () => {
   </TabItem>
   <TabItem value="macos" label="macOS">
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
 
   xit('should generate an (interactive) annotation', async () => {
@@ -151,7 +151,7 @@ describe('jest with askui', () => {
   </TabItem>
   <TabItem value="linux" label="Linux">
 
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
 
   xit('should generate an (interactive) annotation', async () => {
