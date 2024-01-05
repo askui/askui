@@ -49,12 +49,15 @@ const config = {
         indexBaseUrl: true,
         includeRoutes: [
           '/docs/**/api/API/*',
+          '/docs/**/api/**/*',
           '/docs/**/general/*',
           '/docs/**/general/**/*',
           '/docs/api/API/*',
+          '/docs/api/**/*',
           '/docs/general/*',
           '/docs/general/**/*',
           '/docs/next/api/API/*',
+          '/docs/next/api/**/*',
           '/docs/next/general/*',
           '/docs/next/general/**/*',
         ]
