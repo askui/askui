@@ -16,7 +16,7 @@ npm install --save-dev jest-image-snapshot
 ```
 
 ## Integration
-The package provides a function `toMatchImageSnapshot` which implements Jest's `Matchers<R>`` interface making it a Jest matcher that can be used with Jest's `expect()``.
+The package provides a function `toMatchImageSnapshot` which implements Jest's `Matchers<R>` interface making it a Jest matcher that can be used with Jest's `expect()``.
 
 You have to add this matcher to Jest with `expect.extend` like this in your workflow file ([See the docs](https://jestjs.io/docs/expect#expectextendmatchers)):
 
