@@ -6,7 +6,7 @@ sidebar_position: 6
 
 This tutorial shows how to use AskUI to automate an Android app built with [Flutter](https://flutter.dev/). We provide the source code for the Flutter demo app used in this tutorial ([GitHub repository](https://github.com/askui/flutter-example-automation)). Set up the demo app by following the instructions below. This tutorial assumes that you already have your Android device prepared. It can be a real Android device or an Android Emulator.
 
-**If you haven't set up your Android device or Emulator yet, [follow this tutorial](../04-Executing%20Automations/mobile-automation.md#android-automation).**
+**If you haven't set up your Android device or Emulator yet, [follow this tutorial](../04-Executing%20Automations/mobile-automation.md#android).**
 
 This tutorial includes:
 
