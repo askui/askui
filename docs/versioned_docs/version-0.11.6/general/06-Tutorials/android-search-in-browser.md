@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Web Search on Android
 
-In this tutorial, we will automate web searching on Android devices. This tutorial assumes that you have already set up your Android Development Environment. If you haven't set it up yet, you can check out our [Setup Android tutorial](../04-Executing%20Automations//mobile-automation.md#android-automation).
+In this tutorial, we will automate web searching on Android devices. This tutorial assumes that you have already set up your Android Development Environment. If you haven't set it up yet, you can check out our [Setup Android tutorial](../04-Executing%20Automations/mobile-automation.md#android-automation).
 
 If you have already set up your development environment, go directly to [3. Automate Web Searching](#3-automate-web-searching)
 
