@@ -235,3 +235,5 @@ GOOGLE_CHROME_ARGS
 ASKUI_CONTROLLER_ARGS
 No_VNC
 RapidFuzz
+matcher
+typings

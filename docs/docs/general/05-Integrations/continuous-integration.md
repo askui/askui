@@ -3,17 +3,17 @@ sidebar_position: 1
 ---
 
 # Continuous Integration
-You have two options to implement your pipeline. With our AskUI-Runner container or without it.
+You have two options to implement your pipeline. With our AskUI-Runner Docker container or without it.
 
-The main difference without the AskUI-Runner is, that you can not download the latest version of your workflows from AskUI Studio inside your pipeline but have to provide them to your build.
+The main difference without the AskUI-Runner container is, that you can not download the latest version of your workflows from AskUI Studio inside your pipeline but have to provide them to your build.
 
 ## Github Actions
 
-### AskUI-Runner: Get Workflows from AskUI Studio
+### AskUI-Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
-The AskUI-Runner downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
+The AskUI-Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
 1. Set these environment variables for your pipeline:
 
@@ -74,11 +74,11 @@ Then implement the following steps in your pipeline:
 
 ## Gitlab CI
 
-### AskUI-Runner: Get Workflows from AskUI Studio
+### AskUI-Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
-The AskUI-Runner downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
+The AskUI-Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
 1. Set these Gitlab variables for your pipeline:
 
@@ -151,9 +151,9 @@ Then implement the following steps in your pipeline:
 
 ## Azure DevOps
 
-### AskUI-Runner: Get Workflows from AskUI Studio
+### AskUI-Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
 The AskUI-Runner downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
