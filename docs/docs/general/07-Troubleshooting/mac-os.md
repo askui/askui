@@ -8,40 +8,30 @@ sidebar_position: 5
 
 ![macOS empty screen captured](./macos-empty-screen.png)
 
-macOS sometimes does not recognize an installation of an AskUI UI Controller and, therefore,
-does not give it proper permissions although it looks like it. 
+Our UiController needs the permission for *Screen Recording* and *Accessibility* on macOS.
 
-You can fix this, by heading 
-over to *System Preferences > Security & Privacy*.
-Open the *Privacy* tab and check if you can find the *askui-ui-controller* under *Screen Recording* and *Accessibility*. 
+Here is a step-by-step guide on how to fix missing permissions:
 
-If yes, revoke its permissions by unchecking 
-the corresponding checkboxes and removing the application from each list by clicking the minus 
-(*-*) button.
+1. Head over to *System Preferences > Security & Privacy*.
+Open the *Privacy* tab and check if you can find the *askui-ui-controller* under *Screen Recording* and *Accessibility* (See next picture for reference). 
 
 ![macOS Privacy settings](./macos-privacy-settings.png)
 
-Head over to the installation of the AskUI UI Controller. If you did not install it manually, 
-you can find it under `node_modules/askui/dist/release/<version>/darwin`. 
-`<version>` may be `latest` or a semantic version like `v0.8.0`. In there, you should find 
-corresponding `.app` directory which is your installation of the AskUI UI Controller.
-Start it by double-clicking it in the *Finder*.
+1.1 If *askui-ui-controller* does NOT have the permissions, give it to it and restart your workflow. Make sure to reopen your terminal you run workflow from. If it still does not work go on with step 1.2 below.
 
-The application should ask for 
-*Screen Recording* permissions which you have to grant for it to work. You should 
-remove every reference to `UiController` in your `helper/jest.setup.ts` so that 
-the AskUI lib does not override the installation or tries to start it automatically.
+1.2. If *askui-ui-controller* has the permissions, revoke them by unchecking the corresponding checkboxes and removing the application from each list by clicking the minus (*-*) button.
 
-Now, you can 
-run your instructions starting the AskUI UI Controller manually each time. On the first run,
-you are going to be asked for *Accessibility* permissions 
-which you also have to grant. After that, your instructions should run flawlessly as and you should 
-be able to capture what is shown on the screen as well as execute instructions.
+2. By default AskUI starts the UiController in the background which sometimes messes up the permissions. Now you will start the UiController manually which triggers the permission prompt of macOS. Therefore you need to execute the UiController executable that was downloaded into your AskUI project when you ran your workflow.
+Head over to the folder where your initialised AskUI. Navigate to `node_modules/askui/dist/release/<version>/darwin`. 
+`<version>` may be `latest` or a semantic version like `v0.8.0`. In there, you should find a ``askui-controller.app` directory which is your installation of the AskUI UI Controller. Open the `askui-controller.app` directory in your *Finder* by right-clicking it and select *Reveal in Finder* (See screenshot below). Then start it by double-clicking it in the *Finder*.
+
+![Installation folder of askui-ui-controller](./macos-askui-ui-controller-installation-folder.png)
+
+The application should ask for *Screen Recording* permissions which you have to grant for it to work.
 
 We are actively searching for a solution to improve the current state of affairs but Apple
 does not make it easy (which is good for your privacy but not so much for automation frameworks). 
-But be sure that we keep trying ;) 
-
+But be sure that we keep trying!
 
 ## Mouse Cursor Not Moving as Expected
 
