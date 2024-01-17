@@ -94,8 +94,8 @@ const config = {
                 {
                   type: "link",
                   label: "Release Notes",
-                  href: "/blog",
-                  className:'release_notes_sidebar_item'
+                  href: "/release-notes",
+                  className:'release_notes_sidebar_item',
                 }
               );
               return sidebarItems;
@@ -113,6 +113,7 @@ const config = {
           },
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All Release Notes',
+          routeBasePath: 'release-notes'
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
