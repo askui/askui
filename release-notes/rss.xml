@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>askui - Humanizing UI Automation Blog</title>
+        <link>https://docs.askui.com/release-notes</link>
+        <description>askui - Humanizing UI Automation Blog</description>
+        <lastBuildDate>Wed, 13 Dec 2023 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <copyright>Copyright © 2024 askui GmbH.</copyright>
+        <item>
+            <title><![CDATA[2023.12.13]]></title>
+            <link>https://docs.askui.com/release-notes/release-2023-12-13</link>
+            <guid>https://docs.askui.com/release-notes/release-2023-12-13</guid>
+            <pubDate>Wed, 13 Dec 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Introduction]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2023-12-13#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
+<p>On December 13, we introduced three new features: the <strong>Visual Description Matching Method</strong> for selecting diverse visual elements, <strong>Targeted Annotations</strong> for precise debugging, and <strong>Precision Text Matching</strong> for flexible text matching.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="overview">Overview<a href="https://docs.askui.com/release-notes/release-2023-12-13#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
+<ol>
+<li>
+<p><strong>Visual Description Matching Method</strong></p>
+<ul>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Element-Descriptions/matching" target="_blank" rel="noopener noreferrer">Matching Feature</a></li>
+<li>This feature introduces the <code>matching()</code>method, allowing users to identify and interact with UI elements based solely on textual descriptions.</li>
+<li>Enhances the flexibility of automated interactions with dynamic UIs.</li>
+</ul>
+</li>
+<li>
+<p><strong>Targeted Annotations</strong></p>
+<ul>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Annotation/annotate" target="_blank" rel="noopener noreferrer">Annotate DetectedElements</a></li>
+<li>Introduces an <code>AnnotationRequest</code> parameter in the <code>annotate()</code> method, allowing users to annotate specific elements retrieved from user interfaces by the <code>get()</code> method.</li>
+<li>Simplifies debugging of UI element selection.</li>
+</ul>
+</li>
+<li>
+<p><strong>Precision Text Matching</strong></p>
+<ul>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Element-Descriptions/withtext" target="_blank" rel="noopener noreferrer">Adjustable Similarity Score</a></li>
+<li>Introduces an optional <code>similarity_score</code> parameter for the <code>.withText()</code> method.</li>
+<li>Improves script resilience and minimizes mismatches in text-based automation.</li>
+</ul>
+</li>
+</ol>]]></content:encoded>
+            <author>leon.meier@askui.com (Leon Meier)</author>
+            <category>Selection</category>
+            <category>Annotation</category>
+        </item>
+    </channel>
+</rss>
