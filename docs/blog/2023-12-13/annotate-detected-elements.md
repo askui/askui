@@ -1,5 +1,5 @@
 ---
-title: 2023-12-13
+title: 2023.12.13
 slug: release-2023-12-13
 authors: [leonmeier]
 tags: [Selection, Annotation]
