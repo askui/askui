@@ -31,14 +31,9 @@ beforeAll(async () => {
   await aui.connect();
 });
 
-beforeEach(async () => {
-  await aui.startVideoRecording();
-});
+{{ start_video_placeholder }}
 
-afterEach(async () => {
-  await aui.stopVideoRecording();
-  {{ allure_stepreporter_attach_video }}
-});
+{{ stop_video_placeholder }}
 
 afterAll(async () => {
   aui.disconnect();

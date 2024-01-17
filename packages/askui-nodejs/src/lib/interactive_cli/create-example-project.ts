@@ -81,8 +81,14 @@ export class CreateExampleProject {
     if (this.cliOptions.testFramework === 'jest') {
       this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
       this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
-      this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
-  await AskUIAllureStepReporter.attachVideo(video);`;
+      this.helperTemplateConfig['start_video_placeholder'] = `beforeEach(async () => {
+        await aui.startVideoRecording();
+      });`;
+      this.helperTemplateConfig['stop_video_placeholder'] = `afterEach(async () => {
+        await aui.stopVideoRecording();
+        const video = await aui.readVideoRecording();
+        await AskUIAllureStepReporter.attachVideo(video);
+      });`;
     }
   }
 
