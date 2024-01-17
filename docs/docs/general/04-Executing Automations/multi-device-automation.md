@@ -14,6 +14,10 @@ This tutorial shows how to automate multiple devices on the same network by usin
 
 - Download the binary/binaries for the respective platform(s):
     
+    :::info
+    **macOS** After installation to `Applications` remove the quarantine flag with the following command run from a terminal: `xattr -d com.apple.quarantine /Applications/askui-ui-controller.app`
+    :::
+
     [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 **macOS** and **Linux** only: If you downloaded the `askui-ui-controller` manually from the link above, you have to make it executable.

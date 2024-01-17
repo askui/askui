@@ -8,6 +8,7 @@
 
 There are different versions of the askui UI Controller. Not all versions are supported for all operating systems.
 You can specify which binary version of server you want to download and use. The default value is `latest` which will
+You can specify which binary version of server you want to download and use. The default value is `latest` which will
 download the newest version.
 ___
 
