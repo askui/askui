@@ -10,7 +10,7 @@ Takes an optional parameter to specify the similarity. Usually you need the opti
 
 _We use [RapidFuzz](https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio) which calculates the similarity like this:_
 
- `1 - (distance / (lengthString1 + lengthString2))`
+`1 - (distance / (lengthString1 + lengthString2))`
 
 **Examples:** 
 ```typescript
@@ -27,7 +27,7 @@ _We use [RapidFuzz](https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#rati
 
 // optional parameter: similarity_score
 '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
-'978-0-201-00650-6' == withText("978-0-201-00", 90) => true with 93.75 > 90 similarity
+'978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
 ```
 ![](/img/gif/withText.gif)
 
