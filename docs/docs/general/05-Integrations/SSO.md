@@ -2,80 +2,13 @@
 title: Single Sign-On (SSO)
 ---
 
-# Setting Up Single Sign-On (SSO) for Your Enterprise Account
-
-Welcome to the Single Sign-On (SSO) setup guide. This document will guide you through obtaining the necessary credentials from your Identity Provider (IdP) and coordinating with our staff to ensure a smooth and secure integration.
-
-> **Note**: The Single Sign-On (SSO) integration feature is available exclusively for AskUI Enterprise accounts. If you do not have an Enterprise account and are interested in this feature, please contact our sales team for more information on upgrading your account.
-
-
-## Prerequisites
-
-Before you begin, ensure you have administrative access to your organization’s IdP service (such as Azure AD, Google Workspace, etc.) and that your enterprise account with us is eligible for SSO integration.
-
-## Step 1: Gathering Necessary Data from Your Identity Provider
-
-Depending on your IdP, you will need to gather the following data:
-
-### For Azure AD
-
-- **Domain Name**: Your Azure AD domain (typically `companyname.onmicrosoft.com`).
-- **Client ID**: The application's unique identifier in Azure AD.
-- **Client Secret**: A key used by the application to authenticate with Azure AD.
-
-### For Google Workspace
-
-- **Client ID**: Found in your Google API Console.
-- **Client Secret**: Also found in your Google API Console.
-
-### For Other OAuth/OpenID Connect Providers
-
-- **Issuer URL**: The URL where the IdP issues tokens.
-- **Client ID**: Unique identifier for the application.
-- **Client Secret**: A key used by the application to authenticate with the IdP.
-
-**Note**: Keep all sensitive data secure and share it only through approved channels.
-
-## Step 2: Configuring SSO on Our Platform
-
-Once you have collected the necessary information from your IdP, you can begin the configuration process on our platform.
-
-### Contacting Support
-
-To ensure the security and correctness of the setup, please contact our support team to assist you with the integration. You can reach out to us via:
-
-- **Email**: `support@askui.com`
-- **Chat**: `[Support Website]`
-
-### What You’ll Need to Provide
-
-Our support team will need the following information to assist with the setup:
-
-1. Your IdP information (Domain Name, Client ID, Client Secret).
-2. Your preferred method of user attribute mapping.
-
-## Step 3: Testing the Integration
-
-After our support team has configured the SSO integration:
-
-1. **Conduct Initial Tests**: Verify that the SSO integration works as expected using a test account.
-2. **Verify User Provisioning**: Confirm that user accounts are being provisioned and deprovisioned correctly.
-3. **Check Access and Permissions**: Ensure that users have the appropriate level of access.
-
-## Step 4: Rolling Out to Users
-
-With testing complete, you can roll out the SSO integration to your user base:
-
-1. **Communicate Changes**: Inform your users about the new SSO process.
-2. **Provide Training
-
-# Setting Up Single Sign-On (SSO) for Your Enterprise Account
-
 Welcome to the Single Sign-On (SSO) setup guide. This document will guide you through obtaining the necessary credentials from your Identity Provider (IdP) and coordinating with our staff to ensure a smooth and secure integration for a variety of supported SSO providers.
 
 ## Prerequisites
 
 Before you begin, ensure you have administrative access to your organization’s IdP service and that your enterprise account with us is eligible for SSO integration.
+
+> **Note**: The Single Sign-On (SSO) integration feature is available exclusively for AskUI Enterprise accounts. If you do not have an Enterprise account and are interested in this feature, please contact our sales team for more information on upgrading your account.
 
 ## Supported Identity Providers
 
