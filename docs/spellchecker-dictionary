@@ -237,3 +237,5 @@ No_VNC
 RapidFuzz
 matcher
 typings
+AskUIXRayStepReporter
+JSON-Objects
