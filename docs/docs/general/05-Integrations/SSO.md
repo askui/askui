@@ -87,7 +87,7 @@ Request the required data from your IdP. If possible, also request a test user t
 
 ## Step 4: Setting Up the Connection
 
-Contact our support team for assistance with configuring SSO on our platform. They will guide you through the process specific to your chosen IdP and ensure the connection is set up correctly. You can reach out to us via:
+To set up Single Sign-On (SSO) for your account, reach out to our dedicated support team. They will take care of the entire SSO configuration process tailored to your selected Identity Provider (IdP). Our team is committed to ensuring a seamless and secure connection. Please contact us at:
 
 - **Email**: `support@askui.com`
 
