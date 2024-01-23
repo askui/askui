@@ -9,19 +9,19 @@
     <icon>https://docs.askui.com/img/askui_favicon.png</icon>
     <rights>Copyright © 2024 askui GmbH.</rights>
     <entry>
-        <title type="html"><![CDATA[2024.12.13]]></title>
-        <id>https://docs.askui.com/release-notes/release-2023-12-13</id>
-        <link href="https://docs.askui.com/release-notes/release-2023-12-13"/>
+        <title type="html"><![CDATA[2024.01.23]]></title>
+        <id>https://docs.askui.com/release-notes/release-2023-01-23</id>
+        <link href="https://docs.askui.com/release-notes/release-2023-01-23"/>
         <updated>2024-01-23T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Introduction]]></summary>
-        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2023-12-13#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2023-01-23#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
 <p>We're introducing two significant enhancements to our platform: Single Sign-On (SSO) Integration for various identity providers and the AskUIXRayStepReporter for automation workflows in Xray for Jira. These features are designed to streamline the authentication process and improve test reporting, respectively.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="overview-of-features">Overview of Features<a href="https://docs.askui.com/release-notes/release-2023-12-13#overview-of-features" class="hash-link" aria-label="Direct link to Overview of Features" title="Direct link to Overview of Features">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="overview-of-features">Overview of Features<a href="https://docs.askui.com/release-notes/release-2023-01-23#overview-of-features" class="hash-link" aria-label="Direct link to Overview of Features" title="Direct link to Overview of Features">​</a></h3>
 <ol>
 <li>
 <p><strong>Single Sign-On Integration</strong></p>
 <ul>
-<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/general/Integrations/single-sign-on-sso" target="_blank" rel="noopener noreferrer">SSO Setup Guide</a></li>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/general/Integrations/sso" target="_blank" rel="noopener noreferrer">SSO Setup Guide</a></li>
 <li>This feature allows seamless integration with various identity providers including Azure AD, Google Workspace, and Okta, enhancing security and simplifying user management.</li>
 </ul>
 </li>
@@ -33,10 +33,10 @@
 </ul>
 </li>
 </ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="detailed-descriptions">Detailed Descriptions<a href="https://docs.askui.com/release-notes/release-2023-12-13#detailed-descriptions" class="hash-link" aria-label="Direct link to Detailed Descriptions" title="Direct link to Detailed Descriptions">​</a></h3>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="single-sign-on-integration">Single Sign-On Integration<a href="https://docs.askui.com/release-notes/release-2023-12-13#single-sign-on-integration" class="hash-link" aria-label="Direct link to Single Sign-On Integration" title="Direct link to Single Sign-On Integration">​</a></h4>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="detailed-descriptions">Detailed Descriptions<a href="https://docs.askui.com/release-notes/release-2023-01-23#detailed-descriptions" class="hash-link" aria-label="Direct link to Detailed Descriptions" title="Direct link to Detailed Descriptions">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="single-sign-on-integration">Single Sign-On Integration<a href="https://docs.askui.com/release-notes/release-2023-01-23#single-sign-on-integration" class="hash-link" aria-label="Direct link to Single Sign-On Integration" title="Direct link to Single Sign-On Integration">​</a></h4>
 <p>Our new SSO Integration feature supports a wide range of identity providers. It offers enhanced security, unified login experiences, and streamlined user account management, significantly reducing the overhead of managing separate login credentials.</p>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="askuixraystepreporter">AskUIXRayStepReporter<a href="https://docs.askui.com/release-notes/release-2023-12-13#askuixraystepreporter" class="hash-link" aria-label="Direct link to AskUIXRayStepReporter" title="Direct link to AskUIXRayStepReporter">​</a></h4>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="askuixraystepreporter">AskUIXRayStepReporter<a href="https://docs.askui.com/release-notes/release-2023-01-23#askuixraystepreporter" class="hash-link" aria-label="Direct link to AskUIXRayStepReporter" title="Direct link to AskUIXRayStepReporter">​</a></h4>
 <p>The AskUIXRayStepReporter is a powerful tool for reporting test automation results directly to Xray for Jira. It helps teams maintain comprehensive documentation of their test executions, complete with visual evidence and detailed status reports.</p>
 <hr>
 <p>We are excited to see how these new features will enhance your experience with our platform, providing greater convenience, security, and efficiency in your automated testing and user management processes.</p>]]></content>
@@ -54,31 +54,34 @@
         <updated>2023-12-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Introduction]]></summary>
         <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2023-12-13#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
-<p>We're introducing two significant enhancements to our platform: Single Sign-On (SSO) Integration for various identity providers and the AskUIXRayStepReporter for automation workflows in Xray for Jira. These features are designed to streamline the authentication process and improve test reporting, respectively.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="overview-of-features">Overview of Features<a href="https://docs.askui.com/release-notes/release-2023-12-13#overview-of-features" class="hash-link" aria-label="Direct link to Overview of Features" title="Direct link to Overview of Features">​</a></h3>
+<p>On December 13, we introduced three new features: the <strong>Visual Description Matching Method</strong> for selecting diverse visual elements, <strong>Targeted Annotations</strong> for precise debugging, and <strong>Precision Text Matching</strong> for flexible text matching.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="overview">Overview<a href="https://docs.askui.com/release-notes/release-2023-12-13#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
 <ol>
 <li>
-<p><strong>Single Sign-On Integration</strong></p>
+<p><strong>Visual Description Matching Method</strong></p>
 <ul>
-<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/general/Integrations/single-sign-on-sso" target="_blank" rel="noopener noreferrer">SSO Setup Guide</a></li>
-<li>This feature allows seamless integration with various identity providers including Azure AD, Google Workspace, and Okta, enhancing security and simplifying user management.</li>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Element-Descriptions/matching" target="_blank" rel="noopener noreferrer">Matching Feature</a></li>
+<li>This feature introduces the <code>matching()</code>method, allowing users to identify and interact with UI elements based solely on textual descriptions.</li>
+<li>Enhances the flexibility of automated interactions with dynamic UIs.</li>
 </ul>
 </li>
 <li>
-<p><strong>AskUIXRayStepReporter</strong></p>
+<p><strong>Targeted Annotations</strong></p>
 <ul>
-<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/general/Integrations/reporting#askuixraystepreporter" target="_blank" rel="noopener noreferrer">AskUIXRayStepReporter Guide</a></li>
-<li>This feature integrates with Xray for Jira to provide detailed reporting of automation workflows, including screenshots and test statuses.</li>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Annotation/annotate" target="_blank" rel="noopener noreferrer">Annotate DetectedElements</a></li>
+<li>Introduces an <code>AnnotationRequest</code> parameter in the <code>annotate()</code> method, allowing users to annotate specific elements retrieved from user interfaces by the <code>get()</code> method.</li>
+<li>Simplifies debugging of UI element selection.</li>
 </ul>
 </li>
-</ol>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="detailed-descriptions">Detailed Descriptions<a href="https://docs.askui.com/release-notes/release-2023-12-13#detailed-descriptions" class="hash-link" aria-label="Direct link to Detailed Descriptions" title="Direct link to Detailed Descriptions">​</a></h3>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="single-sign-on-integration">Single Sign-On Integration<a href="https://docs.askui.com/release-notes/release-2023-12-13#single-sign-on-integration" class="hash-link" aria-label="Direct link to Single Sign-On Integration" title="Direct link to Single Sign-On Integration">​</a></h4>
-<p>Our new SSO Integration feature supports a wide range of identity providers. It offers enhanced security, unified login experiences, and streamlined user account management, significantly reducing the overhead of managing separate login credentials.</p>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="askuixraystepreporter">AskUIXRayStepReporter<a href="https://docs.askui.com/release-notes/release-2023-12-13#askuixraystepreporter" class="hash-link" aria-label="Direct link to AskUIXRayStepReporter" title="Direct link to AskUIXRayStepReporter">​</a></h4>
-<p>The AskUIXRayStepReporter is a powerful tool for reporting test automation results directly to Xray for Jira. It helps teams maintain comprehensive documentation of their test executions, complete with visual evidence and detailed status reports.</p>
-<hr>
-<p>We are excited to see how these new features will enhance your experience with our platform, providing greater convenience, security, and efficiency in your automated testing and user management processes.</p>]]></content>
+<li>
+<p><strong>Precision Text Matching</strong></p>
+<ul>
+<li><strong>Documentation</strong>: <a href="https://docs.askui.com/docs/api/Element-Descriptions/withtext" target="_blank" rel="noopener noreferrer">Adjustable Similarity Score</a></li>
+<li>Introduces an optional <code>similarity_score</code> parameter for the <code>.withText()</code> method.</li>
+<li>Improves script resilience and minimizes mismatches in text-based automation.</li>
+</ul>
+</li>
+</ol>]]></content>
         <author>
             <name>Leon Meier</name>
             <email>leon.meier@askui.com</email>
