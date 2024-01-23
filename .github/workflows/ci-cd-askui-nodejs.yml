@@ -15,7 +15,7 @@ on:
   #       required: false
   #       type: string
 env:
-  NODE_VERSION: 16
+  NODE_VERSION: 18
   RELEASE_COMMAND: ${{ github.event.inputs.prerelease == 'true' &&  'release:prerelease' || 'release' }} -- ${{ github.event.inputs.release-it-options }}
 jobs:
   build:
