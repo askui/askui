@@ -33,7 +33,7 @@ Identify the SSO protocol or federated identity provider your organization uses 
 
 ## Step 2: Gathering Necessary Data from Your Identity Provider
 
-To set up SSO, you will need to gather specific information from your IdP. Here is what you will typically need from each provider:
+To set up SSO, you will need to provide our team with specific information from your IdP. Here is what you will typically need from each provider:
 
 ### Common Data Required Across All Providers
 - **Domain Name**: Your organization's domain associated with the IdP.
