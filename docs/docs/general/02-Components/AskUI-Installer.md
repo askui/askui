@@ -7,11 +7,14 @@ The AskUI-Installer guides you through installing the necessary AskUI components
 
 It will install the following components:
 
-* AskUI Development Environment (ADE)
+* [Remote Device Controller](Remote-Device-Controller.md)
+* [AskUI Development Environment (ADE)](AskUI-Development-Environment.md)
 * AskUI Development Kit (SDK)
 * (optional) [AskUI-Runner (Executing workflows from AskUI Studio)](AskUI-Runner.md)
 
-[Download here 🤖](https://files.askui.com/releases/Installer/24.01.01/askui-full-installer.exe)
+<span id="askui-installer-download-link">
+[Download the installer here 🤖](https://files.askui.com/releases/Installer/24.01.01/askui-full-installer.exe)
+</span>
 
 ## Prerequisites
 

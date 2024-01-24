@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # AskUI UI Controller (Legacy)
@@ -84,7 +84,7 @@ ___
 
 `actionDelayInMs` is the time that the askui UI controller waits between actions. This can be used to slow down or speed up the execution.
 
-Let's say, you want to click on the login button and then navigate to the home page by clicking on the home button but you have to wait 2s before clicking it because it takes some time logging in. You can increase the `actionDelayInMs` to `2000` in this case. But be careful, as it is going to slow down all your instructions. It may be better to use [waitFor()](../../../api/02-Actions/waitfor.md) between the two clicking actions.
+Let's say, you want to click on the login button and then navigate to the home page by clicking on the home button but you have to wait 2s before clicking it because it takes some time logging in. You can increase the `actionDelayInMs` to `2000` in this case. But be careful, as it is going to slow down all your instructions. It may be better to use [waitFor()](../../api/02-Actions/waitfor.md) between the two clicking actions.
 
 ## Example
 

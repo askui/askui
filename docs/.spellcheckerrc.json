@@ -3,7 +3,7 @@
         "docs/general/**",
         "docs/api/**",
         "!**/**/06-Tutorials/index.mdx",
-        "!**/**/02-Getting\\ Started/Components/Supported-Keys.md",
+        "!**/**/02-Components/Supported-Keys.md",
         "!(**/*.gif)",
         "!(**/*.png)",
         "!(**/*.jpg)",

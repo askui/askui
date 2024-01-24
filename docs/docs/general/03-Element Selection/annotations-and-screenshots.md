@@ -34,7 +34,7 @@ An interactive annotation is in essence three components:
 
 3. Element-Descriptions, which are labels applied to the annotations of the screenshot.
 
-Clicking an element will copy this element-description, which we can then use in the [step 3 of Write Your First Instruction](../02-Getting%20Started/write-your-first-instruction.md), which is actually using that run instructions.
+Clicking an element will copy this element-description, which we can then use in the [step 3 of Write Your First Instruction](../01-Getting%20Started/write-your-first-instruction.md), which is actually using that run instructions.
 
 ![Interactive Annotation in action](/img/gif/interactive-annotate.gif)
 

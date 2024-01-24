@@ -15,7 +15,6 @@ What you will learn
 - Where to go next
 :::
 
-## Run Your First Instruction
 Writing and executing an instruction in AskUI can be done in three steps:
 
 1. Execute an (interactive) annotation.
@@ -82,7 +81,7 @@ To execute the instructions, enter into your terminal (Windows: [AskUI Developme
   Switch into ADE by running `askui` in a Command Prompt first.
   ```shell
   Askui-RunProject
-  ``````
+  ```
   </TabItem>
   <TabItem value="macOS" label="macOS" default>
   ```shell
@@ -123,27 +122,27 @@ Be sure to `xit` out the (interactive) annotation, as that is no longer needed. 
 
 <Tabs>
   <TabItem value="windows" label="Windows" default>
+  ```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
+  describe('jest with askui', () => {
 
-```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
-describe('jest with askui', () => {
+    xit('should generate an (interactive) annotation', async () => {
+      // Use annotate() to create an annotated HTML file
+      // of your screen that is saved under <project_root>/report
+      await aui.annotate();
+    });
 
-  xit('should generate an (interactive) annotation', async () => {
-    // Use annotate() to create an annotated HTML file
-    // of your screen that is saved under <project_root>/report
-    await aui.annotate();
+    it('should click on my element', async () => {
+      await aui
+        .click()
+        .text("node_nodu")
+        .exec();
+    });
   });
+  ```
 
-  it('should click on my element', async () => {
-    await aui
-      .click()
-      .text("node_nodu")
-      .exec();
-  });
-});
-```
+As before, run your code with `Askui-RunProject`.
   </TabItem>
   <TabItem value="macos" label="macOS">
-
 ```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 describe('jest with askui', () => {
 
@@ -159,6 +158,7 @@ describe('jest with askui', () => {
   });
 });
 ```
+As before, run your code with `npm run askui`.
   </TabItem>
   <TabItem value="linux" label="Linux">
 
@@ -177,10 +177,9 @@ describe('jest with askui', () => {
   });
 });
 ```
+As before, run your code with `npm run askui`.
   </TabItem>
 </Tabs>
-
-As before, run your code with `npm run askui` (Windows: `Askui-RunProject`).
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.
 

@@ -27,7 +27,6 @@ Run the downloaded installer as **Administrator** (Rightclick the installer and 
 2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
 
 ### Configure AskUI
-
 Run the following command to set your credentials. Replace `<access token>` and `<workspace id>` with the ones you obtained under [Access Token](#access-token):
 
 ```shell
@@ -43,13 +42,17 @@ Askui-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <pro
 
 ### Start the Remote Device Controller
 Start the Remote Device Controller in the background with:
+
 ```shell
 Askui-StartRemoteDeviceController -RunInBackground
 ```
 
-### 
-6. Verify the settings by running `Askui-ShowSettings`
-7. Switch to a directory where you want to initialize a new AskUI-Project and run `Askui-NewProject`
+### Create a New Project
+Switch to a directory where you want to initialize a new AskUI-Project and run:
+
+```shell
+Askui-NewProject
+```
 
 :::note
 To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory. This is optional and can be done later.
