@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 What you will learn
 
 - Run your first instruction
-- Troubleshooting any issues
+- Troubleshoot any issues
 - Where to go next
 :::
 
@@ -23,16 +23,14 @@ Writing and executing an instruction in AskUI can be done in three steps:
 3. Execute an instruction to control the keyboard and mouse to take action on target element.
 
 ### Step 1: Execute an (Interactive) Annotation
+Before executing the instructions, open `askui_example/my-first-askui-test-suite.test.ts` on your main display in the directory you initialized your AskUI-Project before. The code in this file is shown below.
 
 :::info
-Before executing the instructions, open `askui_example/my-first-askui-test-suite.test.ts` on your main display. The code in this file is shown below.
 
-**Windows Users**
-
+**Windows Users**  
 Please use `annotate()` as outlined in the code below. The interactive annotation `aui.annotateInteractively()` currently leads to an error on Windows.
 
-**macOS Users**
-
+**macOS Users**  
 Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../05-Integrations/containers.md).
 :::
 
@@ -77,11 +75,26 @@ describe('jest with askui', () => {
   </TabItem>
 </Tabs>
 
-To execute the instructions, enter into your terminal.
+To execute the instructions, enter into your terminal (Windows: [AskUI Development Environment (ADE)](#annotation)).
 
-```shell
-npm run askui
-```
+<Tabs>
+  <TabItem value="windows" label="Windows" default>
+  Switch into ADE by running `askui` in a Command Prompt first.
+  ```shell
+  Askui-RunProject
+  ``````
+  </TabItem>
+  <TabItem value="macOS" label="macOS" default>
+  ```shell
+  npm run askui
+  ```
+  </TabItem>
+  <TabItem value="linux" label="Linux" default>
+  ```shell
+  npm run askui
+  ```
+  </TabItem>
+</Tabs>
 
 A few seconds later an (interactive) annotation will be generated.
 
@@ -95,11 +108,9 @@ Clicking an element will copy this element-description, which we can then use in
 To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
 
 ### Step 3: Execute an Instruction
-
 Add this instruction code block to the describe block in your test file just under your (interactive) annotation instruction, taking note to also add your copied element-description from the annotation:
 
-
-```typescript title="test/my-first-askui-test-suite.test.ts" showLineNumbers
+```typescript title="askui_example/my-first-askui-test-suite.test.ts" showLineNumbers
 it('should click on my element', async () => {
   await aui
     .click()
@@ -169,7 +180,7 @@ describe('jest with askui', () => {
   </TabItem>
 </Tabs>
 
-As before, run your code with `npm run askui`.
+As before, run your code with `npm run askui` (Windows: `Askui-RunProject`).
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.
 
@@ -192,7 +203,6 @@ Have a look at [Relational Selectors](../03-Element%20Selection/relational-selec
 For technical problems with the execution, take a look at our [Troubleshooting page](../Troubleshooting)
 
 ## Where to Go Next?
-
 Our [Outverse-Community](https://app.outverse.com/askui/community/home) is there to help you out!
 
 ### Tutorials

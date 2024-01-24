@@ -7,9 +7,9 @@ pagination_next: general/Getting Started/write-your-first-instruction
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) version 16 or above
-- __npm__ in version 7.10 or above (usually comes with the Node.js installation)
 - A text editor/IDE like [Visual Studio Code](https://code.visualstudio.com/)
+- Downloaded [AskUI-Installer](https://files.askui.com/releases/Installer/24.01.01/askui-full-installer.exe)
+- Administrator privileges on the machine for installation
 
 ## Access Token
 
@@ -19,26 +19,38 @@ Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to sch
 
 ## Installation
 
-Open a directory where you would like to place the AskUI setup and run this command. The command will ask you a few questions on how to customize your setup. If you are unsure which value to select press the `Enter`-key to select the default value. Also keep your `workspace id` and your `access token` ready which you [created just before](#access-token) (We hope so 😉).
+### 1. Run Installer
+Run the downloaded installer as **Administrator** (Rightclick the installer and select **Run as administrator**).
+
+### Activate the AskUI Development Environment (ADE)
+1. Open a command prompt like *PowerShell*
+2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-projects and run workflows.
+
+### Configure AskUI
+
+Run the following command to set your credentials. Replace `<access token>` and `<workspace id>` with the ones you obtained under [Access Token](#access-token):
 
 ```shell
-npx askui@latest init
+Askui-SetSettings -AskuiToken <access token> -AskuiWorkspaceId <workspace id>
 ```
 
+#### (Optional) Configure Proxy
+If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
+
+```shell
+Askui-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <proxy_https_address>
+```
+
+### Start the Remote Device Controller
+Start the Remote Device Controller in the background with:
+```shell
+Askui-StartRemoteDeviceController -RunInBackground
+```
+
+### 
+6. Verify the settings by running `Askui-ShowSettings`
+7. Switch to a directory where you want to initialize a new AskUI-Project and run `Askui-NewProject`
+
 :::note
-
-To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory.
-
+To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory. This is optional and can be done later.
 :::
-
-## Download Remote Device Controller
-Download the installer [here](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe). Start it and follow the installation process.
-
-:::info
-You **_MUST_** start the Remote Device Controller as administrator:
-
-* Right-Click the application and click **Run as administrator**.
-:::
-
-Start the installed __Remote Device Controller__ manually and select the screen you want to use. 
-> Note: Either through the start menu, desktop shortcut or the executable in the install directory.
