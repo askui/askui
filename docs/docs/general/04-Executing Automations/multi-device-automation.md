@@ -6,7 +6,7 @@ sidebar_position: 2
 
 This tutorial shows how to automate multiple devices on the same network by using AskUI. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android.
 
-📌 *The following tutorial assumes that you have already installed and set up the AskUI library on your local device. The code for the configuration is based on the generated code. See [Getting Started](../02-Getting%20Started/write-your-first-instruction.md) for more details.*
+📌 *The following tutorial assumes that you have already installed and set up the AskUI library on your local device. The code for the configuration is based on the generated code. See [Getting Started](../01-Getting%20Started/write-your-first-instruction.md) for more details.*
 
 ![multi-device-automation](images/multi-device-diagram.png)
 

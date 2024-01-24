@@ -47,7 +47,7 @@ We use the following tag schema:
 
 ### Prerequisites
 * Docker ([Download here](https://www.docker.com/get-started/))
-* AskUI Development Environment ([Windows](../02-Getting%20Started/getting-started.md), [Linux](../02-Getting%20Started/getting-started-linux.md), [macOS](../02-Getting%20Started/getting-started-macos.md))
+* AskUI Development Environment ([Windows](../01-Getting%20Started/getting-started.md), [Linux](../01-Getting%20Started/getting-started-linux.md), [macOS](../01-Getting%20Started/getting-started-macos.md))
 
 You will only need the Docker CLI but you can install Docker Desktop, too if you want.
 
@@ -76,7 +76,7 @@ You have to adjust the `askui_example/helpers/askui-helper.ts` that is created w
 
 * Remove everything related to `uiController`
 * Check your credentials
-* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the UI Controller on a different port (see [UI Control Client API Docs](../../api/08-Configuration/askui-ui-control-client.md) for more information_
+* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the UI Controller on a different port (see [UI Control Client API Docs](../02-Components/askui-ui-control-client.md) for more information_
 
 It should look like this:
 

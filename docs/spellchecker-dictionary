@@ -18,8 +18,7 @@ signup
 UiControlClient
 config
 v27
-textfield
-textfields
+[t|T]extfield[s]?
 submodels
 submodel
 tooltip
@@ -167,7 +166,7 @@ discoverable
 wirelessly
 Wayland
 Wayland.
-keypress
+[Kk]eypress(es)?
 Backend
 backend
 Gitpod
@@ -254,3 +253,4 @@ DN
 URI
 SAML
 PingFederate
+CMD
