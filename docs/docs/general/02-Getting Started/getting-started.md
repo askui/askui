@@ -24,7 +24,7 @@ Run the downloaded installer as **Administrator** (Rightclick the installer and 
 
 ### Activate the AskUI Development Environment (ADE)
 1. Open a command prompt like *PowerShell*
-2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-projects and run workflows.
+2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
 
 ### Configure AskUI
 

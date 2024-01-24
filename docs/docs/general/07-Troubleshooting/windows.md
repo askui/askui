@@ -11,10 +11,10 @@ A possible solution is to start the **AskUI Remote Device Controller** as admini
 
 _Background: When you start the **AskUI Remote Device Controller** and during the execution another process is started AND it is an admin process, the controller stops executing instructions._
 
-## Execution Policy in Powershell Blocks Commands
-When you try to execute commands inside _Powershell_ it may not be possible due to a restrictive [_Execution Policy_](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4).
+## Execution Policy in PowerShell Blocks Commands
+When you try to execute commands inside _PowerShell_ it may not be possible due to a restrictive [_Execution Policy_](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4).
 
-You can set the _Execution Policy_ inside the Powershell with the following command if you have the necessary permissions:
+You can set the _Execution Policy_ inside the PowerShell with the following command if you have the necessary permissions:
 
 ```shell
 Set-ExecutionPolicy unrestricted

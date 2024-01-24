@@ -86,7 +86,7 @@ checkboxUnchecked
 checkboxChecked
 chartPie
 browserBar
-Powershell
+PowerShell
 apiSidebar
 custom_edit_url
 typeIn
@@ -239,3 +239,18 @@ matcher
 typings
 AskUIXRayStepReporter
 JSON-Objects
+AskUI-Installer
+ADE
+AskUI-Project[s]?
+Rightclick
+SSO
+IdP
+LDAP
+ADFS
+OpenID
+Okta
+Auth0
+DN
+URI
+SAML
+PingFederate

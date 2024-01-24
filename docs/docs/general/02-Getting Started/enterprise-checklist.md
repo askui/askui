@@ -12,7 +12,7 @@ Common problems you may run into:
 * [Software needed](#software-needed): AskUI needs Node.js and Python and to install dependencies.
 
 :::tip
-On windows please use the Powershell all the time.
+On windows please use the PowerShell all the time.
 :::
 
 ## Network
@@ -26,13 +26,13 @@ This is often a tricky one. So if you experience problems installing AskUI that 
 ### Node.js
 Install Node.js from the [official download page](https://nodejs.org/en/download).
 
-Open a terminal/Powershell and run the following commands to check if you have the correct versions of `node` and `npm`:
+Open a terminal/PowerShell and run the following commands to check if you have the correct versions of `node` and `npm`:
 
 * `node --version`
 * `npm --version`
 
 ### Python
-Python `3.10` or higher needs to be installed. Open a terminal/Powershell and run `python --version` to check if you have the correct version.
+Python `3.10` or higher needs to be installed. Open a terminal/PowerShell and run `python --version` to check if you have the correct version.
 
 * [Official Download page for Windows](https://www.python.org/downloads/windows/)
 * [Official Download page for macOS](https://www.python.org/downloads/macos/)

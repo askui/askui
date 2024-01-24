@@ -22,7 +22,7 @@ Bash or similar:
 export LOG_LEVEL=verbose
 ```
 
-Powershell
+PowerShell
 
  ```powershell
 $env:LOG_LEVEL="verbose"
