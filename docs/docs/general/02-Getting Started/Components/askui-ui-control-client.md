@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # AskUI UI Control Client
 
 ## Log Level
@@ -71,7 +75,7 @@ Setting credentials in code:
   });
 ```
 
-Setting credentials using environment variables (Powershell):
+Setting credentials using environment variables (PowerShell):
 
 ```powershell
 $env:ASKUI_WORKSPACE_ID = <your workspace id>
@@ -91,7 +95,7 @@ ___
 
 - **reporter**: `Reporter` or `Reporter[]` the reporter(s) to report on step runs/executions - optional.
 
-Set one or multiple AskUI step reporters that implement AskUI's `Reporter` interface. We provide step reporters through the [`askui-reporters`](https://github.com/askui/askui-reporters) package. See [our reporting page](../../general/05-Integrations/reporting.md#implement-your-own-reporter) for instructions on how to implement your own reporter.
+Set one or multiple AskUI step reporters that implement AskUI's `Reporter` interface. We provide step reporters through the [`askui-reporters`](https://github.com/askui/askui-reporters) package. See [our reporting page](../../05-Integrations/reporting.md#implement-your-own-reporter) for instructions on how to implement your own reporter.
 
 Setting multiple reporters in code (example):
 
@@ -111,4 +115,4 @@ aui = await UiControlClient.build({
   });
 ```
 
-See [our reporting page](../../general/05-Integrations/reporting.md) for a comprehensive overview.
+See [our reporting page](../../05-Integrations/reporting.md) for a comprehensive overview.

@@ -1,7 +1,11 @@
+---
+sidebar_position: 5
+---
+
 # AskUI Runner
 If you want to execute your workflows defined in __AskUI Studio__ in your own environment instead of with AskUI self-hosted runners, this page will help you to set it up.
 
-![Architecture drawing how the AskUI-Runner fits into AskUI Studio, AskUI SDK and AskUI Remote Device Controller. The AskUI-Runner fetches Workflows from AskUI Studio and uploads the results back to it. The Runner uses the AskUI SDK which passes the instructions from the workflow steps to the AskUI Remote Device Controller.](images/askui-runner-simple-architecture.png)
+![Architecture drawing how the AskUI-Runner fits into AskUI Studio, AskUI SDK and AskUI Remote Device Controller. The AskUI-Runner fetches Workflows from AskUI Studio and uploads the results back to it. The Runner uses the AskUI SDK which passes the instructions from the workflow steps to the AskUI Remote Device Controller.](./../images/askui-runner-simple-architecture.png)
 
 ## Requirements
 
@@ -50,7 +54,7 @@ python -m askui_runner -c <path to your config file, e.g., askui-runner.config.y
 If you want to run your workflows on the same system as the runner you need to start an UiController that listens on port `6769`. Please download the one for your operating system and start it:
 
 * [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe)
-* [Windows (new version - beta release)](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe) [More about the new version](09-Remote-Device-Controller.md)
+* [Windows (new version - beta release)](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe) [More about the new version](Remote-Device-Controller.md)
 * [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 :::info
