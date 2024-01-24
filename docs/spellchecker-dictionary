@@ -18,8 +18,7 @@ signup
 UiControlClient
 config
 v27
-textfield
-textfields
+[t|T]extfield[s]?
 submodels
 submodel
 tooltip
@@ -254,3 +253,4 @@ DN
 URI
 SAML
 PingFederate
+CMD

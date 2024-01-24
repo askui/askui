@@ -30,7 +30,7 @@ There is also a possibility to detect the value of your monitors.
 After the start of the askui UI Controller you should see an askui icon. After clicking on this icon you can choose the option `Show`.
 You will see the same window as the following image.
 
-![Select Monitor Option](./select-monitor.png)
+![Select Monitor Option](./images/select-monitor.png)
 
  Now you can identify the order of your monitors and you can also select the monitor in this configuration.
 
