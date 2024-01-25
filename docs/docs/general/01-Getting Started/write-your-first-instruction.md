@@ -185,25 +185,6 @@ You should see AskUI take over your mouse, mouse over the element you chose and 
 
 Congratulations! You’ve just built your first instruction using AskUI. :tada:
 
-### What other instructions are available?
-
-* [Actions API](../../api/01-API/table-of-contents.md#actions)
-* [Element-Descriptions API](../../api/01-API/table-of-contents.md#element-descriptions)
-* [Relations API](../../api/01-API/table-of-contents.md#relations)
-* [Checks API](../../api/01-API/table-of-contents.md#checks)
-* [Getters API](../../api/01-API/table-of-contents.md#getters)
-
-## Troubleshooting
-
-### AskUI moves to the wrong element?
-Have a look at [Relational Selectors](../03-Element%20Selection/relational-selectors.md) to select elements via a visual relation instead.
-
-### Technical
-For technical problems with the execution, take a look at our [Troubleshooting page](../Troubleshooting)
-
-## Where to Go Next?
-Our [Outverse-Community](https://app.outverse.com/askui/community/home) is there to help you out!
-
 ### Tutorials
 If you are unsure on how/what to do yet, try to follow our tutorials. They cover some of use cases of AskUI in depth:
 
@@ -212,5 +193,13 @@ If you are unsure on how/what to do yet, try to follow our tutorials. They cover
 * [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
-### Annotation
-* Read [Debug with Annotation](../03-Element%20Selection/annotations-and-screenshots.md) to learn how to use the **Image Annotation Feature**.
+## Where to Go Next?
+Our [Outverse-Community](https://app.outverse.com/askui/community/home) is there to help you out!
+
+## Troubleshooting
+
+### AskUI moves to the wrong element?
+Have a look at [Relational Selectors](../03-Element%20Selection/relational-selectors.md) to select elements via a visual relation instead.
+
+### Technical
+For technical problems with the execution, take a look at our [Troubleshooting pages](../Troubleshooting)
