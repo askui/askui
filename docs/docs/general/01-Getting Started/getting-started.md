@@ -30,11 +30,19 @@ The installer prompts Windows to display a security alert. Click on `More Info` 
 1. Open a command prompt like *PowerShell*
 2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
 
+Initializing the ADE may take a few seconds.
+
 ### Configure AskUI
 Run the following command to set your credentials. Replace `<access token>` and `<workspace id>` with the ones you obtained under [Access Token](#access-token):
 
 ```shell
 Askui-SetSettings -AskuiToken <access token> -AskuiWorkspaceId <workspace id>
+```
+
+Validate the settings with the following command: 
+
+```shell
+Askui-ShowSettings
 ```
 
 #### (Optional) Configure Proxy
@@ -45,7 +53,15 @@ Askui-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <pro
 ```
 
 ### Start the Remote Device Controller
-Start the Remote Device Controller in the background with:
+Start the Remote Device Controller with:
+
+```shell
+Askui-StartRemoteDeviceController
+```
+
+Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
+
+Alternatively start the Remote Device Controller in the background to keep using the same command prompt:
 
 ```shell
 Askui-StartRemoteDeviceController -RunInBackground
@@ -60,6 +76,8 @@ Switch to a directory where you want to initialize a new AskUI-Project and run:
 Askui-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig true
 ```
 
-:::note
-To create and serve a static HTML-Report you have to install [Allure](https://github.com/allure-framework/allure2#download) and then call `allure serve ./allure-results` from your root-directory. This is optional and can be done later.
-:::
+### What Is Next
+Your AskUI-Project is now initialized in the folder you specified, `<path you ran AskUI-NewProject>/askui_first`.
+Open this folder with your IDE of choice.
+
+You are ready to create your first workflow! Please go to the next page [Write Your First Instruction](write-your-first-instruction.md).
