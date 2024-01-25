@@ -83,14 +83,14 @@ Use the downloaded executable file (**.exe**) for silent installation, which all
 
 **Options:**
 
-- **`/l*v "<log_file_path>"`**: Set the installer log file path.
-- **`APPDIR="<installation_directory>"`**: Specify the installation directory.
-- **`INSTALL_ADK="NO"`**: Skip AskUI Development Environment installation.
-    - **`INSTALL_NODE="NO"`**: Skip Isolated Node environment installation.
-    - **`INSTALL_ASKUI_RUNNER="NO"`**: Skip AskUI Runner installation.
-    - **`HTTP_ADDRESS="<proxy_http_address>"`**: Set the HTTP proxy address.
-    - **`HTTPS_ADDRESS="<proxy_https_address>"`**: Set the HTTPS proxy address.
-- **`CONFIGURE_WINDOWS_FIREWALL="NO"`**: Skip Windows Firewall configuration.
+- `/l*v "<log_file_path>"`: Set the installer log file path.
+- `APPDIR="<installation_directory>"`: Specify the installation directory.
+- `INSTALL_ADK="NO"`: Skip AskUI Development Environment installation.
+    - `INSTALL_NODE="NO"`: Skip Isolated Node environment installation.
+    - `INSTALL_ASKUI_RUNNER="NO"`: Skip AskUI Runner installation.
+    - `HTTP_ADDRESS="<proxy_http_address>"`: Set the HTTP proxy address.
+    - `HTTPS_ADDRESS="<proxy_https_address>"`: Set the HTTPS proxy address.
+- `CONFIGURE_WINDOWS_FIREWALL="NO"`: Skip Windows Firewall configuration.
 
 ### Example
 This command installs all components silently and sets the HTTP proxy address to http://proxy.example.com:

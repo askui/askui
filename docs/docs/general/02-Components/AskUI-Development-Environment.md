@@ -27,12 +27,12 @@ Project settings override user settings, and user settings override default sett
 ### `Askui-SetSettings` Command
 The `Askui-SetSettings` command configures ADE settings. It allows you to set parameters like proxy addresses, `access token`, and `workspace id`. This function updates environment variables in both user and project configurations. Accepted parameters:
 
-- **`ProxyHttpAddress`**: HTTP proxy address for AskUI configuration.
-- **`ProxyHttpsAddress`**: HTTPS proxy address for AskUI configuration.
-- **`AskuiToken`**: AskUI token for AskUI configuration.
-- **`AskuiWorkspaceId`**: AskUI workspace ID for AskUI configuration.
-- **`LogLevel`**: Log level for AskUI configuration.
-- **`Location`**: Specifies the settings to be updated (User or Project). Default is User.
+- `ProxyHttpAddress`: HTTP proxy address for AskUI configuration.
+- `ProxyHttpsAddress`: HTTPS proxy address for AskUI configuration.
+- `AskuiToken`: AskUI token for AskUI configuration.
+- `AskuiWorkspaceId`: AskUI workspace ID for AskUI configuration.
+- `LogLevel`: Log level for AskUI configuration.
+- `Location`: Specifies the settings to be updated (User or Project). Default is User.
 
 #### Example
 
@@ -52,14 +52,14 @@ The `Askui-ShowSettings` function retrieves and displays the AskUI configuration
 ### `Askui-NewProject` Command
 The `Askui-NewProject` command creates a new AskUI project with customizable options. Use the following parameters:
 
-- **`ProjectName`**: Specifies the project name.
-- **`AskUIWorkspaceID`**: Provides the AskUI workspace ID.
-- **`AskUIToken`**: Inputs the AskUI Token.
-- **`AskUINodeJsVersion`**: Determines the version of AskUI Node.js to install (defaults to the latest).
-- **`SkipChangingPathUserPrompt`**: Skips the prompt to change the project directory (defaults to false).
-- **`TestFramework`**: Chooses the test framework: 'jasmine' or 'jest'.
-- **`UsingProxy`**: Use a proxy: 'true' or 'false'.
-- **`TypeScriptConfig`**: Overwrite **`tsconfig.json`**: 'true' or 'false'.
+- `ProjectName`: Specifies the project name.
+- `AskUIWorkspaceID`: Provides the AskUI workspace ID.
+- `AskUIToken`: Inputs the AskUI Token.
+- `AskUINodeJsVersion`: Determines the version of AskUI Node.js to install (defaults to the latest).
+- `SkipChangingPathUserPrompt`: Skips the prompt to change the project directory (defaults to false).
+- `TestFramework`: Chooses the test framework: 'jest' or 'jasmine'.
+- `UsingProxy`: Use a proxy: 'true' or 'false'.
+- `TypeScriptConfig`: Overwrite `tsconfig.json`: 'true' or 'false'.
 
 #### Example
 

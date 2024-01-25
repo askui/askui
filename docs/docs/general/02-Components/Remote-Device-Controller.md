@@ -13,21 +13,21 @@ The Remote Device Controller a service that runs on your operating system. It is
 
 
 :::caution
-The Remote Device Controller only works on __Windows__ and for __Android__ devices controlled from a __Windows__ machine.
+The Remote Device Controller only works on __Windows__.
 :::
 
 ## Start Over Command Line (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD. The `Askui-StartRemoteDeviceController` command is used to launch the **Remote Device Controller**. You have the following customizable options:
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD. The `Askui-StartRemoteDeviceController` command is used to launch the **Remote Device Controller**. You have the following options:
 
-- **`DisplayNum`**: Select a display number, default 0.
-- **`Maximize`**: Start the app as a Maximized window.
-- **`Runtime`**: Select the runtime (desktop, android). default desktop.
-- **`Port`**: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
-- **`ActionWaitTime`**: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Default: 1000)
-- **`WebSocketHost`**: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
-- **`LogFile`**: Output path for generated logs.
-- **`LogLevel`**: Log level. (Default: debug)
-- **`RunInBackground`**: Start the app in background mode.
+- `DisplayNum`: Select a display number, default 0.
+- `Maximize`: Start the app as a Maximized window.
+- `Runtime`: Select the runtime (desktop, android). default desktop.
+- `Port`: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
+- `ActionWaitTime`: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Dault: 1000)
+- `WebSocketHost`: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
+- `LogFile`: Output path for generated logs.
+- `LogLevel`: Log level. (Default: debug)
+- `RunInBackground`: Start the app in background mode.
 
 ### Example
 
@@ -46,7 +46,7 @@ first iteration of this feature uses the typical typing speed of a human.
 ### Android on Windows
 AskUI automation works on an Android device that is controlled from a Windows machine. It allows you to run a workflow on an Android device, including recording the session. Instructions how to setup the Android workflow can be found in our [documentation](../04-Executing%20Automations/mobile-automation.md#android).
 
-> Please also read the knows issues section since this is just a preview feature.
+> Please also read the [known issues section](#known-issues).
 
 ## Known Issues
 

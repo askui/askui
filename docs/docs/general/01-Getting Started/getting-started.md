@@ -22,6 +22,10 @@ Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to sch
 ### 1. Run Installer
 Run the downloaded installer as **Administrator** (Rightclick the installer and select **Run as administrator**).
 
+:::info
+The installer prompts Windows to display a security alert. Click on `More Info` in the top left and then on `Run Anyway` in the bottom right corner of the dialog to proceed with the installation.
+:::
+
 ### Activate the AskUI Development Environment (ADE)
 1. Open a command prompt like *PowerShell*
 2. Run the command `askui` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
@@ -47,11 +51,13 @@ Start the Remote Device Controller in the background with:
 Askui-StartRemoteDeviceController -RunInBackground
 ```
 
+Press _Enter_ to return to the _ADE_.
+
 ### Create a New Project
 Switch to a directory where you want to initialize a new AskUI-Project and run:
 
 ```shell
-Askui-NewProject
+Askui-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig true
 ```
 
 :::note
