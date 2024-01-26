@@ -64,7 +64,7 @@
         "pino-pretty": "7.5.3",
         "tough-cookie": "4.1.2",
         "url-join": "4.0.1",
-        "wait-port": "0.2.9",
+        "wait-port": "1.1.0",
         "ws": "7.4.4",
         "yup": "0.32.11"
     },
