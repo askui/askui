@@ -105,7 +105,7 @@ On the left, in your file explorer, you should see the files that make up your A
 5. report // Annotations will be generated here
 ..
 
-![AskUI ProjectVisual Studio Code](docs/docs/general/01-Getting Started/Visual_Studio_Code.png)
+![AskUI ProjectVisual Studio Code](Visual_Studio_Code.png)
 
 ### 8. Open a Workflow
 The workflow files are where you will write your automations scripts.
