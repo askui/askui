@@ -59,7 +59,7 @@ If you have already configured your proxy settings in the setup wizard, you can 
 Configuring proxy or firewall settings can be a challenge. If you need assistance with this task, feel free to schedule a call with our enterprise support team [here](https://calendly.com/d/3m3-myw-9z7/askui-enterprise-onboarding-assistance).
 :::
 
-### Start the Controller
+### 5. Start the Controller
 Start the Remote Device Controller with:
 
 ```shell
@@ -76,7 +76,7 @@ Askui-StartRemoteDeviceController -RunInBackground
 
 Press _Enter_ to return to the _ADE_.
 
-### Create a New Project
+### 6. Create a New Project
 Switch to a directory where you want to create the new AskUI project and run:
 
 ```shell
@@ -84,7 +84,7 @@ Askui-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig 
 ```
 
 
-### Open Your Project
+### 7. Open Your Project
 Your new AskUI project has now been created inside the folder you specified and it's path is set as your current working directory: `<path you ran AskUI-NewProject>/<your_askui_project_name>`.
 
 Now open this folder with your IDE of choice.
@@ -95,19 +95,26 @@ If you are using Visual Studio Code, you can run the following command in the sa
 code .
 ```
 On the left, in your file explorer, you should see the files that make up your AskUI project.
-- 
-- 
-- 
-- 
-<img>
+1. .askui\Settings // Global Project Settings
+2. allure-results // AskUI reporter files will be generated here
+3. askui_example // Workflow Files
+    a. helpers // Helper functions for your project
+    b. jest.config.ts // Jest Automation Framework Settings
+    c. my-first-askui-test-suite.ts // An example workflow file
+4. node_modules // Packages needed to make AskUI work
+5. report // Annotations will be generated here
+..
 
-### Open a Workflow
+![AskUI ProjectVisual Studio Code](docs/docs/general/01-Getting Started/Visual_Studio_Code.png)
+
+### 8. Open a Workflow
 The workflow files are where you will write your automations scripts.
-To find them, navigate to the ... folder, then open ...
+To find them, navigate to the `askui_example` folder. This is the place, where you can store your workflow files.
 
-The project comes with one example workflow, which is called ... that showcases some of the main features of AskUI.
+To add a new workflow, create a file in this folder, ending in `.test.ts`
 
-To add a new workflow, create a file in this folder, ending in `test.ts`
+The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
+On the next page, you will dive deeper on how to write instructions in the AskUI automation framwork.
 
 ## Next Steps
 
