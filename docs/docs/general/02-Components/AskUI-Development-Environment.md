@@ -73,12 +73,12 @@ The `Askui-RunProject` command executes an AskUI project. Note:
 - This command is applicable only for projects created by `Askui-NewProject`.
 - Navigate to the project directory before running the command.
 
-## Remote Device Controller Management
-The Remote Device Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system.
+## AskUI Controller Management
+The AskUI Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system.
 
-See the dedicated [Remote Device Controller docs](Remote-Device-Controller.md) on how to configure it.
+See the dedicated [AskUI Controller docs](AskUI-Controller.md) on how to configure it.
 
 ## AskUI Runner Management
-The AskUI-Runner is a self-hosted component that downloads your workflows from AskUI Studio and runs them on the device it is hosted at.
+The AskUI Runner is a self-hosted component that downloads your workflows from AskUI Studio and runs them on the device it is hosted at.
 
-See the dedicated [AskUI-Runner docs](AskUI-Runner.md) on how to configure it.
+See the dedicated [AskUI Runner docs](AskUI-Runner.md) on how to configure it.

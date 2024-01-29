@@ -27,7 +27,7 @@ Next, follow the instructions in the setup wizard until the end.
 
 ### 3. Activate the AskUI Development Environment (ADE)
 1. Open a command prompt. We recommend using *PowerShell*.
-2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
+2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the AskUI Controller, create new AskUI-Projects and run workflows.
 
 Activating the ADE may take a few seconds.
 
@@ -60,7 +60,7 @@ Configuring proxy or firewall settings can be a challenge. If you need assistanc
 :::
 
 ### 6. Start the Controller
-Start the Remote Device Controller with:
+Start the AskUI Controller with:
 
 ```shell
 Askui-StartRemoteDeviceController
@@ -68,7 +68,7 @@ Askui-StartRemoteDeviceController
 
 Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
 
-Alternatively start the Remote Device Controller in the background to keep using the same command prompt:
+Alternatively start the AskUI Controller in the background to keep using the same command prompt:
 
 ```shell
 Askui-StartRemoteDeviceController -RunInBackground
@@ -106,7 +106,7 @@ On the left, in your file explorer, you should see the files that make up your A
 
 ..
 
-![AskUI ProjectVisual Studio Code](Visual_Studio_Code.png)
+![AskUI Project Visual Studio Code](Visual_Studio_Code.png)
 
 ### 9. Open a Workflow
 The workflow files are where you will write your automations scripts.
@@ -115,7 +115,7 @@ To find them, navigate to the `askui_example` folder. This is the place, where y
 To add a new workflow, create a file in this folder, ending in `.test.ts`
 
 The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
-On the next page, you will dive deeper on how to write instructions in the AskUI automation framwork.
+On the next page, you will dive deeper on how to write instructions in the AskUI automation framework.
 
 ## Next Steps
 

@@ -13,7 +13,7 @@
 | instruction                         | Single AskUI directive which usually has following parts: _action_ + (optional)_element-description_.|
 | interactive annotation              | Exploring the annotations of a user interface through an annotated screenshot. |
 | UI Controller (legacy)              | Service to control inputs and observe the visuals on the operating system. |
-| Remote Device Controller            | Service to control inputs and observe the visuals on the operating system. |
+| AskUI Controller                    | Service to control inputs and observe the visuals on the operating system. |
 | UI Control Client                   | Retrieves the annotations from the inference server and uses the given instructions to execute inputs on the operating system through the UI Controller. |
 | AskUI Studio (former User Portal)   | In [AskUI Studio](https://app.askui.com/) you can create `access tokens` for your workspace. |
 | AskUI-Installer                     | Installer that sets up AskUI components on a machine. |
