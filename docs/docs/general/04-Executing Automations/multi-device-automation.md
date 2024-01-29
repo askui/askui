@@ -120,10 +120,10 @@ export { localDevice, remoteDevice };
 Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
 :::
 
-Run the binary *AskUI UI Controller* on the local and remote devices with the following command:
+Run the binary *AskUI Controller* on the local and remote devices with the following command:
 
 ```bash
-# Windows powershell
+# Windows PowerShell
 .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
 
 # Windows cmd
@@ -145,10 +145,10 @@ If running successfully, you should see the logs printed on the terminal, e.g:
 ```
 
 ### Android Only:
-If your remote device is an Android device, run the *AskUI UI Controller* on the **local device (desktop)** with an extra option as shown below:
+If your remote device is an Android device, run the *AskUI Controller* on the **local device (desktop)** with an extra option as shown below:
 
 ```bash
-# Windows powershell
+# Windows PowerShell
 .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
 
 # Windows cmd

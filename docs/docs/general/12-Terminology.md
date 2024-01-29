@@ -14,10 +14,10 @@
 | interactive annotation              | Exploring the annotations of a user interface through an annotated screenshot. |
 | UI Controller (legacy)              | Service to control inputs and observe the visuals on the operating system. |
 | AskUI Controller                    | Service to control inputs and observe the visuals on the operating system. |
-| UI Control Client                   | Retrieves the annotations from the inference server and uses the given instructions to execute inputs on the operating system through the UI Controller. |
+| UI Control Client                   | Retrieves the annotations from the inference server and uses the given instructions to execute inputs on the operating system through the AskUI Controller. |
 | AskUI Studio (former User Portal)   | In [AskUI Studio](https://app.askui.com/) you can create `access tokens` for your workspace. |
 | AskUI-Installer                     | Installer that sets up AskUI components on a machine. |
-| AskUI Development Environment (ADE) | Command line prompt to setup and manage AskUI components and projects. |
+| AskUI Development Environment (ADE) | Terminal environment to setup and manage AskUI components and projects. |
 | AskUI Runner                        | Self-hosted component that downloads and runs workflows from AskUI Studio. |
 | workflow                            | A set of instructions to complete a single task. |
 | workspace                           | Every registered user has exactly one workspace. Every workspace can contain multiple access tokens. |

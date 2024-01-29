@@ -66,7 +66,7 @@ docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome
 
 Ports:
 
-* AskUI UI Controller: `6769`
+* AskUI Controller: `6769`
 * No_VNC: `7900`
 
 > Password for No_VNC is `secret`.
@@ -92,7 +92,7 @@ jest.setTimeout(60 * 1000 * 60);
 beforeAll(async () => {
 
   aui = await UiControlClient.build({
-    // Uncomment next line when you did NOT expose the AskUI UI Controller on port 6769
+    // Uncomment next line when you did NOT expose the AskUI Controller on port 6769
     // uiControllerUrl: http://127.0.0.1:<Insert your port here>',
     credentials: {
       workspaceId: '<Insert your workspace id here>',

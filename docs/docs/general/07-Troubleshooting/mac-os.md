@@ -23,7 +23,7 @@ Open the *Privacy* tab and check if you can find the *askui-ui-controller* under
 
 2. By default AskUI starts the AskUI Controller in the background which sometimes messes up the permissions. Now you will start the AskUI Controller manually which triggers the permission prompt of macOS. Therefore you need to execute the AskUI Controller executable that was downloaded into your AskUI project when you ran your workflow.
 Head over to the folder where you initialized AskUI. Navigate to `node_modules/askui/dist/release/<version>/darwin`. 
-`<version>` may be `latest` or a semantic version like `v0.8.0`. In there, you should find a ``askui-controller.app` directory which is your installation of the AskUI UI Controller. Open the `askui-controller.app` directory in your *Finder* by right-clicking it and select *Reveal in Finder* (See screenshot below). Then start it by double-clicking it in the *Finder*.
+`<version>` may be `latest` or a semantic version like `v0.8.0`. In there, you should find a ``askui-controller.app` directory which is your installation of the AskUI Controller. Open the `askui-controller.app` directory in your *Finder* by right-clicking it and select *Reveal in Finder* (See screenshot below). Then start it by double-clicking it in the *Finder*.
 
 ![Installation folder of askui-ui-controller](./macos-askui-ui-controller-installation-folder.png)
 

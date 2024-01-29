@@ -16,8 +16,8 @@ The AskUI Controller a service that runs on your operating system. It is able to
 The AskUI Controller only works on __Windows__.
 :::
 
-## Start Over Command Line (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
+## Start Over Terminal (AskUI Development Environment)
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
 
 - `DisplayNum`: Select a display number, default 0.
 - `Maximize`: Start the app as a Maximized window.

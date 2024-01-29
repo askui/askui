@@ -53,7 +53,7 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 npm run askui
 ```
 
-If the AskUI Controller starts, it will display the log of it on the shell. We can leave it in the background, and prepare a new terminal window for the next step.
+If the AskUI Controller starts, it will display its logs in the terminal. We can leave it in the background, and prepare a new terminal window for the next step.
 
 💡*If you got any errors after running the binary, please check if your android device/emulator is properly connected and recognized by the Android Debug Bridge `adb` by using this command: `adb devices`. You should see a list of recognized devices.*
 

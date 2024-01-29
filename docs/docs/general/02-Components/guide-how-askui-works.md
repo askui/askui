@@ -19,7 +19,7 @@ By the end of this article, whether you're a software developer, QA engineer, or
 AskUI consists of three building blocks:
 
 - AskUI Control Client
-- AskUI UI Controller
+- AskUI Controller
 - AskUI Inference Server
 
 We will step through each of them and see how they work together to perform UI automation.
@@ -34,7 +34,7 @@ Throughout this article, we will use some terms that describe certain parts of A
 | *Element-description*    | A description for a UI element. In the AskUI Control Client API, for example, it is the coded description like `button()` or `textfield().contains().text('Email')`. |
 | *Action*       | A method in the AskUI Control Client API that describes an action to be taken against the operating system. For example `click()`, `type()`. |
 | *InputEvent* (internal) | A specific type of action to be taken against the operating system. For example *MouseInputEvent* or *KeyboardInputEvent*. |
-| *ControlCommand* (internal) | A command sent to the UI controller telling what to perform on the operating system. It consists of one or more *InputEvents*. |
+| *ControlCommand* (internal) | A command sent to the AskUI controller telling what to perform on the operating system. It consists of one or more *InputEvents*. |
 
 ------
 
@@ -50,7 +50,7 @@ await aui.click().button().withText('login').exec();
 
 - As shown above, you form an instruction by chaining an *Action* with *Element-descriptions* using the Fluent API of the **AskUI Control Client**. It is designed as a **[fluent interface](https://en.wikipedia.org/wiki/Fluent_interface)** to increase readability and make it more understandable.
 
-- The **AskUI Control Client** sends a request to the **AskUI UI Controller**:
+- The **AskUI Control Client** sends a request to the **AskUI Controller**:
     - to take a screenshot.
     - with a *ControlCommand* that tells what *InputEvent* to perform on the operating system.
 
@@ -106,9 +106,9 @@ Assuming that we run AskUI on the same device we want to automate, the simplest 
 When running AskUI, 
 1. The **AskUI Control Client** checks whether it is needed to be processed by the **Inference Server**.
 
-2. If the code **contains any of the [Element-description](../../api/01-API/table-of-contents.md#element-descriptions) or [Getters](../../api/01-API/table-of-contents.md#getters)**, then the **AskUI Control Client** tells the **AskUI UI Controller** to take a screenshot of the given screen and sends it to the **Inference Server**. 
+2. If the code **contains any of the [Element-description](../../api/01-API/table-of-contents.md#element-descriptions) or [Getters](../../api/01-API/table-of-contents.md#getters)**, then the **AskUI Control Client** tells the **AskUI Controller** to take a screenshot of the given screen and sends it to the **Inference Server**. 
 
-3. After the **AskUI Control Client** has retrieved the annotation back from the server, it sends a *ControlCommand* to the **AskUI UI Controller**. Afterwards, the **AskUI UI Controller** triggers the *InputEvent* on the operating system.
+3. After the **AskUI Control Client** has retrieved the annotation back from the server, it sends a *ControlCommand* to the **AskUI Controller**. Afterwards, the **AskUI Controller** triggers the *InputEvent* on the operating system.
 
     ```ts
     // an example of AskUI code containing an element-identifier
@@ -117,13 +117,13 @@ When running AskUI,
     // so the client will fire a request to the server.
     ```
 
-4. If the code **contains an [Action](../../api/01-API/table-of-contents.md#actions) but no Element-description**, then the **AskUI Control Client** sends the *ControlCommand* to the **AskUI UI Controller** to trigger the *InputEvent* directly.
+4. If the code **contains an [Action](../../api/01-API/table-of-contents.md#actions) but no Element-description**, then the **AskUI Control Client** sends the *ControlCommand* to the **AskUI Controller** to trigger the *InputEvent* directly.
 
     ```ts
     // an example of AskUI code containing only a command
     await aui.pressThreeKeys('control','alt','del').exec();
     // It uses only a command 'pressThreeKeys()',
-    // so it will be executed by the UI Controller directly.
+    // so it will be executed by the AskUI Controller directly.
     ```
 
 - An **Element-description** represents a specific type of UI element that can be recognized by inference. Most of the commonly used UI elements such as *button*, *textfield* are supported and can be used.

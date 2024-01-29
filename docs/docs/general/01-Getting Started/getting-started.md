@@ -26,7 +26,7 @@ The installer prompts Windows to display a security alert. Click on `More Info` 
 Next, follow the instructions in the setup wizard until the end.
 
 ### 3. Activate the AskUI Development Environment (ADE)
-1. Open a command prompt. We recommend using *PowerShell*.
+1. Open a terminal. We recommend using *PowerShell*.
 2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the AskUI Controller, create new AskUI-Projects and run workflows.
 
 Activating the ADE may take a few seconds.

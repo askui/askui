@@ -40,7 +40,7 @@ $env:LOG_LEVEL="verbose"
 
 - **uiControllerUrl**: `string` - Default: `http://127.0.0.1:6769`
 
-The url of the AskUI UI Controller controlling the OS.
+The url of the AskUI Controller controlling the OS.
 ___
 
 ### inferenceServerUrl
