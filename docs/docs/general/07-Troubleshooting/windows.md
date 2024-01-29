@@ -4,12 +4,12 @@ sidebar_position: 4
 
 # Windows
 
-## AskUI Remote Device Controller Not Responding to Instructions
-A possible solution is to start the **AskUI Remote Device Controller** as administrator:
+## AskUI Controller Not Responding to Instructions
+A possible solution is to start the **AskUI Controller** as administrator:
 
 * Right-Click the application and click **Run as administrator**
 
-_Background: When you start the **AskUI Remote Device Controller** and during the execution another process is started AND it is an admin process, the controller stops executing instructions._
+_Background: When you start the **AskUI Controller** and during the execution another process is started AND it is an admin process, the controller stops executing instructions._
 
 ## Execution Policy in PowerShell Blocks Commands
 When you try to execute commands inside _PowerShell_ it may not be possible due to a restrictive [_Execution Policy_](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4).

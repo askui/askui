@@ -49,7 +49,7 @@ await aui.click().button().withText('Submit').exec()
                     <summary>execOnShell()  <span class="theme-doc-version-badge badge badge--success">production</span> </summary>
 <md-block>
 
-Executes a shell command on the device your UiController is connected to.
+Executes a shell command on the device your AskUI Controller is connected to.
 
 **Example:**
 ```typescript 

@@ -65,14 +65,14 @@ See our [API documentation](askui-ui-control-client.md) for more information on 
 
 ------
 
-## AskUI UI Controller
+## AskUI Controller
 
 
 ![controller](./images/how_askui_works_controller.png)
 
-The **AskUI UI Controller** is a binary that controls the operating system. This binary gets automatically downloaded when the `UiController` is initialized by calling `UiController.start()`. Once executed, it stays in the background and communicates with the **AskUI Control Client** on a specific port to receive the *ControlCommand*. Based on the given *ControlCommand*, it triggers *InputEvents* respectively.
+The **AskUI Controller** is a binary that controls the operating system. This binary gets automatically downloaded when the `UiController` is initialized by calling `UiController.start()`. Once executed, it stays in the background and communicates with the **AskUI Control Client** on a specific port to receive the *ControlCommand*. Based on the given *ControlCommand*, it triggers *InputEvents* respectively.
 
-- The **AskUI UI Controller** is responsible for:
+- The **AskUI Controller** is responsible for:
     - Taking a screenshot.
     - Triggering the *InputEvent*, i.e MouseInputEvent, KeyboardInputEvent, or shell execution.
     - Running the [interactive annotation](../03-Element%20Selection/annotations-and-screenshots.md#interactive-annotation).

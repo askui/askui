@@ -6,9 +6,9 @@ title: Docker
 
 # Docker
 
-## AskUI UI Controller Docker Images
+## AskUI Controller Docker Images
 
-We maintain Docker images for running instructions with AskUI inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. The AskUI SDK connects to the UI Controller inside the Docker container to execute workflows inside it.
+We maintain Docker images for running instructions with AskUI inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the AskUI Controller and a browser. The AskUI SDK connects to the AskUI Controller inside the Docker container to execute workflows inside it.
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
@@ -72,11 +72,11 @@ Ports:
 > Password for No_VNC is `secret`.
 
 ### Connect to the Container with AskUI SDK
-You have to adjust the `askui_example/helpers/askui-helper.ts` that is created when running `npx askui@latest init`, because the `UiControlClient` connects to the `UiController` running inside the Docker container:
+You have to adjust the `askui_example/helpers/askui-helper.ts` that is created when running `npx askui@latest init`, because the `UiControlClient` connects to the `AskUI Controller` running inside the Docker container:
 
 * Remove everything related to `uiController`
 * Check your credentials
-* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the UI Controller on a different port (see [UI Control Client API Docs](../02-Components/askui-ui-control-client.md) for more information_
+* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the AskUI Controller on a different port (see [UI Control Client API Docs](../02-Components/askui-ui-control-client.md) for more information_
 
 It should look like this:
 

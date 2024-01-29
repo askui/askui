@@ -231,7 +231,7 @@ Then implement the following steps in your pipeline:
   displayName: 'Install Node.js'
 ```
 
-- Start the UiController from our Docker image
+- Start the AskUI Controller from our Docker image
 
 ```yaml
 - bash: |

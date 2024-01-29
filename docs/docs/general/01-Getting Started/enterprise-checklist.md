@@ -49,7 +49,7 @@ You will probably have to install dependencies like node-packages over a company
 * Check our [proxy troubleshooting page](../07-Troubleshooting/proxy.md) for AskUI specific guidance on how to setup the proxy for `Node.js`.
 
 ### Permissions
-UiController/Remote Device Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
+The AskUI Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
 
 ### macOS
 

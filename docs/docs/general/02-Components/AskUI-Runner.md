@@ -71,8 +71,8 @@ Start the runner using
 python -m askui_runner -c <path to your config file, e.g., askui-runner.config.yaml>
 ```
 
-### Start UiController
-If you want to run your workflows on the same system as the runner you need to start an UiController that listens on port `6769`. Please download the one for your operating system and start it:
+### Start AskUI Controller
+If you want to run your workflows on the same system as the runner you need to start an AskUI Controller that listens on port `6769`. Please download the one for your operating system and start it:
 
 * [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe)
 * [Windows (new version - beta release)](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe) [More about the new version](AskUI-Controller.md)
@@ -85,8 +85,8 @@ If you want to run your workflows on the same system as the runner you need to s
 * [macOS(Intel)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg)
 * [macOS(Apple silicon)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg)
 
-### Execute Workflows on a Remote System: Change UiController URL
-You can change the UiController-URL so the runner can talk to a UiController that runs on a remote machine or on a different port: 
+### Execute Workflows on a Remote System: Change AskUI Controller URL
+You can change the AskUI Controller-URL so the runner can talk to a AskUI Controller that runs on a remote machine or on a different port: 
 
 ```yml
 ...

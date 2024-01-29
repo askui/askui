@@ -93,5 +93,5 @@ await aui
   .withText('your name').exec();
 ```
 
-## Missing Permissions for UiController on macOS
-AskUI controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing actually!). The AskUI UiController needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).
+## Missing Permissions for AskUI Controller on macOS
+AskUI controls your operating system and macOS is very restrictive in giving access to third-party applications (which is a good thing actually!). The AskUI Controller needs to be given access for _Screen Recording_ and _Accessibility_. See our [troubleshooting macOS page](mac-os.md).

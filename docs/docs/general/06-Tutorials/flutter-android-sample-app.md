@@ -119,7 +119,7 @@ Click on a textfield in an app and see if the `ADB Keyboard {ON}` notification i
 ## 3. Setup AskUI
 1) Setup AskUI by following the [Getting Started Guide](../01-Getting%20Started/getting-started.md).
 
-2) We need to run the UiController directly with an extra argument to specify the runtime mode, as the current version of AskUI(version 0.7.2) doesn't provide the API for running it with the runtime argument yet.
+2) We need to run the AskUI Controller directly with an extra argument to specify the runtime mode, as the current version of AskUI(version 0.7.2) doesn't provide the API for running it with the runtime argument yet.
 From within your npm project path, go to the directory that contains the `askui-ui-controller` binary:
 
 ```shell
@@ -133,10 +133,10 @@ cd <YOUR_PROJECT_DIRECTORY>/node_modules/askui/dist/release/latest/<YOUR_PLATFOR
 npm run askui
 ```
 
-If you got them both (emulator and UiController) running, then we are ready to go for the UI automation.
+If you got them both (emulator and AskUI Controller) running, then we are ready to go for the UI automation.
 
 ‍
-3) You need to deactivate a few lines of the code in `test/helpers/askui-helper.ts` that is running the UiController, because we are already running it manually in the previous step:
+3) You need to deactivate a few lines of the code in `test/helpers/askui-helper.ts` that is running the AskUI Controller, because we are already running it manually in the previous step:
 
 ```typescript
 // file location: test/helpers/askui-helper.ts
