@@ -74,8 +74,8 @@ You receive confirmation that the installation is successfully completed. You ca
 
 ![Installation complete setup dialog. Checkbox for "Launch AskUI Controller". Click "Finish" to finish the installation.](./images/askui-installer-ui-installation-completed.png)
 
-## Installation via Console (Silent Mode)
-Use the downloaded executable file (**.exe**) for silent installation, which allows you to choose the installation directory and components. To install silently, run the following command in the command line **CMD** with Administrator privileges:
+## Installation via Terminal (Silent Mode)
+Use the downloaded executable file (**.exe**) for silent installation, which allows you to choose the installation directory and components. To install silently, run the following command terminal (Application **CMD**) with Administrator privileges:
 
 ```shell
 "<installer_path>" /qn
