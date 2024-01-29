@@ -47,7 +47,7 @@ Validate the settings with the following command:
 Askui-ShowSettings
 ```
 
-#### (Optional) Configure Proxy
+### 5. (Optional) Configure Proxy
 If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
 
 ```shell
@@ -59,7 +59,7 @@ If you have already configured your proxy settings in the setup wizard, you can 
 Configuring proxy or firewall settings can be a challenge. If you need assistance with this task, feel free to schedule a call with our enterprise support team [here](https://calendly.com/d/3m3-myw-9z7/askui-enterprise-onboarding-assistance).
 :::
 
-### 5. Start the Controller
+### 6. Start the Controller
 Start the Remote Device Controller with:
 
 ```shell
@@ -76,7 +76,7 @@ Askui-StartRemoteDeviceController -RunInBackground
 
 Press _Enter_ to return to the _ADE_.
 
-### 6. Create a New Project
+### 7. Create a New Project
 Switch to a directory where you want to create the new AskUI project and run:
 
 ```shell
@@ -84,7 +84,7 @@ Askui-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig 
 ```
 
 
-### 7. Open Your Project
+### 8. Open Your Project
 Your new AskUI project has now been created inside the folder you specified and it's path is set as your current working directory: `<path you ran AskUI-NewProject>/<your_askui_project_name>`.
 
 Now open this folder with your IDE of choice.
@@ -107,7 +107,7 @@ On the left, in your file explorer, you should see the files that make up your A
 
 ![AskUI ProjectVisual Studio Code](Visual_Studio_Code.png)
 
-### 8. Open a Workflow
+### 9. Open a Workflow
 The workflow files are where you will write your automations scripts.
 To find them, navigate to the `askui_example` folder. This is the place, where you can store your workflow files.
 
