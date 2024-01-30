@@ -5,7 +5,7 @@ sidebar_position: 7
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Write Your First Instruction
+# Start building with AskUI
 
 :::tip
 What you will learn

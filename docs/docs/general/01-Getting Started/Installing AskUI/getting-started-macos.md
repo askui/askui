@@ -3,7 +3,7 @@ sidebar_position: 4
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# Install AskUI macOS
+# AskUI on MacOS
 
 ## Requirements
 

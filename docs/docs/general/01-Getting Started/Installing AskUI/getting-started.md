@@ -3,13 +3,15 @@ sidebar_position: 2
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# Install AskUI on Windows
+# AskUI on Windows
 
 ## Prerequisites
 
-- An active AskUI account. Register for a free trial [here](https://xa5a040gvfz.typeform.com/to/IHdr0qY5).
-- A text editor/IDE. We recommend [Visual Studio Code](https://code.visualstudio.com/).
-- Administrator privileges on the computer, where you want to use AskUI.
+Check if you have the following requirements, before you start the process.
+- You need an AskUI account. Don't have one? Register for a free trial [here](https://xa5a040gvfz.typeform.com/to/IHdr0qY5)!
+- Make sure you have Administrator privileges on the computer, where you want to use AskUI.
+- Consider using an IDE. We recommend [Visual Studio Code](https://code.visualstudio.com/).
+
 
 ## Setup
 
@@ -25,11 +27,13 @@ The installer prompts Windows to display a security alert. Click on `More Info` 
 
 Next, follow the instructions in the setup wizard until the end.
 
+
 ### 3. Activate the AskUI Development Environment (ADE)
 1. Open a command prompt. We recommend using *PowerShell*.
 2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
 
 Activating the ADE may take a few seconds.
+
 
 ### 4. Connect Your AskUI Account
 Run the following command to authenticate and connect your ADE to your AskUI account. Replace `<access token>` and `<workspace id>` with your real credentials.
@@ -47,6 +51,7 @@ Validate the settings with the following command:
 Askui-ShowSettings
 ```
 
+
 ### 5. (Optional) Configure Proxy
 If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
 
@@ -58,6 +63,7 @@ If you have already configured your proxy settings in the setup wizard, you can 
 :::info
 Configuring proxy or firewall settings can be a challenge. If you need assistance with this task, feel free to schedule a call with our enterprise support team [here](https://calendly.com/d/3m3-myw-9z7/askui-enterprise-onboarding-assistance).
 :::
+
 
 ### 6. Start the Controller
 Start the Remote Device Controller with:
@@ -75,6 +81,7 @@ Askui-StartRemoteDeviceController -RunInBackground
 ```
 
 Press _Enter_ to return to the _ADE_.
+
 
 ### 7. Create a New Project
 Switch to a directory where you want to create the new AskUI project and run:
@@ -108,6 +115,7 @@ On the left, in your file explorer, you should see the files that make up your A
 
 ![AskUI ProjectVisual Studio Code](Visual_Studio_Code.png)
 
+
 ### 9. Open a Workflow
 The workflow files are where you will write your automations scripts.
 To find them, navigate to the `askui_example` folder. This is the place, where you can store your workflow files.
@@ -117,6 +125,7 @@ To add a new workflow, create a file in this folder, ending in `.test.ts`
 The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
 On the next page, you will dive deeper on how to write instructions in the AskUI automation framwork.
 
+
 ## Next Steps
 
-You are now ready to create your first workflow! Please go to the next page [Write Your First Instruction](write-your-first-instruction.md).
+You are now ready to create your first workflow with AskUI! Please go to the next page [Write Your First Instruction](write-your-first-instruction.md).

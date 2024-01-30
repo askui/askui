@@ -3,7 +3,7 @@ sidebar_position: 5
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# Install AskUI Linux
+# AskUI on Linux
 
 ## Requirements
 

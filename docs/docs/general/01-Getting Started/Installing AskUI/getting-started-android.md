@@ -3,7 +3,7 @@ sidebar_position: 3
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# Install AskUI Android
+# AskUI on Android
 
 To automate an Android device with AskUI you need to have AskUI set up on your machine and connect your device to it.
 
