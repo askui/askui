@@ -2,22 +2,22 @@
 sidebar_position: 4
 ---
 
-# Remote Device Controller
-The Remote Device Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system. The AskUI SDK connects to it and issues commands for user input like mouse movement and keypresses to it which the Remote Device Controller executes like a real human user.
+# AskUI Controller
+The AskUI Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system. The AskUI SDK connects to it and issues commands for user input like mouse movement and keypresses to it which the AskUI Controller executes like a real human user.
 
-![Architecture drawing how the Remote Device Controller works together with AskUI SDK. The Remote Device Controller runs in an environment and executes commands given to it by AskUI SDK: Keypresses, mouse movement and clicks. It also takes screenshots and sends them over the AskUI SDK to the AskUI Inference.](./images/askui-device-controller-simple-architecture.png)
+![Architecture drawing how the AskUI Controller works together with AskUI SDK. The AskUI Controller runs in an environment and executes commands given to it by AskUI SDK: Keypresses, mouse movement and clicks. It also takes screenshots and sends them over the AskUI SDK to the AskUI Inference.](./images/askui-device-controller-simple-architecture.png)
 
 ## Prerequisites
 
-* Install the **Remote Device Controller** with the [AskUI-Installer](AskUI-Installer.md) first.
+* Install the **AskUI Controller** with the [AskUI-Installer](AskUI-Installer.md) first.
 
 
 :::caution
-The Remote Device Controller only works on __Windows__.
+The AskUI Controller only works on __Windows__.
 :::
 
-## Start Over Command Line (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD. The `Askui-StartRemoteDeviceController` command is used to launch the **Remote Device Controller**. You have the following options:
+## Start Over Terminal (AskUI Development Environment)
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
 
 - `DisplayNum`: Select a display number, default 0.
 - `Maximize`: Start the app as a Maximized window.
