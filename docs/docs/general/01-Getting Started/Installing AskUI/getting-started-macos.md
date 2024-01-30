@@ -3,7 +3,7 @@ sidebar_position: 4
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# AskUI on MacOS
+# AskUI on macOS
 
 ## Requirements
 
@@ -13,7 +13,7 @@ pagination_next: general/Getting Started/write-your-first-instruction
 
 :::danger
 
-Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../05-Integrations/containers.md).
+Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../../05-Integrations/containers.md).
 
 :::
 

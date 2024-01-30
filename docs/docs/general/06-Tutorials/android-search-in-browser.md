@@ -30,7 +30,7 @@ If you have already set up your development environment, go directly to [3. Auto
 
 ### Install and initialize AskUI
 
-Please follow the [Getting Started](../01-Getting%20Started/getting-started.md) tutorial.
+Please follow the [Getting Started](../01-Getting%20Started/Installing%20AskUI/getting-started.md) tutorial.
 
 **Configure AskUI for Android**
 

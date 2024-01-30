@@ -7,7 +7,7 @@ sidebar_position: 7
 On this page you will learn how to use AskUI in combination with Jest and the package `jest-image-snapshot` to include a visual regression test in your AskUI runs.
 
 ## Install jest-image-snapshot
-In your terminal, navigate into the folder where you initialized AskUI while following our [Getting Started](../01-Getting%20Started/getting-started.md) ([Linux](../01-Getting%20Started/getting-started-linux.md), [macOS](../01-Getting%20Started/getting-started-macos.md))
+In your terminal, navigate into the folder where you initialized AskUI while following our [Getting Started](../01-Getting%20Started/Installing%20AskUI/getting-started.md) ([Linux](../01-Getting%20Started/Installing%20AskUI/getting-started-linux.md), [macOS](../01-Getting%20Started/Installing%20AskUI/getting-started-macos.md))
 
 Install `jest-image-snapshot` as a dev-dependency
 

@@ -12,6 +12,7 @@ If you need some inspiration for things to automate, try to follow one of our tu
 * [Automate Spotify on Desktop](../06-Tutorials/spotify-tutorial.md)
 * [Automate an Android App](../06-Tutorials/android-search-in-browser.md)
 
+
 ## Record Runs with AskUI Reporters
 The AskUI Suite includes a framework, that allows you to receive data collected during your workflows' runs. To encourage this, we provide a toolkit that allows you to build connections between AskUI and your other tools.
 

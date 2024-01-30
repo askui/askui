@@ -28,7 +28,7 @@ const Playgrounds = [
   },
   {
     name: '🪟 Windows',
-    url: 'Installing%20AskUI/getting-started',
+    url: 'getting-started',
     description: (
       <Translate id="gettingstarted.installwindows.description">
         {
@@ -41,7 +41,7 @@ const Playgrounds = [
   },
   {
     name: '🤖 Android',
-    url: 'Installing%20AskUI/getting-started-android',
+    url: 'getting-started-android',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -54,7 +54,7 @@ const Playgrounds = [
   },
   {
     name: '👩🏻‍💻 macOS',
-    url: 'Installing%20AskUI/getting-started-macos',
+    url: 'getting-started-macos',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -67,7 +67,7 @@ const Playgrounds = [
   },
   {
     name: '💻 Linux',
-    url: 'Installing%20AskUI/getting-started-linux',
+    url: 'getting-started-linux',
     description: (
       <Translate id="gettingstarted.installlinux.description">
         {
@@ -93,7 +93,7 @@ const Playgrounds = [
   },
   {
     name: '📱 iOS',
-    url: 'Installing%20AskUI/getting-started',
+    url: 'getting-started',
     description: (
       <Translate id="gettingstarted.installenterprise.description">
         {
@@ -134,7 +134,7 @@ function PlaygroundCard({name, url, description, cta, idbutton}: Props) {
   );
 }
 
-export function InstallationCardsRow(): JSX.Element {
+export function InstallationCardsRowOld(): JSX.Element {
   return (
     <div className="row">
       {Playgrounds.map((playground) => (
