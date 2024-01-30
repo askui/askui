@@ -34,6 +34,9 @@ Next, follow the instructions in the setup wizard until the end.
 
 Activating the ADE may take a few seconds.
 
+:::info
+If you are not what an ADE command does, you can run `Get-Help <command>` to get more information about it.
+:::
 
 ### 4. Connect Your AskUI Account
 Run the following command to authenticate and connect your ADE to your AskUI account. Replace `<access token>` and `<workspace id>` with your real credentials.
@@ -123,7 +126,7 @@ To find them, navigate to the `askui_example` folder. This is the place, where y
 To add a new workflow, create a file in this folder, ending in `.test.ts`
 
 The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
-On the next page, you will dive deeper on how to write instructions in the AskUI automation framwork.
+On the next page, you will dive deeper on how to write instructions in the AskUI automation framework.
 
 
 ## Next Steps
