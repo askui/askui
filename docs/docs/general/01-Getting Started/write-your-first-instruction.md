@@ -1,6 +1,6 @@
 ---
 sidebar_position: 7
-pagination_next: general/01-Getting Started/whats-next
+pagination_next: general/Getting Started/whats-next
 ---
 
 import Tabs from '@theme/Tabs';
@@ -22,7 +22,7 @@ What you will learn
 - You have a workflow file open on your main display e.g. the original template `askui_example/my-first-askui-test-suite.test.ts` in the directory you initialized your AskUI-Project before.
 
 :::info
-**For MacOS Users**  
+**For macOS Users**  
 Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops.
 :::
 
@@ -142,7 +142,7 @@ With AskUI, there are near-infinite ways to target an element. We outlined the t
 #### Approach A: Standard Element-Description Extraction (Recommended)
 
 - **Process**: Click the UI element during annotation to copy its description to your clipboard.
-- **Advantages**: Straightforward and quick for easily identifiable elements.
+- **Advantages**: Quick for easily identifiable elements.
 - **Best Used When**: The element is distinctly recognizable and not surrounded by similar elements.
 
 To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
@@ -230,7 +230,7 @@ The final version should look like this:
 
 As before, run the code in your terminal:
 - Windows: Enter ADE and run `Askui-RunProject`.
-- MacOS/Linux: Run `npm run askui`.
+- macOS/Linux: Run `npm run askui`.
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.
 
