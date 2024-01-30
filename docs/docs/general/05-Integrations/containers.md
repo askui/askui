@@ -47,7 +47,7 @@ We use the following tag schema:
 
 ### Prerequisites
 * Docker ([Download here](https://www.docker.com/get-started/))
-* AskUI Development Environment ([Windows](../01-Getting%20Started/getting-started.md), [Linux](../01-Getting%20Started/getting-started-linux.md), [macOS](../01-Getting%20Started/getting-started-macos.md))
+* AskUI Development Environment ([Windows](../01-Getting%20Started/Installing%20AskUI/getting-started.md), [Linux](../01-Getting%20Started/Installing%20AskUI/getting-started-linux.md), [macOS](../01-Getting%20Started/Installing%20AskUI/getting-started-macos.md))
 
 You will only need the Docker CLI but you can install Docker Desktop, too if you want.
 

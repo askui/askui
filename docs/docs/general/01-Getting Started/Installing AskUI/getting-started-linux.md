@@ -10,7 +10,7 @@ pagination_next: general/Getting Started/write-your-first-instruction
 - [Node.js](https://nodejs.org/) version 16 or above
 - __npm__ in version 7.10 or above (usually comes with the Node.js installation)
 - A text editor/IDE like [Visual Studio Code](https://code.visualstudio.com/)
-- :warning: [Information for Wayland](../07-Troubleshooting/linux.md#wayland).
+- :warning: [Information for Wayland](../../07-Troubleshooting/linux.md#wayland).
 
 ## Access Token
 

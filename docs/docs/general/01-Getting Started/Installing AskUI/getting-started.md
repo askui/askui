@@ -116,7 +116,7 @@ On the left, in your file explorer, you should see the files that make up your A
 
 ..
 
-![AskUI ProjectVisual Studio Code](Visual_Studio_Code.png)
+![AskUI Project Visual Studio Code](Visual_Studio_Code.png)
 
 
 ### 9. Open a Workflow
@@ -131,4 +131,4 @@ On the next page, you will dive deeper on how to write instructions in the AskUI
 
 ## Next Steps
 
-You are now ready to create your first workflow with AskUI! Please go to the next page [Write Your First Instruction](write-your-first-instruction.md).
+You are now ready to create your first workflow with AskUI! Please go to the next page [Write Your First Instruction](../write-your-first-instruction.md).
