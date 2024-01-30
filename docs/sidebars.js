@@ -51,7 +51,7 @@ const sidebars = {
       items: [
         'general/Components/guide-how-askui-works',
         'general/Components/AskUI-Development-Environment',
-        'general/Components/Remote-Device-Controller',
+        'general/Components/AskUI-Controller',
         'general/Components/AskUI-Runner',
         'general/Components/AskUI-Installer',
         'general/Components/Supported-Keys',

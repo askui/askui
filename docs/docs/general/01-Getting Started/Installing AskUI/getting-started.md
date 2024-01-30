@@ -27,10 +27,9 @@ The installer prompts Windows to display a security alert. Click on `More Info` 
 
 Next, follow the instructions in the setup wizard until the end.
 
-
 ### Step 3: Activate the AskUI Development Environment (ADE)
-1. Open a command prompt. We recommend using *PowerShell*.
-2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the Remote Device Controller, create new AskUI-Projects and run workflows.
+1. Open a terminal. We recommend using *PowerShell*.
+2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the AskUI Controller, create new AskUI-Projects and run workflows.
 
 Activating the ADE may take a few seconds.
 
@@ -67,9 +66,8 @@ If you have already configured your proxy settings in the setup wizard, you can 
 Configuring proxy or firewall settings can be a challenge. If you need assistance with this task, feel free to schedule a call with our enterprise support team [here](https://calendly.com/d/3m3-myw-9z7/askui-enterprise-onboarding-assistance).
 :::
 
-
 ### Step 6: Start the Controller
-Start the Remote Device Controller with:
+Start the AskUI Controller with:
 
 ```shell
 Askui-StartRemoteDeviceController
@@ -77,7 +75,7 @@ Askui-StartRemoteDeviceController
 
 Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
 
-Alternatively start the Remote Device Controller in the background to keep using the same command prompt:
+Alternatively start the AskUI Controller in the background to keep using the same command prompt:
 
 ```shell
 Askui-StartRemoteDeviceController -RunInBackground
@@ -127,7 +125,6 @@ To add a new workflow, create a file in this folder, ending in `.test.ts`
 
 The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
 On the next page, you will dive deeper on how to write instructions in the AskUI automation framework.
-
 
 ## Next Steps
 

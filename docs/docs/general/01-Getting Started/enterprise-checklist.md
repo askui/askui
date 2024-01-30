@@ -26,13 +26,13 @@ This is often a tricky one. So if you experience problems installing AskUI that 
 ### Node.js
 Install Node.js from the [official download page](https://nodejs.org/en/download).
 
-Open a terminal/PowerShell and run the following commands to check if you have the correct versions of `node` and `npm`:
+Open a terminal (Windows: PowerShell) and run the following commands to check if you have the correct versions of `node` and `npm` installed:
 
 * `node --version`
 * `npm --version`
 
 ### Python
-Python `3.10` or higher needs to be installed. Open a terminal/PowerShell and run `python --version` to check if you have the correct version.
+Python `3.10` or higher needs to be installed. Open a terminal (Windows: PowerShell) and run `python --version` to check if you have the correct version.
 
 * [Official Download page for Windows](https://www.python.org/downloads/windows/)
 * [Official Download page for macOS](https://www.python.org/downloads/macos/)
@@ -49,7 +49,7 @@ You will probably have to install dependencies like node-packages over a company
 * Check our [proxy troubleshooting page](../07-Troubleshooting/proxy.md) for AskUI specific guidance on how to setup the proxy for `Node.js`.
 
 ### Permissions
-UiController/Remote Device Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
+The AskUI Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
 
 ### macOS
 

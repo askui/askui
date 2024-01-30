@@ -8,7 +8,7 @@ sidebar_position: 3
 
 We do not yet support the windowing system Wayland for any Linux distribution. So you
 are going to see multiple errors when trying to run AskUI instructions or may not even be able to
-start the UI Controller. 
+start the AskUI Controller. 
 
 You can check if you are running on Wayland with
 
