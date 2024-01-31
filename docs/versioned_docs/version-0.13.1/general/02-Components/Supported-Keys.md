@@ -1,4 +1,5 @@
 ---
+sidebar_position: 7
 hide_table_of_contents: true
 ---
 
@@ -68,7 +69,8 @@ Scroll the table to the right if the table is not shown completely 🙃.
 |                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the 'single-quote/double-quote' key"                                                                                                                        | Unsupported  | Unsupported  | #️⃣ Symbols        | 
 |                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the ']}' key"                                                                                                                                               | Unsupported  | Unsupported  | #️⃣ Symbols        | 
 |                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '\\\|' key"                                                                                                                                             | Unsupported  | Unsupported  | #️⃣ Symbols        | 
-|                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[\' key"                                                                                                                                               | Unsupported  | Unsupported  | #️⃣ Symbols        | 
+|                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '[\{' key"                                                                                                                                               | Unsupported  | Unsupported  | #️⃣ Symbols        |
+
 |                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '`~' key"                                                                                                                                               | Unsupported  | Unsupported  | #️⃣ Symbols        | 
 |                   | "Used for miscellaneous characters; it can vary by keyboard. For the US standard keyboard, the '/?' key"                                                                                                                                               | Unsupported  | Unsupported  | #️⃣ Symbols        | 
 |                   | "For any country/region, the '.' key"                                                                                                                                                                                                                  | Unsupported  | Unsupported  | #️⃣ Symbols        | 

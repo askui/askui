@@ -9,7 +9,7 @@ In enterprises, [proxies](https://en.wikipedia.org/wiki/Proxy_server) are a stan
 A problem with a proxy can occur at two points in time:
 
 * Installing AskUI
-* UiController connection to AskUI Inference
+* AskUI Controller connection to AskUI Inference
 
 ## Installing AskUI Through NTLM or Kerberos Proxy Server
 A _Windows New Technology LAN Manager_ (NTLM) or _Kerberos_ proxy requires you to authenticate yourself. This is done via your currently logged in Windows user or the __username/password__ combination (Linux, macOS). The easiest way to do this is to install a local proxy that handles the handshake with the proxy for you.
@@ -62,7 +62,7 @@ Setting the proxy inside `.npmrc` does not cover all cases. Sometimes a separate
 export HTTPS_PROXY=http://127.0.0.1:3128
 ```
 
-## UiController Connection to AskUI Inference
+## AskUI Controller Connection to AskUI Inference
 We describe two ways to connect to our backend AskUI Inference.
 
 ### Using Default Configuration with hpagent
@@ -81,7 +81,7 @@ export HTTPS_PROXY=https://<your-proxy-url>
 ### Manually Configuring the HTTP and HTTPS Agent
 
 If you need even more control, you can also configure an HTTP agent and HTTPS agent supporting your proxy manually for either one or both, 
-- the UI Controller (configuring the `UiController`) running on the OS you would like to control and
+- the AskUI Controller (configuring the `UiController`) running on the OS you would like to control and
 - the Inference API (configuring the `UiControlClient`) running on our servers and providing the vision to run your tests.
 
 In the following example we are going to use [hpagent](https://github.com/delvedor/hpagent) again but you can use any HTTP and HTTPS agents that support proxies, e.g., the [http.Agent](https://nodejs.org/api/http.html#class-httpagent) or the [https.Agent](https://nodejs.org/api/https.html#class-httpsagent) provided by the `http` and `https` module of Node.js, respectively.

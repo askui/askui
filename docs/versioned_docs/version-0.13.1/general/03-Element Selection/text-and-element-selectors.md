@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-title: Text and Element Selectors
+title: How to Select Elements
 ---
 
 **Index**

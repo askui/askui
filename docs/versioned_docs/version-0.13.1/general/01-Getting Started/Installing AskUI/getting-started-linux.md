@@ -1,21 +1,16 @@
 ---
-sidebar_position: 4
+sidebar_position: 5
 pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
-# Install AskUI macOS
+# AskUI on Linux
 
 ## Requirements
 
 - [Node.js](https://nodejs.org/) version 16 or above
 - __npm__ in version 7.10 or above (usually comes with the Node.js installation)
 - A text editor/IDE like [Visual Studio Code](https://code.visualstudio.com/)
-
-:::danger
-
-Some users have reported instability running AskUI on macOS with external displays and/or [virtual desktops (called Spaces)](https://support.apple.com/en-gb/guide/mac-help/mh14112/mac). If you experience similar issues, please disconnect external displays and close virtual desktops, or see [documentation on running AskUI in Docker](../05-Integrations/containers.md).
-
-:::
+- :warning: [Information for Wayland](../../07-Troubleshooting/linux.md#wayland).
 
 ## Access Token
 

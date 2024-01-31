@@ -12,13 +12,13 @@ Common problems you may run into:
 * [Software needed](#software-needed): AskUI needs Node.js and Python and to install dependencies.
 
 :::tip
-On windows please use the Powershell all the time.
+On windows please use the PowerShell all the time.
 :::
 
 ## Network
 This is often a tricky one. So if you experience problems installing AskUI that suggests the problem is missing internet access:
 
-* Please check our [Troubleshooting - Proxy page](../07-Troubleshooting/proxy.md)
+* Please check our [Troubleshooting - Proxy page](../../07-Troubleshooting/proxy.md)
 * Get help from your IT-department
 
 ## Software Needed
@@ -26,13 +26,13 @@ This is often a tricky one. So if you experience problems installing AskUI that 
 ### Node.js
 Install Node.js from the [official download page](https://nodejs.org/en/download).
 
-Open a terminal/Powershell and run the following commands to check if you have the correct versions of `node` and `npm`:
+Open a terminal (Windows: PowerShell) and run the following commands to check if you have the correct versions of `node` and `npm` installed:
 
 * `node --version`
 * `npm --version`
 
 ### Python
-Python `3.10` or higher needs to be installed. Open a terminal/Powershell and run `python --version` to check if you have the correct version.
+Python `3.10` or higher needs to be installed. Open a terminal (Windows: PowerShell) and run `python --version` to check if you have the correct version.
 
 * [Official Download page for Windows](https://www.python.org/downloads/windows/)
 * [Official Download page for macOS](https://www.python.org/downloads/macos/)
@@ -46,10 +46,10 @@ When you want to use the `AskUI Runner` you will create a virtual environment.
 You will probably have to install dependencies like node-packages over a company internal repository management system like Artifactory.
 
 * Find out how to set up `Node.js` and `Python` for your internal repository management system. Consult your IT-department if necessary.
-* Check our [proxy troubleshooting page](../07-Troubleshooting/proxy.md) for AskUI specific guidance on how to setup the proxy for `Node.js`.
+* Check our [proxy troubleshooting page](../../07-Troubleshooting/proxy.md) for AskUI specific guidance on how to setup the proxy for `Node.js`.
 
 ### Permissions
-UiController/Remote Device Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
+The AskUI Controller needs permissions for _screen recording_ and _accessibility features_ to control your machine like a human. Follow the instructions for your operating system.
 
 ### macOS
 

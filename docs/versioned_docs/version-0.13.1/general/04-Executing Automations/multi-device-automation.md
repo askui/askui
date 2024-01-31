@@ -2,22 +2,22 @@
 sidebar_position: 2
 ---
 
-# Multi Device Automation
+# Automating Multiple Devices
 
 This tutorial shows how to automate multiple devices on the same network by using AskUI. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android.
 
-📌 *The following tutorial assumes that you have already installed and set up the AskUI library on your local device. The code for the configuration is based on the generated code. See [Getting Started](../02-Getting%20Started/write-your-first-instruction.md) for more details.*
+📌 *The following tutorial assumes that you have already installed and set up the AskUI library on your local device. The code for the configuration is based on the generated code. See [Getting Started](../01-Getting%20Started/write-your-first-instruction.md) for more details.*
 
 ![multi-device-automation](images/multi-device-diagram.png)
 
 ## 1. Download and Prepare the `askui-ui-controller` Binary for Each Device
 
 - Download the binary/binaries for the respective platform(s):
-
+    
     :::info
     **macOS** After installation to `Applications` remove the quarantine flag with the following command run from a terminal: `xattr -d com.apple.quarantine /Applications/askui-ui-controller.app`
     :::
-    
+
     [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe) | [macOS(intel)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/x64/askui-ui-controller.dmg) | [macOS(silicon)](https://files.askui.com/releases/askui-ui-controller/latest/darwin/arm64/askui-ui-controller.dmg) | [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 **macOS** and **Linux** only: If you downloaded the `askui-ui-controller` manually from the link above, you have to make it executable.
@@ -120,10 +120,10 @@ export { localDevice, remoteDevice };
 Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
 :::
 
-Run the binary *AskUI UI Controller* on the local and remote devices with the following command:
+Run the binary *AskUI Controller* on the local and remote devices with the following command:
 
 ```bash
-# Windows powershell
+# Windows PowerShell
 .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m
 
 # Windows cmd
@@ -145,10 +145,10 @@ If running successfully, you should see the logs printed on the terminal, e.g:
 ```
 
 ### Android Only:
-If your remote device is an Android device, run the *AskUI UI Controller* on the **local device (desktop)** with an extra option as shown below:
+If your remote device is an Android device, run the *AskUI Controller* on the **local device (desktop)** with an extra option as shown below:
 
 ```bash
-# Windows powershell
+# Windows PowerShell
 .\askui-ui-controller.exe --host 0.0.0.0 -d 0 -m -r android
 
 # Windows cmd

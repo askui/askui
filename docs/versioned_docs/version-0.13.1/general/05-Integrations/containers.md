@@ -1,14 +1,11 @@
 ---
 sidebar_position: 2
-title: Docker
+title: Using AskUI in Docker
 ---
 
+## AskUI Controller Docker Images
 
-# Docker
-
-## AskUI UI Controller Docker Images
-
-We maintain Docker images for running instructions with AskUI inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the askui UI Controller (also known as the *UiController*) and a browser. The AskUI SDK connects to the UI Controller inside the Docker container to execute workflows inside it.
+We maintain Docker images for running instructions with AskUI inside a Docker Container, e.g., locally or in a CI/CD pipeline. The images are based on Ubuntu (amd64) images and contain the AskUI Controller and a browser. The AskUI SDK connects to the AskUI Controller inside the Docker container to execute workflows inside it.
 
 You can find our images on [DockerHub](https://hub.docker.com/r/askuigmbh/askui-ui-controller).
 
@@ -47,7 +44,7 @@ We use the following tag schema:
 
 ### Prerequisites
 * Docker ([Download here](https://www.docker.com/get-started/))
-* AskUI Development Environment ([Windows](../02-Getting%20Started/getting-started.md), [Linux](../02-Getting%20Started/getting-started-linux.md), [macOS](../02-Getting%20Started/getting-started-macos.md))
+* AskUI Development Environment ([Windows](../01-Getting%20Started/Installing%20AskUI/getting-started.md), [Linux](../01-Getting%20Started/Installing%20AskUI/getting-started-linux.md), [macOS](../01-Getting%20Started/Installing%20AskUI/getting-started-macos.md))
 
 You will only need the Docker CLI but you can install Docker Desktop, too if you want.
 
@@ -66,17 +63,17 @@ docker run -p 6769:6769 -p 7900:7900 askuigmbh/askui-ui-controller:0.11.2-chrome
 
 Ports:
 
-* AskUI UI Controller: `6769`
+* AskUI Controller: `6769`
 * No_VNC: `7900`
 
 > Password for No_VNC is `secret`.
 
 ### Connect to the Container with AskUI SDK
-You have to adjust the `askui_example/helpers/askui-helper.ts` that is created when running `npx askui@latest init`, because the `UiControlClient` connects to the `UiController` running inside the Docker container:
+You have to adjust the `askui_example/helpers/askui-helper.ts` that is created when running `npx askui@latest init`, because the `UiControlClient` connects to the `AskUI Controller` running inside the Docker container:
 
 * Remove everything related to `uiController`
 * Check your credentials
-* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the UI Controller on a different port (see [UI Control Client API Docs](../../api/08-Configuration/askui-ui-control-client.md) for more information_
+* _Optional: Set the `uiControllerUrl` in `UiControlClient` if you exposed the AskUI Controller on a different port (see [UI Control Client API Docs](../02-Components/askui-ui-control-client.md) for more information_
 
 It should look like this:
 
@@ -92,7 +89,7 @@ jest.setTimeout(60 * 1000 * 60);
 beforeAll(async () => {
 
   aui = await UiControlClient.build({
-    // Uncomment next line when you did NOT expose the AskUI UI Controller on port 6769
+    // Uncomment next line when you did NOT expose the AskUI Controller on port 6769
     // uiControllerUrl: http://127.0.0.1:<Insert your port here>',
     credentials: {
       workspaceId: '<Insert your workspace id here>',

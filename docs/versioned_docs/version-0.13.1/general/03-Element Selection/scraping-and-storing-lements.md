@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Scraping and Storing Elements
+# Extracting Element Data
 
 In this guide you will learn how to extract elements and their values out of your User Interface.
 
