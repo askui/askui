@@ -6,7 +6,7 @@ pagination_next: general/Getting Started/whats-next
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Write Your First Instruction
+# Create Your First Instruction
 
 :::tip
 What you will learn

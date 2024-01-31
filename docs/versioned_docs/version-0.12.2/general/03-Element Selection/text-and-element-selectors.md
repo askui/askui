@@ -191,7 +191,7 @@ Here we will demonstrate how to use a custom element to explore Google Street Vi
 ### Demonstration
 
 <video controls>
-  <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/blog_customElement_AskUI_google_street_view.mp4"/>
+  <source src="https://d2dnep8p8ldagm.cloudfront.net/assets/docs/blog_customElement_askui_google_street_view.mp4"/>
 </video>
 
 ### Requirements

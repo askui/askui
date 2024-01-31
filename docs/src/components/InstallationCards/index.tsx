@@ -80,7 +80,7 @@ const Playgrounds = [
   },
   {
     name: '🏢 Enterprise Checklist',
-    url: 'enterprise-checklist',
+    url: 'Installing%20AskUI/enterprise-checklist',
     description: (
       <Translate id="gettingstarted.installenterprise.description">
         {

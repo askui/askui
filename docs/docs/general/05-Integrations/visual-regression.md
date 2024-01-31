@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Visual Regression
+# Visual Regression with AskUI
 
 On this page you will learn how to use AskUI in combination with Jest and the package `jest-image-snapshot` to include a visual regression test in your AskUI runs.
 

@@ -1,10 +1,7 @@
 ---
 sidebar_position: 2
-title: Docker
+title: Using AskUI in Docker
 ---
-
-
-# Docker
 
 ## AskUI Controller Docker Images
 

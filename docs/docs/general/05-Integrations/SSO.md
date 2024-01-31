@@ -1,5 +1,5 @@
 ---
-title: Single Sign-On (SSO)
+title: SSO with AskUI
 ---
 
 Welcome to the Single Sign-On (SSO) setup guide. This document will guide you through obtaining the necessary credentials from your Identity Provider (IdP) and coordinating with our staff to ensure a smooth and secure integration for a variety of supported SSO providers.
