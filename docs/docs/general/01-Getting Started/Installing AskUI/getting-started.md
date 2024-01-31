@@ -18,6 +18,13 @@ Check if you have the following requirements, before you start the process.
 ### Step 1: Download Installer
 Download the AskUI Installer [here](https://files.askui.com/releases/Installer/24.01.01/askui-full-installer.exe).
 
+It will install the following components:
+
+* [AskUI Controller](AskUI-Controller.md)
+* [AskUI Development Environment (ADE)](AskUI-Development-Environment.md)
+* AskUI Development Kit (SDK)
+* (optional) [AskUI Runner (Executing workflows from AskUI Studio)](AskUI-Runner.md)
+
 ### Step 2: Setup AskUI on Your Computer
 Run the downloaded installer as **Administrator** (Rightclick the installer and select **Run as administrator**).
 
@@ -26,6 +33,31 @@ The installer prompts Windows to display a security alert. Click on `More Info` 
 :::
 
 Next, follow the instructions in the setup wizard until the end.
+
+#### Alternative: Installation via Terminal (Silent Mode)
+Use the downloaded executable file (**.exe**) for silent installation, which allows you to choose the installation directory and components. To install silently, run the following command terminal (Application **CMD**) with Administrator privileges:
+
+```shell
+"<installer_path>" /qn
+```
+
+#### Options:
+
+- `/l*v "<log_file_path>"`: Set the installer log file path.
+- `APPDIR="<installation_directory>"`: Specify the installation directory.
+- `INSTALL_ADK="NO"`: Skip AskUI Development Environment installation.
+    - `INSTALL_NODE="NO"`: Skip Isolated Node environment installation.
+    - `INSTALL_ASKUI_RUNNER="NO"`: Skip AskUI Runner installation.
+    - `HTTP_ADDRESS="<proxy_http_address>"`: Set the HTTP proxy address.
+    - `HTTPS_ADDRESS="<proxy_https_address>"`: Set the HTTPS proxy address.
+- `CONFIGURE_WINDOWS_FIREWALL="NO"`: Skip Windows Firewall configuration.
+
+#### Example:
+This command installs all components silently and sets the HTTP proxy address to http://proxy.example.com:
+
+```shell
+"<installer_path>" /qn HTTP_ADDRESS="http://proxy.example.com"
+```
 
 ### Step 3: Activate the AskUI Development Environment (ADE)
 1. Open a terminal. We recommend using *PowerShell*.
