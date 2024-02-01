@@ -2,12 +2,40 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://docs.askui.com/release-notes</id>
     <title>askui - Humanizing UI Automation Blog</title>
-    <updated>2024-01-23T00:00:00.000Z</updated>
+    <updated>2024-01-31T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://docs.askui.com/release-notes"/>
     <subtitle>askui - Humanizing UI Automation Blog</subtitle>
     <icon>https://docs.askui.com/img/askui_favicon.png</icon>
     <rights>Copyright © 2024 askui GmbH.</rights>
+    <entry>
+        <title type="html"><![CDATA[2024.01.31 | OCR Model Enhancement]]></title>
+        <id>https://docs.askui.com/release-notes/release-2024-01-31</id>
+        <link href="https://docs.askui.com/release-notes/release-2024-01-31"/>
+        <updated>2024-01-31T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Introduction]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2024-01-31#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
+<p>We're excited to announce a speed enhancement in our OCR model, reducing processing times by 300 milliseconds.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="feature-update">Feature Update<a href="https://docs.askui.com/release-notes/release-2024-01-31#feature-update" class="hash-link" aria-label="Direct link to Feature Update" title="Direct link to Feature Update">​</a></h3>
+<p><strong>OCR Model Speed Improvement</strong></p>
+<ul>
+<li>Faster text recognition, significantly improving workflow efficiency.</li>
+<li>1.62 sec down to 1.26 sec</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="detailed-description">Detailed Description<a href="https://docs.askui.com/release-notes/release-2024-01-31#detailed-description" class="hash-link" aria-label="Direct link to Detailed Description" title="Direct link to Detailed Description">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="ocr-model-speed-enhancement">OCR Model Speed Enhancement<a href="https://docs.askui.com/release-notes/release-2024-01-31#ocr-model-speed-enhancement" class="hash-link" aria-label="Direct link to OCR Model Speed Enhancement" title="Direct link to OCR Model Speed Enhancement">​</a></h4>
+<p>Our latest update has optimized the OCR model, achieving a notable speed increase while maintaining high accuracy.</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Model: task='e2e_ocr' architecture='easy_ocr' version='1' interface='im2txtbox' use_case='faster' tags=[]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Average runtime: 1.2629041004180908</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Standard deviation: 0.13027134152564313</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Median: 1.2297358512878418</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<hr>
+<p>We are in the process of creating comprehensive documentation for our enhanced OCR model. We'd love to hear from you about what specific aspects or features you'd like to see covered in the documentation. Please share your thoughts and suggestions with us to ensure our documentation meets your needs and expectations.</p>
+<p><a href="https://6acn9cd9nzy.typeform.com/to/A3lFSEoU" target="_blank" rel="noopener noreferrer">Give Feedback &gt;&gt;&gt;</a></p>]]></content>
+        <author>
+            <name>Leon Meier</name>
+            <email>leon.meier@askui.com</email>
+        </author>
+        <category label="OCR" term="OCR"/>
+        <category label="Performance Improvement" term="Performance Improvement"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2024.01.23]]></title>
         <id>https://docs.askui.com/release-notes/release-2023-01-23</id>
