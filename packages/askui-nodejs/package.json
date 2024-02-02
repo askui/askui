@@ -49,6 +49,10 @@
         "dist/example_projects_templates/"
     ],
     "dependencies": {
+        "@commitlint/cli": "18.6.0",
+        "@release-it-plugins/workspaces": "4.2.0",
+        "@release-it/bumper": "6.0.1",
+        "@release-it/conventional-changelog": "8.0.1",
         "chalk": "4.1.1",
         "commander": "8.3.0",
         "fkill": "7.2.1",
@@ -62,10 +66,11 @@
         "nunjucks": "^3.2.4",
         "pino": "7.8.1",
         "pino-pretty": "7.5.3",
-        "tough-cookie": "4.1.2",
+        "release-it": "17.0.3",
+        "tough-cookie": "^4.1.3",
         "url-join": "4.0.1",
         "wait-port": "0.2.9",
-        "ws": "7.4.4",
+        "ws": "^7.5.9",
         "yup": "0.32.11"
     },
     "devDependencies": {
@@ -84,7 +89,7 @@
         "jest": "28.1.1",
         "jest-extended": "^4.0.1",
         "proxy": "^1.0.2",
-        "proxy-agent": "^5.0.0",
+        "proxy-agent": "^6.3.1",
         "shx": "0.3.4",
         "ts-jest": "28.0.4",
         "typescript": "4.5.4"
