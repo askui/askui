@@ -12,25 +12,18 @@ The AskUI Controller only works on __Windows__.
 :::
 
 ## Start Over Terminal (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartController` command is used to launch the **AskUI Controller**.
 
-- `DisplayNum`: Select a display number, default 0.
-- `Maximize`: Start the app as a Maximized window.
-- `Runtime`: Select the runtime (desktop, android). default desktop.
-- `Port`: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
-- `ActionWaitTime`: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Dault: 1000)
-- `WebSocketHost`: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
-- `LogFile`: Output path for generated logs.
-- `LogLevel`: Log level. (Default: debug)
-- `RunInBackground`: Start the app in background mode.
+You have several configuration options, which you can find [here](AskUI-Development-Environment.md#askui-controller-management).
 
 ### Example
 
 ```powershell
-Askui-StartRemoteDeviceController -LogLevel debug -RunInBackground
+Askui-StartController -LogLevel debug -RunInBackground
 ```
-
+:::info
 Note: Adjust the parameters as needed for your specific use case.
+:::
 
 ## Features
 
