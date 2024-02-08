@@ -16,7 +16,7 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 * Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui-shell` in CMD.
 
 ### `Askui-StartRunner` Command
-The `Askui-StartRunner` command starts the AskUI Runner. This function accepts several parameters, which you cna find [here](AskUI-Development-Environment.md#askui-runner-management).
+The `Askui-StartRunner` command starts the AskUI Runner. This function accepts several parameters, which you can find [here](AskUI-Development-Environment.md#askui-runner-management).
 
 
 
