@@ -83,7 +83,7 @@
         "hpagent": "^1.2.0",
         "jest": "28.1.1",
         "jest-extended": "^4.0.1",
-        "proxy": "^1.0.2",
+        "proxy": "^2.1.1",
         "proxy-agent": "^6.3.1",
         "shx": "0.3.4",
         "ts-jest": "28.0.4",
