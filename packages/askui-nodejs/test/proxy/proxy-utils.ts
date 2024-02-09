@@ -100,9 +100,12 @@ const originalDnsLookup = dns.lookup;
 dns.lookup = (((
   hostname: string,
   options: LookupOneOptions,
-  callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+  callback: any, // eslint-disable-line @typescript-eslint/no-explicit-any
 ): void => {
   if (hostname === SERVER_HOSTNAME || hostname === PROXY_HOSTNAME) {
+    if (options.all) {
+      return callback(null, [{ address: '::1', family: 6 }]);
+    }
     return callback(null, '127.0.0.1', 4);
   }
   return originalDnsLookup(hostname, options, callback);
