@@ -38,10 +38,10 @@ The `AskUI-SetSettings` command configures ADE settings. It allows you to set pa
 
 ```shell
 # Set HTTP proxy address and AskUI token.
-AskUI-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -AskuiToken "askui_token"
+AskUI-SetSettings -HttpProxy "<http://proxy.example.com>" -AskuiToken "askui_token"
 
 # Set both HTTP and HTTPS proxy addresses, and AskUI workspace ID.
-AskUI-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -ProxyHttpsAddress "<https://proxy.example.com>" -AskuiWorkspaceId "your_workspace_id"
+AskUI-SetSettings -HttpProxy "<http://proxy.example.com>" -HttpsProxy "<https://proxy.example.com>" -AskuiWorkspaceId "your_workspace_id"
 ```
 
 ### `AskUI-ShowSettings` Command

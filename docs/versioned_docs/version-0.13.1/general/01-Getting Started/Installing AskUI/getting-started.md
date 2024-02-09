@@ -90,7 +90,7 @@ AskUI-ShowSettings
 If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
 
 ```shell
-AskUI-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <proxy_https_address>
+AskUI-SetSettings -HttpProxy <proxy_http_address> -HttpsProxy <proxy_https_address>
 ```
 If you have already configured your proxy settings in the setup wizard, you can skip this step.
 
