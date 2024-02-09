@@ -111,7 +111,7 @@ To execute the instructions, enter into your terminal (Windows: [AskUI Developme
 
 <Tabs>
   <TabItem value="windows" label="Windows" default>
-  Switch into ADE by running `askui activate` in a Command Prompt first.
+  Switch into ADE by running `askui-shell` in a Command Prompt first.
   ```shell
   AskUI-RunProject
   ```

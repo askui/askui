@@ -48,8 +48,8 @@ Use the downloaded executable file (**.exe**) for silent installation, which all
 - `INSTALL_ADK="NO"`: Skip AskUI Development Environment installation.
     - `INSTALL_NODE="NO"`: Skip Isolated Node environment installation.
     - `INSTALL_ASKUI_RUNNER="NO"`: Skip AskUI Runner installation.
-    - `HTTP_PROXY="<proxy_http_address>"`: Set the HTTP proxy address.
-    - `HTTPS_PROXY="<proxy_https_address>"`: Set the HTTPS proxy address.
+    - `HTTP_PROXY="<http_proxy_address>"`: Set the HTTP proxy address.
+    - `HTTPS_PROXY="<https_proxy_address>"`: Set the HTTPS proxy address.
 - `CONFIGURE_WINDOWS_FIREWALL="NO"`: Skip Windows Firewall configuration.
 
 #### Example:
@@ -61,7 +61,7 @@ This command installs all components silently and sets the HTTP proxy address to
 
 ### Step 3: Activate the AskUI Development Environment (ADE)
 1. Open a terminal. We recommend using *PowerShell*.
-2. Run the command `askui activate` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the AskUI Controller, create new AskUI-Projects and run workflows.
+2. Run the command `askui-shell` (type it and press _Enter_). This brings you into the AskUI Development Environment (short ADE) where you can configure your installation, start the AskUI Controller, create new AskUI-Projects and run workflows.
 
 Activating the ADE may take a few seconds.
 
@@ -87,10 +87,10 @@ AskUI-ShowSettings
 
 
 ### Step 5: (Optional) Configure Proxy
-If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
+If you are behind a proxy you have to set the proxy address. Replace `<http_proxy_address>` and `<https_proxy_address>` with the ones for your proxy:
 
 ```shell
-AskUI-SetSettings -HttpProxy <proxy_http_address> -HttpsProxy <proxy_https_address>
+AskUI-SetSettings -HttpProxy <http_proxy_address> -HttpsProxy <https_proxy_address>
 ```
 If you have already configured your proxy settings in the setup wizard, you can skip this step.
 
