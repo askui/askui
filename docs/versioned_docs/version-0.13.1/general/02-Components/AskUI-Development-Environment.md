@@ -24,8 +24,8 @@ ADE comprises three types of settings:
 Project settings override user settings, and user settings override default settings.
 :::
 
-### `Askui-SetSettings` Command
-The `Askui-SetSettings` command configures ADE settings. It allows you to set parameters like proxy addresses, `access token`, and `workspace id`. This function updates environment variables in both user and project configurations. Accepted parameters:
+### `AskUI-SetSettings` Command
+The `AskUI-SetSettings` command configures ADE settings. It allows you to set parameters like proxy addresses, `access token`, and `workspace id`. This function updates environment variables in both user and project configurations. Accepted parameters:
 
 - `ProxyHttpAddress`: HTTP proxy address for AskUI configuration.
 - `ProxyHttpsAddress`: HTTPS proxy address for AskUI configuration.
@@ -38,19 +38,19 @@ The `Askui-SetSettings` command configures ADE settings. It allows you to set pa
 
 ```shell
 # Set HTTP proxy address and AskUI token.
-Askui-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -AskuiToken "askui_token"
+AskUI-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -AskuiToken "askui_token"
 
 # Set both HTTP and HTTPS proxy addresses, and AskUI workspace ID.
-Askui-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -ProxyHttpsAddress "<https://proxy.example.com>" -AskuiWorkspaceId "your_workspace_id"
+AskUI-SetSettings -ProxyHttpAddress "<http://proxy.example.com>" -ProxyHttpsAddress "<https://proxy.example.com>" -AskuiWorkspaceId "your_workspace_id"
 ```
 
-### `Askui-ShowSettings` Command
-The `Askui-ShowSettings` function retrieves and displays the AskUI configuration.
+### `AskUI-ShowSettings` Command
+The `AskUI-ShowSettings` function retrieves and displays the AskUI configuration.
 
 ## Project Management
 
-### `Askui-NewProject` Command
-The `Askui-NewProject` command creates a new AskUI project with customizable options. Use the following parameters:
+### `AskUI-NewProject` Command
+The `AskUI-NewProject` command creates a new AskUI project with customizable options. Use the following parameters:
 
 - `ProjectName`: Specifies the project name.
 - `AskUIWorkspaceID`: Provides the AskUI workspace ID.
@@ -64,13 +64,13 @@ The `Askui-NewProject` command creates a new AskUI project with customizable opt
 #### Example
 
 ```powershell
-Askui-NewProject -ProjectName MyProject -AskUIWorkspaceID <Workspace_id> -AskUIToken <Token> -SkipChangingPathUserPrompt true
+AskUI-NewProject -ProjectName MyProject -AskUIWorkspaceID <Workspace_id> -AskUIToken <Token> -SkipChangingPathUserPrompt true
 ```
 
-### `Askui-RunProject` Command
-The `Askui-RunProject` command executes an AskUI project. Note:
+### `AskUI-RunProject` Command
+The `AskUI-RunProject` command executes an AskUI project. Note:
 
-- This command is applicable only for projects created by `Askui-NewProject`.
+- This command is applicable only for projects created by `AskUI-NewProject`.
 - Navigate to the project directory before running the command.
 
 ## AskUI Controller Management

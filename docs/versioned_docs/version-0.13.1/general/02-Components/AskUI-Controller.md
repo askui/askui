@@ -12,7 +12,7 @@ The AskUI Controller only works on __Windows__.
 :::
 
 ## Start Over Terminal (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `AskUI-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
 
 - `DisplayNum`: Select a display number, default 0.
 - `Maximize`: Start the app as a Maximized window.
@@ -27,7 +27,7 @@ First switch into the [AskUI Development Environment (ADE)](AskUI-Development-En
 ### Example
 
 ```powershell
-Askui-StartRemoteDeviceController -LogLevel debug -RunInBackground
+AskUI-StartRemoteDeviceController -LogLevel debug -RunInBackground
 ```
 
 Note: Adjust the parameters as needed for your specific use case.

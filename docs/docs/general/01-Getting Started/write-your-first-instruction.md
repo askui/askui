@@ -113,7 +113,7 @@ To execute the instructions, enter into your terminal (Windows: [AskUI Developme
   <TabItem value="windows" label="Windows" default>
   Switch into ADE by running `askui activate` in a Command Prompt first.
   ```shell
-  Askui-RunProject
+  AskUI-RunProject
   ```
   </TabItem>
   <TabItem value="macOS" label="macOS" default>
@@ -229,7 +229,7 @@ The final version should look like this:
   ```
 
 As before, run the code in your terminal:
-- Windows: Enter ADE and run `Askui-RunProject`.
+- Windows: Enter ADE and run `AskUI-RunProject`.
 - macOS/Linux: Run `npm run askui`.
 
 You should see AskUI take over your mouse, mouse over the element you chose and click.

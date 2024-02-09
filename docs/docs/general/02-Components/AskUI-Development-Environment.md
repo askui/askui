@@ -24,8 +24,8 @@ ADE comprises three types of settings:
 Project settings override user settings, and user settings override default settings.
 :::
 
-### `Askui-SetSettings` Command
-The `Askui-SetSettings` command configures ADE settings. It allows you to set parameters like proxy addresses, `AskUI access token`, and `workspace ID`. This function updates environment variables in both user and project configurations. Accepted parameters:
+### `AskUI-SetSettings` Command
+The `AskUI-SetSettings` command configures ADE settings. It allows you to set parameters like proxy addresses, `AskUI access token`, and `workspace ID`. This function updates environment variables in both user and project configurations. Accepted parameters:
 
 - `HttpProxy`: HTTP proxy address for AskUI configuration.
 - `HttpsProxy`: HTTPS proxy address for AskUI configuration.
@@ -46,8 +46,8 @@ The `Askui-SetSettings` command configures ADE settings. It allows you to set pa
   AskUI-SetSettings -HttpProxy "http://proxy.example.com" -HttpsProxy "https://proxy.example.com" -WorkspaceId "your_workspace_id"
 ```
 
-### `Askui-ShowSettings` Command
-The **`Askui-ShowSettings`** command retrieves and displays the AskUI configuration. 
+### `AskUI-ShowSettings` Command
+The **`AskUI-ShowSettings`** command retrieves and displays the AskUI configuration. 
 
 Parameters:
 
@@ -92,8 +92,8 @@ The `AskUI-RemoveSettings` command is used to configure AskUI settings, allowing
 
 ## Project Management
 
-### `Askui-NewProject` Command
-The `Askui-NewProject` command creates a new AskUI project with customizable options. Use the following parameters:
+### `AskUI-NewProject` Command
+The `AskUI-NewProject` command creates a new AskUI project with customizable options. Use the following parameters:
 
 - `ProjectName`: Specifies the project name.
 - `WorkspaceID`: Provides the AskUI workspace ID.
@@ -111,14 +111,14 @@ The `Askui-NewProject` command creates a new AskUI project with customizable opt
 AskUI-NewProject -ProjectName MyProject -WorkspaceId <Workspace_id> -Token <Token> -SkipChangingPathUserPrompt true
 ```
 
-### `Askui-RunProject` Command
-The `Askui-RunProject` command executes an AskUI project. Note:
+### `AskUI-RunProject` Command
+The `AskUI-RunProject` command executes an AskUI project. Note:
 
-- This command is applicable only for projects created by `Askui-NewProject`.
+- This command is applicable only for projects created by `AskUI-NewProject`.
 - Navigate to the project directory before running the command.
 
 ```powershell
-Askui-RunProject
+AskUI-RunProject
 ```
 
 ## AskUI Controller Management
@@ -174,7 +174,7 @@ The `AskUI-StartRunner` function is utilized to initiate the AskUI runner. This 
 
 ```powershell
 # Start the AskUI runner with default configuration.
-Askui-StartRunner
+AskUI-StartRunner
 ```
 
 ```powershell

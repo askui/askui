@@ -76,13 +76,13 @@ Run the following command to authenticate and connect your ADE to your AskUI acc
 - **Workspace ID** Navigate to your workspace's settings. You can find the workspace ID under *General* below the workspace's name.
 
 ```shell
-Askui-SetSettings -AskuiToken <access token> -AskuiWorkspaceId <workspace id>
+AskUI-SetSettings -AskuiToken <access token> -AskuiWorkspaceId <workspace id>
 ```
 
 Validate the settings with the following command: 
 
 ```shell
-Askui-ShowSettings
+AskUI-ShowSettings
 ```
 
 
@@ -90,7 +90,7 @@ Askui-ShowSettings
 If you are behind a proxy you have to set the proxy address. Replace `<proxy_http_address>` and `<proxy_https_address>` with the ones for your proxy:
 
 ```shell
-Askui-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <proxy_https_address>
+AskUI-SetSettings -ProxyHttpAddress <proxy_http_address> -ProxyHttpsAddress <proxy_https_address>
 ```
 If you have already configured your proxy settings in the setup wizard, you can skip this step.
 
@@ -102,7 +102,7 @@ Configuring proxy or firewall settings can be a challenge. If you need assistanc
 Start the AskUI Controller with:
 
 ```shell
-Askui-StartRemoteDeviceController
+AskUI-StartRemoteDeviceController
 ```
 
 Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
@@ -110,7 +110,7 @@ Open another command prompt and [activate the _ADE_](#activate-the-askui-develop
 Alternatively start the AskUI Controller in the background to keep using the same command prompt:
 
 ```shell
-Askui-StartRemoteDeviceController -RunInBackground
+AskUI-StartRemoteDeviceController -RunInBackground
 ```
 
 Press _Enter_ to return to the _ADE_.
@@ -120,7 +120,7 @@ Press _Enter_ to return to the _ADE_.
 Switch to a directory where you want to create the new AskUI project and run:
 
 ```shell
-Askui-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig true
+AskUI-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig true
 ```
 
 

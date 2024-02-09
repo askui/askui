@@ -12,14 +12,14 @@ The AskUI Controller only works on __Windows__.
 :::
 
 ## Start Over Terminal (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartController` command is used to launch the **AskUI Controller**.
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `AskUI-StartController` command is used to launch the **AskUI Controller**.
 
 You have several configuration options, which you can find [here](AskUI-Development-Environment.md#askui-controller-management).
 
 ### Example
 
 ```powershell
-Askui-StartController -LogLevel debug -RunInBackground
+AskUI-StartController -LogLevel debug -RunInBackground
 ```
 :::info
 Note: Adjust the parameters as needed for your specific use case.

@@ -15,8 +15,8 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 * Install the **AskUI Controller** with the [AskUI Installer](../01-Getting%20Started/Installing%20AskUI/getting-started.md) first.
 * Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD.
 
-### `Askui-StartRunner` Command
-The `Askui-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
+### `AskUI-StartRunner` Command
+The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
 
 - `AskuiToken`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
 - `AskuiWorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
