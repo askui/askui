@@ -40,7 +40,6 @@
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
         "test": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
-        "test:single": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'  -t 'proxy and hpagent http proxy should tunnel https connection over http proxy with self signed certificate'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\""
     },
     "files": [
@@ -54,7 +53,7 @@
         "commander": "8.3.0",
         "fkill": "7.2.1",
         "fs-extra": "10.0.0",
-        "got": "11.8.5",
+        "got": "11.8.6",
         "inquirer": "8.2.5",
         "jsdom": "20.0.0",
         "listr": "0.14.3",
