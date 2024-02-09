@@ -48,15 +48,15 @@ Use the downloaded executable file (**.exe**) for silent installation, which all
 - `INSTALL_ADK="NO"`: Skip AskUI Development Environment installation.
     - `INSTALL_NODE="NO"`: Skip Isolated Node environment installation.
     - `INSTALL_ASKUI_RUNNER="NO"`: Skip AskUI Runner installation.
-    - `HTTP_ADDRESS="<proxy_http_address>"`: Set the HTTP proxy address.
-    - `HTTPS_ADDRESS="<proxy_https_address>"`: Set the HTTPS proxy address.
+    - `HTTP_PROXY="<proxy_http_address>"`: Set the HTTP proxy address.
+    - `HTTPS_PROXY="<proxy_https_address>"`: Set the HTTPS proxy address.
 - `CONFIGURE_WINDOWS_FIREWALL="NO"`: Skip Windows Firewall configuration.
 
 #### Example:
 This command installs all components silently and sets the HTTP proxy address to http://proxy.example.com:
 
 ```shell
-"<installer_path>" /qn HTTP_ADDRESS="http://proxy.example.com"
+"<installer_path>" /qn HTTP_PROXY="http://proxy.example.com"
 ```
 
 ### Step 3: Activate the AskUI Development Environment (ADE)

@@ -48,15 +48,15 @@ Use the downloaded executable file (**.exe**) for silent installation, which all
 - `INSTALL_ADK="NO"`: Skip AskUI Development Environment installation.
     - `INSTALL_NODE="NO"`: Skip Isolated Node environment installation.
     - `INSTALL_ASKUI_RUNNER="NO"`: Skip AskUI Runner installation.
-    - `HTTP_ADDRESS="<proxy_http_address>"`: Set the HTTP proxy address.
-    - `HTTPS_ADDRESS="<proxy_https_address>"`: Set the HTTPS proxy address.
+    - `HTTP_PROXY="<proxy_http_address>"`: Set the HTTP proxy address.
+    - `HTTPS_PROXY="<proxy_https_address>"`: Set the HTTPS proxy address.
 - `CONFIGURE_WINDOWS_FIREWALL="NO"`: Skip Windows Firewall configuration.
 
 #### Example:
 This command installs all components silently and sets the HTTP proxy address to http://proxy.example.com:
 
 ```shell
-"<installer_path>" /qn HTTP_ADDRESS="http://proxy.example.com"
+"<installer_path>" /qn HTTP_PROXY="http://proxy.example.com"
 ```
 
 ### Step 3: Activate the AskUI Development Environment (ADE)
@@ -102,7 +102,7 @@ Configuring proxy or firewall settings can be a challenge. If you need assistanc
 Start the AskUI Controller with:
 
 ```shell
-AskUI-StartRemoteDeviceController
+AskUI-StartController
 ```
 
 Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
@@ -110,7 +110,7 @@ Open another command prompt and [activate the _ADE_](#activate-the-askui-develop
 Alternatively start the AskUI Controller in the background to keep using the same command prompt:
 
 ```shell
-AskUI-StartRemoteDeviceController -RunInBackground
+AskUI-StartController -RunInBackground
 ```
 
 Press _Enter_ to return to the _ADE_.

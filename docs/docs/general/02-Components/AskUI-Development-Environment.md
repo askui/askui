@@ -38,16 +38,16 @@ The `AskUI-SetSettings` command configures ADE settings. It allows you to set pa
 
 ```powershell
 # Set HTTP proxy address and AskUI token.
-  AskUI-SetSettings -HttpProxy "http://proxy.example.com" -Token "askui_token"
+AskUI-SetSettings -HttpProxy "http://proxy.example.com" -Token "askui_token"
 ```
 
 ```powershell
 # Set both HTTP and HTTPS proxy addresses, and AskUI workspace ID.
-  AskUI-SetSettings -HttpProxy "http://proxy.example.com" -HttpsProxy "https://proxy.example.com" -WorkspaceId "your_workspace_id"
+AskUI-SetSettings -HttpProxy "http://proxy.example.com" -HttpsProxy "https://proxy.example.com" -WorkspaceId "your_workspace_id"
 ```
 
 ### `AskUI-ShowSettings` Command
-The **`AskUI-ShowSettings`** command retrieves and displays the AskUI configuration. 
+The `AskUI-ShowSettings` command retrieves and displays the AskUI configuration. 
 
 Parameters:
 
@@ -128,15 +128,15 @@ The AskUI Controller a service that runs on your operating system. It is able to
 
 The `AskUI-StartController` command is used to launch the AskUI Remote Device Controller with the following customizable options:
 
-- **`DisplayNum`**: Select a display number, default 0.
-- **`Maximize`**: Start the app as a Maximized window.
-- **`Runtime`**: Select the runtime (desktop, android). default desktop.
-- **`Port`**: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
-- **`ActionWaitTime`**: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Default: 1000)
-- **`WebSocketHost`**: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
-- **`LogFile`**: Output path for generated logs.
-- **`LogLevel`**: Log level. (Default: debug)
-- **`RunInBackground`**: Start the app in background mode.
+- `DisplayNum`: Select a display number, default 0.
+- `Maximize`: Start the app as a Maximized window.
+- `Runtime`: Select the runtime (desktop, android). default desktop.
+- `Port`: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
+- `ActionWaitTime`: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Default: 1000)
+- `WebSocketHost`: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
+- `LogFile`: Output path for generated logs.
+- `LogLevel`: Log level. (Default: debug)
+- `RunInBackground`: Start the app in background mode.
 
 **Example:**
 

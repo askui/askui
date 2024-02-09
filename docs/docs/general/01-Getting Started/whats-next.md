@@ -39,5 +39,5 @@ Expand your AskUI skills and connect with others in the field by joining our [As
 If you’re experiencing problems, have questions about implementing AskUI, or want to report a bug, you can write to us at [support@askui.com](mailto:support@askui.com) and our Product Support Engineers will get back to you.
 
 :::info
-You need an AskUI.com account in order to file a support request. Don’t worry! You can always sign up for a free workspace if you don’t already have one [here](https://xa5a040gvfz.typeform.com/to/IHdr0qY5).
+You need an askui.com account in order to file a support request. Don’t worry! You can always sign up for a free workspace if you don’t already have one [here](https://xa5a040gvfz.typeform.com/to/IHdr0qY5).
 :::
