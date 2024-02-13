@@ -7,35 +7,23 @@ The AskUI Controller a service that runs on your operating system. It is able to
 
 ![Architecture drawing how the AskUI Controller works together with AskUI SDK. The AskUI Controller runs in an environment and executes commands given to it by AskUI SDK: Keypresses, mouse movement and clicks. It also takes screenshots and sends them over the AskUI SDK to the AskUI Inference.](./images/askui-device-controller-simple-architecture.png)
 
-## Prerequisites
-
-* Install the **AskUI Controller** with the [AskUI-Installer](AskUI-Installer.md) first.
-
-
 :::caution
-The AskUI Controller only works on __Windows__.
+The AskUI Controller only works on __Windows__ and you have to __disable mouse acceleration__ for the AskUI Controller to work properly!
 :::
 
 ## Start Over Terminal (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `Askui-StartRemoteDeviceController` command is used to launch the **AskUI Controller**. You have the following options:
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `AskUI-StartController` command is used to launch the **AskUI Controller**.
 
-- `DisplayNum`: Select a display number, default 0.
-- `Maximize`: Start the app as a Maximized window.
-- `Runtime`: Select the runtime (desktop, android). default desktop.
-- `Port`: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
-- `ActionWaitTime`: Waits x milliseconds after each action. This can be used to slow down or speed up the execution. (Dault: 1000)
-- `WebSocketHost`: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
-- `LogFile`: Output path for generated logs.
-- `LogLevel`: Log level. (Default: debug)
-- `RunInBackground`: Start the app in background mode.
+You have several configuration options, which you can find [here](AskUI-Development-Environment.md#askui-controller-management).
 
 ### Example
 
 ```powershell
-Askui-StartRemoteDeviceController -LogLevel debug -RunInBackground
+AskUI-StartController -LogLevel debug -RunInBackground
 ```
-
+:::info
 Note: Adjust the parameters as needed for your specific use case.
+:::
 
 ## Features
 

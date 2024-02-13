@@ -1,7 +1,9 @@
 ---
 sidebar_position: 3
-title: Reporting
+title: Reporting run Results
 ---
+
+# Reporting Run Results
 
 We provide a package `@askui/askui-reporters` with reporters ready-to-use into your AskUI runs. [Check out the repository](https://github.com/askui/askui-reporters) for more details.
 
@@ -42,7 +44,7 @@ There are four possible values (See [the @askui/askui-reporters README for a det
 * always
 
 ### Configure `beforeEach()` and `afterEach()` in `jest.setup.ts`
-The `UiControlClient` retrieves the videos and images from your `UiController`. You have to implement `beforeEach()` and `afterEach()` in `jest.setup.ts` to start the recording and then add it to your report:
+The `UiControlClient` retrieves the videos and images from your `AskUI Controller`. You have to implement `beforeEach()` and `afterEach()` in `jest.setup.ts` to start the recording and then add it to your report:
 
 1. Allure Reporter
 ```typescript

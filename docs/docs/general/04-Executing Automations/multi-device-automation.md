@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Multi Device Automation
+# Automating Multiple Devices
 
 This tutorial shows how to automate multiple devices on the same network by using AskUI. After following this tutorial, you will be able to automate more than one device across different platforms, whether Linux, macOS, Windows or Android.
 

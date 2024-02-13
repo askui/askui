@@ -63,6 +63,28 @@ const config = {
         ]
       }
     ],
+    ['@docusaurus/plugin-client-redirects',
+    {      
+      redirects: [
+        // /docs/oldDoc -> /docs/newDoc
+        {
+          to: '/docs/general/Getting%20Started/Installing%20AskUI/getting-started',
+          from: '/docs/general/Getting%20Started/getting-started',
+        },
+        {
+          to: '/docs/general/Getting%20Started/Installing%20AskUI/getting-started-android',
+          from: '/docs/general/Getting%20Started/getting-started-android',
+        },
+        {
+          to: '/docs/general/Getting%20Started/Installing%20AskUI/getting-started-macos',
+          from: '/docs/general/Getting%20Started/getting-started-macos',
+        },
+        {
+          to: '/docs/general/Getting%20Started/Installing%20AskUI/getting-started-linux',
+          from: '/docs/general/Getting%20Started/getting-started-linux',
+        },
+      ],
+    }],
     () => ({
       name: 'resolve-react',
       configureWebpack() {

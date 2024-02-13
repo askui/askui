@@ -1,7 +1,9 @@
 ---
 sidebar_position: 3
-title: Reporting
+title: Reporting run Results
 ---
+
+# Reporting Run Results
 
 We provide a package `@askui/askui-reporters` with reporters ready-to-use into your AskUI runs. [Check out the repository](https://github.com/askui/askui-reporters) for more details.
 

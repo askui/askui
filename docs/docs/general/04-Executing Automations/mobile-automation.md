@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-title: Mobile Automation
+title: Automating Mobile Devices
 ---
 **Index**
 

@@ -12,21 +12,16 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 ## Windows
 
 ### Requirements
-* Install the **AskUI Controller** with the [AskUI Installer](AskUI-Installer.md) first.
-* Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD.
+* Install the **AskUI Controller** with the [AskUI Installer](../01-Getting%20Started/Installing%20AskUI/getting-started.md) first.
+* Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui-shell` in CMD.
 
-### `Askui-StartRunner` Command
-The `Askui-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
+### `AskUI-StartRunner` Command
+The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts several parameters, which you can find [here](AskUI-Development-Environment.md#askui-runner-management).
 
-- `AskuiToken`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
-- `AskuiWorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
-- `DeviceControllerPort`: Specifies the __port__ of the device controller to be used for the runner. The default is 6769.
-- `DeviceControllerHost`: Specifies the __host__ of the device controller to be used for the runner. The default is 127.0.0.1.
-- `ForceProjectTemplateUpdate`: Specifies whether to force the update of the project template. This is helpful for debugging.
-- `LogLevel`: Specifies the AskUI Runner log level. Available values are: 'INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL'. The default is 'INFO'.
+
 
 ## Linux and macOS
-For Linux and macOS we do not provide an Installer yet. Thus you have to install the AskUI Runner from source ([GitHub-Repository](https://github.com/askui/askui-runner)).
+For Linux and macOS we do not provide an Installer yet. Thus you have to install the AskUI Runner from source ([GitHub-Repository](https://github.com/askui/askui-runner).
 
 ### Requirements
 

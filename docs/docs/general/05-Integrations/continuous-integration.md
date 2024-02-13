@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Continuous Integration
+# CI/CD with AskUI
 You have two options to implement your pipeline. With our AskUI Runner Docker container or without it.
 
 The main difference without the AskUI Runner container is, that you can not download the latest version of your workflows from AskUI Studio inside your pipeline but have to provide them to your build.

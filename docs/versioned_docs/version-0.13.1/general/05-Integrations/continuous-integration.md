@@ -2,18 +2,18 @@
 sidebar_position: 1
 ---
 
-# Continuous Integration
-You have two options to implement your pipeline. With our AskUI-Runner Docker container or without it.
+# CI/CD with AskUI
+You have two options to implement your pipeline. With our AskUI Runner Docker container or without it.
 
-The main difference without the AskUI-Runner container is, that you can not download the latest version of your workflows from AskUI Studio inside your pipeline but have to provide them to your build.
+The main difference without the AskUI Runner container is, that you can not download the latest version of your workflows from AskUI Studio inside your pipeline but have to provide them to your build.
 
 ## Github Actions
 
-### AskUI-Runner Container: Get Workflows from AskUI Studio
+### AskUI Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
-The AskUI-Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
+The AskUI Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
 1. Set these environment variables for your pipeline:
 
@@ -41,7 +41,7 @@ cat << EOF > config.yaml
 EOF
 ```
 
-3. Execute your workflows with our AskUI-Runner container. Do not forget to login into Docker Hub 😉.
+3. Execute your workflows with our AskUI Runner container. Do not forget to login into Docker Hub 😉.
 
 ```bash
 docker run --shm-size="2g" --rm -v ${{ github.workspace }}/config.yaml:/home/askui/config.yaml -v ${{ github.workspace }}/allure-results:/home/askui/test_project/allure-results askuigmbh/askui-runner:v0.13.1-github
@@ -51,7 +51,7 @@ docker run --shm-size="2g" --rm -v ${{ github.workspace }}/config.yaml:/home/ask
 
 [Please check the full example file on GitHub.](https://github.com/askui/askui-ci/blob/main/.github/workflows/askui-run-with-studio.yml)
 
-### Without AskUI-Runner Container
+### Without AskUI Runner Container
 
 Download the workflows from AskUI Studio and place the folder `test` in the ***root*** of your repository.
 
@@ -74,11 +74,11 @@ Then implement the following steps in your pipeline:
 
 ## Gitlab CI
 
-### AskUI-Runner Container: Get Workflows from AskUI Studio
+### AskUI Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
-The AskUI-Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
+The AskUI Runner container downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
 1. Set these Gitlab variables for your pipeline:
 
@@ -116,7 +116,7 @@ before_script:
   - echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin
 ```
 
-1. Execute your workflows with our AskUI-Runner container.
+1. Execute your workflows with our AskUI Runner container.
 
 ```bash
 docker run --shm-size="2g" --rm -v ./config.yaml:/home/askui/config.yaml -v ./allure-results:/home/askui/test_project/allure-results askuigmbh/askui-runner:v0.13.1-github
@@ -128,7 +128,7 @@ Check the detailed examples for your pipeline technology.
 
 [Please check the full example file on Gitlab.com.](https://gitlab.com/askui/gitlab-ci-integration-askui-studio/-/blob/main/.gitlab-ci.yml)
 
-### Without AskUI-Runner Container
+### Without AskUI Runner Container
 
 Download the workflows from AskUI Studio and place the folder `test` in the ***root*** of your repository.
 
@@ -151,11 +151,11 @@ Then implement the following steps in your pipeline:
 
 ## Azure DevOps
 
-### AskUI-Runner Container: Get Workflows from AskUI Studio
+### AskUI Runner Container: Get Workflows from AskUI Studio
 
-When you want to get the latest version of your workflows from AskUI Studio, the AskUI-Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
+When you want to get the latest version of your workflows from AskUI Studio, the AskUI Runner container needs a configuration file ***config.yaml*** to know where to pull them from.
 
-The AskUI-Runner downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
+The AskUI Runner downloads the workflows and runs them inside a docker container. You do not have to take care of any installation of tools on your side 🥳.
 
 1. Set these variables for your pipeline:
 
@@ -183,7 +183,7 @@ cat << EOF > config.yaml
 EOF
 ```
 
-3. Execute your workflows with our AskUI-Runner container. Do not forget to login into Docker Hub 😉.
+3. Execute your workflows with our AskUI Runner container. Do not forget to login into Docker Hub 😉.
 
 ```bash
 echo "$(DOCKER_PASSWORD)" | docker login --username $(DOCKER_USERNAME) --password-stdin
@@ -208,7 +208,7 @@ docker run --shm-size="2g" --rm -v "/$(pwd)/config.yaml:/home/askui/config.yaml"
 
 [Please check the full example file on GitHub.](https://github.com/askui/askui-ci/blob/main/azure-devops/azure-pipelines-with-askui-studio.yml)
 
-### Without AskUI-Runner Container
+### Without AskUI Runner Container
 
 Download the workflows from AskUI Studio and place the folder `test` in the ***root*** of your repository.
 
@@ -231,7 +231,7 @@ Then implement the following steps in your pipeline:
   displayName: 'Install Node.js'
 ```
 
-- Start the UiController from our Docker image
+- Start the AskUI Controller from our Docker image
 
 ```yaml
 - bash: |

@@ -28,7 +28,7 @@ const Playgrounds = [
   },
   {
     name: '🪟 Windows',
-    url: 'getting-started',
+    url: 'Installing%20AskUI/getting-started',
     description: (
       <Translate id="gettingstarted.installwindows.description">
         {
@@ -41,7 +41,7 @@ const Playgrounds = [
   },
   {
     name: '🤖 Android',
-    url: 'getting-started-android',
+    url: 'Installing%20AskUI/getting-started-android',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -54,7 +54,7 @@ const Playgrounds = [
   },
   {
     name: '👩🏻‍💻 macOS',
-    url: 'getting-started-macos',
+    url: 'Installing%20AskUI/getting-started-macos',
     description: (
       <Translate id="gettingstarted.installandroid.description">
         {
@@ -67,7 +67,7 @@ const Playgrounds = [
   },
   {
     name: '💻 Linux',
-    url: 'getting-started-linux',
+    url: 'Installing%20AskUI/getting-started-linux',
     description: (
       <Translate id="gettingstarted.installlinux.description">
         {
@@ -80,7 +80,7 @@ const Playgrounds = [
   },
   {
     name: '🏢 Enterprise Checklist',
-    url: 'enterprise-checklist',
+    url: 'Installing%20AskUI/enterprise-checklist',
     description: (
       <Translate id="gettingstarted.installenterprise.description">
         {
@@ -93,7 +93,7 @@ const Playgrounds = [
   },
   {
     name: '📱 iOS',
-    url: 'getting-started',
+    url: 'Installing%20AskUI/getting-started',
     description: (
       <Translate id="gettingstarted.installenterprise.description">
         {
