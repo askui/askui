@@ -12,7 +12,6 @@ Check if you have the following requirements, before you start the process.
 - Make sure you have Administrator privileges on the computer, where you want to use AskUI.
 - Consider using an IDE. We recommend [Visual Studio Code](https://code.visualstudio.com/).
 
-
 ## Setup
 
 ### Step 1: Download Installer
@@ -85,7 +84,6 @@ Validate the settings with the following command:
 AskUI-ShowSettings
 ```
 
-
 ### Step 5: (Optional) Configure Proxy
 If you are behind a proxy you have to set the proxy address. Replace `<http_proxy_address>` and `<https_proxy_address>` with the ones for your proxy:
 
@@ -99,6 +97,11 @@ Configuring proxy or firewall settings can be a challenge. If you need assistanc
 :::
 
 ### Step 6: Start the Controller
+
+:::info
+You have to disable mouse acceleration for the AskUI Controller to work properly!
+:::
+
 Start the AskUI Controller with:
 
 ```shell
@@ -115,14 +118,12 @@ AskUI-StartController -RunInBackground
 
 Press _Enter_ to return to the _ADE_.
 
-
 ### Step 7: Create a New Project
 Switch to a directory where you want to create the new AskUI project and run:
 
 ```shell
 AskUI-NewProject -ProjectName askui_first -TestFramework jest -TypeScriptConfig true
 ```
-
 
 ### Step 8: Open Your Project
 Your new AskUI project has now been created inside the folder you specified and it's path is set as your current working directory: `<path you ran AskUI-NewProject>/<your_askui_project_name>`.
@@ -147,7 +148,6 @@ On the left, in your file explorer, you should see the files that make up your A
 ..
 
 ![AskUI Project Visual Studio Code](Visual_Studio_Code.png)
-
 
 ### Step 9: Open a Workflow File
 The workflow files are where you will write your automations scripts.

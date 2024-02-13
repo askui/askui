@@ -8,7 +8,7 @@ The AskUI Controller a service that runs on your operating system. It is able to
 ![Architecture drawing how the AskUI Controller works together with AskUI SDK. The AskUI Controller runs in an environment and executes commands given to it by AskUI SDK: Keypresses, mouse movement and clicks. It also takes screenshots and sends them over the AskUI SDK to the AskUI Inference.](./images/askui-device-controller-simple-architecture.png)
 
 :::caution
-The AskUI Controller only works on __Windows__.
+The AskUI Controller only works on __Windows__ and you have to __disable mouse acceleration__ for the AskUI Controller to work properly!
 :::
 
 ## Start Over Terminal (AskUI Development Environment)

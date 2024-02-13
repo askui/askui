@@ -99,6 +99,11 @@ Configuring proxy or firewall settings can be a challenge. If you need assistanc
 :::
 
 ### Step 6: Start the Controller
+
+:::info
+You have to disable mouse acceleration for the AskUI Controller to work properly!
+:::
+
 Start the AskUI Controller with:
 
 ```shell
