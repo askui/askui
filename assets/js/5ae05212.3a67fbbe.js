@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[2194],{42104:e=>{e.exports=JSON.parse('{"label":"OCR","permalink":"/release-notes/tags/ocr","allTagsPath":"/release-notes/tags","count":1,"unlisted":false}')}}]);
