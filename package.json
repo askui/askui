@@ -5,7 +5,6 @@
     "version": "0.13.1",
     "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology you are running on",
     "workspaces": [
-        "./docs",
         "./packages/*"
     ],
     "directories": {
