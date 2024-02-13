@@ -2,12 +2,161 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://docs.askui.com/release-notes</id>
     <title>askui - Humanizing UI Automation Blog</title>
-    <updated>2024-01-31T00:00:00.000Z</updated>
+    <updated>2024-02-07T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://docs.askui.com/release-notes"/>
     <subtitle>askui - Humanizing UI Automation Blog</subtitle>
     <icon>https://docs.askui.com/img/askui_favicon.png</icon>
     <rights>Copyright © 2024 askui GmbH.</rights>
+    <entry>
+        <title type="html"><![CDATA[2024.01.31 | AskUI Suite & Installer]]></title>
+        <id>https://docs.askui.com/release-notes/release-2024-02-07</id>
+        <link href="https://docs.askui.com/release-notes/release-2024-02-07"/>
+        <updated>2024-02-07T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Introduction]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2024-02-07#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
+<p>AskUI  offers a hassle-free installation experience for its products via a user-friendly installer. This installer facilitates the seamless installation of AskUI products with just a few clicks.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="general">General<a href="https://docs.askui.com/release-notes/release-2024-02-07#general" class="hash-link" aria-label="Direct link to General" title="Direct link to General">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installer-for-windows"><strong>Installer for Windows</strong><a href="https://docs.askui.com/release-notes/release-2024-02-07#installer-for-windows" class="hash-link" aria-label="Direct link to installer-for-windows" title="Direct link to installer-for-windows">​</a></h3>
+<p>The installer contains a number of new and modified dialogs. Furthermore, it contains additional components.</p>
+<p>More information can be found <a href="https://docs.askui.com/docs/general/Getting%20Started/Installing%20AskUI/getting-started">here</a>.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="new-features">New Features<a href="https://docs.askui.com/release-notes/release-2024-02-07#new-features" class="hash-link" aria-label="Direct link to New Features" title="Direct link to New Features">​</a></h2>
+<p>We introduced a couple of new features.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="in-preview">In Preview<a href="https://docs.askui.com/release-notes/release-2024-02-07#in-preview" class="hash-link" aria-label="Direct link to In Preview" title="Direct link to In Preview">​</a></h3>
+<ul>
+<li><a href="https://docs.askui.com/docs/general/Components/AskUI-Development-Environment">AskUI Development Environment (ADE)</a>
+<ul>
+<li>Introduces environment management</li>
+<li>Project management</li>
+<li>Dependency installation</li>
+<li>Shell</li>
+</ul>
+</li>
+<li><a href="https://docs.askui.com/docs/general/Components/AskUI-Runner">AskUI Runner</a></li>
+<li><a href="https://docs.askui.com/docs/general/Components/AskUI-Controller">AskUI Controller</a></li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="improvements">Improvements<a href="https://docs.askui.com/release-notes/release-2024-02-07#improvements" class="hash-link" aria-label="Direct link to Improvements" title="Direct link to Improvements">​</a></h2>
+<p>No functional improvements were made.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="changes">Changes<a href="https://docs.askui.com/release-notes/release-2024-02-07#changes" class="hash-link" aria-label="Direct link to Changes" title="Direct link to Changes">​</a></h2>
+<p>AskUI Controller logs into <code>~/.askui/</code> folder.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="fixes">Fixes<a href="https://docs.askui.com/release-notes/release-2024-02-07#fixes" class="hash-link" aria-label="Direct link to Fixes" title="Direct link to Fixes">​</a></h2>
+<p>CO-594: Caused issues in certain multi-display scenarios with mouse movement.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="known-issues">Known Issues<a href="https://docs.askui.com/release-notes/release-2024-02-07#known-issues" class="hash-link" aria-label="Direct link to Known Issues" title="Direct link to Known Issues">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installation-dependencies">Installation Dependencies<a href="https://docs.askui.com/release-notes/release-2024-02-07#installation-dependencies" class="hash-link" aria-label="Direct link to Installation Dependencies" title="Direct link to Installation Dependencies">​</a></h3>
+<ul>
+<li>AskUI Development Kit (former AskUI-Lib) is not included in the installer. It will be downloaded during the setup process.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mouse-movement"><strong>Mouse Movement</strong><a href="https://docs.askui.com/release-notes/release-2024-02-07#mouse-movement" class="hash-link" aria-label="Direct link to mouse-movement" title="Direct link to mouse-movement">​</a></h3>
+<ul>
+<li>You may encounter issues when mouse pointer acceleration is enabled.</li>
+<li>There might be issues with the mouse movement when it tries to move to invalid coordinates.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="log-files"><strong>Log Files</strong><a href="https://docs.askui.com/release-notes/release-2024-02-07#log-files" class="hash-link" aria-label="Direct link to log-files" title="Direct link to log-files">​</a></h3>
+<ul>
+<li>Log files diskspace usage increased. They are stored in <code>~/.askui/</code> and can be deleted if that causes any issues.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="android"><strong>Android</strong><a href="https://docs.askui.com/release-notes/release-2024-02-07#android" class="hash-link" aria-label="Direct link to android" title="Direct link to android">​</a></h3>
+<ul>
+<li>Recording on an Android device is not stable.</li>
+<li>Recorded resolution might be lower than the device resolution.</li>
+<li>Recorded video might be empty or single frame in cases no screen updates occurred during recording.</li>
+<li>We don't support landscape mode on Android.</li>
+<li>Devices with high DPI screen might not work as expected.</li>
+<li>Video recording on MacOS is not supported.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="versions">Versions<a href="https://docs.askui.com/release-notes/release-2024-02-07#versions" class="hash-link" aria-label="Direct link to Versions" title="Direct link to Versions">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="components-and-packages">Components and Packages<a href="https://docs.askui.com/release-notes/release-2024-02-07#components-and-packages" class="hash-link" aria-label="Direct link to Components and Packages" title="Direct link to Components and Packages">​</a></h3>
+<ul>
+<li>AskUI Controller<!-- -->
+<ul>
+<li>AskUI Controller: v0.2.0.0 Preview</li>
+<li>AskUI Legacy UI Controller: 0.13.0</li>
+</ul>
+</li>
+<li>AskUI Runner: 0.1.4</li>
+<li>AskUI Development Environment (ADE)</li>
+<li>AskUI Development Kit (ADK)</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3rd-party-versions">3rd Party Versions<a href="https://docs.askui.com/release-notes/release-2024-02-07#3rd-party-versions" class="hash-link" aria-label="Direct link to 3rd Party Versions" title="Direct link to 3rd Party Versions">​</a></h3>
+<ul>
+<li>Node.JS: 21.0.0</li>
+<li>PowerShell 7.3.8</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="recommended-first-time-user-journey">Recommended First-Time User Journey<a href="https://docs.askui.com/release-notes/release-2024-02-07#recommended-first-time-user-journey" class="hash-link" aria-label="Direct link to Recommended First-Time User Journey" title="Direct link to Recommended First-Time User Journey">​</a></h2>
+<p>To ensure a smooth onboarding experience, follow these steps:</p>
+<ol>
+<li><strong>Download and Install:</strong>
+<ul>
+<li>Download and install the installer</li>
+<li>Run the installer.</li>
+</ul>
+</li>
+<li><strong>Initialization:</strong>
+<ul>
+<li>Open the Command Prompt.</li>
+<li>Type <strong><code>askui-shell</code></strong>.</li>
+</ul>
+</li>
+<li><strong>Configuration (First-Time Usage):</strong>
+<ul>
+<li>Configure AskUI settings:<!-- -->
+<ol>
+<li>Type <strong><code>AskUI-SetSettings -WorkspaceId &lt;askui_workspace_id&gt; -Token &lt;askui_token&gt;</code></strong>.</li>
+<li>(Optional for Proxy Users) Type <strong><code>AskUI-SetSettings -HttpProxy &lt;http_proxy_address&gt; -HttpsProxy &lt;https_proxy_address&gt;</code></strong>.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Verify Settings:</strong>
+<ul>
+<li>Type <strong><code>AskUI-ShowSettings</code></strong> to verify the configured settings.</li>
+</ul>
+</li>
+<li><strong>Create a New Project:</strong>
+<ul>
+<li>Create a new project by typing <strong><code>AskUI-NewProject</code></strong>.</li>
+</ul>
+</li>
+<li><strong>Start AskUI Controller:</strong>
+<ul>
+<li><em>Note: You can skip this if you selected <strong>Launch AskUI Controller</strong> at the installation wizard.</em></li>
+<li>Start the AskUI Controller in background mode by typing <strong><code>AskUI-StartController -RunInBackground</code></strong>.</li>
+</ul>
+</li>
+<li><strong>Project Editing (Optional):</strong>
+<ul>
+<li>Open the project directory and starts editing the project.</li>
+</ul>
+</li>
+</ol>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>You have to disable mouse acceleration for the AskUI Controller to work properly!</p></div></div>
+<ol start="8">
+<li><strong>Run the Project:</strong>
+<ul>
+<li>Run the project by typing <strong><code>AskUI-RunProject</code></strong>.</li>
+</ul>
+</li>
+</ol>
+<p>By following these steps, the user can efficiently set up AskUI Suite, configure essential settings, and seamlessly create and run projects.</p>]]></content>
+        <author>
+            <name>Dominique Mader</name>
+            <email>dominique.mader@askui.com</email>
+        </author>
+        <author>
+            <name>Leon Meier</name>
+            <email>leon.meier@askui.com</email>
+        </author>
+        <category label="AskUI Development Environment (ADE)" term="AskUI Development Environment (ADE)"/>
+        <category label="AskUI Runner" term="AskUI Runner"/>
+        <category label="AskUI Controller" term="AskUI Controller"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2024.01.31 | OCR Model Enhancement]]></title>
         <id>https://docs.askui.com/release-notes/release-2024-01-31</id>
