@@ -33,7 +33,7 @@
     "alex": "11.0.0",
     "docusaurus-plugin-sass": "0.2.5",
     "sass": "1.54.8",
-    "spellchecker-cli": "6.0.2"
+    "spellchecker-cli": "6.2.0"
   },
   "browserslist": {
     "production": [

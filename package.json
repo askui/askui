@@ -5,7 +5,6 @@
     "version": "0.13.1",
     "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology you are running on",
     "workspaces": [
-        "./docs",
         "./packages/*"
     ],
     "directories": {
@@ -50,11 +49,11 @@
         "release": "release-it"
     },
     "devDependencies": {
-        "@commitlint/cli": "16.1.0",
+        "@commitlint/cli": "^18.6.0",
         "@commitlint/config-conventional": "16.0.0",
-        "@release-it-plugins/workspaces": "^3.2.0",
-        "@release-it/bumper": "4.0.0",
-        "@release-it/conventional-changelog": "5.0.0",
+        "@release-it-plugins/workspaces": "^4.2.0",
+        "@release-it/bumper": "^6.0.1",
+        "@release-it/conventional-changelog": "^8.0.1",
         "@typescript-eslint/eslint-plugin": "5.10.0",
         "@typescript-eslint/parser": "5.10.0",
         "commitizen": "4.2.5",
@@ -68,7 +67,7 @@
         "jira-prepare-commit-msg": "1.6.2",
         "lint-staged": "12.3.2",
         "pinst": "2.1.6",
-        "release-it": "15.4.1",
+        "release-it": "^17.0.3",
         "zx": "6.0.7"
     },
     "jira-prepare-commit-msg": {
