@@ -76,7 +76,7 @@ Run the following command to authenticate and connect your ADE to your AskUI acc
 - **Workspace ID** Navigate to your workspace's settings. You can find the workspace ID under *General* below the workspace's name.
 
 ```shell
-AskUI-SetSettings -AskuiToken <access token> -AskuiWorkspaceId <workspace id>
+AskUI-SetSettings -WorkspaceId <workspace id> -Token <access token>
 ```
 
 Validate the settings with the following command: 
