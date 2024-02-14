@@ -107,7 +107,7 @@ describe('AskUI on Linux', () => {
 
 #### Run the Annotation
 
-To execute the instructions, enter into your terminal (Windows: [AskUI Development Environment (ADE)](#annotation)).
+To execute the instructions, enter into your terminal (Windows: [AskUI Development Environment (ADE)](../02-Components/AskUI-Development-Environment.md)).
 
 <Tabs>
   <TabItem value="windows" label="Windows" default>
