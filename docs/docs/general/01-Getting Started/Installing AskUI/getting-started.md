@@ -69,6 +69,13 @@ If you are not what an ADE command does, you can run `Get-Help <command>` to get
 :::
 
 ### Step 4: Connect Your AskUI Account
+
+:::info
+As we need to prevent misuse of our API, we need you to create some credentials through our __AskUI Studio__ (for free).
+
+Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.
+:::
+
 Run the following command to authenticate and connect your ADE to your AskUI account. Replace `<access token>` and `<workspace id>` with your real credentials.
 
 - **Access Token** You can create a new access token inside our web app. Go to any Workspace and navigate to *Access Tokens* in the left sidebar.
@@ -108,7 +115,7 @@ Start the AskUI Controller with:
 AskUI-StartController
 ```
 
-Open another command prompt and [activate the _ADE_](#activate-the-askui-development-environment-ade) there again.
+Open another command prompt and [activate the _ADE_](#step-3-activate-the-askui-development-environment-ade) there again.
 
 Alternatively start the AskUI Controller in the background to keep using the same command prompt:
 
