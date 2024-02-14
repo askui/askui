@@ -18,8 +18,8 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 ### `AskUI-StartRunner` Command
 The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
 
-- `AskuiToken`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
-- `AskuiWorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
+- `Token`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
+- `WorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
 - `DeviceControllerPort`: Specifies the __port__ of the device controller to be used for the runner. The default is 6769.
 - `DeviceControllerHost`: Specifies the __host__ of the device controller to be used for the runner. The default is 127.0.0.1.
 - `ForceProjectTemplateUpdate`: Specifies whether to force the update of the project template. This is helpful for debugging.
