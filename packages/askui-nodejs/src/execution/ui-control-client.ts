@@ -2,6 +2,7 @@ import { CustomElement } from '../core/model/custom-element';
 import { CustomElementJson } from '../core/model/custom-element-json';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
+  PC_AND_MODIFIER_KEY,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -241,5 +242,123 @@ export class UiControlClient extends ApiCommands {
         return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
       },
     };
+  }
+
+  /**
+   * Press a key multiple times. At least two times.
+   *
+   * @param {PC_AND_MODIFIER_KEY} key
+   *
+   * @param {number} times
+   */
+  async pressKeyNTimes(key: PC_AND_MODIFIER_KEY, times = 2) {
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < times; i += 1) {
+      await this.pressKey(key).exec();
+    }
+  }
+
+  /**
+   * Press an array of keys one after another.
+   *
+   * For example press the following keys: right, left, enter
+   *
+   * pressKeys(['right', 'left', 'enter'])
+   *
+   * @param {PC_AND_MODIFIER_KEY[]} keys
+   */
+  async pressKeys(keys: PC_AND_MODIFIER_KEY[]) {
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < keys.length; i += 1) {
+      await this.pressKey(keys[i] as PC_AND_MODIFIER_KEY).exec();
+    }
+  }
+
+  /**
+   * Searches for an text element and clicks it when found.
+   *
+   * @param {string} text - A text to be searched.
+   */
+  async clickText(text: string) {
+    await this.click().text(text).exec();
+  }
+
+  /**
+   * Searches for an element of type button
+   * with a label and clicks it when found.
+   *
+   * @param {string} label - The buttons label
+   */
+  async clickButton(label: string) {
+    await this.click().button().withText(label).exec();
+  }
+
+  /**
+   * Searches for an element of type textfield with a specific placeholder text.
+   * If found, clicks it.
+   *
+   * @param {string} placeholder - The buttons label
+   */
+  async clickTextfield(placeholder: string) {
+    await this.click().textfield().contains().text()
+      .withText(placeholder)
+      .exec();
+  }
+
+  /**
+   * Clicks an icon based on a description.
+   *
+   * @param {string} description
+   */
+  async clickIcon(description: string) {
+    await this.click().icon().matching(description).exec();
+  }
+
+  /**
+   * Drags element1 to element2.
+   *
+   * Both must be a `moveMouse()` or `moveMouseTo()`
+   * instruction as in the example below.
+   *
+   * Usage example:
+   * dragTo(
+   *   aui.moveMouseTo().text('AskUI'),
+   *   aui.moveMouseTo().text('UI Automation')
+   * )
+   *
+   * @param {Executable} element1
+   * @param {Executable} element2
+   */
+  async dragTo(element1: Executable, element2: Executable) {
+    await element1.exec();
+    await this.mouseLeftClick().exec();
+    await this.mouseToggleDown().exec();
+    await element2.exec();
+    await this.mouseToggleUp().exec();
+  }
+
+  /**
+   * Wait until an AskUICommand does not fail.
+   *
+   * Use it to wait for an element to appear like this:
+   *
+   * await waitUntil(
+   *     aui.expect().text('Github').exists()
+   *   );
+   *
+   * @param {Executable} AskUICommand - For example: aui.moveMouse(0, 0)
+   * @param {number} maxTry - Number of maximum retries
+   * @param {number} waitTime - Time in milliseconds
+   */
+  async waitUntil(AskUICommand: Executable, maxTry = 5, waitTime = 2000) {
+    try {
+      await AskUICommand.exec();
+    } catch (error) {
+      if (maxTry === 0) {
+        throw error;
+      }
+      await this.waitFor(waitTime).exec();
+      await this.waitUntil(AskUICommand, maxTry - 1);
+    }
   }
 }
