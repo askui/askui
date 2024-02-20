@@ -16,7 +16,7 @@ Check if you have the following requirements, before you start the process.
 ## Setup
 
 ### Step 1: Download Installer
-Download the AskUI Installer [here](https://files.askui.com/releases/Installer/24.2.1/AskUI-Suite-24.2.1-System-Installer-Win-AMD64-Full.exe).
+Download the AskUI Installer [here](https://files.askui.com/releases/Installer/24.2.2/AskUI-Suite-24.2.2-System-Installer-Win-AMD64-Full.exe).
 
 It will install the following components:
 
