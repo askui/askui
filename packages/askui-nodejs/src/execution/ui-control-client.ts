@@ -190,7 +190,7 @@ export class UiControlClient extends ApiCommands {
    *
    * @return {FluentFilters}
    */
-  override typeIn(text: string, { isSecret = false, secretMask = '****' } = {}): FluentFilters {
+  override typeIn(text: string, { isSecret = false, secretMask = '****' }: { isSecret?: boolean; secretMask?: string; } = {}): FluentFilters {
     if (isSecret) {
       this.secretText = text;
       return super.typeIn(secretMask);
@@ -217,7 +217,7 @@ export class UiControlClient extends ApiCommands {
    *
    * @return {Exec}
    */
-  override type(text: string, { isSecret = false, secretMask = '****' } = {}): Exec {
+  override type(text: string, { isSecret = false, secretMask = '****' }: { isSecret?: boolean; secretMask?: string; } = {}): Exec {
     if (isSecret) {
       this.secretText = text;
       return super.type(secretMask);
@@ -281,6 +281,19 @@ export class UiControlClient extends ApiCommands {
    */
   async clickText(text: string) {
     await this.click().text(text).exec();
+  }
+
+  /**
+   * Searches for text elements and clicks them
+   * one after another when found.
+   *
+   * @param {string[]} texts - An array of texts to be searched.
+   */
+  async clickTexts(texts: string[]) {
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < texts.length; i += 1) {
+      await this.click().text(texts[i] as string).exec();
+    }
   }
 
   /**
