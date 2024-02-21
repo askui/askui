@@ -85,7 +85,7 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
 
 ```bash
 # macOS
-./askui-ui-controller --host 0.0.0.0 -p 6769 -d 0 -m
+/Applications/askui-ui-controller.app/Contents/MacOS/askui-ui-controller --host 0.0.0.0 -p 6769 -d 0 -m
 ```
 
   </TabItem>
@@ -125,7 +125,7 @@ beforeAll(async () => {
     // with the IP from remote device 1
     remoteDevice1 = await UiControlClient.build({ 
         uiControllerUrl: "ws://<ip-address-remote-device2>:6769",
-        credentials: credentials,
+        credentials,
     });
 
     await remoteDevice1.connect();
@@ -136,7 +136,7 @@ beforeAll(async () => {
     // with the IP from remote device 2
     remoteDevice2 = await UiControlClient.build({    
         uiControllerUrl: "ws://<ip-address-remote-device2>:6769", 
-        credentials: credentials,
+        credentials,
     });
 
     await remoteDevice2.connect();
@@ -204,7 +204,7 @@ You __must__ start a separate AskUI Controller for each Android device you are a
 
 :::tip
 
-The `-d` flag specifies to which device a AskUI Controller instance connects.
+The `-d` flag specifies to which device a AskUI Controller instance connects (Read on how it works!).
 
 Run `adb devices` in a terminal to get a list of connected devices. In the following example, if you want to connect to `emulator-1` you use `-d 0` and for `emulator-2` you use `-d 1`.
 
@@ -235,6 +235,8 @@ AskUI-RunController --host 0.0.0.0 -p 6770 -d 1 -m
 
 Set a different port for each AskUI Controller and specify which Android device to connect to with the `-d` flag.
 
+Open a new terminal for each AskUI Controller instance as it gets started in the foreground.
+
 ```bash
 # Connects to the first device returned by 'adb devices'
 ./askui-ui-controller.AppImage --host -p 6769 0.0.0.0 -d 0 -m -r android
@@ -248,12 +250,14 @@ Set a different port for each AskUI Controller and specify which Android device 
 
 Set a different port for each AskUI Controller and specify which Android device to connect to with the `-d` flag.
 
+Open a new terminal for each AskUI Controller instance as it gets started in the foreground.
+
 ```bash
 # Connects to the first device returned by 'adb devices'
-./askui-ui-controller --host 0.0.0.0 -p 6769 -d 0 -m -r android
+/Applications/askui-ui-controller.app/Contents/MacOS/askui-ui-controller --host 0.0.0.0 -p 6769 -d 0 -m -r android
 
 # Connects to the second device returned by 'adb devices'
-./askui-ui-controller --host 0.0.0.0 -p 6770 -d 1 -m -r android
+/Applications/askui-ui-controller.app/Contents/MacOS/askui-ui-controller --host 0.0.0.0 -p 6770 -d 1 -m -r android
 ```
 
   </TabItem>
@@ -281,14 +285,14 @@ beforeAll(async () => {
   // Connects to AskUI Controller 1 (emulator-1)
   remoteDevice1 = await UiControlClient.build({
     uiControllerUrl: "ws://127.0.0.1:6769",
-    credentials: credentials,
+    credentials,
   });
   await remoteDevice1.connect();
   
   // Connects to AskUI Controller 2 (emulator-2)
   remoteDevice2 = await UiControlClient.build({
     uiControllerUrl: "ws://127.0.0.1:6770",
-    credentials: credentials,
+    credentials,
   });
   
   await remoteDevice2.connect();
@@ -313,12 +317,12 @@ import { remoteDevice1, remoteDevice2 } from './helper/jest.setup';
 
 describe('jest with askui', () => {
     it('should work with multiple devices', async () => {
-        const everyElement_remote = await remoteDevice1.getAll().exec();
-        console.log(everyElement_remote);
+        const everyElementRemote1 = await remoteDevice1.getAll().exec();
+        console.log(everyElementRemote1);
 
         await localDevice.moveMouse(500,500).exec();
-        const everyElement_local = await remoteDevice2.getAll().exec();
-        console.log(everyElement_local);
+        const everyElementRemote2 = await remoteDevice2.getAll().exec();
+        console.log(everyElementRemote2);
     });
 });
 ```
