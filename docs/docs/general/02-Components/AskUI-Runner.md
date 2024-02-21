@@ -16,9 +16,14 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 * Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui-shell` in CMD.
 
 ### `AskUI-StartRunner` Command
-The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts several parameters, which you can find [here](AskUI-Development-Environment.md#askui-runner-management).
+The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
 
-
+- `Token`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
+- `WorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
+- `DeviceControllerPort`: Specifies the __port__ of the device controller to be used for the runner. The default is 6769.
+- `DeviceControllerHost`: Specifies the __host__ of the device controller to be used for the runner. The default is 127.0.0.1.
+- `ForceProjectTemplateUpdate`: Specifies whether to force the update of the project template. This is helpful for debugging.
+- `LogLevel`: Specifies the AskUI Runner log level. Available values are: 'INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL'. The default is 'INFO'.
 
 ## Linux and macOS
 For Linux and macOS we do not provide an Installer yet. Thus you have to install the AskUI Runner from source ([GitHub-Repository](https://github.com/askui/askui-runner).
@@ -69,8 +74,7 @@ python -m askui_runner -c <path to your config file, e.g., askui-runner.config.y
 ### Start AskUI Controller
 If you want to run your workflows on the same system as the runner you need to start an AskUI Controller that listens on port `6769`. Please download the one for your operating system and start it:
 
-* [Windows](https://files.askui.com/releases/askui-ui-controller/latest/win32/x64/askui-ui-controller.exe)
-* [Windows (new version - beta release)](https://files.askui.com/releases/preview/v23.10.01/askui+Installer.exe) [More about the new version](AskUI-Controller.md)
+* [Windows - Please use the AskUI Installer from our Getting Started](../01-Getting%20Started/Installing%20AskUI/getting-started.md)
 * [Linux](https://files.askui.com/releases/askui-ui-controller/latest/linux/x64/askui-ui-controller.AppImage)
 
 :::info
@@ -92,6 +96,9 @@ runner:
     port: 7000
 ```
 
+## Running a workflow
+Go back to AskUI Studio and access the workflow you intend to execute. Head over to the '**Run**' tab located in the right sidebar and choose "New Run." In the pop-up window that appears next, select "**Self-hosted**" and input one or more of the tags you previously included in the runner configuration file.
+
 ### Generating up-to-date Configuration Schema
 
 Requirements:
@@ -106,6 +113,3 @@ pdm install
 
 pdm run python -m scripts.generate_config_schema_json
 ```
-
-## Running a workflow
-Go back to AskUI Studio and access the workflow you intend to execute. Head over to the '**Run**' tab located in the right sidebar and choose "New Run." In the pop-up window that appears next, select "**Self-hosted**" and input one or more of the tags you previously included in the runner configuration file.
