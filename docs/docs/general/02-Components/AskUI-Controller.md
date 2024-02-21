@@ -12,7 +12,7 @@ The AskUI Controller only works on __Windows__ and you have to __disable mouse a
 :::
 
 ## Start Over Terminal (AskUI Development Environment)
-First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in a terminal. The `AskUI-StartController` command is used to launch the **AskUI Controller**.
+First switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui-shell` in a terminal. The `AskUI-StartController` command is used to launch the **AskUI Controller**.
 
 You have several configuration options, which you can find [here](AskUI-Development-Environment.md#askui-controller-management).
 

@@ -13,7 +13,7 @@ If you want to execute your workflows defined in __AskUI Studio__ in your own en
 
 ### Requirements
 * Install the **AskUI Controller** with the [AskUI Installer](../01-Getting%20Started/Installing%20AskUI/getting-started.md) first.
-* Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui` in CMD.
+* Then switch into the [AskUI Development Environment (ADE)](AskUI-Development-Environment.md) by executing the command `askui-shell` in CMD.
 
 ### `AskUI-StartRunner` Command
 The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
