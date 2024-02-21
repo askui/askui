@@ -158,16 +158,15 @@ Also see the dedicated [AskUI Controller docs](AskUI-Controller.md) for more inf
 ## AskUI Runner Management
 The AskUI Runner is a self-hosted component that downloads your workflows from AskUI Studio and runs them on the device it is hosted at.
 
-### `AskUI-StartRunner` Command**
+### `AskUI-StartRunner` Command
+The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
 
-The `AskUI-StartRunner` function is utilized to initiate the AskUI runner. This function accepts the following parameters:
-
-- **`Token`**: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
-- **`WorkspaceId`**: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
-- **`Port`**: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
-- **`WebSocketHost`**: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
-- **`ForceProjectTemplateUpdate`**: Specifies whether to force the update of the project template. This is helpful for debugging.
-- **`LogLevel`**: Specifies the AskUI Runner log level. Available values are: 'INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL'. The default is 'INFO'.
+- `Token`: Specifies the AskUI token to be used for the runner. If not specified, the token from the AskUI settings is used.
+- `WorkspaceId`: Specifies the AskUI workspace ID to be used for the runner. If not specified, the workspace ID from the AskUI settings is used.
+- `Port`: Port of the web socket port server to connect via the runner-protocol. (Default: 6769)
+- `WebSocketHost`: Host of the web socket server to connect via the runner-protocol. (Default: 127.0.0.1)
+- `ForceProjectTemplateUpdate`: Specifies whether to force the update of the project template. This is helpful for debugging.
+- `LogLevel`: Specifies the AskUI Runner log level. Available values are: 'INFO', 'DEBUG', 'WARNING', 'ERROR', 'CRITICAL'. The default is 'INFO'.
 - `Tags`: Specifies the tags to be set in the AskUI runner configuration.
 
 **Example:**
