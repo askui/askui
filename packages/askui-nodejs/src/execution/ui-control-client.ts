@@ -261,7 +261,7 @@ export class UiControlClient extends ApiCommands {
   /**
    * Press an array of keys one after another.
    *
-   * For example press the following keys: right, left, enter
+   * For example press the following keys: right, left, enter.
    *
    * pressKeys(['right', 'left', 'enter'])
    *
@@ -275,7 +275,7 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Searches for an text element and clicks it when found.
+   * Searches for a text element and clicks it when found.
    *
    * @param {string} text - A text to be searched.
    */
@@ -300,7 +300,7 @@ export class UiControlClient extends ApiCommands {
    * Searches for an element of type button
    * with a label and clicks it when found.
    *
-   * @param {string} label - The buttons label
+   * @param {string} label - The buttons label.
    */
   async clickButton(label: string) {
     await this.click().button().withText(label).exec();
@@ -310,7 +310,7 @@ export class UiControlClient extends ApiCommands {
    * Searches for an element of type textfield with a specific placeholder text.
    * If found, clicks it.
    *
-   * @param {string} placeholder - The buttons label
+   * @param {string} placeholder - The textfields placeholder text.
    */
   async clickTextfield(placeholder: string) {
     await this.click().textfield().contains().text()
