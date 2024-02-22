@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[40192],{866:s=>{s.exports=JSON.parse('{"label":"SSO","permalink":"/release-notes/tags/sso","allTagsPath":"/release-notes/tags","count":1,"unlisted":false}')}}]);
