@@ -128,6 +128,7 @@ const config = {
             `https://github.com/askui/askui/tree/main/docs/${versionDocsDirPath}/${docPath}`,
         },
         blog: {
+          blogTitle: 'Release Notes',
           postsPerPage: 'ALL',
           feedOptions: {
             type: 'all',
