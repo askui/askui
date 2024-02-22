@@ -68,8 +68,9 @@ AskUI-RunController --host 0.0.0.0 -p 6769 -d 0 -m
   <TabItem value="linux" label="Linux" default>
 
 :::info
-Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
+Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-controller-binary-for-each-device).
 :::
+
 
 ```bash
 # Linux
@@ -80,7 +81,7 @@ Change to the directory of the `askui-ui-controller` binary first: See [Download
   <TabItem value="macos" label="macOS" default>    
 
 :::info
-Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-ui-controller-binary-for-each-device).
+Change to the directory of the `askui-ui-controller` binary first: See [Download and Prepare step](#1-download-and-prepare-the-askui-controller-binary-for-each-device).
 :::
 
 ```bash
