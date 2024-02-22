@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[52600],{16018:e=>{e.exports=JSON.parse('{"permalink":"/release-notes/tags/ocr","page":1,"postsPerPage":1,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Release Notes"}')}}]);

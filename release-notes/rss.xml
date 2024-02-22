@@ -10,15 +10,15 @@
         <language>en</language>
         <copyright>Copyright © 2024 askui GmbH.</copyright>
         <item>
-            <title><![CDATA[2024.01.31 | AskUI Suite & Installer]]></title>
+            <title><![CDATA[2024.02.07 | AskUI Suite & Installer]]></title>
             <link>https://docs.askui.com/release-notes/release-2024-02-07</link>
             <guid>https://docs.askui.com/release-notes/release-2024-02-07</guid>
             <pubDate>Wed, 07 Feb 2024 00:00:00 GMT</pubDate>
             <description><![CDATA[Introduction]]></description>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2024-02-07#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
-<p>AskUI  offers a hassle-free installation experience for its products via a user-friendly installer. This installer facilitates the seamless installation of AskUI products with just a few clicks.</p>
+<p>AskUI offers a hassle-free installation experience for its products via a user-friendly installer. This installer facilitates the seamless installation of AskUI products with just a few clicks.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="general">General<a href="https://docs.askui.com/release-notes/release-2024-02-07#general" class="hash-link" aria-label="Direct link to General" title="Direct link to General">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installer-for-windows"><strong>Installer for Windows</strong><a href="https://docs.askui.com/release-notes/release-2024-02-07#installer-for-windows" class="hash-link" aria-label="Direct link to installer-for-windows" title="Direct link to installer-for-windows">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installer-for-windows">Installer for Windows<a href="https://docs.askui.com/release-notes/release-2024-02-07#installer-for-windows" class="hash-link" aria-label="Direct link to Installer for Windows" title="Direct link to Installer for Windows">​</a></h3>
 <p>The installer contains a number of new and modified dialogs. Furthermore, it contains additional components.</p>
 <p>More information can be found <a href="https://docs.askui.com/docs/general/Getting%20Started/Installing%20AskUI/getting-started">here</a>.</p>
 <hr>
@@ -37,15 +37,6 @@
 <li><a href="https://docs.askui.com/docs/general/Components/AskUI-Runner">AskUI Runner</a></li>
 <li><a href="https://docs.askui.com/docs/general/Components/AskUI-Controller">AskUI Controller</a></li>
 </ul>
-<hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="improvements">Improvements<a href="https://docs.askui.com/release-notes/release-2024-02-07#improvements" class="hash-link" aria-label="Direct link to Improvements" title="Direct link to Improvements">​</a></h2>
-<p>No functional improvements were made.</p>
-<hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="changes">Changes<a href="https://docs.askui.com/release-notes/release-2024-02-07#changes" class="hash-link" aria-label="Direct link to Changes" title="Direct link to Changes">​</a></h2>
-<p>AskUI Controller logs into <code>~/.askui/</code> folder.</p>
-<hr>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="fixes">Fixes<a href="https://docs.askui.com/release-notes/release-2024-02-07#fixes" class="hash-link" aria-label="Direct link to Fixes" title="Direct link to Fixes">​</a></h2>
-<p>CO-594: Caused issues in certain multi-display scenarios with mouse movement.</p>
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="known-issues">Known Issues<a href="https://docs.askui.com/release-notes/release-2024-02-07#known-issues" class="hash-link" aria-label="Direct link to Known Issues" title="Direct link to Known Issues">​</a></h2>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="installation-dependencies">Installation Dependencies<a href="https://docs.askui.com/release-notes/release-2024-02-07#installation-dependencies" class="hash-link" aria-label="Direct link to Installation Dependencies" title="Direct link to Installation Dependencies">​</a></h3>
