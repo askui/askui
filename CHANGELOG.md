@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.14.0](https://github.com/askui/askui/compare/v0.13.1...v0.14.0) (2024-02-22)
+
+
+### Features
+
+* add a set of convenience methods to UiControlClient ([509d255](https://github.com/askui/askui/commit/509d255b65a8ea757ddb225f4fa9337002c62722))
+* add clickTexts(texts: string[]) convenience function to UiControlClient ([0fe90f6](https://github.com/askui/askui/commit/0fe90f6027cd8eb54e2d699129c94990c9262df1))
+
+
+### Bug Fixes
+
+* fix typo in interactive CLI: credentails -> credentials (#DVRL-67) ([22ce43a](https://github.com/askui/askui/commit/22ce43a2ec538ae96ee7dd44c1472d51771c41d1)), closes [#DVRL-67](https://github.com/askui/askui/issues/DVRL-67)
+* **proxy:** support ipv6 autoselect dns lookup (#GROUP-25816) ([9b67ae6](https://github.com/askui/askui/commit/9b67ae6913d650262385de345d287d9ce5ff6d97)), closes [#GROUP-25816](https://github.com/askui/askui/issues/GROUP-25816) [/github.com/nodejs/node/issues/48771#issuecomment-1661707763](https://github.com/askui//github.com/nodejs/node/issues/48771/issues/issuecomment-1661707763)
+* remove unused scss ([9c4da26](https://github.com/askui/askui/commit/9c4da26db92f92b040da99ab612af39a3aef7d96))
+* try to fix broken docu-deployment workflow ([f752956](https://github.com/askui/askui/commit/f752956b0aacce61a3dc7b698a3133fe4a123fbe))
+
 ## [0.13.1](https://github.com/askui/askui/compare/v0.13.0...v0.13.1) (2023-11-06)
 
 

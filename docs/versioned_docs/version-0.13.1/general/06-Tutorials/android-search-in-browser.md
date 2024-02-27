@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Web Search on Android
 
-In this tutorial, we will automate web searching on Android devices. This tutorial assumes that you have already set up your Android Development Environment. If you haven't set it up yet, you can check out our [Setup Android tutorial](../04-Executing%20Automations/mobile-automation.md#android).
+In this tutorial, we will automate web searching on Android devices. This tutorial assumes that you have already set up your Android Development Environment. If you haven't set it up yet, you can check out our [Setup Android tutorial](../04-Executing%20Automations//mobile-automation.md#android).
 
 If you have already set up your development environment, go directly to [3. Automate Web Searching](#3-automate-web-searching)
 
@@ -30,11 +30,11 @@ If you have already set up your development environment, go directly to [3. Auto
 
 ### Install and initialize AskUI
 
-Please follow the [Getting Started](../02-Getting%20Started/getting-started.md) tutorial.
+Please follow the [Getting Started](../01-Getting%20Started/Installing%20AskUI/getting-started.md) tutorial.
 
 **Configure AskUI for Android**
 
-We need to run the UiController manually with an extra argument to specify the runtime mode, as the current version of AskUI doesn't provide the API for running it with the runtime option yet:
+We need to run the AskUI Controller manually with an extra argument to specify the runtime mode, as the current version of AskUI doesn't provide the API for running it with the runtime option yet:
 
 ```bash
 # first, go to the folder that contains the binary
@@ -53,12 +53,12 @@ cd node_modules/askui/dist/release/latest/darwin/askui-ui-controller.app/Content
 npm run askui
 ```
 
-If the UiController starts, it will display the log of it on the shell. We can leave it in the background, and prepare a new terminal window for the next step.
+If the AskUI Controller starts, it will display its logs in the terminal. We can leave it in the background, and prepare a new terminal window for the next step.
 
 💡*If you got any errors after running the binary, please check if your android device/emulator is properly connected and recognized by the Android Debug Bridge `adb` by using this command: `adb devices`. You should see a list of recognized devices.*
 
 
-Next, we have to change a few lines of the generated code, as the code ships with the part that creates another **UiController** instance.
+Next, we have to change a few lines of the generated code, as the code ships with the part that creates another **AskUI Controller** instance.
 
 Go to `helper/jest.setup.ts` and comment out every line that is using `uiController`:
 

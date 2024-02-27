@@ -1,3 +1,9 @@
+jonasmenesklou:
+  name: Jonas Menesklou
+  title: CEO
+  email: jonas.menesklou@askui.com
+  image_url: /img/jonasmenesklou.jpeg
+
 leonmeier:
   name: Leon Meier
   title: Head of Product
@@ -9,3 +15,9 @@ johannesdienst:
   title: Developer Advocate
   email: johannes.dienst@askui.com
   image_url: /img/johannesdienst.jpeg
+
+dominiquemader:
+  name: Dominique Mader
+  title: Head of Software Engineering
+  email: dominique.mader@askui.com
+  image_url: /img/dominiquemader.jpeg

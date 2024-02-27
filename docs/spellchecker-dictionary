@@ -118,6 +118,18 @@ leftOf
 getAll
 Getters
 notExists
+clickButton
+clickIcon
+clickText[s]?
+clickTextfield
+dragTo
+element[12]?
+pressKeyNTimes
+pressKeys
+waitUntil
+AskUICommand
+maxTry
+waitTime
 2s
 actionDelayInMs
 overWriteBinary
@@ -254,3 +266,5 @@ URI
 SAML
 PingFederate
 CMD
+pre-built
+AppImage

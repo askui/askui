@@ -13,15 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          npm ci
+          cd docs
+          npm ci
       - name: Build Documentation
-        run: npm run build -w docs
+        run: |
+          cd docs
+          npm run build
       - name: Deploy to Github Pages
         if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.3.3
