@@ -82,3 +82,61 @@ See the dedicated [AskUI Controller docs](AskUI-Controller.md) on how to configu
 The AskUI Runner is a self-hosted component that downloads your workflows from AskUI Studio and runs them on the device it is hosted at.
 
 See the dedicated [AskUI Runner docs](AskUI-Runner.md) on how to configure it.
+
+
+## ADE + VSCode IDE
+
+The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/] together. Therefore we create (VScode Workspace Settings)[https://code.visualstudio.com/docs/getstarted/settings#_settingsjson]
+
+**Note: Only compatible with windows**
+
+1. Create a `<project>/.vscode` folder with `mkdir .vscode`
+
+### Configure the askui-shell
+
+2. Create the `<project>/.vscode/settings.json` with following content:
+```json
+{
+    "livePreview.customExternalBrowser": "Default",
+    "terminal.integrated.profiles.windows":{   
+        "askui-shell": {    
+            "path": ["C:\\Program Files\\AskUI GmbH\\Tools\\askui-shell.cmd"],
+            "args": [
+               "activate"
+            ],
+            "icon": "terminal-bash",
+        },        
+        "Git Bash": null,        
+        "Command Prompt": null,        
+        "PowerShell": null,        
+        "JavaScript Debug Terminal": null
+    },
+    "terminal.integrated.defaultProfile.windows": "askui-shell"
+}
+```
+- `terminal.integrated.profiles.windows`: Configures the `askui-shell` and deactivate other shells
+- `terminal.integrated.defaultProfile.windows`: Set the `askui-shell` as default
+
+Then the `askui-shell` is configured for as the default terminal like this:
+<insert image>
+
+
+### Configure Jest Runner, ESLint & Live View
+
+1. Create `<project>/.vscode/extensions.json` with following content:
+
+```json
+{
+    "recommendations": ["ms-vscode.live-server", "firsttris.vscode-jest-runner", "dbaeumer.vscode-eslint"]
+}
+```
+
+
+
+
+
+
+
+
+
+
