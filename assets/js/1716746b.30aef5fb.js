@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[3104],{79520:e=>{e.exports=JSON.parse('{"label":"AskUI Controller","permalink":"/release-notes/tags/ask-ui-controller","allTagsPath":"/release-notes/tags","count":2,"unlisted":false}')}}]);

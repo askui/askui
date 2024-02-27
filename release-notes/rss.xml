@@ -4,11 +4,79 @@
         <title>askui - Humanizing UI Automation Blog</title>
         <link>https://docs.askui.com/release-notes</link>
         <description>askui - Humanizing UI Automation Blog</description>
-        <lastBuildDate>Wed, 07 Feb 2024 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 26 Feb 2024 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>Copyright © 2024 askui GmbH.</copyright>
+        <item>
+            <title><![CDATA[2024.02.26 | AskUI Suite 24.2.2]]></title>
+            <link>https://docs.askui.com/release-notes/release-2024-02-26</link>
+            <guid>https://docs.askui.com/release-notes/release-2024-02-26</guid>
+            <pubDate>Mon, 26 Feb 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[Introduction]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="introduction">Introduction<a href="https://docs.askui.com/release-notes/release-2024-02-26#introduction" class="hash-link" aria-label="Direct link to Introduction" title="Direct link to Introduction">​</a></h2>
+<p>The main focus of the release AskUI Installer 24.2.2 was to polish the previous release 24.2.1 and therefore no major changes were introduced.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="askui-installer-update-2422">AskUI Installer Update 24.2.2<a href="https://docs.askui.com/release-notes/release-2024-02-26#askui-installer-update-2422" class="hash-link" aria-label="Direct link to AskUI Installer Update 24.2.2" title="Direct link to AskUI Installer Update 24.2.2">​</a></h2>
+<p>Introduces a number of new steps: <a href="https://files.askui.com/releases/Installer/24.2.2/AskUI-Suite-24.2.2-System-Installer-Win-AMD64-Full.exe" target="_blank" rel="noopener noreferrer">Downloadlink</a>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="installer-for-windows">Installer for Windows<a href="https://docs.askui.com/release-notes/release-2024-02-26#installer-for-windows" class="hash-link" aria-label="Direct link to Installer for Windows" title="Direct link to Installer for Windows">​</a></h3>
+<p>The installer contains a number of new and modified dialogs. Furthermore, it contains additional components.</p>
+<p>More information can be found <a href="https://docs.askui.com/docs/general/Getting%20Started/Installing%20AskUI/getting-started">here</a>.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="new-features">New Features<a href="https://docs.askui.com/release-notes/release-2024-02-26#new-features" class="hash-link" aria-label="Direct link to New Features" title="Direct link to New Features">​</a></h2>
+<p>This release focuses on bug fixes.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="improvements">Improvements<a href="https://docs.askui.com/release-notes/release-2024-02-26#improvements" class="hash-link" aria-label="Direct link to Improvements" title="Direct link to Improvements">​</a></h2>
+<p>This release focuses on bug fixes.</p>
+<ul>
+<li>Improved the robustness of the inter-process connection between Legacy Controller and Remote Device Controller.</li>
+<li>We only allow a single instance of the Legacy Controller for desktop scenarious (mobile platforms are untouched).</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="fixes">Fixes<a href="https://docs.askui.com/release-notes/release-2024-02-26#fixes" class="hash-link" aria-label="Direct link to Fixes" title="Direct link to Fixes">​</a></h2>
+<p>This release focuses on bug fixes.</p>
+<ul>
+<li>Fixed left and right arrow key mapping which were swapped.</li>
+<li>Fixed issues with stuck mouse cursor and not finished actions.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="changes">Changes<a href="https://docs.askui.com/release-notes/release-2024-02-26#changes" class="hash-link" aria-label="Direct link to Changes" title="Direct link to Changes">​</a></h2>
+<ul>
+<li>Mouse movement uses the OS's cursor position set instead of delta movement on a 1000hz update rate. Making it more reliable.</li>
+<li>Legacy Controller and Remote Device Controller are both shutdown with an error message if the connection is broken.</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="known-issues">Known Issues<a href="https://docs.askui.com/release-notes/release-2024-02-26#known-issues" class="hash-link" aria-label="Direct link to Known Issues" title="Direct link to Known Issues">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mouse-movement"><strong>Mouse Movement</strong><a href="https://docs.askui.com/release-notes/release-2024-02-26#mouse-movement" class="hash-link" aria-label="Direct link to mouse-movement" title="Direct link to mouse-movement">​</a></h3>
+<ul>
+<li>You may encounter issues when mouse pointer acceleration is enabled.</li>
+<li>There might be issues with the mouse movement when it tries to move to invalid coordinates.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="versions">Versions<a href="https://docs.askui.com/release-notes/release-2024-02-26#versions" class="hash-link" aria-label="Direct link to Versions" title="Direct link to Versions">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="components-and-packages">Components and Packages<a href="https://docs.askui.com/release-notes/release-2024-02-26#components-and-packages" class="hash-link" aria-label="Direct link to Components and Packages" title="Direct link to Components and Packages">​</a></h3>
+<ul>
+<li>AskUI Controller<!-- -->
+<ul>
+<li>AskUI Controller: v0.2.1.0 Preview</li>
+<li>AskUI Legacy UI Controller: 0.14.0</li>
+</ul>
+</li>
+<li>AskUI Runner: 0.1.4</li>
+<li>AskUI Development Environment (ADE)</li>
+<li>AskUI Development Kit (ADK)</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3rd-party-versions">3rd Party Versions<a href="https://docs.askui.com/release-notes/release-2024-02-26#3rd-party-versions" class="hash-link" aria-label="Direct link to 3rd Party Versions" title="Direct link to 3rd Party Versions">​</a></h3>
+<ul>
+<li>Node.JS: 21.0.0</li>
+<li>PowerShell 7.3.8</li>
+</ul>]]></content:encoded>
+            <author>johannes.dienst@askui.com (Johannes Dienst)</author>
+            <author>jonas.menesklou@askui.com (Jonas Menesklou)</author>
+            <category>Intent-Pilot</category>
+            <category>AskUI Development Environment (ADE)</category>
+            <category>AskUI Runner</category>
+            <category>AskUI Controller</category>
+        </item>
         <item>
             <title><![CDATA[2024.02.07 | AskUI Suite & Installer]]></title>
             <link>https://docs.askui.com/release-notes/release-2024-02-07</link>
