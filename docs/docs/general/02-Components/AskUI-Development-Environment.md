@@ -188,10 +188,6 @@ Note: Adjust the parameters as needed for your specific configuration.
 See also the dedicated [AskUI Runner docs](AskUI-Runner.md) for more information.
 
 
-
-See the dedicated [AskUI Runner docs](AskUI-Runner.md) on how to configure it.
-
-
 ## ADE + VSCode IDE
 
 The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/] together. Therefore we create (VScode Workspace Settings)[https://code.visualstudio.com/docs/getstarted/settings#_settingsjson]
@@ -208,7 +204,7 @@ The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/
     "livePreview.customExternalBrowser": "Default",
     "terminal.integrated.profiles.windows":{   
         "askui-shell": {    
-            "path": ["C:\\Program Files\\AskUI GmbH\\Tools\\askui-shell.cmd"],
+            "path": ["C:\\Program Files\\AskUI GmbH\\AskUI Suite\\Tools\\askui-shell.cmd"],
             "args": [
                "activate"
             ],
