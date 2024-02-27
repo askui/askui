@@ -18,7 +18,7 @@ export class CreateExampleProject {
 
   private proxyDocUrl: string;
 
-  private remoteDeviceControllerUrl: string;
+  private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
 
@@ -27,7 +27,7 @@ export class CreateExampleProject {
     this.exampleFolderName = 'askui_example';
     this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
-    this.remoteDeviceControllerUrl = 'https://docs.askui.com/docs/api/Remote-Device-Controller';
+    this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
 
@@ -301,10 +301,11 @@ export class CreateExampleProject {
     console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
 
     if (this.cliOptions.operatingSystem === 'windows') {
-      console.log(chalk.redBright(`\nPlease install and start the Remote Device Controller: ${this.remoteDeviceControllerUrl}\n`));
+      console.log(chalk.redBright(`\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`));
+      console.log(`You can start your automation with this command ${chalk.green('AskUI-RunProject')}`);
+    } else {
+      console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     }
-
-    console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */
   }
 }

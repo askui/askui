@@ -122,7 +122,7 @@ AskUI-RunProject
 ```
 
 ## AskUI Controller Management
-The AskUI Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system.
+The AskUI Controller is a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system.
 
 ### `AskUI-StartController` Command
 
