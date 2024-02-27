@@ -68,7 +68,12 @@ export class CreateExampleProject {
       },
       {
         title: 'Install askui dependency',
-        task: async () => runCommand('npm i -D askui '),
+        task: async () => {
+          if (this.cliOptions.operatingSystem === 'linux') {
+            runCommand('npm init -y');
+          }
+          runCommand('npm i -D askui ');
+        },
       },
     ];
   }
@@ -76,46 +81,41 @@ export class CreateExampleProject {
   private async copyTestFrameworkConfig() {
     const frameworkConfigs = {
       jest: 'jest.config.ts',
-      jasmine: 'jasmine.config.json',
     };
     const configFilePath = path.join(
       getPathToNodeModulesRoot(),
       'example_projects_templates',
       'configs',
-      frameworkConfigs[this.cliOptions.testFramework],
+      frameworkConfigs.jest,
     );
     await fs.copyFile(configFilePath, path.join(
       this.distexampleFolderPath,
-      frameworkConfigs[this.cliOptions.testFramework],
+      frameworkConfigs.jest,
     ));
   }
 
   private async addTestFrameWorkTimeout() {
     const frameworkTimeoutstring = {
       jest: 'jest.setTimeout(60 * 1000 * 60);',
-      jasmine: 'jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;',
     };
-    this.helperTemplateConfig['timeout_placeholder'] = frameworkTimeoutstring[this.cliOptions.testFramework];
+    this.helperTemplateConfig['timeout_placeholder'] = frameworkTimeoutstring.jest;
   }
 
   private async addReporterConfig() {
-    if (this.cliOptions.testFramework === 'jest') {
-      this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
-      this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
-      this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
+    this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
+    this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
+    this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
   await AskUIAllureStepReporter.attachVideo(video);`;
-    }
   }
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
       jest: `jest --config ./${this.exampleFolderName}/jest.config.ts --runInBand`,
-      jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
     };
     await addScript(
       `${this.baseDirPath}/package.json`,
       'askui',
-      frameworkExecutionCommand[this.cliOptions.testFramework],
+      frameworkExecutionCommand.jest,
     );
   }
 
@@ -163,8 +163,8 @@ export class CreateExampleProject {
       title: 'Setup Test framework',
       task: async () => new Listr([
         {
-          title: `Install ${this.cliOptions.testFramework}`,
-          task: async () => this.installTestFrameworkPackages(),
+          title: 'Install jest',
+          task: async () => CreateExampleProject.installTestFrameworkPackages(),
         },
         {
           title: 'Copy config file',
@@ -175,7 +175,7 @@ export class CreateExampleProject {
           task: async () => this.addTestFrameWorkTimeout(),
         },
         {
-          title: 'Add reporter (only Jest)',
+          title: 'Add reporter',
           task: async () => this.addReporterConfig(),
         },
         {
@@ -190,13 +190,12 @@ export class CreateExampleProject {
     }];
   }
 
-  private async installTestFrameworkPackages(): Promise<void> {
+  private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
-    const frameworkDepencies = {
+    const frameworkDependencies = {
       jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
-      jasmine: 'npm i -D @askui/askui-reporters typescript ts-node @types/jasmine jasmine @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
     };
-    await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
+    await runCommand(frameworkDependencies.jest);
   }
 
   private async addUserCredentials() {

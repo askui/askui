@@ -7,12 +7,6 @@ const nonEmpty = (subject: string) => (input: string) => (input.trim().length > 
 
 const questions = [
   {
-    type: 'list',
-    name: 'testFramework',
-    message: 'Which framework do you prefer',
-    choices: ['jest', 'jasmine'],
-  },
-  {
     type: 'input',
     name: 'workspaceId',
     message: 'Your workspace id',
@@ -40,11 +34,6 @@ const questions = [
 ];
 
 const options = [
-  {
-    option: '-f, --test-framework <value>',
-    choices: ['jasmine', 'jest'],
-    description: 'the test framework to use',
-  },
   {
     option: '-w, --workspace-id <value>',
     choices: [],
