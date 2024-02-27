@@ -118,7 +118,7 @@ The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/
 - `terminal.integrated.defaultProfile.windows`: Set the `askui-shell` as default
 
 Then the `askui-shell` is configured for as the default terminal like this:
-![askui logo](./docs/static/img/vscode/askui_shell.png)
+![askui logo](./docs/static/img/vs-code/askui_shell.png)
 
 
 ### Configure Jest Runner, ESLint & Live View
@@ -135,24 +135,24 @@ Add the recommended extenstions for VSCode by adding `<project>/.vscode/extensio
 - `dbaeumer.vscode-eslint`: [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) plugin to show missing `exec()`.
 
 Then you can install the extenstion by clicking on `Install` under:
-![askui logo](./docs/static/img/vscode/recommended_extensions.png)
+![askui logo](./docs/static/img/vs-code/recommended_extensions.png)
 
 ### Use Jest Runner
 
 You can start a workflow by clicking on `Run` inside a `test.ts`-file: 
-![askui logo](./docs/static/img/vscode/jestrunner.png)
+![askui logo](./docs/static/img/vs-code/jestrunner.png)
 
 
 ### Use ESLint
 
 ESList Plugin is showing you if you forgot an `exec()`:
-![askui logo](./docs/static/img/vscode/eslint-missing-exec.png)
+![askui logo](./docs/static/img/vs-code/eslint-missing-exec.png)
 
 
 ### Use Live Viewer
 
 The Live Viewer can show you the annotation without leaving the VSCode:
-![askui logo](./docs/static/img/vscode/annotation-live-views.png)
+![askui logo](./docs/static/img/vs-code/annotation-live-viewer.png)
 
 
 
