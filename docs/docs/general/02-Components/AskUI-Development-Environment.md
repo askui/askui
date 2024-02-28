@@ -266,6 +266,6 @@ ESLint Plugin is showing you if you forgot an `exec()`:
 
 ### Use Live Viewer
 
-The Live Viewer can show you the annotation without leaving the VSCode:
+The Live Viewer can show you the annotation without leaving VSCode:
 
 ![askui logo](images/vs-code/annotation-live-viewer.png)
