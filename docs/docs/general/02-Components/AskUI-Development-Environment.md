@@ -190,9 +190,13 @@ See also the dedicated [AskUI Runner docs](AskUI-Runner.md) for more information
 
 ## ADE + VSCode IDE
 
-The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/] together. Therefore we create (VScode Workspace Settings)[https://code.visualstudio.com/docs/getstarted/settings#_settingsjson]
+The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/] together. Therefore we guide you to create a (VScode Workspace Settings)[https://code.visualstudio.com/docs/getstarted/settings#_settingsjson].
 
-**Note: Only compatible with windows**
+:::danger
+
+**Note: Only compatible with Windows**
+
+:::
 
 1. Create a `<project>/.vscode` folder with `mkdir .vscode`
 
