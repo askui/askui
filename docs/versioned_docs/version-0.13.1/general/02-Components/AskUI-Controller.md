@@ -3,7 +3,7 @@ sidebar_position: 4
 ---
 
 # AskUI Controller
-The AskUI Controller a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system. The AskUI SDK connects to it and issues commands for user input like mouse movement and keypresses to it which the AskUI Controller executes like a real human user.
+The AskUI Controller is a service that runs on your operating system. It is able to control inputs and observe the visuals on the operating system. The AskUI SDK connects to it and issues commands for user input like mouse movement and keypresses to it which the AskUI Controller executes like a real human user.
 
 ![Architecture drawing how the AskUI Controller works together with AskUI SDK. The AskUI Controller runs in an environment and executes commands given to it by AskUI SDK: Keypresses, mouse movement and clicks. It also takes screenshots and sends them over the AskUI SDK to the AskUI Inference.](./images/askui-device-controller-simple-architecture.png)
 
