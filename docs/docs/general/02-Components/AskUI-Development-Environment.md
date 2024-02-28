@@ -218,7 +218,7 @@ The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/
     "terminal.integrated.defaultProfile.windows": "askui-shell"
 }
 ```
-- `terminal.integrated.profiles.windows`: Configures the `askui-shell` and deactivate other shells
+- `terminal.integrated.profiles.windows`: Configures the `askui-shell` and deactivates other shells
 - `terminal.integrated.defaultProfile.windows`: Set the `askui-shell` as default
 
 Then the `askui-shell` is configured for as the default terminal like this:
