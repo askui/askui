@@ -219,7 +219,7 @@ The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/
 }
 ```
 - `terminal.integrated.profiles.windows`: Configures the `askui-shell` and deactivates other shells
-- `terminal.integrated.defaultProfile.windows`: Set the `askui-shell` as default
+- `terminal.integrated.defaultProfile.windows`: Sets the `askui-shell` as default
 
 Then the `askui-shell` is configured for as the default terminal like this:
 ![askui logo](./docs/static/img/vs-code/askui_shell.png)
@@ -234,11 +234,11 @@ Add the recommended extenstions for VSCode by adding `<project>/.vscode/extensio
     "recommendations": ["ms-vscode.live-server", "firsttris.vscode-jest-runner", "dbaeumer.vscode-eslint"]
 }
 ```
-- `ms-vscode.live-server`: HTML [Live Viewer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server) for annotations.
+- `ms-vscode.live-server`: HTML [Live Viewer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server) for viewing annotations inside VSCode instead of, e.g., having to jump out of VSCode and opening it up in a web browser.
 - `firsttris.vscode-jest-runner`: [Jest Runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner) to start single test out of the IDE.
 - `dbaeumer.vscode-eslint`: [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) plugin to show missing `exec()`.
 
-Then you can install the extenstion by clicking on `Install` under:
+Then you can install the extension by clicking on `Install` under:
 ![askui logo](./docs/static/img/vs-code/recommended_extensions.png)
 
 ### Use Jest Runner
