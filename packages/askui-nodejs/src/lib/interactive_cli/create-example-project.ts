@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import nunjucks from 'nunjucks';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
-import { addScript } from './add-script-package-json';
+import { addScript, removeScript } from './add-remove-script-package-json';
 
 export class CreateExampleProject {
   private distexampleFolderPath: string;
@@ -69,10 +69,9 @@ export class CreateExampleProject {
       {
         title: 'Install askui dependency',
         task: async () => {
-          if (this.cliOptions.operatingSystem === 'linux') {
-            runCommand('npm init -y');
-          }
-          runCommand('npm i -D askui ');
+          await runCommand('npm init -y');
+          await removeScript(`${this.baseDirPath}/package.json`, 'test');
+          await runCommand('npm i -D askui ');
         },
       },
     ];
