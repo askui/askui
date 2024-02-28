@@ -158,6 +158,7 @@ Also see the dedicated [AskUI Controller docs](AskUI-Controller.md) for more inf
 ## AskUI Runner Management
 The AskUI Runner is a self-hosted component that downloads your workflows from AskUI Studio and runs them on the device it is hosted at.
 
+
 ### `AskUI-StartRunner` Command
 The `AskUI-StartRunner` command starts the AskUI Runner. This function accepts the following parameters:
 
@@ -185,3 +186,86 @@ Note: Adjust the parameters as needed for your specific configuration.
 :::
 
 See also the dedicated [AskUI Runner docs](AskUI-Runner.md) for more information.
+
+
+## ADE + VSCode IDE
+
+The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/]. Therefore we guide you to create [VSCode Workspace Settings](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson).
+
+:::danger
+
+**Note: Only compatible with Windows**
+
+:::
+
+1. Create a `<project>/.vscode` folder with `mkdir .vscode`
+
+### Configure the `askui-shell`
+
+2. Create the `<project>/.vscode/settings.json` with the following content:
+
+```json
+{
+    "livePreview.customExternalBrowser": "Default",
+    "terminal.integrated.profiles.windows":{   
+        "askui-shell": {    
+            "path": ["C:\\Program Files\\AskUI GmbH\\AskUI Suite\\Tools\\askui-shell.cmd"],
+            "args": [
+               "activate"
+            ],
+            "icon": "terminal-bash",
+        },        
+        "Git Bash": null,        
+        "Command Prompt": null,        
+        "PowerShell": null,        
+        "JavaScript Debug Terminal": null
+    },
+    "terminal.integrated.defaultProfile.windows": "askui-shell"
+}
+```
+
+- `terminal.integrated.profiles.windows`: Configures the `askui-shell` and deactivates other shells
+- `terminal.integrated.defaultProfile.windows`: Sets the `askui-shell` as default
+
+Then the `askui-shell` is configured as the default terminal like this:
+
+![askui logo](images/vs-code/askui_shell.png)
+
+
+### Configure Jest Runner, ESLint & Live View
+
+Add the recommended extensions for VSCode by adding `<project>/.vscode/extensions.json` with following content:
+
+```json
+{
+    "recommendations": ["ms-vscode.live-server", "firsttris.vscode-jest-runner", "dbaeumer.vscode-eslint"]
+}
+```
+
+- `ms-vscode.live-server`: HTML [Live Viewer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server) for viewing annotations inside VSCode instead of, e.g., having to jump out of VSCode and open it in a web browser.
+- `firsttris.vscode-jest-runner`: [Jest Runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner) to start single test out of the IDE.
+- `dbaeumer.vscode-eslint`: [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) plugin to show missing `exec()`.
+
+Then you can install the extension by clicking on `Install` under:
+
+![askui logo](images/vs-code/recommended_extensions.png)
+
+### Use Jest Runner
+
+You can start a workflow by clicking on `Run` inside a `*test.ts`-file:
+
+![askui logo](images/vs-code/jestrunner.png)
+
+
+### Use ESLint
+
+ESLint Plugin is showing you if you forgot an `exec()`:
+
+![askui logo](images/vs-code/eslint-missing-exec.png)
+
+
+### Use Live Viewer
+
+The Live Viewer can show you the annotation without leaving VSCode:
+
+![askui logo](images/vs-code/annotation-live-viewer.png)
