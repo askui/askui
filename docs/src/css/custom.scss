@@ -45,6 +45,8 @@ video {
   --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.5;
   --ifm-font-family-base: "Figtree", "Verdana", sans-serif;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);;
 }
 
 .navbar__search-input {
@@ -64,13 +66,6 @@ video {
   background: url("/img/icons/github_black.svg") no-repeat;
   background-size: 26px 26px;
   margin-top: 5px;
-}
-
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
 }
 
 .button.button--secondary {

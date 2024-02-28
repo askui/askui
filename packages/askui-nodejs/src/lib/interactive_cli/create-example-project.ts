@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import nunjucks from 'nunjucks';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
-import { addScript } from './add-script-package-json';
+import { addScript, removeScript } from './add-remove-script-package-json';
 
 export class CreateExampleProject {
   private distexampleFolderPath: string;
@@ -18,7 +18,7 @@ export class CreateExampleProject {
 
   private proxyDocUrl: string;
 
-  private remoteDeviceControllerUrl: string;
+  private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
 
@@ -27,7 +27,7 @@ export class CreateExampleProject {
     this.exampleFolderName = 'askui_example';
     this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
     this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
-    this.remoteDeviceControllerUrl = 'https://docs.askui.com/docs/api/Remote-Device-Controller';
+    this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
 
@@ -68,7 +68,11 @@ export class CreateExampleProject {
       },
       {
         title: 'Install askui dependency',
-        task: async () => runCommand('npm i -D askui '),
+        task: async () => {
+          await runCommand('npm init -y');
+          await removeScript(`${this.baseDirPath}/package.json`, 'test');
+          await runCommand('npm i -D askui ');
+        },
       },
     ];
   }
@@ -76,46 +80,41 @@ export class CreateExampleProject {
   private async copyTestFrameworkConfig() {
     const frameworkConfigs = {
       jest: 'jest.config.ts',
-      jasmine: 'jasmine.config.json',
     };
     const configFilePath = path.join(
       getPathToNodeModulesRoot(),
       'example_projects_templates',
       'configs',
-      frameworkConfigs[this.cliOptions.testFramework],
+      frameworkConfigs.jest,
     );
     await fs.copyFile(configFilePath, path.join(
       this.distexampleFolderPath,
-      frameworkConfigs[this.cliOptions.testFramework],
+      frameworkConfigs.jest,
     ));
   }
 
   private async addTestFrameWorkTimeout() {
     const frameworkTimeoutstring = {
       jest: 'jest.setTimeout(60 * 1000 * 60);',
-      jasmine: 'jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000 * 60;',
     };
-    this.helperTemplateConfig['timeout_placeholder'] = frameworkTimeoutstring[this.cliOptions.testFramework];
+    this.helperTemplateConfig['timeout_placeholder'] = frameworkTimeoutstring.jest;
   }
 
   private async addReporterConfig() {
-    if (this.cliOptions.testFramework === 'jest') {
-      this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
-      this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
-      this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
+    this.helperTemplateConfig['allure_stepreporter_import'] = "import { AskUIAllureStepReporter } from '@askui/askui-reporters';";
+    this.helperTemplateConfig['reporter_placeholder'] = 'reporter: new AskUIAllureStepReporter(),';
+    this.helperTemplateConfig['allure_stepreporter_attach_video'] = `const video = await aui.readVideoRecording();
   await AskUIAllureStepReporter.attachVideo(video);`;
-    }
   }
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
       jest: `jest --config ./${this.exampleFolderName}/jest.config.ts --runInBand`,
-      jasmine: `jasmine --config=${this.exampleFolderName}/jasmine.config.json`,
     };
     await addScript(
       `${this.baseDirPath}/package.json`,
       'askui',
-      frameworkExecutionCommand[this.cliOptions.testFramework],
+      frameworkExecutionCommand.jest,
     );
   }
 
@@ -163,8 +162,8 @@ export class CreateExampleProject {
       title: 'Setup Test framework',
       task: async () => new Listr([
         {
-          title: `Install ${this.cliOptions.testFramework}`,
-          task: async () => this.installTestFrameworkPackages(),
+          title: 'Install jest',
+          task: async () => CreateExampleProject.installTestFrameworkPackages(),
         },
         {
           title: 'Copy config file',
@@ -175,7 +174,7 @@ export class CreateExampleProject {
           task: async () => this.addTestFrameWorkTimeout(),
         },
         {
-          title: 'Add reporter (only Jest)',
+          title: 'Add reporter',
           task: async () => this.addReporterConfig(),
         },
         {
@@ -190,13 +189,12 @@ export class CreateExampleProject {
     }];
   }
 
-  private async installTestFrameworkPackages(): Promise<void> {
+  private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
-    const frameworkDepencies = {
+    const frameworkDependencies = {
       jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
-      jasmine: 'npm i -D @askui/askui-reporters typescript ts-node @types/jasmine jasmine @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
     };
-    await runCommand(frameworkDepencies[this.cliOptions.testFramework]);
+    await runCommand(frameworkDependencies.jest);
   }
 
   private async addUserCredentials() {
@@ -302,10 +300,11 @@ export class CreateExampleProject {
     console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
 
     if (this.cliOptions.operatingSystem === 'windows') {
-      console.log(chalk.redBright(`\nPlease install and start the Remote Device Controller: ${this.remoteDeviceControllerUrl}\n`));
+      console.log(chalk.redBright(`\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`));
+      console.log(`You can start your automation with this command ${chalk.green('AskUI-RunProject')}`);
+    } else {
+      console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     }
-
-    console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
     /* eslint-enable no-console */
   }
 }

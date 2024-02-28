@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-title: Mobile Automation
+title: Automating Mobile Devices
 ---
 **Index**
 
@@ -49,7 +49,7 @@ The command `adb` is usually not added to your `$PATH` and will not be available
 
 Until now, you have prepared your Android device and now you are ready to go for automating our Android app. But before you jump into this phase, you will set up one more utility that will make the procedure easier.
 
-[ADBKeyboard](https://github.com/senzhk/ADBKeyBoard) is a virtual keyboard that can be installed on Android devices. It enables us to type within the Android device by using command lines commands via adb.
+[ADBKeyboard](https://github.com/senzhk/ADBKeyBoard) is a virtual keyboard that can be installed on Android devices. It enables us to type within the Android device by issuing commands via adb.
 
 One noticeable advantage of using ADBKeyboard is that it can also handle base64 encoding, which becomes handy if you want to type Unicode characters such as emojis:fire: For more details about this virtual keyboard, [see here](https://github.com/senzhk/ADBKeyBoard/blob/master/README.md).
 

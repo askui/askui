@@ -4,7 +4,7 @@ pagination_next: general/Getting Started/write-your-first-instruction
 ---
 
 # Enterprise Checklist
-If you want to get started with AskUI in an enterprise environment you will experience challenges unique to your company. This checklist will give you everything that AskUI needs and guidance on how to resolve upcoming errors. If you are not familiar with setting this up we __strongly_ suggest to get someone from your IT-department involved who knows how the network in your company works.
+If you want to get started with AskUI in an enterprise environment you will experience challenges unique to your company. This checklist will give you everything that AskUI needs and guidance on how to resolve upcoming errors. If you are not familiar with setting this up we __strongly__ suggest to get someone from your IT-department involved who knows how the network in your company works.
 
 Common problems you may run into:
 * [Network](#network): You need to use a proxy for internet access.
