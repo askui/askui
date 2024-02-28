@@ -77,7 +77,6 @@
         "@types/node": "17.0.10",
         "@types/nunjucks": "^3.2.5",
         "@types/sharp": "0.30.4",
-        "@types/url-join": "4.0.1",
         "@types/webrtc": "0.0.30",
         "@types/ws": "7.4.4",
         "hpagent": "^1.2.0",
