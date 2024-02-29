@@ -209,16 +209,11 @@ The ADE is build to work seamlessly with (VSCode)[https://code.visualstudio.com/
     "livePreview.customExternalBrowser": "Default",
     "terminal.integrated.profiles.windows":{   
         "askui-shell": {    
-            "path": ["C:\\Program Files\\AskUI GmbH\\AskUI Suite\\Tools\\askui-shell.cmd"],
-            "args": [
-               "activate"
-            ],
-            "icon": "terminal-bash",
-        },        
-        "Git Bash": null,        
-        "Command Prompt": null,        
-        "PowerShell": null,        
-        "JavaScript Debug Terminal": null
+            "path": ["${env:ASKUI_INSTALLATION_DIRECTORY}\\Tools\\askui-shell.cmd"],
+            "icon": "robot",
+            "overrideName": true,
+            "color": "terminal.ansiMagenta",
+        }
     },
     "terminal.integrated.defaultProfile.windows": "askui-shell"
 }
