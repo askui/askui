@@ -47,6 +47,7 @@ const config = {
       require.resolve('docusaurus-lunr-search'),
       {
         indexBaseUrl: true,
+        maxHits: 7,
         includeRoutes: [
           '/docs/**/api/API/*',
           '/docs/**/api/**/*',
@@ -166,6 +167,12 @@ const config = {
             docId: 'api/API/table-of-contents',
             position: 'left',
             label: 'API',
+          },
+          {
+            type: 'doc',
+            docId: 'askui-studio/overview',
+            position: 'left',
+            label: 'AskUI Studio',
           },
           {
             type: 'docsVersionDropdown',
