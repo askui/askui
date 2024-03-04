@@ -30,12 +30,6 @@ const questions = [
   },
   {
     type: 'confirm',
-    name: 'usingProxy',
-    message: 'Are you using a proxy? Default No:',
-    default: false,
-  },
-  {
-    type: 'confirm',
     name: 'typescriptConfig',
     message: 'Do you want to overwrite the tsconfig.json file? Default No:',
     default: false,
@@ -67,11 +61,6 @@ const options = [
     description: 'an access token for the workspace with the id.',
   },
   {
-    option: '-p, --using-proxy',
-    choices: [],
-    description: 'use a proxy flag.',
-  },
-  {
     option: '-t, --typescript-config',
     choices: [],
     description: 'overwrite tsconfig.json flag',
@@ -88,10 +77,10 @@ export function init(argv: string[]): Command {
   const args = argv || process.argv;
   const program = createProgram();
   const programInit = program.command('init');
-  
+
   // To Ensure Backwards Compatibility
-  programInit.allowUnknownOption(true)
-  
+  programInit.allowUnknownOption(true);
+
   programInit.description('Creates an AskUI example project:');
 
   // Loop through the options object and register each option with the program

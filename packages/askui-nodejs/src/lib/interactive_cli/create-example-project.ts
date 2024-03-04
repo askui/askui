@@ -16,8 +16,6 @@ export class CreateExampleProject {
 
   private baseDirPath: string;
 
-  private proxyDocUrl: string;
-
   private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
@@ -29,7 +27,6 @@ export class CreateExampleProject {
       this.baseDirPath,
       this.exampleFolderName,
     );
-    this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
     this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
@@ -195,7 +192,7 @@ export class CreateExampleProject {
   private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDependencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui hpagent',
     };
     await runCommand(frameworkDependencies.jest);
   }
@@ -260,18 +257,6 @@ export class CreateExampleProject {
     ];
   }
 
-  private async installProxy(): Promise<Listr.ListrTask<unknown>[]> {
-    const runCommand = promisify(exec);
-
-    return [
-      {
-        title: 'Install Proxy',
-        enabled: () => this.cliOptions.usingProxy,
-        task: async () => runCommand('npm install --save-dev hpagent '),
-      },
-    ];
-  }
-
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();
 
@@ -282,21 +267,10 @@ export class CreateExampleProject {
       ...(await this.copyTsConfigFile()),
       ...(await this.addUserCredentials()),
       ...(await this.createAskUIHelperFromTemplate()),
-      ...(await this.installProxy()),
     ]);
 
     await tasks.run();
     /* eslint-disable no-console */
-    if (this.cliOptions.usingProxy) {
-      console.log(
-        chalk.redBright(
-          "Since you are using a Proxy. Please don't forget to configure it!",
-        ),
-      );
-      console.log(
-        chalk.gray(`You can find more information under ${this.proxyDocUrl}`),
-      );
-    }
     console.log(chalk.greenBright('\nCongratulations!'));
     console.log(
       `askui example was created under ${chalk.gray(
