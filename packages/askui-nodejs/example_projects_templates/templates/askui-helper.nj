@@ -21,10 +21,7 @@ beforeAll(async () => {
   await uiController.start();
 
   aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '{{ workspace_id}}',
-      token: '{{ access_token }}',
-    },
+    {{ credentials }}
     {{ reporter_placeholder }}
   });
 

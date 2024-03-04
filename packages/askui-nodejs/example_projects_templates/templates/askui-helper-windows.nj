@@ -9,10 +9,7 @@ let aui: UiControlClient;
 
 beforeAll(async () => {
   aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '{{ workspace_id}}',
-      token: '{{ access_token }}',
-    },
+    {{ credentials }}
     {{ reporter_placeholder }}
   });
 
