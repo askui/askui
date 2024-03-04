@@ -328,29 +328,6 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Drags element1 to element2.
-   *
-   * Both must be a `moveMouse()` or `moveMouseTo()`
-   * instruction as in the example below.
-   *
-   * Usage example:
-   * dragTo(
-   *   aui.moveMouseTo().text('AskUI'),
-   *   aui.moveMouseTo().text('UI Automation')
-   * )
-   *
-   * @param {Executable} element1
-   * @param {Executable} element2
-   */
-  async dragTo(element1: Executable, element2: Executable) {
-    await element1.exec();
-    await this.mouseLeftClick().exec();
-    await this.mouseToggleDown().exec();
-    await element2.exec();
-    await this.mouseToggleUp().exec();
-  }
-
-  /**
    * Wait until an AskUICommand does not fail.
    *
    * Use it to wait for an element to appear like this:
