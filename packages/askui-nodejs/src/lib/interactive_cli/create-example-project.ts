@@ -247,14 +247,14 @@ export class CreateExampleProject {
       'typescript',
       'tsconfig.json',
     );
-
+    const tsConfigTargetFilePath = path.join(this.baseDirPath, 'tsconfig.json');
     return [
       {
         title: 'Copy ts config file',
-        enabled: () => this.cliOptions.typescriptConfig || !fs.existsSync(tsConfigFilePath),
+        enabled: () => this.cliOptions.typescriptConfig || !fs.existsSync(tsConfigTargetFilePath),
         task: async () => fs.copyFile(
           path.join(getPathToNodeModulesRoot(), tsConfigFilePath),
-          path.join(this.baseDirPath, 'tsconfig.json'),
+          tsConfigTargetFilePath,
         ),
       },
     ];
