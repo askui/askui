@@ -38,9 +38,9 @@ To create and serve a static HTML-Report you have to install [Allure](https://gi
 :::
 
 ## (Optional) Store Your Credentials in `.env`-File 
-Your credentials (_Access Token_ and _Workspace ID_) get stored in plain text in the file (`askui_example/helpers/askui-helper.ts`). Storing credentials in plain text increases their risk to be leacked by pushing them to a remote repository.
+Your credentials (_Access Token_ and _Workspace ID_) get stored in plain text in the file (`askui_example/helpers/askui-helper.ts`). Storing credentials in plain text increases their risk to be leaked by pushing them to a remote repository.
 
-To load them from the `.env` file that gets created you have to remove the `credentials` property from `UiControlClient` in `askui_example/helpers/askui-helper.ts` and activate the `dotenv`-environment by uncommenting the import at the start of the same file:
+To load them from the `.env` file that gets created you have to remove the `credentials` property from `UiControlClient` in `askui_example/helpers/askui-helper.ts` and activate the `dotenv`-environment by commenting in the import at the start of the same file:
 
 ```typescript
 aui = await UiControlClient.build({
