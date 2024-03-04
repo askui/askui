@@ -4,6 +4,5 @@ export interface CliOptions {
   workspaceId: string,
   accessToken: string,
   testFramework: 'jest',
-  usingProxy: boolean,
   typescriptConfig: boolean,
 }
