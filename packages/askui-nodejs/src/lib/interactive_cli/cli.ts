@@ -7,6 +7,12 @@ const nonEmpty = (subject: string) => (input: string) => (input.trim().length > 
 
 const questions = [
   {
+    type: 'list',
+    name: 'testFramework',
+    message: 'Which framework do you prefer',
+    choices: ['jest'],
+  },
+  {
     type: 'input',
     name: 'workspaceId',
     message: 'Your workspace id',
@@ -34,6 +40,11 @@ const questions = [
 ];
 
 const options = [
+  {
+    option: '-f, --test-framework <value>',
+    choices: ['jest'],
+    description: 'the test framework to use',
+  },
   {
     option: '-w, --workspace-id <value>',
     choices: [],
@@ -66,7 +77,7 @@ export function init(argv: string[]): Command {
   const args = argv || process.argv;
   const program = createProgram();
   const programInit = program.command('init');
-  programInit.description('Creates a askui example project');
+  programInit.description('Creates an askui example project');
 
   // Loop through the options object and register each option with the program
   options.forEach((opt) => {
