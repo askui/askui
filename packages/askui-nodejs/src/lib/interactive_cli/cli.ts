@@ -9,7 +9,7 @@ const questions = [
   {
     type: 'list',
     name: 'testFramework',
-    message: 'Which framework do you prefer',
+    message: 'Which framework do you prefer?',
     choices: ['jest'],
   },
   {
