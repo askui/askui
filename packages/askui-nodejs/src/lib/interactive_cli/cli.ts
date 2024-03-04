@@ -88,6 +88,10 @@ export function init(argv: string[]): Command {
   const args = argv || process.argv;
   const program = createProgram();
   const programInit = program.command('init');
+  
+  // To Ensure Backwards Compatibility
+  programInit.allowUnknownOption(true)
+  
   programInit.description('Creates an AskUI example project:');
 
   // Loop through the options object and register each option with the program
