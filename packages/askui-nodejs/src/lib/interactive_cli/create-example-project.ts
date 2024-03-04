@@ -199,10 +199,10 @@ export class CreateExampleProject {
 
   private async addUserCredentials() {
     return [{
-      title: 'Add user credentials in .env file',
+      title: 'Add user credentials',
       task: async () => new Listr([
         {
-          title: 'Create .env ',
+          title: 'Create .env file ',
           task: async () => {
             const askuiDotEnvTemplateFilePath = path.join(
               getPathToNodeModulesRoot(),
@@ -218,6 +218,14 @@ export class CreateExampleProject {
             const filePath = path.join(this.baseDirPath, '.env');
             await fs.writeFile(filePath, result, 'utf8');
           },
+        },
+        {
+          title: 'Add workspace id ',
+          task: async () => { this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId; },
+        },
+        {
+          title: 'Add access token',
+          task: async () => { this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken; },
         },
       ]),
     }];

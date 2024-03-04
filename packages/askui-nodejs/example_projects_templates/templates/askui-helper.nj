@@ -1,6 +1,7 @@
 import { UiControlClient, UiController } from 'askui';
 {{ allure_stepreporter_import }}
-import 'dotenv/config';
+// Uncomment the next file to load credentials from .env file
+// import 'dotenv/config';
 
 // Server for controlling the operating system
 let uiController: UiController;
@@ -22,6 +23,12 @@ beforeAll(async () => {
   await uiController.start();
 
   aui = await UiControlClient.build({
+    // Remove the credentials property to
+    // load credentials from .env file
+    credentials: {
+      workspaceId: '{{ workspace_id}}',
+      token: '{{ access_token }}',
+    },
     {{ reporter_placeholder }}
   });
 
