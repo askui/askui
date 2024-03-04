@@ -1,5 +1,6 @@
 import { UiControlClient, UiController } from 'askui';
 {{ allure_stepreporter_import }}
+import 'dotenv/config';
 
 // Server for controlling the operating system
 let uiController: UiController;
@@ -21,10 +22,6 @@ beforeAll(async () => {
   await uiController.start();
 
   aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '{{ workspace_id}}',
-      token: '{{ access_token }}',
-    },
     {{ reporter_placeholder }}
   });
 

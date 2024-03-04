@@ -192,22 +192,32 @@ export class CreateExampleProject {
   private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDependencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest dotenv @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
     };
     await runCommand(frameworkDependencies.jest);
   }
 
   private async addUserCredentials() {
     return [{
-      title: 'Add user credentials',
+      title: 'Add user credentials in .env file',
       task: async () => new Listr([
         {
-          title: 'Add workspace id ',
-          task: async () => { this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId; },
-        },
-        {
-          title: 'Add access token',
-          task: async () => { this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken; },
+          title: 'Create .env ',
+          task: async () => {
+            const askuiDotEnvTemplateFilePath = path.join(
+              getPathToNodeModulesRoot(),
+              'example_projects_templates',
+              'templates',
+            );
+
+            const templateFileName = '.env.nj';
+            this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId;
+            this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken;
+            nunjucks.configure(askuiDotEnvTemplateFilePath, { autoescape: false });
+            const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
+            const filePath = path.join(this.baseDirPath, '.env');
+            await fs.writeFile(filePath, result, 'utf8');
+          },
         },
       ]),
     }];

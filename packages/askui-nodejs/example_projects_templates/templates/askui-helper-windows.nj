@@ -1,5 +1,6 @@
 import { UiControlClient } from 'askui';
 {{ allure_stepreporter_import }}
+import 'dotenv/config';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports
@@ -9,10 +10,6 @@ let aui: UiControlClient;
 
 beforeAll(async () => {
   aui = await UiControlClient.build({
-    credentials: {
-      workspaceId: '{{ workspace_id}}',
-      token: '{{ access_token }}',
-    },
     {{ reporter_placeholder }}
   });
 
