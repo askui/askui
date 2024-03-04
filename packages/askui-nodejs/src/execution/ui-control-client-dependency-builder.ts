@@ -5,11 +5,11 @@ import {
   ClientArgs,
   ClientArgsWithDefaults,
 } from './ui-controller-client-interface';
-import { envCredentials } from './read-environment-credentials';
 import { Analytics } from '../utils/analytics';
 import { envProxyAgents } from '../utils/proxy/proxy-builder';
 import { ExecutionRuntime } from './execution-runtime';
 import { StepReporter } from '../core/reporting';
+import { readCredentials } from './read-credentials';
 
 export class UiControlClientDependencyBuilder {
   private static async buildHttpClient(
@@ -47,9 +47,10 @@ export class UiControlClientDependencyBuilder {
     return new UiControllerClient(clientArgs.uiControllerUrl);
   }
 
-  static async build(
-    clientArgs: ClientArgsWithDefaults,
-  ): Promise<{ executionRuntime: ExecutionRuntime, stepReporter: StepReporter }> {
+  static async build(clientArgs: ClientArgsWithDefaults): Promise<{
+    executionRuntime: ExecutionRuntime;
+    stepReporter: StepReporter;
+  }> {
     const uiControllerClient = UiControlClientDependencyBuilder.buildUiControllerClient(clientArgs);
     const inferenceClient = await UiControlClientDependencyBuilder.buildInferenceClient(clientArgs);
     const stepReporter = new StepReporter(clientArgs.reporter);
@@ -69,9 +70,10 @@ export class UiControlClientDependencyBuilder {
     return {
       ...clientArgs,
       uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
-      inferenceServerUrl: clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
-      credentials: clientArgs.credentials ?? envCredentials(),
-      proxyAgents: clientArgs.proxyAgents ?? await envProxyAgents(),
+      inferenceServerUrl:
+        clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
+      credentials: readCredentials(clientArgs),
+      proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
     };
   }
 }

@@ -1,7 +1,8 @@
 export interface CliOptions {
+  skipCredentials: boolean,
   operatingSystem: 'windows' | 'linux' | 'macos',
   workspaceId: string,
   accessToken: string,
-  usingProxy: boolean,
+  testFramework: 'jest',
   typescriptConfig: boolean,
 }

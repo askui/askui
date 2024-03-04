@@ -23,12 +23,7 @@ beforeAll(async () => {
   await uiController.start();
 
   aui = await UiControlClient.build({
-    // Remove the credentials property to
-    // load credentials from .env file
-    credentials: {
-      workspaceId: '{{ workspace_id}}',
-      token: '{{ access_token }}',
-    },
+    {{ credentials }}
     {{ reporter_placeholder }}
   });
 

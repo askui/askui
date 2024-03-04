@@ -16,8 +16,6 @@ export class CreateExampleProject {
 
   private baseDirPath: string;
 
-  private proxyDocUrl: string;
-
   private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
@@ -25,8 +23,10 @@ export class CreateExampleProject {
   constructor(readonly cliOptions: CliOptions) {
     this.baseDirPath = process.cwd();
     this.exampleFolderName = 'askui_example';
-    this.distexampleFolderPath = path.join(this.baseDirPath, this.exampleFolderName);
-    this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
+    this.distexampleFolderPath = path.join(
+      this.baseDirPath,
+      this.exampleFolderName,
+    );
     this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
@@ -192,7 +192,7 @@ export class CreateExampleProject {
   private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDependencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest dotenv @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus dotenv eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui hpagent',
     };
     await runCommand(frameworkDependencies.jest);
   }
@@ -220,12 +220,14 @@ export class CreateExampleProject {
           },
         },
         {
-          title: 'Add workspace id ',
-          task: async () => { this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId; },
-        },
-        {
-          title: 'Add access token',
-          task: async () => { this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken; },
+          title: 'Add user credentials',
+          enabled: () => !this.cliOptions.skipCredentials,
+          task: async () => {
+            this.helperTemplateConfig['credentials'] = `credentials: {
+        workspaceId: '${this.cliOptions.workspaceId}',
+        token: '${this.cliOptions.accessToken}',
+      },`;
+          },
         },
       ]),
     }];
@@ -253,75 +255,67 @@ export class CreateExampleProject {
           ),
         },
       ]),
-    }];
+    },
+    ];
   }
 
   private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
-    const tsConfigFilePath = path.join('example_projects_templates', 'typescript', 'tsconfig.json');
-
-    return [{
-      title: 'Copy ts config file',
-      enabled: () => this.cliOptions.typescriptConfig,
-      task: async () => fs.copyFile(
-        path.join(getPathToNodeModulesRoot(), tsConfigFilePath),
-        path.join(this.baseDirPath, 'tsconfig.json'),
-      ),
-    }];
-  }
-
-  private async installProxy(): Promise<Listr.ListrTask<unknown>[]> {
-    const runCommand = promisify(exec);
-
-    return [{
-      title: 'Install Proxy',
-      enabled: () => this.cliOptions.usingProxy,
-      task: async () => runCommand('npm install --save-dev hpagent '),
-    }];
-  }
-
-  private normalizeCliOptions() {
-    let useProxy = this.cliOptions.usingProxy;
-    if (typeof useProxy !== 'boolean') {
-      useProxy = (useProxy === 'true');
-    }
-    this.cliOptions.usingProxy = useProxy;
-
-    let { typescriptConfig } = this.cliOptions;
-    if (typeof typescriptConfig !== 'boolean') {
-      typescriptConfig = (typescriptConfig === 'true');
-    }
-    this.cliOptions.typescriptConfig = typescriptConfig;
+    const tsConfigFilePath = path.join(
+      'example_projects_templates',
+      'typescript',
+      'tsconfig.json',
+    );
+    const tsConfigTargetFilePath = path.join(this.baseDirPath, 'tsconfig.json');
+    return [
+      {
+        title: 'Copy ts config file',
+        enabled: () => this.cliOptions.typescriptConfig || !fs.existsSync(tsConfigTargetFilePath),
+        task: async () => fs.copyFile(
+          path.join(getPathToNodeModulesRoot(), tsConfigFilePath),
+          tsConfigTargetFilePath,
+        ),
+      },
+    ];
   }
 
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();
 
-    this.normalizeCliOptions();
-
     tasks.add([
-      ...await this.copyTemplateProject(),
-      ...await this.setupTestFrameWork(),
-      ...await this.copyESLintConfigFiles(),
-      ...await this.copyTsConfigFile(),
-      ...await this.addUserCredentials(),
-      ...await this.createAskUIHelperFromTemplate(),
-      ...await this.installProxy(),
+      ...(await this.copyTemplateProject()),
+      ...(await this.setupTestFrameWork()),
+      ...(await this.copyESLintConfigFiles()),
+      ...(await this.copyTsConfigFile()),
+      ...(await this.addUserCredentials()),
+      ...(await this.createAskUIHelperFromTemplate()),
     ]);
 
     await tasks.run();
     /* eslint-disable no-console */
-    if (this.cliOptions.usingProxy) {
-      console.log(chalk.redBright('Since you are using a Proxy. Please don\'t forget to configure it!'));
-      console.log(chalk.gray(`You can find more information under ${this.proxyDocUrl}`));
-    }
     console.log(chalk.greenBright('\nCongratulations!'));
-    console.log(`askui example was created under ${chalk.gray(this.distexampleFolderPath)}`);
+    console.log(
+      `askui example was created under ${chalk.gray(
+        this.distexampleFolderPath,
+      )}`,
+    );
 
     if (this.cliOptions.operatingSystem === 'windows') {
-      console.log(chalk.redBright(`\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`));
-      console.log(`You can start your automation with this command ${chalk.green('AskUI-RunProject')}`);
+      console.log(
+        chalk.redBright(
+          `\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`,
+        ),
+      );
+      console.log(
+        `You can start your automation with this command ${chalk.green(
+          'AskUI-RunProject',
+        )}`,
+      );
     } else {
-      console.log(`You can start your automation with this command ${chalk.green('npm run askui')}`);
+      console.log(
+        `You can start your automation with this command ${chalk.green(
+          'npm run askui',
+        )}`,
+      );
     }
     /* eslint-enable no-console */
   }
