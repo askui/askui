@@ -16,8 +16,6 @@ export class CreateExampleProject {
 
   private baseDirPath: string;
 
-  private proxyDocUrl: string;
-
   private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
@@ -29,7 +27,6 @@ export class CreateExampleProject {
       this.baseDirPath,
       this.exampleFolderName,
     );
-    this.proxyDocUrl = 'https://docs.askui.com/docs/general/Troubleshooting/proxy';
     this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
