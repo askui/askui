@@ -16,7 +16,7 @@ pagination_next: general/Getting Started/write-your-first-instruction
 
 As we need to prevent misuse of our API, we need you to create some credentials through our __AskUI Studio__ (for free).
 
-Please [fill out this form](https://xa5a040gvfz.typeform.com/to/Ndh2NkV6) to schedule a demonstration or [request a trial](https://xa5a040gvfz.typeform.com/to/IHdr0qY5) to obtain access to __AskUI Studio__.
+Please [fill out this form](https://www.askui.com/demo) to schedule a demonstration or request a trial to obtain access to __AskUI Studio__.
 
 ## Installation
 
