@@ -1,8 +1,7 @@
-# AskUI - Humanizing UI Automation
+# AskUI - What Can Be Said Can Be Solved
 
 **AskUI** allows you to automate the interaction with an application, multiple applications or even the entire operating system. 
 You can use this to write end-to-end tests or automate any kind of application.
-
 
 ## Start
 
