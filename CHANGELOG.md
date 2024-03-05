@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.15.0](https://github.com/askui/askui/compare/v0.14.0...v0.15.0) (2024-03-05)
+
+
+### Bug Fixes
+
+* add npm init for Linux; Remove Jasmine template (#APD-392) ([d8379f0](https://github.com/askui/askui/commit/d8379f098bd4827d7257aba279d6d125f45099f3)), closes [#APD-392](https://github.com/askui/askui/issues/APD-392)
+* askUI Controller URL; Spelling error docs; Correct end instructions for windows (#APD-392) ([57ac5e5](https://github.com/askui/askui/commit/57ac5e52b5cc7820630f885ba85883fe2f88fea5)), closes [#APD-392](https://github.com/askui/askui/issues/APD-392)
+* fix broken links in Release Notes 03-04-2024 ([5992c75](https://github.com/askui/askui/commit/5992c7535dce384e315a36530627a97838d355cf))
+* remove test script from package json after npm init -y (#APD-392) ([eaba244](https://github.com/askui/askui/commit/eaba24460faaff12540b47d27215171c4196ad88)), closes [#APD-392](https://github.com/askui/askui/issues/APD-392)
+* remove unfixable dragTo convenience method ([db17391](https://github.com/askui/askui/commit/db17391824993d6ca302918f1fb5f13b157874af))
+
+
+### Reverts
+
+* readd --test-framework option for interactive CLI for backwards compatibility (#DVRL-72) ([3e5e4e9](https://github.com/askui/askui/commit/3e5e4e97dc3829bcdc6923667bb227bd3f540c92)), closes [#DVRL-72](https://github.com/askui/askui/issues/DVRL-72)
+
 ## [0.14.0](https://github.com/askui/askui/compare/v0.13.1...v0.14.0) (2024-02-22)
 
 
