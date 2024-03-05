@@ -5,7 +5,7 @@
 
 <br/>
 
-<center> <h1> Humanizing UI Automation </h1> </center>
+<center> <h1> What Can Be Said Can Be Solved </h1> </center>
 
 
 ## Disclaimer
