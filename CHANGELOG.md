@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/askui/askui/compare/v0.15.0...v0.16.0) (2024-03-05)
+
+
+### Bug Fixes
+
+* sync package-lock.json with package.json ([0113163](https://github.com/askui/askui/commit/011316315afacf1cfa18c4f5586b5ec0c1ca8af9))
+
 ## [0.15.0](https://github.com/askui/askui/compare/v0.14.0...v0.15.0) (2024-03-05)
 
 
