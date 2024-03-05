@@ -51,7 +51,7 @@
     "dependencies": {
         "chalk": "4.1.1",
         "commander": "8.3.0",
-        "fkill": "7.2.1",
+        "fkill": "9.0.0",
         "fs-extra": "10.0.0",
         "got": "11.8.6",
         "inquirer": "8.2.5",
