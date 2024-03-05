@@ -167,7 +167,7 @@ Congratulations! You’ve just built your first instruction using AskUI. :tada:
 Have a look at [Relational Selectors](../03-Element%20Selection/relational-selectors.md) to select elements via a visual relation instead.
 
 ### Technical
-For technical problems with the execution, take a look at our [Troubleshooting page](https://docs.askui.com/docs/general/Troubleshooting/)
+For technical problems with the execution, take a look at our [Troubleshooting page](../07-Troubleshooting/index.md)
 
 ## Where to Go Next?
 

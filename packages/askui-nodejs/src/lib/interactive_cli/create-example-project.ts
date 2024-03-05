@@ -192,24 +192,45 @@ export class CreateExampleProject {
   private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDependencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui hpagent',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus dotenv eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import eslint-plugin-askui hpagent',
     };
     await runCommand(frameworkDependencies.jest);
   }
 
   private async addUserCredentials() {
-    return [
-      {
-        title: 'Add user credentials',
-        enabled: () => !this.cliOptions.skipCredentials,
-        task: async () => {
-          this.helperTemplateConfig['credentials'] = ` credentials: {
+    return [{
+      title: 'Add user credentials',
+      task: async () => new Listr([
+        {
+          title: 'Create .env file ',
+          task: async () => {
+            const askuiDotEnvTemplateFilePath = path.join(
+              getPathToNodeModulesRoot(),
+              'example_projects_templates',
+              'templates',
+            );
+
+            const templateFileName = '.env.nj';
+            this.helperTemplateConfig['workspace_id'] = this.cliOptions.workspaceId;
+            this.helperTemplateConfig['access_token'] = this.cliOptions.accessToken;
+            nunjucks.configure(askuiDotEnvTemplateFilePath, { autoescape: false });
+            const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
+            const filePath = path.join(this.baseDirPath, '.env');
+            await fs.writeFile(filePath, result, 'utf8');
+          },
+        },
+        {
+          title: 'Add user credentials',
+          enabled: () => !this.cliOptions.skipCredentials,
+          task: async () => {
+            this.helperTemplateConfig['credentials'] = `credentials: {
         workspaceId: '${this.cliOptions.workspaceId}',
         token: '${this.cliOptions.accessToken}',
       },`;
+          },
         },
-      },
-    ];
+      ]),
+    }];
   }
 
   private async copyESLintConfigFiles(): Promise<Listr.ListrTask<unknown>[]> {

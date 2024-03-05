@@ -1,5 +1,7 @@
 import { UiControlClient } from 'askui';
 {{ allure_stepreporter_import }}
+// Uncomment the next file to load credentials from .env
+// import 'dotenv/config';
 
 // Client is necessary to use the askui API
 // eslint-disable-next-line import/no-mutable-exports

@@ -1,5 +1,7 @@
 import { UiControlClient, UiController } from 'askui';
 {{ allure_stepreporter_import }}
+// Uncomment the next file to load credentials from .env file
+// import 'dotenv/config';
 
 // Server for controlling the operating system
 let uiController: UiController;

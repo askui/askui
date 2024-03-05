@@ -148,7 +148,7 @@ With AskUI, there are near-infinite ways to target an element. We outlined the t
 To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
 
 #### Approach B: Filtering by Proximity: Using Relational Selectors
-- **Process**: Chain multiple element descriptions together using commands like `leftOf()`, `above()`, etc., to create a unique selector based on element relationships. More information can be found in the [AskUI documentation](https://docs.askui.com/docs/0.11.6/general/Element%20Selection/relational-selectors).
+- **Process**: Chain multiple element descriptions together using commands like `leftOf()`, `above()`, etc., to create a unique selector based on element relationships. More information can be found in the [AskUI documentation](../03-Element%20Selection/relational-selectors.md).
 - **Advantages**: Increases selector specificity, particularly useful in complex UIs with numerous similar elements.
 - **Best Used When**: Targeting elements in a densely populated UI or when elements lack unique identifiers.
 
@@ -163,7 +163,7 @@ To close out the interactive annotation, use `CMD/CTRL + W` or `ESC`.
     ```
 
 #### Approach C: Custom Element-Descriptions: Screenshot-Based Selection (Advanced)
-- **Process**: Use a screenshot snippet of the desired element to locate its exact position on the screen. More information can be found in the [AskUI documentation](https://docs.askui.com/docs/0.11.6/general/Element%20Selection/text-and-element-selectors#custom-elements).
+- **Process**: Use a screenshot snippet of the desired element to locate its exact position on the screen. More information can be found in the [AskUI documentation](../03-Element%20Selection/text-and-element-selectors.md#custom-elements).
 - **Advantages**: Highly accurate for unique or custom-designed elements.
 - **Best Used When**: The element has a distinct visual appearance.
 - **Considerations**: This method is sensitive to screen resolution changes; ensure consistency in the automation/testing environment.
@@ -192,7 +192,7 @@ it('should click on my element', async () => {
 
 ### Step 3: Selecting the Right Action for Your Task
 In this step you translate your intention (e.g., click a button, enter text) into a programmable action.
-To learn more about the different types of actions, check out our [API Documentation](https://docs.askui.com/docs/0.11.6/api/API/table-of-contents).
+To learn more about the different types of actions, check out our [API Documentation](../../api/01-API/table-of-contents.md).
 
 In this case, we will use the `click` method, which is great for interacting with buttons, links and checkboxes.
 
