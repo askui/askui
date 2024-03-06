@@ -2,7 +2,6 @@ name: CI/CD Pipeline of the askui Node.js Package
 on:
   push:
     paths:
-      - 'docs/**'
       - 'packages/askui-nodejs/**'
       - '.github/workflows/ci-cd-askui-nodejs.yml'
   # Currently, we only support releasing manually from main as we have not yet decided on how to deal with the protected branch issue (https://github.community/t/allowing-github-actions-bot-to-push-to-protected-branch/16536/16)
