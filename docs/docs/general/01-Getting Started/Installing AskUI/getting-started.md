@@ -165,38 +165,6 @@ To add a new workflow, create a file in this folder, ending in `.test.ts`
 The project comes with one **template workflow**, which is called `my-first-askui-test-suite.ts`.
 On the next page, you will dive deeper on how to write instructions in the AskUI automation framework.
 
-### Step 10: (Optional) Store Your Credentials in `.env`-File
-Your credentials (_Access Token_ and _Workspace ID_) get stored in plain text in the file (`askui_example/helpers/askui-helper.ts`). Storing credentials in plain text increases their risk to be leaked by pushing them to a remote repository.
-
-To load them from the `.env` file that gets created you have to remove the `credentials` property from `UiControlClient` in `askui_example/helpers/askui-helper.ts` and activate the `dotenv`-environment by commenting in the import at the start of the same file:
-
-```typescript
-aui = await UiControlClient.build({
-    // Remove the credentials property to
-    // load credentials from .env file
-    credentials: {
-      workspaceId: '< your_workspace_id >',
-      token: '{{ your_access_token }}',
-    },
-    reporter: new AskUIAllureStepReporter(),
-  });
-```
-
-The resulting file looks like this:
-
-```typescript
-...
-import 'dotenv/config';
-
-...
-
-  aui = await UiControlClient.build({
-    reporter: new AskUIAllureStepReporter(),
-  });
-
-...
-```
-
 ## Next Steps
 
 You are now ready to create your first workflow with AskUI! Please go to the next page [Write Your First Instruction](../write-your-first-instruction.md).
