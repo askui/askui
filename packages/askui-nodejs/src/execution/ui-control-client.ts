@@ -319,6 +319,17 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
+   * Searches for an element of type textfield with a specific
+   * label nearest to it. If found, clicks it.
+   *
+   * @param {string} label - The textfields label.
+   */
+  async clickTextfieldNearestTo(label: string) {
+    await this.click().textfield().nearestTo().text(label)
+      .exec();
+  }
+
+  /**
    * Clicks an icon based on a description.
    *
    * @param {string} description
