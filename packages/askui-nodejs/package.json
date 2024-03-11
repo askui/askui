@@ -40,7 +40,9 @@
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
         "test": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
-        "postinstall": "node -e \"require('./bin/askui-postinstall')\""
+        "postinstall": "node -e \"require('./bin/askui-postinstall')\"",
+        "release:prerelease": "release-it --preRelease=next",
+        "release": "release-it"
     },
     "files": [
         "dist/cjs/",

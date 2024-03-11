@@ -37,9 +37,7 @@
     "scripts": {
         "postinstall": "husky install",
         "postpublish": "pinst --enable",
-        "prepublishOnly": "pinst --disable",
-        "release:prerelease": "release-it --preRelease=next",
-        "release": "release-it"
+        "prepublishOnly": "pinst --disable"
     },
     "devDependencies": {
         "@commitlint/cli": "19.0.3",
