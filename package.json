@@ -8,7 +8,6 @@
         "./packages/*"
     ],
     "directories": {
-        "doc": "docs",
         "example": "examples"
     },
     "repository": {

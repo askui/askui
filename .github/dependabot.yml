@@ -8,13 +8,6 @@ updates:
       prefix: "chore"
       include: "scope"
   - package-ecosystem: "npm"
-    directory: "/docs"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-  - package-ecosystem: "npm"
     directory: "/packages/askui-nodejs"
     schedule:
       interval: "daily"
