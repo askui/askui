@@ -1,7 +1,7 @@
 {
     "hooks": {
         "after:bump": [
-            "npm install; cd packages/askui-nodejs; npm run build;"
+            "npm install; npm run build;"
         ]
     },
     "git": {
@@ -16,7 +16,7 @@
         "releaseName": "v${version}"
     },
     "npm": {
-        "publishPath": "./packages/askui-nodejs",
+        "publishPath": "./",
         "skipChecks": true
     },
     "plugins": {
@@ -25,14 +25,6 @@
             "preset": "conventionalcommits",
             "infile": "CHANGELOG.md",
             "strictSemVer": true
-        },
-        "@release-it-plugins/workspaces": {
-            "skipChecks": true,
-            "additionalManifests": {
-                "versionUpdates": [
-                    "packages/askui-nodejs/package.json"
-                ]
-            }
         }
     }
 }

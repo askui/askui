@@ -44,18 +44,12 @@
     "devDependencies": {
         "@commitlint/cli": "19.0.3",
         "@commitlint/config-conventional": "16.0.0",
-        "@release-it-plugins/workspaces": "^4.2.0",
-        "@release-it/bumper": "^6.0.1",
-        "@release-it/conventional-changelog": "^8.0.1",
-        "@typescript-eslint/eslint-plugin": "5.10.0",
-        "@typescript-eslint/parser": "5.10.0",
         "commitizen": "4.2.5",
         "cz-conventional-changelog": "3.3.0",
         "husky": "7.0.4",
         "is-ci": "3.0.1",
         "jira-prepare-commit-msg": "1.6.2",
         "pinst": "2.1.6",
-        "release-it": "^17.0.3",
         "zx": "7.2.3"
     },
     "jira-prepare-commit-msg": {
