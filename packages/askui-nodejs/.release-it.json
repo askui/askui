@@ -23,7 +23,7 @@
         "@release-it/conventional-changelog": {
             "header": "# Changelog",
             "preset": "conventionalcommits",
-            "infile": "CHANGELOG.md",
+            "infile": "../../CHANGELOG.md",
             "strictSemVer": true
         }
     }
