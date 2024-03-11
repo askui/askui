@@ -1,5 +1,5 @@
-![askui logo](./docs/static/img/askui-logo-white.svg.svg#gh-dark-mode-only)
-![askui logo](./docs/static/img/askui-logo.svg#gh-light-mode-only)
+![askui logo](./img/askui-logo-white.svg.svg#gh-dark-mode-only)
+![askui logo](./img/askui-logo.svg#gh-light-mode-only)
 
 *Reliable, automated end-to-end-automation that only depends on what is shown on your screen instead of the technology or platform you are running on*
 
@@ -10,7 +10,7 @@
 
 ## Disclaimer
 
-This repo is contains the AskUI SDK (ADK) written in TypeScript. Releases are done from the root repository. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of AskUI available to non-typescript/-javascript developers as well.
+This repo contains the AskUI SDK (ADK) written in TypeScript. Releases are done from the root repository. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of AskUI available to non-typescript/-javascript developers as well.
 
 ## Installation
 Run an `npm install` inside the root directory if you want to create a new release.
