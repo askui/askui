@@ -93,6 +93,6 @@
         "./**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"
     },
     "optionalDependencies": {
-        "sharp": "^0.32.6"
+        "sharp": "^0.33.2"
     }
 }
