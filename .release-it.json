@@ -1,7 +1,7 @@
 {
     "hooks": {
         "after:bump": [
-            "npm install; npm run build -w packages/askui-nodejs;"
+            "npm install; cd packages/askui-nodejs; npm run build;"
         ]
     },
     "git": {
@@ -28,9 +28,6 @@
         },
         "@release-it-plugins/workspaces": {
             "skipChecks": true,
-            "workspaces": [
-                "packages/askui-nodejs"
-            ],
             "additionalManifests": {
                 "versionUpdates": [
                     "packages/askui-nodejs/package.json"

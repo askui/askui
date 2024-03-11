@@ -2,3 +2,4 @@ node_modules
 dist
 .eslintcache
 report
+package-lock.json

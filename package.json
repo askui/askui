@@ -4,9 +4,6 @@
     "author": "askui GmbH <info@askui.com> (http://www.askui.com/)",
     "version": "0.16.0",
     "description": "Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology you are running on",
-    "workspaces": [
-        "./packages/*"
-    ],
     "directories": {
         "example": "examples"
     },
@@ -38,9 +35,6 @@
         "ui-automation"
     ],
     "scripts": {
-        "lint": "npm run lint --workspaces --if-present",
-        "lint:staged": "npm run lint:staged --workspaces --if-present",
-        "test": "npm run test --workspace=askui",
         "postinstall": "husky install",
         "postpublish": "pinst --enable",
         "prepublishOnly": "pinst --disable",
@@ -64,7 +58,6 @@
         "husky": "7.0.4",
         "is-ci": "3.0.1",
         "jira-prepare-commit-msg": "1.6.2",
-        "lint-staged": "12.3.2",
         "pinst": "2.1.6",
         "release-it": "^17.0.3",
         "zx": "7.2.3"
