@@ -61,6 +61,12 @@ const options = [
     description: 'an access token for the workspace with the id.',
   },
   {
+    option: '-p, --project-name <value>',
+    choices: [],
+    description: 'an access token for the workspace with the id.',
+    default: 'askui_example',
+  },
+  {
     option: '-t, --typescript-config',
     choices: [],
     description: 'overwrite tsconfig.json flag',
