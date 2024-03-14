@@ -63,7 +63,7 @@ const options = [
   {
     option: '-p, --project-name <value>',
     choices: [],
-    description: 'an access token for the workspace with the id.',
+    description: 'a name for the folder askui is initialized in.',
     default: 'askui_example',
   },
   {
