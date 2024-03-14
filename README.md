@@ -12,14 +12,20 @@
 
 This repo contains the AskUI SDK (ADK) written in TypeScript. Releases are done from the root repository. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of AskUI available to non-typescript/-javascript developers as well.
 
+## Repository Structure
+
+At root level we store the configuration for commit hooks, CI/CD and releasing a new version of the ADK.
+
+Under `packages` you find the ADKs for different languages.
+
 ## Installation
-Run an `npm install` inside the root directory if you want to create a new release.
+Run an `npm install` inside the root directory to install the necessary dependencies for commit hooks and releasing a new version.
 
 ```sh
 $ npm install
 ```
 
-Run `npm install` inside `packages/askui-nodejs` to build the TypeScript ADK.
+Run `npm install` inside `packages/askui-nodejs` to install all the dependencies for the TypeScript ADK.
 
 ## Contributing
 
@@ -30,10 +36,6 @@ Your branch name should conform to the format `<issue id>-<issue title lower-cas
 ### Commit Message Standard
 
 Commit messages should conform to [Conventional Commits Message Standard](https://www.conventionalcommits.org/en/v1.0.0/). Exceptions to this rule may be merge commits.
-
-### Adding Dependencies
-
-The [one version rule](https://opensource.google/documentation/reference/thirdparty/oneversion#:~:text=There%20may%20only%20be%20one,several%20reasons%20for%20this%20restriction.) should be followed as much as possible. In practice, this mean checking if a dependency to be added is already used by another package or meant to be used by multiple packages.
 
 ### Githooks
 
