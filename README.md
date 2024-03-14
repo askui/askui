@@ -25,7 +25,14 @@ Run an `npm install` inside the root directory to install the necessary dependen
 $ npm install
 ```
 
-Run `npm install` inside `packages/askui-nodejs` to install all the dependencies for the TypeScript ADK.
+### TypeScript ADK
+Run `npm install` inside `packages/askui-nodejs` to install the dependencies.
+
+To build the TypeScript ADK run
+
+```sh
+npm run build
+```
 
 ## Contributing
 
