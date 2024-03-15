@@ -61,9 +61,9 @@ const options = [
     description: 'an access token for the workspace with the id.',
   },
   {
-    option: '-p, --project-name <value>',
+    option: '-aw, --askui-workflows <value>',
     choices: [],
-    description: 'a name for the folder askui is initialized in.',
+    description: 'a name for the folder askui stores its configuration and workflows in.',
     default: 'askui_example',
   },
   {

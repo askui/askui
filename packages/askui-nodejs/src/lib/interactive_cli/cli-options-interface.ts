@@ -1,7 +1,7 @@
 export interface CliOptions {
   accessToken: string,
+  askuiWorkflows: string,
   operatingSystem: 'windows' | 'linux' | 'macos',
-  projectName: string,
   skipCredentials: boolean,
   testFramework: 'jest',
   typescriptConfig: boolean,
