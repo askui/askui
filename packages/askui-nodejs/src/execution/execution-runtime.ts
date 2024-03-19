@@ -139,8 +139,8 @@ export class ExecutionRuntime {
     const annotation = this.isAnnotationRequired() ? await this.annotateImage() : undefined;
     return {
       createdAt,
-      screenshot,
       detectedElements: annotation?.detected_elements,
+      screenshot,
     };
   }
 

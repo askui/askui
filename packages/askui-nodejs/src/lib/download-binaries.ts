@@ -10,14 +10,14 @@ import { getPathToNodeModulesRoot } from '../utils/path';
 import { logger } from './logger';
 
 enum SupportedPlatform {
-  LINUX = 'linux',
   DARWIN = 'darwin',
+  LINUX = 'linux',
   WIN32 = 'win32',
 }
 
 const binarySubPathsByPlatform = {
-  linux: ['linux', 'askui-ui-controller.AppImage'],
   darwin: ['darwin', 'askui-ui-controller.dmg'],
+  linux: ['linux', 'askui-ui-controller.AppImage'],
   win32: ['windows', 'askui-ui-controller.exe'],
 } as const;
 

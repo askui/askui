@@ -15,11 +15,11 @@ describe('CustomElement', () => {
       );
       const actual = await CustomElement.fromJsonWithImagePathOrImage({
         customImage: base64ImageString,
-        name: 'Dummy_element',
-        threshold: 0.7,
-        rotationDegreePerStep: 10,
         imageCompareFormat: 'RGB',
         mask: [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
+        name: 'Dummy_element',
+        rotationDegreePerStep: 10,
+        threshold: 0.7,
       });
       expect(actual).toStrictEqual(expected);
     });
@@ -77,7 +77,7 @@ describe('CustomElement', () => {
           [{ x: 0, y: 1 }, { x: 1, y: 2 }],
         );
         customElement.validate();
-      }).toThrow('threshold must be less than or equal to 1, mask must contain at least 3 points');
+      }).toThrow('mask must contain at least 3 points, threshold must be less than or equal to 1');
     });
   });
 });

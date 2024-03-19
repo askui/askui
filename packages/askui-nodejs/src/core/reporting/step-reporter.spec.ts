@@ -22,29 +22,29 @@ describe('StepReporter', () => {
     };
 
     reporter0 = {
+      config: {},
       onStepBegin: jest.fn(),
       onStepEnd: jest.fn(),
-      config: {},
     };
 
     reporter1 = {
-      onStepBegin: jest.fn((_currentStep: Step) => {
-        throw error;
-      }),
-      onStepEnd: jest.fn(),
       config: {
         withScreenshots: 'required',
         withDetectedElements: 'begin',
       },
+      onStepBegin: jest.fn((_currentStep: Step) => {
+        throw error;
+      }),
+      onStepEnd: jest.fn(),
     };
 
     reporter2 = {
-      onStepBegin: jest.fn(),
-      onStepEnd: jest.fn(),
       config: {
         withScreenshots: 'always',
         withDetectedElements: 'always',
       },
+      onStepBegin: jest.fn(),
+      onStepEnd: jest.fn(),
     };
   });
 

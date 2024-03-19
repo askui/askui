@@ -57,14 +57,14 @@ describe('proxy and hpagent', () => {
 
     it('should tunnel https connection over http proxy with valid certificate', async () => {
       const response = await got.get('https://www.google.com', {
-        retry: 0,
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
-            scheduling: 'lifo',
             proxy: 'http://localhost:3128',
+            scheduling: 'lifo',
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -75,13 +75,13 @@ describe('proxy and hpagent', () => {
       httpServer.on('request', (_req, res) => res.end('ok'));
 
       const response = await got.get(`https://${SERVER_HOSTNAME}:8081`, {
-        retry: 0,
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
             proxy: 'http://localhost:3128',
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -91,13 +91,13 @@ describe('proxy and hpagent', () => {
 
     it('should tunnel http connection over http proxy', async () => {
       const response = await got.get('http://www.google.com', {
-        retry: 0,
         agent: {
           http: new HttpProxyAgent({
             keepAlive: false,
             proxy: 'http://localhost:3128',
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -118,13 +118,13 @@ describe('proxy and hpagent', () => {
       httpProxy = addBasicAuthentication(httpProxy);
 
       const response = await got.get('https://www.google.com', {
-        retry: 0,
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
             proxy: 'http://username:password@localhost:3128',
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -135,7 +135,6 @@ describe('proxy and hpagent', () => {
       httpProxy = addBasicAuthentication(httpProxy);
 
       const response = await got.get('https://www.google.com', {
-        retry: 0,
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
@@ -147,6 +146,7 @@ describe('proxy and hpagent', () => {
             },
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -164,13 +164,13 @@ describe('proxy and hpagent', () => {
 
     it('should tunnel http connection over https proxy', async () => {
       const response = await got.get('http://www.google.com', {
-        retry: 0,
         agent: {
           http: new HttpProxyAgent({
             keepAlive: false,
             proxy: `https://${PROXY_HOSTNAME}:8010`,
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);
@@ -178,13 +178,13 @@ describe('proxy and hpagent', () => {
 
     it('should tunnel https connection over https proxy', async () => {
       const response = await got.get('https://www.google.com', {
-        retry: 0,
         agent: {
           https: new HttpsProxyAgent({
             keepAlive: false,
             proxy: `https://${PROXY_HOSTNAME}:8010`,
           }),
         },
+        retry: 0,
       });
 
       expect(response.statusCode).toBe(200);

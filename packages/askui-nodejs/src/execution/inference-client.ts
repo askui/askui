@@ -76,9 +76,9 @@ export class InferenceClient {
     const response = await this.httpClient.post<InferenceResponseBody>(
       this.urls.inference,
       {
+        customElements,
         image: resizedImage.base64Image,
         instruction,
-        customElements,
         modelComposition: this.modelComposition,
       },
     );

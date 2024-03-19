@@ -6,6 +6,7 @@ import { CliOptions } from './cli-options-interface';
 
 const nonEmpty = (subject: string) => (input: string) => input.trim().length > 0 || `${subject} is required.`;
 
+/* eslint-disable sort-keys */
 const questions = [
   {
     type: 'list',
@@ -36,34 +37,35 @@ const questions = [
     when: (_answers: CliOptions) => fs.existsSync('tsconfig.json'),
   },
 ];
+/* eslint-enable */
 
 const options = [
   {
-    option: '-f, --test-framework <value>',
     choices: ['jest'],
-    description: 'the test framework to use.',
     default: 'jest',
+    description: 'the test framework to use.',
+    option: '-f, --test-framework <value>',
   },
   {
-    option: '-sc, --skip-credentials',
     choices: [],
-    description: 'skip the credentials setup.',
     default: false,
+    description: 'skip the credentials setup.',
+    option: '-sc, --skip-credentials',
   },
   {
-    option: '-w, --workspace-id <value>',
     choices: [],
     description: 'a workspace id.',
+    option: '-w, --workspace-id <value>',
   },
   {
-    option: '-a, --access-token <value>',
     choices: [],
     description: 'an access token for the workspace with the id.',
+    option: '-a, --access-token <value>',
   },
   {
-    option: '-t, --typescript-config',
     choices: [],
     description: 'overwrite tsconfig.json flag',
+    option: '-t, --typescript-config',
   },
 ];
 

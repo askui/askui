@@ -128,8 +128,8 @@ export class UiControlClient extends ApiCommands {
   ): Promise<Instruction> {
     return {
       customElements: await CustomElement.fromJsonListWithImagePathOrImage(customElementJson),
-      value: instructionString,
       secretText: this.getAndResetSecretText(),
+      value: instructionString,
       valueHumanReadable: this.escapeSeparatorString(instructionString),
     };
   }

@@ -77,11 +77,11 @@ export class DefaultStep implements Step {
   onEnd(snapshot: Snapshot, error?: Error): DefaultStep {
     this.runs = [...this.runs.slice(0, -1), {
       ...this.lastRun,
-      status: DefaultStep.determineLastRunStatus(error),
-      end: snapshot,
-      error,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       duration: snapshot.createdAt.getTime() - this.lastRun!.begin!.createdAt.getTime(),
+      end: snapshot,
+      error,
+      status: DefaultStep.determineLastRunStatus(error),
     }];
     return cloneDeep(this);
   }

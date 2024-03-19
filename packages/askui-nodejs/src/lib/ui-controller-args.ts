@@ -33,11 +33,11 @@ import { LogLevels } from '../shared/log-levels';
  */
 
 export interface UiControllerArgs {
-  readonly display?: number;
   readonly actionDelayInMs?: number;
   readonly binaryVersion?: string,
-  readonly port?: number;
+  readonly display?: number;
   readonly host?: string;
+  readonly port?: number;
   readonly minimize?: boolean;
   readonly overWriteBinary?: boolean;
   readonly logLevel?: LogLevels;
@@ -46,9 +46,9 @@ export interface UiControllerArgs {
 }
 
 export interface UiControllerArgsWithDefaults extends UiControllerArgs {
-  readonly display: number;
   readonly actionDelayInMs: number;
   readonly binaryVersion: string;
+  readonly display: number;
   readonly overWriteBinary: boolean;
   readonly port: number;
   readonly host: string;
@@ -59,14 +59,14 @@ export function createArgsWithDefaults(
   args?: UiControllerArgs,
 ): UiControllerArgsWithDefaults {
   const defaults = {
+    actionDelayInMs: 1000,
     binaryVersion: 'latest',
     display: 0,
-    actionDelayInMs: 1000,
-    overWriteBinary: false,
-    minimize: true,
-    port: 6769,
     host: '127.0.0.1',
     logLevel: 'debug',
+    minimize: true,
+    overWriteBinary: false,
+    port: 6769,
   };
   return Object.assign(defaults, args);
 }

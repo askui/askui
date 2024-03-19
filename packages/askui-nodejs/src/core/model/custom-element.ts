@@ -6,9 +6,9 @@ import { CustomElementJson } from './custom-element-json';
 
 export class CustomElement implements CustomElementJson {
   private static schema = object({
-    threshold: number().optional().min(0).max(1),
-    rotationDegreePerStep: number().optional().min(0).lessThan(360),
     mask: array().optional().min(3, 'mask must contain at least 3 points'),
+    rotationDegreePerStep: number().optional().min(0).lessThan(360),
+    threshold: number().optional().min(0).max(1),
   });
 
   constructor(

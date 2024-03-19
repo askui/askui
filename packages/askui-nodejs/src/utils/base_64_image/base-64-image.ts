@@ -52,9 +52,9 @@ export class Base64Image {
     const { width, height } = await this.getInfo();
     const buffer = await (await this.getSharp())
       .resize({
-        width: width >= height ? dimension : undefined,
-        height: height > width ? dimension : undefined,
         fit: 'contain',
+        height: height > width ? dimension : undefined,
+        width: width >= height ? dimension : undefined,
       })
       .toBuffer();
     return Base64Image.fromBuffer(buffer);

@@ -200,6 +200,7 @@ export class CreateExampleProject {
   private async addUserCredentials() {
     return [
       {
+        /* eslint-disable sort-keys */
         title: 'Add user credentials',
         enabled: () => !this.cliOptions.skipCredentials,
         task: async () => {
@@ -209,6 +210,7 @@ export class CreateExampleProject {
       },`;
         },
       },
+      /* eslint-enable */
     ];
   }
 
@@ -245,6 +247,7 @@ export class CreateExampleProject {
       'tsconfig.json',
     );
     const tsConfigTargetFilePath = path.join(this.baseDirPath, 'tsconfig.json');
+    /* eslint-disable sort-keys */
     return [
       {
         title: 'Copy ts config file',
@@ -256,6 +259,7 @@ export class CreateExampleProject {
       },
     ];
   }
+  /* eslint-enable */
 
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();

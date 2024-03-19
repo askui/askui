@@ -13,18 +13,18 @@ function isProcessEnvLogLevelValid(): boolean {
 }
 const stream = pretty({
   colorize: true,
-  translateTime: 'SYS:standard',
   ignore: 'pid,hostname,filename',
+  translateTime: 'SYS:standard',
 });
 const defaultLogLevel = 'info';
 const pinoLevel: string = isProcessEnvLogLevelValid() ? process.env['LOG_LEVEL'] as string : defaultLogLevel;
 const logger = pino(
   {
-    name: 'askuiUiControlClient',
-    level: pinoLevel,
     customLevels: {
       verbose: 5,
     },
+    level: pinoLevel,
+    name: 'askuiUiControlClient',
   },
   stream,
 );
