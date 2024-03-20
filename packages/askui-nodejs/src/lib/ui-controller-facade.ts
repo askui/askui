@@ -98,9 +98,9 @@ export abstract class UiControllerFacade {
           ? maxWaitingForStartingInSeconds * 1000 : this.DefaultmaxWaitingForStartingInMs;
         waitPort({
           host: args.host,
+          output: process?.env['LOG_LEVEL'] === 'verbose' ? 'dots' : 'silent',
           port: args.port,
           timeout: timeoutInMs,
-          output: process?.env['LOG_LEVEL'] === 'verbose' ? 'dots' : 'silent',
         }).then((open: boolean) => {
           if (open) {
             logger.info('The Control UI Server has been started.');

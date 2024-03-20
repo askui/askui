@@ -69,11 +69,11 @@ export class UiControlClientDependencyBuilder {
   ): Promise<ClientArgsWithDefaults> {
     return {
       ...clientArgs,
-      uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
+      credentials: readCredentials(clientArgs),
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
-      credentials: readCredentials(clientArgs),
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
+      uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
     };
   }
 }

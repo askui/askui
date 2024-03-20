@@ -35,19 +35,6 @@ export class HttpClientGot {
   ): ExtendOptions {
     const gotExtendOptions: ExtendOptions = {
       retry: {
-        limit: 5,
-        methods: ['POST', 'GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'TRACE'],
-        statusCodes: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
-        errorCodes: [
-          'ETIMEDOUT',
-          'ECONNRESET',
-          'EADDRINUSE',
-          'ECONNREFUSED',
-          'EPIPE',
-          'ENOTFOUND',
-          'ENETUNREACH',
-          'EAI_AGAIN',
-        ],
         calculateDelay: ({
           attemptCount,
           retryOptions,
@@ -75,6 +62,19 @@ export class HttpClientGot {
           logger.debug(`Request to ${error.request?.requestUrl} failed.\n${error.message}\nRetrying... (attempt ${attemptCount})`);
           return computedValue;
         },
+        errorCodes: [
+          'ETIMEDOUT',
+          'ECONNRESET',
+          'EADDRINUSE',
+          'ECONNREFUSED',
+          'EPIPE',
+          'ENOTFOUND',
+          'ENETUNREACH',
+          'EAI_AGAIN',
+        ],
+        limit: 5,
+        methods: ['POST', 'GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'TRACE'],
+        statusCodes: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       },
     };
     if (proxyAgents) {
@@ -121,7 +121,7 @@ export class HttpClientGot {
       .forEach((cookie) => {
         cookieJar.setCookieSync(cookie, url);
       });
-    return { ...options, headers: this.headers, cookieJar };
+    return { ...options, cookieJar, headers: this.headers };
   }
 
   async post<T>(
@@ -143,7 +143,7 @@ export class HttpClientGot {
     if (statusCode !== 200) {
       throw httpClientErrorHandler(statusCode, JSON.stringify(body));
     }
-    return { headers, body };
+    return { body, headers };
   }
 
   async get<T>(
