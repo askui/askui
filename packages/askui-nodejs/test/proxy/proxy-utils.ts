@@ -68,6 +68,9 @@ export async function buildProxy(port = 3128): Promise<http.Server> {
  * openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout key_server.pem -out cert_server.pem
  * openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout key_proxy.pem -out cert_proxy.pem
  *
+ * Use 'server.proxy-unit-test-askui.com' as 'Common Name' for cert_server.pem
+ * Use 'proxy.proxy-unit-test-askui.com' as 'Common Name' for cert_proxy.pem
+ *
  * Additional we generated the a CA to simulate Zscaler deep package inspection for the server certs
  * https://gist.github.com/fntlnz/cf14feb5a46b2eda428e000157447309
  *
