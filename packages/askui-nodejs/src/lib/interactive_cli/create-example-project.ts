@@ -8,11 +8,14 @@ import nunjucks from 'nunjucks';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
 import { addScript, removeScript } from './add-remove-script-package-json';
+import { TargetDirectoryError } from './target-directory-error';
 
 export class CreateExampleProject {
-  private distexampleFolderPath: string;
+  private targetDirectoryPath: string;
 
-  private exampleFolderName: string;
+  private exampleTemplateDirectoryName = 'askui_example';
+
+  private targetDirectoryName: string;
 
   private baseDirPath: string;
 
@@ -22,20 +25,32 @@ export class CreateExampleProject {
 
   constructor(readonly cliOptions: CliOptions) {
     this.baseDirPath = process.cwd();
-    this.exampleFolderName = 'askui_example';
-    this.distexampleFolderPath = path.join(
+
+    this.targetDirectoryName = this.getTargetFolderName();
+    this.targetDirectoryPath = path.join(
       this.baseDirPath,
-      this.exampleFolderName,
+      this.targetDirectoryName,
     );
+
     this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
+  }
+
+  private getTargetFolderName(): string {
+    if (this.cliOptions.askuiWorkflows) {
+      if (/\s/g.test(this.cliOptions.askuiWorkflows.trim())) {
+        throw new TargetDirectoryError('Directory name must not contain whitespaces');
+      }
+      return this.cliOptions.askuiWorkflows.trim();
+    }
+    return this.exampleTemplateDirectoryName;
   }
 
   private async copyTemplateProject(): Promise<Listr.ListrTask<unknown>[]> {
     const exampleProjectPath = path.join(
       'example_projects_templates',
       'typescript',
-      this.exampleFolderName,
+      this.exampleTemplateDirectoryName,
     );
 
     const runCommand = promisify(exec);
@@ -63,7 +78,7 @@ export class CreateExampleProject {
         title: 'Copy project files',
         task: async () => fs.copy(
           path.join(getPathToNodeModulesRoot(), exampleProjectPath),
-          this.distexampleFolderPath,
+          this.targetDirectoryPath,
         ),
       },
       {
@@ -88,7 +103,7 @@ export class CreateExampleProject {
       frameworkConfigs.jest,
     );
     await fs.copyFile(configFilePath, path.join(
-      this.distexampleFolderPath,
+      this.targetDirectoryPath,
       frameworkConfigs.jest,
     ));
   }
@@ -109,7 +124,7 @@ export class CreateExampleProject {
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
-      jest: `jest --config ./${this.exampleFolderName}/jest.config.ts --runInBand`,
+      jest: `jest --config ./${this.targetDirectoryName}/jest.config.ts --runInBand`,
     };
     await addScript(
       `${this.baseDirPath}/package.json`,
@@ -146,9 +161,9 @@ export class CreateExampleProject {
 
             nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
             const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
-            const filePath = path.join(this.distexampleFolderPath, 'helpers', 'askui-helper.ts');
-            if (!fs.existsSync(path.join(this.distexampleFolderPath, 'helpers'))) {
-              await fs.mkdir(path.join(this.distexampleFolderPath, 'helpers'));
+            const filePath = path.join(this.targetDirectoryPath, 'helpers', 'askui-helper.ts');
+            if (!fs.existsSync(path.join(this.targetDirectoryPath, 'helpers'))) {
+              await fs.mkdir(path.join(this.targetDirectoryPath, 'helpers'));
             }
             await fs.writeFile(filePath, result, 'utf8');
           },
@@ -278,7 +293,7 @@ export class CreateExampleProject {
     console.log(chalk.greenBright('\nCongratulations!'));
     console.log(
       `askui example was created under ${chalk.gray(
-        this.distexampleFolderPath,
+        this.targetDirectoryPath,
       )}`,
     );
 

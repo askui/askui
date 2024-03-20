@@ -64,6 +64,12 @@ const options = [
   },
   {
     choices: [],
+    default: 'askui_example',
+    description: 'a name for the folder askui stores its configuration and workflows in.',
+    option: '-aw, --askui-workflows <value>',
+  },
+  {
+    choices: [],
     description: 'overwrite tsconfig.json flag',
     option: '-t, --typescript-config',
   },
