@@ -1,7 +1,7 @@
-![askui logo](./docs/static/img/askui-logo-white.svg.svg#gh-dark-mode-only)
-![askui logo](./docs/static/img/askui-logo.svg#gh-light-mode-only)
+![askui logo](./img/askui-logo-white.svg.svg#gh-dark-mode-only)
+![askui logo](./img/askui-logo.svg#gh-light-mode-only)
 
-*Reliable, automated end-to-end-testing that only depends on what is shown on your screen instead of the technology or platform you are running on*
+*Reliable, automated end-to-end-automation that only depends on what is shown on your screen instead of the technology or platform you are running on*
 
 <br/>
 
@@ -10,13 +10,28 @@
 
 ## Disclaimer
 
-This repo is a [monorepo](https://en.wikipedia.org/wiki/Monorepo#:~:text=In%20version%20control%20systems%2C%20a,as%20a%20'shared%20codebase'.) consisting mainly of npm packages. We use [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) to managing the different npm packages etc. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of AskUI available to non-typescript/-javascript developers as well.
+This repo contains the AskUI SDK (ADK) written in TypeScript. Releases are done from the root repository. This may change in the future as we plan to include also packages, libraries etc. written in other languages in this repo to make the power of AskUI available to non-typescript/-javascript developers as well.
+
+## Repository Structure
+
+At root level we store the configuration for commit hooks, CI/CD and releasing a new version of the ADK.
+
+Under `packages` you find the ADKs for different languages.
 
 ## Installation
-Run an `npm install` inside the root directory.
+Run an `npm install` inside the root directory to install the necessary dependencies for commit hooks and releasing a new version.
 
 ```sh
 $ npm install
+```
+
+### TypeScript ADK
+Run `npm install` inside `packages/askui-nodejs` to install the dependencies.
+
+To build the TypeScript ADK run
+
+```sh
+npm run build
 ```
 
 ## Contributing
@@ -28,10 +43,6 @@ Your branch name should conform to the format `<issue id>-<issue title lower-cas
 ### Commit Message Standard
 
 Commit messages should conform to [Conventional Commits Message Standard](https://www.conventionalcommits.org/en/v1.0.0/). Exceptions to this rule may be merge commits.
-
-### Adding Dependencies
-
-The [one version rule](https://opensource.google/documentation/reference/thirdparty/oneversion#:~:text=There%20may%20only%20be%20one,several%20reasons%20for%20this%20restriction.) should be followed as much as possible. In practice, this mean checking if a dependency to be added is already used by another package or meant to be used by multiple packages. If not, install it inside the corresponding package's root directory, e.g., `./packages/askui-nodejs`. If it is shared, install it in the project's root directory and make sure that you only need to depend on this single version in all packages. 
 
 ### Githooks
 

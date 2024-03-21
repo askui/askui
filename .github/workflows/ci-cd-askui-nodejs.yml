@@ -14,7 +14,7 @@ on:
   #       required: false
   #       type: string
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 20
   RELEASE_COMMAND: ${{ github.event.inputs.prerelease == 'true' &&  'release:prerelease' || 'release' }} -- ${{ github.event.inputs.release-it-options }}
 jobs:
   build:
@@ -22,18 +22,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://registry.npmjs.org'
       - name: Install 
         run: npm ci
+        working-directory: packages/askui-nodejs
       - name: Lint 
         run: npm run lint
+        working-directory: packages/askui-nodejs
       - name: Test 
         run: npm run test
+        working-directory: packages/askui-nodejs
       - name: Build
         if: github.ref != 'refs/heads/main' && github.event_name != 'workflow_dispatch'
         run: npm run build
@@ -47,20 +50,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://registry.npmjs.org'
       - name: Install 
         run: npm ci
+        working-directory: packages/askui-nodejs
       - name: Configure Git User
         run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release
         run: npm run ${{ env.RELEASE_COMMAND }}
+        working-directory: packages/askui-nodejs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
