@@ -1,9 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
+project_root=$(pwd)
 
 npx is-ci && exit 0
+cd ${project_root}/packages/askui-nodejs
 npm run lint:staged
 npm test
-
-cd examples/askui-nodejs-base-example || exit
-npm run lint:staged
