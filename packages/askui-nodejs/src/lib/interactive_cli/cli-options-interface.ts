@@ -1,8 +1,9 @@
 export interface CliOptions {
-  skipCredentials: boolean,
-  operatingSystem: 'windows' | 'linux' | 'macos',
-  workspaceId: string,
   accessToken: string,
+  automationsDirectory: string,
+  operatingSystem: 'windows' | 'linux' | 'macos',
+  skipCredentials: boolean,
   testFramework: 'jest',
   typescriptConfig: boolean,
+  workspaceId: string,
 }
