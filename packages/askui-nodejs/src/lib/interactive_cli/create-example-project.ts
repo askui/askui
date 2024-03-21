@@ -5,43 +5,43 @@ import { exec } from 'child_process';
 import Listr from 'listr';
 import chalk from 'chalk';
 import nunjucks from 'nunjucks';
+import { ValidationError } from 'yup';
 import { getPathToNodeModulesRoot } from '../../utils/path';
 import { CliOptions } from './cli-options-interface';
 import { addScript, removeScript } from './add-remove-script-package-json';
-import { TargetDirectoryError } from './target-directory-error';
 
 export class CreateExampleProject {
-  private targetDirectoryPath: string;
+  private automationsDirectoryPath: string;
 
   private exampleTemplateDirectoryName = 'askui_example';
 
-  private targetDirectoryName: string;
+  private automationsDirectoryName: string;
 
-  private baseDirPath: string;
+  private projectRootDirectoryPath: string;
 
   private askUIControllerUrl: string;
 
   private helperTemplateConfig: { [key: string]: string };
 
   constructor(readonly cliOptions: CliOptions) {
-    this.baseDirPath = process.cwd();
+    this.projectRootDirectoryPath = process.cwd();
 
-    this.targetDirectoryName = this.getTargetFolderName();
-    this.targetDirectoryPath = path.join(
-      this.baseDirPath,
-      this.targetDirectoryName,
+    this.automationsDirectoryName = this.getAutomationsDirectoryName();
+    this.automationsDirectoryPath = path.join(
+      this.projectRootDirectoryPath,
+      this.automationsDirectoryName,
     );
 
     this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
     this.helperTemplateConfig = {};
   }
 
-  private getTargetFolderName(): string {
-    if (this.cliOptions.askuiWorkflows) {
-      if (/\s/g.test(this.cliOptions.askuiWorkflows.trim())) {
-        throw new TargetDirectoryError('Directory name must not contain whitespaces');
+  private getAutomationsDirectoryName(): string {
+    if (this.cliOptions.automationsDirectory) {
+      if (/\s/g.test(this.cliOptions.automationsDirectory.trim())) {
+        throw new ValidationError('Automations directory (-ad, --automations-directory) must not contain whitespaces');
       }
-      return this.cliOptions.askuiWorkflows.trim();
+      return this.cliOptions.automationsDirectory.trim();
     }
     return this.exampleTemplateDirectoryName;
   }
@@ -78,14 +78,14 @@ export class CreateExampleProject {
         title: 'Copy project files',
         task: async () => fs.copy(
           path.join(getPathToNodeModulesRoot(), exampleProjectPath),
-          this.targetDirectoryPath,
+          this.automationsDirectoryPath,
         ),
       },
       {
         title: 'Install askui dependency',
         task: async () => {
           await runCommand('npm init -y');
-          await removeScript(`${this.baseDirPath}/package.json`, 'test');
+          await removeScript(`${this.projectRootDirectoryPath}/package.json`, 'test');
           await runCommand('npm i -D askui ');
         },
       },
@@ -103,7 +103,7 @@ export class CreateExampleProject {
       frameworkConfigs.jest,
     );
     await fs.copyFile(configFilePath, path.join(
-      this.targetDirectoryPath,
+      this.automationsDirectoryPath,
       frameworkConfigs.jest,
     ));
   }
@@ -124,10 +124,10 @@ export class CreateExampleProject {
 
   private async addAskuiRunCommand() {
     const frameworkExecutionCommand = {
-      jest: `jest --config ./${this.targetDirectoryName}/jest.config.ts --runInBand`,
+      jest: `jest --config ./${this.automationsDirectoryName}/jest.config.ts --runInBand`,
     };
     await addScript(
-      `${this.baseDirPath}/package.json`,
+      `${this.projectRootDirectoryPath}/package.json`,
       'askui',
       frameworkExecutionCommand.jest,
     );
@@ -135,7 +135,7 @@ export class CreateExampleProject {
 
   private async addESLintRunCommand() {
     await addScript(
-      `${this.baseDirPath}/package.json`,
+      `${this.projectRootDirectoryPath}/package.json`,
       'lint',
       'eslint . --ext .ts',
     );
@@ -161,9 +161,9 @@ export class CreateExampleProject {
 
             nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
             const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
-            const filePath = path.join(this.targetDirectoryPath, 'helpers', 'askui-helper.ts');
-            if (!fs.existsSync(path.join(this.targetDirectoryPath, 'helpers'))) {
-              await fs.mkdir(path.join(this.targetDirectoryPath, 'helpers'));
+            const filePath = path.join(this.automationsDirectoryPath, 'helpers', 'askui-helper.ts');
+            if (!fs.existsSync(path.join(this.automationsDirectoryPath, 'helpers'))) {
+              await fs.mkdir(path.join(this.automationsDirectoryPath, 'helpers'));
             }
             await fs.writeFile(filePath, result, 'utf8');
           },
@@ -240,14 +240,14 @@ export class CreateExampleProject {
           title: 'Add eslintrc.json',
           task: async () => fs.copyFile(
             path.join(getPathToNodeModulesRoot(), esLintRcFilePath),
-            path.join(this.baseDirPath, '.eslintrc.json'),
+            path.join(this.projectRootDirectoryPath, '.eslintrc.json'),
           ),
         },
         {
           title: 'Add .eslintignore',
           task: async () => fs.copyFile(
             path.join(getPathToNodeModulesRoot(), esLintIgnoreFilePath),
-            path.join(this.baseDirPath, '.eslintignore'),
+            path.join(this.projectRootDirectoryPath, '.eslintignore'),
           ),
         },
       ]),
@@ -261,7 +261,7 @@ export class CreateExampleProject {
       'typescript',
       'tsconfig.json',
     );
-    const tsConfigTargetFilePath = path.join(this.baseDirPath, 'tsconfig.json');
+    const tsConfigTargetFilePath = path.join(this.projectRootDirectoryPath, 'tsconfig.json');
     /* eslint-disable sort-keys */
     return [
       {
@@ -293,7 +293,7 @@ export class CreateExampleProject {
     console.log(chalk.greenBright('\nCongratulations!'));
     console.log(
       `askui example was created under ${chalk.gray(
-        this.targetDirectoryPath,
+        this.automationsDirectoryPath,
       )}`,
     );
 

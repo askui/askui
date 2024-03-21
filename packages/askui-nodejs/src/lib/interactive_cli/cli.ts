@@ -65,8 +65,8 @@ const options = [
   {
     choices: [],
     default: 'askui_example',
-    description: 'a name for the folder askui stores its configuration and workflows in.',
-    option: '-aw, --askui-workflows <value>',
+    description: 'a name for the directory askui stores its configuration and workflows in.',
+    option: '-ad, --automations-directory <value>',
   },
   {
     choices: [],

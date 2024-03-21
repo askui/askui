@@ -1,6 +1,6 @@
 export interface CliOptions {
   accessToken: string,
-  askuiWorkflows: string,
+  automationsDirectory: string,
   operatingSystem: 'windows' | 'linux' | 'macos',
   skipCredentials: boolean,
   testFramework: 'jest',
