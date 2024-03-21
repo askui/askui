@@ -6,6 +6,3 @@ npx is-ci && exit 0
 cd ${project_root}/packages/askui-nodejs
 npm run lint:staged
 npm test
-
-cd ${project_root}/examples/askui-nodejs-base-example || exit
-npm run lint:staged
