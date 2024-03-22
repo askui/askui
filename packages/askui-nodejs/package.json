@@ -68,7 +68,7 @@
         "url-join": "4.0.1",
         "wait-port": "0.2.9",
         "ws": "^7.5.9",
-        "yup": "0.32.11"
+        "yup": "1.4.0"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",
