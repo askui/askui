@@ -12,15 +12,6 @@ export enum Separators {
   STRING = '<|string|>',
 }
 
-// export enum Relations {
-//   NEARESTTO = 'nearestTo',
-//   LEFTOF = 'leftOf',
-//   ABOVE = 'above',
-//   RIGHTOF = 'rightOf',
-//   BELOW = 'below',
-//   CONTAINS = 'contains'
-// }
-
 export type Relations = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 
 // LITERALS

@@ -350,10 +350,10 @@ export class UiControlClient extends ApiCommands {
    *
    * **Examples:**
    * ```typescript
-   * await conv.clickButton({})
-   * await conv.clickButton({label: 'Checkout here'})
-   * await conv.clickButton({relation: {type: 'leftOf', text: 'Choose a ticket'}})
-   * await conv.clickButton({label: 'Click', {relation: {type: 'leftOf', text: 'Choose a ticket'}})
+   * await aui.clickButton({})
+   * await aui.clickButton({label: 'Checkout here'})
+   * await aui.clickButton({relation: {type: 'leftOf', text: 'Choose a ticket'}})
+   * await aui.clickButton({label: 'Click', {relation: {type: 'leftOf', text: 'Choose a ticket'}})
    * ```
    *
    * @param {Object} params - Object containing properties.
@@ -410,8 +410,8 @@ export class UiControlClient extends ApiCommands {
    *
    * **Examples:**
    * ```typescript
-   * await conv.clickCheckbox({label: 'Toggle'})
-   * await conv.clickCheckbox({label: 'Toggle', relation: {type: 'leftOf'}})
+   * await aui.clickCheckbox({label: 'Toggle'})
+   * await aui.clickCheckbox({label: 'Toggle', relation: {type: 'leftOf'}})
    * ```
    *
    * @param {Object} params - Object containing required `label` property and
@@ -501,18 +501,18 @@ export class UiControlClient extends ApiCommands {
    * **Examples:**
    * ```typescript
    * // Finds the textfield nearest to the label 'Email'
-   * await conv.typeIntoTextfield({textToWrite: 'Hello World', relation: {label: 'Email'}});
+   * await aui.typeIntoTextfield({textToWrite: 'Hello World', relation: {label: 'Email'}});
    *
    * // Finds the textfield above/below a label 'Password'
-   * await conv.typeIntoTextfield(
+   * await aui.typeIntoTextfield(
    *   {textToWrite: 'Hello World', relation: {type: 'above', label: 'Password'}}
    * );
-   * await conv.typeIntoTextfield(
+   * await aui.typeIntoTextfield(
    *   {textToWrite: 'Hello World', relation: {type: 'below', label: 'Password'}}
    * );
    *
    * // If there is no label but a placeholder, the label is contained in the textfield
-   * await conv.typeIntoTextfield(
+   * await aui.typeIntoTextfield(
    *   {textToWrite: 'Hello World', relation: {type: 'contains', label: 'Enter email'}}
    * );
    * ```
@@ -574,13 +574,13 @@ export class UiControlClient extends ApiCommands {
    * **Examples:**
    * ```typescript
    * // Click text that matches exactly
-   * await conv.clickText({text: 'askui', exact: true})
+   * await aui.clickText({text: 'askui', exact: true})
    *
    * // Click text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
-   * await conv.clickText({text: '.*([Pp]ie|[Cc]ake).*', regex: true})
+   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', regex: true})
    *
    * // Click the text 'TERMINAL' that is left of the text 'Ports'
-   * await conv.clickText({text: 'TERMINAL', relation: {type: 'leftOf', text: 'PORTS'}})
+   * await aui.clickText({text: 'TERMINAL', relation: {type: 'leftOf', text: 'PORTS'}})
    * ```
    *
    * @param {Object} params - Object containing required `text` property and optional properties
