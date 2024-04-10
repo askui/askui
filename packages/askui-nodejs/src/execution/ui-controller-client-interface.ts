@@ -2,28 +2,49 @@ import { CredentialArgs } from './credentials-args';
 import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
+import { Context } from './context';
 
 /**
- * Configuration options for the askui UI Control Client
+ * Context object to provide additional information about the context of (test) automation.
  *
- * @param {string} uiControllerUrl - Default: http://127.0.0.1:6769
- * The adress of the askui UI Controller server.
- * @param {(number | undefined)} resize - Default: undefined
- * The resizing will be skipped if it's undefined.
- * The side length of the target image to resize to in px.
- * Your screenshot image will be resized with the original aspect ratio,
- *  and the lengths image side will be equal to this number.
- * This can be used to reduce the inference time by reducing
- *  the request size in case of a bad internet connection.
- * But it can cause a decrease in the prediction quality.
- * @param {string} inferenceServerUrl - Default: https://inference.askui.com`
- * Address of the askui Inference server.
- * @param {CredentialArgs} credentials - We need to provide credentials for
- * the authentication of the askui Inference Server.
- * You have three options: `DISABLED`, `ON_FAILURE`, `ALL`.
- * @param {ProxyAgentArgs} proxyAgents - To configure the proxy agents for http(s) requests.
- * @param {Reporter | Reporter[]} reporter - To configure the reporter(s)
- *  to report on step runs/executions.
+ * @property {(boolean | undefined)} [isCi] - Default: Determined automatically by
+ *    https://github.com/watson/is-ci; see https://github.com/watson/ci-info#supported-ci-tools for
+ *    all supported CI tools. Can be used for overriding the automatic detection of CI tools, e.g.,
+ *    if not supported by `is-ci`, so that AskUI can be optimized for the corresponding
+ *    environment, e.g., adjusting caching behavior.
+ */
+export interface ContextArgs {
+  readonly isCi?: boolean | undefined;
+}
+
+/**
+ * Configuration options for AskUI's UiControlClient.
+ *
+ * @property {string} [uiControllerUrl] - Default: `'http://127.0.0.1:6769'`. The address of
+ *    AskUI's UiController that interacts with the operating system, e.g., simulating input
+ *    events and capturing screenshots.
+ * @property {string} [inferenceServerUrl] - Default: `'https://inference.askui.com'`.
+ *    Address of the AskUI's inference server which is responsible for understanding the
+ *    screenshots and extracting data from them and returning commands for the UiController.
+ * @property {(CredentialArgs | undefined)} [credentials] - Optional. Credentials for
+ *    the authenticating and authorizing with the inference server.
+ * @property {(ProxyAgentArgs | undefined)} [proxyAgents] - Optional. Proxy agents for http(s)
+ *    requests against the inference server if running behind a proxy.
+ * @property {number} [resize] - Optional. Length in px to resize the screenshot image to before
+ *    sending it to the inference server so that the screenshot image's longer side is equal to or
+ *    less than it. Aspect ratio (of width and height) is preserved. This can be used to reduce the
+ *    inference time by reducing the request size, e.g., if network bandwidth is limited. But it
+ *    can cause a decrease in the prediction quality. If undefined, the screenshot image is not
+ *    resized but sent as is.
+ * @property {(Reporter | Reporter[] | undefined)} [reporter] - Default: `[]`. To configure the
+ *    reporter(s) to report on steps (see
+ *    https://docs.askui.com/docs/next/general/Components/askui-ui-control-client#reporter).
+ * @property {ModelCompositionBranch[]} [modelComposition] - Default: `[]`. To configure the model
+ *    composition for the inference server, i.e., which models are used for the inference, e.g.,
+ *    test recognition or object detection.
+ * @property {(Context | undefined)} [context] - Optional. Context object to provide additional
+ *    information about the context of (test) automation, e.g., to allow for optimizations based on
+ *    the environment, e.g., CI/CD.
  */
 export interface ClientArgs {
   readonly uiControllerUrl?: string
@@ -33,9 +54,11 @@ export interface ClientArgs {
   readonly resize?: number
   readonly modelComposition?: ModelCompositionBranch[]
   readonly reporter?: Reporter | Reporter[] | undefined
+  readonly context?: ContextArgs | undefined
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
   readonly uiControllerUrl: string
   readonly inferenceServerUrl: string
+  readonly context: Context
 }

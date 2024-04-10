@@ -1,3 +1,4 @@
+import isCI from 'is-ci';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { UiControllerClient } from './ui-controller-client';
 import { InferenceClient } from './inference-client';
@@ -16,7 +17,7 @@ export class UiControlClientDependencyBuilder {
     clientArgs: ClientArgsWithDefaults,
   ): Promise<HttpClientGot> {
     const analytics = new Analytics();
-    const analyticsHeaders = await analytics.getAnalyticsHeaders();
+    const analyticsHeaders = await analytics.getAnalyticsHeaders(clientArgs.context);
     const analyticsCookies = await analytics.getAnalyticsCookies();
     return new HttpClientGot(
       clientArgs.credentials?.token,
@@ -69,6 +70,9 @@ export class UiControlClientDependencyBuilder {
   ): Promise<ClientArgsWithDefaults> {
     return {
       ...clientArgs,
+      context: {
+        isCi: clientArgs.context?.isCi ?? isCI,
+      },
       credentials: readCredentials(clientArgs),
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
