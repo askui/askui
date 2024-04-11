@@ -1,8 +1,10 @@
+import ValidationError from 'yup/lib/ValidationError';
 import { CustomElement } from '../core/model/custom-element';
 import { CustomElementJson } from '../core/model/custom-element-json';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
-  PC_AND_MODIFIER_KEY, Relations,
+  PC_AND_MODIFIER_KEY,
+  FluentFiltersOrRelations,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -14,6 +16,8 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
+
+export type Anchor = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 
 export class UiControlClient extends ApiCommands {
   private constructor(
@@ -344,6 +348,38 @@ export class UiControlClient extends ApiCommands {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private evaluateRelation(
+    command: FluentFiltersOrRelations,
+    position: Anchor,
+    text: string,
+  ) {
+    let commando = command;
+    switch (position) {
+      case 'nearestTo':
+        commando = command.nearestTo().text(text);
+        break;
+      case 'leftOf':
+        commando = command.leftOf().text(text);
+        break;
+      case 'above':
+        commando = command.above().text(text);
+        break;
+      case 'rightOf':
+        commando = command.rightOf().text(text);
+        break;
+      case 'below':
+        commando = command.below().text(text);
+        break;
+      case 'contains':
+        commando = command.contains().text(text);
+        break;
+      default:
+        throw new ValidationError('No valid Position.Type was passed.');
+    }
+    return commando;
+  }
+
   /**
    * Click a button with a specific label.
    * Optional relation identifies the button in relation to another element.
@@ -360,14 +396,14 @@ export class UiControlClient extends ApiCommands {
    * @property {string} [params.label] - The text label of the button. Defaults to an empty string.
    * @property {Object} [params.relation] - Object describing the relationship between
    *                                        the clicked button and another element.
-   * @property {Relations} params.relation.type - The type of relation.
+   * @property {Anchor} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The text element the relation is based on.
    */
   async clickButton(
     params: {
       label?: string,
       relation?: {
-        type: Relations,
+        type: Anchor,
         text: string
       }
     },
@@ -379,26 +415,7 @@ export class UiControlClient extends ApiCommands {
     }
 
     if (params.relation) {
-      switch (params.relation.type) {
-        case 'nearestTo':
-          command = command.nearestTo().text(params.relation.text);
-          break;
-        case 'leftOf':
-          command = command.leftOf().text(params.relation.text);
-          break;
-        case 'above':
-          command = command.above().text(params.relation.text);
-          break;
-        case 'rightOf':
-          command = command.rightOf().text(params.relation.text);
-          break;
-        case 'below':
-          command = command.below().text(params.relation.text);
-          break;
-        default:
-          command = command.nearestTo().text(params.relation.text);
-          break;
-      }
+      command = this.evaluateRelation(command, params.relation.type, params.relation.text);
     }
 
     await command.exec();
@@ -419,78 +436,61 @@ export class UiControlClient extends ApiCommands {
    * @property {string} params.label - The label for the checkbox.
    * @property {Object} [params.relation] - Object describing the relationship between
    *                                        the clicked checkbox and another element.
-   * @property {Relations} params.relation.type - The type of relation.
+   * @property {Anchor} params.relation.type - The type of relation.
    */
   async clickCheckbox(
     params: {
       label: string,
       relation?: {
-        type: Relations
+        type: Anchor
       }
     },
   ) {
-    const command = this.click().checkbox();
+    let command = this.click().checkbox();
 
-    if (params.relation) {
-      switch (params.relation.type) {
-        case 'nearestTo':
-          await command.nearestTo().text(params.label).exec();
-          break;
-        case 'leftOf':
-          await command.leftOf().text(params.label).exec();
-          break;
-        case 'above':
-          await command.above().text(params.label).exec();
-          break;
-        case 'rightOf':
-          await command.rightOf().text(params.label).exec();
-          break;
-        case 'below':
-          await command.below().text(params.label).exec();
-          break;
-        default:
-          await command.nearestTo().text(params.label).exec();
-          break;
-      }
+    if (!params.relation) {
+      command = command.nearestTo().text(params.label);
     } else {
-      await command.nearestTo().text(params.label).exec();
+      command = this.evaluateRelation(command, params.relation.type, params.label);
     }
+
+    await command.exec();
   }
 
+  /**
+   * Click a switch with a specific label.
+   * You can also specify where the label is placed relationally.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.clickSwitch({label: 'Toggle'})
+   * await aui.clickSwitch({label: 'Toggle', relation: {type: 'leftOf'}})
+   * ```
+   *
+   * @param {Object} params - Object containing required `label` property and
+   *                          optional `relation` property.
+   * @property {string} params.label - The label for the checkbox.
+   * @property {Object} [params.relation] - Object describing the relationship between
+   *                                        the clicked checkbox and another element.
+   * @property {Anchor} params.relation.type - The type of relation.
+   */
   async clickSwitch(
     params: {
       label: string,
       relation?: {
-        type: Relations
+        type: Anchor
       }
     },
   ) {
-    const command = this.click().switch();
+    let command = this.click().switch();
 
-    if (params.relation) {
-      switch (params.relation.type) {
-        case 'nearestTo':
-          await command.nearestTo().text(params.label).exec();
-          break;
-        case 'leftOf':
-          await command.leftOf().text(params.label).exec();
-          break;
-        case 'above':
-          await command.above().text(params.label).exec();
-          break;
-        case 'rightOf':
-          await command.rightOf().text(params.label).exec();
-          break;
-        case 'below':
-          await command.below().text(params.label).exec();
-          break;
-        default:
-          await command.nearestTo().text(params.label).exec();
-          break;
-      }
+    if (!params.relation) {
+      command = command.nearestTo().text(params.label);
     } else {
-      await command.nearestTo().text(params.label).exec();
+      command = this.evaluateRelation(command, params.relation.type, params.label);
     }
+
+    await command.exec();
   }
 
   /**
@@ -520,9 +520,9 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `textToWrite` property and
    *                          optional `relation` property.
    * @property {string} params.textToWrite - The text to be typed into the textfield.
-   * @property {Object} params.relation - Object describing the relationship between
-   *                                      the textfield being interacted with and another element.
-   * @property {Relations} [params.relation.type] - The type of relation, optional.
+   * @property {Object} params.relation - Object describing the relationship between the
+   *                                      textfield being interacted with and another element.
+   * @property {Anchor} [params.relation.type] - The type of relation, optional.
    * @property {string} params.relation.label - The label associated with the related
    *                                            element, optional.
    */
@@ -530,40 +530,20 @@ export class UiControlClient extends ApiCommands {
     params: {
       textToWrite: string,
       relation: {
-        type?: Relations,
+        type?: Anchor,
         label: string
       }
     },
   ) {
-    const command = this.typeIn(params.textToWrite).textfield();
+    let command = this.typeIn(params.textToWrite).textfield();
 
-    if (params.relation.type) {
-      switch (params.relation.type) {
-        case 'nearestTo':
-          await command.nearestTo().text(params.relation.label).exec();
-          break;
-        case 'contains':
-          await command.contains().text(params.relation.label).exec();
-          break;
-        case 'leftOf':
-          await command.leftOf().text(params.relation.label).exec();
-          break;
-        case 'above':
-          await command.above().text(params.relation.label).exec();
-          break;
-        case 'rightOf':
-          await command.rightOf().text(params.relation.label).exec();
-          break;
-        case 'below':
-          await command.below().text(params.relation.label).exec();
-          break;
-        default:
-          await command.nearestTo().text(params.relation.label).exec();
-          break;
-      }
+    if (!params.relation.type) {
+      command = command.nearestTo().text(params.relation.label);
     } else {
-      await command.nearestTo().text(params.relation.label).exec();
+      command = this.evaluateRelation(command, params.relation.type, params.relation.label);
     }
+
+    await command.exec();
   }
 
   /**
@@ -574,15 +554,17 @@ export class UiControlClient extends ApiCommands {
    * **Examples:**
    * ```typescript
    * // Click text that matches exactly
-   * await aui.clickText({text: 'askui', exact: true})
+   * await aui.clickText({text: 'askui', type: 'similar'})
    *
    * // Click text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
-   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', regex: true})
+   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', type: 'regex'})
    *
    * // Click the text 'TERMINAL' that is left of the text 'Ports'
-   * await aui.clickText({text: 'TERMINAL', relation: {type: 'leftOf', text: 'PORTS'}})
+   * await aui.clickText({
+   *   text: 'TERMINAL',
+   *   type: "exact",
+   *   relation: {type: 'leftOf', text: 'PORTS'}})
    * ```
-   *
    * @param {Object} params - Object containing required `text` property and optional properties
    *                          for regular expression matching and relation.
    * @property {string} params.text - The text to be clicked.
@@ -592,49 +574,37 @@ export class UiControlClient extends ApiCommands {
    *                                            when using regex, default is false.
    * @property {Object} [params.relation] - Object describing the relationship between the
    *                                        clicked text and another element.
-   * @property {Relations} params.relation.type - The type of relation.
+   * @property {Anchor} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The label or text associated with the
    *                                           related element or state.
    */
   async clickText(
     params: {
       text: string,
-      regex?: boolean,
-      exact?: boolean,
-      relation?: { type: Relations, text: string }
+      type: 'similar' | 'exact' | 'regex',
+      relation?: {
+        type: Anchor,
+        text: string }
     },
   ) {
     let command = this.click().text();
 
-    if (params.regex) {
-      command = command.withTextRegex(params.text);
-    } else if (params.exact) {
-      command = command.withExactText(params.text);
-    } else if (params.text) {
-      command = command.withText(params.text);
+    switch (params.type) {
+      case 'similar':
+        command = command.withText(params.text);
+        break;
+      case 'exact':
+        command = command.withExactText(params.text);
+        break;
+      case 'regex':
+        command = command.withTextRegex(params.text);
+        break;
+      default:
+        throw new ValidationError('"type" must be "similar", "exact" or "regex"');
     }
 
     if (params.relation) {
-      switch (params.relation.type) {
-        case 'nearestTo':
-          command = command.nearestTo().text(params.relation.text);
-          break;
-        case 'leftOf':
-          command = command.leftOf().text(params.relation.text);
-          break;
-        case 'above':
-          command = command.above().text(params.relation.text);
-          break;
-        case 'rightOf':
-          command = command.rightOf().text(params.relation.text);
-          break;
-        case 'below':
-          command = command.below().text(params.relation.text);
-          break;
-        default:
-          command = command.nearestTo().text(params.relation.text);
-          break;
-      }
+      command = this.evaluateRelation(command, params.relation.type, params.relation.text);
     }
 
     await command.exec();

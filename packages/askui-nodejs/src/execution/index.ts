@@ -1,1 +1,1 @@
-export { UiControlClient } from './ui-control-client';
+export { UiControlClient, Anchor as Anchors } from './ui-control-client';

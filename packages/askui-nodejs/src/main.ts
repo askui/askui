@@ -1,5 +1,5 @@
 export { UiController } from './lib';
-export { UiControlClient } from './execution';
+export { UiControlClient, Anchors } from './execution';
 export {
   Instruction,
   Reporter,
