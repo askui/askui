@@ -17,7 +17,7 @@ import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
 
-export type Anchor = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
+export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 
 export class UiControlClient extends ApiCommands {
   private constructor(
@@ -351,11 +351,11 @@ export class UiControlClient extends ApiCommands {
   // eslint-disable-next-line class-methods-use-this
   private evaluateRelation(
     command: FluentFiltersOrRelations,
-    position: Anchor,
+    relation: RelationsForConvenienceMethods,
     text: string,
   ) {
     let commando = command;
-    switch (position) {
+    switch (relation) {
       case 'nearestTo':
         commando = command.nearestTo().text(text);
         break;
@@ -375,7 +375,7 @@ export class UiControlClient extends ApiCommands {
         commando = command.contains().text(text);
         break;
       default:
-        throw new ValidationError('No valid Position.Type was passed.');
+        throw new ValidationError('No valid Relation.Type was passed.');
     }
     return commando;
   }
@@ -396,14 +396,14 @@ export class UiControlClient extends ApiCommands {
    * @property {string} [params.label] - The text label of the button. Defaults to an empty string.
    * @property {Object} [params.relation] - Object describing the relationship between
    *                                        the clicked button and another element.
-   * @property {Anchor} params.relation.type - The type of relation.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The text element the relation is based on.
    */
   async clickButton(
     params: {
       label?: string,
       relation?: {
-        type: Anchor,
+        type: RelationsForConvenienceMethods,
         text: string
       }
     },
@@ -434,15 +434,15 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `label` property and
    *                          optional `relation` property.
    * @property {string} params.label - The label for the checkbox.
-   * @property {Object} [params.relation] - Object describing the relationship between
-   *                                        the clicked checkbox and another element.
-   * @property {Anchor} params.relation.type - The type of relation.
+   * @property {Object} params.relation - Object describing the relationship between
+   *                                      the clicked checkbox and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    */
   async clickCheckbox(
     params: {
       label: string,
       relation?: {
-        type: Anchor
+        type: RelationsForConvenienceMethods
       }
     },
   ) {
@@ -470,15 +470,15 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `label` property and
    *                          optional `relation` property.
    * @property {string} params.label - The label for the checkbox.
-   * @property {Object} [params.relation] - Object describing the relationship between
-   *                                        the clicked checkbox and another element.
-   * @property {Anchor} params.relation.type - The type of relation.
+   * @property {Object} params.relation - Object describing the relationship between
+   *                                      the clicked checkbox and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    */
   async clickSwitch(
     params: {
       label: string,
       relation?: {
-        type: Anchor
+        type: RelationsForConvenienceMethods
       }
     },
   ) {
@@ -522,7 +522,8 @@ export class UiControlClient extends ApiCommands {
    * @property {string} params.textToWrite - The text to be typed into the textfield.
    * @property {Object} params.relation - Object describing the relationship between the
    *                                      textfield being interacted with and another element.
-   * @property {Anchor} [params.relation.type] - The type of relation, optional.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of
+   *                                                                   relation, optional.
    * @property {string} params.relation.label - The label associated with the related
    *                                            element, optional.
    */
@@ -530,7 +531,7 @@ export class UiControlClient extends ApiCommands {
     params: {
       textToWrite: string,
       relation: {
-        type?: Anchor,
+        type?: RelationsForConvenienceMethods,
         label: string
       }
     },
@@ -561,20 +562,19 @@ export class UiControlClient extends ApiCommands {
    *
    * // Click the text 'TERMINAL' that is left of the text 'Ports'
    * await aui.clickText({
-   *   text: 'TERMINAL',
-   *   type: "exact",
-   *   relation: {type: 'leftOf', text: 'PORTS'}})
+   *     text: 'TERMINAL',
+   *     type: "exact",
+   *     relation: { type: 'leftOf', text: 'PORTS' }
+   *   })
    * ```
    * @param {Object} params - Object containing required `text` property and optional properties
    *                          for regular expression matching and relation.
    * @property {string} params.text - The text to be clicked.
-   * @property {boolean} [params.regex=false] - Whether the text is matched using a regular
-   *                                            expression, default is false.
-   * @property {boolean} [params.exact=false] - Whether an exact match of the text is required
-   *                                            when using regex, default is false.
-   * @property {Object} [params.relation] - Object describing the relationship between the
-   *                                        clicked text and another element.
-   * @property {Anchor} params.relation.type - The type of relation.
+   * @property {string} params.type - Whether the text is matched using similarity,
+   *                                  exact match or a regular expression.
+   * @property {Object} params.relation - Object describing the relationship between the
+   *                                      clicked text and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The label or text associated with the
    *                                           related element or state.
    */
@@ -583,8 +583,9 @@ export class UiControlClient extends ApiCommands {
       text: string,
       type: 'similar' | 'exact' | 'regex',
       relation?: {
-        type: Anchor,
-        text: string }
+        type: RelationsForConvenienceMethods,
+        text: string
+      }
     },
   ) {
     let command = this.click().text();

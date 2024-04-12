@@ -1,1 +1,1 @@
-export { UiControlClient, Anchor as Anchors } from './ui-control-client';
+export { UiControlClient, RelationsForConvenienceMethods } from './ui-control-client';
