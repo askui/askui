@@ -1,3 +1,5 @@
+import { Context } from '@/execution/context';
+
 export interface AnalyticsInterface {
-  getAnalyticsHeaders(): Promise<Record<string, string>>;
+  getAnalyticsHeaders(context: Context): Promise<Record<string, string>>;
 }
