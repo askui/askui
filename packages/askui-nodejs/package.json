@@ -101,7 +101,7 @@
         "release-it": "17.0.3",
         "shx": "0.3.4",
         "ts-jest": "29.1.2",
-        "typescript": "4.5.4"
+        "typescript": "5.4.5"
     },
     "lint-staged": {
         "./**/*.{js,ts}": "eslint --cache --fix --max-warnings 0"
