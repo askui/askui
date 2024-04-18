@@ -34,7 +34,8 @@ export class InferenceClient {
       ? urljoin(versionedBaseUrl, 'workspaces', workspaceId)
       : versionedBaseUrl;
     this.urls = {
-      inference: urljoin(url, 'inference'),
+      // V4's only end part is different
+      inference: apiVersion === 'v4'? urljoin(url, 'predict') : urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
     };
     this.httpClient.urlsToRetry = Object.values(this.urls);
@@ -47,6 +48,11 @@ export class InferenceClient {
   }
 
   async isImageRequired(instruction: string): Promise<boolean> {
+    // V4's image is not required
+    if(this.urls.inference.endsWith("predict")){
+      return false;
+    }    
+
     const response = await this.httpClient.post<IsImageRequired>(
       this.urls.isImageRequired,
       {
@@ -75,6 +81,12 @@ export class InferenceClient {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const response = await this.httpClient.post<InferenceResponseBody>(
       this.urls.inference,
+      this.urls.inference.endsWith("predict") ? {
+        // V4 only supports the base64 image and not the metadata of the base64 string
+        image: resizedImage.base64Image?.split(",")[1],
+        instruction,
+        tasks: ["OCR"]
+      }:
       {
         customElements,
         image: resizedImage.base64Image,
