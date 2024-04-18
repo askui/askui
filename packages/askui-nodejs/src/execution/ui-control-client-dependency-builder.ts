@@ -39,6 +39,7 @@ export class UiControlClientDependencyBuilder {
       clientArgs.resize,
       clientArgs.credentials?.workspaceId,
       clientArgs.modelComposition,
+      clientArgs.inferenceServerApiVersion
     );
   }
 
@@ -78,6 +79,7 @@ export class UiControlClientDependencyBuilder {
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
       uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
+      inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v3'
     };
   }
 }

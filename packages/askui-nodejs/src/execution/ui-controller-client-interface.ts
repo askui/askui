@@ -55,10 +55,12 @@ export interface ClientArgs {
   readonly modelComposition?: ModelCompositionBranch[]
   readonly reporter?: Reporter | Reporter[] | undefined
   readonly context?: ContextArgs | undefined
+  readonly inferenceServerApiVersion?: string
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
   readonly uiControllerUrl: string
   readonly inferenceServerUrl: string
   readonly context: Context
+  readonly inferenceServerApiVersion: string
 }
