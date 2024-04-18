@@ -75,10 +75,10 @@ export class UiControlClientDependencyBuilder {
         isCi: clientArgs.context?.isCi ?? isCI,
       },
       credentials: readCredentials(clientArgs),
+      inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v3',
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
-      inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v3',
       uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
     };
   }
