@@ -78,8 +78,8 @@ export class UiControlClientDependencyBuilder {
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
-      uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
       inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v3',
+      uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
     };
   }
 }
