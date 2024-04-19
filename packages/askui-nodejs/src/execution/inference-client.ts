@@ -48,9 +48,9 @@ export class InferenceClient {
   }
 
   async isImageRequired(instruction: string): Promise<boolean> {
-    // V4's image is not required
+    // V4's image is always required
     if (this.urls.inference.endsWith('predict')) {
-      return false;
+      return true;
     }
 
     const response = await this.httpClient.post<IsImageRequired>(
@@ -83,7 +83,7 @@ export class InferenceClient {
       this.urls.inference,
       this.urls.inference.endsWith('predict') ? {
         // V4 only supports the base64 image and not the metadata of the base64 string
-        image: resizedImage.base64Image?.split(',')[1],
+        image: resizedImage.base64Image,
         instruction,
         tasks: ['OCR'],
       }
