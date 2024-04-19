@@ -48,11 +48,6 @@ export class InferenceClient {
   }
 
   async isImageRequired(instruction: string): Promise<boolean> {
-    // V4's image is always required
-    if (this.urls.inference.endsWith('predict')) {
-      return true;
-    }
-
     const response = await this.httpClient.post<IsImageRequired>(
       this.urls.isImageRequired,
       {
