@@ -1,8 +1,10 @@
+import ValidationError from 'yup/lib/ValidationError';
 import { CustomElement } from '../core/model/custom-element';
 import { CustomElementJson } from '../core/model/custom-element-json';
 import {
   Exec, Executable, FluentFilters, ApiCommands, Separators,
   PC_AND_MODIFIER_KEY,
+  FluentFiltersOrRelations,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -14,6 +16,8 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
+
+export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 
 export class UiControlClient extends ApiCommands {
   private constructor(
@@ -275,15 +279,6 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Searches for a text element and clicks it when found.
-   *
-   * @param {string} text - A text to be searched.
-   */
-  async clickText(text: string) {
-    await this.click().text(text).exec();
-  }
-
-  /**
    * Searches for text elements and clicks them
    * one after another when found.
    *
@@ -294,16 +289,6 @@ export class UiControlClient extends ApiCommands {
     for (let i = 0; i < texts.length; i += 1) {
       await this.click().text(texts[i] as string).exec();
     }
-  }
-
-  /**
-   * Searches for an element of type button
-   * with a label and clicks it when found.
-   *
-   * @param {string} label - The buttons label.
-   */
-  async clickButton(label: string) {
-    await this.click().button().withText(label).exec();
   }
 
   /**
@@ -361,5 +346,268 @@ export class UiControlClient extends ApiCommands {
       await this.waitFor(waitTime).exec();
       await this.waitUntil(AskUICommand, maxTry - 1);
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private evaluateRelation(
+    command: FluentFiltersOrRelations,
+    relation: RelationsForConvenienceMethods,
+    text: string,
+  ) {
+    let commando = command;
+    switch (relation) {
+      case 'nearestTo':
+        commando = command.nearestTo().text(text);
+        break;
+      case 'leftOf':
+        commando = command.leftOf().text(text);
+        break;
+      case 'above':
+        commando = command.above().text(text);
+        break;
+      case 'rightOf':
+        commando = command.rightOf().text(text);
+        break;
+      case 'below':
+        commando = command.below().text(text);
+        break;
+      case 'contains':
+        commando = command.contains().text(text);
+        break;
+      default:
+        throw new ValidationError('No valid Relation.Type was passed.');
+    }
+    return commando;
+  }
+
+  /**
+   * Click a button with a specific label.
+   * Optional relation identifies the button in relation to another element.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.clickButton({})
+   * await aui.clickButton({label: 'Checkout here'})
+   * await aui.clickButton({relation: {type: 'leftOf', text: 'Choose a ticket'}})
+   * await aui.clickButton({label: 'Click', {relation: {type: 'leftOf', text: 'Choose a ticket'}})
+   * ```
+   *
+   * @param {Object} params - Object containing properties.
+   * @property {string} [params.label] - The text label of the button. Defaults to an empty string.
+   * @property {Object} [params.relation] - Object describing the relationship between
+   *                                        the clicked button and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
+   * @property {string} params.relation.text - The text element the relation is based on.
+   */
+  async clickButton(
+    params: {
+      label?: string,
+      relation?: {
+        type: RelationsForConvenienceMethods,
+        text: string
+      }
+    },
+  ) {
+    let command = this.click().button();
+
+    if (params.label) {
+      command = command.withText(params.label);
+    }
+
+    if (params.relation) {
+      command = this.evaluateRelation(command, params.relation.type, params.relation.text);
+    }
+
+    await command.exec();
+  }
+
+  /**
+   * Click a checkbox with a specific label.
+   * You can also specify where the label is placed relationally.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.clickCheckbox({label: 'Toggle'})
+   * await aui.clickCheckbox({label: 'Toggle', relation: {type: 'leftOf'}})
+   * ```
+   *
+   * @param {Object} params - Object containing required `label` property and
+   *                          optional `relation` property.
+   * @property {string} params.label - The label for the checkbox.
+   * @property {Object} params.relation - Object describing the relationship between
+   *                                      the clicked checkbox and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
+   */
+  async clickCheckbox(
+    params: {
+      label: string,
+      relation?: {
+        type: RelationsForConvenienceMethods
+      }
+    },
+  ) {
+    let command = this.click().checkbox();
+
+    if (!params.relation) {
+      command = command.nearestTo().text(params.label);
+    } else {
+      command = this.evaluateRelation(command, params.relation.type, params.label);
+    }
+
+    await command.exec();
+  }
+
+  /**
+   * Click a switch with a specific label.
+   * You can also specify where the label is placed relationally.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.clickSwitch({label: 'Toggle'})
+   * await aui.clickSwitch({label: 'Toggle', relation: {type: 'leftOf'}})
+   * ```
+   *
+   * @param {Object} params - Object containing required `label` property and
+   *                          optional `relation` property.
+   * @property {string} params.label - The label for the checkbox.
+   * @property {Object} params.relation - Object describing the relationship between
+   *                                      the clicked checkbox and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
+   */
+  async clickSwitch(
+    params: {
+      label: string,
+      relation?: {
+        type: RelationsForConvenienceMethods
+      }
+    },
+  ) {
+    let command = this.click().switch();
+
+    if (!params.relation) {
+      command = command.nearestTo().text(params.label);
+    } else {
+      command = this.evaluateRelation(command, params.relation.type, params.label);
+    }
+
+    await command.exec();
+  }
+
+  /**
+   * Types a given text into a textfield.
+   * Use a relation to specify how to find
+   * the textfield in relation to a specific label.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Finds the textfield nearest to the label 'Email'
+   * await aui.typeIntoTextfield({textToWrite: 'Hello World', relation: {label: 'Email'}});
+   *
+   * // Finds the textfield above/below a label 'Password'
+   * await aui.typeIntoTextfield(
+   *   {textToWrite: 'Hello World', relation: {type: 'above', label: 'Password'}}
+   * );
+   * await aui.typeIntoTextfield(
+   *   {textToWrite: 'Hello World', relation: {type: 'below', label: 'Password'}}
+   * );
+   *
+   * // If there is no label but a placeholder, the label is contained in the textfield
+   * await aui.typeIntoTextfield(
+   *   {textToWrite: 'Hello World', relation: {type: 'contains', label: 'Enter email'}}
+   * );
+   * ```
+   *
+   * @param {Object} params - Object containing required `textToWrite` property and
+   *                          optional `relation` property.
+   * @property {string} params.textToWrite - The text to be typed into the textfield.
+   * @property {Object} params.relation - Object describing the relationship between the
+   *                                      textfield being interacted with and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of
+   *                                                                   relation, optional.
+   * @property {string} params.relation.label - The label associated with the related
+   *                                            element, optional.
+   */
+  async typeIntoTextfield(
+    params: {
+      textToWrite: string,
+      relation: {
+        type?: RelationsForConvenienceMethods,
+        label: string
+      }
+    },
+  ) {
+    let command = this.typeIn(params.textToWrite).textfield();
+
+    if (!params.relation.type) {
+      command = command.nearestTo().text(params.relation.label);
+    } else {
+      command = this.evaluateRelation(command, params.relation.type, params.relation.label);
+    }
+
+    await command.exec();
+  }
+
+  /**
+   * Click on a specific text.
+   * You can also use a RegEx or match the text exactly by specifyicing the specific flag.
+   * Use a relation to find the text in relation to a specific text.
+   *
+   * **Examples:**
+   * ```typescript
+   * // Click text that matches exactly
+   * await aui.clickText({text: 'askui', type: 'similar'})
+   *
+   * // Click text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
+   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', type: 'regex'})
+   *
+   * // Click the text 'TERMINAL' that is left of the text 'Ports'
+   * await aui.clickText({
+   *     text: 'TERMINAL',
+   *     type: "exact",
+   *     relation: { type: 'leftOf', text: 'PORTS' }
+   *   })
+   * ```
+   * @param {Object} params - Object containing required `text` property and optional properties
+   *                          for regular expression matching and relation.
+   * @property {string} params.text - The text to be clicked.
+   * @property {string} params.type - Whether the text is matched using similarity,
+   *                                  exact match or a regular expression.
+   * @property {Object} params.relation - Object describing the relationship between the
+   *                                      clicked text and another element.
+   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
+   * @property {string} params.relation.text - The label or text associated with the
+   *                                           related element or state.
+   */
+  async clickText(
+    params: {
+      text: string,
+      type: 'similar' | 'exact' | 'regex',
+      relation?: {
+        type: RelationsForConvenienceMethods,
+        text: string
+      }
+    },
+  ) {
+    let command = this.click().text();
+
+    switch (params.type) {
+      case 'similar':
+        command = command.withText(params.text);
+        break;
+      case 'exact':
+        command = command.withExactText(params.text);
+        break;
+      case 'regex':
+        command = command.withTextRegex(params.text);
+        break;
+      default:
+        throw new ValidationError('"type" must be "similar", "exact" or "regex"');
+    }
+
+    if (params.relation) {
+      command = this.evaluateRelation(command, params.relation.type, params.relation.text);
+    }
+
+    await command.exec();
   }
 }

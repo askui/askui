@@ -1,5 +1,5 @@
 export { UiController } from './lib';
-export { UiControlClient } from './execution';
+export { UiControlClient, RelationsForConvenienceMethods } from './execution';
 export {
   Instruction,
   Reporter,
