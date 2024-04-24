@@ -5,6 +5,14 @@
 
 * chore: track if running in ci (#CL-682) by @adi-wan-askui in https://github.com/askui/askui/pull/740
 
+
+## [0.17.0](https://github.com/askui/askui/compare/v0.16.0...v0.17.0) (2024-03-22)
+
+
+### Features
+* add -ad --automations-description option so users can specify a name for the askui project ([556c977](https://github.com/askui/askui/commit/556c97724c6ac77d1898b4270fc3ac48b38dae81))
+* add new convenience method clickTextfieldNearestTo(label) ([8c25ea0](https://github.com/askui/askui/commit/8c25ea0b7154d7ec5e354cc021785a149ce53eb9))
+
 ## [0.16.0](https://github.com/askui/askui/compare/v0.15.0...v0.16.0) (2024-03-05)
 
 
