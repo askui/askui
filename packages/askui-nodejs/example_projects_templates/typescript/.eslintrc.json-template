@@ -12,9 +12,10 @@
   },
   "plugins": [
     "import",
-    "askui"
+    "@askui/askui"
   ],
   "rules": {
-      "askui/no-missing-askui-exec": "error"
+      "@askui/askui/no-missing-exec": "error",
+      "@askui/askui/expect": "error"
   }
 }
