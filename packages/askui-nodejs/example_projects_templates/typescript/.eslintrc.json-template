@@ -15,7 +15,7 @@
     "@askui/askui"
   ],
   "rules": {
-      "@askui/askui/no-missing-askui-exec": "error",
-      "@askui/askui/correct-askui-expect-usage": "error"
+      "@askui/askui/no-missing-exec": "error",
+      "@askui/askui/expect": "error"
   }
 }
