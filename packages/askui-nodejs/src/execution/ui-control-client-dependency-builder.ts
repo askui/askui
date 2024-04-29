@@ -39,6 +39,7 @@ export class UiControlClientDependencyBuilder {
       clientArgs.resize,
       clientArgs.credentials?.workspaceId,
       clientArgs.modelComposition,
+      clientArgs.experimentalFlags,
     );
   }
 
@@ -74,6 +75,7 @@ export class UiControlClientDependencyBuilder {
         isCi: clientArgs.context?.isCi ?? isCI,
       },
       credentials: readCredentials(clientArgs),
+      experimentalFlags: clientArgs.experimentalFlags ?? { useTrainedOCR: false },
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),

@@ -12,6 +12,7 @@ import { ConfigurationError } from './config-error';
 import { InferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { ExperimentalFlags } from './experimental-flags';
 
 interface InferenceClientUrls {
   inference: string;
@@ -27,6 +28,7 @@ export class InferenceClient {
     private readonly resize?: number,
     readonly workspaceId?: string,
     readonly modelComposition?: ModelCompositionBranch[],
+    readonly experimentalFlags?: ExperimentalFlags,
     private readonly apiVersion = 'v3',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
@@ -77,6 +79,7 @@ export class InferenceClient {
       this.urls.inference,
       {
         customElements,
+        experimentalFlags: this.experimentalFlags,
         image: resizedImage.base64Image,
         instruction,
         modelComposition: this.modelComposition,

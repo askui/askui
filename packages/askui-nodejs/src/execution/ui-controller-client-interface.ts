@@ -3,6 +3,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
 import { Context } from './context';
+import { ExperimentalFlags } from './experimental-flags';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
@@ -55,10 +56,12 @@ export interface ClientArgs {
   readonly modelComposition?: ModelCompositionBranch[]
   readonly reporter?: Reporter | Reporter[] | undefined
   readonly context?: ContextArgs | undefined
+  readonly experimentalFlags?: ExperimentalFlags
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
   readonly uiControllerUrl: string
   readonly inferenceServerUrl: string
   readonly context: Context
+  readonly experimentalFlags: ExperimentalFlags
 }
