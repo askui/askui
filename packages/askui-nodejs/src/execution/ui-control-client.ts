@@ -141,12 +141,13 @@ export class UiControlClient extends ApiCommands {
   async fluentCommandExecutor(
     instructionString: string,
     customElementJson: CustomElementJson[] = [],
+    experimental = false,
   ): Promise<void> {
     const instruction = await this.buildInstruction(instructionString, customElementJson);
     logger.debug(instruction);
     try {
       await this.stepReporter.resetStep(instruction);
-      await this.executionRuntime.executeInstruction(instruction);
+      await this.executionRuntime.executeInstruction(instruction, experimental);
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {

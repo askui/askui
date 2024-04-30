@@ -42,6 +42,7 @@ abstract class FluentBase {
   protected fluentCommandStringBuilder(
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
+    experimental = false,
   ): Promise<void> {
     const newCurrentInstruction = `${this.textStr} ${currentInstruction}`;
     const newParamsList = FluentBase.addParams(paramsList, this._params);
@@ -51,6 +52,7 @@ abstract class FluentBase {
       return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
         customElements,
+        experimental,
       );
     }
     if (!this.prev) {
@@ -2546,6 +2548,7 @@ export abstract class FluentCommand extends FluentBase {
   abstract fluentCommandExecutor(
     instruction: string,
     customElements: CustomElementJson[],
+    experimental: boolean,
   ): Promise<void>;
 }
 

@@ -90,6 +90,27 @@ export class InferenceClient {
     );
   }
 
+  async experimental_inference(
+    customElements: CustomElement[] = [],
+    image?: string,
+    instruction?: string,
+  ): Promise<ControlCommand | Annotation> {
+    const resizedImage = await this.resizeIfNeeded(customElements, image);
+    const response = await this.httpClient.post<InferenceResponseBody>(
+      this.urls.inference.replace('inference', 'decision-engine'),
+      {
+        image: resizedImage.base64Image,
+        instruction,
+      },
+    );
+    InferenceClient.logMetaInformation(response);
+    return InferenceResponse.fromJson(
+      response.body,
+      resizedImage.resizeRatio,
+      image,
+    );
+  }
+
   private static logMetaInformation(response: {
     headers: http.IncomingHttpHeaders;
     body: InferenceResponseBody;
@@ -101,14 +122,24 @@ export class InferenceClient {
 
   async predictControlCommand(
     instruction: string,
+    experimental: boolean,
     customElements: CustomElement[] = [],
     image?: string,
   ): Promise<ControlCommand> {
-    const inferenceResponse = await this.inference(
-      customElements,
-      image,
-      instruction,
-    );
+    let inferenceResponse;
+    if (experimental) {
+      inferenceResponse = await this.experimental_inference(
+        customElements,
+        image,
+        instruction,
+      );
+    } else {
+      inferenceResponse = await this.inference(
+        customElements,
+        image,
+        instruction,
+      );
+    }
     if (!(inferenceResponse instanceof ControlCommand)) {
       throw new InferenceResponseError(
         'Internal Error. Can not execute command',
