@@ -97,7 +97,7 @@ export class InferenceClient {
   ): Promise<ControlCommand | Annotation> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const response = await this.httpClient.post<InferenceResponseBody>(
-      this.urls.inference.replace('inference', 'decision-engine'),
+      this.urls.inference.replace(/(inference)(?!.*\1)/, 'decision-engine'),
       {
         image: resizedImage.base64Image,
         instruction,
