@@ -34,8 +34,7 @@ export class InferenceClient {
       ? urljoin(versionedBaseUrl, 'workspaces', workspaceId)
       : versionedBaseUrl;
     this.urls = {
-      // V4's only end part is different
-      inference: apiVersion === 'v4' ? urljoin(url, 'predict') : urljoin(url, 'inference'),
+      inference: apiVersion === 'v4-experimental' ? urljoin(url, 'predict') : urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
     };
     this.httpClient.urlsToRetry = Object.values(this.urls);
@@ -77,7 +76,6 @@ export class InferenceClient {
     const response = await this.httpClient.post<InferenceResponseBody>(
       this.urls.inference,
       this.urls.inference.endsWith('predict') ? {
-        // V4 only supports the base64 image and not the metadata of the base64 string
         image: resizedImage.base64Image,
         instruction,
         tasks: ['OCR'],
