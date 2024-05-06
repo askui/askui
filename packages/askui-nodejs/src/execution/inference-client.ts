@@ -34,7 +34,7 @@ export class InferenceClient {
       ? urljoin(versionedBaseUrl, 'workspaces', workspaceId)
       : versionedBaseUrl;
     this.urls = {
-      inference: apiVersion === 'v4-experimental' ? urljoin(url, 'predict') : urljoin(url, 'inference'),
+      inference: urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
     };
     this.httpClient.urlsToRetry = Object.values(this.urls);
@@ -75,7 +75,7 @@ export class InferenceClient {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const response = await this.httpClient.post<InferenceResponseBody>(
       this.urls.inference,
-      this.urls.inference.endsWith('predict') ? {
+      this.urls.inference.includes('v4-experimental') ? {
         image: resizedImage.base64Image,
         instruction,
         tasks: ['OCR'],
