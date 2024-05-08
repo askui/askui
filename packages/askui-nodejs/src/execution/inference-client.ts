@@ -75,12 +75,17 @@ export class InferenceClient {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const response = await this.httpClient.post<InferenceResponseBody>(
       this.urls.inference,
-      {
-        customElements,
+      this.urls.inference.includes('v4-experimental') ? {
         image: resizedImage.base64Image,
         instruction,
-        modelComposition: this.modelComposition,
-      },
+        tasks: ['OCR'],
+      }
+        : {
+          customElements,
+          image: resizedImage.base64Image,
+          instruction,
+          modelComposition: this.modelComposition,
+        },
     );
     InferenceClient.logMetaInformation(response);
     return InferenceResponse.fromJson(
