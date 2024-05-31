@@ -9,6 +9,7 @@ describe('CustomElement', () => {
         base64ImageString,
         'Dummy_element',
         0.7,
+        0.8,
         10,
         'RGB',
         [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
@@ -19,6 +20,7 @@ describe('CustomElement', () => {
         mask: [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
         name: 'Dummy_element',
         rotationDegreePerStep: 10,
+        stopThreshold: 0.8,
         threshold: 0.7,
       });
       expect(actual).toStrictEqual(expected);
@@ -30,6 +32,7 @@ describe('CustomElement', () => {
           base64ImageString,
           'Dummy_element',
           1.1,
+          0.8,
           10,
           'RGB',
           [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
@@ -38,11 +41,27 @@ describe('CustomElement', () => {
       }).toThrow('threshold must be less than or equal to 1');
     });
 
+    test('should throw ValidationError if stopThreshold is invalid', () => {
+      expect(() => {
+        const customElement = new CustomElement(
+          base64ImageString,
+          'Dummy_element',
+          0.7,
+          1.1,
+          10,
+          'RGB',
+          [{ x: 0, y: 1 }, { x: 1, y: 2 }, { x: 3, y: 4 }],
+        );
+        customElement.validate();
+      }).toThrow('stopThreshold must be less than or equal to 1');
+    });
+
     test('should throw ValidationError if rotationDegreePerStep is invalid', () => {
       expect(() => {
         const customElement = new CustomElement(
           base64ImageString,
           'Dummy_element',
+          0.9,
           0.9,
           -90,
           'RGB',
@@ -58,6 +77,7 @@ describe('CustomElement', () => {
           base64ImageString,
           'Dummy_element',
           0.9,
+          0.9,
           10,
           'RGB',
           [{ x: 0, y: 1 }, { x: 1, y: 2 }],
@@ -72,6 +92,7 @@ describe('CustomElement', () => {
           base64ImageString,
           'Dummy_element',
           90,
+          0.8,
           10,
           'RGB',
           [{ x: 0, y: 1 }, { x: 1, y: 2 }],
