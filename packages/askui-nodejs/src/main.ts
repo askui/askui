@@ -1,5 +1,11 @@
 export { UiController } from './lib';
-export { UiControlClient, RelationsForConvenienceMethods } from './execution';
+export {
+  UiControlClient,
+  RelationsForConvenienceMethods,
+  ExpectExistenceAllowedElementClasses,
+  ExpectExistenceInputParameter,
+  ExpectExistenceReturnValue,
+} from './execution';
 export {
   Instruction,
   Reporter,

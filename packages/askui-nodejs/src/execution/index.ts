@@ -1,1 +1,7 @@
-export { UiControlClient, RelationsForConvenienceMethods } from './ui-control-client';
+export {
+  UiControlClient,
+  RelationsForConvenienceMethods,
+  ExpectExistenceAllowedElementClasses,
+  ExpectExistenceInputParameter,
+  ExpectExistenceReturnValue,
+} from './ui-control-client';
