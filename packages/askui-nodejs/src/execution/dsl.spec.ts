@@ -1,11 +1,10 @@
-import { CustomElementJson } from '../core/model/custom-element-json';
-import { FluentCommand } from './dsl';
+import { CommandExecutorContext, FluentCommand } from './dsl';
 
 class TestCommand extends FluentCommand {
   // eslint-disable-next-line class-methods-use-this
   async fluentCommandExecutor(
     _instruction: string,
-    _customElements: CustomElementJson[],
+    _context: CommandExecutorContext,
   ): Promise<void> {
     return Promise.resolve();
   }
@@ -17,31 +16,37 @@ describe('DSL', () => {
       const underTest = new TestCommand();
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
-      await underTest.click().button()
-        .exec();
-      expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on button',
-        [],
-      );
+      await underTest.click().button().exec();
+      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', { aiElementNames: [], customElementsJson: [] });
     });
 
     test('should call exec function with one custom element', async () => {
       const underTest = new TestCommand();
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
-      await underTest.click().customElement({
-        customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
-        imageCompareFormat: 'grayscale',
-        name: 'custom element 1',
-      }).button()
+      await underTest
+        .click()
+        .customElement({
+          customImage:
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+          imageCompareFormat: 'grayscale',
+          name: 'custom element 1',
+        })
+        .button()
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on custom element button',
-        [{
-          customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
-          imageCompareFormat: 'grayscale',
-          name: 'custom element 1',
-        }],
+        {
+          aiElementNames: [],
+          customElementsJson: [
+            {
+              customImage:
+                'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+              imageCompareFormat: 'grayscale',
+              name: 'custom element 1',
+            },
+          ],
+        },
       );
     });
 
@@ -49,31 +54,93 @@ describe('DSL', () => {
       const underTest = new TestCommand();
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
-      await underTest.click().customElement({
-        customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
-        imageCompareFormat: 'grayscale',
-        name: 'custom element 1',
-      })
+      await underTest
+        .click()
+        .customElement({
+          customImage:
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+          imageCompareFormat: 'grayscale',
+          name: 'custom element 1',
+        })
         .button()
         .customElement({
-          customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+          customImage:
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
           imageCompareFormat: 'grayscale',
           name: 'custom element 2',
         })
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on custom element button custom element',
-        [{
-          customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
-          imageCompareFormat: 'grayscale',
-          name: 'custom element 1',
-        },
         {
-          customImage: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
-          imageCompareFormat: 'grayscale',
-          name: 'custom element 2',
+          aiElementNames: [],
+          customElementsJson: [
+            {
+              customImage:
+                'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+              imageCompareFormat: 'grayscale',
+              name: 'custom element 1',
+            },
+            {
+              customImage:
+                'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+              imageCompareFormat: 'grayscale',
+              name: 'custom element 2',
+            },
+          ],
         },
-        ],
+      );
+    });
+
+    test('should call exec function with one ai element', async () => {
+      const underTest = new TestCommand();
+      const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
+
+      await underTest
+        .click()
+        .aiElement('ai element')
+        .below()
+        .button()
+        .rightOf()
+        .customElement({
+          customImage:
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+          name: 'custom element',
+        })
+        .exec();
+      expect(testCommandSpy).toHaveBeenCalledWith(
+        'Click on custom element with text <|string|>ai element<|string|> index 0 below button index 0 right of custom element',
+        {
+          aiElementNames: ['ai element'],
+          customElementsJson: [
+            {
+              customImage:
+                'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==',
+              name: 'custom element',
+            },
+          ],
+        },
+      );
+    });
+
+    test('should call exec function with two ai element', async () => {
+      const underTest = new TestCommand();
+      const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
+
+      await underTest
+        .click()
+        .aiElement('ai element')
+        .below()
+        .button()
+        .rightOf()
+        .aiElement('ai element 2')
+        .exec();
+      expect(testCommandSpy).toHaveBeenCalledWith(
+        'Click on custom element with text <|string|>ai element<|string|> index 0 below button index 0 right of custom element with text <|string|>ai element 2<|string|>',
+        {
+          aiElementNames: ['ai element', 'ai element 2'],
+          customElementsJson: [],
+        },
       );
     });
   });
