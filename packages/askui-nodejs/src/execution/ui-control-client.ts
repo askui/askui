@@ -684,11 +684,7 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Click on a specific text.
-   * You can also use a RegEx or match the text exactly by specifying the specific flag.
-   * Use a relation to find the text in relation to a specific text.
-   *
-   * The return value contains a boolean property 'everythingExists'
+   * Check if one or multiple elements are detected.
    *
    * **Examples:**
    * ```typescript
