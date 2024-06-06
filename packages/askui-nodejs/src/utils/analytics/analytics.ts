@@ -3,7 +3,7 @@ import { AnalyticsInterface } from './analytics-interface';
 import { UserIdentifierInterface } from './user-identifier-interface';
 import { UserIdentifier } from './user-identifier';
 import { InstallationTimestamp } from './installation-timestamp';
-import { Context } from '@/execution/context';
+import { Context } from '../../execution/context';
 
 export class Analytics implements AnalyticsInterface {
   private userIdentifier: UserIdentifierInterface = new UserIdentifier();

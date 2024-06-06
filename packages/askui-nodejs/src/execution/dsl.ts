@@ -19,6 +19,11 @@ export type MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shif
 export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
 export type PC_AND_MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 
+export interface CommandExecutorContext {
+  customElementsJson: CustomElementJson[];
+  aiElementNames: string[];
+}
+
 abstract class FluentBase {
   constructor(protected prev?: FluentBase) { }
 
@@ -48,9 +53,13 @@ abstract class FluentBase {
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
-        customElements,
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
       );
     }
     if (!this.prev) {
@@ -71,9 +80,13 @@ abstract class FluentBase {
     if (this instanceof Getter) {
       const getter = this as Getter;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return getter.getterExecutor(
         newCurrentInstruction.trim(),
-        customElements,
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
       );
     }
     if (!this.prev) {
@@ -113,6 +126,19 @@ export class FluentFilters extends FluentBase {
 
     this._textStr += 'other';
     this._textStr += ' element';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  aiElement(name: string): FluentFiltersOrRelations {
+    this._textStr = '';
+    this._textStr += 'custom';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
+
+    this._params.set('aiElementName', name);
 
     return new FluentFiltersOrRelations(this);
   }
@@ -964,6 +990,19 @@ export class FluentFiltersCondition extends FluentBase {
 
     this._textStr += 'other';
     this._textStr += ' element';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  aiElement(name: string): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+    this._textStr += 'custom';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
+
+    this._params.set('aiElementName', name);
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -2545,7 +2584,7 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    customElements: CustomElementJson[],
+    context:CommandExecutorContext
   ): Promise<void>;
 }
 
@@ -2560,7 +2599,6 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
   }
 }
 // Filters
-
 export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters for a UI element 'other element'.
@@ -2572,6 +2610,19 @@ export class FluentFiltersGetter extends FluentBase {
 
     this._textStr += 'other';
     this._textStr += ' element';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  aiElement(name: string): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+    this._textStr += 'custom';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
+
+    this._params.set('aiElementName', name);
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -3506,7 +3557,7 @@ export abstract class Getter extends FluentCommand {
 
   abstract getterExecutor(
     instruction: string,
-    customElements: CustomElementJson[],
+    context:CommandExecutorContext
   ): Promise<DetectedElement[]>;
 }
 

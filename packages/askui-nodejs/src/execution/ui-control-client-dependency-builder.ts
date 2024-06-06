@@ -17,7 +17,9 @@ export class UiControlClientDependencyBuilder {
     clientArgs: ClientArgsWithDefaults,
   ): Promise<HttpClientGot> {
     const analytics = new Analytics();
-    const analyticsHeaders = await analytics.getAnalyticsHeaders(clientArgs.context);
+    const analyticsHeaders = await analytics.getAnalyticsHeaders(
+      clientArgs.context,
+    );
     const analyticsCookies = await analytics.getAnalyticsCookies();
     return new HttpClientGot(
       clientArgs.credentials?.token,
@@ -52,10 +54,12 @@ export class UiControlClientDependencyBuilder {
   static async build(clientArgs: ClientArgsWithDefaults): Promise<{
     executionRuntime: ExecutionRuntime;
     stepReporter: StepReporter;
+    workspaceId: string | undefined;
   }> {
     const uiControllerClient = UiControlClientDependencyBuilder.buildUiControllerClient(clientArgs);
     const inferenceClient = await UiControlClientDependencyBuilder.buildInferenceClient(clientArgs);
     const stepReporter = new StepReporter(clientArgs.reporter);
+    const workspaceId = clientArgs.credentials?.workspaceId;
     return {
       executionRuntime: new ExecutionRuntime(
         uiControllerClient,
@@ -63,6 +67,7 @@ export class UiControlClientDependencyBuilder {
         stepReporter,
       ),
       stepReporter,
+      workspaceId,
     };
   }
 
