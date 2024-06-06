@@ -130,19 +130,6 @@ export class FluentFilters extends FluentBase {
     return new FluentFiltersOrRelations(this);
   }
 
-  aiElement(name: string): FluentFiltersOrRelations {
-    this._textStr = '';
-    this._textStr += 'custom';
-    this._textStr += ' element';
-    this._textStr += ' with';
-    this._textStr += ' text';
-    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
-
-    this._params.set('aiElementName', name);
-
-    return new FluentFiltersOrRelations(this);
-  }
-
   /**
    * Filters for a UI element 'switch'.
    *
@@ -234,8 +221,10 @@ export class FluentFilters extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.moveMouseTo().button().exec()
+   * await aui.click().button().contains().text().withText('Google Search').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/button.gif)
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -318,13 +307,20 @@ export class FluentFilters extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
-   * Often combined with the filter `withText()` as shown in the below examples.
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
    * See also the filters `withTextRegex()` and `withExactText()`
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().exec();
+   * await aui.click().text('Username').exec();
+   *
+   * // Matching with an exact text
    * await aui.click().text().withExactText('Username').exec();
+   *
+   * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
@@ -353,6 +349,8 @@ export class FluentFilters extends FluentBase {
    * icon().withText('plus')
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/icon.gif)
+   *
    * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelations}
@@ -367,6 +365,8 @@ export class FluentFilters extends FluentBase {
 
   /**
    * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   *
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
    * **Example**
    * ```typescript
@@ -415,6 +415,28 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * <TBD>
+   *
+   * @param {string} aiElementName - <TBD>
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -423,9 +445,13 @@ export class FluentFilters extends FluentBase {
    * await aui.click().image().exec();
    *
    * // Works if you have an image with
-   * // a caption text below
-   * await aui.click().image().above().text().withText('The caption').exec();
+   * // a text below
+   * await aui.click().image().above().text().withText('Automating WebGL').exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/image.gif)
+   *
+   *
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -450,6 +476,10 @@ export class FluentFilters extends FluentBase {
    * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/textfield.gif)
+   *
+   *
+   *
    * @return {FluentFiltersOrRelations}
    */
   textfield(): FluentFiltersOrRelations {
@@ -461,7 +491,13 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for similar (doesn't need to be a 100% equal) text.
+   * Filters for similar -- meaning >70% similar -- text.
+   *
+   * Takes an optional parameter to specify the similarity. Usually you need the optional parameter for long texts you want to match precisely.
+   *
+   * _We use [RapidFuzz](https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio) which calculates the similarity like this:_
+   *
+   * `1 - (distance / (lengthString1 + lengthString2))`
    *
    * **Examples:**
    * ```typescript
@@ -476,6 +512,11 @@ export class FluentFilters extends FluentBase {
    * // usually false
    * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
+   *
+   * // optional parameter: similarity_score
+   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -513,6 +554,10 @@ export class FluentFilters extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   *
+   *
+   *
    * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelations}
@@ -545,6 +590,10 @@ export class FluentFilters extends FluentBase {
    *
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   *
+   *
    *
    * @param {string} text - A text to be matched.
    *
@@ -592,12 +641,13 @@ export class FluentFilters extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
-   * ## What Should I Write as Matching Text
+   * **What Should I Write as Matching Text**
+   *
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing to find a matching description:
-   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally the more detail the better.
    *
    * **Examples:**
@@ -775,14 +825,19 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element right of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
+   * --------------  --------------  --------------
    *
-   * // Returns rightEl because rightEl is right of leftEl
+   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
    * ...rightEl().rightOf().leftEl()
+   * ...rightEl().rightOf(0).leftEl()
+   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
+   * ...rightEl().rightOf(1).leftEl()
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
@@ -808,14 +863,19 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element left of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
+   * --------------  --------------  --------------
    *
-   * // Returns leftEl because leftEl is left of rightEl
+   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
    * ...leftEl().leftOf().rightEl()
+   * ...leftEl().leftOf(0).rightEl()
+   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
+   * ...leftEl().leftOf(1).rightEl()
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
@@ -841,17 +901,25 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element below another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
    * |    text    |
    * --------------
    * --------------
-   * |   button   |
+   * |   button0  |
+   * --------------
+   * --------------
+   * |   button1  |
    * --------------
    *
-   * // Returns button because button is below text
+   * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
+   * ...button().below(0).text()
+   * // Returns button1 because button1  is the second button below text
+   * ...button().below(1).text()
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
@@ -876,17 +944,25 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element above another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
-   * |    text    |
+   * |   text1    |
+   * --------------
+   * --------------
+   * |   text0    |
    * --------------
    * --------------
    * |   button   |
    * --------------
    *
-   * // Returns text because text is above button
+   * // Returns text0 because text0 is the first element above button
    * ...text().above().button()
+   * ...text().above(0).button()
+   * // Returns text1 because text1 is the second element above button
+   * ...text().above(1).button()
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
@@ -994,19 +1070,6 @@ export class FluentFiltersCondition extends FluentBase {
     return new FluentFiltersOrRelationsCondition(this);
   }
 
-  aiElement(name: string): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-    this._textStr += 'custom';
-    this._textStr += ' element';
-    this._textStr += ' with';
-    this._textStr += ' text';
-    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
-
-    this._params.set('aiElementName', name);
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
   /**
    * Filters for a UI element 'switch'.
    *
@@ -1098,8 +1161,10 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.moveMouseTo().button().exec()
+   * await aui.click().button().contains().text().withText('Google Search').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/button.gif)
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1182,13 +1247,20 @@ export class FluentFiltersCondition extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
-   * Often combined with the filter `withText()` as shown in the below examples.
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
    * See also the filters `withTextRegex()` and `withExactText()`
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().exec();
+   * await aui.click().text('Username').exec();
+   *
+   * // Matching with an exact text
    * await aui.click().text().withExactText('Username').exec();
+   *
+   * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
@@ -1217,6 +1289,8 @@ export class FluentFiltersCondition extends FluentBase {
    * icon().withText('plus')
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/icon.gif)
+   *
    * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelationsCondition}
@@ -1231,6 +1305,8 @@ export class FluentFiltersCondition extends FluentBase {
 
   /**
    * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   *
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
    * **Example**
    * ```typescript
@@ -1279,6 +1355,28 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
+   * <TBD>
+   *
+   * @param {string} aiElementName - <TBD>
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -1287,9 +1385,13 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.click().image().exec();
    *
    * // Works if you have an image with
-   * // a caption text below
-   * await aui.click().image().above().text().withText('The caption').exec();
+   * // a text below
+   * await aui.click().image().above().text().withText('Automating WebGL').exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/image.gif)
+   *
+   *
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1314,6 +1416,10 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/textfield.gif)
+   *
+   *
+   *
    * @return {FluentFiltersOrRelationsCondition}
    */
   textfield(): FluentFiltersOrRelationsCondition {
@@ -1325,7 +1431,13 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for similar (doesn't need to be a 100% equal) text.
+   * Filters for similar -- meaning >70% similar -- text.
+   *
+   * Takes an optional parameter to specify the similarity. Usually you need the optional parameter for long texts you want to match precisely.
+   *
+   * _We use [RapidFuzz](https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio) which calculates the similarity like this:_
+   *
+   * `1 - (distance / (lengthString1 + lengthString2))`
    *
    * **Examples:**
    * ```typescript
@@ -1340,6 +1452,11 @@ export class FluentFiltersCondition extends FluentBase {
    * // usually false
    * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
+   *
+   * // optional parameter: similarity_score
+   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -1377,6 +1494,10 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   *
+   *
+   *
    * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsCondition}
@@ -1409,6 +1530,10 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   *
+   *
    *
    * @param {string} text - A text to be matched.
    *
@@ -1456,12 +1581,13 @@ export class FluentFiltersCondition extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
-   * ## What Should I Write as Matching Text
+   * **What Should I Write as Matching Text**
+   *
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing to find a matching description:
-   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally the more detail the better.
    *
    * **Examples:**
@@ -1639,14 +1765,19 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element right of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
+   * --------------  --------------  --------------
    *
-   * // Returns rightEl because rightEl is right of leftEl
+   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
    * ...rightEl().rightOf().leftEl()
+   * ...rightEl().rightOf(0).leftEl()
+   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
+   * ...rightEl().rightOf(1).leftEl()
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
@@ -1672,14 +1803,19 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element left of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
+   * --------------  --------------  --------------
    *
-   * // Returns leftEl because leftEl is left of rightEl
+   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
    * ...leftEl().leftOf().rightEl()
+   * ...leftEl().leftOf(0).rightEl()
+   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
+   * ...leftEl().leftOf(1).rightEl()
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
@@ -1705,17 +1841,25 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element below another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
    * |    text    |
    * --------------
    * --------------
-   * |   button   |
+   * |   button0  |
+   * --------------
+   * --------------
+   * |   button1  |
    * --------------
    *
-   * // Returns button because button is below text
+   * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
+   * ...button().below(0).text()
+   * // Returns button1 because button1  is the second button below text
+   * ...button().below(1).text()
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
@@ -1740,17 +1884,25 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element above another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
-   * |    text    |
+   * |   text1    |
+   * --------------
+   * --------------
+   * |   text0    |
    * --------------
    * --------------
    * |   button   |
    * --------------
    *
-   * // Returns text because text is above button
+   * // Returns text0 because text0 is the first element above button
    * ...text().above().button()
+   * ...text().above(0).button()
+   * // Returns text1 because text1 is the second element above button
+   * ...text().above(1).button()
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
@@ -1846,12 +1998,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * **Examples:**
    * ```typescript
    * // Stops execution at this point when the element does not exist.
-   * await aui.expect().text().withText('Login').exists().exec()
+   * await aui.expect().text('Login').exists().exec()
    *
    * // This will catch the error and log a message
    * // But the execution will continue afterwards
    * try {
-   *     await aui.expect().text().withText('Login').exists().exec()
+   *     await aui.expect().text('Login').exists().exec()
    * } catch (error) {
    *     console.log('Too bad we could not find the element!');
    * }
@@ -1877,12 +2029,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * **Examples:**
    * ```typescript
    * // Stops execution at this point when the element does exist.
-   * await aui.expect().text().withText('Login').notExists().exec()
+   * await aui.expect().text('Login').notExists().exec()
    *
    * // This will catch the error and log a message
    * // But the execution will continue afterwards
    * try {
-   *     await aui.expect().text().withText('Login').notExists().exec()
+   *     await aui.expect().text('Login').notExists().exec()
    * } catch (error) {
    *     console.log('Too bad we could find the element!');
    * }
@@ -1915,8 +2067,8 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.expect().text().withText('Login').exists().exec()
-   * await aui.expect().text().withText('Login').notExists().exec()
+   * await aui.expect().text('Login').exists().exec()
+   * await aui.expect().text('Login').notExists().exec()
    * ```
    *
    * @return {FluentFiltersCondition}
@@ -1936,8 +2088,12 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * await aui.click().button().withText('Submit').exec()
+   * await aui.click().button().withText('Google Search').exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/click.gif)
+   *
+   *
    *
    * @return {FluentFilters}
    */
@@ -1955,8 +2111,12 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * await aui.moveMouseTo().button().withText('Submit').exec()
+   * await aui.moveMouseTo().text().withText('Grinning_Face').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/movemouseto.gif)
+   *
+   *
    *
    * @return {FluentFilters}
    */
@@ -2007,8 +2167,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * await aui.scroll(0, 10).textarea().exec()
+   * await aui.scrollInside(0,-500).text().withText('Bottom sheet').exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/scrollinside.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
@@ -2104,11 +2266,13 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.type('Type some text').exec()
+   * await aui.type('askui@askui.com').exec()
    *
    * // mask the text so it is not send to the askui-inference server
    * await aui.type('Type some text', { isSecret: true, secretMask: '**' }).exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/type.gif)
    *
    * @param {string} text - A text to type
    *
@@ -2130,8 +2294,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * await aui.moveMouseRelatively(20, 20).exec();
+   * await aui.moveMouseRelatively(0, 50).exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/movemouserelatively.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
@@ -2168,6 +2334,8 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.moveMouse(500, 500).exec();
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/moveMouse.gif)
+   *
    * @param {number} x_coordinate - A (positive/negative) x coordinate.
    * @param {number} y_coordinate - A (positive/negative) y coordinate.
    *
@@ -2199,9 +2367,11 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Example:**
    * ```typescript
-   * // Scroll 10 up in y direction
-   * await aui.scroll(0, 10).exec()
+   * // Scroll 500 pixels down in y direction
+   * await aui.scroll(0, -500).exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/scroll.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
@@ -2340,6 +2510,8 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.mouseDoubleLeftClick().exec();
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/mousedoubleleftclick.gif)
+   *
    * @return {Exec}
    */
   mouseDoubleLeftClick(): Exec {
@@ -2399,10 +2571,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Toggles mouse down (Left mouse key/tap).
    *
+   *  This is the equivalent to **mouse-left-press-and-hold**. It holds the mouse button until the `mouseToogleUp()` is called. Often combined with `mouseToggleUP` to automate **drag-and-drop**.
+   *
    * **Example:**
    * ```typescript
    * await aui.mouseToggleDown().exec();
+   * await aui.moveMouseRelatively(-400,0).exec();
+   * await aui.mouseToggleUp().exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/mouseToggleDownUp.gif)
    *
    * @return {Exec}
    */
@@ -2417,10 +2595,16 @@ export abstract class FluentCommand extends FluentBase {
   /**
    * Toggles mouse up (Left mouse key/tap).
    *
+   * This is the equivalent to releasing the pressing mouse left button. Often combined with `mouseToggleDown()` to automate **drag-and-drop**.
+   *
    * **Example:**
    * ```typescript
+   * await aui.mouseToggleDown().exec();
+   * await aui.moveMouseRelatively(-400,0).exec();
    * await aui.mouseToggleUp().exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/mouseToggleDownUp.gif)
    *
    * @return {Exec}
    */
@@ -2437,8 +2621,13 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Operating system specific mappings:**
    * 1. Windows: `command`-key maps to `windows`-key
-   * ---
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.pressThreeKeys('control', 'command' 'space').exec();
+   * ```
+   *
+   * ![](https://docs.askui.com/img/gif/pressThreeKeys.gif)
    *
    * @param {MODIFIER_KEY} first_key - A modifier key
    * @param {MODIFIER_KEY} second_key - A modifier key
@@ -2494,8 +2683,13 @@ export abstract class FluentCommand extends FluentBase {
    *
    * **Operating system specific mappings:**
    * 1. Windows: `command`-key maps to `windows`-key
-   * ---
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.pressKey('tab').exec();
+   * ```
+   *
+   * ![](https://docs.askui.com/img/gif/pressKey.gif)
    *
    * @param {PC_AND_MODIFIER_KEY} key - A key
    *
@@ -2540,7 +2734,15 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Press two Android keys like `ALT+F4`
+   * Press two Android keys like `volume_down+power`
+   * See [API docs](https://docs.askui.com/docs/api/Actions/pressandroidtwokey) for available keys.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.pressAndroidTwoKey('volume_down', 'power').exec();
+   * ```
+   *
+   * ![](https://docs.askui.com/img/gif/pressAndroidTwoKey.gif)
    *
    * @param {ANDROID_KEY} first_key - A Android key
    * @param {ANDROID_KEY} second_key - A Android key
@@ -2563,7 +2765,15 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Press one Android key like `DEL`
+   * Press one Android key like `del`
+   * See [API docs](https://docs.askui.com/docs/api/Actions/pressandroidtwokey) for available keys.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.pressAndroidKey('notification').exec();
+   * ```
+   *
+   * ![](https://docs.askui.com/img/gif/pressAndroidKey.gif)
    *
    * @param {ANDROID_KEY} key - A Android key
    *
@@ -2584,7 +2794,7 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    context:CommandExecutorContext
+    context: CommandExecutorContext,
   ): Promise<void>;
 }
 
@@ -2599,6 +2809,7 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
   }
 }
 // Filters
+
 export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters for a UI element 'other element'.
@@ -2610,19 +2821,6 @@ export class FluentFiltersGetter extends FluentBase {
 
     this._textStr += 'other';
     this._textStr += ' element';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  aiElement(name: string): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-    this._textStr += 'custom';
-    this._textStr += ' element';
-    this._textStr += ' with';
-    this._textStr += ' text';
-    this._textStr += ` ${Separators.STRING}${name}${Separators.STRING}`;
-
-    this._params.set('aiElementName', name);
 
     return new FluentFiltersOrRelationsGetter(this);
   }
@@ -2718,8 +2916,10 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.moveMouseTo().button().exec()
+   * await aui.click().button().contains().text().withText('Google Search').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/button.gif)
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -2802,13 +3002,20 @@ export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters for an UI element 'text'.
    *
-   * Often combined with the filter `withText()` as shown in the below examples.
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
    * See also the filters `withTextRegex()` and `withExactText()`
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().text().withText('Password').exec();
+   * await aui.click().text().exec();
+   * await aui.click().text('Username').exec();
+   *
+   * // Matching with an exact text
    * await aui.click().text().withExactText('Username').exec();
+   *
+   * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
@@ -2837,6 +3044,8 @@ export class FluentFiltersGetter extends FluentBase {
    * icon().withText('plus')
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/icon.gif)
+   *
    * **Note:** This is an alpha feature. The prediction of the icon name is sometimes unstable. Use custom elements as an alternative.
    *
    * @return {FluentFiltersOrRelationsGetter}
@@ -2851,6 +3060,8 @@ export class FluentFiltersGetter extends FluentBase {
 
   /**
    * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   *
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
    * **Example**
    * ```typescript
@@ -2899,6 +3110,28 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
+   * <TBD>
+   *
+   * @param {string} aiElementName - <TBD>
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -2907,9 +3140,13 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.click().image().exec();
    *
    * // Works if you have an image with
-   * // a caption text below
-   * await aui.click().image().above().text().withText('The caption').exec();
+   * // a text below
+   * await aui.click().image().above().text().withText('Automating WebGL').exec();
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/image.gif)
+   *
+   *
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -2934,6 +3171,10 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.typeIn('Oh yeah').textfield().below().text().withText('E-Mail Address').exec();
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/textfield.gif)
+   *
+   *
+   *
    * @return {FluentFiltersOrRelationsGetter}
    */
   textfield(): FluentFiltersOrRelationsGetter {
@@ -2945,7 +3186,13 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for similar (doesn't need to be a 100% equal) text.
+   * Filters for similar -- meaning >70% similar -- text.
+   *
+   * Takes an optional parameter to specify the similarity. Usually you need the optional parameter for long texts you want to match precisely.
+   *
+   * _We use [RapidFuzz](https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio) which calculates the similarity like this:_
+   *
+   * `1 - (distance / (lengthString1 + lengthString2))`
    *
    * **Examples:**
    * ```typescript
@@ -2960,6 +3207,11 @@ export class FluentFiltersGetter extends FluentBase {
    * // usually false
    * 'atebxtc' === withText('text') => false
    * 'other' === withText('text') => false
+   *
+   * // optional parameter: similarity_score
+   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -2997,6 +3249,10 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
+   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   *
+   *
+   *
    * @param {string} regex_pattern - A regex pattern
    *
    * @return {FluentFiltersOrRelationsGetter}
@@ -3029,6 +3285,10 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
+   *
+   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   *
+   *
    *
    * @param {string} text - A text to be matched.
    *
@@ -3076,12 +3336,13 @@ export class FluentFiltersGetter extends FluentBase {
   /**
    * Filters elements based on a textual description.
    *
-   * ## What Should I Write as Matching Text
+   * **What Should I Write as Matching Text**
+   *
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing to find a matching description:
-   * E.g. `puzzle piece` can fail here while `an icon showing a puzzle piece` might work.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally the more detail the better.
    *
    * **Examples:**
@@ -3259,14 +3520,19 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element right of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
+   * --------------  --------------  --------------
    *
-   * // Returns rightEl because rightEl is right of leftEl
+   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
    * ...rightEl().rightOf().leftEl()
+   * ...rightEl().rightOf(0).leftEl()
+   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
+   * ...rightEl().rightOf(1).leftEl()
    * // Returns no element because leftEl is left of rightEl
    * ...leftEl().rightOf().rightEl()
    * ```
@@ -3292,14 +3558,19 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element left of another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
-   * --------------  --------------
-   * |  leftEl    |  |  rightEl   |
-   * --------------  --------------
+   * --------------  --------------  --------------
+   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
+   * --------------  --------------  --------------
    *
-   * // Returns leftEl because leftEl is left of rightEl
+   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
    * ...leftEl().leftOf().rightEl()
+   * ...leftEl().leftOf(0).rightEl()
+   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
+   * ...leftEl().leftOf(1).rightEl()
    * // Returns no element because rightEl is left of leftEl
    * ...rightEl().leftOf().leftEl()
    * ```
@@ -3325,17 +3596,25 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element below another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
    * |    text    |
    * --------------
    * --------------
-   * |   button   |
+   * |   button0  |
+   * --------------
+   * --------------
+   * |   button1  |
    * --------------
    *
-   * // Returns button because button is below text
+   * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
+   * ...button().below(0).text()
+   * // Returns button1 because button1  is the second button below text
+   * ...button().below(1).text()
    * // Returns no element because text is above button
    * ...text().below().button()
    * ```
@@ -3360,17 +3639,25 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element above another element.
    *
+   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   *
    * **Examples:**
    * ```typescript
    * --------------
-   * |    text    |
+   * |   text1    |
+   * --------------
+   * --------------
+   * |   text0    |
    * --------------
    * --------------
    * |   button   |
    * --------------
    *
-   * // Returns text because text is above button
+   * // Returns text0 because text0 is the first element above button
    * ...text().above().button()
+   * ...text().above(0).button()
+   * // Returns text1 because text1 is the second element above button
+   * ...text().above(1).button()
    * // Returns no element because button is below text
    * ...button().above().text()
    * ```
@@ -3477,7 +3764,7 @@ export abstract class Getter extends FluentCommand {
    *
    * **Examples:**
    * ```typescript
-   * const text = await aui.get().text().withText('Sign').exec();
+   * const text = await aui.get().text('Sign').exec();
    * console.log(text);
    * ```
    * ```text
@@ -3557,7 +3844,7 @@ export abstract class Getter extends FluentCommand {
 
   abstract getterExecutor(
     instruction: string,
-    context:CommandExecutorContext
+    context: CommandExecutorContext,
   ): Promise<DetectedElement[]>;
 }
 
