@@ -5,12 +5,12 @@
  * text or element descriptions like `button().withText('Submit')` in
  * `await aui.click().button().withText('Submit').exec()`.
  *
- * **Important:** The `CustomElementJson` needs to capture as accurately as possible
- * what the custom element looks like during test execution as otherwise
- * our machine learning models cannot find it, even with the additional data
- * provided. This is especially true for the resolution used while cropping
- * the `CustomElementJson.customImage` which should be close the resolution during
- * test execution.
+ * **Important:** The `CustomElementJson` needs to capture as accurately as
+ * possible what the custom element looks like during test execution as
+ * otherwise our machine learning models cannot find it, even with the
+ * additional data provided. This is especially true for the resolution used
+ * while cropping the `CustomElementJson.customImage` which should be as
+ * similar as possible to the resolution during test execution.
  *
  * Rotated custom elements can be filtered for using
  * `CustomElementJson.rotationDegreePerStep`.
@@ -78,11 +78,11 @@ export interface CustomElementJson {
   /**
    * A color compare style. Allows matching a custom element by color, e.g.,
    * instead of filtering for all icons (blue and green ones),
-   * only the green ones captured by `customImage` are filtered for using 'RGB'.
-   * Defaults to 'grayscale'.
+   * only the green ones captured by `customImage` are filtered for using
+   * 'RGB'. Defaults to 'grayscale'.
    *
    * **Important**: The `imageCompareFormat` impacts the prediction time as
-   * well as quality. Although this highly depends on our use case, the other
+   * well as quality. Although this highly depends on the use case, the other
    * parameters and the actual scene in which to find the UI element, as a
    * rule of thumb, 'edges' is likely to be a bit faster than 'grayscale' and
    * 'grayscale' is likely to be a bit faster than 'RGB'. For quality it is
