@@ -8,6 +8,7 @@ export class CustomElement implements CustomElementJson {
   private static schema = object({
     mask: array().optional().min(3, 'mask must contain at least 3 points'),
     rotationDegreePerStep: number().optional().min(0).lessThan(360),
+    stopThreshold: number().optional().min(0).max(1),
     threshold: number().optional().min(0).max(1),
   });
 
@@ -15,8 +16,9 @@ export class CustomElement implements CustomElementJson {
     public customImage: string,
     public name?: string,
     public threshold?: number,
+    public stopThreshold?: number,
     public rotationDegreePerStep?: number,
-    public imageCompareFormat?: 'RGB' | 'grayscale',
+    public imageCompareFormat?: 'RGB' | 'grayscale' | 'edges',
     public mask?: ({ x: number; y: number; })[],
   ) {
   }
@@ -46,6 +48,7 @@ export class CustomElement implements CustomElementJson {
       ceJson.customImage,
       ceJson.name,
       ceJson.threshold,
+      ceJson.stopThreshold,
       ceJson.rotationDegreePerStep,
       ceJson.imageCompareFormat,
       ceJson.mask,
