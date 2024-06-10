@@ -106,7 +106,7 @@ export class UiControllerClient {
           UiControllerClient.REQUEST_TIMEOUT_IN_MS,
         );
       } catch (error) {
-        this.currentReject(new UiControllerClientError(`The communication to the UI Controller is broken. Cause: ${error}`));
+        this.currentReject(new UiControllerClientError(`The communication to the UI Controller is broken. Did you make sure to call UiControlClient.connect()? Cause: ${error}`));
       }
     });
   }
