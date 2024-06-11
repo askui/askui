@@ -12,6 +12,33 @@ import { logger } from '../../lib';
 import { Credentials } from './credentials';
 import { httpClientErrorHandler } from './custom-errors';
 
+function buildRetryLog(
+  requestUrl: string | undefined,
+  errorCode: string | undefined,
+  statusCode: number | undefined,
+  errorMessage: string | undefined,
+  delayInMs: number,
+  delayReason: 'retry-after header' | 'exponential backoff',
+  attemptCount: number,
+): string {
+  const failureReasons = [];
+  if (statusCode !== undefined && statusCode >= 400) {
+    failureReasons.push(`status code ${statusCode}`);
+  }
+  if (errorCode !== undefined) {
+    failureReasons.push(`error code ${errorCode}`);
+  }
+  if (failureReasons.length === 0) {
+    failureReasons.push('unknown error');
+  }
+  const requestText = requestUrl ? `Request to ${requestUrl}` : 'Request';
+  return (
+    `${requestText} failed with ${failureReasons.join(', ')}.`
+    + ` Retrying in ${delayInMs} ms... (based on ${delayReason}; attempt ${attemptCount})`
+    + `\nFull message:\n${errorMessage}`
+  );
+}
+
 export class HttpClientGot {
   private headers: Record<string, string> = {};
 
@@ -39,42 +66,74 @@ export class HttpClientGot {
           attemptCount,
           retryOptions,
           error,
-          computedValue,
-        }) => {
-          if (
-            attemptCount > retryOptions.limit
-            || !this.shouldRetryOnError(error)
-          ) {
+          retryAfter,
+        }): number | Promise<number> => {
+          if (!this.shouldRetryOnError(error)) {
             return 0;
           }
 
-          if (
-            error.response !== undefined
-            && error.response.headers['retry-after'] === undefined
-          ) {
-            logger.debug(`Request to ${error.request?.requestUrl} failed with status code ${error.response?.statusCode}.\n${error.message}\nRetrying... (attempt ${attemptCount})`);
-            return Math.min(
-              1000 * 2 ** (attemptCount - 1) + Math.random() * 100,
-              Number.MAX_SAFE_INTEGER,
-            );
+          if (attemptCount > retryOptions.limit) {
+            return 0;
           }
 
-          logger.debug(`Request to ${error.request?.requestUrl} failed.\n${error.message}\nRetrying... (attempt ${attemptCount})`);
-          return computedValue;
+          const hasMethod = retryOptions.methods.includes(error.options.method);
+          const hasErrorCode = retryOptions.errorCodes.includes(error.code);
+          const hasStatusCode = error.response
+            && retryOptions.statusCodes.includes(error.response.statusCode);
+          if (!hasMethod || (!hasErrorCode && !hasStatusCode)) {
+            return 0;
+          }
+
+          if (error.response) {
+            if (retryAfter) {
+              if (
+                retryOptions.maxRetryAfter === undefined
+                || retryAfter > retryOptions.maxRetryAfter
+              ) {
+                return 0;
+              }
+
+              logger.debug(
+                buildRetryLog(
+                  error.request?.requestUrl,
+                  error.code,
+                  error.response.statusCode,
+                  error.message,
+                  retryAfter,
+                  'retry-after header',
+                  attemptCount,
+                ),
+              );
+              return retryAfter;
+            }
+
+            if (error.response.statusCode === 413) {
+              return 0;
+            }
+          }
+
+          const baseDelayInMs = 1000;
+          const noiseToPreventCollisions = Math.random() * 100;
+          const delayInMs = Math.min(
+            2 ** (attemptCount - 1) * baseDelayInMs + noiseToPreventCollisions,
+            Number.MAX_SAFE_INTEGER,
+          );
+          logger.debug(
+            buildRetryLog(
+              error.request?.requestUrl,
+              error.code,
+              error.response?.statusCode,
+              error.message,
+              delayInMs,
+              'retry-after header',
+              attemptCount,
+            ),
+          );
+          return delayInMs;
         },
-        errorCodes: [
-          'ETIMEDOUT',
-          'ECONNRESET',
-          'EADDRINUSE',
-          'ECONNREFUSED',
-          'EPIPE',
-          'ENOTFOUND',
-          'ENETUNREACH',
-          'EAI_AGAIN',
-        ],
         limit: 5,
+        maxRetryAfter: 10 * 60,
         methods: ['POST', 'GET', 'PUT', 'HEAD', 'DELETE', 'OPTIONS', 'TRACE'],
-        statusCodes: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524],
       },
     };
     if (proxyAgents) {

@@ -85,40 +85,49 @@ export class StepReporter {
 
   async onStepBegin(snapshot: Snapshot): Promise<void> {
     if (this._currentStep === undefined) {
-      throw new Error('Cannot begin step if step is undefined.');
+      logger.error('Cannot begin step if step is undefined.');
+      return Promise.resolve();
     }
 
     if (this._currentStep.status !== 'pending') {
-      throw new Error('Cannot begin step that is not pending.');
+      logger.error('Cannot begin step that is not pending.');
+      return Promise.resolve();
     }
 
     this._currentStep = this._currentStep.onBegin(snapshot);
     this.enqueueReporterCalls('onStepBegin', this._currentStep);
+    return Promise.resolve();
   }
 
   async onStepRetry(snapshot: Snapshot, error: Error): Promise<void> {
     if (this._currentStep === undefined) {
-      throw new Error('Cannot retry step if step is undefined.');
+      logger.error('Cannot retry step if step is undefined.');
+      return Promise.resolve();
     }
 
     if (this._currentStep.status !== 'running') {
-      throw new Error('Cannot retry step that has not been running.');
+      logger.error('Cannot retry step that has not been running.');
+      return Promise.resolve();
     }
 
     this._currentStep = this._currentStep.onRetry(snapshot, error);
     this.enqueueReporterCalls('onStepRetry', this._currentStep);
+    return Promise.resolve();
   }
 
   async onStepEnd(snapshot: Snapshot, error?: Error): Promise<void> {
     if (this._currentStep === undefined) {
-      throw new Error('Cannot end step if step is undefined.');
+      logger.error('Cannot end step if step is undefined.');
+      return Promise.resolve();
     }
 
     if (this._currentStep.status !== 'running') {
-      throw new Error('Cannot end step that has not been running.');
+      logger.error('Cannot end step that has not been running.');
+      return Promise.resolve();
     }
 
     this._currentStep = this._currentStep.onEnd(snapshot, error);
     this.enqueueReporterCalls('onStepEnd', this._currentStep);
+    return Promise.resolve();
   }
 }
