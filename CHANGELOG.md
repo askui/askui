@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.18.1](https://github.com/askui/askui/compare/v0.18.0...v0.18.1) (2024-06-13)
+
+
+### Features
+
+* **askui-nodejs:** add new custom element options (#CL-731) ([2e9d294](https://github.com/askui/askui/commit/2e9d294fd9182a97465cf32d080f348a5a121af4)), closes [#CL-731](https://github.com/askui/askui/issues/CL-731)
+* **ML-492:** use default api version as v4 ([7898fb7](https://github.com/askui/askui/commit/7898fb7758d8b94f76e757163b200df4cc5c31db))
+* **ML-492:** use V4 online learning endpoint. ([d6c2923](https://github.com/askui/askui/commit/d6c2923f143a7642de6c601a446327bff92dbdea))
+
+
+### Bug Fixes
+
+* **askui-nodejs:** fix retry of http requests, e.g., don't retry on user mistakes (#CL-736) ([73781eb](https://github.com/askui/askui/commit/73781eb46facd2af1519150627b9ca77c3ced215)), closes [#CL-736](https://github.com/askui/askui/issues/CL-736)
+* **askui-nodejs:** log (not throw) error if reporter is misused to reveal underlying error (#CL-736) ([1c8de05](https://github.com/askui/askui/commit/1c8de05f0bd6495b32e3a8c3f8044a53b0a36681)), closes [#CL-736](https://github.com/askui/askui/issues/CL-736)
+* **ML-492:** change url to experimental ([e8e40e0](https://github.com/askui/askui/commit/e8e40e078cd034fafd9bae7dce5432386f1bf8e7))
+* **ML-492:** fix url to consistent ([e3915d8](https://github.com/askui/askui/commit/e3915d8e4ac41ef63ad3f7e573745f3fe5af1b6d))
+* **ML-492:** fix v4 isImageRequired logic ([ee47c11](https://github.com/askui/askui/commit/ee47c1100577fc22c58e6584e3df26a3947d5cc9))
+* **ML-492:** linting fix for alphabetical ([46e7055](https://github.com/askui/askui/commit/46e7055bed7210edcd7adf9215a6333dd179786e))
+* **ML-492:** linting fix for alphabetical ([0f2c7e0](https://github.com/askui/askui/commit/0f2c7e018e9c2d4b160368f1a1e478592d33fa6d))
+* **ML-492:** linting fixes ([223cf94](https://github.com/askui/askui/commit/223cf940ecb9452248990ca26cce6f178cd17aaf))
+
+
 ## [0.17.1](https://github.com/askui/askui/compare/v0.17.0...v0.17.1) (2024-04-15)
 
 
