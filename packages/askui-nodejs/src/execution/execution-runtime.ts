@@ -47,15 +47,15 @@ export class ExecutionRuntime {
     await this.uiControllerClient.requestControl(controlCommand);
   }
 
-  async executeInstruction(instruction: Instruction): Promise<void> {
-    const controlCommand = await this.predictCommandWithRetry(instruction);
+  async executeInstruction(instruction: Instruction, experimental: boolean): Promise<void> {
+    const controlCommand = await this.predictCommandWithRetry(instruction, experimental);
     if (controlCommand.code === ControlCommandCode.OK) {
       return this.requestControl(controlCommand);
     }
 
     if (controlCommand.tryToRepeat) {
       await this.requestControl(controlCommand);
-      return this.executeCommandRepeatedly(instruction);
+      return this.executeCommandRepeatedly(instruction, experimental);
     }
 
     throw new ControlCommandError(controlCommand.actions?.[0]?.text ?? '');
@@ -63,7 +63,10 @@ export class ExecutionRuntime {
 
   private readonly EXEC_REPETITION_COUNT = 25;
 
-  private async executeCommandRepeatedly(instruction: Instruction): Promise<void> {
+  private async executeCommandRepeatedly(
+    instruction: Instruction,
+    experimental: boolean,
+  ): Promise<void> {
     /* eslint-disable no-await-in-loop */
     for (let repeatCount = this.EXEC_REPETITION_COUNT; repeatCount >= 0; repeatCount -= 1) {
       if (repeatCount === 0) {
@@ -74,7 +77,7 @@ export class ExecutionRuntime {
       }
 
       logger.debug('Repeat command execution....');
-      const controlCommand = await this.predictCommandWithRetry(instruction);
+      const controlCommand = await this.predictCommandWithRetry(instruction, experimental);
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
       }
@@ -95,8 +98,11 @@ export class ExecutionRuntime {
    * --> retry with linear back-off
    */
   /* eslint-disable-next-line consistent-return */
-  private async predictCommandWithRetry(instruction: Instruction): Promise<ControlCommand> {
-    let command = await this.predictCommand(instruction);
+  private async predictCommandWithRetry(
+    instruction: Instruction,
+    experimental: boolean,
+  ): Promise<ControlCommand> {
+    let command = await this.predictCommand(instruction, experimental);
     /* eslint-disable no-await-in-loop */
     for (let k = 0; k < this.PREDICT_COMMAND_RETRY_COUNT; k += 1) {
       if (command.code === ControlCommandCode.OK) {
@@ -105,7 +111,7 @@ export class ExecutionRuntime {
       const msUntilRetry = k * 1000;
       logger.debug(`Wait ${msUntilRetry} and retry predicting command...`);
       await delay(msUntilRetry);
-      command = await this.predictCommand(instruction, new ControlCommandError(command.actions?.[0]?.text ?? ''));
+      command = await this.predictCommand(instruction, experimental, new ControlCommandError(command.actions?.[0]?.text ?? ''));
     }
     /* eslint-enable no-await-in-loop */
     return command;
@@ -146,6 +152,7 @@ export class ExecutionRuntime {
 
   private async predictCommand(
     instruction: Instruction,
+    experimental: boolean,
     retryError?: Error,
   ): Promise<ControlCommand> {
     const snapshot = await this.buildSnapshot(instruction.value);
@@ -153,6 +160,7 @@ export class ExecutionRuntime {
     else this.stepReporter.onStepBegin(snapshot);
     const controlCommand = await this.inferenceClient.predictControlCommand(
       instruction.value,
+      experimental,
       instruction.customElements,
       snapshot.screenshot,
     );

@@ -6,6 +6,7 @@ class TestCommand extends FluentCommand {
   async fluentCommandExecutor(
     _instruction: string,
     _customElements: CustomElementJson[],
+    _experimental: boolean,
   ): Promise<void> {
     return Promise.resolve();
   }
@@ -22,6 +23,7 @@ describe('DSL', () => {
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on button',
         [],
+        false,
       );
     });
 
@@ -42,6 +44,7 @@ describe('DSL', () => {
           imageCompareFormat: 'grayscale',
           name: 'custom element 1',
         }],
+        false,
       );
     });
 
@@ -74,6 +77,7 @@ describe('DSL', () => {
           name: 'custom element 2',
         },
         ],
+        false,
       );
     });
   });
