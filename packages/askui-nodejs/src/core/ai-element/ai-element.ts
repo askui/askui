@@ -19,7 +19,7 @@ class AIElement {
     if (json.version === 1) {
       return new AIElement(json.name, imagePath, json.image?.mask);
     }
-    throw new AIElementError(`unsupported AIElement version '${json.version}'.`);
+    throw new AIElementError(`Unsupported AIElement version '${json.version}'.`);
   }
 
   toCustomElement(): CustomElementJson {

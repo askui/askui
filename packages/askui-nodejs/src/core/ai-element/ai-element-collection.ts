@@ -22,7 +22,7 @@ export class AIElementCollection {
     logger.debug(`Collecting AIElements for workspace '${workspaceId}' ...`);
 
     if (workspaceId === undefined) {
-      throw new AIElementError('workspaceId is undefined.');
+      throw new AIElementError("Value of 'workspaceId' must be defined.");
     }
 
     const workspaceAIElementFolder = path.join(
@@ -70,7 +70,7 @@ export class AIElementCollection {
 
   getByName(name: string): CustomElementJson[] {
     if (name === '') {
-      throw new AIElementError('AIElement cannot have an empty name.');
+      throw new AIElementError("Parameter 'name' must be non-empty. This might be due to corrupted metadata.");
     }
 
     logger.debug(`Getting all CustomElementJson with the name '${name}' ...`);

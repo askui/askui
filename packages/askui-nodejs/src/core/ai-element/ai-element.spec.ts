@@ -25,7 +25,7 @@ describe('AIElement', () => {
   it('should throw an error for unsupported version', () => {
     const invalidMetadata = { ...dummyAIElementMetadata, version: 2 };
     expect(() => AIElement.fromJson(invalidMetadata, dummyImagePath)).toThrow(
-      'unsupported AIElement version',
+      'Unsupported AIElement version',
     );
   });
 
