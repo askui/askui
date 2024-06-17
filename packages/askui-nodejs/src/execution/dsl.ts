@@ -364,7 +364,7 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
    * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
@@ -376,6 +376,7 @@ export class FluentFilters extends FluentBase {
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
    *         threshold: 0.9, // optional, defaults to 0.9
+   *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
    *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
@@ -390,12 +391,13 @@ export class FluentFilters extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **stopThreshold** (*`number`, optional*):
+   *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
-   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * of the given custom image.
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
+   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -415,9 +417,9 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * <TBD>
+   * Detects an AI Element created with the workflow creator.
    *
-   * @param {string} aiElementName - <TBD>
+   * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -515,8 +517,7 @@ export class FluentFilters extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -646,13 +647,27 @@ export class FluentFilters extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -1304,7 +1319,7 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
    * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
@@ -1316,6 +1331,7 @@ export class FluentFiltersCondition extends FluentBase {
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
    *         threshold: 0.9, // optional, defaults to 0.9
+   *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
    *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
@@ -1330,12 +1346,13 @@ export class FluentFiltersCondition extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **stopThreshold** (*`number`, optional*):
+   *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
-   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * of the given custom image.
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
+   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -1355,9 +1372,9 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * <TBD>
+   * Detects an AI Element created with the workflow creator.
    *
-   * @param {string} aiElementName - <TBD>
+   * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1455,8 +1472,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -1586,13 +1602,27 @@ export class FluentFiltersCondition extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -3059,7 +3089,7 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element that is not recognized by our machine learning models by default. It can also be used for pixel assertions of elements using classical [template matching](https://en.wikipedia.org/wiki/Template_matching).
+   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
    * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
    *
@@ -3071,6 +3101,7 @@ export class FluentFiltersGetter extends FluentBase {
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
    *         threshold: 0.9, // optional, defaults to 0.9
+   *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
    *         // mask:{x:0, y:0}[] // optional, a polygon to match only a certain area of the custom element
@@ -3085,12 +3116,13 @@ export class FluentFiltersGetter extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   * - **stopThreshold** (*`number`, optional*):
+   *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
-   * - **imageCompareFormat** (*`'RGB' | 'grayscale'`, optional*):
-   *     - The color compare style. 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three color. Defaults to 'grayscale'.
-   * of the given custom image.
+   * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
+   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -3110,9 +3142,9 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * <TBD>
+   * Detects an AI Element created with the workflow creator.
    *
-   * @param {string} aiElementName - <TBD>
+   * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3210,8 +3242,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -3341,13 +3372,27 @@ export class FluentFiltersGetter extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -3764,22 +3809,77 @@ export abstract class Getter extends FluentCommand {
    *
    * **Examples:**
    * ```typescript
+   * // ************************************ //
+   * // Log the DetectedElements completely  //
+   * // ************************************ //
    * const text = await aui.get().text('Sign').exec();
    * console.log(text);
-   * ```
-   * ```text
-   *  console output: [
+   *
+   * // Console output
+   * [
    *   DetectedElement {
-   *      name: 'TEXT',
-   *      text: 'Sign In',
-   *      bndbox: BoundingBox {
-   *         xmin: 1128.2720982142857,
-   *         ymin: 160.21332310267857,
-   *         xmax: 1178.8204241071428,
-   *         ymax: 180.83512834821428
-   *      }
-   *    }
-   *  ]
+   *     name: 'TEXT',
+   *     text: 'Sign In',
+   *     bndbox: BoundingBox {
+   *       xmin: 1128.2720982142857,
+   *       ymin: 160.21332310267857,
+   *       xmax: 1178.8204241071428,
+   *       ymax: 180.83512834821428
+   *     }
+   *   }
+   * ]
+   * ```
+   *
+   * // *************************************************** //
+   * // Examples on how to work with the returned elements  //
+   * // *************************************************** //
+   * const texts = await aui.get().text().below().textfield().exec();
+   *
+   * // We can get a lot of elements this way
+   * console.log(texts);
+   *
+   * // Console output
+   * [
+   *   DetectedElement {
+   *     name: 'TEXT',
+   *     text: 'Sign In',
+   *     bndbox: BoundingBox {
+   *       xmin: 1128.2720982142857,
+   *       ymin: 160.21332310267857,
+   *       xmax: 1178.8204241071428,
+   *       ymax: 180.83512834821428
+   *     },
+   *   },
+   *   DetectedElement {
+   *     name: 'TEXT',
+   *     text: 'Login',
+   *     bndbox: BoundingBox {
+   *       xmin: 250.8204241071428,
+   *       ymin: 300.21332310267857,
+   *       xmax: 450.6304241071428,
+   *       ymax: 950.47812834821428
+   *     },
+   *   },
+   *   ... 10 more items
+   * ]
+   *
+   * // Extract the FIRST element
+   * // Arrays start with index 0!
+   * const firstTextElement = texts[0];
+   * const textOfFirstElement = firstElement.text;
+   *
+   * console.log(textOfFirstElement);
+   *
+   * // Console output
+   * Sign In
+   *
+   * // Log the text of the SECOND element
+   * // with shorter code
+   * const texts = await aui.get().text().below().textfield().exec();
+   * console.log(texts[1].text)
+   *
+   * // Console output
+   * Login
    * ```
    *
    * @return {FluentFiltersGetter}
