@@ -21,7 +21,7 @@ import { Instruction, StepReporter } from '../core/reporting';
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 
 export type ExpectExistenceAllowedElementClasses = 'text' | 'button' | 'checkbox' | 'switch' | 'textfield' | 'element';
-export type ExpectExistenceInputParameter = {
+export interface ExpectExistenceInputParameter {
   type: ExpectExistenceAllowedElementClasses;
   label: string;
   matching?: 'similar' | 'exact' | 'regex';
@@ -29,11 +29,13 @@ export type ExpectExistenceInputParameter = {
     type: RelationsForConvenienceMethods;
     text?: string;
   };
-  exists?: boolean;
 };
+export interface ExpectExistenceElement extends ExpectExistenceInputParameter {
+  exists: boolean;
+}
 export type ExpectExistenceReturnValue = {
   everythingExists: boolean;
-  elements: ExpectExistenceInputParameter[];
+  elements: ExpectExistenceElement[];
 };
 
 export class UiControlClient extends ApiCommands {
@@ -624,16 +626,11 @@ export class UiControlClient extends ApiCommands {
   // eslint-disable-next-line class-methods-use-this
   private async evaluateFinalExpectExistenceCommand(
     finalCommand: FluentFiltersOrRelationsGetter,
-    element: ExpectExistenceInputParameter,
-  ): Promise<ExpectExistenceInputParameter> {
-    const el = element;
-    el.exists = false;
+  ): Promise<boolean> {
     if ((await finalCommand.exec()).length > 0) {
-      el.exists = true;
+      return true;
     }
-    return new Promise<ExpectExistenceInputParameter>((resolve) => {
-      resolve(el);
-    });
+    return false;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -767,7 +764,7 @@ export class UiControlClient extends ApiCommands {
           }
 
           returnValue.elements.push(
-            (await this.evaluateFinalExpectExistenceCommand(finalCommand, element)),
+            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
           );
           break;
         }
@@ -788,7 +785,7 @@ export class UiControlClient extends ApiCommands {
           }
 
           returnValue.elements.push(
-            (await this.evaluateFinalExpectExistenceCommand(finalCommand, element)),
+            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
           );
           break;
         }
@@ -807,7 +804,7 @@ export class UiControlClient extends ApiCommands {
           }
 
           returnValue.elements.push(
-            (await this.evaluateFinalExpectExistenceCommand(finalCommand, element)),
+            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
           );
           break;
         }
@@ -834,7 +831,7 @@ export class UiControlClient extends ApiCommands {
           }
 
           returnValue.elements.push(
-            (await this.evaluateFinalExpectExistenceCommand(finalCommand, element)),
+            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
           );
           break;
         }
