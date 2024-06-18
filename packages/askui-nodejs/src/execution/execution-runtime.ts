@@ -184,10 +184,11 @@ export class ExecutionRuntime {
 
   async getDetectedElements(
     instruction: string,
-    customElementJson?: CustomElementJson[],
+    customElementJson?: CustomElementJson[] | undefined,
+    imagePath?: string | undefined,
   ): Promise<DetectedElement[]> {
     let customElements: CustomElement[] = [];
-    const base64Image = await this.takeScreenshotIfImageisNotProvided();
+    const base64Image = await this.takeScreenshotIfImageisNotProvided(imagePath);
     if (customElementJson !== undefined) {
       customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     }

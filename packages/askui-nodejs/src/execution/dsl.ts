@@ -71,7 +71,12 @@ abstract class FluentBase {
     if (this instanceof Getter) {
       const getter = this as Getter;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      return getter.getterExecutor(
+      const imagePath = newParamsList.get('imagePath') as string[] ?? [];
+      return imagePath !== undefined ? getter.getterExecutor(
+        newCurrentInstruction.trim(),
+        customElements,
+        imagePath[0],
+      ) : getter.getterExecutor(
         newCurrentInstruction.trim(),
         customElements,
       );
@@ -3711,11 +3716,12 @@ export abstract class Getter extends FluentCommand {
    *
    * @return {FluentFiltersGetter}
    */
-  get(): FluentFiltersGetter {
+  get(imagePath?: string): FluentFiltersGetter {
     this._textStr = '';
 
     this._textStr += 'get';
     this._textStr += ' element';
+    this._params.set('imagePath', imagePath);
 
     return new FluentFiltersGetter(this);
   }
@@ -3772,6 +3778,7 @@ export abstract class Getter extends FluentCommand {
   abstract getterExecutor(
     instruction: string,
     customElements: CustomElementJson[],
+    imagePath?: string | undefined,
   ): Promise<DetectedElement[]>;
 }
 

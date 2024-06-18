@@ -161,11 +161,12 @@ export class UiControlClient extends ApiCommands {
   async getterExecutor(
     instruction: string,
     customElementJson: CustomElementJson[] = [],
+    imagePath?: string | undefined,
   ): Promise<DetectedElement[]> {
     const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
     const stringWithoutSeparators = this.escapeSeparatorString(instruction);
     logger.debug(stringWithoutSeparators);
-    return this.executionRuntime.getDetectedElements(instruction, customElements);
+    return this.executionRuntime.getDetectedElements(instruction, customElements, imagePath);
   }
 
   private secretText: string | undefined = undefined;
