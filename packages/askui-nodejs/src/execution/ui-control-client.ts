@@ -576,15 +576,15 @@ export class UiControlClient extends ApiCommands {
    * **Examples:**
    * ```typescript
    * // Click text that matches exactly
-   * await aui.clickText({text: 'askui', type: 'similar'})
+   * await aui.clickText({text: 'askui', matching: 'similar'})
    *
    * // Click text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
-   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', type: 'regex'})
+   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', matching: 'regex'})
    *
    * // Click the text 'TERMINAL' that is left of the text 'Ports'
    * await aui.clickText({
    *     text: 'TERMINAL',
-   *     type: "exact",
+   *     matching: "exact",
    *     relation: { type: 'leftOf', text: 'PORTS' }
    *   })
    * ```
@@ -593,7 +593,7 @@ export class UiControlClient extends ApiCommands {
    *                          for regular expression matching and relation.
    * @property {string} params.text - The text to be clicked.
    * @property {string} params.matching - Whether the text is matched using similarity,
-   *                                  exact match or a regular expression.
+   *                                      exact match or a regular expression.
    * @property {Object} params.relation - Object describing the relationship between the
    *                                      clicked text and another element.
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
@@ -683,7 +683,7 @@ export class UiControlClient extends ApiCommands {
    * @property {string} params.type - The type of the element: 'otherElement' | 'switch' |
    *                                  'element' | 'container' | 'checkbox' | 'element' |
    *                                  'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield'
-   * @property {Object} params.text - Object containing value and matching strategy
+   * @property {Object} params.text - Object containing value and matching strategy.
    * @property {string} params.text.value - The text to match for.
    * @property {string} params.text.matching - Whether the text is matched using similarity,
    *                                           exact match or a regular expression.
