@@ -2,7 +2,6 @@ export { UiController } from './lib';
 export {
   UiControlClient,
   RelationsForConvenienceMethods,
-  ExpectExistenceAllowedElementClasses,
   ExpectExistenceInputParameter,
   ExpectExistenceReturnValue,
 } from './execution';

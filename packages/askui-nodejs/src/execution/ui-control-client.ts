@@ -1,8 +1,12 @@
-import ValidationError from 'yup/lib/ValidationError';
 import { CustomElement } from '../core/model/custom-element';
 import { CustomElementJson } from '../core/model/custom-element-json';
 import {
-  Exec, Executable, FluentFilters, ApiCommands, Separators,
+  Exec,
+  Executable,
+  FluentFilters,
+  FluentFiltersGetter,
+  ApiCommands,
+  Separators,
   PC_AND_MODIFIER_KEY,
   FluentFiltersOrRelations,
   FluentFiltersOrRelationsGetter,
@@ -19,17 +23,21 @@ import { UiControlClientDependencyBuilder } from './ui-control-client-dependency
 import { Instruction, StepReporter } from '../core/reporting';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
-
-export type ExpectExistenceAllowedElementClasses = 'text' | 'button' | 'checkbox' | 'switch' | 'textfield' | 'element';
+export type TextMatchingOption = 'similar' | 'exact' | 'regex';
+export type ExpectExistenceInputParameterType = 'otherElement' | 'switch' | 'element' | 'container' | 'checkbox' | 'element' | 'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield';
+export interface ExpectExistenceInputParameterText {
+  value: string;
+  matching?: TextMatchingOption;
+}
+export interface ExpectExistenceInputParameterRelation {
+  type: RelationsForConvenienceMethods;
+  text: string;
+}
 export interface ExpectExistenceInputParameter {
-  type: ExpectExistenceAllowedElementClasses;
-  label: string;
-  matching?: 'similar' | 'exact' | 'regex';
-  relation?: {
-    type: RelationsForConvenienceMethods;
-    text?: string;
-  };
-};
+  type: keyof Pick<FluentFilters, ExpectExistenceInputParameterType>;
+  text?: ExpectExistenceInputParameterText;
+  relation?: ExpectExistenceInputParameterRelation;
+}
 export interface ExpectExistenceElement extends ExpectExistenceInputParameter {
   exists: boolean;
 }
@@ -372,31 +380,21 @@ export class UiControlClient extends ApiCommands {
     command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter,
     relation: RelationsForConvenienceMethods,
     text: string,
-  ) {
-    let commando = command;
+  ): FluentFiltersOrRelations | FluentFiltersOrRelationsGetter {
     switch (relation) {
-      case 'nearestTo':
-        commando = command.nearestTo().text(text);
-        break;
       case 'leftOf':
-        commando = command.leftOf().text(text);
-        break;
+        return command.leftOf().text(text);
       case 'above':
-        commando = command.above().text(text);
-        break;
+        return command.above().text(text);
       case 'rightOf':
-        commando = command.rightOf().text(text);
-        break;
+        return command.rightOf().text(text);
       case 'below':
-        commando = command.below().text(text);
-        break;
+        return command.below().text(text);
       case 'contains':
-        commando = command.contains().text(text);
-        break;
+        return command.contains().text(text);
       default:
-        throw new ValidationError('No valid Relation.Type was passed.');
+        return command.nearestTo().text(text);
     }
-    return commando;
   }
 
   /**
@@ -594,7 +592,7 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `text` property and optional properties
    *                          for regular expression matching and relation.
    * @property {string} params.text - The text to be clicked.
-   * @property {string} params.type - Whether the text is matched using similarity,
+   * @property {string} params.matching - Whether the text is matched using similarity,
    *                                  exact match or a regular expression.
    * @property {Object} params.relation - Object describing the relationship between the
    *                                      clicked text and another element.
@@ -605,7 +603,7 @@ export class UiControlClient extends ApiCommands {
   async clickText(
     params: {
       text: string,
-      type: 'similar' | 'exact' | 'regex',
+      matching: TextMatchingOption,
       relation?: {
         type: RelationsForConvenienceMethods,
         text: string
@@ -613,71 +611,29 @@ export class UiControlClient extends ApiCommands {
     },
   ) {
     let command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter = this.click().text();
-
-    command = await this.evaluateMatchingProperty(command, params.type, params.text);
-
+    command = this.evaluateMatchingProperty(
+      command,
+      { value: params.text, matching: params.matching },
+    );
     if (params.relation) {
       command = this.evaluateRelation(command, params.relation.type, params.relation.text);
     }
-
     await command.exec();
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private async evaluateFinalExpectExistenceCommand(
-    finalCommand: FluentFiltersOrRelationsGetter,
-  ): Promise<boolean> {
-    if ((await finalCommand.exec()).length > 0) {
-      return true;
-    }
-    return false;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private async evaluateMatchingProperty(
-    command: FluentFiltersOrRelationsGetter | FluentFiltersOrRelations,
-    matching: 'similar' | 'exact' | 'regex' | undefined,
-    text: string,
-  ): Promise<FluentFiltersOrRelationsGetter | FluentFiltersOrRelations> {
-    let commando = command;
-    switch (matching) {
-      case 'similar':
-        commando = command.withText(text);
-        break;
+  private evaluateMatchingProperty(
+    command: FluentFiltersGetter | FluentFiltersOrRelationsGetter | FluentFiltersOrRelations,
+    text: ExpectExistenceInputParameterText,
+  ): FluentFiltersOrRelationsGetter | FluentFiltersOrRelations {
+    switch (text.matching ?? 'similar') {
       case 'exact':
-        commando = command.withExactText(text);
-        break;
+        return command.withExactText(text.value);
       case 'regex':
-        commando = command.withTextRegex(text);
-        break;
+        return command.withTextRegex(text.value);
       default:
-        throw new ValidationError('"matching" property must be "similar", "exact" or "regex"');
+        return command.withText(text.value);
     }
-    return new Promise<FluentFiltersOrRelationsGetter | FluentFiltersOrRelations>((resolve) => {
-      resolve(commando);
-    });
-  }
-
-  private evaluateRelationExpectExistence(
-    element: ExpectExistenceInputParameter,
-    command: FluentFiltersOrRelationsGetter,
-  ) {
-    if (element.relation === undefined) {
-      throw new ValidationError(
-        '"relation" must never be undefined when searching for a switch or checkbox.',
-      );
-    }
-    // param.relation.text must never be undefined here -> User error
-    if (element.relation.text === undefined) {
-      throw new ValidationError(
-        '"relation.text" must never be undefined when searching for a switch or checkbox.',
-      );
-    }
-    return this.evaluateRelation(
-      command,
-      element.relation.type,
-      element.relation.text,
-    ) as FluentFiltersOrRelationsGetter;
   }
 
   /**
@@ -688,8 +644,10 @@ export class UiControlClient extends ApiCommands {
    * await aui.expectExistence([
    *   {
    *     type: 'text',
-   *     label: 'Switch to Dark',
-   *     matching: 'similar'
+   *     text: {
+   *       value: 'Switch to Dark',
+   *       matching: 'similar'
+   *     }
    *   },
    * ]);
    *
@@ -697,15 +655,16 @@ export class UiControlClient extends ApiCommands {
    * await aui.expectExistence([
    *   {
    *     type: 'textfield',
-   *     label: '42',
    *     relation: {
-   *       type: 'below',
-   *       text: 'Register'
+   *       type: 'rightOf',
+   *       text: 'Email:'
    *     }
    *   },
    *   {
    *     type: 'element',
-   *     label: 'Switch to Dark',
+   *     text: {
+   *       value: 'Switch to Dark'
+   *     }
    *   },
    * ]);
    *
@@ -718,136 +677,51 @@ export class UiControlClient extends ApiCommands {
    * const nonExistentElements = exists.elements.filter((e) => e.exists===false)
    * ```
    *
-   * @param {ExpectExistenceInputParameter[]} params - Objects containing the required properties
-   *                                                   'type', 'label', 'matching' and 'relation'.
-   * @property {string} params.type - The type of the element: 'text' | 'button' | 'checkbox' |
-   *                                                           'switch' | 'textfield' | 'element'
-   * @property {string} params.label - The label text for the element.
-   *                                   In case of 'text': The text to be matched for
-   * @property {string} params.matching - Whether the text is matched using similarity,
-   *                                      exact match or a regular expression.
+   * @param {ExpectExistenceInputParameter[]} params - Objects containing the required property
+   *                                                   'type' and the optional properties
+   *                                                   'text' and 'relation'.
+   * @property {string} params.type - The type of the element: 'otherElement' | 'switch' |
+   *                                  'element' | 'container' | 'checkbox' | 'element' |
+   *                                  'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield'
+   * @property {Object} params.text - Object containing value and matching strategy
+   * @property {string} params.text.value - The text to match for.
+   * @property {string} params.text.matching - Whether the text is matched using similarity,
+   *                                           exact match or a regular expression.
    * @property {Object} params.relation - Object describing the relationship between the
    *                                      clicked text and another element.
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The label or text associated with the
    *                                           related element or state.
-   * @returns {ExpectExistenceReturnValue} - Property boolean 'everythingExists' tells
-   *                                         if every element exists.
+   * @returns {ExpectExistenceReturnValue.everythingExists} - If every element exists.
+   * @returns {ExpectExistenceReturnValue.elements} - ExpectExistenceElement[].
    */
   async expectExistence(
     params: ExpectExistenceInputParameter[],
   ): Promise<ExpectExistenceReturnValue> {
-    if (params === undefined) {
-      throw new ValidationError('At least one ExpectExistenceInputParameter has to be there.');
-    }
-
-    const returnValue: ExpectExistenceReturnValue = {
-      everythingExists: true,
-      elements: [],
-    };
-
-    for (let i = 0; i < params.length; i += 1) {
-      const element = params[i] as ExpectExistenceInputParameter;
-
-      switch (element.type) {
-        case 'text': {
-          let command = this.get().text();
-          command = await this.evaluateMatchingProperty(
-            command,
-            element.matching,
-            element.label,
-          ) as FluentFiltersOrRelationsGetter;
-
-          let finalCommand = command;
-          if (element.relation) {
-            finalCommand = this.evaluateRelationExpectExistence(element, command);
-          }
-
-          returnValue.elements.push(
-            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
-          );
-          break;
-        }
-
-        case 'textfield': {
-          let command = this.get().textfield();
-
-          // We can only add this when there is no relation
-          // Evaluation goes from left to right and will match on the label property
-          // and not on textfield containing the label
-          if (element.label && element.relation === undefined) {
-            command = command.contains().text().withText(element.label);
-          }
-
-          let finalCommand = command;
-          if (element.relation) {
-            finalCommand = this.evaluateRelationExpectExistence(element, command);
-          }
-
-          returnValue.elements.push(
-            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
-          );
-          break;
-        }
-
-        case 'button':
-        case 'element': {
-          let command = this.get().element().withText(element.label);
-
-          if (element.type === 'button') {
-            command = this.get().button().withText(element.label);
-          }
-
-          let finalCommand = command;
-          if (element.relation) {
-            finalCommand = this.evaluateRelationExpectExistence(element, command);
-          }
-
-          returnValue.elements.push(
-            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
-          );
-          break;
-        }
-
-        case 'checkbox':
-        case 'switch': {
-          let command = this.get().checkbox();
-
-          switch (element.type) {
-            case 'checkbox':
-              break;
-            case 'switch':
-              command = this.get().switch();
-              break;
-            default:
-              throw new ValidationError('expected either "checkbox" or "switch"');
-          }
-
-          let finalCommand;
-          if (element.relation) {
-            finalCommand = this.evaluateRelationExpectExistence(element, command);
-          } else {
-            finalCommand = command.nearestTo().text(element.label);
-          }
-
-          returnValue.elements.push(
-            {...element, exists: await this.evaluateFinalExpectExistenceCommand(finalCommand)},
-          );
-          break;
-        }
-
-        default:
-          throw new ValidationError(
-            "No valid element type: Use one of 'text' | 'button' | 'checkbox' | 'switch' | 'textfield' | 'element'",
-          );
+    const elements = await params.reduce(async (accumulatorPromise, param) => {
+      const acc = await accumulatorPromise;
+      const command = this.get()[param.type]();
+      let finalCommand = param.text !== undefined
+        ? this.evaluateMatchingProperty(command, param.text) as FluentFiltersOrRelationsGetter
+        : command;
+      if (param.relation) {
+        finalCommand = this.evaluateRelation(
+          finalCommand,
+          param.relation.type,
+          param.relation.text,
+        ) as FluentFiltersOrRelationsGetter;
       }
-    }
-
-    returnValue.everythingExists = !(returnValue.elements.filter(
-      (el) => el.exists === false,
-    ).length > 0);
-    return new Promise<ExpectExistenceReturnValue>((resolve) => {
-      resolve(returnValue);
-    });
+      return [
+        ...acc,
+        {
+          ...param,
+          exists: (await finalCommand.exec()).length > 0,
+        },
+      ];
+    }, Promise.resolve([] as ExpectExistenceElement[]));
+    return {
+      elements,
+      everythingExists: elements.every((el) => el.exists),
+    };
   }
 }
