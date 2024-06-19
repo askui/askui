@@ -4,7 +4,6 @@ import {
   Exec,
   Executable,
   FluentFilters,
-  FluentFiltersGetter,
   ApiCommands,
   Separators,
   PC_AND_MODIFIER_KEY,
@@ -621,11 +620,19 @@ export class UiControlClient extends ApiCommands {
     await command.exec();
   }
 
+  private evaluateMatchingProperty(
+    command: FluentFiltersOrRelations,
+    text: ExpectExistenceInputParameterText,
+  ): FluentFiltersOrRelations;
+  private evaluateMatchingProperty(
+    command: FluentFiltersOrRelationsGetter,
+    text: ExpectExistenceInputParameterText,
+  ): FluentFiltersOrRelationsGetter;
   // eslint-disable-next-line class-methods-use-this
   private evaluateMatchingProperty(
-    command: FluentFiltersGetter | FluentFiltersOrRelationsGetter | FluentFiltersOrRelations,
+    command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter,
     text: ExpectExistenceInputParameterText,
-  ): FluentFiltersOrRelationsGetter | FluentFiltersOrRelations {
+  ): FluentFiltersOrRelations | FluentFiltersOrRelationsGetter {
     switch (text.matching ?? 'similar') {
       case 'exact':
         return command.withExactText(text.value);
@@ -702,7 +709,7 @@ export class UiControlClient extends ApiCommands {
       const acc = await accumulatorPromise;
       const command = this.get()[param.type]();
       let finalCommand = param.text !== undefined
-        ? this.evaluateMatchingProperty(command, param.text) as FluentFiltersOrRelationsGetter
+        ? this.evaluateMatchingProperty(command, param.text)
         : command;
       if (param.relation) {
         finalCommand = this.evaluateRelation(
