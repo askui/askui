@@ -1,6 +1,1 @@
-export {
-  UiControlClient,
-  RelationsForConvenienceMethods,
-  ExpectExistenceInputParameter,
-  ExpectExistenceReturnValue,
-} from './ui-control-client';
+export * from './ui-control-client';
