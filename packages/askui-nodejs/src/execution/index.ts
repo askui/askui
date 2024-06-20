@@ -1,1 +1,1 @@
-export { UiControlClient, RelationsForConvenienceMethods } from './ui-control-client';
+export * from './ui-control-client';

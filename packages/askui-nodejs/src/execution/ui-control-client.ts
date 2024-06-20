@@ -1,10 +1,15 @@
-import ValidationError from 'yup/lib/ValidationError';
+import { ValidationError } from 'yup';
 import { CustomElement } from '../core/model/custom-element';
 import { CustomElementJson } from '../core/model/custom-element-json';
 import {
-  Exec, Executable, FluentFilters, ApiCommands, Separators,
+  Exec,
+  Executable,
+  FluentFilters,
+  ApiCommands,
+  Separators,
   PC_AND_MODIFIER_KEY,
   FluentFiltersOrRelations,
+  FluentFiltersOrRelationsGetter,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -18,6 +23,28 @@ import { UiControlClientDependencyBuilder } from './ui-control-client-dependency
 import { Instruction, StepReporter } from '../core/reporting';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
+export type TextMatchingOption = 'similar' | 'exact' | 'regex';
+export type ElementExistsQueryType = 'otherElement' | 'switch' | 'element' | 'container' | 'checkbox' | 'element' | 'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield';
+export interface ElementExistsQueryText {
+  value: string;
+  matching?: TextMatchingOption;
+}
+export interface ElementExistsQueryRelation {
+  type: RelationsForConvenienceMethods;
+  text: string;
+}
+export interface ElementExistsQuery {
+  type: keyof Pick<FluentFilters, ElementExistsQueryType>;
+  text?: ElementExistsQueryText;
+  relation?: ElementExistsQueryRelation;
+}
+export interface ExpectExistenceElement extends ElementExistsQuery {
+  exists: boolean;
+}
+export interface ExpectAllExistResult {
+  allExist: boolean;
+  elements: ExpectExistenceElement[];
+}
 
 export class UiControlClient extends ApiCommands {
   private constructor(
@@ -348,36 +375,38 @@ export class UiControlClient extends ApiCommands {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private evaluateRelation(
     command: FluentFiltersOrRelations,
     relation: RelationsForConvenienceMethods,
     text: string,
-  ) {
-    let commando = command;
+  ): FluentFiltersOrRelations;
+  private evaluateRelation(
+    command: FluentFiltersOrRelationsGetter,
+    relation: RelationsForConvenienceMethods,
+    text: string,
+  ): FluentFiltersOrRelationsGetter;
+  // eslint-disable-next-line class-methods-use-this
+  private evaluateRelation(
+    command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter,
+    relation: RelationsForConvenienceMethods,
+    text: string,
+  ): FluentFiltersOrRelations | FluentFiltersOrRelationsGetter {
     switch (relation) {
-      case 'nearestTo':
-        commando = command.nearestTo().text(text);
-        break;
       case 'leftOf':
-        commando = command.leftOf().text(text);
-        break;
+        return command.leftOf().text(text);
       case 'above':
-        commando = command.above().text(text);
-        break;
+        return command.above().text(text);
       case 'rightOf':
-        commando = command.rightOf().text(text);
-        break;
+        return command.rightOf().text(text);
       case 'below':
-        commando = command.below().text(text);
-        break;
+        return command.below().text(text);
       case 'contains':
-        commando = command.contains().text(text);
-        break;
+        return command.contains().text(text);
+      case 'nearestTo':
+        return command.nearestTo().text(text);
       default:
-        throw new ValidationError('No valid Relation.Type was passed.');
+        throw new ValidationError(`'relation' has to be 'nearestTo', 'leftOf', 'above', 'rightOf', 'below' or 'contains' but was '${relation}'`);
     }
-    return commando;
   }
 
   /**
@@ -408,7 +437,7 @@ export class UiControlClient extends ApiCommands {
       }
     },
   ) {
-    let command = this.click().button();
+    let command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter = this.click().button();
 
     if (params.label) {
       command = command.withText(params.label);
@@ -434,8 +463,8 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `label` property and
    *                          optional `relation` property.
    * @property {string} params.label - The label for the checkbox.
-   * @property {Object} params.relation - Object describing the relationship between
-   *                                      the clicked checkbox and another element.
+   * @property {Object} [params.relation] - Object describing the relationship between
+   *                                        the clicked checkbox and another element.
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    */
   async clickCheckbox(
@@ -446,7 +475,9 @@ export class UiControlClient extends ApiCommands {
       }
     },
   ) {
-    let command = this.click().checkbox();
+    let command:
+    FluentFiltersOrRelations |
+    FluentFiltersOrRelationsGetter = this.click().checkbox();
 
     if (!params.relation) {
       command = command.nearestTo().text(params.label);
@@ -470,7 +501,7 @@ export class UiControlClient extends ApiCommands {
    * @param {Object} params - Object containing required `label` property and
    *                          optional `relation` property.
    * @property {string} params.label - The label for the checkbox.
-   * @property {Object} params.relation - Object describing the relationship between
+   * @property {Object} [params.relation] - Object describing the relationship between
    *                                      the clicked checkbox and another element.
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    */
@@ -482,7 +513,7 @@ export class UiControlClient extends ApiCommands {
       }
     },
   ) {
-    let command = this.click().switch();
+    let command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter = this.click().switch();
 
     if (!params.relation) {
       command = command.nearestTo().text(params.label);
@@ -536,7 +567,9 @@ export class UiControlClient extends ApiCommands {
       }
     },
   ) {
-    let command = this.typeIn(params.textToWrite).textfield();
+    let command:
+    FluentFiltersOrRelations |
+    FluentFiltersOrRelationsGetter = this.typeIn(params.textToWrite).textfield();
 
     if (!params.relation.type) {
       command = command.nearestTo().text(params.relation.label);
@@ -549,31 +582,32 @@ export class UiControlClient extends ApiCommands {
 
   /**
    * Click on a specific text.
-   * You can also use a RegEx or match the text exactly by specifyicing the specific flag.
+   * You can also use a RegEx or match the text exactly by specifying the specific flag.
    * Use a relation to find the text in relation to a specific text.
    *
    * **Examples:**
    * ```typescript
    * // Click text that matches exactly
-   * await aui.clickText({text: 'askui', type: 'similar'})
+   * await aui.clickText({text: 'askui', matching: 'similar'})
    *
    * // Click text that contains 'pie' or 'cake' or 'Pie' or 'Cake'
-   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', type: 'regex'})
+   * await aui.clickText({text: '.*([Pp]ie|[Cc]ake).*', matching: 'regex'})
    *
    * // Click the text 'TERMINAL' that is left of the text 'Ports'
    * await aui.clickText({
    *     text: 'TERMINAL',
-   *     type: "exact",
+   *     matching: "exact",
    *     relation: { type: 'leftOf', text: 'PORTS' }
    *   })
    * ```
+   *
    * @param {Object} params - Object containing required `text` property and optional properties
    *                          for regular expression matching and relation.
    * @property {string} params.text - The text to be clicked.
-   * @property {string} params.type - Whether the text is matched using similarity,
-   *                                  exact match or a regular expression.
-   * @property {Object} params.relation - Object describing the relationship between the
-   *                                      clicked text and another element.
+   * @property {string} params.matching - Whether the text is matched using similarity,
+   *                                      exact match or a regular expression.
+   * @property {Object} [params.relation] - Object describing the relationship between the
+   *                                        clicked text and another element.
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    * @property {string} params.relation.text - The label or text associated with the
    *                                           related element or state.
@@ -581,33 +615,135 @@ export class UiControlClient extends ApiCommands {
   async clickText(
     params: {
       text: string,
-      type: 'similar' | 'exact' | 'regex',
+      matching: TextMatchingOption,
       relation?: {
         type: RelationsForConvenienceMethods,
         text: string
       }
     },
   ) {
-    let command = this.click().text();
-
-    switch (params.type) {
-      case 'similar':
-        command = command.withText(params.text);
-        break;
-      case 'exact':
-        command = command.withExactText(params.text);
-        break;
-      case 'regex':
-        command = command.withTextRegex(params.text);
-        break;
-      default:
-        throw new ValidationError('"type" must be "similar", "exact" or "regex"');
-    }
-
+    let command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter = this.click().text();
+    command = this.evaluateMatchingProperty(
+      command,
+      { value: params.text, matching: params.matching },
+    );
     if (params.relation) {
       command = this.evaluateRelation(command, params.relation.type, params.relation.text);
     }
-
     await command.exec();
+  }
+
+  private evaluateMatchingProperty(
+    command: FluentFiltersOrRelations,
+    text: ElementExistsQueryText,
+  ): FluentFiltersOrRelations;
+  private evaluateMatchingProperty(
+    command: FluentFiltersOrRelationsGetter,
+    text: ElementExistsQueryText,
+  ): FluentFiltersOrRelationsGetter;
+  // eslint-disable-next-line class-methods-use-this
+  private evaluateMatchingProperty(
+    command: FluentFiltersOrRelations | FluentFiltersOrRelationsGetter,
+    text: ElementExistsQueryText,
+  ): FluentFiltersOrRelations | FluentFiltersOrRelationsGetter {
+    switch (text.matching ?? 'similar') {
+      case 'exact':
+        return command.withExactText(text.value);
+      case 'regex':
+        return command.withTextRegex(text.value);
+      case 'similar':
+        return command.withText(text.value);
+      default:
+        throw new ValidationError(`'text.matching' property has to be 'similar', 'exact' or 'regex' but was '${text.matching}'`);
+    }
+  }
+
+  /**
+   * Check if one or multiple elements are detected.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.expectAllExist([
+   *   {
+   *     type: 'text',
+   *     text: {
+   *       value: 'Switch to Dark',
+   *       matching: 'similar'
+   *     }
+   *   },
+   * ]);
+   *
+   * // Check for existence of multiple elements
+   * await aui.expectAllExist([
+   *   {
+   *     type: 'textfield',
+   *     relation: {
+   *       type: 'rightOf',
+   *       text: 'Email:'
+   *     }
+   *   },
+   *   {
+   *     type: 'element',
+   *     text: {
+   *       value: 'Switch to Dark'
+   *     }
+   *   },
+   * ]);
+   *
+   * // Validate existence
+   * const exists = await aui.expectAllExist([...]);
+   * exists.allExist // true when every element exists
+   *
+   * // Check which elements do not exist
+   * // with the elements property
+   * const nonExistentElements = exists.elements.filter((e) => e.exists===false)
+   * ```
+   *
+   * @param {ElementExistsQuery[]} query - Objects containing the required property
+   *                                                   'type' and the optional properties
+   *                                                   'text' and 'relation'.
+   * @property {string} query.type - The type of the element: 'otherElement' | 'switch' |
+   *                                 'element' | 'container' | 'checkbox' | 'element' |
+   *                                 'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield'
+   * @property {Object} [query.text] - Object containing value and matching strategy.
+   * @property {string} query.text.value - The text to match for.
+   * @property {string} [query.text.matching] - Whether the text is matched using similarity,
+   *                                            exact match or a regular expression.
+   * @property {Object} [query.relation] - Object describing the relationship between the
+   *                                       clicked text and another element.
+   * @property {RelationsForConvenienceMethods} query.relation.type - The type of relation.
+   * @property {string} query.relation.text - The label or text associated with the
+   *                                          related element or state.
+   * @returns {ExpectAllExistResult.allExist} - If every element exists.
+   * @returns {ExpectAllExistResult.elements} - ExpectExistenceElement[].
+   */
+  async expectAllExist(
+    query: ElementExistsQuery[],
+  ): Promise<ExpectAllExistResult> {
+    const elements = await query.reduce(async (accumulatorPromise, subquery) => {
+      const acc = await accumulatorPromise;
+      const command = this.get()[subquery.type]();
+      let finalCommand = subquery.text !== undefined
+        ? this.evaluateMatchingProperty(command, subquery.text)
+        : command;
+      if (subquery.relation) {
+        finalCommand = this.evaluateRelation(
+          finalCommand,
+          subquery.relation.type,
+          subquery.relation.text,
+        );
+      }
+      return [
+        ...acc,
+        {
+          ...subquery,
+          exists: (await finalCommand.exec()).length > 0,
+        },
+      ];
+    }, Promise.resolve<ExpectExistenceElement[]>([]));
+    return {
+      elements,
+      allExist: elements.every((el) => el.exists),
+    };
   }
 }
