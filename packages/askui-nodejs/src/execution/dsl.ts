@@ -517,7 +517,8 @@ export class FluentFilters extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -647,13 +648,9 @@ export class FluentFilters extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
    *
    * **Examples:**
    * ```typescript
@@ -1472,7 +1469,8 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -1602,13 +1600,9 @@ export class FluentFiltersCondition extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
    *
    * **Examples:**
    * ```typescript
@@ -3242,7 +3236,8 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * // optional parameter: similarity_score
    * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
@@ -3372,13 +3367,9 @@ export class FluentFiltersGetter extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * It sometimes requires a bit of playing around to find a matching description:
+   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally the more detail the better.
    *
    * **Examples:**
    * ```typescript
@@ -3809,9 +3800,6 @@ export abstract class Getter extends FluentCommand {
    *
    * **Examples:**
    * ```typescript
-   * // ************************************ //
-   * // Log the DetectedElements completely  //
-   * // ************************************ //
    * const text = await aui.get().text('Sign').exec();
    * console.log(text);
    *
