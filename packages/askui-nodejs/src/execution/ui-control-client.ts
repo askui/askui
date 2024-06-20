@@ -692,7 +692,7 @@ export class UiControlClient extends ApiCommands {
    *
    * // Validate existence
    * const exists = await aui.expectAllExist([...]);
-   * exists.everythingExists // true when every element exists
+   * exists.allExist // true when every element exists
    *
    * // Check which elements do not exist
    * // with the elements property
@@ -714,7 +714,7 @@ export class UiControlClient extends ApiCommands {
    * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
    * @property {string} query.relation.text - The label or text associated with the
    *                                          related element or state.
-   * @returns {ExpectAllExistResult.everythingExists} - If every element exists.
+   * @returns {ExpectAllExistResult.allExist} - If every element exists.
    * @returns {ExpectAllExistResult.elements} - ExpectExistenceElement[].
    */
   async expectAllExist(
