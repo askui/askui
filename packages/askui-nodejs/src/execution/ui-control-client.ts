@@ -711,7 +711,7 @@ export class UiControlClient extends ApiCommands {
    *                                            exact match or a regular expression.
    * @property {Object} [query.relation] - Object describing the relationship between the
    *                                       clicked text and another element.
-   * @property {RelationsForConvenienceMethods} params.relation.type - The type of relation.
+   * @property {RelationsForConvenienceMethods} query.relation.type - The type of relation.
    * @property {string} query.relation.text - The label or text associated with the
    *                                          related element or state.
    * @returns {ExpectAllExistResult.allExist} - If every element exists.
