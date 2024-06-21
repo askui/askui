@@ -174,6 +174,9 @@ export class UiControlClient extends ApiCommands {
   }
 
   private async getAIElementsByNames(names: string[]): Promise<CustomElementJson[]> {
+    if (names.length === 0) {
+      return [];
+    }
     // eslint-disable-next-line max-len
     const workspaceAIElementCollection = await AIElementCollection.collectForWorkspaceId(this.workspaceId);
     return workspaceAIElementCollection.getByNames(names);
