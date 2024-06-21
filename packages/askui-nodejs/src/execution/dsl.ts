@@ -19,6 +19,11 @@ export type MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shif
 export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
 export type PC_AND_MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 
+export interface CommandExecutorContext {
+  customElementsJson: CustomElementJson[];
+  aiElementNames: string[];
+}
+
 abstract class FluentBase {
   constructor(protected prev?: FluentBase) { }
 
@@ -48,9 +53,13 @@ abstract class FluentBase {
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
-        customElements,
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
       );
     }
     if (!this.prev) {
@@ -71,9 +80,13 @@ abstract class FluentBase {
     if (this instanceof Getter) {
       const getter = this as Getter;
       const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return getter.getterExecutor(
         newCurrentInstruction.trim(),
-        customElements,
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
       );
     }
     if (!this.prev) {
@@ -404,6 +417,28 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * Detects an AI Element created with the workflow creator.
+   *
+   * @param {string} aiElementName - Name of the AI Element.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -619,7 +654,17 @@ export class FluentFilters extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -1324,6 +1369,28 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
+   * Detects an AI Element created with the workflow creator.
+   *
+   * @param {string} aiElementName - Name of the AI Element.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -1539,7 +1606,17 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -2741,7 +2818,7 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    customElements: CustomElementJson[],
+    context: CommandExecutorContext,
   ): Promise<void>;
 }
 
@@ -3059,6 +3136,28 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
+   * Detects an AI Element created with the workflow creator.
+   *
+   * @param {string} aiElementName - Name of the AI Element.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'ai';
+    this._textStr += ' element';
+    this._textStr += ' with';
+    this._textStr += ' name';
+    this._textStr += ` ${Separators.STRING}${aiElementName}${Separators.STRING}`;
+
+    this._params.set('aiElementName', aiElementName);
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
    * Filters for a UI element 'image'.
    *
    * **Examples:**
@@ -3274,7 +3373,17 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * **Examples:**
    * ```typescript
-   * await aui.click().matching('a mask on purple background and a firefox logo').exec()
+   * // Select the black sneaker from a bunch of sneakers
+   * await aui.click().element().matching('a black sneaker shoe').exec();
+   *
+   * // Select an image that has text in it
+   * await aui.click().element().matching('has Burger King in it').exec();
+   * await aui.click().element().matching('has adidas in it').exec();
+   *
+   * // Target a logo/image by describing it
+   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
+   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
+   * await aui.click().element().matching('logo looking like a seashell').exec();
    * ```
    *
    * @param {string} text - A description of the target element.
@@ -3693,20 +3802,72 @@ export abstract class Getter extends FluentCommand {
    * ```typescript
    * const text = await aui.get().text('Sign').exec();
    * console.log(text);
-   * ```
-   * ```text
-   *  console output: [
+   *
+   * // Console output
+   * [
    *   DetectedElement {
-   *      name: 'TEXT',
-   *      text: 'Sign In',
-   *      bndbox: BoundingBox {
-   *         xmin: 1128.2720982142857,
-   *         ymin: 160.21332310267857,
-   *         xmax: 1178.8204241071428,
-   *         ymax: 180.83512834821428
-   *      }
-   *    }
-   *  ]
+   *     name: 'TEXT',
+   *     text: 'Sign In',
+   *     bndbox: BoundingBox {
+   *       xmin: 1128.2720982142857,
+   *       ymin: 160.21332310267857,
+   *       xmax: 1178.8204241071428,
+   *       ymax: 180.83512834821428
+   *     }
+   *   }
+   * ]
+   * ```
+   *
+   * // *************************************************** //
+   * // Examples on how to work with the returned elements  //
+   * // *************************************************** //
+   * const texts = await aui.get().text().below().textfield().exec();
+   *
+   * // We can get a lot of elements this way
+   * console.log(texts);
+   *
+   * // Console output
+   * [
+   *   DetectedElement {
+   *     name: 'TEXT',
+   *     text: 'Sign In',
+   *     bndbox: BoundingBox {
+   *       xmin: 1128.2720982142857,
+   *       ymin: 160.21332310267857,
+   *       xmax: 1178.8204241071428,
+   *       ymax: 180.83512834821428
+   *     },
+   *   },
+   *   DetectedElement {
+   *     name: 'TEXT',
+   *     text: 'Login',
+   *     bndbox: BoundingBox {
+   *       xmin: 250.8204241071428,
+   *       ymin: 300.21332310267857,
+   *       xmax: 450.6304241071428,
+   *       ymax: 950.47812834821428
+   *     },
+   *   },
+   *   ... 10 more items
+   * ]
+   *
+   * // Extract the FIRST element
+   * // Arrays start with index 0!
+   * const firstTextElement = texts[0];
+   * const textOfFirstElement = firstElement.text;
+   *
+   * console.log(textOfFirstElement);
+   *
+   * // Console output
+   * Sign In
+   *
+   * // Log the text of the SECOND element
+   * // with shorter code
+   * const texts = await aui.get().text().below().textfield().exec();
+   * console.log(texts[1].text)
+   *
+   * // Console output
+   * Login
    * ```
    *
    * @return {FluentFiltersGetter}
@@ -3771,7 +3932,7 @@ export abstract class Getter extends FluentCommand {
 
   abstract getterExecutor(
     instruction: string,
-    customElements: CustomElementJson[],
+    context: CommandExecutorContext,
   ): Promise<DetectedElement[]>;
 }
 

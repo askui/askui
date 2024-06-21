@@ -9,6 +9,7 @@ import {
   Separators,
   PC_AND_MODIFIER_KEY,
   FluentFiltersOrRelations,
+  CommandExecutorContext,
   FluentFiltersOrRelationsGetter,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
@@ -21,6 +22,7 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
+import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -48,6 +50,7 @@ export interface ExpectAllExistResult {
 
 export class UiControlClient extends ApiCommands {
   private constructor(
+    private workspaceId: string | undefined,
     private executionRuntime: ExecutionRuntime,
     private stepReporter: StepReporter,
   ) {
@@ -57,8 +60,13 @@ export class UiControlClient extends ApiCommands {
   static async build(clientArgs: ClientArgs = {}): Promise<UiControlClient> {
     const builder = UiControlClientDependencyBuilder;
     const clientArgsWithDefaults = await builder.getClientArgsWithDefaults(clientArgs);
-    const { executionRuntime, stepReporter } = await builder.build(clientArgsWithDefaults);
+    const {
+      workspaceId,
+      executionRuntime,
+      stepReporter,
+    } = await builder.build(clientArgsWithDefaults);
     return new UiControlClient(
+      workspaceId,
       executionRuntime,
       stepReporter,
     );
@@ -165,11 +173,24 @@ export class UiControlClient extends ApiCommands {
     };
   }
 
+  private async getAIElementsByNames(names: string[]): Promise<CustomElementJson[]> {
+    // eslint-disable-next-line max-len
+    const workspaceAIElementCollection = await AIElementCollection.collectForWorkspaceId(this.workspaceId);
+    return workspaceAIElementCollection.getByNames(names);
+  }
+
   async fluentCommandExecutor(
     instructionString: string,
-    customElementJson: CustomElementJson[] = [],
+    context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
   ): Promise<void> {
-    const instruction = await this.buildInstruction(instructionString, customElementJson);
+    const aiElements = await this.getAIElementsByNames(context.aiElementNames);
+    const instruction = await this.buildInstruction(
+      instructionString,
+      [
+        ...context.customElementsJson,
+        ...aiElements,
+      ],
+    );
     logger.debug(instruction);
     try {
       await this.stepReporter.resetStep(instruction);
@@ -187,12 +208,21 @@ export class UiControlClient extends ApiCommands {
 
   async getterExecutor(
     instruction: string,
-    customElementJson: CustomElementJson[] = [],
+    context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
   ): Promise<DetectedElement[]> {
-    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(customElementJson);
+    const aiElements = await this.getAIElementsByNames(context.aiElementNames);
+    const customElements = await CustomElement.fromJsonListWithImagePathOrImage(
+      context.customElementsJson,
+    );
     const stringWithoutSeparators = this.escapeSeparatorString(instruction);
     logger.debug(stringWithoutSeparators);
-    return this.executionRuntime.getDetectedElements(instruction, customElements);
+    return this.executionRuntime.getDetectedElements(
+      instruction,
+      [
+        ...customElements,
+        ...aiElements,
+      ],
+    );
   }
 
   private secretText: string | undefined = undefined;
