@@ -11,7 +11,10 @@ export enum Separators {
 }
 
 // LITERALS
-export type INTERSECTING_OPTION = 'center' | 'bbox' | 'screen';
+export type INTERSECTION_AREA =
+  | 'element_center_line'
+  | 'element_edge_area'
+  | 'display_edge_area';
 export type PC_KEY =
   | 'backspace'
   | 'delete'
@@ -737,6 +740,7 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -767,6 +771,8 @@ export class FluentFilters extends FluentBase {
    * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
+   *
+   * @param {string} [text] - A text to be matched.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -806,9 +812,9 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -839,7 +845,7 @@ export class FluentFilters extends FluentBase {
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -857,7 +863,13 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
@@ -954,12 +966,13 @@ export class FluentFilters extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -1084,7 +1097,7 @@ export class FluentFilters extends FluentBase {
    * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally, the more detail the better.
    *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -1269,7 +1282,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -1287,21 +1305,24 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   rightOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFilters(this);
@@ -1310,7 +1331,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -1328,21 +1354,24 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   leftOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFilters(this);
@@ -1351,7 +1380,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -1375,20 +1409,23 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   below(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFilters(this);
@@ -1397,7 +1434,12 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -1421,20 +1463,23 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   above(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFilters(this);
@@ -1683,6 +1728,7 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1713,6 +1759,8 @@ export class FluentFiltersCondition extends FluentBase {
    * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
+   *
+   * @param {string} [text] - A text to be matched.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1752,9 +1800,9 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -1785,7 +1833,7 @@ export class FluentFiltersCondition extends FluentBase {
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -1805,7 +1853,13 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
@@ -1902,12 +1956,13 @@ export class FluentFiltersCondition extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -2032,7 +2087,7 @@ export class FluentFiltersCondition extends FluentBase {
    * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally, the more detail the better.
    *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -2217,7 +2272,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -2235,21 +2295,24 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   rightOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersCondition(this);
@@ -2258,7 +2321,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -2276,21 +2344,24 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   leftOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersCondition(this);
@@ -2299,7 +2370,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -2323,20 +2399,23 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   below(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersCondition(this);
@@ -2345,7 +2424,12 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -2369,20 +2453,23 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   above(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersCondition(this);
@@ -2836,7 +2923,7 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Executes a shell command on the device your UiController is connected to.
+   * Executes a shell command on the device your AskUI Controller is connected to.
    *
    * **Example:**
    * ```typescript
@@ -3412,6 +3499,7 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3442,6 +3530,8 @@ export class FluentFiltersGetter extends FluentBase {
    * // Matching with a regex
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
+   *
+   * @param {string} [text] - A text to be matched.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3481,9 +3571,9 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -3514,7 +3604,7 @@ export class FluentFiltersGetter extends FluentBase {
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -3534,7 +3624,13 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
@@ -3631,12 +3727,13 @@ export class FluentFiltersGetter extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00650', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3761,7 +3858,7 @@ export class FluentFiltersGetter extends FluentBase {
    * E.g., `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
    * Generally, the more detail the better.
    *
-   * We also recommend to not restrict the type of element by using the generalselector `element()` as shown in the examples below.
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -3946,7 +4043,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -3964,21 +4066,24 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   rightOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersGetter(this);
@@ -3987,7 +4092,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -4005,21 +4115,24 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   leftOf(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersGetter(this);
@@ -4028,7 +4141,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -4052,20 +4170,23 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   below(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersGetter(this);
@@ -4074,7 +4195,12 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
@@ -4098,20 +4224,23 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   above(
-    optionalIndex = 0,
-    intersecting: INTERSECTING_OPTION = 'bbox',
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
-    if (intersecting !== undefined) {
-      this._textStr += ` intersecting ${intersecting}`;
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
     }
 
     return new FluentFiltersGetter(this);
@@ -4223,6 +4352,7 @@ export abstract class Getter extends FluentCommand {
    * ]
    * ```
    *
+   * ```typescript
    * // *************************************************** //
    * // Examples on how to work with the returned elements  //
    * // *************************************************** //
@@ -4309,6 +4439,7 @@ export abstract class Getter extends FluentCommand {
    *         xmax: 1178.8204241071428,
    *         ymax: 180.83512834821428
    *      },
+   *   },
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'search',
@@ -4318,8 +4449,8 @@ export abstract class Getter extends FluentCommand {
    *         xmax: 450.6304241071428,
    *         ymax: 950.47812834821428
    *      },
-   *      ... 381 more items
-   *    }
+   *    },
+   *   ... 381 more items
    *  ]
    * ```
    *
