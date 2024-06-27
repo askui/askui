@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.2](https://github.com/askui/askui/compare/v0.20.0...v0.20.2) (2024-06-27)
+
+
+### Features
+
+* **dsl:** introduce intersecting option for neighbour relations (#CL-748) ([d0d5244](https://github.com/askui/askui/commit/d0d524464307f9a39c80299d0ede47b66130c598)), closes [#CL-748](https://github.com/askui/askui/issues/CL-748)
+
 ## [0.18.1](https://github.com/askui/askui/compare/v0.18.0...v0.18.1) (2024-06-13)
 
 
