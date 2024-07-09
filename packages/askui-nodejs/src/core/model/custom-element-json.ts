@@ -46,7 +46,7 @@ export interface CustomElementJson {
    * `0.0` (= all elements are recognized as the custom element which is
    * probably not what you want) and `1.0` (= elements need to look exactly
    * like defined by `CustomElementJson` which is unlikely to be achieved
-   * as even minor differences count). Defaults to `0.9`.
+   * as even minor differences count). Defaults to `0.5`.
    *
    * **Important**: The `threshold` impacts the prediction quality.
    */
