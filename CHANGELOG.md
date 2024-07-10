@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.20.3](https://github.com/askui/askui/compare/v0.20.2...v0.20.3) (2024-07-10)
+
+* Extended docs and changed default threshold of custom element from 0.9 to 0.5 to be able to find element without having to touch treshold but at the cost of finding the wrong element from time to time where no element was found before
+
 ## [0.20.2](https://github.com/askui/askui/compare/v0.20.0...v0.20.2) (2024-06-27)
 
 
