@@ -13,11 +13,466 @@ export enum Separators {
 }
 
 // LITERALS
-export type PC_KEY = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
-export type ANDROID_KEY = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
-export type MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
-export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
-export type PC_AND_MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+export type INTERSECTION_AREA =
+  | 'element_center_line'
+  | 'element_edge_area'
+  | 'display_edge_area';
+export type PC_KEY =
+  | 'backspace'
+  | 'delete'
+  | 'enter'
+  | 'tab'
+  | 'escape'
+  | 'up'
+  | 'down'
+  | 'right'
+  | 'left'
+  | 'home'
+  | 'end'
+  | 'pageup'
+  | 'pagedown'
+  | 'f1'
+  | 'f2'
+  | 'f3'
+  | 'f4'
+  | 'f5'
+  | 'f6'
+  | 'f7'
+  | 'f8'
+  | 'f9'
+  | 'f10'
+  | 'f11'
+  | 'f12'
+  | 'space'
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f'
+  | 'g'
+  | 'h'
+  | 'i'
+  | 'j'
+  | 'k'
+  | 'l'
+  | 'm'
+  | 'n'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 'r'
+  | 's'
+  | 't'
+  | 'u'
+  | 'v'
+  | 'w'
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z'
+  | '!'
+  | '"'
+  | '#'
+  | '$'
+  | '%'
+  | '&'
+  | "'"
+  | '('
+  | ')'
+  | '*'
+  | '+'
+  | ','
+  | '-'
+  | '.'
+  | '/'
+  | ':'
+  | ';'
+  | '<'
+  | '='
+  | '>'
+  | '?'
+  | '@'
+  | '['
+  | '\\'
+  | ']'
+  | '^'
+  | '_'
+  | '`'
+  | '{'
+  | '|'
+  | '}'
+  | '~ ';
+export type ANDROID_KEY =
+  | 'home'
+  | 'back'
+  | 'call'
+  | 'endcall'
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | 'star'
+  | 'pound'
+  | 'dpad_up'
+  | 'dpad_down'
+  | 'dpad_left'
+  | 'dpad_right'
+  | 'dpad_center'
+  | 'volume_up'
+  | 'volume_down'
+  | 'power'
+  | 'camera'
+  | 'clear'
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f'
+  | 'g'
+  | 'h'
+  | 'i'
+  | 'j'
+  | 'k'
+  | 'l'
+  | 'm'
+  | 'n'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 'r'
+  | 's'
+  | 't'
+  | 'u'
+  | 'v'
+  | 'w'
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'comma'
+  | 'period'
+  | 'alt_left'
+  | 'alt_right'
+  | 'shift_left'
+  | 'shift_right'
+  | 'tab'
+  | 'space'
+  | 'sym'
+  | 'explorer'
+  | 'envelope'
+  | 'enter'
+  | 'del'
+  | 'grave'
+  | 'minus'
+  | 'equals'
+  | 'left_bracket'
+  | 'right_bracket'
+  | 'backslash'
+  | 'semicolon'
+  | 'apostrophe'
+  | 'slash'
+  | 'at'
+  | 'num'
+  | 'headsethook'
+  | 'focus'
+  | 'plus'
+  | 'menu'
+  | 'notification'
+  | 'search'
+  | 'media_play_pause'
+  | 'media_stop'
+  | 'media_next'
+  | 'media_previous'
+  | 'media_rewind'
+  | 'media_fast_forward'
+  | 'mute'
+  | 'page_up'
+  | 'page_down'
+  | 'switch_charset'
+  | 'escape'
+  | 'forward_del'
+  | 'ctrl_left'
+  | 'ctrl_right'
+  | 'caps_lock'
+  | 'scroll_lock'
+  | 'function'
+  | 'break'
+  | 'move_home'
+  | 'move_end'
+  | 'insert'
+  | 'forward'
+  | 'media_play'
+  | 'media_pause'
+  | 'media_close'
+  | 'media_eject'
+  | 'media_record'
+  | 'f1'
+  | 'f2'
+  | 'f3'
+  | 'f4'
+  | 'f5'
+  | 'f6'
+  | 'f7'
+  | 'f8'
+  | 'f9'
+  | 'f10'
+  | 'f11'
+  | 'f12'
+  | 'num_lock'
+  | 'numpad_0'
+  | 'numpad_1'
+  | 'numpad_2'
+  | 'numpad_3'
+  | 'numpad_4'
+  | 'numpad_5'
+  | 'numpad_6'
+  | 'numpad_7'
+  | 'numpad_8'
+  | 'numpad_9'
+  | 'numpad_divide'
+  | 'numpad_multiply'
+  | 'numpad_subtract'
+  | 'numpad_add'
+  | 'numpad_dot'
+  | 'numpad_comma'
+  | 'numpad_enter'
+  | 'numpad_equals'
+  | 'numpad_left_paren'
+  | 'numpad_right_paren'
+  | 'volume_mute'
+  | 'info'
+  | 'channel_up'
+  | 'channel_down'
+  | 'zoom_in'
+  | 'zoom_out'
+  | 'window'
+  | 'guide'
+  | 'bookmark'
+  | 'captions'
+  | 'settings'
+  | 'app_switch'
+  | 'language_switch'
+  | 'contacts'
+  | 'calendar'
+  | 'music'
+  | 'calculator'
+  | 'assist'
+  | 'brightness_down'
+  | 'brightness_up'
+  | 'media_audio_track'
+  | 'sleep'
+  | 'wakeup'
+  | 'pairing'
+  | 'media_top_menu'
+  | 'last_channel'
+  | 'tv_data_service'
+  | 'voice_assist'
+  | 'help'
+  | 'navigate_previous'
+  | 'navigate_next'
+  | 'navigate_in'
+  | 'navigate_out'
+  | 'dpad_up_left'
+  | 'dpad_down_left'
+  | 'dpad_up_right'
+  | 'dpad_down_right'
+  | 'media_skip_forward'
+  | 'media_skip_backward'
+  | 'media_step_forward'
+  | 'media_step_backward'
+  | 'soft_sleep'
+  | 'cut'
+  | 'copy'
+  | 'paste'
+  | 'all_apps'
+  | 'refresh';
+export type MODIFIER_KEY =
+  | 'command'
+  | 'alt'
+  | 'control'
+  | 'shift'
+  | 'right_shift';
+export type COLOR =
+  | 'black'
+  | 'white'
+  | 'red'
+  | 'green'
+  | 'yellow green'
+  | 'orange'
+  | 'yellow'
+  | 'purple'
+  | 'pink'
+  | 'gray'
+  | 'lime green'
+  | 'royal blue';
+export type PC_AND_MODIFIER_KEY =
+  | 'command'
+  | 'alt'
+  | 'control'
+  | 'shift'
+  | 'right_shift'
+  | 'backspace'
+  | 'delete'
+  | 'enter'
+  | 'tab'
+  | 'escape'
+  | 'up'
+  | 'down'
+  | 'right'
+  | 'left'
+  | 'home'
+  | 'end'
+  | 'pageup'
+  | 'pagedown'
+  | 'f1'
+  | 'f2'
+  | 'f3'
+  | 'f4'
+  | 'f5'
+  | 'f6'
+  | 'f7'
+  | 'f8'
+  | 'f9'
+  | 'f10'
+  | 'f11'
+  | 'f12'
+  | 'space'
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f'
+  | 'g'
+  | 'h'
+  | 'i'
+  | 'j'
+  | 'k'
+  | 'l'
+  | 'm'
+  | 'n'
+  | 'o'
+  | 'p'
+  | 'q'
+  | 'r'
+  | 's'
+  | 't'
+  | 'u'
+  | 'v'
+  | 'w'
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'Q'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z'
+  | '!'
+  | '"'
+  | '#'
+  | '$'
+  | '%'
+  | '&'
+  | "'"
+  | '('
+  | ')'
+  | '*'
+  | '+'
+  | ','
+  | '-'
+  | '.'
+  | '/'
+  | ':'
+  | ';'
+  | '<'
+  | '='
+  | '>'
+  | '?'
+  | '@'
+  | '['
+  | '\\'
+  | ']'
+  | '^'
+  | '_'
+  | '`'
+  | '{'
+  | '|'
+  | '}'
+  | '~ ';
 
 export interface CommandExecutorContext {
   customElementsJson: CustomElementJson[];
@@ -25,7 +480,7 @@ export interface CommandExecutorContext {
 }
 
 abstract class FluentBase {
-  constructor(protected prev?: FluentBase) { }
+  constructor(protected prev?: FluentBase) {}
 
   protected _textStr = '';
 
@@ -39,7 +494,7 @@ abstract class FluentBase {
       if (!paramsList.has(key)) {
         paramsList.set(key, []);
       }
-      paramsList.set(key, [value, ...paramsList.get(key) as unknown[]]);
+      paramsList.set(key, [value, ...(paramsList.get(key) as unknown[])]);
     });
     return paramsList;
   }
@@ -52,15 +507,16 @@ abstract class FluentBase {
     const newParamsList = FluentBase.addParams(paramsList, this._params);
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
-      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
-      return fluentCommand.fluentCommandExecutor(
-        newCurrentInstruction.trim(),
-        {
-          customElementsJson: customElements,
-          aiElementNames,
-        },
-      );
+      const customElements = newParamsList.has('customElement')
+        ? (newParamsList.get('customElement') as CustomElementJson[])
+        : [];
+      const aiElementNames = newParamsList.has('aiElementName')
+        ? (newParamsList.get('aiElementName') as string[])
+        : [];
+      return fluentCommand.fluentCommandExecutor(newCurrentInstruction.trim(), {
+        customElementsJson: customElements,
+        aiElementNames,
+      });
     }
     if (!this.prev) {
       throw new Error('Prev element not defined');
@@ -79,32 +535,34 @@ abstract class FluentBase {
     const newParamsList = FluentBase.addParams(paramsList, this._params);
     if (this instanceof Getter) {
       const getter = this as Getter;
-      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
-      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
-      return getter.getterExecutor(
-        newCurrentInstruction.trim(),
-        {
-          customElementsJson: customElements,
-          aiElementNames,
-        },
-      );
+      const customElements = newParamsList.has('customElement')
+        ? (newParamsList.get('customElement') as CustomElementJson[])
+        : [];
+      const aiElementNames = newParamsList.has('aiElementName')
+        ? (newParamsList.get('aiElementName') as string[])
+        : [];
+      return getter.getterExecutor(newCurrentInstruction.trim(), {
+        customElementsJson: customElements,
+        aiElementNames,
+      });
     }
     if (!this.prev) {
       throw new Error('Prev element not defined');
     }
-    return this.prev.getterStringBuilder(
-      newCurrentInstruction,
-      newParamsList,
-    );
+    return this.prev.getterStringBuilder(newCurrentInstruction, newParamsList);
   }
 
-  protected get textStr() { return this._textStr; }
+  protected get textStr() {
+    return this._textStr;
+  }
 
-  protected get params() { return this._params; }
+  protected get params() {
+    return this._params;
+  }
 }
 
 export interface Executable {
-  exec(): Promise<void>
+  exec(): Promise<void>;
 }
 
 export class Exec extends FluentBase implements Executable {
@@ -205,9 +663,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  special(
-    text: string,
-  ): FluentFiltersOrRelations {
+  special(text: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -242,9 +698,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  row(
-    index: number,
-  ): FluentFiltersOrRelations {
+  row(index: number): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -259,9 +713,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  column(
-    index: number,
-  ): FluentFiltersOrRelations {
+  column(index: number): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -277,10 +729,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  cell(
-    row_index: number,
-    column_index: number,
-  ): FluentFiltersOrRelations {
+  cell(row_index: number, column_index: number): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'cell';
@@ -293,6 +742,7 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelations}
    */
@@ -324,11 +774,11 @@ export class FluentFilters extends FluentBase {
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
+   * @param {string} [text] - A text to be matched.
+   *
    * @return {FluentFiltersOrRelations}
    */
-  text(
-    text?: string,
-  ): FluentFiltersOrRelations {
+  text(text?: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -364,9 +814,9 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -375,7 +825,7 @@ export class FluentFilters extends FluentBase {
    *     .customElement({
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
-   *         threshold: 0.9, // optional, defaults to 0.9
+   *         threshold: 0.5, // optional, defaults to 0.5
    *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
@@ -391,22 +841,20 @@ export class FluentFilters extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.5`.
    * - **stopThreshold** (*`number`, optional*):
    *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
    *
    * @return {FluentFiltersOrRelations}
    */
-  customElement(
-    customElement: CustomElementJson,
-  ): FluentFiltersOrRelations {
+  customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'custom';
@@ -417,15 +865,19 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelations}
    */
-  aiElement(
-    aiElementName: string,
-  ): FluentFiltersOrRelations {
+  aiElement(aiElementName: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -516,20 +968,19 @@ export class FluentFilters extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelations}
    */
   withText(
     text: string,
-    similarityScore
-    = 70,
+    similarityScore = 70,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
@@ -556,7 +1007,7 @@ export class FluentFilters extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   * ![](https://docs.askui.com/img/gif/withTextRegex.gif)
    *
    *
    *
@@ -564,9 +1015,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withTextRegex(
-    regex_pattern: string,
-  ): FluentFiltersOrRelations {
+  withTextRegex(regex_pattern: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -593,7 +1042,7 @@ export class FluentFilters extends FluentBase {
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   * ![](https://docs.askui.com/img/gif/withExactText.gif)
    *
    *
    *
@@ -601,9 +1050,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withExactText(
-    text: string,
-  ): FluentFiltersOrRelations {
+  withExactText(text: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -628,9 +1075,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  containsText(
-    text: string,
-  ): FluentFiltersOrRelations {
+  containsText(text: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -648,9 +1093,13 @@ export class FluentFilters extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -671,9 +1120,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelations {
+  matching(text: string): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -837,37 +1284,77 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
-   * --------------  --------------  --------------
+   * ---------- ---------                     ---------
+   * | button | | text0 |                     | text3 |
+   * ---------- --------- ---------           ---------
+   *                      | text1 | ---------
+   *                      --------- | text2 |
+   *                                ---------
    *
-   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
-   * ...rightEl().rightOf().leftEl()
-   * ...rightEl().rightOf(0).leftEl()
-   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
-   * ...rightEl().rightOf(1).leftEl()
-   * // Returns no element because leftEl is left of rightEl
-   * ...leftEl().rightOf().rightEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().rightOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().rightOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().rightOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element rightOf button
+   * ...text().rightOf().button()
+   * ...text().rightOf(0).button()
+   * ...text().rightOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().rightOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area rightOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().rightOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element rightOf button
+   * ...text().rightOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().rightOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFilters}
    */
   rightOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFilters(this);
   }
@@ -875,37 +1362,77 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
-   * --------------  --------------  --------------
+   * ---------                   --------- ----------
+   * | text3 |                   | text0 | | button |
+   * ---------         --------- --------- ----------
+   *         --------- | text1 |
+   *         | text2 | ---------
+   *         ---------
    *
-   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
-   * ...leftEl().leftOf().rightEl()
-   * ...leftEl().leftOf(0).rightEl()
-   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
-   * ...leftEl().leftOf(1).rightEl()
-   * // Returns no element because rightEl is left of leftEl
-   * ...rightEl().leftOf().leftEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().leftOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().leftOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().leftOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element leftOf button
+   * ...text().leftOf().button()
+   * ...text().leftOf(0).button()
+   * ...text().leftOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().leftOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area leftOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().leftOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element leftOf button
+   * ...text().leftOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().leftOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFilters}
    */
   leftOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFilters(this);
   }
@@ -913,42 +1440,85 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |    text    |
-   * --------------
-   * --------------
-   * |   button0  |
-   * --------------
-   * --------------
-   * |   button1  |
-   * --------------
+   * ------------
+   * |   text   |
+   * ------------
+   * ------------
+   * |  button0 |
+   * ------------
+   *          -----------
+   *          | button1 |
+   *          -----------
+   *             -----------
+   *             | button2 |
+   *             -----------
+   * ------------
+   * |  button3 |
+   * ------------
    *
+   * // General explanation for element_center_line
+   * // This will find button0 and button3
+   * ...button().below(..., 'element_center_line').text()
+   *
+   * // General explanation for element_edge_area
+   * // This will find button0, button1 and button3
+   * ...button().below(..., 'element_edge_area').text()
+   *
+   * // General explanation and display_edge_area
+   * // This will find button0, button1, button2 and button3
+   * ...button().below(..., 'display_edge_area').text()
+   *
+   * // More examples:
    * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
    * ...button().below(0).text()
-   * // Returns button1 because button1  is the second button below text
-   * ...button().below(1).text()
-   * // Returns no element because text is above button
+   * ...button().below(0, 'element_edge_area').text()
+   *
+   * // Returns button3 because it is the second button touched by the
+   * // vertical line from the center of text
+   * // Notice: button1 is not touched
+   * ...button().below(1, 'element_center_line').text()
+   *
+   * // Returns button3 because it is the third button touched by the
+   * // vertical area below the x-axis of text
+   * // Notice: button2 is not touched!
+   * ...button().below(2, 'element_edge_area').text()
+   *
+   * // Returns button2 because it is the third element below text
+   * ...button().below(2, 'display_edge_area').text()
+   *
+   * // Returns no element because text is above the buttons
    * ...text().below().button()
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   below(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFilters(this);
   }
@@ -956,42 +1526,85 @@ export class FluentFiltersOrRelations extends FluentFilters {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |   text1    |
-   * --------------
-   * --------------
-   * |   text0    |
-   * --------------
-   * --------------
-   * |   button   |
-   * --------------
+   * ------------
+   * |  text3   |
+   * ------------
+   *             ------------
+   *             |  text2   |
+   *             ------------
+   *     ------------
+   *     |  text1   |
+   *     ------------
+   * ------------
+   * |  text0   |
+   * ------------
+   * ------------
+   * |  button  |
+   * ------------
    *
-   * // Returns text0 because text0 is the first element above button
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().above(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().above(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().above(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element above button
    * ...text().above().button()
    * ...text().above(0).button()
-   * // Returns text1 because text1 is the second element above button
-   * ...text().above(1).button()
-   * // Returns no element because button is below text
+   * ...text().above(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // vertical line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().above(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area above the x-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().above(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element above button
+   * ...text().above(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is below the texts
    * ...button().above().text()
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFilters}
    */
   above(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFilters(this);
   }
@@ -1157,9 +1770,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  special(
-    text: string,
-  ): FluentFiltersOrRelationsCondition {
+  special(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -1194,9 +1805,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  row(
-    index: number,
-  ): FluentFiltersOrRelationsCondition {
+  row(index: number): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -1211,9 +1820,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  column(
-    index: number,
-  ): FluentFiltersOrRelationsCondition {
+  column(index: number): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -1245,6 +1852,7 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
@@ -1276,11 +1884,11 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
+   * @param {string} [text] - A text to be matched.
+   *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  text(
-    text?: string,
-  ): FluentFiltersOrRelationsCondition {
+  text(text?: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -1316,9 +1924,9 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -1327,7 +1935,7 @@ export class FluentFiltersCondition extends FluentBase {
    *     .customElement({
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
-   *         threshold: 0.9, // optional, defaults to 0.9
+   *         threshold: 0.5, // optional, defaults to 0.5
    *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
@@ -1343,13 +1951,13 @@ export class FluentFiltersCondition extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.5`.
    * - **stopThreshold** (*`number`, optional*):
    *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -1369,15 +1977,19 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  aiElement(
-    aiElementName: string,
-  ): FluentFiltersOrRelationsCondition {
+  aiElement(aiElementName: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -1468,20 +2080,19 @@ export class FluentFiltersCondition extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
   withText(
     text: string,
-    similarityScore
-    = 70,
+    similarityScore = 70,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
@@ -1508,7 +2119,7 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   * ![](https://docs.askui.com/img/gif/withTextRegex.gif)
    *
    *
    *
@@ -1516,9 +2127,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withTextRegex(
-    regex_pattern: string,
-  ): FluentFiltersOrRelationsCondition {
+  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -1545,7 +2154,7 @@ export class FluentFiltersCondition extends FluentBase {
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   * ![](https://docs.askui.com/img/gif/withExactText.gif)
    *
    *
    *
@@ -1553,9 +2162,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withExactText(
-    text: string,
-  ): FluentFiltersOrRelationsCondition {
+  withExactText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -1580,9 +2187,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  containsText(
-    text: string,
-  ): FluentFiltersOrRelationsCondition {
+  containsText(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -1600,9 +2205,13 @@ export class FluentFiltersCondition extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -1623,9 +2232,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelationsCondition {
+  matching(text: string): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -1789,37 +2396,77 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
-   * --------------  --------------  --------------
+   * ---------- ---------                     ---------
+   * | button | | text0 |                     | text3 |
+   * ---------- --------- ---------           ---------
+   *                      | text1 | ---------
+   *                      --------- | text2 |
+   *                                ---------
    *
-   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
-   * ...rightEl().rightOf().leftEl()
-   * ...rightEl().rightOf(0).leftEl()
-   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
-   * ...rightEl().rightOf(1).leftEl()
-   * // Returns no element because leftEl is left of rightEl
-   * ...leftEl().rightOf().rightEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().rightOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().rightOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().rightOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element rightOf button
+   * ...text().rightOf().button()
+   * ...text().rightOf(0).button()
+   * ...text().rightOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().rightOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area rightOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().rightOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element rightOf button
+   * ...text().rightOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().rightOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFiltersCondition}
    */
   rightOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersCondition(this);
   }
@@ -1827,37 +2474,77 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
-   * --------------  --------------  --------------
+   * ---------                   --------- ----------
+   * | text3 |                   | text0 | | button |
+   * ---------         --------- --------- ----------
+   *         --------- | text1 |
+   *         | text2 | ---------
+   *         ---------
    *
-   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
-   * ...leftEl().leftOf().rightEl()
-   * ...leftEl().leftOf(0).rightEl()
-   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
-   * ...leftEl().leftOf(1).rightEl()
-   * // Returns no element because rightEl is left of leftEl
-   * ...rightEl().leftOf().leftEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().leftOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().leftOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().leftOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element leftOf button
+   * ...text().leftOf().button()
+   * ...text().leftOf(0).button()
+   * ...text().leftOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().leftOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area leftOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().leftOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element leftOf button
+   * ...text().leftOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().leftOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFiltersCondition}
    */
   leftOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersCondition(this);
   }
@@ -1865,42 +2552,85 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |    text    |
-   * --------------
-   * --------------
-   * |   button0  |
-   * --------------
-   * --------------
-   * |   button1  |
-   * --------------
+   * ------------
+   * |   text   |
+   * ------------
+   * ------------
+   * |  button0 |
+   * ------------
+   *          -----------
+   *          | button1 |
+   *          -----------
+   *             -----------
+   *             | button2 |
+   *             -----------
+   * ------------
+   * |  button3 |
+   * ------------
    *
+   * // General explanation for element_center_line
+   * // This will find button0 and button3
+   * ...button().below(..., 'element_center_line').text()
+   *
+   * // General explanation for element_edge_area
+   * // This will find button0, button1 and button3
+   * ...button().below(..., 'element_edge_area').text()
+   *
+   * // General explanation and display_edge_area
+   * // This will find button0, button1, button2 and button3
+   * ...button().below(..., 'display_edge_area').text()
+   *
+   * // More examples:
    * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
    * ...button().below(0).text()
-   * // Returns button1 because button1  is the second button below text
-   * ...button().below(1).text()
-   * // Returns no element because text is above button
+   * ...button().below(0, 'element_edge_area').text()
+   *
+   * // Returns button3 because it is the second button touched by the
+   * // vertical line from the center of text
+   * // Notice: button1 is not touched
+   * ...button().below(1, 'element_center_line').text()
+   *
+   * // Returns button3 because it is the third button touched by the
+   * // vertical area below the x-axis of text
+   * // Notice: button2 is not touched!
+   * ...button().below(2, 'element_edge_area').text()
+   *
+   * // Returns button2 because it is the third element below text
+   * ...button().below(2, 'display_edge_area').text()
+   *
+   * // Returns no element because text is above the buttons
    * ...text().below().button()
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   below(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersCondition(this);
   }
@@ -1908,42 +2638,85 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |   text1    |
-   * --------------
-   * --------------
-   * |   text0    |
-   * --------------
-   * --------------
-   * |   button   |
-   * --------------
+   * ------------
+   * |  text3   |
+   * ------------
+   *             ------------
+   *             |  text2   |
+   *             ------------
+   *     ------------
+   *     |  text1   |
+   *     ------------
+   * ------------
+   * |  text0   |
+   * ------------
+   * ------------
+   * |  button  |
+   * ------------
    *
-   * // Returns text0 because text0 is the first element above button
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().above(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().above(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().above(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element above button
    * ...text().above().button()
    * ...text().above(0).button()
-   * // Returns text1 because text1 is the second element above button
-   * ...text().above(1).button()
-   * // Returns no element because button is below text
+   * ...text().above(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // vertical line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().above(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area above the x-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().above(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element above button
+   * ...text().above(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is below the texts
    * ...button().above().text()
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersCondition}
    */
   above(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersCondition(this);
   }
@@ -2076,7 +2849,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   }
 }
 
-class ExecCondition extends Exec { }
+class ExecCondition extends Exec {}
 
 // Commands
 export abstract class FluentCommand extends FluentBase {
@@ -2085,7 +2858,7 @@ export abstract class FluentCommand extends FluentBase {
   }
 
   /**
-   * Expects a condition, e.g., `exists()` or `notExits()`.
+   * Expects a condition, for example, `exists()` or `notExits()`.
    *
    * Use the structure `expect().<your filter>.(exists()|notExists())` as shown in the examples below.
    *
@@ -2138,7 +2911,7 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.moveMouseTo().text().withText('Grinning_Face').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/movemouseto.gif)
+   * ![](https://docs.askui.com/img/gif/moveMouseTo.gif)
    *
    *
    *
@@ -2172,9 +2945,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  typeIn(
-    text: string,
-  ): FluentFilters {
+  typeIn(text: string): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Type';
@@ -2194,17 +2965,14 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.scrollInside(0,-500).text().withText('Bottom sheet').exec();
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/scrollinside.gif)
+   * ![](https://docs.askui.com/img/gif/scrollInside.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
    * @return {FluentFilters}
    */
-  scrollInside(
-    x_offset: number,
-    y_offset: number,
-  ): FluentFilters {
+  scrollInside(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Scroll';
@@ -2233,10 +3001,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  moveMouseRelativelyTo(
-    x_offset: number,
-    y_offset: number,
-  ): FluentFilters {
+  moveMouseRelativelyTo(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -2267,10 +3032,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  swipe(
-    x_offset: number,
-    y_offset: number,
-  ): FluentFilters {
+  swipe(x_offset: number, y_offset: number): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Swipe';
@@ -2302,9 +3064,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  type(
-    text: string,
-  ): Exec {
+  type(text: string): Exec {
     this._textStr = '';
 
     this._textStr += 'Type';
@@ -2321,17 +3081,14 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.moveMouseRelatively(0, 50).exec();
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/movemouserelatively.gif)
+   * ![](https://docs.askui.com/img/gif/moveMouseRelatively.gif)
    *
    * @param {number} x_offset - A (positive/negative) x direction.
    * @param {number} y_offset - A (positive/negative) y direction.
    *
    * @return {Exec}
    */
-  moveMouseRelatively(
-    x_offset: number,
-    y_offset: number,
-  ): Exec {
+  moveMouseRelatively(x_offset: number, y_offset: number): Exec {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -2365,10 +3122,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  moveMouse(
-    x_coordinate: number,
-    y_coordinate: number,
-  ): Exec {
+  moveMouse(x_coordinate: number, y_coordinate: number): Exec {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -2402,10 +3156,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  scroll(
-    x_offset: number,
-    y_offset: number,
-  ): Exec {
+  scroll(x_offset: number, y_offset: number): Exec {
     this._textStr = '';
 
     this._textStr += 'Scroll';
@@ -2540,7 +3291,7 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.mouseDoubleLeftClick().exec();
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/mousedoubleleftclick.gif)
+   * ![](https://docs.askui.com/img/gif/mouseDoubleLeftClick.gif)
    *
    * @return {Exec}
    */
@@ -2694,10 +3445,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressTwoKeys(
-    first_key: MODIFIER_KEY,
-    second_key: PC_KEY,
-  ): Exec {
+  pressTwoKeys(first_key: MODIFIER_KEY, second_key: PC_KEY): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -2725,9 +3473,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressKey(
-    key: PC_AND_MODIFIER_KEY,
-  ): Exec {
+  pressKey(key: PC_AND_MODIFIER_KEY): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -2772,17 +3518,14 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.pressAndroidTwoKey('volume_down', 'power').exec();
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/pressAndroidTwoKey.gif)
+   * ![](https://docs.askui.com/img/gif/pressAndroidTwoKeys.gif)
    *
    * @param {ANDROID_KEY} first_key - A Android key
    * @param {ANDROID_KEY} second_key - A Android key
    *
    * @return {Exec}
    */
-  pressAndroidTwoKey(
-    first_key: ANDROID_KEY,
-    second_key: ANDROID_KEY,
-  ): Exec {
+  pressAndroidTwoKey(first_key: ANDROID_KEY, second_key: ANDROID_KEY): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -2809,9 +3552,7 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidKey(
-    key: ANDROID_KEY,
-  ): Exec {
+  pressAndroidKey(key: ANDROID_KEY): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -2824,13 +3565,13 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    context: CommandExecutorContext,
+    context: CommandExecutorContext
   ): Promise<void>;
 }
 
 // Getters
 export interface ExecutableGetter {
-  exec(): Promise<DetectedElement[]>
+  exec(): Promise<DetectedElement[]>;
 }
 
 export class ExecGetter extends FluentBase implements ExecutableGetter {
@@ -2930,9 +3671,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  special(
-    text: string,
-  ): FluentFiltersOrRelationsGetter {
+  special(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -2967,9 +3706,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  row(
-    index: number,
-  ): FluentFiltersOrRelationsGetter {
+  row(index: number): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -2984,9 +3721,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  column(
-    index: number,
-  ): FluentFiltersOrRelationsGetter {
+  column(index: number): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -3018,6 +3753,7 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
@@ -3049,11 +3785,11 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.click().text().withTextRegex('\b[Ss]\w+').exec();
    * ```
    *
+   * @param {string} [text] - A text to be matched.
+   *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  text(
-    text?: string,
-  ): FluentFiltersOrRelationsGetter {
+  text(text?: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -3089,9 +3825,9 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Filters for a 'custom element', that is a UI element which is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
+   * Filters for a 'custom element', that is a UI element that is defined by providing an image and other parameters such as degree of rotation. It allows filtering for a UI element based on an image instead of using text or element descriptions like `button().withText('Submit')` in `await aui.click().button().withText('Submit').exec()`.
    *
-   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Tutorials/custom-element) for more detail.
+   * See the tutorial - [Custom Element](https://docs.askui.com/docs/general/Element%20Selection/custom-elements) for more details.
    *
    * **Example**
    * ```typescript
@@ -3100,7 +3836,7 @@ export class FluentFiltersGetter extends FluentBase {
    *     .customElement({
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
-   *         threshold: 0.9, // optional, defaults to 0.9
+   *         threshold: 0.5, // optional, defaults to 0.5
    *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
@@ -3116,13 +3852,13 @@ export class FluentFiltersGetter extends FluentBase {
    * - **name** (*`string`, optional*):
    *     - A unique name that can be used for filtering for the custom element. If not given, any text inside the custom image will be detected via OCR.
    * - **threshold** (*`number`, optional*):
-   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.9`.
+   *     - A threshold for how much a UI element needs to be similar to the custom element as defined by the image. Takes values between `0.0` (== all elements are recognized as the custom element which is probably not what you want) and `1.0` (== elements need to look exactly like the `customImage` which is unlikely to be achieved as even minor differences count). Defaults to `0.5`.
    * - **stopThreshold** (*`number`, optional*):
    *     - A threshold for when to stop searching for UI elements similar to the custom element. As soon as UI elements have been found that are at least as similar as the `stopThreshold`, the search is going to stop. After that elements are filtered using the `threshold`. Because of that the `stopThreshold` should be greater than or equal to `threshold`. It is primarily to be used as a speed improvement (by lowering the value). Takes values between `0.0` and `1.0`. Defaults to `0.9`.
    * - **rotationDegreePerStep** (*`number`, optional*):
    *     - Step size in rotation degree. Rotates the custom image by this step size until 360° is exceeded. The range is from `0` to `360`. Defaults to `0`.
    * - **imageCompareFormat** (*`'RGB' | 'grayscale' | 'edges'`, optional*):
-   *     - The color compare style. 'edges' compares only edges, 'greyscale' compares the brightness of each pixel whereas 'RGB' compares all three colors (red, green, blue). Defaults to 'grayscale'.
+   *     - The color compare style. `'edges'` compares only edges, `'greyscale'` compares the brightness of each pixel whereas `'RGB'` compares all three colors (red, green, blue). Defaults to `'grayscale'`.
    *
    *
    * @param {CustomElementJson} customElement - The custom element to filter for.
@@ -3142,15 +3878,19 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the workflow creator.
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   *
+   * **Examples:**
+   *
+   * ```typescript
+   * await aui.click().aiElement('askui-logo').exec();
+   * ```
    *
    * @param {string} aiElementName - Name of the AI Element.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  aiElement(
-    aiElementName: string,
-  ): FluentFiltersOrRelationsGetter {
+  aiElement(aiElementName: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -3241,20 +3981,19 @@ export class FluentFiltersGetter extends FluentBase {
    * 'other' === withText('text') => false
    *
    * // optional parameter: similarity_score
-   * '978-0-201-00650-6' == withText('978-0-201-00') => true with 82.76 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => false with 82.76 < 90 similarity
-   * '978-0-201-00650-6' == withText('978-0-201-00', 90) => true with 93.75 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00", 90) => false with 82.76 < 90 similarity
+   * '978-0-201-00650-6' == withText("978-0-201-00650", 90) => true with 93.75 > 90 similarity
    * ```
    * ![](https://docs.askui.com/img/gif/withText.gif)
    *
    * @param {string} text - A text to be matched.
+   * @param {number} [similarityScore=70] - Similarity score minimum value, it should be between `0` and `100`.
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
   withText(
     text: string,
-    similarityScore
-    = 70,
+    similarityScore = 70,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
@@ -3281,7 +4020,7 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.get().text().withTextRegex('\b[Ss]\w+').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withtextregex.gif)
+   * ![](https://docs.askui.com/img/gif/withTextRegex.gif)
    *
    *
    *
@@ -3289,9 +4028,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withTextRegex(
-    regex_pattern: string,
-  ): FluentFiltersOrRelationsGetter {
+  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -3318,7 +4055,7 @@ export class FluentFiltersGetter extends FluentBase {
    * await aui.moveMouseTo().text().withExactText('Password').exec()
    * ```
    *
-   * ![](https://docs.askui.com/img/gif/withexacttext.gif)
+   * ![](https://docs.askui.com/img/gif/withExactText.gif)
    *
    *
    *
@@ -3326,9 +4063,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withExactText(
-    text: string,
-  ): FluentFiltersOrRelationsGetter {
+  withExactText(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -3353,9 +4088,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  containsText(
-    text: string,
-  ): FluentFiltersOrRelationsGetter {
+  containsText(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -3373,9 +4106,13 @@ export class FluentFiltersGetter extends FluentBase {
    * The text description inside the `matching()` should describe the element visually.
    * It understands color, some famous company/product names, general descriptions.
    *
-   * It sometimes requires a bit of playing around to find a matching description:
-   * E.g. `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally the more detail the better.
+   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
+   *
+   * A bit of playing around to find a matching description is sometimes needed:
+   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
+   * Generally, the more detail the better.
+   *
+   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
    *
    * **Examples:**
    * ```typescript
@@ -3396,9 +4133,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelationsGetter {
+  matching(text: string): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -3562,37 +4297,77 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element right of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements right of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered right of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered right of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered right of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl    |  |  rightEl0  |  |  rightEl1  |
-   * --------------  --------------  --------------
+   * ---------- ---------                     ---------
+   * | button | | text0 |                     | text3 |
+   * ---------- --------- ---------           ---------
+   *                      | text1 | ---------
+   *                      --------- | text2 |
+   *                                ---------
    *
-   * // Returns rightEl0 because rightEl0 is the first element right of leftEl
-   * ...rightEl().rightOf().leftEl()
-   * ...rightEl().rightOf(0).leftEl()
-   * // Returns rightEl1 because rightEl1 is the second element right of leftEl
-   * ...rightEl().rightOf(1).leftEl()
-   * // Returns no element because leftEl is left of rightEl
-   * ...leftEl().rightOf().rightEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().rightOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().rightOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().rightOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element rightOf button
+   * ...text().rightOf().button()
+   * ...text().rightOf(0).button()
+   * ...text().rightOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().rightOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area rightOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().rightOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element rightOf button
+   * ...text().rightOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().rightOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/rightOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFiltersGetter}
    */
   rightOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' right';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersGetter(this);
   }
@@ -3600,37 +4375,77 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element left of another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements left of the other element are filtered for based on their vertical position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered left of the other element if element's bounding box intersects with a horizontal line passing through the center of the other element
+   * - `"element_edge_area"` - considered left of the other element if element's bounding box intersects with an area between the top and the bottom edge of the other element
+   * - `"display_edge_area"` - considered left of the other element no matter where it is placed vertically on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------  --------------  --------------
-   * |  leftEl1   |  |  leftEl0   |  |  rightEl   |
-   * --------------  --------------  --------------
+   * ---------                   --------- ----------
+   * | text3 |                   | text0 | | button |
+   * ---------         --------- --------- ----------
+   *         --------- | text1 |
+   *         | text2 | ---------
+   *         ---------
    *
-   * // Returns leftEl0 because leftEl0 is the first element left of rightEl
-   * ...leftEl().leftOf().rightEl()
-   * ...leftEl().leftOf(0).rightEl()
-   * // Returns leftEl1 because leftEl1 is the second element left of rightEl
-   * ...leftEl().leftOf(1).rightEl()
-   * // Returns no element because rightEl is left of leftEl
-   * ...rightEl().leftOf().leftEl()
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().leftOf(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().leftOf(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().leftOf(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element leftOf button
+   * ...text().leftOf().button()
+   * ...text().leftOf(0).button()
+   * ...text().leftOf(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // horizontal line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().leftOf(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area leftOf the y-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().leftOf(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element leftOf button
+   * ...text().leftOf(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is rightOf the texts
+   * ...button().leftOf().text()
    * ```
    * ![](https://docs.askui.com/img/gif/leftOf.gif)
+   *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
    *
    * @return {FluentFiltersGetter}
    */
   leftOf(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' left';
     this._textStr += ' of';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersGetter(this);
   }
@@ -3638,42 +4453,85 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element below another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements below of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered below of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered below of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered below of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |    text    |
-   * --------------
-   * --------------
-   * |   button0  |
-   * --------------
-   * --------------
-   * |   button1  |
-   * --------------
+   * ------------
+   * |   text   |
+   * ------------
+   * ------------
+   * |  button0 |
+   * ------------
+   *          -----------
+   *          | button1 |
+   *          -----------
+   *             -----------
+   *             | button2 |
+   *             -----------
+   * ------------
+   * |  button3 |
+   * ------------
    *
+   * // General explanation for element_center_line
+   * // This will find button0 and button3
+   * ...button().below(..., 'element_center_line').text()
+   *
+   * // General explanation for element_edge_area
+   * // This will find button0, button1 and button3
+   * ...button().below(..., 'element_edge_area').text()
+   *
+   * // General explanation and display_edge_area
+   * // This will find button0, button1, button2 and button3
+   * ...button().below(..., 'display_edge_area').text()
+   *
+   * // More examples:
    * // Returns button0 because button0 is the first button below text
    * ...button().below().text()
    * ...button().below(0).text()
-   * // Returns button1 because button1  is the second button below text
-   * ...button().below(1).text()
-   * // Returns no element because text is above button
+   * ...button().below(0, 'element_edge_area').text()
+   *
+   * // Returns button3 because it is the second button touched by the
+   * // vertical line from the center of text
+   * // Notice: button1 is not touched
+   * ...button().below(1, 'element_center_line').text()
+   *
+   * // Returns button3 because it is the third button touched by the
+   * // vertical area below the x-axis of text
+   * // Notice: button2 is not touched!
+   * ...button().below(2, 'element_edge_area').text()
+   *
+   * // Returns button2 because it is the third element below text
+   * ...button().below(2, 'display_edge_area').text()
+   *
+   * // Returns no element because text is above the buttons
    * ...text().below().button()
    * ```
    * ![](https://docs.askui.com/img/gif/below.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   below(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' below';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersGetter(this);
   }
@@ -3681,42 +4539,85 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   /**
    * Filters for an element above another element.
    *
-   * Takes an optional parameter `index` to select the `nth` element (starting with 0)
+   * Takes an optional parameter `index` to select the nth element (defaults to `0`).
+   *
+   * Takes an optional parameter `intersection_area` to specify which elements above of the other element are filtered for based on their horizontal position (y-coordinates of bounding box):
+   * - `"element_center_line"` - considered above of the other element if element's bounding box intersects with a vertical line passing through the center of the other element
+   * - `"element_edge_area"` - considered above of the other element if element's bounding box intersects with an area between the left and the right edge of the other element
+   * - `"display_edge_area"` - considered above of the other element no matter where it is placed horizontally on the screen (y-axis)
    *
    * **Examples:**
    * ```typescript
-   * --------------
-   * |   text1    |
-   * --------------
-   * --------------
-   * |   text0    |
-   * --------------
-   * --------------
-   * |   button   |
-   * --------------
+   * ------------
+   * |  text3   |
+   * ------------
+   *             ------------
+   *             |  text2   |
+   *             ------------
+   *     ------------
+   *     |  text1   |
+   *     ------------
+   * ------------
+   * |  text0   |
+   * ------------
+   * ------------
+   * |  button  |
+   * ------------
    *
-   * // Returns text0 because text0 is the first element above button
+   * // General explanation for element_center_line
+   * // This will find text0 and text3
+   * ...text().above(..., 'element_center_line').button()
+   *
+   * // General explanation for element_edge_area
+   * // This will find text0, text1 and text3
+   * ...text().above(..., 'element_edge_area').button()
+   *
+   * // General explanation and display_edge_area
+   * // This will find text0, text1, text2 and text3
+   * ...text().above(..., 'display_edge_area').button()
+   *
+   * // More examples:
+   * // Returns text0 because it is the first element above button
    * ...text().above().button()
    * ...text().above(0).button()
-   * // Returns text1 because text1 is the second element above button
-   * ...text().above(1).button()
-   * // Returns no element because button is below text
+   * ...text().above(0, 'element_edge_area').button()
+   *
+   * // Returns text3 because it is the second text touched by the
+   * // vertical line from the center of button
+   * // Notice: text1 is not touched!
+   * ...text().above(1, 'element_center_line').button()
+   *
+   * // Returns text3 because it is the third text touched by the
+   * // vertical area above the x-axis of button
+   * // Notice: text2 is not touched!
+   * ...text().above(2, 'element_edge_area').button()
+   *
+   * // Returns text2 because it is the third element above button
+   * ...text().above(2, 'display_edge_area').button()
+   *
+   * // Returns no element because button is below the texts
    * ...button().above().text()
    * ```
    * ![](https://docs.askui.com/img/gif/above.gif)
    *
+   * @param {number} [index=0] - Index of element to filter for going into the direction specified. Defaults to `0` which is the first element (zero-indexed) found in that direction.
+   * @param {INTERSECTION_AREA} [intersection_area="element_edge_area"] - Intersecting with either `"element_center_line"`, `"element_edge_area"` or `"display_edge_area"`. Defaults to `"element_edge_area"`.
+   *
    * @return {FluentFiltersGetter}
    */
   above(
-    optionalIndex
-    = 0,
+    index = 0,
+    intersection_area: INTERSECTION_AREA = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
-    if (optionalIndex !== undefined) {
-      this._textStr += `index ${optionalIndex}`;
+    if (index !== undefined) {
+      this._textStr += `index ${index}`;
     }
     this._textStr += ' above';
+    if (intersection_area !== undefined) {
+      this._textStr += ` intersection_area ${intersection_area}`;
+    }
 
     return new FluentFiltersGetter(this);
   }
@@ -3786,10 +4687,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   }
 
   /**
-  * Returns a list of detected elements
-  *
-  * @return {DetectedElement[]}
-  */
+   * Returns a list of detected elements
+   *
+   * @return {DetectedElement[]}
+   */
   exec(): Promise<DetectedElement[]> {
     return this.getterStringBuilder();
   }
@@ -3806,6 +4707,9 @@ export abstract class Getter extends FluentCommand {
    *
    * **Examples:**
    * ```typescript
+   * // ************************************ //
+   * // Log the DetectedElements completely  //
+   * // ************************************ //
    * const text = await aui.get().text('Sign').exec();
    * console.log(text);
    *
@@ -3824,6 +4728,7 @@ export abstract class Getter extends FluentCommand {
    * ]
    * ```
    *
+   * ```typescript
    * // *************************************************** //
    * // Examples on how to work with the returned elements  //
    * // *************************************************** //
@@ -3910,6 +4815,7 @@ export abstract class Getter extends FluentCommand {
    *         xmax: 1178.8204241071428,
    *         ymax: 180.83512834821428
    *      },
+   *   },
    *   DetectedElement {
    *      name: 'ICON',
    *      text: 'search',
@@ -3919,8 +4825,8 @@ export abstract class Getter extends FluentCommand {
    *         xmax: 450.6304241071428,
    *         ymax: 950.47812834821428
    *      },
-   *      ... 381 more items
-   *    }
+   *    },
+   *   ... 381 more items
    *  ]
    * ```
    *
@@ -3938,8 +4844,8 @@ export abstract class Getter extends FluentCommand {
 
   abstract getterExecutor(
     instruction: string,
-    context: CommandExecutorContext,
+    context: CommandExecutorContext
   ): Promise<DetectedElement[]>;
 }
 
-export abstract class ApiCommands extends Getter { }
+export abstract class ApiCommands extends Getter {}

@@ -109,7 +109,7 @@ describe('DSL', () => {
         })
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on ai element with name <|string|>ai element<|string|> index 0 below button index 0 right of custom element',
+        'Click on ai element with name <|string|>ai element<|string|> index 0 below intersection_area element_edge_area button index 0 right of intersection_area element_edge_area custom element',
         {
           aiElementNames: ['ai element'],
           customElementsJson: [
@@ -136,7 +136,7 @@ describe('DSL', () => {
         .aiElement('ai element 2')
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
-        'Click on ai element with name <|string|>ai element<|string|> index 0 below button index 0 right of ai element with name <|string|>ai element 2<|string|>',
+        'Click on ai element with name <|string|>ai element<|string|> index 0 below intersection_area element_edge_area button index 0 right of intersection_area element_edge_area ai element with name <|string|>ai element 2<|string|>',
         {
           aiElementNames: ['ai element', 'ai element 2'],
           customElementsJson: [],
