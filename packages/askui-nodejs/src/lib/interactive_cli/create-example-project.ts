@@ -255,6 +255,24 @@ export class CreateExampleProject {
     ];
   }
 
+  private async copyGitignore(): Promise<Listr.ListrTask<unknown>[]> {
+    const gitignoreFilePath = path.join('example_projects_templates', 'typescript', '.gitignore');
+
+    return [{
+      title: 'Copy .gitignore',
+      task: async () => new Listr([
+        {
+          title: 'Add .gitignore',
+          task: async () => fs.copyFile(
+            path.join(getPathToNodeModulesRoot(), gitignoreFilePath),
+            path.join(this.projectRootDirectoryPath, '.gitignore'),
+          ),
+        },
+      ]),
+    },
+    ];
+  }
+
   private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
     const tsConfigFilePath = path.join(
       'example_projects_templates',
@@ -283,6 +301,7 @@ export class CreateExampleProject {
       ...(await this.copyTemplateProject()),
       ...(await this.setupTestFrameWork()),
       ...(await this.copyESLintConfigFiles()),
+      ...(await this.copyGitignore()),
       ...(await this.copyTsConfigFile()),
       ...(await this.addUserCredentials()),
       ...(await this.createAskUIHelperFromTemplate()),
