@@ -21,7 +21,7 @@ export class ControlCommand {
   setTextToBeTyped(text: string) {
     this.actions = this.actions.map((action) => (
       [InputEvent.TYPE, InputEvent.TYPE_TEXT].includes(action.inputEvent)
-        ? new Action(action.inputEvent, action.position, text) : action
+        ? new Action(action.inputEvent, action.position, text, action.parameters) : action
     ));
   }
 }
