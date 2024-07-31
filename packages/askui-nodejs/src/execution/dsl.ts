@@ -3512,7 +3512,7 @@ export class FluentFiltersGetter extends FluentBase {
    *     .customElement({
    *         customImage: './logo.png', // required
    *         name: 'myLogo', // optional
-   *         threshold: 0.9, // optional, defaults to 0.9
+   *         threshold: 0.5, // optional, defaults to 0.5
    *         stopThreshold: 0.9, // optional, defaults to 0.9
    *         rotationDegreePerStep: 0, // optional, defaults to 0
    *         imageCompareFormat: 'grayscale', // optional, defaults to 'grayscale'
