@@ -8,471 +8,47 @@
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 
+function isStackTraceCodeline(line: string): boolean {
+  return /[ \t]+at .+/.test(line);
+}
+function splitStackTrace(stacktrace: string): { head: string[], codelines: string[] } {
+  const errorStackTraceLines = stacktrace.split('\n');
+  const errorIndexOfFirstCodeLine = errorStackTraceLines.findIndex(isStackTraceCodeline);
+  const errorStacktraceHead = errorStackTraceLines.slice(0, errorIndexOfFirstCodeLine);
+  const errorStacktraceCodeLines = errorStackTraceLines.slice(errorIndexOfFirstCodeLine);
+  return { head: errorStacktraceHead, codelines: errorStacktraceCodeLines };
+}
+function rewriteStackTraceForError(error: Error, newStackTrace: string) {
+  const errorCopy = new Error(error.message);
+
+  if (!error.stack) {
+    errorCopy.stack = newStackTrace;
+    return errorCopy;
+  }
+  const errorStacktraceSplit = splitStackTrace(error.stack);
+  const newStacktraceSplit = splitStackTrace(newStackTrace);
+
+  errorCopy.stack = [
+    ...errorStacktraceSplit.head,
+    ...newStacktraceSplit.codelines,
+    ' ',
+    ...errorStacktraceSplit.head,
+    ...errorStacktraceSplit.codelines,
+  ].join('\n');
+  return errorCopy;
+}
+
 export enum Separators {
   STRING = '<|string|>',
 }
 
 // LITERALS
-export type INTERSECTION_AREA =
-  | 'element_center_line'
-  | 'element_edge_area'
-  | 'display_edge_area';
-export type PC_KEY =
-  | 'backspace'
-  | 'delete'
-  | 'enter'
-  | 'tab'
-  | 'escape'
-  | 'up'
-  | 'down'
-  | 'right'
-  | 'left'
-  | 'home'
-  | 'end'
-  | 'pageup'
-  | 'pagedown'
-  | 'f1'
-  | 'f2'
-  | 'f3'
-  | 'f4'
-  | 'f5'
-  | 'f6'
-  | 'f7'
-  | 'f8'
-  | 'f9'
-  | 'f10'
-  | 'f11'
-  | 'f12'
-  | 'space'
-  | '0'
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | 'a'
-  | 'b'
-  | 'c'
-  | 'd'
-  | 'e'
-  | 'f'
-  | 'g'
-  | 'h'
-  | 'i'
-  | 'j'
-  | 'k'
-  | 'l'
-  | 'm'
-  | 'n'
-  | 'o'
-  | 'p'
-  | 'q'
-  | 'r'
-  | 's'
-  | 't'
-  | 'u'
-  | 'v'
-  | 'w'
-  | 'x'
-  | 'y'
-  | 'z'
-  | 'A'
-  | 'B'
-  | 'C'
-  | 'D'
-  | 'E'
-  | 'F'
-  | 'G'
-  | 'H'
-  | 'I'
-  | 'J'
-  | 'K'
-  | 'L'
-  | 'M'
-  | 'N'
-  | 'O'
-  | 'P'
-  | 'Q'
-  | 'R'
-  | 'S'
-  | 'T'
-  | 'U'
-  | 'V'
-  | 'W'
-  | 'X'
-  | 'Y'
-  | 'Z'
-  | '!'
-  | '"'
-  | '#'
-  | '$'
-  | '%'
-  | '&'
-  | "'"
-  | '('
-  | ')'
-  | '*'
-  | '+'
-  | ','
-  | '-'
-  | '.'
-  | '/'
-  | ':'
-  | ';'
-  | '<'
-  | '='
-  | '>'
-  | '?'
-  | '@'
-  | '['
-  | '\\'
-  | ']'
-  | '^'
-  | '_'
-  | '`'
-  | '{'
-  | '|'
-  | '}'
-  | '~ ';
-export type ANDROID_KEY =
-  | 'home'
-  | 'back'
-  | 'call'
-  | 'endcall'
-  | '0'
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | 'star'
-  | 'pound'
-  | 'dpad_up'
-  | 'dpad_down'
-  | 'dpad_left'
-  | 'dpad_right'
-  | 'dpad_center'
-  | 'volume_up'
-  | 'volume_down'
-  | 'power'
-  | 'camera'
-  | 'clear'
-  | 'a'
-  | 'b'
-  | 'c'
-  | 'd'
-  | 'e'
-  | 'f'
-  | 'g'
-  | 'h'
-  | 'i'
-  | 'j'
-  | 'k'
-  | 'l'
-  | 'm'
-  | 'n'
-  | 'o'
-  | 'p'
-  | 'q'
-  | 'r'
-  | 's'
-  | 't'
-  | 'u'
-  | 'v'
-  | 'w'
-  | 'x'
-  | 'y'
-  | 'z'
-  | 'comma'
-  | 'period'
-  | 'alt_left'
-  | 'alt_right'
-  | 'shift_left'
-  | 'shift_right'
-  | 'tab'
-  | 'space'
-  | 'sym'
-  | 'explorer'
-  | 'envelope'
-  | 'enter'
-  | 'del'
-  | 'grave'
-  | 'minus'
-  | 'equals'
-  | 'left_bracket'
-  | 'right_bracket'
-  | 'backslash'
-  | 'semicolon'
-  | 'apostrophe'
-  | 'slash'
-  | 'at'
-  | 'num'
-  | 'headsethook'
-  | 'focus'
-  | 'plus'
-  | 'menu'
-  | 'notification'
-  | 'search'
-  | 'media_play_pause'
-  | 'media_stop'
-  | 'media_next'
-  | 'media_previous'
-  | 'media_rewind'
-  | 'media_fast_forward'
-  | 'mute'
-  | 'page_up'
-  | 'page_down'
-  | 'switch_charset'
-  | 'escape'
-  | 'forward_del'
-  | 'ctrl_left'
-  | 'ctrl_right'
-  | 'caps_lock'
-  | 'scroll_lock'
-  | 'function'
-  | 'break'
-  | 'move_home'
-  | 'move_end'
-  | 'insert'
-  | 'forward'
-  | 'media_play'
-  | 'media_pause'
-  | 'media_close'
-  | 'media_eject'
-  | 'media_record'
-  | 'f1'
-  | 'f2'
-  | 'f3'
-  | 'f4'
-  | 'f5'
-  | 'f6'
-  | 'f7'
-  | 'f8'
-  | 'f9'
-  | 'f10'
-  | 'f11'
-  | 'f12'
-  | 'num_lock'
-  | 'numpad_0'
-  | 'numpad_1'
-  | 'numpad_2'
-  | 'numpad_3'
-  | 'numpad_4'
-  | 'numpad_5'
-  | 'numpad_6'
-  | 'numpad_7'
-  | 'numpad_8'
-  | 'numpad_9'
-  | 'numpad_divide'
-  | 'numpad_multiply'
-  | 'numpad_subtract'
-  | 'numpad_add'
-  | 'numpad_dot'
-  | 'numpad_comma'
-  | 'numpad_enter'
-  | 'numpad_equals'
-  | 'numpad_left_paren'
-  | 'numpad_right_paren'
-  | 'volume_mute'
-  | 'info'
-  | 'channel_up'
-  | 'channel_down'
-  | 'zoom_in'
-  | 'zoom_out'
-  | 'window'
-  | 'guide'
-  | 'bookmark'
-  | 'captions'
-  | 'settings'
-  | 'app_switch'
-  | 'language_switch'
-  | 'contacts'
-  | 'calendar'
-  | 'music'
-  | 'calculator'
-  | 'assist'
-  | 'brightness_down'
-  | 'brightness_up'
-  | 'media_audio_track'
-  | 'sleep'
-  | 'wakeup'
-  | 'pairing'
-  | 'media_top_menu'
-  | 'last_channel'
-  | 'tv_data_service'
-  | 'voice_assist'
-  | 'help'
-  | 'navigate_previous'
-  | 'navigate_next'
-  | 'navigate_in'
-  | 'navigate_out'
-  | 'dpad_up_left'
-  | 'dpad_down_left'
-  | 'dpad_up_right'
-  | 'dpad_down_right'
-  | 'media_skip_forward'
-  | 'media_skip_backward'
-  | 'media_step_forward'
-  | 'media_step_backward'
-  | 'soft_sleep'
-  | 'cut'
-  | 'copy'
-  | 'paste'
-  | 'all_apps'
-  | 'refresh';
-export type MODIFIER_KEY =
-  | 'command'
-  | 'alt'
-  | 'control'
-  | 'shift'
-  | 'right_shift';
-export type COLOR =
-  | 'black'
-  | 'white'
-  | 'red'
-  | 'green'
-  | 'yellow green'
-  | 'orange'
-  | 'yellow'
-  | 'purple'
-  | 'pink'
-  | 'gray'
-  | 'lime green'
-  | 'royal blue';
-export type PC_AND_MODIFIER_KEY =
-  | 'command'
-  | 'alt'
-  | 'control'
-  | 'shift'
-  | 'right_shift'
-  | 'backspace'
-  | 'delete'
-  | 'enter'
-  | 'tab'
-  | 'escape'
-  | 'up'
-  | 'down'
-  | 'right'
-  | 'left'
-  | 'home'
-  | 'end'
-  | 'pageup'
-  | 'pagedown'
-  | 'f1'
-  | 'f2'
-  | 'f3'
-  | 'f4'
-  | 'f5'
-  | 'f6'
-  | 'f7'
-  | 'f8'
-  | 'f9'
-  | 'f10'
-  | 'f11'
-  | 'f12'
-  | 'space'
-  | '0'
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | 'a'
-  | 'b'
-  | 'c'
-  | 'd'
-  | 'e'
-  | 'f'
-  | 'g'
-  | 'h'
-  | 'i'
-  | 'j'
-  | 'k'
-  | 'l'
-  | 'm'
-  | 'n'
-  | 'o'
-  | 'p'
-  | 'q'
-  | 'r'
-  | 's'
-  | 't'
-  | 'u'
-  | 'v'
-  | 'w'
-  | 'x'
-  | 'y'
-  | 'z'
-  | 'A'
-  | 'B'
-  | 'C'
-  | 'D'
-  | 'E'
-  | 'F'
-  | 'G'
-  | 'H'
-  | 'I'
-  | 'J'
-  | 'K'
-  | 'L'
-  | 'M'
-  | 'N'
-  | 'O'
-  | 'P'
-  | 'Q'
-  | 'R'
-  | 'S'
-  | 'T'
-  | 'U'
-  | 'V'
-  | 'W'
-  | 'X'
-  | 'Y'
-  | 'Z'
-  | '!'
-  | '"'
-  | '#'
-  | '$'
-  | '%'
-  | '&'
-  | "'"
-  | '('
-  | ')'
-  | '*'
-  | '+'
-  | ','
-  | '-'
-  | '.'
-  | '/'
-  | ':'
-  | ';'
-  | '<'
-  | '='
-  | '>'
-  | '?'
-  | '@'
-  | '['
-  | '\\'
-  | ']'
-  | '^'
-  | '_'
-  | '`'
-  | '{'
-  | '|'
-  | '}'
-  | '~ ';
+export type INTERSECTION_AREA = 'element_center_line' | 'element_edge_area' | 'display_edge_area';
+export type PC_KEY = 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
+export type ANDROID_KEY = 'home' | 'back' | 'call' | 'endcall' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'star' | 'pound' | 'dpad_up' | 'dpad_down' | 'dpad_left' | 'dpad_right' | 'dpad_center' | 'volume_up' | 'volume_down' | 'power' | 'camera' | 'clear' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'comma' | 'period' | 'alt_left' | 'alt_right' | 'shift_left' | 'shift_right' | 'tab' | 'space' | 'sym' | 'explorer' | 'envelope' | 'enter' | 'del' | 'grave' | 'minus' | 'equals' | 'left_bracket' | 'right_bracket' | 'backslash' | 'semicolon' | 'apostrophe' | 'slash' | 'at' | 'num' | 'headsethook' | 'focus' | 'plus' | 'menu' | 'notification' | 'search' | 'media_play_pause' | 'media_stop' | 'media_next' | 'media_previous' | 'media_rewind' | 'media_fast_forward' | 'mute' | 'page_up' | 'page_down' | 'switch_charset' | 'escape' | 'forward_del' | 'ctrl_left' | 'ctrl_right' | 'caps_lock' | 'scroll_lock' | 'function' | 'break' | 'move_home' | 'move_end' | 'insert' | 'forward' | 'media_play' | 'media_pause' | 'media_close' | 'media_eject' | 'media_record' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'num_lock' | 'numpad_0' | 'numpad_1' | 'numpad_2' | 'numpad_3' | 'numpad_4' | 'numpad_5' | 'numpad_6' | 'numpad_7' | 'numpad_8' | 'numpad_9' | 'numpad_divide' | 'numpad_multiply' | 'numpad_subtract' | 'numpad_add' | 'numpad_dot' | 'numpad_comma' | 'numpad_enter' | 'numpad_equals' | 'numpad_left_paren' | 'numpad_right_paren' | 'volume_mute' | 'info' | 'channel_up' | 'channel_down' | 'zoom_in' | 'zoom_out' | 'window' | 'guide' | 'bookmark' | 'captions' | 'settings' | 'app_switch' | 'language_switch' | 'contacts' | 'calendar' | 'music' | 'calculator' | 'assist' | 'brightness_down' | 'brightness_up' | 'media_audio_track' | 'sleep' | 'wakeup' | 'pairing' | 'media_top_menu' | 'last_channel' | 'tv_data_service' | 'voice_assist' | 'help' | 'navigate_previous' | 'navigate_next' | 'navigate_in' | 'navigate_out' | 'dpad_up_left' | 'dpad_down_left' | 'dpad_up_right' | 'dpad_down_right' | 'media_skip_forward' | 'media_skip_backward' | 'media_step_forward' | 'media_step_backward' | 'soft_sleep' | 'cut' | 'copy' | 'paste' | 'all_apps' | 'refresh';
+export type MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift';
+export type COLOR = 'black' | 'white' | 'red' | 'green' | 'yellow green' | 'orange' | 'yellow' | 'purple' | 'pink' | 'gray' | 'lime green' | 'royal blue';
+export type PC_AND_MODIFIER_KEY = 'command' | 'alt' | 'control' | 'shift' | 'right_shift' | 'backspace' | 'delete' | 'enter' | 'tab' | 'escape' | 'up' | 'down' | 'right' | 'left' | 'home' | 'end' | 'pageup' | 'pagedown' | 'f1' | 'f2' | 'f3' | 'f4' | 'f5' | 'f6' | 'f7' | 'f8' | 'f9' | 'f10' | 'f11' | 'f12' | 'space' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '!' | '"' | '#' | '$' | '%' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '=' | '>' | '?' | '@' | '[' | '\\' | ']' | '^' | '_' | '`' | '{' | '|' | '}' | '~ ';
 
 export interface CommandExecutorContext {
   customElementsJson: CustomElementJson[];
@@ -480,7 +56,7 @@ export interface CommandExecutorContext {
 }
 
 abstract class FluentBase {
-  constructor(protected prev?: FluentBase) {}
+  constructor(protected prev?: FluentBase) { }
 
   protected _textStr = '';
 
@@ -494,7 +70,7 @@ abstract class FluentBase {
       if (!paramsList.has(key)) {
         paramsList.set(key, []);
       }
-      paramsList.set(key, [value, ...(paramsList.get(key) as unknown[])]);
+      paramsList.set(key, [value, ...paramsList.get(key) as unknown[]]);
     });
     return paramsList;
   }
@@ -507,16 +83,15 @@ abstract class FluentBase {
     const newParamsList = FluentBase.addParams(paramsList, this._params);
     if (this instanceof FluentCommand) {
       const fluentCommand = this as FluentCommand;
-      const customElements = newParamsList.has('customElement')
-        ? (newParamsList.get('customElement') as CustomElementJson[])
-        : [];
-      const aiElementNames = newParamsList.has('aiElementName')
-        ? (newParamsList.get('aiElementName') as string[])
-        : [];
-      return fluentCommand.fluentCommandExecutor(newCurrentInstruction.trim(), {
-        customElementsJson: customElements,
-        aiElementNames,
-      });
+      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
+      return fluentCommand.fluentCommandExecutor(
+        newCurrentInstruction.trim(),
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
+      );
     }
     if (!this.prev) {
       throw new Error('Prev element not defined');
@@ -535,39 +110,39 @@ abstract class FluentBase {
     const newParamsList = FluentBase.addParams(paramsList, this._params);
     if (this instanceof Getter) {
       const getter = this as Getter;
-      const customElements = newParamsList.has('customElement')
-        ? (newParamsList.get('customElement') as CustomElementJson[])
-        : [];
-      const aiElementNames = newParamsList.has('aiElementName')
-        ? (newParamsList.get('aiElementName') as string[])
-        : [];
-      return getter.getterExecutor(newCurrentInstruction.trim(), {
-        customElementsJson: customElements,
-        aiElementNames,
-      });
+      const customElements = newParamsList.has('customElement') ? newParamsList.get('customElement') as CustomElementJson[] : [];
+      const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
+      return getter.getterExecutor(
+        newCurrentInstruction.trim(),
+        {
+          customElementsJson: customElements,
+          aiElementNames,
+        },
+      );
     }
     if (!this.prev) {
       throw new Error('Prev element not defined');
     }
-    return this.prev.getterStringBuilder(newCurrentInstruction, newParamsList);
+    return this.prev.getterStringBuilder(
+      newCurrentInstruction,
+      newParamsList,
+    );
   }
 
-  protected get textStr() {
-    return this._textStr;
-  }
+  protected get textStr() { return this._textStr; }
 
-  protected get params() {
-    return this._params;
-  }
+  protected get params() { return this._params; }
 }
 
 export interface Executable {
-  exec(): Promise<void>;
+  exec(): Promise<void>
 }
 
 export class Exec extends FluentBase implements Executable {
   exec(): Promise<void> {
-    return this.fluentCommandStringBuilder();
+    const originStacktrace = { stack: '' };
+    Error.captureStackTrace(originStacktrace, this.exec);
+    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -663,7 +238,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  special(text: string): FluentFiltersOrRelations {
+  special(
+    text: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -698,7 +275,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  row(index: number): FluentFiltersOrRelations {
+  row(
+    index: number,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -713,7 +292,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  column(index: number): FluentFiltersOrRelations {
+  column(
+    index: number,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -729,7 +310,10 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  cell(row_index: number, column_index: number): FluentFiltersOrRelations {
+  cell(
+    row_index: number,
+    column_index: number,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'cell';
@@ -778,7 +362,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  text(text?: string): FluentFiltersOrRelations {
+  text(
+    text?: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -854,7 +440,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  customElement(customElement: CustomElementJson): FluentFiltersOrRelations {
+  customElement(
+    customElement: CustomElementJson,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'custom';
@@ -877,7 +465,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  aiElement(aiElementName: string): FluentFiltersOrRelations {
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -980,7 +570,8 @@ export class FluentFilters extends FluentBase {
    */
   withText(
     text: string,
-    similarityScore = 70,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelations {
     this._textStr = '';
 
@@ -1015,7 +606,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelations {
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -1050,7 +643,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  withExactText(text: string): FluentFiltersOrRelations {
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -1075,7 +670,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  containsText(text: string): FluentFiltersOrRelations {
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -1120,7 +717,9 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  matching(text: string): FluentFiltersOrRelations {
+  matching(
+    text: string,
+  ): FluentFiltersOrRelations {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -1342,8 +941,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   rightOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
@@ -1420,8 +1021,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   leftOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
@@ -1507,8 +1110,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   below(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
@@ -1593,8 +1198,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
    * @return {FluentFilters}
    */
   above(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFilters {
     this._textStr = '';
 
@@ -1674,7 +1281,9 @@ export class FluentFiltersOrRelations extends FluentFilters {
   }
 
   exec(): Promise<void> {
-    return this.fluentCommandStringBuilder();
+    const originStacktrace = { stack: '' };
+    Error.captureStackTrace(originStacktrace, this.exec);
+    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -1770,7 +1379,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  special(text: string): FluentFiltersOrRelationsCondition {
+  special(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -1805,7 +1416,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  row(index: number): FluentFiltersOrRelationsCondition {
+  row(
+    index: number,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -1820,7 +1433,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  column(index: number): FluentFiltersOrRelationsCondition {
+  column(
+    index: number,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -1888,7 +1503,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  text(text?: string): FluentFiltersOrRelationsCondition {
+  text(
+    text?: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -1989,7 +1606,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  aiElement(aiElementName: string): FluentFiltersOrRelationsCondition {
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -2092,7 +1711,8 @@ export class FluentFiltersCondition extends FluentBase {
    */
   withText(
     text: string,
-    similarityScore = 70,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
@@ -2127,7 +1747,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsCondition {
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -2162,7 +1784,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  withExactText(text: string): FluentFiltersOrRelationsCondition {
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -2187,7 +1811,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  containsText(text: string): FluentFiltersOrRelationsCondition {
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -2232,7 +1858,9 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  matching(text: string): FluentFiltersOrRelationsCondition {
+  matching(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -2454,8 +2082,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   rightOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2532,8 +2162,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   leftOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2619,8 +2251,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   below(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2705,8 +2339,10 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
    * @return {FluentFiltersCondition}
    */
   above(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersCondition {
     this._textStr = '';
 
@@ -2849,7 +2485,7 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   }
 }
 
-class ExecCondition extends Exec {}
+class ExecCondition extends Exec { }
 
 // Commands
 export abstract class FluentCommand extends FluentBase {
@@ -2945,7 +2581,9 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  typeIn(text: string): FluentFilters {
+  typeIn(
+    text: string,
+  ): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Type';
@@ -2972,7 +2610,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  scrollInside(x_offset: number, y_offset: number): FluentFilters {
+  scrollInside(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Scroll';
@@ -3001,7 +2642,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  moveMouseRelativelyTo(x_offset: number, y_offset: number): FluentFilters {
+  moveMouseRelativelyTo(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -3032,7 +2676,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {FluentFilters}
    */
-  swipe(x_offset: number, y_offset: number): FluentFilters {
+  swipe(
+    x_offset: number,
+    y_offset: number,
+  ): FluentFilters {
     this._textStr = '';
 
     this._textStr += 'Swipe';
@@ -3064,7 +2711,9 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  type(text: string): Exec {
+  type(
+    text: string,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Type';
@@ -3088,7 +2737,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  moveMouseRelatively(x_offset: number, y_offset: number): Exec {
+  moveMouseRelatively(
+    x_offset: number,
+    y_offset: number,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -3122,7 +2774,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  moveMouse(x_coordinate: number, y_coordinate: number): Exec {
+  moveMouse(
+    x_coordinate: number,
+    y_coordinate: number,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Move';
@@ -3156,7 +2811,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  scroll(x_offset: number, y_offset: number): Exec {
+  scroll(
+    x_offset: number,
+    y_offset: number,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Scroll';
@@ -3445,7 +3103,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressTwoKeys(first_key: MODIFIER_KEY, second_key: PC_KEY): Exec {
+  pressTwoKeys(
+    first_key: MODIFIER_KEY,
+    second_key: PC_KEY,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -3473,7 +3134,9 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressKey(key: PC_AND_MODIFIER_KEY): Exec {
+  pressKey(
+    key: PC_AND_MODIFIER_KEY,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -3525,7 +3188,10 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidTwoKey(first_key: ANDROID_KEY, second_key: ANDROID_KEY): Exec {
+  pressAndroidTwoKey(
+    first_key: ANDROID_KEY,
+    second_key: ANDROID_KEY,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -3552,7 +3218,9 @@ export abstract class FluentCommand extends FluentBase {
    *
    * @return {Exec}
    */
-  pressAndroidKey(key: ANDROID_KEY): Exec {
+  pressAndroidKey(
+    key: ANDROID_KEY,
+  ): Exec {
     this._textStr = '';
 
     this._textStr += 'Press';
@@ -3565,13 +3233,13 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    context: CommandExecutorContext
+    context: CommandExecutorContext,
   ): Promise<void>;
 }
 
 // Getters
 export interface ExecutableGetter {
-  exec(): Promise<DetectedElement[]>;
+  exec(): Promise<DetectedElement[]>
 }
 
 export class ExecGetter extends FluentBase implements ExecutableGetter {
@@ -3671,7 +3339,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  special(text: string): FluentFiltersOrRelationsGetter {
+  special(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'special';
@@ -3706,7 +3376,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  row(index: number): FluentFiltersOrRelationsGetter {
+  row(
+    index: number,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'row';
@@ -3721,7 +3393,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  column(index: number): FluentFiltersOrRelationsGetter {
+  column(
+    index: number,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'column';
@@ -3789,7 +3463,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  text(text?: string): FluentFiltersOrRelationsGetter {
+  text(
+    text?: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'text';
@@ -3890,7 +3566,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  aiElement(aiElementName: string): FluentFiltersOrRelationsGetter {
+  aiElement(
+    aiElementName: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'ai';
@@ -3993,7 +3671,8 @@ export class FluentFiltersGetter extends FluentBase {
    */
   withText(
     text: string,
-    similarityScore = 70,
+    similarityScore
+    = 70,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
@@ -4028,7 +3707,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withTextRegex(regex_pattern: string): FluentFiltersOrRelationsGetter {
+  withTextRegex(
+    regex_pattern: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'match';
@@ -4063,7 +3744,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  withExactText(text: string): FluentFiltersOrRelationsGetter {
+  withExactText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'equals';
@@ -4088,7 +3771,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  containsText(text: string): FluentFiltersOrRelationsGetter {
+  containsText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'contain';
@@ -4133,7 +3818,9 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  matching(text: string): FluentFiltersOrRelationsGetter {
+  matching(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
 
     this._textStr += 'matching';
@@ -4355,8 +4042,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   rightOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -4433,8 +4122,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   leftOf(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -4520,8 +4211,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   below(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -4606,8 +4299,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
    * @return {FluentFiltersGetter}
    */
   above(
-    index = 0,
-    intersection_area: INTERSECTION_AREA = 'element_edge_area',
+    index
+    = 0,
+    intersection_area: INTERSECTION_AREA
+    = 'element_edge_area',
   ): FluentFiltersGetter {
     this._textStr = '';
 
@@ -4687,10 +4382,10 @@ export class FluentFiltersOrRelationsGetter extends FluentFiltersGetter {
   }
 
   /**
-   * Returns a list of detected elements
-   *
-   * @return {DetectedElement[]}
-   */
+  * Returns a list of detected elements
+  *
+  * @return {DetectedElement[]}
+  */
   exec(): Promise<DetectedElement[]> {
     return this.getterStringBuilder();
   }
@@ -4844,8 +4539,8 @@ export abstract class Getter extends FluentCommand {
 
   abstract getterExecutor(
     instruction: string,
-    context: CommandExecutorContext
+    context: CommandExecutorContext,
   ): Promise<DetectedElement[]>;
 }
 
-export abstract class ApiCommands extends Getter {}
+export abstract class ApiCommands extends Getter { }

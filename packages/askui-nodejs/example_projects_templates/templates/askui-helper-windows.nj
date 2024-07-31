@@ -17,12 +17,16 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  /* Uncomment to enable video recording
   await aui.startVideoRecording();
+  */
 });
 
 afterEach(async () => {
+  /* Uncomment to enable video recording
   await aui.stopVideoRecording();
   {{ allure_stepreporter_attach_video }}
+  */
 });
 
 afterAll(async () => {
