@@ -2844,19 +2844,25 @@ export abstract class FluentCommand extends FluentBase {
    * await aui.execOnShell("chrome").exec();
    * ```
    *
-   * @param {string} shell_command - A shell command which is executed.
+   * @param {string} shellCommand - A shell command which is executed.
+   * @param {number} [timeoutInMilliseconds=1] - A timeout in milliseconds.
    *
    * @return {Exec}
    */
   execOnShell(
-    shell_command: string,
+    shellCommand: string,
+    timeoutInMilliseconds
+    = 1,
   ): Exec {
     this._textStr = '';
 
     this._textStr += 'Execute';
     this._textStr += ' shell';
     this._textStr += ' command';
-    this._textStr += ` ${Separators.STRING}${shell_command}${Separators.STRING}`;
+    this._textStr += ` ${Separators.STRING}${shellCommand}${Separators.STRING}`;
+    if (timeoutInMilliseconds !== undefined) {
+      this._textStr += ` with ${timeoutInMilliseconds} milliseconds timeout`;
+    }
 
     return new Exec(this);
   }

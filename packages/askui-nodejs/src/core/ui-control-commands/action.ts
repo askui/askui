@@ -1,10 +1,15 @@
 import { InputEvent } from './input-event';
 
+export type ActionParameters = {
+  [key: string]: string | number | boolean | string[] | ActionParameters;
+};
+
 export class Action {
   constructor(
     public inputEvent: InputEvent,
     public position: { x: number, y: number },
     public text: string,
+    public parameters: ActionParameters = {},
   ) { }
 
   static fromJson(action: Action, resizeRatio = 1) {
@@ -15,6 +20,7 @@ export class Action {
         y: action.position.y * resizeRatio,
       },
       action.text,
+      action.parameters ? action.parameters : {},
     );
   }
 }
