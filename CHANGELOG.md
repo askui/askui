@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.20.6](https://github.com/askui/askui/compare/v0.20.5...v0.20.6) (2024-08-01)
+
+### Bug Fixes
+
+* rename .gitignore to gitignore to avoid not getting published by npm publish ([1b08a81](https://github.com/askui/askui/commit/1b08a8140b0e0f4463c7b95951f45f73b1861ff4))
+
 ## [0.20.5](https://github.com/askui/askui/compare/v0.20.4...v0.20.5) (2024-08-01)
 
 ### Features
