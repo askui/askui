@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.20.5](https://github.com/askui/askui/compare/v0.20.4...v0.20.5) (2024-08-01)
+
+### Features
+
+* add .gitignore; Error log show line of error and code now (#DVRL-81) ([46f4967](https://github.com/askui/askui/commit/46f49673b73404fcbeca469e3ad442cff5e3e440))
+
 ## [0.20.4](https://github.com/askui/askui/compare/v0.20.3...v0.20.4) (2024-07-30)
 
 ## [0.20.3](https://github.com/askui/askui/compare/v0.20.2...v0.20.3) (2024-07-10)
