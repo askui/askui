@@ -256,7 +256,7 @@ export class CreateExampleProject {
   }
 
   private async copyGitignore(): Promise<Listr.ListrTask<unknown>[]> {
-    const gitignoreFilePath = path.join('example_projects_templates', 'typescript', '.gitignore');
+    const gitignoreFilePath = path.join('example_projects_templates', 'typescript', 'gitignore');
 
     return [{
       title: 'Copy .gitignore',
