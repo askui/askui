@@ -4,8 +4,6 @@ import fs from 'fs-extra';
 import { CreateExampleProject } from './create-example-project';
 import { CliOptions } from './cli-options-interface';
 
-const nonEmpty = (subject: string) => (input: string) => input.trim().length > 0 || `${subject} is required.`;
-
 /* eslint-disable sort-keys */
 const questions = [
   {
@@ -13,21 +11,6 @@ const questions = [
     name: 'testFramework',
     message: 'Which framework do you prefer?:',
     choices: ['jest'],
-  },
-  {
-    type: 'input',
-    name: 'workspaceId',
-    message: 'Your workspace id:',
-    validate: nonEmpty('workspace id'),
-    when: (answers: CliOptions) => !answers.skipCredentials,
-  },
-  {
-    type: 'password',
-    name: 'accessToken',
-    message: 'Your access token:',
-    mask: '*',
-    validate: nonEmpty('access token'),
-    when: (answers: CliOptions) => !answers.skipCredentials,
   },
   {
     type: 'confirm',
@@ -45,22 +28,6 @@ const options = [
     default: 'jest',
     description: 'the test framework to use.',
     option: '-f, --test-framework <value>',
-  },
-  {
-    choices: [],
-    default: false,
-    description: 'skip the credentials setup.',
-    option: '-sc, --skip-credentials',
-  },
-  {
-    choices: [],
-    description: 'a workspace id.',
-    option: '-w, --workspace-id <value>',
-  },
-  {
-    choices: [],
-    description: 'an access token for the workspace with the id.',
-    option: '-a, --access-token <value>',
   },
   {
     choices: [],

@@ -32,7 +32,7 @@ export class CreateExampleProject {
       this.automationsDirectoryName,
     );
 
-    this.askUIControllerUrl = 'https://docs.askui.com/docs/general/Components/AskUI-Controller';
+    this.askUIControllerUrl = 'https://docs.askui.com/docs/suite/Components/AskUI-Development-Environment#askui-startcontroller-command';
     this.helperTemplateConfig = {};
   }
 
@@ -154,11 +154,7 @@ export class CreateExampleProject {
               'templates',
             );
 
-            let templateFileName = 'askui-helper.nj';
-            if (this.cliOptions.operatingSystem === 'windows') {
-              templateFileName = 'askui-helper-windows.nj';
-            }
-
+            const templateFileName = 'askui-helper.nj';
             nunjucks.configure(askuiHelperTemplateFilePath, { autoescape: false });
             const result = nunjucks.render(templateFileName, this.helperTemplateConfig);
             const filePath = path.join(this.automationsDirectoryPath, 'helpers', 'askui-helper.ts');
@@ -210,23 +206,6 @@ export class CreateExampleProject {
       jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import @askui/eslint-plugin-askui hpagent',
     };
     await runCommand(frameworkDependencies.jest);
-  }
-
-  private async addUserCredentials() {
-    return [
-      {
-        /* eslint-disable sort-keys */
-        title: 'Add user credentials',
-        enabled: () => !this.cliOptions.skipCredentials,
-        task: async () => {
-          this.helperTemplateConfig['credentials'] = ` credentials: {
-        workspaceId: '${this.cliOptions.workspaceId}',
-        token: '${this.cliOptions.accessToken}',
-      },`;
-        },
-      },
-      /* eslint-enable */
-    ];
   }
 
   private async copyESLintConfigFiles(): Promise<Listr.ListrTask<unknown>[]> {
@@ -303,7 +282,6 @@ export class CreateExampleProject {
       ...(await this.copyESLintConfigFiles()),
       ...(await this.copyGitignore()),
       ...(await this.copyTsConfigFile()),
-      ...(await this.addUserCredentials()),
       ...(await this.createAskUIHelperFromTemplate()),
     ]);
 
@@ -316,24 +294,16 @@ export class CreateExampleProject {
       )}`,
     );
 
-    if (this.cliOptions.operatingSystem === 'windows') {
-      console.log(
-        chalk.redBright(
-          `\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`,
-        ),
-      );
-      console.log(
-        `You can start your automation with this command ${chalk.green(
-          'AskUI-RunProject',
-        )}`,
-      );
-    } else {
-      console.log(
-        `You can start your automation with this command ${chalk.green(
-          'npm run askui',
-        )}`,
-      );
-    }
+    console.log(
+      chalk.redBright(
+        `\nPlease make sure the AskUI Controller is running: ${this.askUIControllerUrl}\n`,
+      ),
+    );
+    console.log(
+      `You can start your automation with this command ${chalk.green(
+        'AskUI-RunProject',
+      )}`,
+    );
     /* eslint-enable no-console */
   }
 }
