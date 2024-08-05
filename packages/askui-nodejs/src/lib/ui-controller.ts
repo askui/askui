@@ -5,6 +5,10 @@ import { UiControllerLinux } from './ui-controller-linux';
 import { UiControllerWin32 } from './ui-controller-win32';
 import { platform } from './download-binaries';
 
+/**
+ * @deprecated Will be removed soon because the AskUI Controller
+ *             gets started as an operating system service.
+ */
 export class UiController {
   private server: UiControllerFacade;
 
