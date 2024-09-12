@@ -9,13 +9,14 @@ import { IsImageRequired } from './is-image-required-interface';
 import { InferenceResponseError } from './inference-response-error';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ConfigurationError } from './config-error';
-import { InferenceResponseBody } from '../core/inference-response/inference-response';
+import { InferenceResponseBody, VQAInferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
 
 interface InferenceClientUrls {
   inference: string;
   isImageRequired: string;
+  vqaInference: string;
 }
 
 export class InferenceClient {
@@ -36,6 +37,7 @@ export class InferenceClient {
     this.urls = {
       inference: urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
+      vqaInference: urljoin(url, 'vqa/inference'),
     };
     this.httpClient.urlsToRetry = Object.values(this.urls);
     if (this.resize !== undefined && this.resize <= 0) {
@@ -95,9 +97,27 @@ export class InferenceClient {
     );
   }
 
+  async vqaInference(
+    image: string,
+    prompt: string,
+    config?: object,
+  ): Promise<VQAInferenceResponseBody> {
+    const response = await this.httpClient.post<VQAInferenceResponseBody>(
+      this.urls.vqaInference,
+      {
+        config,
+        image,
+        prompt,
+      },
+    );
+    InferenceClient.logMetaInformation(response);
+
+    return response.body;
+  }
+
   private static logMetaInformation(response: {
     headers: http.IncomingHttpHeaders;
-    body: InferenceResponseBody;
+    body: InferenceResponseBody | VQAInferenceResponseBody;
   }) {
     if (response.headers['askui-usage-warnings'] !== undefined) {
       logger.warn(response.headers['askui-usage-warnings']);
@@ -151,5 +171,21 @@ export class InferenceClient {
       );
     }
     return inferenceResponse;
+  }
+
+  async predictVQAAnswer(
+    prompt: string,
+    image: string,
+    config?: object,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> {
+    const inferenceResponse = await this.vqaInference(image, prompt, config);
+    const { response } = inferenceResponse.data;
+    try {
+      return JSON.parse(response);
+    } catch (error) {
+      logger.warn(`Response is no valid JSON: ${response}`);
+    }
+    return response;
   }
 }

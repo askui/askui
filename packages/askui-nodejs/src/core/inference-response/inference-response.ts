@@ -7,6 +7,13 @@ export interface InferenceResponseBody {
   type: ModelType;
   data: ModelType extends 'COMMANDS' ? ControlCommand : Annotation;
 }
+
+export interface VQAInferenceResponseBody {
+  data: {
+    response: string;
+  };
+}
+
 export class InferenceResponse {
   static fromJson(
     json: InferenceResponseBody,

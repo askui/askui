@@ -228,6 +228,11 @@ export class UiControlClient extends ApiCommands {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async ask(prompt: string, config?: object): Promise<any> {
+    return this.executionRuntime.predictVQA(prompt, config);
+  }
+
   private secretText: string | undefined = undefined;
 
   private getAndResetSecretText(): string | undefined {

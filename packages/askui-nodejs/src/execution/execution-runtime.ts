@@ -212,4 +212,13 @@ export class ExecutionRuntime {
     }
     return this.inferenceClient.predictImageAnnotation(base64Image, customElements);
   }
+
+  async predictVQA(
+    prompt: string,
+    config?: object,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> {
+    const base64Image = await this.takeScreenshotIfImageisNotProvided();
+    return this.inferenceClient.predictVQAAnswer(prompt, base64Image, config);
+  }
 }
