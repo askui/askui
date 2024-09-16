@@ -37,7 +37,7 @@ export class InferenceClient {
     this.urls = {
       inference: urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
-      vqaInference: urljoin(url, 'vqa/inference'),
+      vqaInference: urljoin(url, 'vqa', 'inference'),
     };
     this.httpClient.urlsToRetry = Object.values(this.urls);
     if (this.resize !== undefined && this.resize <= 0) {
