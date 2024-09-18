@@ -228,6 +228,94 @@ export class UiControlClient extends ApiCommands {
     );
   }
 
+  /**
+   * Takes a prompt that contains a question you want to be answered
+   * or the data you want to have extracted from your screen.
+   *
+   * The optional 'config' can be used to specifiy the JSON structure the
+   * returned object shall have.
+   *
+   * See the following examples on how to use it:
+   *
+   * let isWidgetsNew =
+   *   await aui.ask(
+   *     "Does the sidebar element 'Widgets' have a 'NEW' tag?",
+   *     {
+   *       json_schema: {
+   *         "type": "boolean"
+   *       }
+   *     });
+   *
+   * Output of console.log(isWidgetsNew): true
+   *
+   * let newClients =
+   *   await aui.ask(
+   *     "How many new clients?",
+   *     {
+   *       json_schema: {
+   *         "type": "number"
+   *       }
+   *     });
+   *
+   * Output of console.log(newClients): 9123
+   *
+   * let userNames =
+   *   await aui.ask(
+   *     "Return a list with the users names.",
+   *     {
+   *       json_schema: {
+   *         "type": "array",
+   *         "items": {
+   *           "type": "string"
+   *         }
+   *       }
+   *     });
+   *
+   * Output of console.log(userNames):
+   * [
+   *   'Yiorgos Avraamu',
+   *   'Avram Tsarios',
+   *   'Quintin Ed',
+   *   'Enéas Kwadwo',
+   *   'Agapetus Tadeáš'
+   * ]
+   *
+   * let users =
+   *   await aui.ask(
+   *     "Extract the users from the table.",
+   *     {
+   *       json_schema: {
+   *         "type": "array",
+   *         "items": {
+   *           "type": "object",
+   *           "properties": {
+   *             "name": {
+   *               "type": "string"
+   *             },
+   *             "usage": {
+   *               "type": "number"
+   *             }
+   *           },
+   *           "additionalProperties": false,
+   *           "required": ["name", "usage"]
+   *         },
+   *       },
+   *     });
+   *
+   * Output of console.log(users):
+   * [
+   *   { name: 'Yiorgos Avraamu', usage: 50 },
+   *   { name: 'Avram Tarasios', usage: 10 },
+   *   { name: 'Quintin Ed', usage: 74 },
+   *   { name: 'Eneás Kwadwo', usage: 98 },
+   *   { name: 'Agapetus Tadeáš', usage: 22 }
+   * ]
+   *
+   * @param {string} prompt - The question you want to be answered or
+   *                          the data you want to have extracted.
+   * @param {Object} config - object that specifies the return json: {json_schema: {...}}.
+   * @returns {any} - The answer as JSON specified in the config object.
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async ask(prompt: string, config?: object): Promise<any> {
     return this.executionRuntime.predictVQA(prompt, config);
