@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.20.7](https://github.com/askui/askui/compare/v0.20.6...v0.20.7) (2024-08-05)
+
+
+### Features
+
+* adapt init command to the new installer: No credentials and AskUI Controller setup (#APD-86) ([ce7d660](https://github.com/askui/askui/commit/ce7d660450683c3ea6907ca131057369dfcf4a26)), closes [#APD-86](https://github.com/askui/askui/issues/APD-86)
+* add deprecation flag to UiController class (#APD-86) ([dbe577e](https://github.com/askui/askui/commit/dbe577e14cd918e69c8c4bc62b14ce70f79ef0b3)), closes [#APD-86](https://github.com/askui/askui/issues/APD-86)
+
 ## [0.20.6](https://github.com/askui/askui/compare/v0.20.5...v0.20.6) (2024-08-01)
 
 ### Bug Fixes
