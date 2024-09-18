@@ -232,8 +232,8 @@ export class UiControlClient extends ApiCommands {
    * Takes a prompt that contains a question you want to be answered
    * or the data you want to have extracted from your screen.
    *
-   * The optional 'config' can be used to specifiy the JSON structure the
-   * returned object shall have.
+   * The optional 'config' can be used to specifiy the JSON schema the
+   * returned object shall have (https://json-schema.org).
    *
    * See the following examples on how to use it:
    *
