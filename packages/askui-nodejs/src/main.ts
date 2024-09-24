@@ -1,3 +1,4 @@
+export { UiController } from './lib';
 export * from './execution';
 export {
   Instruction,
