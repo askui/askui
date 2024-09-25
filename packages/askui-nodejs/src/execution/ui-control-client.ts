@@ -349,7 +349,7 @@ export class UiControlClient extends ApiCommands {
    */
   override typeIn(text: string, { isSecret = false, secretMask = '****' }: { isSecret?: boolean; secretMask?: string; } = {}): FluentFilters {
     if (text.length === 0) {
-      throw new ValidationError('Empty string is not allowed. Typing of an empty string was rejected..');
+      throw new ValidationError('Empty string is not allowed. Typing of an empty string was rejected.');
     }
 
     if (isSecret) {
@@ -380,7 +380,7 @@ export class UiControlClient extends ApiCommands {
    */
   override type(text: string, { isSecret = false, secretMask = '****' }: { isSecret?: boolean; secretMask?: string; } = {}): Exec {
     if (text.length === 0) {
-      throw new ValidationError('Empty string is not allowed. Typing of an empty string was rejected..');
+      throw new ValidationError('Empty string is not allowed. Typing of an empty string was rejected.');
     }
 
     if (isSecret) {
