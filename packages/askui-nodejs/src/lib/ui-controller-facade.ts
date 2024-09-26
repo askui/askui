@@ -101,8 +101,8 @@ export abstract class UiControllerFacade {
           output: process?.env['LOG_LEVEL'] === 'verbose' ? 'dots' : 'silent',
           port: args.port,
           timeout: timeoutInMs,
-        }).then((open: boolean) => {
-          if (open) {
+        }).then((returnObject) => {
+          if (returnObject.open) {
             logger.info('The Control UI Server has been started.');
             return resolve();
           }
