@@ -56,7 +56,8 @@ export class UiControllerClient {
     clearTimeout(this.timeout as NodeJS.Timeout);
     const response: RunnerProtocolResponse = JSON.parse(data.toString());
     if (response.data.error) {
-      this.currentReject(response);
+      logger.error(response.data.error);
+      this.currentReject(new UiControllerClientError(response.data.error));
       this.clearResponse();
       return;
     }
