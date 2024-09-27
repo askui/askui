@@ -41,7 +41,7 @@
     },
     "devDependencies": {
         "@commitlint/cli": "19.0.3",
-        "@commitlint/config-conventional": "16.0.0",
+        "@commitlint/config-conventional": "19.5.0",
         "commitizen": "4.2.5",
         "cz-conventional-changelog": "3.3.0",
         "husky": "7.0.4",
