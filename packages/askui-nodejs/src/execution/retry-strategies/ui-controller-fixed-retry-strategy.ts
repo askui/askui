@@ -1,15 +1,27 @@
 import { RetryStrategy } from '../ui-controller-retry-strategy';
 
+/**
+ * FixedRetryStrategy implements a retry strategy that uses a constant delay for each retry attempt.
+ */
 export class FixedRetryStrategy implements RetryStrategy {
-  baseDelayMs: number;
+  baseDelayMs: number; // Base delay in milliseconds for each retry
 
-  retryCount: number;
+  retryCount: number; // Maximum number of retry attempts
 
+  /**
+   * @param baseDelayMs - The constant delay before each retry (default is 1000ms)
+   * @param retryCount - The maximum number of retries (default is 3)
+   */
   constructor(baseDelayMs = 1000, retryCount = 3) {
     this.baseDelayMs = baseDelayMs;
     this.retryCount = retryCount;
   }
 
+  /**
+   * Returns the fixed delay for each retry attempt.
+   * @param _attempt - The current retry attempt number (not used in this strategy)
+   * @returns The fixed delay in milliseconds for the current attempt
+   */
   getDelay(_attempt: number): number {
     return this.baseDelayMs;
   }
