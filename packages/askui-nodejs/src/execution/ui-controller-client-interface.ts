@@ -3,6 +3,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
 import { Context } from './context';
+import { RetryStrategy } from './ui-controller-retry-strategy';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
@@ -56,6 +57,7 @@ export interface ClientArgs {
   readonly reporter?: Reporter | Reporter[] | undefined
   readonly context?: ContextArgs | undefined
   readonly inferenceServerApiVersion?: string
+  readonly retryStrategy?: RetryStrategy
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
@@ -63,4 +65,5 @@ export interface ClientArgsWithDefaults extends ClientArgs {
   readonly inferenceServerUrl: string
   readonly context: Context
   readonly inferenceServerApiVersion: string
+  readonly retryStrategy?: RetryStrategy
 }
