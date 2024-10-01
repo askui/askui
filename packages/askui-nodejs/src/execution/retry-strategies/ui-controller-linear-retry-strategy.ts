@@ -1,4 +1,4 @@
-import { RetryStrategy } from '../ui-controller-retry-strategy';
+import { RetryStrategy } from '../retry-strategy';
 
 /**
  * LinearRetryStrategy implements a retry strategy that uses a linear backoff algorithm.

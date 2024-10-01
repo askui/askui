@@ -1,4 +1,4 @@
-import { RetryStrategy } from '../ui-controller-retry-strategy';
+import { RetryStrategy } from '../retry-strategy';
 
 /**
  * ExponentialRetryStrategy implements a retry strategy that uses an exponential backoff algorithm.

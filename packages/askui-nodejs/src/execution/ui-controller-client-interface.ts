@@ -3,7 +3,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
 import { Context } from './context';
-import { RetryStrategy } from './ui-controller-retry-strategy';
+import { RetryStrategy } from './retry-strategy';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
