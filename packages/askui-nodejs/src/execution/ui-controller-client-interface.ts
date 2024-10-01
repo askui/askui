@@ -3,6 +3,7 @@ import { ProxyAgentArgs } from '../shared/proxy-agent-args';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
 import { Context } from './context';
+import { RetryStrategy } from './retry-strategies/retry-strategy';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
@@ -45,6 +46,9 @@ export interface ContextArgs {
  * @property {(Context | undefined)} [context] - Optional. Context object to provide additional
  *    information about the context of (test) automation, e.g., to allow for optimizations based on
  *    the environment, e.g., CI/CD.
+ * @property {(RetryStrategy | undefined)} [retryStrategy] - Default: `new LinearRetryStrategy()`.
+ *    Strategy for retrying failed requests to the inference server. This can help manage transient
+ *    errors or network issues, improving the reliability of interactions with the server.
  */
 export interface ClientArgs {
   readonly uiControllerUrl?: string
@@ -56,6 +60,7 @@ export interface ClientArgs {
   readonly reporter?: Reporter | Reporter[] | undefined
   readonly context?: ContextArgs | undefined
   readonly inferenceServerApiVersion?: string
+  readonly retryStrategy?: RetryStrategy
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
@@ -63,4 +68,5 @@ export interface ClientArgsWithDefaults extends ClientArgs {
   readonly inferenceServerUrl: string
   readonly context: Context
   readonly inferenceServerApiVersion: string
+  readonly retryStrategy?: RetryStrategy
 }

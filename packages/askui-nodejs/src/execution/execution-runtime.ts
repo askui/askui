@@ -12,12 +12,14 @@ import { Base64Image } from '../utils/base_64_image/base-64-image';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { Instruction, Snapshot, StepReporter } from '../core/reporting';
+import { RetryStrategy } from './retry-strategies/retry-strategy';
 
 export class ExecutionRuntime {
   constructor(
     private uiControllerClient: UiControllerClient,
     private inferenceClient: InferenceClient,
     private stepReporter: StepReporter,
+    private retryStrategy: RetryStrategy,
   ) { }
 
   async connect(): Promise<UiControllerClientConnectionState> {
@@ -88,8 +90,6 @@ export class ExecutionRuntime {
     /* eslint-enable no-await-in-loop */
   }
 
-  private readonly PREDICT_COMMAND_RETRY_COUNT = 2;
-
   /**
    * Command prediction may fail, e.g., due to application still loading
    * --> retry with linear back-off
@@ -98,11 +98,11 @@ export class ExecutionRuntime {
   private async predictCommandWithRetry(instruction: Instruction): Promise<ControlCommand> {
     let command = await this.predictCommand(instruction);
     /* eslint-disable no-await-in-loop */
-    for (let k = 0; k < this.PREDICT_COMMAND_RETRY_COUNT; k += 1) {
+    for (let k = 0; k < this.retryStrategy.retryCount; k += 1) {
       if (command.code === ControlCommandCode.OK) {
         return command;
       }
-      const msUntilRetry = k * 1000;
+      const msUntilRetry = this.retryStrategy.getDelay(k + 1);
       logger.debug(`Wait ${msUntilRetry} and retry predicting command...`);
       await delay(msUntilRetry);
       command = await this.predictCommand(instruction, new ControlCommandError(command.actions?.[0]?.text ?? ''));
