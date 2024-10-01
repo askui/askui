@@ -4,11 +4,13 @@
 export interface RetryStrategy {
   /**
    * The base delay in milliseconds before the first retry.
+   * @default 1000
    */
   baseDelayMs: number;
 
   /**
    * The maximum number of retry attempts.
+   * @default 3
    */
   retryCount: number;
 
