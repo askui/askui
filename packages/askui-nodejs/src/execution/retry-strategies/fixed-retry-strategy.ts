@@ -1,4 +1,4 @@
-import { RetryStrategy } from '../retry-strategy';
+import { RetryStrategy } from './retry-strategy';
 
 /**
  * FixedRetryStrategy implements a retry strategy that uses a constant delay for each retry attempt.

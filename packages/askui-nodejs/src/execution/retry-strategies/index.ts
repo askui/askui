@@ -1,3 +1,4 @@
-export * from './ui-controller-exponential-retry-strategy';
-export * from './ui-controller-linear-retry-strategy';
-export * from './ui-controller-fixed-retry-strategy';
+export * from './exponential-retry-strategy';
+export * from './linear-retry-strategy';
+export * from './fixed-retry-strategy';
+export * from './retry-strategy';

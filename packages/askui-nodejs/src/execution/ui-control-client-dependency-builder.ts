@@ -11,7 +11,7 @@ import { envProxyAgents } from '../utils/proxy/proxy-builder';
 import { ExecutionRuntime } from './execution-runtime';
 import { StepReporter } from '../core/reporting';
 import { readCredentials } from './read-credentials';
-import { LinearRetryStrategy } from './retry-strategies/ui-controller-linear-retry-strategy';
+import { LinearRetryStrategy } from './retry-strategies/linear-retry-strategy';
 
 export class UiControlClientDependencyBuilder {
   private static async buildHttpClient(

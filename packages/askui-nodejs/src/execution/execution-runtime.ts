@@ -12,7 +12,7 @@ import { Base64Image } from '../utils/base_64_image/base-64-image';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { Instruction, Snapshot, StepReporter } from '../core/reporting';
-import { RetryStrategy } from './retry-strategy';
+import { RetryStrategy } from './retry-strategies/retry-strategy';
 
 export class ExecutionRuntime {
   constructor(
