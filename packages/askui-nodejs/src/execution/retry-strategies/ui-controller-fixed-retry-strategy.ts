@@ -4,9 +4,9 @@ import { RetryStrategy } from '../ui-controller-retry-strategy';
  * FixedRetryStrategy implements a retry strategy that uses a constant delay for each retry attempt.
  */
 export class FixedRetryStrategy implements RetryStrategy {
-  baseDelayMs: number; // Base delay in milliseconds for each retry
+  baseDelayMs: number;
 
-  retryCount: number; // Maximum number of retry attempts
+  retryCount: number;
 
   /**
    * @param baseDelayMs - The constant delay before each retry (default is 1000ms)

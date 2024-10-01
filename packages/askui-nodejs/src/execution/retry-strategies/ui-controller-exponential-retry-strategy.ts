@@ -4,9 +4,9 @@ import { RetryStrategy } from '../ui-controller-retry-strategy';
  * ExponentialRetryStrategy implements a retry strategy that uses an exponential backoff algorithm.
  */
 export class ExponentialRetryStrategy implements RetryStrategy {
-  baseDelayMs: number; // Base delay in milliseconds for the first retry
+  baseDelayMs: number;
 
-  retryCount: number; // Maximum number of retry attempts
+  retryCount: number;
 
   /**
    * @param baseDelayMs - The initial delay before the first retry (default is 1000ms)

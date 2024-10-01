@@ -4,9 +4,9 @@ import { RetryStrategy } from '../ui-controller-retry-strategy';
  * LinearRetryStrategy implements a retry strategy that uses a linear backoff algorithm.
  */
 export class LinearRetryStrategy implements RetryStrategy {
-  baseDelayMs: number; // Base delay in milliseconds for each retry
+  baseDelayMs: number;
 
-  retryCount: number; // Maximum number of retry attempts
+  retryCount: number;
 
   /**
    * @param baseDelayMs - The initial delay before the first retry (default is 1000ms)
