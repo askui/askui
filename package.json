@@ -48,7 +48,7 @@
         "is-ci": "3.0.1",
         "jira-prepare-commit-msg": "1.6.2",
         "pinst": "2.1.6",
-        "zx": "7.2.3"
+        "zx": "8.1.9"
     },
     "jira-prepare-commit-msg": {
         "isConventionalCommit": true,
