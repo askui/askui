@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.8](https://github.com/askui/askui/compare/v0.20.7...v0.20.8) (2024-09-18)
+
+
+### Features
+
+* add ask command (#CL-897) ([5a1b881](https://github.com/askui/askui/commit/5a1b8819dd4f1893338c4da46108149d84a2faac)), closes [#CL-897](https://github.com/askui/askui/issues/CL-897)
+
 ## [0.20.7](https://github.com/askui/askui/compare/v0.20.6...v0.20.7) (2024-08-05)
 
 
