@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.10](https://github.com/askui/askui/compare/v0.20.9...v0.20.10) (2024-10-17)
+
+
+### Bug Fixes
+
+* escape text strings in askui code in annotation ([230ef94](https://github.com/askui/askui/commit/230ef9435f792546000c6874ef2073678047fb95))
+
 ## [0.20.8](https://github.com/askui/askui/compare/v0.20.7...v0.20.8) (2024-09-18)
 
 
