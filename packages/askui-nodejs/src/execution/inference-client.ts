@@ -73,6 +73,7 @@ export class InferenceClient {
     customElements: CustomElement[] = [],
     image?: string,
     instruction?: string,
+    modelComposition: ModelCompositionBranch[] = [],
   ): Promise<ControlCommand | Annotation> {
     const resizedImage = await this.resizeIfNeeded(customElements, image);
     const response = await this.httpClient.post<InferenceResponseBody>(
@@ -86,7 +87,7 @@ export class InferenceClient {
           customElements,
           image: resizedImage.base64Image,
           instruction,
-          modelComposition: this.modelComposition,
+          modelComposition: modelComposition.length > 0 ? modelComposition : this.modelComposition,
         },
     );
     InferenceClient.logMetaInformation(response);
@@ -126,6 +127,7 @@ export class InferenceClient {
 
   async predictControlCommand(
     instruction: string,
+    modelComposition: ModelCompositionBranch[],
     customElements: CustomElement[] = [],
     image?: string,
   ): Promise<ControlCommand> {
@@ -133,6 +135,7 @@ export class InferenceClient {
       customElements,
       image,
       instruction,
+      modelComposition,
     );
     if (!(inferenceResponse instanceof ControlCommand)) {
       throw new InferenceResponseError(

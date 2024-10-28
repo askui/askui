@@ -7,6 +7,7 @@
 // TODO: Split this in multiple files
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 function isStackTraceCodeline(line: string): boolean {
   return /[ \t]+at .+/.test(line);
@@ -76,6 +77,7 @@ abstract class FluentBase {
   }
 
   protected fluentCommandStringBuilder(
+    modelComposition: ModelCompositionBranch[],
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<void> {
@@ -87,6 +89,7 @@ abstract class FluentBase {
       const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
+        modelComposition,
         {
           customElementsJson: customElements,
           aiElementNames,
@@ -97,6 +100,7 @@ abstract class FluentBase {
       throw new Error('Prev element not defined');
     }
     return this.prev.fluentCommandStringBuilder(
+      modelComposition,
       newCurrentInstruction,
       newParamsList,
     );
@@ -139,10 +143,10 @@ export interface Executable {
 }
 
 export class Exec extends FluentBase implements Executable {
-  exec(): Promise<void> {
+  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -1280,10 +1284,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
     return new FluentFilters(this);
   }
 
-  exec(): Promise<void> {
+  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -3233,7 +3237,8 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
-    context: CommandExecutorContext,
+    modelComposition: ModelCompositionBranch[],
+    context: CommandExecutorContext
   ): Promise<void>;
 }
 

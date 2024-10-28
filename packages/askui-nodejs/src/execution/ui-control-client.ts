@@ -23,6 +23,7 @@ import { ClientArgs } from './ui-controller-client-interface';
 import { UiControlClientDependencyBuilder } from './ui-control-client-dependency-builder';
 import { Instruction, StepReporter } from '../core/reporting';
 import { AIElementCollection } from '../core/ai-element/ai-element-collection';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -184,6 +185,7 @@ export class UiControlClient extends ApiCommands {
 
   async fluentCommandExecutor(
     instructionString: string,
+    modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
   ): Promise<void> {
     const aiElements = await this.getAIElementsByNames(context.aiElementNames);
@@ -197,7 +199,7 @@ export class UiControlClient extends ApiCommands {
     logger.debug(instruction);
     try {
       await this.stepReporter.resetStep(instruction);
-      await this.executionRuntime.executeInstruction(instruction);
+      await this.executionRuntime.executeInstruction(instruction, modelComposition);
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {
