@@ -13,6 +13,7 @@ import { DetectedElement } from '../core/model/annotation-result/detected-elemen
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { Instruction, Snapshot, StepReporter } from '../core/reporting';
 import { RetryStrategy } from './retry-strategies/retry-strategy';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 export class ExecutionRuntime {
   constructor(
@@ -49,15 +50,18 @@ export class ExecutionRuntime {
     await this.uiControllerClient.requestControl(controlCommand);
   }
 
-  async executeInstruction(instruction: Instruction): Promise<void> {
-    const controlCommand = await this.predictCommandWithRetry(instruction);
+  async executeInstruction(
+    instruction: Instruction,
+    modelComposition: ModelCompositionBranch[],
+  ): Promise<void> {
+    const controlCommand = await this.predictCommandWithRetry(instruction, modelComposition);
     if (controlCommand.code === ControlCommandCode.OK) {
       return this.requestControl(controlCommand);
     }
 
     if (controlCommand.tryToRepeat) {
       await this.requestControl(controlCommand);
-      return this.executeCommandRepeatedly(instruction);
+      return this.executeCommandRepeatedly(instruction, modelComposition);
     }
 
     throw new ControlCommandError(controlCommand.actions?.[0]?.text ?? '');
@@ -65,7 +69,10 @@ export class ExecutionRuntime {
 
   private readonly EXEC_REPETITION_COUNT = 25;
 
-  private async executeCommandRepeatedly(instruction: Instruction): Promise<void> {
+  private async executeCommandRepeatedly(
+    instruction: Instruction,
+    modelComposition: ModelCompositionBranch[],
+  ): Promise<void> {
     /* eslint-disable no-await-in-loop */
     for (let repeatCount = this.EXEC_REPETITION_COUNT; repeatCount >= 0; repeatCount -= 1) {
       if (repeatCount === 0) {
@@ -76,7 +83,7 @@ export class ExecutionRuntime {
       }
 
       logger.debug('Repeat command execution....');
-      const controlCommand = await this.predictCommandWithRetry(instruction);
+      const controlCommand = await this.predictCommandWithRetry(instruction, modelComposition);
       if (controlCommand.code === ControlCommandCode.OK) {
         break;
       }
@@ -95,8 +102,11 @@ export class ExecutionRuntime {
    * --> retry with linear back-off
    */
   /* eslint-disable-next-line consistent-return */
-  private async predictCommandWithRetry(instruction: Instruction): Promise<ControlCommand> {
-    let command = await this.predictCommand(instruction);
+  private async predictCommandWithRetry(
+    instruction: Instruction,
+    modelComposition: ModelCompositionBranch[],
+  ): Promise<ControlCommand> {
+    let command = await this.predictCommand(instruction, modelComposition);
     /* eslint-disable no-await-in-loop */
     for (let k = 0; k < this.retryStrategy.retryCount; k += 1) {
       if (command.code === ControlCommandCode.OK) {
@@ -105,7 +115,7 @@ export class ExecutionRuntime {
       const msUntilRetry = this.retryStrategy.getDelay(k + 1);
       logger.debug(`Wait ${msUntilRetry} and retry predicting command...`);
       await delay(msUntilRetry);
-      command = await this.predictCommand(instruction, new ControlCommandError(command.actions?.[0]?.text ?? ''));
+      command = await this.predictCommand(instruction, modelComposition, new ControlCommandError(command.actions?.[0]?.text ?? ''));
     }
     /* eslint-enable no-await-in-loop */
     return command;
@@ -146,6 +156,7 @@ export class ExecutionRuntime {
 
   private async predictCommand(
     instruction: Instruction,
+    modelComposition: ModelCompositionBranch[],
     retryError?: Error,
   ): Promise<ControlCommand> {
     const snapshot = await this.buildSnapshot(instruction.value);
@@ -153,6 +164,7 @@ export class ExecutionRuntime {
     else this.stepReporter.onStepBegin(snapshot);
     const controlCommand = await this.inferenceClient.predictControlCommand(
       instruction.value,
+      modelComposition,
       instruction.customElements,
       snapshot.screenshot,
     );

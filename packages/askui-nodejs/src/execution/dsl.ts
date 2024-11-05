@@ -7,6 +7,7 @@
 // TODO: Split this in multiple files
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 function isStackTraceCodeline(line: string): boolean {
   return /[ \t]+at .+/.test(line);
@@ -76,6 +77,7 @@ abstract class FluentBase {
   }
 
   protected fluentCommandStringBuilder(
+    modelComposition: ModelCompositionBranch[],
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<void> {
@@ -87,6 +89,7 @@ abstract class FluentBase {
       const aiElementNames = newParamsList.has('aiElementName') ? newParamsList.get('aiElementName') as string[] : [];
       return fluentCommand.fluentCommandExecutor(
         newCurrentInstruction.trim(),
+        modelComposition,
         {
           customElementsJson: customElements,
           aiElementNames,
@@ -97,6 +100,7 @@ abstract class FluentBase {
       throw new Error('Prev element not defined');
     }
     return this.prev.fluentCommandStringBuilder(
+      modelComposition,
       newCurrentInstruction,
       newParamsList,
     );
@@ -139,16 +143,29 @@ export interface Executable {
 }
 
 export class Exec extends FluentBase implements Executable {
-  exec(): Promise<void> {
+  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
 // Filters
 
 export class FluentFilters extends FluentBase {
+  /**
+   * Filters for a UI element 'pta'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  pta(): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'pta';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
   /**
    * Filters for a UI element 'other element'.
    *
@@ -376,6 +393,34 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * Filters for an UI element 'wordlevel'.
+   *
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.fluentCommandExecutor('Click on button right of wordlevel 'User_PRG in:'');
+   * ```
+   *
+   * @param {string} [wordlevel] - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  wordlevel(
+    wordlevel?: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'wordlevel';
+    if (wordlevel !== undefined) {
+      this._textStr += ` ${Separators.STRING}${wordlevel}${Separators.STRING}`;
+    }
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
    * Filters for a UI element 'icon'.
    *
    * You can combine it with the element-description 'withText()' to look for a specific icon.
@@ -453,7 +498,7 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Element%20Selection/aielement#snipping-workflow).
    *
    * **Examples:**
    *
@@ -677,6 +722,24 @@ export class FluentFilters extends FluentBase {
 
     this._textStr += 'contain';
     this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
+   * Filters for PTA locating the text provided as an argument.
+   *
+   * @param {string} text - A text to be located.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  ptaText(
+    text: string,
+  ): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'pta';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
@@ -1280,16 +1343,29 @@ export class FluentFiltersOrRelations extends FluentFilters {
     return new FluentFilters(this);
   }
 
-  exec(): Promise<void> {
+  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder().catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
 // Filters
 
 export class FluentFiltersCondition extends FluentBase {
+  /**
+   * Filters for a UI element 'pta'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  pta(): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'pta';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
   /**
    * Filters for a UI element 'other element'.
    *
@@ -1517,6 +1593,34 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
+   * Filters for an UI element 'wordlevel'.
+   *
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.fluentCommandExecutor('Click on button right of wordlevel 'User_PRG in:'');
+   * ```
+   *
+   * @param {string} [wordlevel] - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  wordlevel(
+    wordlevel?: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'wordlevel';
+    if (wordlevel !== undefined) {
+      this._textStr += ` ${Separators.STRING}${wordlevel}${Separators.STRING}`;
+    }
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
    * Filters for a UI element 'icon'.
    *
    * You can combine it with the element-description 'withText()' to look for a specific icon.
@@ -1594,7 +1698,7 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Element%20Selection/aielement#snipping-workflow).
    *
    * **Examples:**
    *
@@ -1818,6 +1922,24 @@ export class FluentFiltersCondition extends FluentBase {
 
     this._textStr += 'contain';
     this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters for PTA locating the text provided as an argument.
+   *
+   * @param {string} text - A text to be located.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  ptaText(
+    text: string,
+  ): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'pta';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
@@ -3233,6 +3355,7 @@ export abstract class FluentCommand extends FluentBase {
 
   abstract fluentCommandExecutor(
     instruction: string,
+    modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext,
   ): Promise<void>;
 }
@@ -3250,6 +3373,19 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
 // Filters
 
 export class FluentFiltersGetter extends FluentBase {
+  /**
+   * Filters for a UI element 'pta'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  pta(): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'pta';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
   /**
    * Filters for a UI element 'other element'.
    *
@@ -3477,6 +3613,34 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
+   * Filters for an UI element 'wordlevel'.
+   *
+   * Takes an optional parameter to filter for a specific text.
+   * See the examples below.
+   *
+   * **Examples:**
+   * ```typescript
+   * await aui.fluentCommandExecutor('Click on button right of wordlevel 'User_PRG in:'');
+   * ```
+   *
+   * @param {string} [wordlevel] - A text to be matched.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  wordlevel(
+    wordlevel?: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'wordlevel';
+    if (wordlevel !== undefined) {
+      this._textStr += ` ${Separators.STRING}${wordlevel}${Separators.STRING}`;
+    }
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
    * Filters for a UI element 'icon'.
    *
    * You can combine it with the element-description 'withText()' to look for a specific icon.
@@ -3554,7 +3718,7 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Components/aielement#snipping-workflow).
+   * Detects an AI Element created with the [snipping workflow](https://docs.askui.com/docs/general/Element%20Selection/aielement#snipping-workflow).
    *
    * **Examples:**
    *
@@ -3778,6 +3942,24 @@ export class FluentFiltersGetter extends FluentBase {
 
     this._textStr += 'contain';
     this._textStr += ' text';
+    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for PTA locating the text provided as an argument.
+   *
+   * @param {string} text - A text to be located.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  ptaText(
+    text: string,
+  ): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'pta';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);

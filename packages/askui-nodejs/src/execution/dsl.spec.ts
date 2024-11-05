@@ -1,9 +1,11 @@
 import { CommandExecutorContext, FluentCommand } from './dsl';
+import { ModelCompositionBranch } from './model-composition-branch';
 
 class TestCommand extends FluentCommand {
   // eslint-disable-next-line class-methods-use-this
   async fluentCommandExecutor(
     _instruction: string,
+    _modelComposition: ModelCompositionBranch[],
     _context: CommandExecutorContext,
   ): Promise<void> {
     return Promise.resolve();
@@ -17,7 +19,7 @@ describe('DSL', () => {
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().button().exec();
-      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', { aiElementNames: [], customElementsJson: [] });
+      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', [], { aiElementNames: [], customElementsJson: [] });
     });
 
     test('should call exec function with one custom element', async () => {
@@ -36,6 +38,7 @@ describe('DSL', () => {
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on custom element button',
+        [],
         {
           aiElementNames: [],
           customElementsJson: [
@@ -72,6 +75,7 @@ describe('DSL', () => {
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on custom element button custom element',
+        [],
         {
           aiElementNames: [],
           customElementsJson: [
@@ -110,6 +114,7 @@ describe('DSL', () => {
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on ai element with name <|string|>ai element<|string|> index 0 below intersection_area element_edge_area button index 0 right of intersection_area element_edge_area custom element',
+        [],
         {
           aiElementNames: ['ai element'],
           customElementsJson: [
@@ -137,6 +142,7 @@ describe('DSL', () => {
         .exec();
       expect(testCommandSpy).toHaveBeenCalledWith(
         'Click on ai element with name <|string|>ai element<|string|> index 0 below intersection_area element_edge_area button index 0 right of intersection_area element_edge_area ai element with name <|string|>ai element 2<|string|>',
+        [],
         {
           aiElementNames: ['ai element', 'ai element 2'],
           customElementsJson: [],
