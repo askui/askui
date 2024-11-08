@@ -154,19 +154,6 @@ export class Exec extends FluentBase implements Executable {
 
 export class FluentFilters extends FluentBase {
   /**
-   * Filters for a UI element 'pta'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  pta(): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'pta';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
    * Filters for a UI element 'other element'.
    *
    * @return {FluentFiltersOrRelations}
@@ -734,7 +721,7 @@ export class FluentFilters extends FluentBase {
    *
    * @return {FluentFiltersOrRelations}
    */
-  ptaText(
+  pta(
     text: string,
   ): FluentFiltersOrRelations {
     this._textStr = '';
@@ -1354,19 +1341,6 @@ export class FluentFiltersOrRelations extends FluentFilters {
 
 export class FluentFiltersCondition extends FluentBase {
   /**
-   * Filters for a UI element 'pta'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  pta(): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'pta';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
    * Filters for a UI element 'other element'.
    *
    * @return {FluentFiltersOrRelationsCondition}
@@ -1934,7 +1908,7 @@ export class FluentFiltersCondition extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsCondition}
    */
-  ptaText(
+  pta(
     text: string,
   ): FluentFiltersOrRelationsCondition {
     this._textStr = '';
@@ -3374,19 +3348,6 @@ export class ExecGetter extends FluentBase implements ExecutableGetter {
 
 export class FluentFiltersGetter extends FluentBase {
   /**
-   * Filters for a UI element 'pta'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  pta(): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'pta';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
    * Filters for a UI element 'other element'.
    *
    * @return {FluentFiltersOrRelationsGetter}
@@ -3954,7 +3915,7 @@ export class FluentFiltersGetter extends FluentBase {
    *
    * @return {FluentFiltersOrRelationsGetter}
    */
-  ptaText(
+  pta(
     text: string,
   ): FluentFiltersOrRelationsGetter {
     this._textStr = '';
