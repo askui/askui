@@ -120,6 +120,9 @@ export class UiControllerClient {
       this.currentReject = reject;
       try {
         this.send(msg, requestTimeout);
+        if (this.timeout) {
+          throw new UiControllerClientError(`Clear the current request before setting a new one. Check for missing await. Error: ${JSON.stringify(msg)}`);
+        }
         this.timeout = setTimeout(
           () => this.currentReject(
             new UiControllerClientError(
