@@ -113,7 +113,7 @@ export class UiControllerClient {
     requestTimeout = UiControllerClient.REQUEST_TIMEOUT_IN_MS,
   ): Promise<T> {
     this.checkConnection();
-    return new Promise((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       this.currentResolve = resolve;
       this.currentReject = reject;
       try {
@@ -133,6 +133,9 @@ export class UiControllerClient {
           ),
         );
       }
+    }).finally(() => {
+      this.clearResponse();
+      clearTimeout(this.timeout as NodeJS.Timeout);
     });
   }
 
