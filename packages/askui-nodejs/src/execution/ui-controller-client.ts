@@ -115,7 +115,7 @@ export class UiControllerClient {
   ): Promise<T> {
     this.checkConnection();
     return new Promise((resolve, reject) => {
-      logger.debug('sendAndReceive');
+      logger.debug(`sendAndReceive - ${JSON.stringify(msg)}`);
       this.currentResolve = resolve;
       this.currentReject = reject;
       try {
