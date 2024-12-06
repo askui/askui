@@ -53,6 +53,7 @@ export class UiControllerClient {
   }
 
   private onMessage(data: WebSocket.Data) {
+    logger.debug('onMessage');
     clearTimeout(this.timeout as NodeJS.Timeout);
     const response: RunnerProtocolResponse = JSON.parse(data.toString());
     if (response.data.error) {
@@ -114,6 +115,7 @@ export class UiControllerClient {
   ): Promise<T> {
     this.checkConnection();
     return new Promise((resolve, reject) => {
+      logger.debug('sendAndReceive');
       this.currentResolve = resolve;
       this.currentReject = reject;
       try {
