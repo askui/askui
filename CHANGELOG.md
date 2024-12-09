@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.2](https://github.com/askui/askui/compare/v0.21.1...v0.21.2) (2024-12-09)
+
+
+### Bug Fixes
+
+* clear dangling timeout ref ([#839](https://github.com/askui/askui/issues/839)) ([12de0f2](https://github.com/askui/askui/commit/12de0f27335b03fb02d070a244bfaff2dc244a44))
+
 ## [0.21.1](https://github.com/askui/askui/compare/v0.21.0...v0.21.1) (2024-12-9)
 ### Bug Fixes
 * add debug logging for sending and receiving to detect race conditions (https://github.com/askui/askui/pull/837)
