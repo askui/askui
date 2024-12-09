@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.21.1](https://github.com/askui/askui/compare/v0.21.0...v0.21.1) (2024-12-9)
+### Bug Fixes
+* add debug logging for sending and receiving to detect race conditions (https://github.com/askui/askui/pull/837)
+
 ## [0.20.10](https://github.com/askui/askui/compare/v0.20.9...v0.20.10) (2024-10-17)
 
 
