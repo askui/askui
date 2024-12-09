@@ -36,7 +36,7 @@ export class UiControllerClient {
 
   connectionState = UiControllerClientConnectionState.NOT_CONNECTED;
 
-  private timeout?: NodeJS.Timeout;
+  private timeout?: NodeJS.Timeout | undefined;
 
   private currentReject: (reason?: unknown) => void = UiControllerClient.EMPTY_REJECT;
 
@@ -55,6 +55,7 @@ export class UiControllerClient {
   private onMessage(data: WebSocket.Data) {
     logger.debug('onMessage');
     clearTimeout(this.timeout as NodeJS.Timeout);
+    this.timeout = undefined;
     const response: RunnerProtocolResponse = JSON.parse(data.toString());
     if (response.data.error) {
       logger.error(response.data.error);
