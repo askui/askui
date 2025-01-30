@@ -27,7 +27,7 @@ import { ModelCompositionBranch } from './model-composition-branch';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
-export type ElementExistsQueryType = 'otherElement' | 'switch' | 'element' | 'container' | 'checkbox' | 'element' | 'button' | 'table' | 'text' | 'icon' | 'image' | 'textfield';
+export type ElementExistsQueryType = 'otherElement' | 'switch' | 'element' | 'container' | 'checkbox' | 'element' | 'button' | 'text' | 'icon' | 'image' | 'textfield';
 export interface ElementExistsQueryText {
   value: string;
   matching?: TextMatchingOption;
@@ -483,7 +483,8 @@ export class UiControlClient extends ApiCommands {
    * @param {string} description
    */
   async clickIcon(description: string) {
-    await this.click().icon().matching(description).exec();
+    await this.click().icon().contains().text(description)
+      .exec();
   }
 
   /**
