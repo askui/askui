@@ -5,6 +5,7 @@ import { AIElement, AIElementJson } from './ai-element';
 import { CustomElementJson } from '../model/custom-element-json';
 import { logger } from '../../lib';
 import { AIElementError } from './ai-element-error';
+import { AIElementOptions } from './ai-elements-options';
 
 export class AIElementCollection {
   static AI_ELEMENT_FOLDER = path.join(
@@ -14,14 +15,13 @@ export class AIElementCollection {
     'AIElement',
   );
 
-  constructor(private elements: AIElement[]) {}
+  constructor(private elements: AIElement[]) { }
 
-  static async collectForWorkspaceId(
+  static async collectAIElements(
     workspaceId: string | undefined,
+    aiElementOptions: AIElementOptions,
   ): Promise<AIElementCollection> {
-    logger.debug(`Collecting AIElements for workspace '${workspaceId}' ...`);
-
-    if (workspaceId === undefined) {
+    if (!workspaceId) {
       throw new AIElementError("Value of 'workspaceId' must be defined.");
     }
 
@@ -30,42 +30,37 @@ export class AIElementCollection {
       workspaceId,
     );
 
-    if (!(await fs.pathExists(workspaceAIElementFolder))) {
-      throw new AIElementError(
-        `Missing AIElement folder for workspace '${workspaceId}' at '${workspaceAIElementFolder}'.`,
-      );
-    }
+    const sourceDirectories = [
+      workspaceAIElementFolder,
+      ...aiElementOptions.sourceDirectories.map((userPath) => path.resolve(userPath)),
+    ];
 
-    const files = await fs.readdir(workspaceAIElementFolder);
+    const aiElements: AIElement[] = [];
 
-    if (files.length === 0) {
-      throw new AIElementError(
-        `'${workspaceAIElementFolder}' is empty. No AIElement files found for workspace '${workspaceId}'.`,
-      );
-    }
-
-    const aiElements = await Promise.all(files
-      .filter((file) => path.extname(file) === '.json')
-      .map(async (file) => {
-        const jsonFile = path.join(workspaceAIElementFolder, file);
-        const baseName = path.basename(jsonFile, '.json');
-        const pngFile = path.join(workspaceAIElementFolder, `${baseName}.png`);
-        if (await fs.pathExists(pngFile)) {
-          const metadata: AIElementJson = JSON.parse(await fs.readFile(jsonFile, 'utf-8'));
-          return AIElement.fromJson(metadata, pngFile);
+    await Promise.all(
+      sourceDirectories.map(async (absoluteDirectoryName) => {
+        if (await fs.pathExists(absoluteDirectoryName)) {
+          aiElements.push(
+            ...AIElementCollection.CollectAiElementsFromDirectory(absoluteDirectoryName),
+          );
+        } else {
+          const errorMessage = `AIElements source directory '${absoluteDirectoryName}' does not exist.`;
+          if (aiElementOptions.notFoundAction === 'Warn') {
+            logger.warn(errorMessage);
+          } else if (aiElementOptions.notFoundAction === 'Error') {
+            throw new AIElementError(errorMessage);
+          }
         }
-        return null;
-      }));
+      }),
+    );
 
-    const validAIElements = aiElements.filter((element): element is AIElement => element !== null);
-
-    if (validAIElements.length === 0) {
-      throw new AIElementError(
-        `No AIElement files found for workspace '${workspaceId}' at '${workspaceAIElementFolder}'.`,
-      );
+    if (aiElements.length === 0) {
+      const formattedPaths = sourceDirectories.map((dir) => `"${dir}"`).join(', ');
+      const errorMessage = `No AIElements found in the following director${sourceDirectories.length > 1 ? 'ies' : 'y'}: [${formattedPaths}].`;
+      throw new AIElementError(errorMessage);
     }
 
-    return new AIElementCollection(validAIElements);
+    return new AIElementCollection(aiElements);
   }
 
   getByName(name: string): CustomElementJson[] {
@@ -88,5 +83,32 @@ export class AIElementCollection {
       return [];
     }
     return names.flatMap((name) => this.getByName(name));
+  }
+
+  private static CollectAiElementsFromDirectory(directory: string): AIElement[] {
+    const files = fs.readdirSync(directory);
+    if (files.length === 0) {
+      return [];
+    }
+    const aiElements = files
+      .filter((file) => path.extname(file) === '.json')
+      .map((file) => {
+        const jsonFile = path.join(directory, file);
+        const baseName = path.basename(jsonFile, '.json');
+        const pngFile = path.join(directory, `${baseName}.png`);
+        if (fs.existsSync(pngFile)) {
+          const metadata: AIElementJson = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
+          return AIElement.fromJson(metadata, pngFile);
+        }
+        return null;
+      });
+
+    const ValidAIElements = aiElements.filter((element): element is AIElement => element !== null);
+
+    if (ValidAIElements.length === 0) {
+      logger.debug(`No valid AIElements found in directory '${directory}'.`);
+    }
+
+    return ValidAIElements;
   }
 }
