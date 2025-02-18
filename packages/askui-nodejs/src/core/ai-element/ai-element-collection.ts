@@ -103,12 +103,12 @@ export class AIElementCollection {
         return null;
       });
 
-    const ValidAIElements = aiElements.filter((element): element is AIElement => element !== null);
+    const validAIElements = aiElements.filter((element): element is AIElement => element !== null);
 
-    if (ValidAIElements.length === 0) {
+    if (validAIElements.length === 0) {
       logger.debug(`No valid AIElements found in directory '${directory}'.`);
     }
 
-    return ValidAIElements;
+    return validAIElements;
   }
 }
