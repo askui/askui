@@ -64,7 +64,7 @@ export interface ClientArgs {
   readonly context?: ContextArgs | undefined
   readonly inferenceServerApiVersion?: string
   readonly retryStrategy?: RetryStrategy
-  readonly aIElementOptions?: AIElementOptions
+  readonly aiElementOptions?: AIElementOptions
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
@@ -72,6 +72,6 @@ export interface ClientArgsWithDefaults extends ClientArgs {
   readonly inferenceServerUrl: string
   readonly context: Context
   readonly inferenceServerApiVersion: string
-  readonly aIElementOptions: AIElementOptions
+  readonly aiElementOptions: AIElementOptions
   readonly retryStrategy?: RetryStrategy
 }

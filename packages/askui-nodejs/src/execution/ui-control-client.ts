@@ -72,7 +72,7 @@ export class UiControlClient extends ApiCommands {
       workspaceId,
       executionRuntime,
       stepReporter,
-      clientArgsWithDefaults.aIElementOptions,
+      clientArgsWithDefaults.aiElementOptions,
     );
   }
 
