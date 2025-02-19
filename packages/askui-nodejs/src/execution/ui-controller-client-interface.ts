@@ -50,7 +50,7 @@ export interface ContextArgs {
  * @property {(RetryStrategy | undefined)} [retryStrategy] - Default: `new LinearRetryStrategy()`.
  *    Strategy for retrying failed requests to the inference server. This can help manage transient
  *    errors or network issues, improving the reliability of interactions with the server.
- * @property {AIElementOptions} [aIElementOptions] - Options for configuring how AI elements are
+ * @property {AIElementOptions} [aiElementOptions] - Options for configuring how AI elements are
  *   collected.
  */
 export interface ClientArgs {
