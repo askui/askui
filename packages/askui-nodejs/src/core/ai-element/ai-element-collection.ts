@@ -5,7 +5,7 @@ import { AIElement, AIElementJson } from './ai-element';
 import { CustomElementJson } from '../model/custom-element-json';
 import { logger } from '../../lib';
 import { AIElementError } from './ai-element-error';
-import { AIElementOptions } from './ai-elements-options';
+import { AIElementArgs } from './ai-elements-args';
 
 export class AIElementCollection {
   static AI_ELEMENT_FOLDER = path.join(
@@ -19,7 +19,7 @@ export class AIElementCollection {
 
   static async collectAIElements(
     workspaceId: string | undefined,
-    aiElementOptions: AIElementOptions,
+    aiElementArgs: AIElementArgs,
   ): Promise<AIElementCollection> {
     if (!workspaceId) {
       throw new AIElementError("Value of 'workspaceId' must be defined.");
@@ -32,7 +32,7 @@ export class AIElementCollection {
 
     const sourceDirectories = [
       workspaceAIElementFolder,
-      ...aiElementOptions.sourceDirectories.map((userPath) => path.resolve(userPath)),
+      ...aiElementArgs.additionalLocations.map((userPath) => path.resolve(userPath)),
     ];
 
     const aiElements: AIElement[] = [];
@@ -45,10 +45,10 @@ export class AIElementCollection {
           );
         } else {
           const errorMessage = `AIElements source directory '${absoluteDirectoryName}' does not exist.`;
-          if (aiElementOptions.notFoundAction === 'Warn') {
-            logger.warn(errorMessage);
-          } else if (aiElementOptions.notFoundAction === 'Error') {
+          if (aiElementArgs.onLocationNotExist === 'Error') {
             throw new AIElementError(errorMessage);
+          } else if (aiElementArgs.onLocationNotExist === 'Warn') {
+            logger.warn(errorMessage);
           }
         }
       }),

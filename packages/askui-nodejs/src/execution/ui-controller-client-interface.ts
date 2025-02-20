@@ -4,7 +4,7 @@ import { ModelCompositionBranch } from './model-composition-branch';
 import { Reporter } from '../core/reporting';
 import { Context } from './context';
 import { RetryStrategy } from './retry-strategies/retry-strategy';
-import { AIElementOptions } from '../core/ai-element/ai-elements-options';
+import { AIElementArgs } from '../core/ai-element/ai-elements-args';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
@@ -50,7 +50,7 @@ export interface ContextArgs {
  * @property {(RetryStrategy | undefined)} [retryStrategy] - Default: `new LinearRetryStrategy()`.
  *    Strategy for retrying failed requests to the inference server. This can help manage transient
  *    errors or network issues, improving the reliability of interactions with the server.
- * @property {AIElementOptions} [aiElementOptions] - Options for configuring how AI elements are
+ * @property {AIElementArgs} [aiElementArgs] - Options for configuring how AI elements are
  *   collected.
  */
 export interface ClientArgs {
@@ -64,7 +64,7 @@ export interface ClientArgs {
   readonly context?: ContextArgs | undefined
   readonly inferenceServerApiVersion?: string
   readonly retryStrategy?: RetryStrategy
-  readonly aiElementOptions?: AIElementOptions
+  readonly aiElementArgs?: AIElementArgs
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {
@@ -72,6 +72,6 @@ export interface ClientArgsWithDefaults extends ClientArgs {
   readonly inferenceServerUrl: string
   readonly context: Context
   readonly inferenceServerApiVersion: string
-  readonly aiElementOptions: AIElementOptions
+  readonly aiElementArgs: AIElementArgs
   readonly retryStrategy?: RetryStrategy
 }
