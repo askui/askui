@@ -24,6 +24,7 @@ import { UiControlClientDependencyBuilder } from './ui-control-client-dependency
 import { Instruction, StepReporter } from '../core/reporting';
 import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { AIElementArgs } from '../core/ai-element/ai-elements-args';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -54,6 +55,7 @@ export class UiControlClient extends ApiCommands {
     private workspaceId: string | undefined,
     private executionRuntime: ExecutionRuntime,
     private stepReporter: StepReporter,
+    private aiElementArgs: AIElementArgs,
   ) {
     super();
   }
@@ -70,6 +72,7 @@ export class UiControlClient extends ApiCommands {
       workspaceId,
       executionRuntime,
       stepReporter,
+      clientArgsWithDefaults.aiElementArgs,
     );
   }
 
@@ -179,7 +182,7 @@ export class UiControlClient extends ApiCommands {
       return [];
     }
     // eslint-disable-next-line max-len
-    const workspaceAIElementCollection = await AIElementCollection.collectForWorkspaceId(this.workspaceId);
+    const workspaceAIElementCollection = await AIElementCollection.collectAIElements(this.workspaceId, this.aiElementArgs);
     return workspaceAIElementCollection.getByNames(names);
   }
 

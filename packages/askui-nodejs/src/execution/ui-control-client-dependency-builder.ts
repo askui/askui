@@ -78,6 +78,10 @@ export class UiControlClientDependencyBuilder {
   ): Promise<ClientArgsWithDefaults> {
     return {
       ...clientArgs,
+      aiElementArgs: {
+        additionalLocations: clientArgs.aiElementArgs?.additionalLocations ?? [],
+        onLocationNotExist: clientArgs.aiElementArgs?.onLocationNotExist ?? 'error',
+      },
       context: {
         isCi: clientArgs.context?.isCi ?? isCI,
       },
