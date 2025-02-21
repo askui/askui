@@ -80,7 +80,7 @@ export class UiControlClientDependencyBuilder {
       ...clientArgs,
       aiElementArgs: {
         additionalLocations: clientArgs.aiElementArgs?.additionalLocations ?? [],
-        onLocationNotExist: clientArgs.aiElementArgs?.onLocationNotExist ?? 'Error',
+        onLocationNotExist: clientArgs.aiElementArgs?.onLocationNotExist ?? 'error',
       },
       context: {
         isCi: clientArgs.context?.isCi ?? isCI,

@@ -30,7 +30,7 @@ export class AIElementCollection {
       workspaceId,
     );
 
-    const sourceDirectories = [
+    const aiElementsLocations = [
       workspaceAIElementFolder,
       ...aiElementArgs.additionalLocations.map((userPath) => path.resolve(userPath)),
     ];
@@ -38,16 +38,16 @@ export class AIElementCollection {
     const aiElements: AIElement[] = [];
 
     await Promise.all(
-      sourceDirectories.map(async (absoluteDirectoryName) => {
-        if (await fs.pathExists(absoluteDirectoryName)) {
+      aiElementsLocations.map(async (aiElementLocation) => {
+        if (await fs.pathExists(aiElementLocation)) {
           aiElements.push(
-            ...AIElementCollection.CollectAiElementsFromDirectory(absoluteDirectoryName),
+            ...AIElementCollection.CollectAiElementsFromLocation(aiElementLocation),
           );
         } else {
-          const errorMessage = `AIElements source directory '${absoluteDirectoryName}' does not exist.`;
-          if (aiElementArgs.onLocationNotExist === 'Error') {
+          const errorMessage = `AIElements location '${aiElementLocation}' does not exist.`;
+          if (aiElementArgs.onLocationNotExist === 'error') {
             throw new AIElementError(errorMessage);
-          } else if (aiElementArgs.onLocationNotExist === 'Warn') {
+          } else if (aiElementArgs.onLocationNotExist === 'warn') {
             logger.warn(errorMessage);
           }
         }
@@ -55,8 +55,8 @@ export class AIElementCollection {
     );
 
     if (aiElements.length === 0) {
-      const formattedPaths = sourceDirectories.map((dir) => `"${dir}"`).join(', ');
-      const errorMessage = `No AIElements found in the following director${sourceDirectories.length > 1 ? 'ies' : 'y'}: [${formattedPaths}].`;
+      const formattedLocations = aiElementsLocations.map((aiElementsLocation) => `"${aiElementsLocation}"`).join(', ');
+      const errorMessage = `No AIElements found in the following location${aiElementsLocations.length > 1 ? 's' : ''}: [${formattedLocations}].`;
       throw new AIElementError(errorMessage);
     }
 
@@ -85,17 +85,17 @@ export class AIElementCollection {
     return names.flatMap((name) => this.getByName(name));
   }
 
-  private static CollectAiElementsFromDirectory(directory: string): AIElement[] {
-    const files = fs.readdirSync(directory);
+  private static CollectAiElementsFromLocation(aiElementLocation: string): AIElement[] {
+    const files = fs.readdirSync(aiElementLocation);
     if (files.length === 0) {
       return [];
     }
     const aiElements = files
       .filter((file) => path.extname(file) === '.json')
       .map((file) => {
-        const jsonFile = path.join(directory, file);
+        const jsonFile = path.join(aiElementLocation, file);
         const baseName = path.basename(jsonFile, '.json');
-        const pngFile = path.join(directory, `${baseName}.png`);
+        const pngFile = path.join(aiElementLocation, `${baseName}.png`);
         if (fs.existsSync(pngFile)) {
           const metadata: AIElementJson = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
           return AIElement.fromJson(metadata, pngFile);
@@ -106,7 +106,7 @@ export class AIElementCollection {
     const validAIElements = aiElements.filter((element): element is AIElement => element !== null);
 
     if (validAIElements.length === 0) {
-      logger.debug(`No valid AIElements found in directory '${directory}'.`);
+      logger.debug(`No valid AIElements found in '${aiElementLocation}'.`);
     }
 
     return validAIElements;

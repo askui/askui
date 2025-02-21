@@ -16,5 +16,5 @@
  */
 export interface AIElementArgs {
   additionalLocations: string[]
-  onLocationNotExist?: 'Warn' | 'Error' | 'Ignore'
+  onLocationNotExist?: 'warn' | 'error' | 'ignore'
 }
