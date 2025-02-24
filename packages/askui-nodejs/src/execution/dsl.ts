@@ -274,75 +274,6 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  row(
-    index: number,
-  ): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'row';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  column(
-    index: number,
-  ): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'column';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   *
-   * @param {number} row_index - row index
-   * @param {number} column_index - column index
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  cell(
-    row_index: number,
-    column_index: number,
-  ): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'cell';
-    this._textStr += ' row';
-    this._textStr += ` ${row_index}`;
-    this._textStr += ' column';
-    this._textStr += ` ${column_index}`;
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  table(): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'table';
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
    * Filters for an UI element 'text'.
    *
    * Takes an optional parameter to filter for a specific text.
@@ -727,52 +658,6 @@ export class FluentFilters extends FluentBase {
     this._textStr = '';
 
     this._textStr += 'pta';
-    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelations(this);
-  }
-
-  /**
-   * Filters elements based on a textual description.
-   *
-   * **What Should I Write as Matching Text**
-   *
-   * The text description inside the `matching()` should describe the element visually.
-   * It understands color, some famous company/product names, general descriptions.
-   *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
-   *
-   * **Examples:**
-   * ```typescript
-   * // Select the black sneaker from a bunch of sneakers
-   * await aui.click().element().matching('a black sneaker shoe').exec();
-   *
-   * // Select an image that has text in it
-   * await aui.click().element().matching('has Burger King in it').exec();
-   * await aui.click().element().matching('has adidas in it').exec();
-   *
-   * // Target a logo/image by describing it
-   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
-   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
-   * await aui.click().element().matching('logo looking like a seashell').exec();
-   * ```
-   *
-   * @param {string} text - A description of the target element.
-   *
-   * @return {FluentFiltersOrRelations}
-   */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelations {
-    this._textStr = '';
-
-    this._textStr += 'matching';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelations(this);
@@ -1461,75 +1346,6 @@ export class FluentFiltersCondition extends FluentBase {
   }
 
   /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  row(
-    index: number,
-  ): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'row';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  column(
-    index: number,
-  ): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'column';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   *
-   * @param {number} row_index - row index
-   * @param {number} column_index - column index
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  cell(
-    row_index: number,
-    column_index: number,
-  ): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'cell';
-    this._textStr += ' row';
-    this._textStr += ` ${row_index}`;
-    this._textStr += ' column';
-    this._textStr += ` ${column_index}`;
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  table(): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'table';
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
    * Filters for an UI element 'text'.
    *
    * Takes an optional parameter to filter for a specific text.
@@ -1914,52 +1730,6 @@ export class FluentFiltersCondition extends FluentBase {
     this._textStr = '';
 
     this._textStr += 'pta';
-    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelationsCondition(this);
-  }
-
-  /**
-   * Filters elements based on a textual description.
-   *
-   * **What Should I Write as Matching Text**
-   *
-   * The text description inside the `matching()` should describe the element visually.
-   * It understands color, some famous company/product names, general descriptions.
-   *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
-   *
-   * **Examples:**
-   * ```typescript
-   * // Select the black sneaker from a bunch of sneakers
-   * await aui.click().element().matching('a black sneaker shoe').exec();
-   *
-   * // Select an image that has text in it
-   * await aui.click().element().matching('has Burger King in it').exec();
-   * await aui.click().element().matching('has adidas in it').exec();
-   *
-   * // Target a logo/image by describing it
-   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
-   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
-   * await aui.click().element().matching('logo looking like a seashell').exec();
-   * ```
-   *
-   * @param {string} text - A description of the target element.
-   *
-   * @return {FluentFiltersOrRelationsCondition}
-   */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelationsCondition {
-    this._textStr = '';
-
-    this._textStr += 'matching';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsCondition(this);
@@ -3468,75 +3238,6 @@ export class FluentFiltersGetter extends FluentBase {
   }
 
   /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  row(
-    index: number,
-  ): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'row';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   *
-   * @param {number} index - element index
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  column(
-    index: number,
-  ): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'column';
-    this._textStr += ` ${index}`;
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   *
-   * @param {number} row_index - row index
-   * @param {number} column_index - column index
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  cell(
-    row_index: number,
-    column_index: number,
-  ): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'cell';
-    this._textStr += ' row';
-    this._textStr += ` ${row_index}`;
-    this._textStr += ' column';
-    this._textStr += ` ${column_index}`;
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters for a UI element 'table'.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  table(): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'table';
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
    * Filters for an UI element 'text'.
    *
    * Takes an optional parameter to filter for a specific text.
@@ -3921,52 +3622,6 @@ export class FluentFiltersGetter extends FluentBase {
     this._textStr = '';
 
     this._textStr += 'pta';
-    this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
-
-    return new FluentFiltersOrRelationsGetter(this);
-  }
-
-  /**
-   * Filters elements based on a textual description.
-   *
-   * **What Should I Write as Matching Text**
-   *
-   * The text description inside the `matching()` should describe the element visually.
-   * It understands color, some famous company/product names, general descriptions.
-   *
-   * **Important: _Matching only returns the best matching element when you use it with `get()`_**
-   *
-   * A bit of playing around to find a matching description is sometimes needed:
-   * For example, `puzzle piece` can fail while `an icon showing a puzzle piece` might work.
-   * Generally, the more detail the better.
-   *
-   * We also recommend to not restrict the type of element by using the general selector `element()` as shown in the examples below.
-   *
-   * **Examples:**
-   * ```typescript
-   * // Select the black sneaker from a bunch of sneakers
-   * await aui.click().element().matching('a black sneaker shoe').exec();
-   *
-   * // Select an image that has text in it
-   * await aui.click().element().matching('has Burger King in it').exec();
-   * await aui.click().element().matching('has adidas in it').exec();
-   *
-   * // Target a logo/image by describing it
-   * await aui.click().element().matching('a mask on purple background and a firefox logo').exec();
-   * await aui.click().element().matching('logo looking like an apple with one bite bitten off').exec();
-   * await aui.click().element().matching('logo looking like a seashell').exec();
-   * ```
-   *
-   * @param {string} text - A description of the target element.
-   *
-   * @return {FluentFiltersOrRelationsGetter}
-   */
-  matching(
-    text: string,
-  ): FluentFiltersOrRelationsGetter {
-    this._textStr = '';
-
-    this._textStr += 'matching';
     this._textStr += ` ${Separators.STRING}${text}${Separators.STRING}`;
 
     return new FluentFiltersOrRelationsGetter(this);
