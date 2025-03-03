@@ -274,6 +274,19 @@ export class FluentFilters extends FluentBase {
   }
 
   /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelations}
+   */
+  table(): FluentFiltersOrRelations {
+    this._textStr = '';
+
+    this._textStr += 'table';
+
+    return new FluentFiltersOrRelations(this);
+  }
+
+  /**
    * Filters for an UI element 'text'.
    *
    * Takes an optional parameter to filter for a specific text.
@@ -1341,6 +1354,19 @@ export class FluentFiltersCondition extends FluentBase {
     this._textStr = '';
 
     this._textStr += 'button';
+
+    return new FluentFiltersOrRelationsCondition(this);
+  }
+
+  /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelationsCondition}
+   */
+  table(): FluentFiltersOrRelationsCondition {
+    this._textStr = '';
+
+    this._textStr += 'table';
 
     return new FluentFiltersOrRelationsCondition(this);
   }
@@ -3233,6 +3259,19 @@ export class FluentFiltersGetter extends FluentBase {
     this._textStr = '';
 
     this._textStr += 'button';
+
+    return new FluentFiltersOrRelationsGetter(this);
+  }
+
+  /**
+   * Filters for a UI element 'table'.
+   *
+   * @return {FluentFiltersOrRelationsGetter}
+   */
+  table(): FluentFiltersOrRelationsGetter {
+    this._textStr = '';
+
+    this._textStr += 'table';
 
     return new FluentFiltersOrRelationsGetter(this);
   }
