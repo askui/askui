@@ -481,15 +481,6 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Clicks an icon based on a description.
-   *
-   * @param {string} description
-   */
-  async clickIcon(description: string) {
-    await this.click().icon().matching(description).exec();
-  }
-
-  /**
    * Wait until an AskUICommand does not fail.
    *
    * Use it to wait for an element to appear like this:
