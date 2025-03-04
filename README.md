@@ -1,4 +1,4 @@
-![askui logo](./img/askui-logo-white.svg.svg#gh-dark-mode-only)
+![askui logo](./img/askui-logo-white.svg#gh-dark-mode-only)
 ![askui logo](./img/askui-logo.svg#gh-light-mode-only)
 
 *Reliable, automated end-to-end-automation that only depends on what is shown on your screen instead of the technology or platform you are running on*
