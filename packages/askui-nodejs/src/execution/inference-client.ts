@@ -28,7 +28,7 @@ export class InferenceClient {
     private readonly resize?: number,
     readonly workspaceId?: string,
     readonly modelComposition?: ModelCompositionBranch[],
-    private readonly apiVersion = 'v3',
+    private readonly apiVersion = 'v1',
   ) {
     const versionedBaseUrl = urljoin(this.baseUrl, 'api', this.apiVersion);
     const url = workspaceId
