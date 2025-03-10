@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.23.0](https://github.com/askui/askui/compare/v0.22.0...v0.23.0) (2025-03-10)
+
+
+### Bug Fixes
+
+* update inference client API version to v1, previous version is deprecated (#CL-1208) ([#853](https://github.com/askui/askui/issues/853)) ([8efe092](https://github.com/askui/askui/commit/8efe09292b0d2533d115bbcd864d3cf04d56ffbe)), closes [#CL-1208](https://github.com/askui/askui/issues/CL-1208)
+
+* fix logo svg url typo in README ([#852](https://github.com/askui/askui/pull/852))
+* refactor: remove table and matching commands (#CL-1174) ([#849](https://github.com/askui/askui/pull/849))
+
+
 ## [0.22.0](https://github.com/askui/askui/compare/v0.21.1...v0.22.0) (2025-02-21)
 
 
