@@ -10,7 +10,6 @@
 * fix logo svg url typo in README ([#852](https://github.com/askui/askui/pull/852))
 * refactor: remove table and matching commands (#CL-1174) ([#849](https://github.com/askui/askui/pull/849))
 
-
 ## [0.22.0](https://github.com/askui/askui/compare/v0.21.1...v0.22.0) (2025-02-21)
 
 
