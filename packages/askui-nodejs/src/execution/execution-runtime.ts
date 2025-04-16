@@ -20,7 +20,7 @@ export class ExecutionRuntime {
     private uiControllerClient: UiControllerClient,
     private inferenceClient: InferenceClient,
     private stepReporter: StepReporter,
-    private retryStrategy: RetryStrategy,
+    public retryStrategy: RetryStrategy,
   ) { }
 
   async connect(): Promise<UiControllerClientConnectionState> {

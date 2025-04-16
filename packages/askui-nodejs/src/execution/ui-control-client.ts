@@ -25,6 +25,7 @@ import { Instruction, StepReporter } from '../core/reporting';
 import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
+import { NoRetryStrategy } from './retry-strategies';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -494,8 +495,11 @@ export class UiControlClient extends ApiCommands {
    * @param {number} waitTime - Time in milliseconds
    */
   async waitUntil(AskUICommand: Executable, maxTry = 5, waitTime = 2000) {
+    const userDefinedStrategy = this.executionRuntime.retryStrategy;
     try {
+      this.executionRuntime.retryStrategy = new NoRetryStrategy();
       await AskUICommand.exec();
+      this.executionRuntime.retryStrategy = userDefinedStrategy;
     } catch (error) {
       if (maxTry === 0) {
         throw error;
