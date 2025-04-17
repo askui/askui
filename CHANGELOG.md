@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.0](https://github.com/askui/askui/compare/v0.23.1...v0.24.0) (2025-04-17)
+
+
+### Features
+
+* disable retry strategy for waitUntil command ([46f3f7b](https://github.com/askui/askui/commit/46f3f7be5bc29cf21f49243b005142c86fe448e5))
+
 ## [0.23.1](https://github.com/askui/askui/compare/v0.23.0...v0.23.1) (2025-03-10)
 
 ## [0.23.0](https://github.com/askui/askui/compare/v0.22.0...v0.23.0) (2025-03-10)
