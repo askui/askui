@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.24.1](https://github.com/askui/askui/compare/v0.24.0...v0.24.1) (2025-05-20)
+
+### Vulnerability Fixes
+*  update cross-spawn dependency for vulneability fixes ([b67526e](https://github.com/askui/askui/commit/b67526e7a660d9f8341a3301ff8232d12d50a729))
+
+
 ## [0.24.0](https://github.com/askui/askui/compare/v0.23.1...v0.24.0) (2025-04-17)
 
 
