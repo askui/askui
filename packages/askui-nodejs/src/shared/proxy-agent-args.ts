@@ -1,5 +1,5 @@
-import http from 'http';
-import https from 'https';
+import * as http from 'http';
+import * as https from 'https';
 
 /**
  * Proxy agent configuration for HTTP(S) requests
