@@ -1,5 +1,6 @@
 import urljoin from 'url-join';
 import http from 'http';
+import { BetaMessage, BetaMessageParam } from '@anthropic-ai/sdk/resources/beta/messages';
 import { HttpClientGot } from '../utils/http/http-client-got';
 import { ControlCommand, InferenceResponse } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/custom-element';
@@ -14,6 +15,7 @@ import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
 
 interface InferenceClientUrls {
+  actEndpoint: string;
   inference: string;
   isImageRequired: string;
   vqaInference: string;
@@ -35,6 +37,7 @@ export class InferenceClient {
       ? urljoin(versionedBaseUrl, 'workspaces', workspaceId)
       : versionedBaseUrl;
     this.urls = {
+      actEndpoint: urljoin(url, 'act', 'inference'),
       inference: urljoin(url, 'inference'),
       isImageRequired: urljoin(url, 'instruction', 'is-image-required'),
       vqaInference: urljoin(url, 'vqa', 'inference'),
@@ -90,7 +93,7 @@ export class InferenceClient {
           modelComposition: modelComposition.length > 0 ? modelComposition : this.modelComposition,
         },
     );
-    InferenceClient.logMetaInformation(response);
+    InferenceClient.logMetaInformation(response.headers);
     return InferenceResponse.fromJson(
       response.body,
       resizedImage.resizeRatio,
@@ -111,17 +114,14 @@ export class InferenceClient {
         prompt,
       },
     );
-    InferenceClient.logMetaInformation(response);
+    InferenceClient.logMetaInformation(response.headers);
 
     return response.body;
   }
 
-  private static logMetaInformation(response: {
-    headers: http.IncomingHttpHeaders;
-    body: InferenceResponseBody | VQAInferenceResponseBody;
-  }) {
-    if (response.headers['askui-usage-warnings'] !== undefined) {
-      logger.warn(response.headers['askui-usage-warnings']);
+  private static logMetaInformation(headers: http.IncomingHttpHeaders) {
+    if (headers['askui-usage-warnings'] !== undefined) {
+      logger.warn(headers['askui-usage-warnings']);
     }
   }
 
@@ -190,5 +190,21 @@ export class InferenceClient {
       logger.warn(`Response is no valid JSON: ${response}`);
     }
     return response;
+  }
+
+  async predictActResponse(params: {
+    max_tokens: number;
+    messages: BetaMessageParam[];
+    model: string;
+    system?: string;
+    tools?: object[];
+    betas?: string[];
+  }): Promise<BetaMessage> {
+    const response = await this.httpClient.post<BetaMessage>(
+      this.urls.actEndpoint,
+      params,
+    );
+    InferenceClient.logMetaInformation(response.headers);
+    return response.body;
   }
 }

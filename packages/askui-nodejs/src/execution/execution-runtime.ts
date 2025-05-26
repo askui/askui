@@ -1,3 +1,4 @@
+import { BetaMessage, BetaMessageParam } from '@anthropic-ai/sdk/resources/beta/messages';
 import { ControlCommand, ControlCommandCode } from '../core/ui-control-commands';
 import { CustomElement } from '../core/model/custom-element';
 import { UiControllerClient } from './ui-controller-client';
@@ -44,7 +45,7 @@ export class ExecutionRuntime {
     return response.data.video;
   }
 
-  private async requestControl(
+  async requestControl(
     controlCommand: ControlCommand,
   ): Promise<void> {
     await this.uiControllerClient.requestControl(controlCommand);
@@ -232,5 +233,16 @@ export class ExecutionRuntime {
   ): Promise<any> {
     const base64Image = await this.takeScreenshotIfImageisNotProvided();
     return this.inferenceClient.predictVQAAnswer(prompt, base64Image, config);
+  }
+
+  async predictActResponse(params: {
+    max_tokens: number;
+    messages: BetaMessageParam[];
+    model: string;
+    system?: string;
+    tools?: object[];
+    betas?: string[];
+  }): Promise<BetaMessage> {
+    return this.inferenceClient.predictActResponse(params);
   }
 }
