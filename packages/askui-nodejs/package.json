@@ -51,6 +51,7 @@
         "dist/example_projects_templates/"
     ],
     "dependencies": {
+        "@anthropic-ai/sdk": "0.51.0",
         "chalk": "4.1.1",
         "commander": "12.1.0",
         "fkill": "7.2.1",
@@ -72,8 +73,8 @@
         "yup": "1.4.0"
     },
     "devDependencies": {
-        "@release-it/bumper": "6.0.1",
-        "@release-it/conventional-changelog": "8.0.2",
+        "@release-it/bumper": "7.0.5",
+        "@release-it/conventional-changelog": "10.0.1",
         "@types/fs-extra": "11.0.4",
         "@types/inquirer": "9.0.7",
         "@types/is-ci": "^3.0.4",
@@ -98,9 +99,9 @@
         "lint-staged": "15.2.10",
         "proxy": "^1.0.2",
         "proxy-agent": "^6.3.0",
-        "release-it": "17.6.0",
+        "release-it": "19.0.2",
         "shx": "0.3.4",
-        "ts-jest": "29.2.5",
+        "ts-jest": "29.3.4",
         "typescript": "5.6.2"
     },
     "lint-staged": {
@@ -108,5 +109,10 @@
     },
     "optionalDependencies": {
         "sharp": "^0.33.5"
+    },
+    "overrides": {
+        "ts-jest": {
+            "@babel/helpers": "7.27.1"
+        }
     }
 }
