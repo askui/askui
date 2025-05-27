@@ -65,8 +65,8 @@ export class CreateExampleProject {
             this.cliOptions.operatingSystem = 'macos';
           } else if (
             process.platform === 'linux'
-              || process.platform === 'freebsd'
-              || process.platform === 'openbsd'
+            || process.platform === 'freebsd'
+            || process.platform === 'openbsd'
           ) {
             this.cliOptions.operatingSystem = 'linux';
           } else {
@@ -196,6 +196,10 @@ export class CreateExampleProject {
           title: 'Add eslint run command',
           task: async () => this.addESLintRunCommand(),
         },
+        {
+          title: 'Add vscode settings',
+          task: async () => this.addVSCodeSettings(),
+        },
       ]),
     }];
   }
@@ -252,6 +256,23 @@ export class CreateExampleProject {
     ];
   }
 
+  private async addVSCodeSettings(): Promise<Listr.ListrTask<unknown>[]> {
+    const vscodeSettingsFilePath = path.join('example_projects_templates', 'configs', 'vscode-settings.json');
+    const vscodeSettingsTargetDirPath = path.join(this.projectRootDirectoryPath, '.vscode');
+    const vscodeSettingsTargetFilePath = path.join(vscodeSettingsTargetDirPath, 'settings.json');
+    return [{
+      enabled: () => !fs.existsSync(vscodeSettingsTargetFilePath),
+      task: async () => {
+        await fs.mkdir(vscodeSettingsTargetDirPath, { recursive: true });
+        await fs.copyFile(
+          path.join(getPathToNodeModulesRoot(), vscodeSettingsFilePath),
+          vscodeSettingsTargetFilePath,
+        );
+      },
+      title: 'Copy VSCode settings',
+    }];
+  }
+
   private async copyTsConfigFile(): Promise<Listr.ListrTask<unknown>[]> {
     const tsConfigFilePath = path.join(
       'example_projects_templates',
@@ -259,19 +280,17 @@ export class CreateExampleProject {
       'tsconfig.json',
     );
     const tsConfigTargetFilePath = path.join(this.projectRootDirectoryPath, 'tsconfig.json');
-    /* eslint-disable sort-keys */
     return [
       {
-        title: 'Copy ts config file',
         enabled: () => this.cliOptions.typescriptConfig || !fs.existsSync(tsConfigTargetFilePath),
         task: async () => fs.copyFile(
           path.join(getPathToNodeModulesRoot(), tsConfigFilePath),
           tsConfigTargetFilePath,
         ),
+        title: 'Copy ts config file',
       },
     ];
   }
-  /* eslint-enable */
 
   public async createExampleProject(): Promise<void> {
     const tasks = new Listr();
