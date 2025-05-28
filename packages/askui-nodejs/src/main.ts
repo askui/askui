@@ -13,3 +13,4 @@ export {
 export { Annotation } from './core/annotation/annotation';
 export { DetectedElement } from './core/model/annotation-result/detected-element';
 export { LogLevels } from './shared';
+export { ToolFailure, ToolError, BaseAgentTool } from './core/models/anthropic';

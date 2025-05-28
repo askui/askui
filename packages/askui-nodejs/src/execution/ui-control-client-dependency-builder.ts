@@ -86,7 +86,7 @@ export class UiControlClientDependencyBuilder {
         isCi: clientArgs.context?.isCi ?? isCI,
       },
       credentials: readCredentials(clientArgs),
-      inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v3',
+      inferenceServerApiVersion: clientArgs.inferenceServerApiVersion ?? 'v1',
       inferenceServerUrl:
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),

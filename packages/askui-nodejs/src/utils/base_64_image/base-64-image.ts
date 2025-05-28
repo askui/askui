@@ -60,7 +60,21 @@ export class Base64Image {
     return Base64Image.fromBuffer(buffer);
   }
 
-  toString(): string {
-    return `${Base64Image.strPrefix}${this.buffer.toString('base64')}`;
+  async resizeWithSameAspectRatio(width: number, height: number): Promise<Base64Image> {
+    const buffer = await (await this.getSharp())
+      .resize({
+        fit: 'contain',
+        height,
+        width,
+      })
+      .toBuffer();
+    return Base64Image.fromBuffer(buffer);
+  }
+
+  toString(withPrefix = true): string {
+    if (withPrefix) {
+      return `${Base64Image.strPrefix}${this.buffer.toString('base64')}`;
+    }
+    return this.buffer.toString('base64');
   }
 }

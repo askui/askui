@@ -26,6 +26,7 @@ import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
 import { NoRetryStrategy } from './retry-strategies';
+import { AskUIAgent, AgentHistory } from '../core/models/anthropic';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -57,6 +58,7 @@ export class UiControlClient extends ApiCommands {
     private executionRuntime: ExecutionRuntime,
     private stepReporter: StepReporter,
     private aiElementArgs: AIElementArgs,
+    public agent: AskUIAgent,
   ) {
     super();
   }
@@ -69,11 +71,13 @@ export class UiControlClient extends ApiCommands {
       executionRuntime,
       stepReporter,
     } = await builder.build(clientArgsWithDefaults);
+    const agent = new AskUIAgent(executionRuntime);
     return new UiControlClient(
       workspaceId,
       executionRuntime,
       stepReporter,
       clientArgsWithDefaults.aiElementArgs,
+      agent,
     );
   }
 
@@ -81,7 +85,10 @@ export class UiControlClient extends ApiCommands {
    * Connects to the askui UI Controller.
    */
   async connect(): Promise<UiControllerClientConnectionState> {
-    return this.executionRuntime.connect();
+    const connectionState = await this.executionRuntime.connect();
+    await this.agent.initializeOsAgentHandler();
+    await this.agent.configureAsDesktopAgent();
+    return connectionState;
   }
 
   /**
@@ -879,5 +886,60 @@ export class UiControlClient extends ApiCommands {
       elements,
       allExist: elements.every((el) => el.exists),
     };
+  }
+
+  /**
+   * Instructs the agent to achieve a specified goal through autonomous actions.
+   *
+   * The agent will analyze the screen, determine necessary steps, and perform actions
+   * to accomplish the goal. This may include clicking, typing, scrolling, and other
+   * interface interactions.
+   *
+   * The `options` parameter allows the caller to maintain contextual continuity across
+   * multiple `act` calls, either from the same or different agent interfaces.
+   *
+   * **Examples:**
+   *
+   * ```ts
+   * // Use chatId to maintain context across consecutive steps
+   * await aui.act("Search online for the current gold price", {
+   *   chatId: "session-gold-price"
+   * });
+   * await aui.act("Create a new text file and type the gold price result into it", {
+   *   chatId: "session-gold-price"
+   * });
+   *
+   * // Share history explicitly between separate agents (e.g., desktop and Android)
+   * // By default, the agent operates as a computer agent.
+   * // To control an Android device, you must configure it explicitly:
+   * await auiAndroid.agent.configureAsAndroidAgent();
+   * const history = await auiDesktop.act("Copy username from desktop app");
+   * await auiAndroid.act("Paste username into the mobile login screen", {
+   *   agentHistory: history
+   * });
+   * ```
+   *
+   * @param {string} goal - A description of what the agent should achieve.
+   * @param {Object} [options] - Optional parameters to maintain or share context.
+   * @param {string} [options.chatId] - A session identifier used to persist memory between
+   *                                    consecutive `act` calls. When multiple actions share the
+   *                                    same `chatId`, the agent retains knowledge of prior steps,
+   *                                    such as extracted data or navigation history.
+   * @param {AgentHistory} [options.agentHistory] - A shared interaction history object that can be
+   *                                           passed between different agent clients (e.g., between
+   *                                           `auiDesktop` and `auiAndroid`) to ensure continuity
+   *                                           of understanding and task flow.
+   * @returns {Promise<AgentHistory>} - Updated action history after executing the goal.
+   * @throws {Error} If the agent is not connected when the method is called.
+   */
+  async act(goal: string, options?: {
+    chatId?: string,
+    agentHistory?: AgentHistory,
+  }): Promise<AgentHistory> {
+    if (!this.agent.isConnected()) {
+      throw new Error('Agent is not connected, Please call connect() first');
+    }
+
+    return this.agent.act(goal, options);
   }
 }

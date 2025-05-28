@@ -1,0 +1,41 @@
+{
+    "terminal.integrated.profiles.windows": {
+        "askui-shell": {
+            "path": [
+                "${env:ASKUI_INSTALLATION_DIRECTORY}\\Tools\\askui-shell.cmd"
+            ],
+            "icon": "robot",
+            "overrideName": true,
+            "color": "terminal.ansiMagenta"
+        }
+    },
+    "terminal.integrated.profiles.osx": {
+        "askui-shell": {
+            "path": "/bin/zsh",
+            "args": [
+                "-l",
+                "-c",
+                "$ASKUI_INSTALLATION_DIRECTORY/Tools/askui-shell"
+            ],
+            "icon": "robot",
+            "overrideName": true,
+            "color": "terminal.ansiMagenta"
+        }
+    },
+    "terminal.integrated.profiles.linux": {
+        "askui-shell": {
+            "path": "/bin/bash",
+            "args": [
+                "-l",
+                "-c",
+                "$ASKUI_INSTALLATION_DIRECTORY/Tools/askui-shell"
+            ],
+            "icon": "robot",
+            "overrideName": true,
+            "color": "terminal.ansiMagenta"
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "askui-shell",
+    "terminal.integrated.defaultProfile.linux": "askui-shell",
+    "terminal.integrated.defaultProfile.osx": "askui-shell"
+}
