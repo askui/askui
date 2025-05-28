@@ -72,7 +72,7 @@ export class ClaudeAgent {
     async act(
         goal: string,
         options?: {
-            chatID?: string,
+            chatId?: string,
             agentHistory?: Beta.BetaMessageParam[],
         }
     ): Promise<Beta.BetaMessageParam[]> {
@@ -90,8 +90,8 @@ export class ClaudeAgent {
             messages.push(...options.agentHistory);
         }
 
-        if (options?.chatID) {
-            messages.push(...this.getHistory(options.chatID));
+        if (options?.chatId) {
+            messages.push(...this.getHistory(options.chatId));
         }
 
         // Add the new goal as a user message
@@ -146,8 +146,8 @@ export class ClaudeAgent {
             }
 
             if (toolResultContent.length === 0) {
-                if (options?.chatID) {
-                    this.setHistory(options.chatID, messages);
+                if (options?.chatId) {
+                    this.setHistory(options.chatId, messages);
                 }
 
                 return messages;

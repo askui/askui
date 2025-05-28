@@ -901,12 +901,12 @@ export class UiControlClient extends ApiCommands {
    * **Examples:**
    *
    * ```ts
-   * // Use chatID to maintain context across consecutive steps
+   * // Use chatId to maintain context across consecutive steps
    * await aui.act("Search online for the current gold price", {
-   *   chatID: "session-gold-price"
+   *   chatId: "session-gold-price"
    * });
    * await aui.act("Create a new text file and type the gold price result into it", {
-   *   chatID: "session-gold-price"
+   *   chatId: "session-gold-price"
    * });
    *
    * // Share history explicitly between separate agents (e.g., desktop and Android)
@@ -921,9 +921,9 @@ export class UiControlClient extends ApiCommands {
    *
    * @param {string} goal - A description of what the agent should achieve.
    * @param {Object} [options] - Optional parameters to maintain or share context.
-   * @param {string} [options.chatID] - A session identifier used to persist memory between
+   * @param {string} [options.chatId] - A session identifier used to persist memory between
    *                                    consecutive `act` calls. When multiple actions share the
-   *                                    same `chatID`, the agent retains knowledge of prior steps,
+   *                                    same `chatId`, the agent retains knowledge of prior steps,
    *                                    such as extracted data or navigation history.
    * @param {AgentHistory} [options.agentHistory] - A shared interaction history object that can be
    *                                           passed between different agent clients (e.g., between
@@ -933,7 +933,7 @@ export class UiControlClient extends ApiCommands {
    * @throws {Error} If the agent is not connected when the method is called.
    */
   async act(goal: string, options?: {
-    chatID?: string,
+    chatId?: string,
     agentHistory?: AgentHistory,
   }): Promise<AgentHistory> {
     if (!this.agent.isConnected()) {
