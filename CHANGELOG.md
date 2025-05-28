@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0](https://github.com/askui/askui/compare/v0.24.1...v0.25.0) (2025-05-28)
+
+
+### Features
+
+* add act command ([e8c0bb7](https://github.com/askui/askui/commit/e8c0bb73c534e6031c1e6cbf4a860860add9c4db))
+
 ## [0.24.1](https://github.com/askui/askui/compare/v0.24.0...v0.24.1) (2025-05-20)
 
 ### Vulnerability Fixes
