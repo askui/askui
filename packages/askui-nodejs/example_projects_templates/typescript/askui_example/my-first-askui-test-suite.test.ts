@@ -1,21 +1,11 @@
 import { aui } from './helpers/askui-helper';
 
-describe('jest with askui', () => {
-  it('should generate an (interactive) annotation', async () => {
-    // For Windows users:
-    // Use annotate() to create an annotated HTML file
-    // of your screen that is saved under <project_root>/report
-    await aui.annotate();
-
-    // Uncomment for macOS and Linux
-    // Delete the lines above to not trigger annotate()
-    // await aui.annotateInteractively();
-  });
-
-  xit('should click on my element', async () => {
-    await aui
-      .click();
-    // <INSERT YOUR COPIED ELEMENT DESCRIPTION HERE AND UNCOMMENT THIS AND THE NEXT LINE>
-    // .exec();
+describe('AskUI Demo: Basic Mouse Movement', () => {
+  it('should move mouse in a rectangle shape', async () => {
+    // The act() command instructs the agent to achieve a specified goal through autonomous actions
+    // The agent will analyze the screen and perform necessary actions to accomplish the goal
+    // This can include clicking, typing, scrolling, and other interface interactions
+    // In this case, it will move the mouse in a rectangular pattern on the screen
+    await aui.act('Move mouse in a rectangle');
   });
 });

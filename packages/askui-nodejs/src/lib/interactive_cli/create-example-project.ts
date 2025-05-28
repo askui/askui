@@ -196,10 +196,6 @@ export class CreateExampleProject {
           title: 'Add eslint run command',
           task: async () => this.addESLintRunCommand(),
         },
-        {
-          title: 'Add vscode settings',
-          task: async () => this.addVSCodeSettings(),
-        },
       ]),
     }];
   }
@@ -297,6 +293,7 @@ export class CreateExampleProject {
 
     tasks.add([
       ...(await this.copyTemplateProject()),
+      ...(await this.addVSCodeSettings()),
       ...(await this.setupTestFrameWork()),
       ...(await this.copyESLintConfigFiles()),
       ...(await this.copyGitignore()),
