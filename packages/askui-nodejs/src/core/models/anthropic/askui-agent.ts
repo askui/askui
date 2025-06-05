@@ -11,6 +11,10 @@ import {
   AndroidSequenceKeyPressTool,
   AndroidSingleKeyPressTool,
   ExecuteShellCommandTool,
+  DesktopSingleKeyReleaseTool,
+  DesktopSingleKeyHoldDownTool,
+  DesktopKeySequenceReleaseTool,
+  DesktopKeySequenceHoldDownTool,
 } from './tools/os-agent-tools';
 import { BaseAgentTool } from './tools/base';
 import { ClaudeAgent } from './claude-agent';
@@ -48,6 +52,10 @@ export class AskUIAgent extends ClaudeAgent {
       new DesktopKeyPressSequenceTool(this.osAgentHandler),
       new DesktopSingleKeyPressTool(this.osAgentHandler),
       new TypeTool(this.osAgentHandler),
+      new DesktopSingleKeyReleaseTool(this.osAgentHandler),
+      new DesktopSingleKeyHoldDownTool(this.osAgentHandler),
+      new DesktopKeySequenceReleaseTool(this.osAgentHandler),
+      new DesktopKeySequenceHoldDownTool(this.osAgentHandler),
     ];
 
     this.setTools(tools);

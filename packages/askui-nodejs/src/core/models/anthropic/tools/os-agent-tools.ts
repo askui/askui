@@ -349,6 +349,188 @@ export class DesktopKeyPressSequenceTool extends BaseAgentTool {
   }
 }
 
+export class DesktopKeySequenceHoldDownTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    key: PC_KEY,
+    modifiers: MODIFIER_KEY[]
+  }): Promise<ToolResult> {
+    const modifiers = command.modifiers || [];
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_PRESS, { x: 0, y: 0 }, '', {
+        key: command.key,
+        modifiers: modifiers,
+      })],
+    );
+    await this.osAgentHandler.requestControl(controlCommand);
+    return {
+      output: `Pressed key ${command.key} with modifiers ${modifiers.join(' ')}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'desktop_key_sequence_hold_down_tool',
+      description: 'Holds down a key with optional modifiers',
+      input_schema: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            enum: PC_KEY_VALUES,
+            description: 'The key to hold down',
+          },
+          modifiers: {
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: MODIFIER_KEY_VALUES,
+            },
+            description: 'The modifiers to hold down',
+          },
+        },
+        required: ['key'],
+      },
+    };
+  }
+
+}
+
+export class DesktopSingleKeyHoldDownTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    key: PC_AND_MODIFIER_KEY,
+  }): Promise<ToolResult> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_PRESS, { x: 0, y: 0 }, '', {
+        key: command.key,
+      })],
+    );
+    await this.osAgentHandler.requestControl(controlCommand);
+    return {
+      output: `Pressed key ${command.key}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'desktop_single_key_hold_down_tool',
+      description: 'Holds down a single key',
+      input_schema: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            enum: [...PC_KEY_VALUES, ...MODIFIER_KEY_VALUES],
+            description: 'The key to hold down',
+          },
+        },
+        required: ['key'],
+      },
+    };
+  }
+}
+
+export class DesktopKeySequenceReleaseTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    key: PC_KEY,
+    modifiers: MODIFIER_KEY[],
+  }): Promise<ToolResult> {
+    const modifiers = command.modifiers || [];
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_RELEASE, { x: 0, y: 0 }, '', {
+        key: command.key,
+        modifiers: modifiers,
+      })],
+    );
+    await this.osAgentHandler.requestControl(controlCommand);
+    return {
+      output: `Released key ${command.key} with modifiers ${modifiers.join(' ')}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'desktop_key_sequence_release_tool',
+      description: 'Releases a key with optional modifiers',
+      input_schema: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            enum: PC_KEY_VALUES,
+            description: 'The key to release',
+          },
+          modifiers: {
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: MODIFIER_KEY_VALUES,
+            },
+            description: 'The modifiers to release',
+          },
+        },
+        required: ['key'],
+      },
+    };
+  }
+}
+
+export class DesktopSingleKeyReleaseTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    key: PC_AND_MODIFIER_KEY,
+  }): Promise<ToolResult> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_RELEASE, { x: 0, y: 0 }, '', {
+        key: command.key,
+      })],
+    );
+    await this.osAgentHandler.requestControl(controlCommand);
+    return {
+      output: `Released key ${command.key}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'desktop_single_key_release_tool',
+      description: 'Releases a single key',
+      input_schema: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            enum: [...PC_KEY_VALUES, ...MODIFIER_KEY_VALUES],
+            description: 'The key to release',
+          },
+        },
+        required: ['key'],
+      },
+    };
+  }
+}
+
+
+
+
 export class DesktopSingleKeyPressTool extends BaseAgentTool {
   constructor(private osAgentHandler: OsAgentHandler) {
     super();
