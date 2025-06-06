@@ -26,7 +26,7 @@ import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
 import { NoRetryStrategy } from './retry-strategies';
-import { AskUIAgent, AgentHistory } from '../core/models/anthropic';
+import { AskUIAgent, AgentHistory, ActOptions } from '../core/models/anthropic';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -889,57 +889,117 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Instructs the agent to achieve a specified goal through autonomous actions.
+   * Instructs the agent to autonomously achieve a specified goal through UI interactions.
    *
-   * The agent will analyze the screen, determine necessary steps, and perform actions
-   * to accomplish the goal. This may include clicking, typing, scrolling, and other
-   * interface interactions.
+   * This method enables AI-powered automation by allowing the agent to:
+   * - Analyze the current screen state and/or provided images
+   * - Plan and execute a sequence of UI interactions
+   * - Handle complex tasks through natural language instructions
+   * - Maintain context across multiple actions
    *
-   * The `options` parameter allows the caller to maintain contextual continuity across
-   * multiple `act` calls, either from the same or different agent interfaces.
+   * The agent can perform various UI interactions including:
+   * - Clicking buttons, links, and other interactive elements
+   * - Typing text into input fields
+   * - Scrolling and navigating through interfaces
    *
-   * **Examples:**
+   * ### Method Signatures
+   * ```typescript
+   * act(goal: string, options?: ActOptions): Promise<AgentHistory>
+   * act(goal: string, imagePathOrBase64: string, options?: ActOptions): Promise<AgentHistory>
+   * ```
    *
-   * ```ts
-   * // Use chatId to maintain context across consecutive steps
-   * await aui.act("Search online for the current gold price", {
-   *   chatId: "session-gold-price"
+   * ### Parameters
+   * @param goal - A natural language instruction describing the task to accomplish.
+   *               Be specific and clear about the desired outcome.
+   * @param imagePathOrBase64 - (Optional) Path to an image file or base64-encoded image string.
+   *                           Used to provide additional visual context for the task.
+   * @param options - (Optional) Configuration options for the agent's behavior.
+   * @param options.chatId - A unique identifier to maintain context between related actions.
+   *                        Useful for multi-step tasks that require state preservation.
+   * @param options.agentHistory
+   *                          - (Optional) Previous interaction history to share between
+   *                           different agent instances. Enables cross-platform task coordination.
+   *
+   * ### Returns
+   * @returns Promise<AgentHistory> - A promise that resolves to the updated interaction history,
+   *                                 containing details about the actions taken and their outcomes.
+   *
+   * ### Throws
+   * - If the agent is not properly connected
+   * - If the provided goal cannot be understood or executed
+   * - If required UI elements are not found or accessible
+   * - If the image path is invalid or the base64 string is malformed
+   *
+   * ### Examples
+   *
+   * #### Basic Usage
+   * ```typescript
+   * // Simple task execution
+   * await aui.act("Open Chrome and navigate to google.com");
+   * ```
+   *
+   * #### Maintaining Context
+   * ```typescript
+   * // Multi-step task with context preservation
+   * await aui.act("Search for current gold prices", {
+   *   chatId: "gold-price-task"
    * });
-   * await aui.act("Create a new text file and type the gold price result into it", {
-   *   chatId: "session-gold-price"
-   * });
    *
-   * // Share history explicitly between separate agents (e.g., desktop and Android)
-   * // By default, the agent operates as a computer agent.
-   * // To control an Android device, you must configure it explicitly:
+   * await aui.act("Create a new text file and save the price", {
+   *   chatId: "gold-price-task"
+   * });
+   * ```
+   *
+   * #### Cross-Platform Coordination
+   * ```typescript
+   * // Share context between desktop and mobile agents
    * await auiAndroid.agent.configureAsAndroidAgent();
+   *
    * const history = await auiDesktop.act("Copy username from desktop app");
-   * await auiAndroid.act("Paste username into the mobile login screen", {
+   * await auiAndroid.act("Paste username into mobile login", {
    *   agentHistory: history
    * });
    * ```
    *
-   * @param {string} goal - A description of what the agent should achieve.
-   * @param {Object} [options] - Optional parameters to maintain or share context.
-   * @param {string} [options.chatId] - A session identifier used to persist memory between
-   *                                    consecutive `act` calls. When multiple actions share the
-   *                                    same `chatId`, the agent retains knowledge of prior steps,
-   *                                    such as extracted data or navigation history.
-   * @param {AgentHistory} [options.agentHistory] - A shared interaction history object that can be
-   *                                           passed between different agent clients (e.g., between
-   *                                           `auiDesktop` and `auiAndroid`) to ensure continuity
-   *                                           of understanding and task flow.
-   * @returns {Promise<AgentHistory>} - Updated action history after executing the goal.
-   * @throws {Error} If the agent is not connected when the method is called.
+   * #### Using Images for Context
+   * ```typescript
+   * // Using image file
+   * await aui.act(
+   *   "Click the 'Submit' button in the provided image",
+   *   'path/to/screenshot.png'
+   * );
+   *
+   * // Using base64 image
+   * const base64Image = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...";
+   * await aui.act(
+   *   "Click the 'Submit' button in the provided image",
+   *   base64Image
+   * );
+   * ```
+   *
+   * ### Best Practices
+   * 1. Be specific in your goal descriptions
+   * 2. Use chatId for related tasks to maintain context
+   * 3. Provide clear visual context when needed
+   * 4. Handle errors appropriately in your implementation
+   * 5. Consider using agentHistory for complex cross-platform workflows
    */
-  async act(goal: string, options?: {
-    chatId?: string,
-    agentHistory?: AgentHistory,
-  }): Promise<AgentHistory> {
-    if (!this.agent.isConnected()) {
-      throw new Error('Agent is not connected, Please call connect() first');
+  async act(goal: string, options?: ActOptions): Promise<AgentHistory>;
+
+  async act(
+    goal: string,
+    imagePathOrBase64String: string,
+    options?: ActOptions): Promise<AgentHistory>;
+
+  async act(
+    goal: string,
+    imageOrOptions?: string | ActOptions,
+    options?: ActOptions,
+  ): Promise<AgentHistory> {
+    if (typeof imageOrOptions === 'string') {
+      return this.agent.act(goal, imageOrOptions, options);
     }
 
-    return this.agent.act(goal, options);
+    return this.agent.act(goal, undefined, imageOrOptions);
   }
 }
