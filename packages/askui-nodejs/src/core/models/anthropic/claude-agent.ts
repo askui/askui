@@ -185,7 +185,6 @@ export class ClaudeAgent {
                 if (block.type === 'text') {
                     logger.info(`Agent: ${block.text}`);
                 }
-
             }
 
             if (toolResultContent.length === 0) {
