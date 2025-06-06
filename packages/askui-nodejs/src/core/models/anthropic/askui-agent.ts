@@ -1,6 +1,5 @@
 import {
-  DesktopKeyPressSequenceTool,
-  DesktopSingleKeyPressTool,
+  DesktopPressAndReleaseKeysTool,
   MouseClickTool,
   MouseMoveTool,
   MouseScrollTool,
@@ -11,6 +10,12 @@ import {
   AndroidSequenceKeyPressTool,
   AndroidSingleKeyPressTool,
   ExecuteShellCommandTool,
+  DesktopKeyHoldDownTool,
+  DesktopKeyReleaseTool,
+  MouseReleaseLeftButtonTool,
+  MouseHoldLeftButtonDownTool,
+  MouseDragAndDropTool,
+  WaitTool,
 } from './tools/os-agent-tools';
 import { BaseAgentTool } from './tools/base';
 import { ClaudeAgent } from './claude-agent';
@@ -45,9 +50,14 @@ export class AskUIAgent extends ClaudeAgent {
       new MouseMoveTool(this.osAgentHandler),
       new MouseClickTool(this.osAgentHandler),
       new MouseScrollTool(this.osAgentHandler),
-      new DesktopKeyPressSequenceTool(this.osAgentHandler),
-      new DesktopSingleKeyPressTool(this.osAgentHandler),
       new TypeTool(this.osAgentHandler),
+      new DesktopPressAndReleaseKeysTool(this.osAgentHandler),
+      new DesktopKeyHoldDownTool(this.osAgentHandler),
+      new DesktopKeyReleaseTool(this.osAgentHandler),
+      new MouseHoldLeftButtonDownTool(this.osAgentHandler),
+      new MouseReleaseLeftButtonTool(this.osAgentHandler),
+      new MouseDragAndDropTool(this.osAgentHandler),
+      new WaitTool(),
     ];
 
     this.setTools(tools);
@@ -69,6 +79,7 @@ export class AskUIAgent extends ClaudeAgent {
       new AndroidSequenceKeyPressTool(this.osAgentHandler),
       new TypeTool(this.osAgentHandler),
       new ExecuteShellCommandTool(this.osAgentHandler),
+      new WaitTool(),
     ];
     this.setTools(tools);
     this.setSystemPrompt(AskUIAgent.AndroidSystemPrompt);
@@ -77,22 +88,13 @@ export class AskUIAgent extends ClaudeAgent {
   private static DesktopSystemPrompt = `
 <SYSTEM_CAPABILITY>
 You are an autonomous AI assistant operating on a ${process.platform} machine with ${process.arch} architecture. You have full access to the system and internet connectivity.
-Your main goal is to mimic a human user interacting with a desktop computer. So you should try to use the tools in a way that a human would use a mouse and keyboard to interact with a computer.
-
-Key Capabilities:
-* Full system control through mouse and keyboard interactions
-* Screen capture and analysis
-* Web browser automation and navigation
-* File system access and manipulation
-* PDF document handling and text extraction
-* Error handling and recovery mechanisms
-
-Available Tools:
-* Mouse control (move, click, scroll)
-* Keyboard input (single keys, key combinations, typing)
-* Screen capture and analysis
-* Error reporting and recovery
-
+Your main goal is to mimic a human user interacting with a desktop computer.
+Use a mouse and keyboard to interact with a computer, and take screenshots.
+* This is an interface to a desktop GUI. You do not have access to a terminal or applications menu. You must click on desktop icons to start applications.
+* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions. E.g. if you click on Firefox and a window doesn't open, try taking another screenshot.
+* Whenever you intend to move the cursor to click on an element like an icon, you should consult a screenshot to determine the coordinates of the element before moving the cursor.
+* If you tried clicking on a program or link but it failed to load, even after waiting, try adjusting your cursor position so that the tip of the cursor visually falls on the element that you want to click.
+* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.
 Current Date: ${new Date().toUTCString()} UTC
 </SYSTEM_CAPABILITY>
 
@@ -142,20 +144,11 @@ Current Date: ${new Date().toUTCString()} UTC
 <SYSTEM_CAPABILITY>
 You are an autonomous AI assistant operating on an Android device via ADB. The host machine is ${process.platform} with ${process.arch} architecture and internet connectivity.
 Your main goal is to mimic a human user interacting with an Android device. So you should try to use the tools in a way that a human would use a touch screen to interact with an Android device.
-
-Key Capabilities:
-* Full Android device control through ADB
-* Screen capture and analysis
-* Touch input simulation
-* Android-specific key events
-* Error handling and recovery mechanisms
-
-Available Tools:
-* Touch control (click, swipe, scroll)
-* Android key events (single and sequence)
-* Screen capture and analysis
-* Error reporting and recovery
-
+Use a gestures and adb commands to interact with the android device, and take screenshots.
+* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions. E.g. if you click on Firefox and a window doesn't open, try taking another screenshot.
+* Whenever you intend to move the cursor to click on an element like an icon, you should consult a screenshot to determine the coordinates of the element before moving the cursor.
+* If you tried clicking on a program or link but it failed to load, even after waiting, try adjusting your cursor position so that the tip of the cursor visually falls on the element that you want to click.
+* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.
 Current Date: ${new Date().toUTCString()} UTC
 </SYSTEM_CAPABILITY>
 
