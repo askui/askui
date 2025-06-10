@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.26.0](https://github.com/askui/askui/compare/v0.25.1...v0.26.0) (2025-06-10)
+
+
+### Features
+
+* add key press and release to agent ([1b7fc29](https://github.com/askui/askui/commit/1b7fc2928203ed058c0b598f3eabf1a3e36f96dd))
+* add support for press-and-hold actions and image-based goals ([2d5ed18](https://github.com/askui/askui/commit/2d5ed184a8cbee81bcd2391c772d794b66b70a6a))
+
+
+### Bug Fixes
+
+* scaling issues in askui agent ([aef5632](https://github.com/askui/askui/commit/aef56321e79bce99c558a59984ebc87a2ffa03d9))
+
 ## [0.25.1](https://github.com/askui/askui/compare/v0.25.0...v0.25.1) (2025-05-28)
 
 ## [0.25.0](https://github.com/askui/askui/compare/v0.24.1...v0.25.0) (2025-05-28)
