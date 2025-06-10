@@ -51,7 +51,7 @@
         "dist/example_projects_templates/"
     ],
     "dependencies": {
-        "@anthropic-ai/sdk": "0.52.0",
+        "@anthropic-ai/sdk": "0.53.0",
         "chalk": "4.1.1",
         "commander": "12.1.0",
         "fkill": "7.2.1",

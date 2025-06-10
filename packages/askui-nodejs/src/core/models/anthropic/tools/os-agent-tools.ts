@@ -22,13 +22,55 @@ import { Base64Image } from '../../../../utils/base_64_image/base-64-image';
 import { AgentError } from './agent-errors';
 
 export class OsAgentHandler {
-  private TargetResolution: { width: number; height: number } = { width: 1280, height: 800 };
+  private targetResolution: { width: number; height: number } = { width: 1280, height: 800 };
 
   private screenDimensions: { width: number; height: number };
 
+  private paddingInfo: {
+    scaleFactor: number;
+    scaledWidth: number;
+    scaledHeight: number;
+    padLeft: number;
+    padTop: number;
+  } | null = null;
+
   constructor(private AgentOsClient: ExecutionRuntime, screenDimensions: { width: number; height: number }) {
     this.screenDimensions = screenDimensions;
+    this.updatePaddingInfo();
   }
+
+  private updatePaddingInfo() {
+    const targetAspectRatio = this.targetResolution.width / this.targetResolution.height;
+    const screenAspectRatio = this.screenDimensions.width / this.screenDimensions.height;
+
+    let scaledWidth: number;
+    let scaledHeight: number;
+    let scaleFactor: number;
+    let padLeft = 0;
+    let padTop = 0;
+
+    if (targetAspectRatio > screenAspectRatio) {
+      scaleFactor = this.targetResolution.height / this.screenDimensions.height;
+      scaledWidth = Math.floor(this.screenDimensions.width * scaleFactor);
+      scaledHeight = this.targetResolution.height;
+      padLeft = Math.floor((this.targetResolution.width - scaledWidth) / 2);
+    } else {
+      scaleFactor = this.targetResolution.width / this.screenDimensions.width;
+      scaledWidth = this.targetResolution.width;
+      scaledHeight = Math.floor(this.screenDimensions.height * scaleFactor);
+      padTop = Math.floor((this.targetResolution.height - scaledHeight) / 2);
+    }
+
+    this.paddingInfo = {
+      scaleFactor,
+      scaledWidth,
+      scaledHeight,
+      padLeft,
+      padTop
+    };
+  }
+
+  // Add image support to act, an check for function overload in typescript.
 
   static async createInstance(AgentOsClient: ExecutionRuntime): Promise<OsAgentHandler> {
     const base64ImageString = await AgentOsClient.getScreenshot();
@@ -40,11 +82,16 @@ export class OsAgentHandler {
   }
 
   getTargetResolution(): { width: number; height: number } {
-    return this.TargetResolution;
+    return this.targetResolution;
+  }
+
+  getScreenDimensions(): { width: number; height: number } {
+    return this.screenDimensions;
   }
 
   setTargetResolution(width: number, height: number) {
-    this.TargetResolution = { width, height };
+    this.targetResolution = { width, height };
+    this.updatePaddingInfo();
   }
 
   async takeScreenshot(): Promise<string> {
@@ -55,39 +102,153 @@ export class OsAgentHandler {
       width: image_info.width,
       height: image_info.height,
     };
-    const resized_image = await base64Image.resizeWithSameAspectRatio(this.TargetResolution.width, this.TargetResolution.height);
+    this.updatePaddingInfo();
+    const resized_image = await base64Image.resizeWithSameAspectRatio(this.targetResolution.width, this.targetResolution.height);
     return resized_image.toString(false);
   }
 
   private scaleCoordinates(source: 'api' | 'computer', x: number, y: number): [number, number] {
-    const xScalingFactor = this.TargetResolution.width / this.screenDimensions.width;
-    const yScalingFactor = this.TargetResolution.height / this.screenDimensions.height;
+    if (!this.paddingInfo) {
+      throw new ToolError('Padding information not initialized');
+    }
+
+    const { scaleFactor, scaledWidth, scaledHeight, padLeft, padTop } = this.paddingInfo;
 
     if (source === 'api') {
-      if (x > this.TargetResolution.width || y > this.TargetResolution.height || x < 0 || y < 0) {
+      if (x > this.targetResolution.width || y > this.targetResolution.height || x < 0 || y < 0) {
         throw new ToolError(
           `Coordinates ${x}, ${y} are outside screen bounds `
-          + `(${this.TargetResolution.width}x${this.TargetResolution.height})`,
+          + `(${this.targetResolution.width}x${this.targetResolution.height})`,
+        );
+      }
+
+      const adjustedX = x - padLeft;
+      const adjustedY = y - padTop;
+
+      if (adjustedX < 0 || adjustedX > scaledWidth || adjustedY < 0 || adjustedY > scaledHeight) {
+        throw new ToolError(
+          `Coordinates ${x}, ${y} are outside the scaled image area `
+          + `(${scaledWidth}x${scaledHeight} with padding ${padLeft},${padTop})`,
         );
       }
 
       return [
-        Math.round(x / xScalingFactor),
-        Math.round(y / yScalingFactor),
+        Math.round(adjustedX / scaleFactor),
+        Math.round(adjustedY / scaleFactor),
       ];
     }
 
-    return [
-      Math.round(x * xScalingFactor),
-      Math.round(y * yScalingFactor),
-    ];
+    const apiX = Math.round(x * scaleFactor) + padLeft;
+    const apiY = Math.round(y * scaleFactor) + padTop;
+
+    return [apiX, apiY];
   }
 
   async requestControl(controlCommand: ControlCommand): Promise<void> {
     for (const action of controlCommand.actions) {
-      [action.position.x, action.position.y] = this.scaleCoordinates('api', action.position.x, action.position.y);
+      if (action.inputEvent === InputEvent.MOUSE_MOVE || action.inputEvent === InputEvent.MOUSE_SCROLL) {
+        [action.position.x, action.position.y] = this.scaleCoordinates('api', action.position.x, action.position.y);
+      }
     }
     await this.AgentOsClient.requestControl(controlCommand);
+  }
+
+  async mouseMove(x: number, y: number): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.MOUSE_MOVE, { x, y }, '', {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async mouseClick(button: "left" | "right" | "middle", doubleClick: boolean): Promise<void> {
+    let action: InputEvent = InputEvent.MOUSE_CLICK_LEFT;
+    if (doubleClick) {
+      if (button === "left") {
+        action = InputEvent.MOUSE_CLICK_DOUBLE_LEFT;
+      } else if (button === "right") {
+        action = InputEvent.MOUSE_CLICK_DOUBLE_RIGHT;
+      } else if (button === "middle") {
+        action = InputEvent.MOUSE_CLICK_DOUBLE_MIDDLE;
+      }
+    } else {
+      if (button === "right") {
+        action = InputEvent.MOUSE_CLICK_RIGHT;
+      } else if (button === "middle") {
+        action = InputEvent.MOUSE_CLICK_MIDDLE;
+      }
+    }
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(action, { x: 0, y: 0 }, '', {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async mouseScroll(dx: number, dy: number): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.MOUSE_SCROLL, { x: dx, y: dy }, '', {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async mouseHoldLeftButtonDown(): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.MOUSE_DOWN, { x: 0, y: 0 }, '', {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async mouseReleaseLeftButton(): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.MOUSE_UP, { x: 0, y: 0 }, '', {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async desktopKeyPressAndRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+    let keyString: string = key;
+    if (modifiers.length > 0) {
+      keyString = `${modifiers.join('+')}+${key}`;
+    }
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.PRESS_KEY_SEQUENCE, { x: 0, y: 0 }, keyString, {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async desktopKeyHoldDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_PRESS, { x: 0, y: 0 }, '', {
+        key: key,
+        modifiers: modifiers,
+      })],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async desktopKeyRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.KEY_RELEASE, { x: 0, y: 0 }, '', {
+        key: key,
+        modifiers: modifiers,
+      })],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async typeText(text: string): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.TYPE, { x: 0, y: 0 }, text, {})],
+    );
+    await this.requestControl(controlCommand);
   }
 }
 
@@ -107,7 +268,7 @@ export class ScreenShotTool extends BaseAgentTool {
   toParams(): BetaTool {
     return {
       name: 'screenshot_tool',
-      description: 'Takes a screenshot of the current screen and returns it as a base64 image',
+      description: 'Takes a screenshot of the current screen and returns it as a base64 image.',
       input_schema: { type: 'object', properties: {}, required: [] },
     };
   }
@@ -122,16 +283,7 @@ export class MouseMoveTool extends BaseAgentTool {
     x: number;
     y: number;
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.MOUSE_MOVE,
-        { x: command.x, y: command.y },
-        '',
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.mouseMove(command.x, command.y);
     return {
       output: `Moved mouse to (${command.x}, ${command.y})`,
     };
@@ -146,11 +298,11 @@ export class MouseMoveTool extends BaseAgentTool {
         properties: {
           x: {
             type: 'number',
-            description: 'The x coordinate of the element to click on',
+            description: 'The x (pixels from the left edge) coordinate to move the mouse to',
           },
           y: {
             type: 'number',
-            description: 'The y coordinate of the element to click on',
+            description: 'The y (pixels from the top edge) coordinate to move the mouse to',
           },
         },
       },
@@ -167,57 +319,9 @@ export class MouseClickTool extends BaseAgentTool {
     button: 'left' | 'right' | 'middle';
     doubleClick: boolean;
   }): Promise<ToolResult> {
-    let controlCommand: ControlCommand | undefined;
-    if (command.doubleClick) {
-      if (command.button === 'left') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_DOUBLE_LEFT, { x: 0, y: 0 }, '', {})],
-        );
-      }
-
-      if (command.button === 'right') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_DOUBLE_RIGHT, { x: 0, y: 0 }, '', {})],
-        );
-      }
-
-      if (command.button === 'middle') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_DOUBLE_MIDDLE, { x: 0, y: 0 }, '', {})],
-        );
-      }
-    } else {
-      if (command.button === 'left') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_LEFT, { x: 0, y: 0 }, '', {})],
-        );
-      }
-
-      if (command.button === 'right') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_RIGHT, { x: 0, y: 0 }, '', {})],
-        );
-      }
-
-      if (command.button === 'middle') {
-        controlCommand = new ControlCommand(
-          ControlCommandCode.OK,
-          [new Action(InputEvent.MOUSE_CLICK_MIDDLE, { x: 0, y: 0 }, '', {})],
-        );
-      }
-    }
-    if (!controlCommand) {
-      throw new ToolError('Invalid input parameter for mouse click tool');
-    }
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.mouseClick(command.button, command.doubleClick);
 
     const returnedMessage = command.doubleClick ? `Double clicked ${command.button} button` : `Clicked ${command.button} button`;
-
     return {
       output: returnedMessage,
     };
@@ -255,16 +359,7 @@ export class MouseScrollTool extends BaseAgentTool {
     dx: number;
     dy: number;
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.MOUSE_SCROLL,
-        { x: command.dx, y: command.dy },
-        '',
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.mouseScroll(command.dx, command.dy);
     return {
       output: `Scrolled by (${command.dx}, ${command.dy})`,
     };
@@ -279,11 +374,11 @@ export class MouseScrollTool extends BaseAgentTool {
         properties: {
           dx: {
             type: 'number',
-            description: 'The amount to scroll horizontally',
+            description: 'The amount to scroll horizontally (positive is right, negative is left)',
           },
           dy: {
             type: 'number',
-            description: 'The amount to scroll vertically',
+            description: 'The amount to scroll vertically (positive is down, negative is up)',
           },
         },
         required: ['dx', 'dy'],
@@ -292,31 +387,113 @@ export class MouseScrollTool extends BaseAgentTool {
   }
 }
 
-export class DesktopKeyPressSequenceTool extends BaseAgentTool {
+export class MouseDragAndDropTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+  }): Promise<ToolResult> {
+    await this.osAgentHandler.mouseMove(command.startX, command.startY);
+    await this.osAgentHandler.mouseHoldLeftButtonDown();
+    await this.osAgentHandler.mouseMove(command.endX, command.endY);
+    await this.osAgentHandler.mouseReleaseLeftButton();
+    return {
+      output: `Dragged from (${command.startX}, ${command.startY}) to (${command.endX}, ${command.endY})`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'mouse_drag_and_drop_tool',
+      description: 'Drags the mouse from the specified start coordinates to the specified end coordinates. The top left corner of the screen is (0,0)',
+      input_schema: {
+        type: 'object',
+        properties: {
+          startX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the start position',
+          },
+          startY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the start position',
+          },
+          endX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the end position',
+          },
+          endY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the end position',
+          },
+        },
+        required: ['startX', 'startY', 'endX', 'endY'],
+      },
+    };
+  }
+
+}
+
+export class MouseHoldLeftButtonDownTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(): Promise<ToolResult> {
+    await this.osAgentHandler.mouseHoldLeftButtonDown();
+    return {
+      output: 'Holding down left mouse button',
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'mouse_hold_left_button_down_tool',
+      description: 'Hold down the left mouse button at the current position.',
+      input_schema: { type: 'object', properties: {}, required: [] },
+    };
+  }
+}
+
+export class MouseReleaseLeftButtonTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(): Promise<ToolResult> {
+    await this.osAgentHandler.mouseReleaseLeftButton();
+    return {
+      output: 'Released left mouse button',
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'mouse_release_left_button_tool',
+      description: 'Release the left mouse button at the current position.',
+      input_schema: { type: 'object', properties: {}, required: [] },
+    };
+  }
+
+}
+
+export class DesktopPressAndReleaseKeysTool extends BaseAgentTool {
   constructor(private osAgentHandler: OsAgentHandler) {
     super();
   }
 
   async execute(command: {
     key: PC_KEY;
-    firstModifier?: MODIFIER_KEY;
-    secondModifier?: MODIFIER_KEY;
+    modifiers?: MODIFIER_KEY[];
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.PRESS_KEY_SEQUENCE,
-        { x: 0, y: 0 },
-        command.key,
-        {
-          firstModifier: command.firstModifier || '',
-          secondModifier: command.secondModifier || '',
-        },
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    const modifiers = command.modifiers || [];
+    await this.osAgentHandler.desktopKeyPressAndRelease(command.key, modifiers);
     return {
-      output: `Pressed key ${command.key} with modifiers ${command.firstModifier || ''} ${command.secondModifier || ''}`,
+      output: `Pressed key ${command.key} with modifiers ${modifiers.join(' ')}`,
     };
   }
 
@@ -332,15 +509,13 @@ export class DesktopKeyPressSequenceTool extends BaseAgentTool {
             enum: PC_KEY_VALUES,
             description: 'The key to press',
           },
-          firstModifier: {
-            type: 'string',
-            enum: MODIFIER_KEY_VALUES,
-            description: 'The first modifier key',
-          },
-          secondModifier: {
-            type: 'string',
-            enum: MODIFIER_KEY_VALUES,
-            description: 'The second modifier key',
+          modifiers: {
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: MODIFIER_KEY_VALUES,
+            },
+            description: 'The modifiers to press',
           },
         },
         required: ['key'],
@@ -349,40 +524,84 @@ export class DesktopKeyPressSequenceTool extends BaseAgentTool {
   }
 }
 
-export class DesktopSingleKeyPressTool extends BaseAgentTool {
+export class DesktopKeyHoldDownTool extends BaseAgentTool {
   constructor(private osAgentHandler: OsAgentHandler) {
     super();
   }
 
   async execute(command: {
-    key: PC_AND_MODIFIER_KEY;
+    key: PC_AND_MODIFIER_KEY,
+    modifiers?: MODIFIER_KEY[];
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.PRESS_KEY_SEQUENCE,
-        { x: 0, y: 0 },
-        command.key,
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    const modifiers = command.modifiers || [];
+    await this.osAgentHandler.desktopKeyHoldDown(command.key, modifiers);
     return {
-      output: `Pressed key ${command.key}`,
+      output: `Holding down key ${command.key} with modifiers ${modifiers.join(' ')}`,
     };
   }
 
   toParams(): BetaTool {
     return {
-      name: 'desktop_single_key_press_tool',
-      description: 'Presses a single key',
+      name: 'desktop_key_hold_down_tool',
+      description: 'Hold down a key and optional modifiers. Keys will be still pressed after the tool is finished.',
       input_schema: {
         type: 'object',
         properties: {
           key: {
             type: 'string',
             enum: [...PC_KEY_VALUES, ...MODIFIER_KEY_VALUES],
-            description: 'The key to press',
+            description: 'The key to hold down',
+          },
+          modifiers: {
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: MODIFIER_KEY_VALUES,
+            },
+            description: 'The modifiers to hold down',
+          },
+        },
+        required: ['key'],
+      },
+    };
+  }
+}
+
+export class DesktopKeyReleaseTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    key: PC_AND_MODIFIER_KEY,
+    modifiers?: MODIFIER_KEY[];
+  }): Promise<ToolResult> {
+    const modifiers = command.modifiers || [];
+    await this.osAgentHandler.desktopKeyRelease(command.key, modifiers);
+    return {
+      output: `Released key ${command.key} with modifiers ${modifiers.join(' ')}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'desktop_key_release_tool',
+      description: 'Releases a key and optional modifiers. This can be used after keys were held down with the desktop_key_hold_down_tool',
+      input_schema: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            enum: [...PC_KEY_VALUES, ...MODIFIER_KEY_VALUES],
+            description: 'The key to release',
+          },
+          modifiers: {
+            type: 'array',
+            items: {
+              type: 'string',
+              enum: MODIFIER_KEY_VALUES,
+            },
+            description: 'The modifiers to release',
           },
         },
         required: ['key'],
@@ -586,6 +805,38 @@ export class ExecuteShellCommandTool extends BaseAgentTool {
           },
         },
         required: ['command'],
+      },
+    };
+  }
+}
+
+export class WaitTool extends BaseAgentTool {
+  constructor() {
+    super();
+  }
+
+  async execute(command: {
+    milliseconds: number;
+  }): Promise<ToolResult> {
+    await new Promise(resolve => setTimeout(resolve, command.milliseconds));
+    return {
+      output: `Waited for ${command.milliseconds} milliseconds`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'wait_tool',
+      description: 'Waits for a specified number of milliseconds',
+      input_schema: {
+        type: 'object',
+        properties: {
+          milliseconds: {
+            type: 'number',
+            description: 'The number of milliseconds to wait',
+          },
+        },
+        required: ['milliseconds'],
       },
     };
   }

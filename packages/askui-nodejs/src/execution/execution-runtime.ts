@@ -242,6 +242,10 @@ export class ExecutionRuntime {
     system?: string;
     tools?: object[];
     betas?: string[];
+    tool_choice?: {
+      type: 'tool' | 'any' | 'auto';
+      name?: string;
+    };
   }): Promise<BetaMessage> {
     return this.inferenceClient.predictActResponse(params);
   }

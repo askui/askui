@@ -194,6 +194,10 @@ export class InferenceClient {
 
   async predictActResponse(params: {
     max_tokens: number;
+    tool_choice?: {
+      type: 'tool' | 'any' | 'auto';
+      name?: string;
+    };
     messages: BetaMessageParam[];
     model: string;
     system?: string;

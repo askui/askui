@@ -2,6 +2,8 @@
 import { Beta } from '@anthropic-ai/sdk/resources';
 import { BaseAgentTool, ToolCollection, ToolResult } from './tools/base';
 import { logger } from '../../../lib/logger';
+import { BetaMessageParam } from '@anthropic-ai/sdk/resources/beta/messages';
+import { Base64Image } from '../../../utils/base_64_image/base-64-image';
 
 type PredictActResponseFunction = (params: {
     max_tokens: number;
@@ -10,22 +12,46 @@ type PredictActResponseFunction = (params: {
     system?: string;
     tools?: any[];
     betas?: string[];
+    tool_choice?: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    };
 }) => Promise<Beta.BetaMessage>;
+
+export type AgentHistory = BetaMessageParam[];
+
+export interface ActOptions {
+    chatId?: string,
+    agentHistory?: Beta.BetaMessageParam[],
+}
 
 export class ClaudeAgent {
     private maxTokens = 4096;
     private onlyNMostRecentImages = 3;
     private imageTruncationThreshold = 10;
     private systemPrompt = '';
-    private model = 'claude-3-5-sonnet-20241022';
-    private betas = ['computer-use-2024-10-22'];
+    private model = 'claude-sonnet-4-20250514';
+    private betas = ['computer-use-2025-01-24'];
     private _toolCollection: ToolCollection | undefined = undefined;
     private tools: BaseAgentTool[] = [];
     private history: { [key: string]: Beta.BetaMessageParam[] } = {};
+    private toolChoice: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    } = {
+        type: 'any',
+    };
 
     constructor(
         private predictActResponseFunction: PredictActResponseFunction
     ) {
+    }
+
+    setToolChoice(toolChoice: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    }) {
+        this.toolChoice = toolChoice;
     }
 
     setTools(tools: BaseAgentTool[]) {
@@ -47,7 +73,15 @@ export class ClaudeAgent {
     }
 
     setSystemPrompt(systemPrompt: string) {
-        this.systemPrompt = systemPrompt;
+        const enhancedPrompt = `${systemPrompt}
+        If you cannot complete a request due to safety concerns, please:
+        1. Explain what specific aspect is problematic
+        2. Suggest alternative approaches that would be acceptable
+        3. Provide partial assistance where possible within guidelines.
+        Raise an exception After you have provided the above information. include the error message in the exception.
+        `;
+
+        this.systemPrompt = enhancedPrompt;
     }
 
     private IsConfigured(): boolean {
@@ -71,10 +105,8 @@ export class ClaudeAgent {
 
     async act(
         goal: string,
-        options?: {
-            chatId?: string,
-            agentHistory?: Beta.BetaMessageParam[],
-        }
+        imagePathOrBase64String?: string,
+        options?: ActOptions
     ): Promise<Beta.BetaMessageParam[]> {
         if (!goal.trim()) {
             throw new Error('Goal cannot be empty');
@@ -95,8 +127,26 @@ export class ClaudeAgent {
         }
 
         // Add the new goal as a user message
+        const userContent: Beta.BetaContentBlockParam[] = [{
+            type: 'text',
+            text: goal,
+        }];
+
+        if (imagePathOrBase64String !== undefined) {
+            const image = await Base64Image.fromPathOrString(imagePathOrBase64String);
+            const imageString = image.toString(false);
+            userContent.push({
+                type: 'image',
+                source: {
+                    type: 'base64',
+                    media_type: 'image/png',
+                    data: imageString,
+                },
+            });
+        }
+
         messages.push({
-            content: goal,
+            content: userContent,
             role: 'user',
         });
 
@@ -116,7 +166,17 @@ export class ClaudeAgent {
                 system: this.systemPrompt,
                 tools: (new ToolCollection(this.tools).toParams()),
                 betas: this.betas,
+                tool_choice: this.toolChoice,
             });
+
+            if (response.stop_reason === 'refusal') {
+                const refusalMessage = response.content
+                    .filter(block => block.type === 'text')
+                    .map(block => (block as any).text)
+                    .join(' ');
+
+                throw new Error(`Agent refused to answer: ${refusalMessage || 'The request violates agent\'s usage policies'}`);
+            }
 
             messages.push({
                 content: response.content as Beta.BetaContentBlockParam[],
