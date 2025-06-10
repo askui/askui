@@ -12,6 +12,10 @@ type PredictActResponseFunction = (params: {
     system?: string;
     tools?: any[];
     betas?: string[];
+    tool_choice?: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    };
 }) => Promise<Beta.BetaMessage>;
 
 export type AgentHistory = BetaMessageParam[];
@@ -31,10 +35,23 @@ export class ClaudeAgent {
     private _toolCollection: ToolCollection | undefined = undefined;
     private tools: BaseAgentTool[] = [];
     private history: { [key: string]: Beta.BetaMessageParam[] } = {};
+    private toolChoice: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    } = {
+        type: 'any',
+    };
 
     constructor(
         private predictActResponseFunction: PredictActResponseFunction
     ) {
+    }
+
+    setToolChoice(toolChoice: {
+        type: 'tool' | 'any' | 'auto';
+        name?: string;
+    }) {
+        this.toolChoice = toolChoice;
     }
 
     setTools(tools: BaseAgentTool[]) {
@@ -149,6 +166,7 @@ export class ClaudeAgent {
                 system: this.systemPrompt,
                 tools: (new ToolCollection(this.tools).toParams()),
                 betas: this.betas,
+                tool_choice: this.toolChoice,
             });
 
             if (response.stop_reason === 'refusal') {
