@@ -22,7 +22,7 @@ import { Base64Image } from '../../../../utils/base_64_image/base-64-image';
 import { AgentError } from './agent-errors';
 
 export class OsAgentHandler {
-  private TargetResolution: { width: number; height: number } = { width: 1280, height: 800 };
+  private targetResolution: { width: number; height: number } = { width: 1280, height: 800 };
 
   private screenDimensions: { width: number; height: number };
 
@@ -40,7 +40,7 @@ export class OsAgentHandler {
   }
 
   private updatePaddingInfo() {
-    const targetAspectRatio = this.TargetResolution.width / this.TargetResolution.height;
+    const targetAspectRatio = this.targetResolution.width / this.targetResolution.height;
     const screenAspectRatio = this.screenDimensions.width / this.screenDimensions.height;
 
     let scaledWidth: number;
@@ -50,15 +50,15 @@ export class OsAgentHandler {
     let padTop = 0;
 
     if (targetAspectRatio > screenAspectRatio) {
-      scaleFactor = this.TargetResolution.height / this.screenDimensions.height;
+      scaleFactor = this.targetResolution.height / this.screenDimensions.height;
       scaledWidth = Math.floor(this.screenDimensions.width * scaleFactor);
-      scaledHeight = this.TargetResolution.height;
-      padLeft = Math.floor((this.TargetResolution.width - scaledWidth) / 2);
+      scaledHeight = this.targetResolution.height;
+      padLeft = Math.floor((this.targetResolution.width - scaledWidth) / 2);
     } else {
-      scaleFactor = this.TargetResolution.width / this.screenDimensions.width;
-      scaledWidth = this.TargetResolution.width;
+      scaleFactor = this.targetResolution.width / this.screenDimensions.width;
+      scaledWidth = this.targetResolution.width;
       scaledHeight = Math.floor(this.screenDimensions.height * scaleFactor);
-      padTop = Math.floor((this.TargetResolution.height - scaledHeight) / 2);
+      padTop = Math.floor((this.targetResolution.height - scaledHeight) / 2);
     }
 
     this.paddingInfo = {
@@ -82,7 +82,7 @@ export class OsAgentHandler {
   }
 
   getTargetResolution(): { width: number; height: number } {
-    return this.TargetResolution;
+    return this.targetResolution;
   }
 
   getScreenDimensions(): { width: number; height: number } {
@@ -90,7 +90,7 @@ export class OsAgentHandler {
   }
 
   setTargetResolution(width: number, height: number) {
-    this.TargetResolution = { width, height };
+    this.targetResolution = { width, height };
     this.updatePaddingInfo();
   }
 
@@ -103,7 +103,7 @@ export class OsAgentHandler {
       height: image_info.height,
     };
     this.updatePaddingInfo();
-    const resized_image = await base64Image.resizeWithSameAspectRatio(this.TargetResolution.width, this.TargetResolution.height);
+    const resized_image = await base64Image.resizeWithSameAspectRatio(this.targetResolution.width, this.targetResolution.height);
     return resized_image.toString(false);
   }
 
@@ -115,10 +115,10 @@ export class OsAgentHandler {
     const { scaleFactor, scaledWidth, scaledHeight, padLeft, padTop } = this.paddingInfo;
 
     if (source === 'api') {
-      if (x > this.TargetResolution.width || y > this.TargetResolution.height || x < 0 || y < 0) {
+      if (x > this.targetResolution.width || y > this.targetResolution.height || x < 0 || y < 0) {
         throw new ToolError(
           `Coordinates ${x}, ${y} are outside screen bounds `
-          + `(${this.TargetResolution.width}x${this.TargetResolution.height})`,
+          + `(${this.targetResolution.width}x${this.targetResolution.height})`,
         );
       }
 
@@ -209,8 +209,7 @@ export class OsAgentHandler {
     await this.requestControl(controlCommand);
   }
 
-  // Tap , click and release
-  async DesktopKeyPressAndRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+  async desktopKeyPressAndRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
     let keyString: string = key;
     if (modifiers.length > 0) {
       keyString = `${modifiers.join('+')}+${key}`;
@@ -222,7 +221,7 @@ export class OsAgentHandler {
     await this.requestControl(controlCommand);
   }
 
-  async DesktopKeyHoldDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+  async desktopKeyHoldDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
       [new Action(InputEvent.KEY_PRESS, { x: 0, y: 0 }, '', {
@@ -233,7 +232,7 @@ export class OsAgentHandler {
     await this.requestControl(controlCommand);
   }
 
-  async DesktopKeyRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
+  async desktopKeyRelease(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Promise<void> {
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
       [new Action(InputEvent.KEY_RELEASE, { x: 0, y: 0 }, '', {
@@ -244,7 +243,7 @@ export class OsAgentHandler {
     await this.requestControl(controlCommand);
   }
 
-  async TypeText(text: string): Promise<void> {
+  async typeText(text: string): Promise<void> {
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
       [new Action(InputEvent.TYPE, { x: 0, y: 0 }, text, {})],
@@ -492,7 +491,7 @@ export class DesktopPressAndReleaseKeysTool extends BaseAgentTool {
     modifiers?: MODIFIER_KEY[];
   }): Promise<ToolResult> {
     const modifiers = command.modifiers || [];
-    await this.osAgentHandler.DesktopKeyPressAndRelease(command.key, modifiers);
+    await this.osAgentHandler.desktopKeyPressAndRelease(command.key, modifiers);
     return {
       output: `Pressed key ${command.key} with modifiers ${modifiers.join(' ')}`,
     };
@@ -535,7 +534,7 @@ export class DesktopKeyHoldDownTool extends BaseAgentTool {
     modifiers?: MODIFIER_KEY[];
   }): Promise<ToolResult> {
     const modifiers = command.modifiers || [];
-    await this.osAgentHandler.DesktopKeyHoldDown(command.key, modifiers);
+    await this.osAgentHandler.desktopKeyHoldDown(command.key, modifiers);
     return {
       output: `Holding down key ${command.key} with modifiers ${modifiers.join(' ')}`,
     };
@@ -578,7 +577,7 @@ export class DesktopKeyReleaseTool extends BaseAgentTool {
     modifiers?: MODIFIER_KEY[];
   }): Promise<ToolResult> {
     const modifiers = command.modifiers || [];
-    await this.osAgentHandler.DesktopKeyRelease(command.key, modifiers);
+    await this.osAgentHandler.desktopKeyRelease(command.key, modifiers);
     return {
       output: `Released key ${command.key} with modifiers ${modifiers.join(' ')}`,
     };
