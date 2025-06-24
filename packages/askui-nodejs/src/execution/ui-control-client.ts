@@ -27,6 +27,7 @@ import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
 import { NoRetryStrategy } from './retry-strategies';
 import { AskUIAgent, AgentHistory, ActOptions } from '../core/models/anthropic';
+import { AskUIGetAskUIElementTool, AskUIListAIElementTool } from '../core/models/anthropic/tools/askui-api-tools';
 
 export type RelationsForConvenienceMethods = 'nearestTo' | 'leftOf' | 'above' | 'rightOf' | 'below' | 'contains';
 export type TextMatchingOption = 'similar' | 'exact' | 'regex';
@@ -1001,5 +1002,24 @@ export class UiControlClient extends ApiCommands {
     }
 
     return this.agent.act(goal, undefined, imageOrOptions);
+  }
+
+  /**
+   * Adds tools to the agent that allow it to interact with AI elements.
+   *
+   * @returns {Promise<void>} - A promise that resolves when the tools are added to the agent.
+   */
+  async addAIElementsToolsToAgent() : Promise<void> {
+    const aiElementLocator = (aiElementName: string) => this.get().aiElement(aiElementName).exec();
+    const askUIGetAskUIElementTool = new AskUIGetAskUIElementTool(this.agent.getOsAgentHandler(), aiElementLocator, 'aiElement');
+    this.agent.addTool(askUIGetAskUIElementTool);
+
+    const listAIElementNamesFunction = () => (
+      AIElementCollection.collectAIElements(this.workspaceId, this.aiElementArgs)
+    ).then(
+      (aiElementCollection) => aiElementCollection.getNames(),
+    );
+    const askUIListAIElementTool = new AskUIListAIElementTool(listAIElementNamesFunction);
+    this.agent.addTool(askUIListAIElementTool);
   }
 }

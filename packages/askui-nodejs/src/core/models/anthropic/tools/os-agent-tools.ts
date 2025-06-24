@@ -107,7 +107,7 @@ export class OsAgentHandler {
     return resized_image.toString(false);
   }
 
-  private scaleCoordinates(source: 'api' | 'computer', x: number, y: number): [number, number] {
+  scaleCoordinates(source: 'api' | 'computer', x: number, y: number): [number, number] {
     if (!this.paddingInfo) {
       throw new ToolError('Padding information not initialized');
     }
@@ -840,4 +840,4 @@ export class WaitTool extends BaseAgentTool {
       },
     };
   }
-} 
+}

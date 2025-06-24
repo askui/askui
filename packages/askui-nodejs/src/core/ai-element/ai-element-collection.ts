@@ -85,6 +85,10 @@ export class AIElementCollection {
     return names.flatMap((name) => this.getByName(name));
   }
 
+  getNames(): string[] {
+    return [...new Set(this.elements.map((element) => element.name))];
+  }
+
   private static CollectAiElementsFromLocation(aiElementLocation: string): AIElement[] {
     const files = fs.readdirSync(aiElementLocation);
     if (files.length === 0) {
