@@ -1,5 +1,8 @@
 /* eslint-disable */
 import { AgentError } from './agent-errors';
+import { BetaTool as AnthropicBetaTool } from '@anthropic-ai/sdk/resources/beta/messages/messages';
+
+export type BetaTool = AnthropicBetaTool;
 
 export interface ToolResult {
   output?: string;
