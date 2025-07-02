@@ -39,7 +39,7 @@ export class ClaudeAgent {
         type: 'tool' | 'any' | 'auto';
         name?: string;
     } = {
-        type: 'any',
+        type: 'auto',
     };
 
     constructor(
