@@ -16,6 +16,7 @@ import {
   MouseHoldLeftButtonDownTool,
   MouseDragAndDropTool,
   WaitTool,
+  PrintTool,
 } from './tools/os-agent-tools';
 import { BaseAgentTool } from './tools/base';
 import { ClaudeAgent } from './claude-agent';
@@ -46,6 +47,7 @@ export class AskUIAgent extends ClaudeAgent {
 
     const tools: BaseAgentTool[] = [
       new AgentErrorTool(),
+      new PrintTool(),
       new ScreenShotTool(this.osAgentHandler),
       new MouseMoveTool(this.osAgentHandler),
       new MouseClickTool(this.osAgentHandler),

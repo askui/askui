@@ -840,4 +840,36 @@ export class WaitTool extends BaseAgentTool {
       },
     };
   }
-} 
+}
+
+export class PrintTool extends BaseAgentTool {
+  constructor() {
+    super();
+  }
+
+  async execute(command: {
+    text: string;
+  }): Promise<ToolResult> {
+    console.log(command.text);
+    return {
+      output: `Printed text: ${command.text}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'print_tool',
+      description: 'Outputs text to the console for debugging, status updates, or user communication. Useful for providing feedback about automation progress, errors, or important information during test execution.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          text: {
+            type: 'string',
+            description: 'The text to output to the console.',
+          },
+        },
+        required: ['text'],
+      },
+    };
+  }
+}
