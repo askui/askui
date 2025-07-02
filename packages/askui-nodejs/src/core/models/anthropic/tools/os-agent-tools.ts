@@ -752,7 +752,7 @@ export class AgentErrorTool extends BaseAgentTool {
   toParams(): BetaTool {
     return {
       name: 'agent_error_tool',
-      description: 'Raises an error in the agent',
+      description: 'Intentionally raises an error to signal that the agent cannot proceed with the current task. Use this when the agent encounters an unsolvable problem, gets stuck in a loop, or needs to communicate a critical failure that prevents further automation.',
       input_schema: {
         type: 'object',
         properties: {
