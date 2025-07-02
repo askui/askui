@@ -40,6 +40,13 @@ export class AskUIAgent extends ClaudeAgent {
     this.osAgentHandler = await OsAgentHandler.createInstance(this.executionRuntime);
   }
 
+  getOsAgentHandler(): OsAgentHandler {
+    if (!this.osAgentHandler) {
+      throw new Error('Agent OS client is not connected');
+    }
+    return this.osAgentHandler;
+  }
+
   async configureAsDesktopAgent() {
     if (!this.osAgentHandler) {
       throw new Error('Agent OS client is not connected');
