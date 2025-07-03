@@ -752,7 +752,7 @@ export class AgentErrorTool extends BaseAgentTool {
   toParams(): BetaTool {
     return {
       name: 'agent_error_tool',
-      description: 'Raises an error in the agent',
+      description: 'Intentionally raises an error to signal that the agent cannot proceed with the current task. Use this when the agent encounters an unsolvable problem, gets stuck in a loop, or needs to communicate a critical failure that prevents further automation.',
       input_schema: {
         type: 'object',
         properties: {
@@ -837,6 +837,38 @@ export class WaitTool extends BaseAgentTool {
           },
         },
         required: ['milliseconds'],
+      },
+    };
+  }
+}
+
+export class PrintTool extends BaseAgentTool {
+  constructor() {
+    super();
+  }
+
+  async execute(command: {
+    text: string;
+  }): Promise<ToolResult> {
+    console.log(command.text);
+    return {
+      output: `Printed text: ${command.text}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'print_tool',
+      description: 'Outputs text to the console for debugging, status updates, or user communication. Useful for providing feedback about automation progress, errors, or important information during test execution.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          text: {
+            type: 'string',
+            description: 'The text to output to the console.',
+          },
+        },
+        required: ['text'],
       },
     };
   }
