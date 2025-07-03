@@ -11,6 +11,7 @@ import {
   FluentFiltersOrRelations,
   CommandExecutorContext,
   FluentFiltersOrRelationsGetter,
+  MODIFIER_KEY,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -890,6 +891,36 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
+   * Holds down a key on the keyboard.
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - The key to hold down.
+   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to hold down with the key.
+   */
+  holdKeyDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+    return {
+      exec: async (): Promise<void> => {
+        logger.debug(`Hold down key ${key} with modifiers [${modifiers.join('+')}]`);
+        return this.agent.getOsAgentHandler().desktopKeyHoldDown(key, modifiers);
+      },
+    };
+  }
+
+  /**
+   * Releases a previously held down key on the keyboard.
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - The key to release.
+   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to release with the key.
+   */
+  releaseKey(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+    return {
+      exec: async (): Promise<void> => {
+        logger.debug(`Release key ${key} with modifiers [${modifiers.join('+')}]`);
+        return this.agent.getOsAgentHandler().desktopKeyRelease(key, modifiers);
+      },
+    };
+  }
+
+  /**
    * Instructs the agent to autonomously achieve a specified goal through UI interactions.
    *
    * This method enables AI-powered automation by allowing the agent to:
@@ -1009,7 +1040,7 @@ export class UiControlClient extends ApiCommands {
    *
    * @returns {Promise<void>} - A promise that resolves when the tools are added to the agent.
    */
-  async addAIElementsToolsToAgent() : Promise<void> {
+  async addAIElementsToolsToAgent(): Promise<void> {
     const aiElementLocator = (aiElementName: string) => this.get().aiElement(aiElementName).exec();
     const askUIGetAskUIElementTool = new AskUIGetAskUIElementTool(this.agent.getOsAgentHandler(), aiElementLocator, 'aiElement');
     this.agent.addTool(askUIGetAskUIElementTool);
