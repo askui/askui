@@ -11,6 +11,7 @@ import {
   FluentFiltersOrRelations,
   CommandExecutorContext,
   FluentFiltersOrRelationsGetter,
+  MODIFIER_KEY,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -125,6 +126,21 @@ export class UiControlClient extends ApiCommands {
       || (this.stepReporter.config.withDetectedElements === 'always');
   }
 
+  private async beforeNoneInferenceCallCommandExecution(instruction: Instruction): Promise<void> {
+    this.stepReporter.resetStep(instruction);
+    let annotation: Annotation | undefined;
+    if (this.stepReporter.config.withDetectedElements === 'begin'
+      || this.stepReporter.config.withDetectedElements === 'always') {
+      annotation = await this.executionRuntime.annotateImage();
+    }
+    const createdAt = new Date();
+    await this.stepReporter.onStepBegin({
+      createdAt,
+      detectedElements: annotation?.detected_elements,
+      screenshot: annotation?.image,
+    });
+  }
+
   private async afterCommandExecution(instruction: Instruction, error?: Error): Promise<void> {
     const createdAt = new Date();
     let annotation: Annotation | undefined;
@@ -210,7 +226,7 @@ export class UiControlClient extends ApiCommands {
     );
     logger.debug(instruction);
     try {
-      await this.stepReporter.resetStep(instruction);
+      this.stepReporter.resetStep(instruction);
       await this.executionRuntime.executeInstruction(instruction, modelComposition);
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
@@ -416,9 +432,13 @@ export class UiControlClient extends ApiCommands {
   // eslint-disable-next-line class-methods-use-this
   waitFor(delayInMs: number): Executable {
     return {
-      exec(): Promise<void> {
-        logger.debug(`Wait for ${delayInMs} ms`);
-        return new Promise((resolve) => { setTimeout(() => resolve(), delayInMs); });
+      exec: async (): Promise<void> => {
+        const stepTitle = `Wait for ${delayInMs} ms`;
+        const instruction = await this.buildInstruction(stepTitle, []);
+        await this.beforeNoneInferenceCallCommandExecution(instruction);
+        await new Promise((resolve) => { setTimeout(resolve, delayInMs); });
+        await this.afterCommandExecution(instruction);
+        return Promise.resolve();
       },
     };
   }
@@ -890,6 +910,60 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
+   * Holds down a key on the keyboard.
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - The key to hold down.
+   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to hold down with the key.
+   */
+  holdKeyDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+    return {
+      exec: async (): Promise<void> => {
+        const stepTitle = `Hold down key ${key} with modifiers [${modifiers.join('+')}]`;
+        const instruction = await this.buildInstruction(stepTitle, []);
+        try {
+          await this.beforeNoneInferenceCallCommandExecution(instruction);
+          await this.agent.getOsAgentHandler().desktopKeyHoldDown(key, modifiers);
+          await this.afterCommandExecution(instruction);
+        } catch (error) {
+          await this.afterCommandExecution(
+            instruction,
+            error instanceof Error ? error : new Error(String(error)),
+          );
+          return Promise.reject(error);
+        }
+        return Promise.resolve();
+      },
+    };
+  }
+
+  /**
+   * Releases a previously held down key on the keyboard.
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - The key to release.
+   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to release with the key.
+   */
+  releaseKey(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+    return {
+      exec: async (): Promise<void> => {
+        const stepTitle = `Release key ${key} with modifiers [${modifiers.join('+')}]`;
+        const instruction = await this.buildInstruction(stepTitle, []);
+        try {
+          await this.beforeNoneInferenceCallCommandExecution(instruction);
+          await this.agent.getOsAgentHandler().desktopKeyRelease(key, modifiers);
+          await this.afterCommandExecution(instruction);
+        } catch (error) {
+          await this.afterCommandExecution(
+            instruction,
+            error instanceof Error ? error : new Error(String(error)),
+          );
+          return Promise.reject(error);
+        }
+        return Promise.resolve();
+      },
+    };
+  }
+
+  /**
    * Instructs the agent to autonomously achieve a specified goal through UI interactions.
    *
    * This method enables AI-powered automation by allowing the agent to:
@@ -1000,8 +1074,21 @@ export class UiControlClient extends ApiCommands {
     if (typeof imageOrOptions === 'string') {
       return this.agent.act(goal, imageOrOptions, options);
     }
-
-    return this.agent.act(goal, undefined, imageOrOptions);
+    const fullTitle = `Act: ${goal}`;
+    const stepTitle = fullTitle.length > 50 ? `${fullTitle.substring(0, 47)}...` : fullTitle;
+    const instruction = await this.buildInstruction(stepTitle, []);
+    try {
+      await this.beforeNoneInferenceCallCommandExecution(instruction);
+      const result = await this.agent.act(goal, undefined, imageOrOptions);
+      await this.afterCommandExecution(instruction);
+      return result;
+    } catch (error) {
+      await this.afterCommandExecution(
+        instruction,
+        error instanceof Error ? error : new Error(String(error)),
+      );
+      return Promise.reject(error);
+    }
   }
 
   /**
@@ -1009,7 +1096,7 @@ export class UiControlClient extends ApiCommands {
    *
    * @returns {Promise<void>} - A promise that resolves when the tools are added to the agent.
    */
-  async addAIElementsToolsToAgent() : Promise<void> {
+  async addAIElementsToolsToAgent(): Promise<void> {
     const aiElementLocator = (aiElementName: string) => this.get().aiElement(aiElementName).exec();
     const askUIGetAskUIElementTool = new AskUIGetAskUIElementTool(this.agent.getOsAgentHandler(), aiElementLocator, 'aiElement');
     this.agent.addTool(askUIGetAskUIElementTool);

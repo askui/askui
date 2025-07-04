@@ -250,6 +250,30 @@ export class OsAgentHandler {
     );
     await this.requestControl(controlCommand);
   }
+
+  async androidKeyPress(key: ANDROID_KEY): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.PRESS_ANDROID_SINGLE_KEY, { x: 0, y: 0 }, key, {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async androidKeySequencePress(keys: ANDROID_KEY[]): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.PRESS_ANDROID_KEY_SEQUENCE, { x: 0, y: 0 }, keys.join(' '), {})],
+    );
+    await this.requestControl(controlCommand);
+  }
+
+  async executeShellCommand(command: string): Promise<void> {
+    const controlCommand = new ControlCommand(
+      ControlCommandCode.OK,
+      [new Action(InputEvent.EXECUTE_COMMAND, { x: 0, y: 0 }, command, {})],
+    );
+    await this.requestControl(controlCommand);
+  }
 }
 
 export class ScreenShotTool extends BaseAgentTool {
@@ -618,16 +642,7 @@ export class TypeTool extends BaseAgentTool {
   async execute(command: {
     text: string;
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.TYPE,
-        { x: 0, y: 0 },
-        command.text,
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.typeText(command.text);
     return {
       output: `Typed text: ${command.text}`,
     };
@@ -659,16 +674,7 @@ export class AndroidSingleKeyPressTool extends BaseAgentTool {
   async execute(command: {
     key: ANDROID_KEY;
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.PRESS_KEY_SEQUENCE,
-        { x: 0, y: 0 },
-        command.key,
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.androidKeyPress(command.key);
     return {
       output: `Pressed Android key ${command.key}`,
     };
@@ -701,16 +707,7 @@ export class AndroidSequenceKeyPressTool extends BaseAgentTool {
   async execute(command: {
     keys: ANDROID_KEY[];
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.PRESS_KEY_SEQUENCE,
-        { x: 0, y: 0 },
-        command.keys.join(' '),
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.androidKeySequencePress(command.keys);
     return {
       output: `Pressed Android keys: ${command.keys.join(', ')}`,
     };
@@ -777,16 +774,7 @@ export class ExecuteShellCommandTool extends BaseAgentTool {
   async execute(command: {
     command: string;
   }): Promise<ToolResult> {
-    const controlCommand = new ControlCommand(
-      ControlCommandCode.OK,
-      [new Action(
-        InputEvent.EXECUTE_COMMAND,
-        { x: 0, y: 0 },
-        command.command,
-        {},
-      )],
-    );
-    await this.osAgentHandler.requestControl(controlCommand);
+    await this.osAgentHandler.executeShellCommand(command.command);
     return {
       output: `Executed shell command: ${command.command}`,
     };
