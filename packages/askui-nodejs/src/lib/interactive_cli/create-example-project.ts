@@ -203,7 +203,7 @@ export class CreateExampleProject {
   private static async installTestFrameworkPackages(): Promise<void> {
     const runCommand = promisify(exec);
     const frameworkDependencies = {
-      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest ts-jest jest @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import @askui/eslint-plugin-askui hpagent',
+      jest: 'npm i -D @askui/askui-reporters typescript ts-node @types/jest@30.0.0 ts-jest@29.4.0 jest@29.7.0 @askui/jest-allure-circus eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-import @askui/eslint-plugin-askui hpagent',
     };
     await runCommand(frameworkDependencies.jest);
   }
