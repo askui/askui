@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.27.0](https://github.com/askui/askui/compare/v0.26.0...v0.27.0) (2025-07-07)
+
+
+### Features
+
+* add AiElement Tool to the act agent ([0a2b3de](https://github.com/askui/askui/commit/0a2b3de8ee4c56f4e7bb944ebd8a52712a715935))
+* add print tool to agent toolset ([7bdea66](https://github.com/askui/askui/commit/7bdea66f0c2e232253e71fe9fc33b611253e2544))
+* add support for holding down and releasing keyboard keys ([d35a46b](https://github.com/askui/askui/commit/d35a46b357dee24ab82b68ba1690f0d2b55dc000))
+
+
+### Bug Fixes
+
+* fix example project creation by pinning specific dependency versions ([850b454](https://github.com/askui/askui/commit/850b4547bdf06b0174c9ceffeae98fbda5dbb25b))
+
 ## [0.26.0](https://github.com/askui/askui/compare/v0.25.1...v0.26.0) (2025-06-10)
 
 
