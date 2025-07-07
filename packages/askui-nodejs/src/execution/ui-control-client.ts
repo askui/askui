@@ -11,7 +11,6 @@ import {
   FluentFiltersOrRelations,
   CommandExecutorContext,
   FluentFiltersOrRelationsGetter,
-  MODIFIER_KEY,
 } from './dsl';
 import { UiControllerClientConnectionState } from './ui-controller-client-connection-state';
 import { ExecutionRuntime } from './execution-runtime';
@@ -912,17 +911,21 @@ export class UiControlClient extends ApiCommands {
   /**
    * Holds down a key on the keyboard.
    *
+   * **Examples:**
+   * ```typescript
+   * await aui.holdKeyDown('a').exec();
+   * ```
+   *
    * @param {PC_AND_MODIFIER_KEY} key - The key to hold down.
-   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to hold down with the key.
    */
-  holdKeyDown(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+  holdKeyDown(key: PC_AND_MODIFIER_KEY): Executable {
     return {
       exec: async (): Promise<void> => {
-        const stepTitle = `Hold down key ${key} with modifiers [${modifiers.join('+')}]`;
+        const stepTitle = `Hold down key ${key}`;
         const instruction = await this.buildInstruction(stepTitle, []);
         try {
           await this.beforeNoneInferenceCallCommandExecution(instruction);
-          await this.agent.getOsAgentHandler().desktopKeyHoldDown(key, modifiers);
+          await this.agent.getOsAgentHandler().desktopKeyHoldDown(key, []);
           await this.afterCommandExecution(instruction);
         } catch (error) {
           await this.afterCommandExecution(
@@ -937,19 +940,23 @@ export class UiControlClient extends ApiCommands {
   }
 
   /**
-   * Releases a previously held down key on the keyboard.
+   * Releases a key up that was previously held down.
    *
-   * @param {PC_AND_MODIFIER_KEY} key - The key to release.
-   * @param {MODIFIER_KEY[]} [modifiers=[]] - The modifiers to release with the key.
+   * **Examples:**
+   * ```typescript
+   * await aui.releaseKeyUp('a').exec();
+   * ```
+   *
+   * @param {PC_AND_MODIFIER_KEY} key - The key to release up.
    */
-  releaseKey(key: PC_AND_MODIFIER_KEY, modifiers: MODIFIER_KEY[] = []): Executable {
+  releaseKeyUp(key: PC_AND_MODIFIER_KEY): Executable {
     return {
       exec: async (): Promise<void> => {
-        const stepTitle = `Release key ${key} with modifiers [${modifiers.join('+')}]`;
+        const stepTitle = `Release key ${key}`;
         const instruction = await this.buildInstruction(stepTitle, []);
         try {
           await this.beforeNoneInferenceCallCommandExecution(instruction);
-          await this.agent.getOsAgentHandler().desktopKeyRelease(key, modifiers);
+          await this.agent.getOsAgentHandler().desktopKeyRelease(key, []);
           await this.afterCommandExecution(instruction);
         } catch (error) {
           await this.afterCommandExecution(
