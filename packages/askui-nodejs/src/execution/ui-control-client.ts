@@ -913,12 +913,12 @@ export class UiControlClient extends ApiCommands {
    *
    * **Examples:**
    * ```typescript
-   * await aui.holdKeyDown('a').exec();
+   * await aui.keyDown('a').exec();
    * ```
    *
    * @param {PC_AND_MODIFIER_KEY} key - The key to hold down.
    */
-  holdKeyDown(key: PC_AND_MODIFIER_KEY): Executable {
+  keyDown(key: PC_AND_MODIFIER_KEY): Executable {
     return {
       exec: async (): Promise<void> => {
         const stepTitle = `Hold down key ${key}`;
@@ -944,12 +944,12 @@ export class UiControlClient extends ApiCommands {
    *
    * **Examples:**
    * ```typescript
-   * await aui.releaseKeyUp('a').exec();
+   * await aui.keyUp('a').exec();
    * ```
    *
    * @param {PC_AND_MODIFIER_KEY} key - The key to release up.
    */
-  releaseKeyUp(key: PC_AND_MODIFIER_KEY): Executable {
+  keyUp(key: PC_AND_MODIFIER_KEY): Executable {
     return {
       exec: async (): Promise<void> => {
         const stepTitle = `Release key ${key}`;
