@@ -195,6 +195,11 @@ export class ExecutionRuntime {
     return base64Image;
   }
 
+  async getStartingArguments(): Promise<Record<string, string | number | boolean>> {
+    const startingArgumentsResponse = await this.uiControllerClient.getStartingArguments();
+    return startingArgumentsResponse.data.arguments;
+  }
+
   async getDetectedElements(
     instruction: string,
     customElementJson?: CustomElementJson[],

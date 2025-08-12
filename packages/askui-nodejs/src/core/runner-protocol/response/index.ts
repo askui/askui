@@ -77,3 +77,8 @@ export interface GetProcessPidResponse {
   data: { error?: string; pidNumber: number }
   msgName: 'GET_PROCESS_PID_RESPONSE';
 }
+
+export interface GetStartingArgumentsResponse {
+  data: { error?: string; arguments: Record<string, string> }
+  msgName: 'GET_STARTING_ARGUMENTS_RESPONSE';
+}
