@@ -1116,4 +1116,54 @@ export class UiControlClient extends ApiCommands {
     const askUIListAIElementTool = new AskUIListAIElementTool(listAIElementNamesFunction);
     this.agent.addTool(askUIListAIElementTool);
   }
+
+  /**
+   * Retrieves the starting arguments used when the controller server was initialized.
+   *
+   * Useful for debugging, logging, or verifying the current server configuration.
+   *
+   * @property {string} displayNum - Display number controlled by the controller
+   * @property {boolean} minimize - Whether controller starts minimized
+   * @property {string} runtime - Runtime type ("desktop" or "android")
+   * @property {number} port - Communication port
+   * @property {number} actionWaitTime - Action wait time
+   * @property {string} host - Host address
+   * @property {string} logFile - Log file path
+   * @property {boolean} hideOverlay - Whether overlay is hidden
+   * @property {boolean} debugDraw - Whether debug drawing is enabled
+   * @property {string} deviceId - Android device ID
+   * @property {string} configFile - Configuration file path
+   * @property {string} logLevel - Logging level
+   *
+   * @example
+   * ```typescript
+   * const startingArguments = await aui.getControllerStartingArguments();
+   * console.log(startingArguments);
+   * // Output example:
+   * // {
+   * //   displayNum: 0,
+   * //   minimize: true,
+   * //   runtime: 'desktop',
+   * //   port: 5000,
+   * //   actionWaitTime: 1000,
+   * //   host: '127.0.0.1',
+   * //   logFile: '/tmp/askui/askui-server.log',
+   * //   hideOverlay: false,
+   * //   debugDraw: false,
+   * //   deviceId: 'emulator-5554',
+   * //   configFile: '/tmp/askui/askui-config.json',
+   * //   logLevel: 'info',
+   * // }
+  * ```
+  *
+  * @example Retrieving Android device ID:
+  * ```typescript
+  * const startingArguments = await aui.getControllerStartingArguments();
+  * console.log(startingArguments.deviceId);
+  * // Output example: "emulator-5554"
+  * ```
+  */
+  async getControllerStartingArguments(): Promise<Record<'displayNum' | 'minimize' | 'runtime' | 'port' | 'actionWaitTime' | 'host' | 'logFile' | 'hideOverlay' | 'debugDraw' | 'deviceId' | 'configFile' | 'logLevel', string | number | boolean>> {
+    return this.executionRuntime.getStartingArguments();
+  }
 }

@@ -17,6 +17,8 @@ import {
   InteractiveAnnotationResponse,
   GetProcessPidRequest,
   GetProcessPidResponse,
+  GetStartingArgumentsRequest,
+  GetStartingArgumentsResponse,
 } from '../core/runner-protocol';
 import { ControlCommand } from '../core/ui-control-commands';
 import { logger } from '../lib/logger';
@@ -159,6 +161,12 @@ export class UiControllerClient {
   requestScreenshot(): Promise<CaptureScreenshotResponse> {
     return this.sendAndReceive<CaptureScreenshotResponse>(
       new CaptureScreenshotRequest(),
+    );
+  }
+
+  getStartingArguments(): Promise<GetStartingArgumentsResponse> {
+    return this.sendAndReceive<GetStartingArgumentsResponse>(
+      new GetStartingArgumentsRequest(),
     );
   }
 

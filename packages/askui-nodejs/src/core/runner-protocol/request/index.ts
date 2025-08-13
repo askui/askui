@@ -6,3 +6,4 @@ export { RunnerProtocolRequest } from './runner-protocol-request';
 export { StartRecordingRequest } from './start-recording-request';
 export { StopRecordingRequest } from './stop-recording-request';
 export { GetProcessPidRequest } from './get-server-process-pid';
+export { GetStartingArgumentsRequest } from './get-starting-arguments-request';
