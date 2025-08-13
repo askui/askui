@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.0](https://github.com/askui/askui/compare/v0.27.0...v0.28.0) (2025-08-13)
+
+
+### Features
+
+* add utility function to obtain controller server startup arguments ([3a0ce34](https://github.com/askui/askui/commit/3a0ce341a24a98ef1142e8c9b309200e49380430))
+
 ## [0.27.0](https://github.com/askui/askui/compare/v0.26.0...v0.27.0) (2025-07-07)
 
 
