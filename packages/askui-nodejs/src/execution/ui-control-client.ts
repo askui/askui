@@ -532,7 +532,7 @@ export class UiControlClient extends ApiCommands {
         throw error;
       }
       await this.waitFor(waitTime).exec();
-      await this.waitUntil(AskUICommand, maxTry - 1);
+      await this.waitUntil(AskUICommand, maxTry - 1, waitTime);
     }
   }
 
