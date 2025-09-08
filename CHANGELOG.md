@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.1](https://github.com/askui/askui/compare/v0.28.0...v0.28.1) (2025-09-08)
+
+
+### Bug Fixes
+
+* include waitTime during retries ([15558f3](https://github.com/askui/askui/commit/15558f3da1e45327a79c427e460b7fd60599320b))
+
 ## [0.28.0](https://github.com/askui/askui/compare/v0.27.0...v0.28.0) (2025-08-13)
 
 
