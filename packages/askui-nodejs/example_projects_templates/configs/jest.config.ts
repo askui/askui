@@ -6,7 +6,7 @@ const config: Config.InitialOptions = {
     'Math',
   ],
   setupFilesAfterEnv: ['./helpers/askui-helper.ts'],
-  testEnvironment: '@askui/jest-allure-circus',
+  testEnvironment: 'allure-jest/node',
 };
 
 // eslint-disable-next-line import/no-default-export

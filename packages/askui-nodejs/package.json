@@ -39,10 +39,10 @@
         "copyExampleProject": "shx cp  -r example_projects_templates/ dist/  && shx cp -r bin/* dist/",
         "lint": "eslint --cache --fix --max-warnings 0 \"./**/*.{js,ts}\"",
         "lint:staged": "lint-staged",
-        "test": "NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
+        "test": "cross-env NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\"",
-        "release:prerelease": "HUSKY=0 release-it --preRelease=next",
-        "release": "HUSKY=0 release-it"
+        "release:prerelease": "cross-env HUSKY=0 release-it --preRelease=next",
+        "release": "cross-env HUSKY=0 release-it"
     },
     "files": [
         "dist/cjs/",
@@ -89,6 +89,7 @@
         "@types/ws": "8.5.12",
         "@typescript-eslint/eslint-plugin": "5.10.0",
         "@typescript-eslint/parser": "5.10.0",
+        "cross-env": "^10.1.0",
         "eslint": "8.7.0",
         "eslint-config-airbnb-base": "15.0.0",
         "eslint-config-airbnb-typescript": "16.1.0",
