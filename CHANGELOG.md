@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.29.0](https://github.com/askui/askui/compare/v0.28.2...v0.29.0) (2025-10-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **@askui/jest-allure-circus:** Migrate the TestEnvironment from `@askui/jest-allure-circus` to `allure-jest/node` in jest.config.ts
+
+Install allure-jest@3.3.0 and allure-js-commons@3.3.0 environment:
+
+npm install --save-dev allure-jest@3.3.0 allure-js-commons@3.3.0 @askui/askui-reporters
+npm uninstall @askui/jest-allure-circus
+
+```typescript
+import type { Config } from "@jest/types";
+
+const config: Config.InitialOptions = {
+  preset: "ts-jest",
+  setupFilesAfterEnv: ["./helper/askui-helper.ts"], // former `./helper/jest.setup.ts`
+  sandboxInjectedGlobals: ["Math"],
+  testEnvironment: "allure-jest/node",
+};
+
+// eslint-disable-next-line import/no-default-export
+export default config;
+```
+
+### Features
+
+* **@askui/jest-allure-circus:** replace @askui/jest-allure-circus with allure-jest/node ([65b8ea7](https://github.com/askui/askui/commit/65b8ea75eacf0bf8a0dab3eca6883d12d1b9e654))
+
 ## [0.28.1](https://github.com/askui/askui/compare/v0.28.0...v0.28.1) (2025-09-08)
 
 
