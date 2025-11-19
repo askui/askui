@@ -93,7 +93,6 @@ export class AskUIAgent extends ClaudeAgent {
         new AndroidDragAndDropTool(this.osAgentHandler),
         new AndroidTapTool(this.osAgentHandler),
         new AndroidShellCommandTool(this.osAgentHandler),
-        new AndroidADBTypeTextTool(this.osAgentHandler),
       ];
       systemPrompt = AskUIAgent.AndroidSystemPrompt;
     }
