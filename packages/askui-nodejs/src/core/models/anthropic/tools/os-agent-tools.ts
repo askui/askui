@@ -24,8 +24,6 @@ import { AgentError } from './agent-errors';
 export class OsAgentHandler {
   private targetResolution: { width: number; height: number } = { width: 1280, height: 800 };
 
-  private screenDimensions: { width: number; height: number };
-
   private paddingInfo: {
     scaleFactor: number;
     scaledWidth: number;
@@ -34,7 +32,11 @@ export class OsAgentHandler {
     padTop: number;
   } | null = null;
 
-  constructor(private AgentOsClient: ExecutionRuntime, screenDimensions: { width: number; height: number }) {
+  constructor(
+    private AgentOsClient: ExecutionRuntime,
+    private screenDimensions: { width: number; height: number },
+    public runtime: 'android' | 'desktop',
+  ) {
     this.screenDimensions = screenDimensions;
     this.updatePaddingInfo();
   }
@@ -66,7 +68,7 @@ export class OsAgentHandler {
       scaledWidth,
       scaledHeight,
       padLeft,
-      padTop
+      padTop,
     };
   }
 
@@ -75,10 +77,13 @@ export class OsAgentHandler {
   static async createInstance(AgentOsClient: ExecutionRuntime): Promise<OsAgentHandler> {
     const base64ImageString = await AgentOsClient.getScreenshot();
     const image_info = await (await Base64Image.fromString(base64ImageString)).getInfo();
+    const startingArguments = await AgentOsClient.getStartingArguments();
+    const runtime = startingArguments['runtime'] === 'android' ? 'android' : 'desktop';
+
     return new OsAgentHandler(AgentOsClient, {
       width: image_info.width,
       height: image_info.height,
-    });
+    }, runtime);
   }
 
   getTargetResolution(): { width: number; height: number } {
@@ -112,7 +117,9 @@ export class OsAgentHandler {
       throw new ToolError('Padding information not initialized');
     }
 
-    const { scaleFactor, scaledWidth, scaledHeight, padLeft, padTop } = this.paddingInfo;
+    const {
+      scaleFactor, scaledWidth, scaledHeight, padLeft, padTop,
+    } = this.paddingInfo;
 
     if (source === 'api') {
       if (x > this.targetResolution.width || y > this.targetResolution.height || x < 0 || y < 0) {
@@ -161,22 +168,20 @@ export class OsAgentHandler {
     await this.requestControl(controlCommand);
   }
 
-  async mouseClick(button: "left" | "right" | "middle", doubleClick: boolean): Promise<void> {
+  async mouseClick(button: 'left' | 'right' | 'middle', doubleClick: boolean): Promise<void> {
     let action: InputEvent = InputEvent.MOUSE_CLICK_LEFT;
     if (doubleClick) {
-      if (button === "left") {
+      if (button === 'left') {
         action = InputEvent.MOUSE_CLICK_DOUBLE_LEFT;
-      } else if (button === "right") {
+      } else if (button === 'right') {
         action = InputEvent.MOUSE_CLICK_DOUBLE_RIGHT;
-      } else if (button === "middle") {
+      } else if (button === 'middle') {
         action = InputEvent.MOUSE_CLICK_DOUBLE_MIDDLE;
       }
-    } else {
-      if (button === "right") {
-        action = InputEvent.MOUSE_CLICK_RIGHT;
-      } else if (button === "middle") {
-        action = InputEvent.MOUSE_CLICK_MIDDLE;
-      }
+    } else if (button === 'right') {
+      action = InputEvent.MOUSE_CLICK_RIGHT;
+    } else if (button === 'middle') {
+      action = InputEvent.MOUSE_CLICK_MIDDLE;
     }
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
@@ -225,8 +230,8 @@ export class OsAgentHandler {
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
       [new Action(InputEvent.KEY_PRESS, { x: 0, y: 0 }, '', {
-        key: key,
-        modifiers: modifiers,
+        key,
+        modifiers,
       })],
     );
     await this.requestControl(controlCommand);
@@ -236,8 +241,8 @@ export class OsAgentHandler {
     const controlCommand = new ControlCommand(
       ControlCommandCode.OK,
       [new Action(InputEvent.KEY_RELEASE, { x: 0, y: 0 }, '', {
-        key: key,
-        modifiers: modifiers,
+        key,
+        modifiers,
       })],
     );
     await this.requestControl(controlCommand);
@@ -273,6 +278,43 @@ export class OsAgentHandler {
       [new Action(InputEvent.EXECUTE_COMMAND, { x: 0, y: 0 }, command, {})],
     );
     await this.requestControl(controlCommand);
+  }
+
+  async AndroidSwipeTool(startX: number, startY: number, endX: number, endY: number): Promise<void> {
+    if (this.runtime !== 'android') {
+      throw new ToolError('This tool is only available on Android devices');
+    }
+    [startX, startY] = this.scaleCoordinates('api', startX, startY);
+    [endX, endY] = this.scaleCoordinates('api', endX, endY);
+    const adbCommand = `input swipe ${startX} ${startY} ${endX} ${endY}`;
+    await this.executeShellCommand(adbCommand);
+  }
+
+  async AndroidDragAndDropTool(startX: number, startY: number, endX: number, endY: number): Promise<void> {
+    if (this.runtime !== 'android') {
+      throw new ToolError('This tool is only available on Android devices');
+    }
+    [startX, startY] = this.scaleCoordinates('api', startX, startY);
+    [endX, endY] = this.scaleCoordinates('api', endX, endY);
+    const adbCommand = `input draganddrop ${startX} ${startY} ${endX} ${endY}`;
+    await this.executeShellCommand(adbCommand);
+  }
+
+  async AndroidTapTool(x: number, y: number): Promise<void> {
+    if (this.runtime !== 'android') {
+      throw new ToolError('This tool is only available on Android devices');
+    }
+    [x, y] = this.scaleCoordinates('api', x, y);
+    const adbCommand = `input tap ${x} ${y}`;
+    await this.executeShellCommand(adbCommand);
+  }
+
+  async executeAndroidShellCommand(command: string): Promise<void> {
+    if (this.runtime !== 'android') {
+      throw new ToolError('This tool is only available on Android devices');
+    }
+    command = command.replace(/^adb shell /, '');
+    await this.executeShellCommand(command);
   }
 }
 
@@ -459,7 +501,6 @@ export class MouseDragAndDropTool extends BaseAgentTool {
       },
     };
   }
-
 }
 
 export class MouseHoldLeftButtonDownTool extends BaseAgentTool {
@@ -502,7 +543,6 @@ export class MouseReleaseLeftButtonTool extends BaseAgentTool {
       input_schema: { type: 'object', properties: {}, required: [] },
     };
   }
-
 }
 
 export class DesktopPressAndReleaseKeysTool extends BaseAgentTool {
@@ -674,7 +714,8 @@ export class AndroidSingleKeyPressTool extends BaseAgentTool {
   async execute(command: {
     key: ANDROID_KEY;
   }): Promise<ToolResult> {
-    await this.osAgentHandler.androidKeyPress(command.key);
+    const adbCommand = `input keyevent ${command.key.toUpperCase()}`;
+    await this.osAgentHandler.executeShellCommand(adbCommand);
     return {
       output: `Pressed Android key ${command.key}`,
     };
@@ -707,7 +748,8 @@ export class AndroidSequenceKeyPressTool extends BaseAgentTool {
   async execute(command: {
     keys: ANDROID_KEY[];
   }): Promise<ToolResult> {
-    await this.osAgentHandler.androidKeySequencePress(command.keys);
+    const adbCommand = `input keyevent ${command.keys.map((key) => key.toUpperCase()).join(' ')}`;
+    await this.osAgentHandler.executeShellCommand(adbCommand);
     return {
       output: `Pressed Android keys: ${command.keys.join(', ')}`,
     };
@@ -783,7 +825,7 @@ export class ExecuteShellCommandTool extends BaseAgentTool {
   toParams(): BetaTool {
     return {
       name: 'execute_shell_command_tool',
-      description: 'Executes a shell command',
+      description: 'Executes a shell command. It does not return the output of the command.',
       input_schema: {
         type: 'object',
         properties: {
@@ -806,7 +848,7 @@ export class WaitTool extends BaseAgentTool {
   async execute(command: {
     milliseconds: number;
   }): Promise<ToolResult> {
-    await new Promise(resolve => setTimeout(resolve, command.milliseconds));
+    await new Promise((resolve) => setTimeout(resolve, command.milliseconds));
     return {
       output: `Waited for ${command.milliseconds} milliseconds`,
     };
@@ -857,6 +899,169 @@ export class PrintTool extends BaseAgentTool {
           },
         },
         required: ['text'],
+      },
+    };
+  }
+}
+
+export class AndroidSwipeTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+  }): Promise<ToolResult> {
+    await this.osAgentHandler.AndroidSwipeTool(command.startX, command.startY, command.endX, command.endY);
+    return {
+      output: `Swiped from ${command.startX}, ${command.startY} to ${command.endX}, ${command.endY} on the screen`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'android_swipe_tool',
+      description: 'Swipes from a starting point to an ending point on the screen',
+      input_schema: {
+        type: 'object',
+        properties: {
+          startX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the start position',
+          },
+          startY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the start position',
+          },
+          endX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the end position',
+          },
+          endY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the end position',
+          },
+        },
+        required: ['startX', 'startY', 'endX', 'endY'],
+      },
+    };
+  }
+}
+
+export class AndroidDragAndDropTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+  }): Promise<ToolResult> {
+    await this.osAgentHandler.AndroidDragAndDropTool(command.startX, command.startY, command.endX, command.endY);
+    return {
+      output: `Dragged and dropped from ${command.startX}, ${command.startY} to ${command.endX}, ${command.endY} on the screen`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'android_drag_and_drop_tool',
+      description: 'Drags and drops from a starting point to an ending point on the screen',
+      input_schema: {
+        type: 'object',
+        properties: {
+          startX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the start position',
+          },
+          startY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the start position',
+          },
+          endX: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the end position',
+          },
+          endY: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the end position',
+          },
+        },
+        required: ['startX', 'startY', 'endX', 'endY'],
+      },
+    };
+  }
+}
+
+export class AndroidTapTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    x: number;
+    y: number;
+  }): Promise<ToolResult> {
+    await this.osAgentHandler.AndroidTapTool(command.x, command.y);
+    return {
+      output: `Tapped the screen at ${command.x}, ${command.y}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'android_tap_tool',
+      description: 'Taps the screen at the specified coordinates',
+      input_schema: {
+        type: 'object',
+        properties: {
+          x: {
+            type: 'number',
+            description: 'The x (pixels from the left edge) coordinate of the tap position',
+          },
+          y: {
+            type: 'number',
+            description: 'The y (pixels from the top edge) coordinate of the tap position',
+          },
+        },
+        required: ['x', 'y'],
+      },
+    };
+  }
+}
+
+export class AndroidShellCommandTool extends BaseAgentTool {
+  constructor(private osAgentHandler: OsAgentHandler) {
+    super();
+  }
+
+  async execute(command: {
+    command: string;
+  }): Promise<ToolResult> {
+    await this.osAgentHandler.executeAndroidShellCommand(command.command);
+    return {
+      output: `Executed shell command: ${command.command}`,
+    };
+  }
+
+  toParams(): BetaTool {
+    return {
+      name: 'android_shell_command_tool',
+      description: 'Executes a shell command on the Android device. It does not return the output of the command.',
+      input_schema: {
+        type: 'object',
+        properties: {
+          command: {
+            type: 'string',
+            description: 'The shell command to execute without the "adb shell" prefix',
+          },
+        },
+        required: ['command'],
       },
     };
   }

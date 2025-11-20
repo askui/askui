@@ -88,7 +88,7 @@ export class UiControlClient extends ApiCommands {
   async connect(): Promise<UiControllerClientConnectionState> {
     const connectionState = await this.executionRuntime.connect();
     await this.agent.initializeOsAgentHandler();
-    await this.agent.configureAsDesktopAgent();
+    await this.agent.configureAgent();
     return connectionState;
   }
 
@@ -1035,7 +1035,6 @@ export class UiControlClient extends ApiCommands {
    * #### Cross-Platform Coordination
    * ```typescript
    * // Share context between desktop and mobile agents
-   * await auiAndroid.agent.configureAsAndroidAgent();
    *
    * const history = await auiDesktop.act("Copy username from desktop app");
    * await auiAndroid.act("Paste username into mobile login", {

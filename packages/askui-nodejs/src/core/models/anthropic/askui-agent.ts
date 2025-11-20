@@ -17,6 +17,10 @@ import {
   MouseDragAndDropTool,
   WaitTool,
   PrintTool,
+  AndroidSwipeTool,
+  AndroidDragAndDropTool,
+  AndroidTapTool,
+  AndroidShellCommandTool,
 } from './tools/os-agent-tools';
 import { BaseAgentTool } from './tools/base';
 import { ClaudeAgent } from './claude-agent';
@@ -26,6 +30,8 @@ export class AskUIAgent extends ClaudeAgent {
   private osAgentHandler: OsAgentHandler | undefined = undefined;
 
   private executionRuntime: ExecutionRuntime;
+
+  private runtime: 'android' | 'desktop' = 'desktop';
 
   constructor(executionRuntime: ExecutionRuntime) {
     super((params) => executionRuntime.predictActResponse(params));
@@ -38,6 +44,7 @@ export class AskUIAgent extends ClaudeAgent {
 
   async initializeOsAgentHandler() {
     this.osAgentHandler = await OsAgentHandler.createInstance(this.executionRuntime);
+    this.runtime = this.osAgentHandler.runtime;
   }
 
   getOsAgentHandler(): OsAgentHandler {
@@ -47,51 +54,51 @@ export class AskUIAgent extends ClaudeAgent {
     return this.osAgentHandler;
   }
 
-  async configureAsDesktopAgent() {
+  async configureAgent() {
     if (!this.osAgentHandler) {
       throw new Error('Agent OS client is not connected');
     }
-
-    const tools: BaseAgentTool[] = [
+    let systemPrompt = AskUIAgent.DesktopSystemPrompt;
+    let tools: BaseAgentTool[] = [
       new AgentErrorTool(),
       new PrintTool(),
-      new ScreenShotTool(this.osAgentHandler),
-      new MouseMoveTool(this.osAgentHandler),
-      new MouseClickTool(this.osAgentHandler),
-      new MouseScrollTool(this.osAgentHandler),
-      new TypeTool(this.osAgentHandler),
-      new DesktopPressAndReleaseKeysTool(this.osAgentHandler),
-      new DesktopKeyHoldDownTool(this.osAgentHandler),
-      new DesktopKeyReleaseTool(this.osAgentHandler),
-      new MouseHoldLeftButtonDownTool(this.osAgentHandler),
-      new MouseReleaseLeftButtonTool(this.osAgentHandler),
-      new MouseDragAndDropTool(this.osAgentHandler),
       new WaitTool(),
+      new ScreenShotTool(this.osAgentHandler),
+      new TypeTool(this.osAgentHandler),
     ];
 
-    this.setTools(tools);
-    this.setSystemPrompt(AskUIAgent.DesktopSystemPrompt);
-  }
+    if (this.runtime === 'desktop') {
+      tools = [
+        ...tools,
+        new MouseMoveTool(this.osAgentHandler),
+        new MouseClickTool(this.osAgentHandler),
+        new MouseScrollTool(this.osAgentHandler),
+        new DesktopPressAndReleaseKeysTool(this.osAgentHandler),
+        new DesktopKeyHoldDownTool(this.osAgentHandler),
+        new DesktopKeyReleaseTool(this.osAgentHandler),
+        new MouseHoldLeftButtonDownTool(this.osAgentHandler),
+        new MouseReleaseLeftButtonTool(this.osAgentHandler),
+        new MouseDragAndDropTool(this.osAgentHandler),
+        new ExecuteShellCommandTool(this.osAgentHandler),
 
-  async configureAsAndroidAgent() {
-    if (!this.osAgentHandler) {
-      throw new Error('Agent OS client is not connected');
+      ];
     }
 
-    const tools: BaseAgentTool[] = [
-      new AgentErrorTool(),
-      new ScreenShotTool(this.osAgentHandler),
-      new MouseMoveTool(this.osAgentHandler),
-      new MouseClickTool(this.osAgentHandler),
-      new MouseScrollTool(this.osAgentHandler),
-      new AndroidSingleKeyPressTool(this.osAgentHandler),
-      new AndroidSequenceKeyPressTool(this.osAgentHandler),
-      new TypeTool(this.osAgentHandler),
-      new ExecuteShellCommandTool(this.osAgentHandler),
-      new WaitTool(),
-    ];
+    if (this.runtime === 'android') {
+      tools = [
+        ...tools,
+        new AndroidSingleKeyPressTool(this.osAgentHandler),
+        new AndroidSequenceKeyPressTool(this.osAgentHandler),
+        new AndroidSwipeTool(this.osAgentHandler),
+        new AndroidDragAndDropTool(this.osAgentHandler),
+        new AndroidTapTool(this.osAgentHandler),
+        new AndroidShellCommandTool(this.osAgentHandler),
+      ];
+      systemPrompt = AskUIAgent.AndroidSystemPrompt;
+    }
+
     this.setTools(tools);
-    this.setSystemPrompt(AskUIAgent.AndroidSystemPrompt);
+    this.setSystemPrompt(systemPrompt);
   }
 
   private static DesktopSystemPrompt = `
