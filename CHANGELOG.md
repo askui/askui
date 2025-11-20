@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.30.0](https://github.com/askui/askui/compare/v0.29.0...v0.30.0) (2025-11-20)
+
+
+### Features
+
+* add Android swipe, drag-and-drop, and tap tools ([3b99081](https://github.com/askui/askui/commit/3b9908188c4f411576d45de5e8e5cf205587f104))
+
 ## [0.29.0](https://github.com/askui/askui/compare/v0.28.2...v0.29.0) (2025-10-17)
 
 
