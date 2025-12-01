@@ -136,10 +136,13 @@ export class InferenceClient {
     modelComposition: ModelCompositionBranch[],
     customElements: CustomElement[] = [],
     image?: string,
+    skipCache = false,
   ): Promise<ControlCommand> {
-    const cachedResponse = await this.cacheManager.getCachedInferenceResponse(instruction, image);
-    if (cachedResponse !== undefined) {
-      return Promise.resolve(cachedResponse);
+    if (skipCache === false) {
+      const cachedResponse = await this.cacheManager.getCachedInferenceResponse(instruction, image);
+      if (cachedResponse !== undefined) {
+        return Promise.resolve(cachedResponse);
+      }
     }
     const inferenceResponse = await this.inference(
       customElements,
@@ -152,8 +155,13 @@ export class InferenceClient {
         'Internal Error. Can not execute command',
       );
     }
-    await this.cacheManager.addCacheEntryFromControlCommand(instruction, inferenceResponse, image);
-    this.cacheManager.saveToFile();
+    if (skipCache === false) {
+      await this.cacheManager.addCacheEntryFromControlCommand(
+        instruction,
+        inferenceResponse,
+        image,
+      );
+    }
     return inferenceResponse;
   }
 

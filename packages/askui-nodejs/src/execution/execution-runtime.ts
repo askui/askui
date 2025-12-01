@@ -56,8 +56,13 @@ export class ExecutionRuntime {
   async executeInstruction(
     instruction: Instruction,
     modelComposition: ModelCompositionBranch[],
+    skipCache = false,
   ): Promise<void> {
-    const controlCommand = await this.predictCommandWithRetry(instruction, modelComposition);
+    const controlCommand = await this.predictCommandWithRetry(
+      instruction,
+      modelComposition,
+      skipCache,
+    );
     if (controlCommand.code === ControlCommandCode.OK) {
       return this.requestControl(controlCommand);
     }
@@ -108,8 +113,9 @@ export class ExecutionRuntime {
   private async predictCommandWithRetry(
     instruction: Instruction,
     modelComposition: ModelCompositionBranch[],
+    skipCache = false,
   ): Promise<ControlCommand> {
-    let command = await this.predictCommand(instruction, modelComposition);
+    let command = await this.predictCommand(instruction, modelComposition, skipCache);
     /* eslint-disable no-await-in-loop */
     for (let k = 0; k < this.retryStrategy.retryCount; k += 1) {
       if (command.code === ControlCommandCode.OK) {
@@ -118,7 +124,7 @@ export class ExecutionRuntime {
       const msUntilRetry = this.retryStrategy.getDelay(k + 1);
       logger.debug(`Wait ${msUntilRetry} and retry predicting command...`);
       await delay(msUntilRetry);
-      command = await this.predictCommand(instruction, modelComposition, new ControlCommandError(command.actions?.[0]?.text ?? ''));
+      command = await this.predictCommand(instruction, modelComposition, skipCache, new ControlCommandError(command.actions?.[0]?.text ?? ''));
     }
     /* eslint-enable no-await-in-loop */
     return command;
@@ -160,6 +166,7 @@ export class ExecutionRuntime {
   private async predictCommand(
     instruction: Instruction,
     modelComposition: ModelCompositionBranch[],
+    skipCache = false,
     retryError?: Error,
   ): Promise<ControlCommand> {
     const snapshot = await this.buildSnapshot(instruction.value);
@@ -170,6 +177,7 @@ export class ExecutionRuntime {
       modelComposition,
       instruction.customElements,
       snapshot.screenshot,
+      skipCache,
     );
     if (instruction.secretText !== undefined) {
       controlCommand.setTextToBeTyped(instruction.secretText);
@@ -236,7 +244,7 @@ export class ExecutionRuntime {
   async predictVQA(
     prompt: string,
     config?: object,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
     const base64Image = await this.takeScreenshotIfImageisNotProvided();
     return this.inferenceClient.predictVQAAnswer(prompt, base64Image, config);
