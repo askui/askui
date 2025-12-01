@@ -5,6 +5,7 @@ import { Reporter } from '../core/reporting';
 import { Context } from './context';
 import { RetryStrategy } from './retry-strategies/retry-strategy';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
+import { CacheConfig } from '../core/cache/cahe-entry';
 
 /**
  * Context object to provide additional information about the context of (test) automation.
@@ -65,6 +66,7 @@ export interface ClientArgs {
   readonly inferenceServerApiVersion?: string
   readonly retryStrategy?: RetryStrategy
   readonly aiElementArgs?: AIElementArgs
+  readonly cacheConfig?: CacheConfig
 }
 
 export interface ClientArgsWithDefaults extends ClientArgs {

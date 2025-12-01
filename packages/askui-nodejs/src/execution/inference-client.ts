@@ -13,6 +13,7 @@ import { ConfigurationError } from './config-error';
 import { InferenceResponseBody, VQAInferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { CacheInterface } from '../core/cache/cahe-entry';
 
 interface InferenceClientUrls {
   actEndpoint: string;
@@ -27,6 +28,7 @@ export class InferenceClient {
   constructor(
     private readonly baseUrl: string,
     private readonly httpClient: HttpClientGot,
+    public readonly cacheManager: CacheInterface,
     private readonly resize?: number,
     readonly workspaceId?: string,
     readonly modelComposition?: ModelCompositionBranch[],
@@ -52,6 +54,10 @@ export class InferenceClient {
   }
 
   async isImageRequired(instruction: string): Promise<boolean> {
+    const cachedImageRequired = this.cacheManager.isImageRequired(instruction);
+    if (cachedImageRequired !== undefined) {
+      return Promise.resolve(cachedImageRequired);
+    }
     const response = await this.httpClient.post<IsImageRequired>(
       this.urls.isImageRequired,
       {
@@ -131,6 +137,10 @@ export class InferenceClient {
     customElements: CustomElement[] = [],
     image?: string,
   ): Promise<ControlCommand> {
+    const cachedResponse = await this.cacheManager.getCachedInferenceResponse(instruction, image);
+    if (cachedResponse !== undefined) {
+      return Promise.resolve(cachedResponse);
+    }
     const inferenceResponse = await this.inference(
       customElements,
       image,
@@ -142,6 +152,8 @@ export class InferenceClient {
         'Internal Error. Can not execute command',
       );
     }
+    await this.cacheManager.addCacheEntryFromControlCommand(instruction, inferenceResponse, image);
+    this.cacheManager.saveToFile();
     return inferenceResponse;
   }
 

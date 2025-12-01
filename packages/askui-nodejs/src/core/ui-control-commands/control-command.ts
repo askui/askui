@@ -24,4 +24,12 @@ export class ControlCommand {
         ? new Action(action.inputEvent, action.position, text, action.parameters) : action
     ));
   }
+
+  toJson(): object {
+    return {
+      actions: this.actions.map((action) => action.toJson()),
+      code: this.code,
+      tryToRepeat: this.tryToRepeat,
+    };
+  }
 }

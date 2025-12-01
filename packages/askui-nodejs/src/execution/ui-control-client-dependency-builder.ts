@@ -12,6 +12,7 @@ import { ExecutionRuntime } from './execution-runtime';
 import { StepReporter } from '../core/reporting';
 import { readCredentials } from './read-credentials';
 import { LinearRetryStrategy } from './retry-strategies/linear-retry-strategy';
+import { CacheManager, DummyCacheManager } from '../core/cache/cahe-entry';
 
 export class UiControlClientDependencyBuilder {
   private static async buildHttpClient(
@@ -36,9 +37,14 @@ export class UiControlClientDependencyBuilder {
     const httpClient = await UiControlClientDependencyBuilder.buildHttpClient(
       clientArgs,
     );
+    let cacheManager = new DummyCacheManager();
+    if (clientArgs.cacheConfig) {
+      cacheManager = new CacheManager(clientArgs.cacheConfig);
+    }
     return new InferenceClient(
       clientArgs.inferenceServerUrl,
       httpClient,
+      cacheManager,
       clientArgs.resize,
       clientArgs.credentials?.workspaceId,
       clientArgs.modelComposition,
@@ -91,6 +97,7 @@ export class UiControlClientDependencyBuilder {
         clientArgs.inferenceServerUrl ?? 'https://inference.askui.com',
       proxyAgents: clientArgs.proxyAgents ?? (await envProxyAgents()),
       uiControllerUrl: clientArgs.uiControllerUrl ?? 'http://127.0.0.1:6769',
+
     };
   }
 }

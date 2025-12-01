@@ -25,10 +25,12 @@ export class ExecutionRuntime {
   ) { }
 
   async connect(): Promise<UiControllerClientConnectionState> {
+    this.inferenceClient.cacheManager.loadFromFile();
     return this.uiControllerClient.connect();
   }
 
   disconnect(): void {
+    this.inferenceClient.cacheManager.saveToFile();
     this.uiControllerClient.disconnect();
   }
 

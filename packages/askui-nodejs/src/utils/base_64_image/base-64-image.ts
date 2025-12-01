@@ -8,7 +8,7 @@ export class Base64Image {
 
   private _sharp?: sharp.Sharp;
 
-  private constructor(private buffer: Buffer) {}
+  private constructor(private buffer: Buffer) { }
 
   static async fromPathOrString(pathOrStr: string): Promise<Base64Image> {
     if (pathOrStr.startsWith(Base64Image.strPrefix)) {
@@ -66,6 +66,23 @@ export class Base64Image {
         fit: 'contain',
         height,
         width,
+      })
+      .toBuffer();
+    return Base64Image.fromBuffer(buffer);
+  }
+
+  async cropRegion(
+    x: number,
+    y: number,
+    croppedWidth: number,
+    croppedHeight: number,
+  ): Promise<Base64Image> {
+    const buffer = await (await this.getSharp())
+      .extract({
+        height: croppedHeight,
+        left: x,
+        top: y,
+        width: croppedWidth,
       })
       .toBuffer();
     return Base64Image.fromBuffer(buffer);

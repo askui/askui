@@ -23,4 +23,13 @@ export class Action {
       action.parameters ? action.parameters : {},
     );
   }
+
+  toJson(): object {
+    return {
+      inputEvent: this.inputEvent,
+      parameters: this.parameters,
+      position: this.position,
+      text: this.text,
+    };
+  }
 }
