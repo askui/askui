@@ -12,7 +12,7 @@ import { ExecutionRuntime } from './execution-runtime';
 import { StepReporter } from '../core/reporting';
 import { readCredentials } from './read-credentials';
 import { LinearRetryStrategy } from './retry-strategies/linear-retry-strategy';
-import { CacheManager, DummyCacheManager } from '../core/cache/cahe-entry';
+import { CacheManager, DummyCacheManager } from '../core/cache';
 
 export class UiControlClientDependencyBuilder {
   private static async buildHttpClient(

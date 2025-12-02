@@ -94,4 +94,8 @@ export class Base64Image {
     }
     return this.buffer.toString('base64');
   }
+
+  toBuffer(): Buffer {
+    return this.buffer;
+  }
 }

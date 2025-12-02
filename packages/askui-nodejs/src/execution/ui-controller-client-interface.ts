@@ -5,7 +5,7 @@ import { Reporter } from '../core/reporting';
 import { Context } from './context';
 import { RetryStrategy } from './retry-strategies/retry-strategy';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
-import { CacheConfig } from '../core/cache/cahe-entry';
+import { CacheConfig } from '../core/cache';
 
 /**
  * Context object to provide additional information about the context of (test) automation.

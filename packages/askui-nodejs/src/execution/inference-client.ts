@@ -13,7 +13,7 @@ import { ConfigurationError } from './config-error';
 import { InferenceResponseBody, VQAInferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
-import { CacheInterface } from '../core/cache/cahe-entry';
+import { CacheInterface } from '../core/cache';
 
 interface InferenceClientUrls {
   actEndpoint: string;
