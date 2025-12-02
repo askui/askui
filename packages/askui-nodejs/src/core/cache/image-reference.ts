@@ -32,7 +32,7 @@ export class ImageReference {
     );
   }
 
-  toJson(): object {
+  toJson(): Record<string, unknown> {
     return {
       base64Image: this.base64Image,
       height: this.height,

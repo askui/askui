@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import fs from 'fs';
 import path from 'path';
 import { ControlCommand } from '../ui-control-commands';
@@ -13,6 +10,9 @@ import { CacheConfig, ValidationType } from './cache-config';
 import { ImageReference } from './image-reference';
 import { CacheEntryReference } from './cache-entry-reference';
 
+type CacheDataByInstruction = Record<string, CacheEntry[]>;
+type CacheDataByValidationType = Record<string, CacheDataByInstruction>;
+
 export class CacheManager implements CacheInterface {
   public createAt: Date = new Date();
 
@@ -20,17 +20,17 @@ export class CacheManager implements CacheInterface {
 
   public type = 'AskUI-Cache';
 
-  public data: Record<string, Record<string, CacheEntry[]>> = {};
+  public data: CacheDataByValidationType = {};
 
-  private relevantData: Record<string, CacheEntry[]> = {};
+  private relevantData: CacheDataByInstruction = {};
 
   private cacheFilePath: string | undefined;
 
   public validationType: ValidationType;
 
-  private referenceWidth = 32;
+  private readonly referenceWidth = 32;
 
-  private referenceHeight = 16;
+  private readonly referenceHeight = 16;
 
   private readonly defaultValidationType: ValidationType = 'PixelPerfect';
 
@@ -39,38 +39,49 @@ export class CacheManager implements CacheInterface {
     this.validationType = config.validationType ?? this.defaultValidationType;
   }
 
-  loadFromFileVersion1(json: Record<string, any>) {
-    if (json['version'] !== 1) {
-      throw new Error(`Unsupported cache file version: ${json['version']}. Only version 1 is supported.`);
+  loadFromFileVersion1(json: unknown) {
+    const parsed = json as {
+      version?: number;
+      type?: string;
+      createAt?: string;
+      data?: CacheDataByValidationType;
+    };
+
+    if (parsed.version !== 1) {
+      throw new Error(`Unsupported cache file version: ${parsed.version}. Only version 1 is supported.`);
     }
-    if (json['data'] === undefined) {
+    if (parsed.data === undefined) {
       throw new Error('Data is required');
     }
-    if (json['createAt'] === undefined) {
+    if (parsed.createAt === undefined) {
       throw new Error('Create at is required');
     }
-    if (json['version'] === undefined) {
+    if (parsed.version === undefined) {
       throw new Error('Version is required');
     }
-    if (json['type'] !== 'AskUI-Cache') {
-      throw new Error(`Unsupported cache file type: ${json['type']}. Only 'AskUI-Cache' is supported.`);
+    if (parsed.type !== 'AskUI-Cache') {
+      throw new Error(`Unsupported cache file type: ${parsed.type}. Only 'AskUI-Cache' is supported.`);
     }
 
-    this.createAt = new Date(json['createAt']);
-    this.version = json['version'];
-    this.type = json['type'];
-    this.data = Object.keys(json['data']).reduce((acc, validationType) => {
+    this.createAt = new Date(parsed.createAt);
+    this.version = parsed.version;
+    this.type = parsed.type;
+    this.data = Object.keys(parsed.data).reduce((acc, validationType) => {
       const nextAcc = { ...acc };
-      nextAcc[validationType] = Object.keys(json['data'][validationType]).reduce((innerAcc, instruction) => {
+      const validationEntries = parsed.data?.[validationType] ?? {};
+      nextAcc[validationType] = Object.keys(validationEntries).reduce((innerAcc, instruction) => {
         const nextInnerAcc = { ...innerAcc };
-        nextInnerAcc[instruction] = json['data'][validationType][instruction].map((entry: CacheEntry) => CacheEntry.fromJson(entry)).filter((entry: CacheEntry | undefined) => entry !== undefined) as CacheEntry[];
+        const rawEntries = validationEntries[instruction] ?? [];
+        nextInnerAcc[instruction] = rawEntries
+          .map((entry) => CacheEntry.fromJson(entry))
+          .filter((entry: CacheEntry | undefined): entry is CacheEntry => entry !== undefined);
         return nextInnerAcc;
-      }, {} as Record<string, CacheEntry[]>);
+      }, {} as CacheDataByInstruction);
       return nextAcc;
-    }, {} as Record<string, Record<string, CacheEntry[]>>);
+    }, {} as CacheDataByValidationType);
   }
 
-  loadFromFile() {
+  loadFromFile(): void {
     if (this.cacheFilePath === undefined) {
       logger.debug('Cache file path is not set. Skipping cache load.');
       return;
@@ -91,7 +102,7 @@ export class CacheManager implements CacheInterface {
     this.relevantData = this.data[this.validationType] ?? {};
   }
 
-  saveToFile() {
+  saveToFile(): void {
     if (this.cacheFilePath === undefined) {
       logger.debug('Cache file path is not set. Skipping cache save.');
       return;
@@ -112,8 +123,11 @@ export class CacheManager implements CacheInterface {
     }
   }
 
-  addCacheEntry(instruction: string, cacheEntry: CacheEntry) {
-    logger.debug(`Adding cache entry for instruction: ${instruction}, AlwaysValid: ${cacheEntry.alwaysValid}, hasImageReference: ${cacheEntry.reference?.image !== undefined}`);
+  addCacheEntry(instruction: string, cacheEntry: CacheEntry): void {
+    logger.debug(
+      `Adding cache entry for instruction: ${instruction}, AlwaysValid: ${cacheEntry.alwaysValid}, `
+      + `hasImageReference: ${cacheEntry.reference?.image !== undefined}`,
+    );
     if (this.data[this.validationType] === undefined) {
       this.data[this.validationType] = {};
     }
@@ -124,16 +138,34 @@ export class CacheManager implements CacheInterface {
     this.relevantData[instruction].push(cacheEntry);
   }
 
-  async addCacheEntryFromControlCommand(instruction: string, inferenceResponse: ControlCommand, image?: string) {
+  async addCacheEntryFromControlCommand(
+    instruction: string,
+    inferenceResponse: ControlCommand,
+    image?: string,
+  ): Promise<void> {
     logger.debug(`Adding cache entry for instruction: ${instruction}`);
-    let imageReference;
+    let imageReference: ImageReference | undefined;
     if (image !== undefined) {
-      const x = inferenceResponse.actions.find((action) => action.inputEvent === InputEvent.MOUSE_MOVE)?.position.x;
-      const y = inferenceResponse.actions.find((action) => action.inputEvent === InputEvent.MOUSE_MOVE)?.position.y;
+      const moveAction = inferenceResponse.actions.find(
+        (action) => action.inputEvent === InputEvent.MOUSE_MOVE,
+      );
+      const x = moveAction?.position.x;
+      const y = moveAction?.position.y;
       if (x !== undefined && y !== undefined) {
         const base64Image = await Base64Image.fromString(image);
-        const croppedImage = await base64Image.cropRegion(x, y, this.referenceWidth, this.referenceHeight);
-        imageReference = new ImageReference(croppedImage.toString(true), this.referenceWidth, this.referenceHeight, x, y);
+        const croppedImage = await base64Image.cropRegion(
+          x,
+          y,
+          this.referenceWidth,
+          this.referenceHeight,
+        );
+        imageReference = new ImageReference(
+          croppedImage.toString(true),
+          this.referenceWidth,
+          this.referenceHeight,
+          x,
+          y,
+        );
       }
     }
 
@@ -155,24 +187,32 @@ export class CacheManager implements CacheInterface {
     return cacheEntries.find((entry) => entry.alwaysValid === false) !== undefined;
   }
 
-  async getCachedInferenceResponse(instruction: string, image?: string): Promise<ControlCommand | undefined> {
-    logger.debug(`Looking up cached inference response for instruction: ${instruction}, hasImage: ${image !== undefined}`);
+  async getCachedInferenceResponse(
+    instruction: string,
+    image?: string,
+  ): Promise<ControlCommand | undefined> {
+    logger.debug(
+      `Looking up cached inference response for instruction: ${instruction}, `
+      + `hasImage: ${image !== undefined}`,
+    );
     const cacheEntry = await this.getValidCacheEntryForInstruction(instruction, image);
-    logger.debug(`Cache entry found: ${cacheEntry !== undefined}`);
+    logger.debug(
+      `Cache entry found: ${cacheEntry !== undefined}`,
+    );
     if (cacheEntry === undefined) {
       logger.debug(`Cache miss for instruction: ${instruction}`);
-      return Promise.resolve(undefined);
+      return undefined;
     }
     logger.debug(`Cache hit for instruction: ${instruction}, AlwaysValid: ${cacheEntry.alwaysValid}`);
-    return Promise.resolve(cacheEntry.inferenceResponse);
+    return cacheEntry.inferenceResponse;
   }
 
-  private asJsonObject(): Record<string, any> {
+  private asJsonObject(): Record<string, unknown> {
     this.data[this.validationType] = this.relevantData;
     return {
       createAt: this.createAt.toISOString(),
-      data: Object.keys(this.data).reduce((acc, validationType) => {
-        const validationData = this.data[validationType];
+      data: Object.keys(this.data).reduce((acc: CacheDataByValidationType, validationType) => {
+        const validationData = this.data[validationType] as CacheDataByInstruction | undefined;
         if (validationData === undefined) {
           return acc;
         }
@@ -181,13 +221,13 @@ export class CacheManager implements CacheInterface {
           const entries = validationData[instruction];
           if (entries !== undefined) {
             const nextInnerAcc = { ...innerAcc };
-            nextInnerAcc[instruction] = entries.map((entry) => entry.toJson());
+            nextInnerAcc[instruction] = entries;
             return nextInnerAcc;
           }
           return innerAcc;
-        }, {} as Record<string, any[]>);
+        }, {} as CacheDataByInstruction);
         return nextAcc;
-      }, {} as Record<string, Record<string, any[]>>),
+      }, {} as CacheDataByValidationType),
       type: this.type,
       version: this.version,
     };
@@ -195,7 +235,8 @@ export class CacheManager implements CacheInterface {
 
   private getCacheEntriesForInstruction(instruction: string): CacheEntry[] {
     logger.debug(`Getting cache entries for instruction: ${instruction}`);
-    if (this.data[this.validationType] === undefined || this.relevantData[instruction] === undefined) {
+    if (this.data[this.validationType] === undefined
+      || this.relevantData[instruction] === undefined) {
       logger.debug(`No cache entries found for instruction: ${instruction}`);
       return [] as CacheEntry[];
     }
@@ -207,16 +248,23 @@ export class CacheManager implements CacheInterface {
     return entries;
   }
 
-  private async getValidCacheEntryForInstruction(instruction: string, screenshot?: string): Promise<CacheEntry | undefined> {
+  private async getValidCacheEntryForInstruction(
+    instruction: string,
+    screenshot?: string,
+  ): Promise<CacheEntry | undefined> {
     logger.debug(`Getting valid cache entry for instruction: ${instruction}`);
     const cacheEntries = this.getCacheEntriesForInstruction(instruction);
     logger.debug(`Cache entries found: ${cacheEntries.length}`);
-    logger.debug(`Found ${cacheEntries.length} cache entries for instruction: ${instruction}`);
+    logger.debug(
+      `Found ${cacheEntries.length} cache entries for instruction: ${instruction}`,
+    );
     if (cacheEntries.length === 0) {
-      return Promise.resolve(undefined);
+      return undefined;
     }
     if (this.validationType === 'PixelPerfect') {
-      logger.debug(`Validating ${cacheEntries.length} cache entries using PixelPerfect validation`);
+      logger.debug(
+        `Validating ${cacheEntries.length} cache entries using PixelPerfect validation`,
+      );
       /* eslint-disable no-restricted-syntax, no-await-in-loop */
       for (const cacheEntry of cacheEntries) {
         const isValid = await this.validateAccordingToPixelPerfect(cacheEntry, screenshot);
@@ -224,42 +272,54 @@ export class CacheManager implements CacheInterface {
         if (isValid) {
           logger.debug(`Valid cache entry found for instruction: ${instruction}`);
           /* eslint-enable no-restricted-syntax, no-await-in-loop */
-          return Promise.resolve(cacheEntry);
+          return cacheEntry;
         }
       }
       /* eslint-enable no-restricted-syntax, no-await-in-loop */
       logger.debug(`No valid cache entry found after validating all ${cacheEntries.length} entries`);
     }
-    return Promise.resolve(undefined);
+    return undefined;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private async validateAccordingToPixelPerfect(cacheEntry: CacheEntry, screenshot?: string): Promise<boolean> {
+  private async validateAccordingToPixelPerfect(
+    cacheEntry: CacheEntry,
+    screenshot?: string,
+  ): Promise<boolean> {
     if (cacheEntry.alwaysValid) {
       logger.debug('Cache entry is AlwaysValid, skipping pixel validation');
-      return Promise.resolve(true);
+      return true;
     }
 
     if (screenshot === undefined) {
       logger.debug('Pixel validation failed: screenshot is undefined');
-      return Promise.resolve(false);
+      return false;
     }
     if (cacheEntry.reference?.image === undefined) {
       logger.debug('Pixel validation failed: cache entry has no image reference');
-      return Promise.resolve(false);
+      return false;
     }
 
     try {
-      logger.debug(`Performing pixel-perfect validation at position (${cacheEntry.reference.image.x}, ${cacheEntry.reference.image.y}) with size ${cacheEntry.reference.image.width}x${cacheEntry.reference.image.height}`);
+      logger.debug(
+        `Performing pixel-perfect validation at position (${cacheEntry.reference.image.x}, `
+        + `${cacheEntry.reference.image.y}) with size ${cacheEntry.reference.image.width}`
+        + `x${cacheEntry.reference.image.height}`,
+      );
       const referenceImage = await Base64Image.fromString(screenshot);
-      const croppedScreenshot = await referenceImage.cropRegion(cacheEntry.reference.image.x, cacheEntry.reference.image.y, cacheEntry.reference.image.width, cacheEntry.reference.image.height);
+      const croppedScreenshot = await referenceImage.cropRegion(
+        cacheEntry.reference.image.x,
+        cacheEntry.reference.image.y,
+        cacheEntry.reference.image.width,
+        cacheEntry.reference.image.height,
+      );
       const croppedReferenceImageString = croppedScreenshot.toString(true);
       const isValid = croppedReferenceImageString === cacheEntry.reference.image.base64Image;
       logger.debug(`Pixel-perfect validation result: ${isValid}`);
-      return await Promise.resolve(isValid);
+      return isValid;
     } catch (error) {
       logger.debug(`Pixel validation error: ${error instanceof Error ? error.message : String(error)}`);
-      return Promise.resolve(false);
+      return false;
     }
   }
 }
