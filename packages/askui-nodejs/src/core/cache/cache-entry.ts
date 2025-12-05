@@ -16,13 +16,13 @@ export class CacheEntry {
         throw new Error('Cache entry is undefined');
       }
       if (json.controlCommand === undefined) {
-        throw new Error('Inference response is required');
+        throw new Error('the key "controlCommand" is required');
       }
       if (json.createdAt === undefined) {
-        throw new Error('Created at is required');
+        throw new Error('the key "createdAt" is required');
       }
       if (json.alwaysValid === undefined) {
-        throw new Error('Always valid is required');
+        throw new Error('the key "alwaysValid" is required');
       }
       return new CacheEntry(
         json.alwaysValid,

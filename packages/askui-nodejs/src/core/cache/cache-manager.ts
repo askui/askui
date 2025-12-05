@@ -120,9 +120,9 @@ export class CacheManager implements CacheInterface {
   }
 
   private getCacheEntriesForInstruction(instruction: string): CacheEntry[] {
-    logger.debug(`Getting cache entries for instruction: ${instruction}`);
+    logger.debug(`Getting cache entries for instruction: '${instruction}'`);
     if (this.relevantData[instruction] === undefined) {
-      logger.debug(`No cache entries found for instruction: ${instruction}`);
+      logger.debug(`No cache entries found for instruction: '${instruction}'`);
       return [] as CacheEntry[];
     }
     logger.debug(`Cache entries found: ${this.relevantData[instruction].length}`);
@@ -137,11 +137,11 @@ export class CacheManager implements CacheInterface {
     instruction: string,
     screenshot?: string,
   ): Promise<CacheEntry | undefined> {
-    logger.debug(`Getting valid cache entry for instruction: ${instruction}`);
+    logger.debug(`Getting valid cache entry for instruction: '${instruction}'`);
     const cacheEntries = this.getCacheEntriesForInstruction(instruction);
     logger.debug(`Cache entries found: ${cacheEntries.length}`);
     logger.debug(
-      `Found ${cacheEntries.length} cache entries for instruction: ${instruction}`,
+      `Found ${cacheEntries.length} cache entries for instruction: '${instruction}'`,
     );
     if (cacheEntries.length === 0) {
       return undefined;
@@ -155,13 +155,13 @@ export class CacheManager implements CacheInterface {
         const isValid = await this.validateAccordingToPixelPerfect(cacheEntry, screenshot);
         logger.debug(`Cache entry validation result: ${isValid}`);
         if (isValid) {
-          logger.debug(`Valid cache entry found for instruction: ${instruction}`);
+          logger.debug(`Valid cache entry found for instruction: '${instruction}'`);
           /* eslint-enable no-restricted-syntax, no-await-in-loop */
           return cacheEntry;
         }
       }
       /* eslint-enable no-restricted-syntax, no-await-in-loop */
-      logger.debug(`No valid cache entry found after validating all ${cacheEntries.length} entries`);
+      logger.debug(`No valid cache entry found after validating all ${cacheEntries.length} entries for instruction: '${instruction}'`);
     }
     return undefined;
   }
