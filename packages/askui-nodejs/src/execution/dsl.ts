@@ -2388,7 +2388,15 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   }
 }
 
-class ExecCondition extends Exec { }
+class ExecCondition extends Exec {
+  override async exec(execOptions?: ExecOptions): Promise<void> {
+    const options = {
+      ...execOptions,
+      skipCache: true,
+    } as ExecOptions;
+    return super.exec(options);
+  }
+}
 
 // Commands
 export abstract class FluentCommand extends FluentBase {
