@@ -4,7 +4,7 @@ import { ControlCommand } from '../ui-control-commands';
 
 export class DummyCacheManager implements CacheInterface {
   // eslint-disable-next-line class-methods-use-this
-  addCacheEntry(_instruction: string, _cacheEntry: CacheEntry): void {
+  add(_key: string, _value: CacheEntry): void {
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -22,7 +22,7 @@ export class DummyCacheManager implements CacheInterface {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getCachedInferenceResponse(
+  getCachedControlCommand(
     _instruction: string,
     _image?: string,
   ): Promise<ControlCommand | undefined> {

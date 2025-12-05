@@ -4,14 +4,14 @@ import { CacheEntry } from './cache-entry';
 export interface CacheInterface {
   loadFromFile(): void;
   saveToFile(): void;
-  addCacheEntry(instruction: string, cacheEntry: CacheEntry): void;
+  add(key: string, value: CacheEntry): void;
   addCacheEntryFromControlCommand(
     instruction: string,
-    inferenceResponse: ControlCommand,
+    controlCommand: ControlCommand,
     image?: string,
   ): Promise<void>;
   isImageRequired(instruction: string): boolean | undefined;
-  getCachedInferenceResponse(
+  getCachedControlCommand(
     instruction: string,
     image?: string,
   ): Promise<ControlCommand | undefined>;

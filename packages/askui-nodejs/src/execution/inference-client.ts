@@ -138,10 +138,13 @@ export class InferenceClient {
     image?: string,
     skipCache = false,
   ): Promise<ControlCommand> {
-    if (skipCache === false) {
-      const cachedResponse = await this.cacheManager.getCachedInferenceResponse(instruction, image);
-      if (cachedResponse !== undefined) {
-        return Promise.resolve(cachedResponse);
+    if (!skipCache) {
+      const cachedControlCommand = await this.cacheManager.getCachedControlCommand(
+        instruction,
+        image,
+      );
+      if (cachedControlCommand !== undefined) {
+        return Promise.resolve(cachedControlCommand);
       }
     }
     const inferenceResponse = await this.inference(
@@ -155,7 +158,7 @@ export class InferenceClient {
         'Internal Error. Can not execute command',
       );
     }
-    if (skipCache === false) {
+    if (!skipCache) {
       await this.cacheManager.addCacheEntryFromControlCommand(
         instruction,
         inferenceResponse,

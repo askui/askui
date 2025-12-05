@@ -5,7 +5,7 @@ import { logger } from '../../lib';
 export class CacheEntry {
   constructor(
     public alwaysValid: boolean,
-    public inferenceResponse: ControlCommand,
+    public controlCommand: ControlCommand,
     public reference?: CacheEntryReference,
     public createdAt: Date = new Date(),
   ) { }
@@ -15,7 +15,7 @@ export class CacheEntry {
       if (json === undefined) {
         throw new Error('Cache entry is undefined');
       }
-      if (json.inferenceResponse === undefined) {
+      if (json.controlCommand === undefined) {
         throw new Error('Inference response is required');
       }
       if (json.createdAt === undefined) {
@@ -26,7 +26,7 @@ export class CacheEntry {
       }
       return new CacheEntry(
         json.alwaysValid,
-        ControlCommand.fromJson(json.inferenceResponse),
+        ControlCommand.fromJson(json.controlCommand),
         json.reference ? CacheEntryReference.fromJson(json.reference) : undefined,
         new Date(json.createdAt),
       );
@@ -39,8 +39,8 @@ export class CacheEntry {
   toJson(): Record<string, unknown> {
     const jsonObject: Record<string, unknown> = {
       alwaysValid: this.alwaysValid,
+      controlCommand: this.controlCommand.toJson(),
       createdAt: this.createdAt,
-      inferenceResponse: this.inferenceResponse.toJson(),
     };
     if (this.reference !== undefined) {
       jsonObject['reference'] = this.reference.toJson();
