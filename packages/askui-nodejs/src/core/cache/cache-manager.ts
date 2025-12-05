@@ -187,14 +187,14 @@ export class CacheManager implements CacheInterface {
 
     try {
       logger.debug(
-        `Performing pixel-perfect validation at position (${cacheEntry.reference.image.x}, `
-        + `${cacheEntry.reference.image.y}) with size ${cacheEntry.reference.image.width}`
+        `Performing pixel-perfect validation at position (${cacheEntry.reference.image.xTopLeft}, `
+        + `${cacheEntry.reference.image.yTopLeft}) with size ${cacheEntry.reference.image.width}`
         + `x${cacheEntry.reference.image.height}`,
       );
       const referenceImage = await Base64Image.fromString(screenshot);
       const croppedScreenshot = await referenceImage.cropRegion(
-        cacheEntry.reference.image.x,
-        cacheEntry.reference.image.y,
+        cacheEntry.reference.image.xTopLeft,
+        cacheEntry.reference.image.yTopLeft,
         cacheEntry.reference.image.width,
         cacheEntry.reference.image.height,
       );
