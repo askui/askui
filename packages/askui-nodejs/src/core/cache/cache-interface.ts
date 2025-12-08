@@ -1,3 +1,4 @@
+import { CustomElement } from '../model/custom-element';
 import { ControlCommand } from '../ui-control-commands';
 import { CacheEntry } from './cache-entry';
 
@@ -8,11 +9,13 @@ export interface CacheInterface {
   addCacheEntryFromControlCommand(
     instruction: string,
     controlCommand: ControlCommand,
+    customElements: CustomElement[],
     image?: string,
   ): Promise<void>;
-  isImageRequired(instruction: string): boolean | undefined;
+  isImageRequired(instruction: string, customElements: CustomElement[]): boolean | undefined;
   getCachedControlCommand(
     instruction: string,
+    customElements: CustomElement[],
     image?: string,
   ): Promise<ControlCommand | undefined>;
 }

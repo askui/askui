@@ -135,10 +135,13 @@ export class ExecutionRuntime {
       || this.stepReporter.config.withScreenshots === 'always';
   }
 
-  private async isImageRequired(instruction: string): Promise<boolean> {
+  private async isImageRequired(
+    instruction: string,
+    customElements: CustomElement[],
+  ): Promise<boolean> {
     if (this.isImageRequiredByConfig()) return Promise.resolve(true);
 
-    return this.inferenceClient.isImageRequired(instruction);
+    return this.inferenceClient.isImageRequired(instruction, customElements);
   }
 
   private isAnnotationRequired(): boolean {
@@ -151,9 +154,12 @@ export class ExecutionRuntime {
     return requestScreenshotResponse.data.image;
   }
 
-  private async buildSnapshot(instruction: string): Promise<Snapshot> {
+  private async buildSnapshot(instruction: Instruction): Promise<Snapshot> {
     const createdAt = new Date();
-    const screenshot = await this.isImageRequired(instruction)
+    const screenshot = await this.isImageRequired(
+      instruction.value,
+      instruction.customElements ?? [],
+    )
       ? await this.getScreenshot() : undefined;
     const annotation = this.isAnnotationRequired() ? await this.annotateImage() : undefined;
     return {
@@ -169,7 +175,7 @@ export class ExecutionRuntime {
     skipCache = false,
     retryError?: Error,
   ): Promise<ControlCommand> {
-    const snapshot = await this.buildSnapshot(instruction.value);
+    const snapshot = await this.buildSnapshot(instruction);
     if (retryError !== undefined) this.stepReporter.onStepRetry(snapshot, retryError);
     else this.stepReporter.onStepBegin(snapshot);
     const controlCommand = await this.inferenceClient.predictControlCommand(

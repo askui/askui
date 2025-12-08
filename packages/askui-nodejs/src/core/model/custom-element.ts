@@ -62,4 +62,8 @@ export class CustomElement implements CustomElementJson {
       throw new ValidationError((e as ValidationError).errors.join(', '));
     }
   }
+
+  asString(): string {
+    return `name:${this.name}-customImage:${this.customImage}-threshold:${this.threshold}-stopThreshold:${this.stopThreshold}-rotationDegreePerStep:${this.rotationDegreePerStep}-imageCompareFormat:${this.imageCompareFormat}-mask:${this.mask}`;
+  }
 }

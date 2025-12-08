@@ -1,13 +1,13 @@
 import { ControlCommand } from '../ui-control-commands';
 import { InputEvent } from '../ui-control-commands/input-event';
 import { Base64Image } from '../../utils/base_64_image/base-64-image';
-import { logger } from '../../lib';
 import { CacheInterface } from './cache-interface';
 import { CacheEntry } from './cache-entry';
 import { CacheConfig, ValidationType } from './cache-config';
 import { ImageReference } from './image-reference';
 import { CacheEntryReference } from './cache-entry-reference';
 import { CacheFile, CacheDataByInstruction } from './cahe-file';
+import { CustomElement } from '../model/custom-element';
 
 export class CacheManager implements CacheInterface {
   private relevantData: CacheDataByInstruction = {};
@@ -37,10 +37,6 @@ export class CacheManager implements CacheInterface {
   }
 
   add(key: string, value: CacheEntry): void {
-    logger.debug(
-      `Adding cache entry for instruction: ${key}, AlwaysValid: ${value.alwaysValid}, `
-      + `hasImageReference: ${value.reference?.image !== undefined}`,
-    );
     if (this.relevantData[key] === undefined) {
       this.relevantData[key] = [] as CacheEntry[];
     }
@@ -51,9 +47,9 @@ export class CacheManager implements CacheInterface {
   async addCacheEntryFromControlCommand(
     instruction: string,
     controlCommand: ControlCommand,
+    customElements: CustomElement[],
     image?: string,
   ): Promise<void> {
-    logger.debug(`Adding cache entry for instruction: '${instruction}'`);
     let imageReference: ImageReference | undefined;
     if (image !== undefined) {
       const moveAction = controlCommand.actions.find(
@@ -86,82 +82,75 @@ export class CacheManager implements CacheInterface {
       controlCommand,
       new CacheEntryReference(imageReference),
     );
-    this.add(instruction, cacheEntry);
+
+    const cacheKey = this.encodeKey(instruction, customElements);
+    this.add(cacheKey, cacheEntry);
   }
 
-  isImageRequired(instruction: string): boolean | undefined {
-    logger.debug(`Checking if image is required for instruction: '${instruction}'`);
-    const cacheEntries = this.getCacheEntriesForInstruction(instruction);
+  isImageRequired(instruction: string, customElements: CustomElement[]): boolean | undefined {
+    const cacheKey = this.encodeKey(instruction, customElements);
+    const cacheEntries = this.getCacheEntriesByKey(cacheKey);
     if (cacheEntries.length === 0) {
       return undefined;
     }
-    logger.debug(`Cache entries found: ${cacheEntries.length}`);
     return cacheEntries.find((entry) => entry.alwaysValid === false) !== undefined;
   }
 
   async getCachedControlCommand(
     instruction: string,
+    customElements: CustomElement[],
     image?: string,
   ): Promise<ControlCommand | undefined> {
-    logger.debug(
-      `Looking up cached control command for instruction: '${instruction}', `
-      + `hasImage: ${image !== undefined}`,
-    );
-    const cacheEntry = await this.getValidCacheEntryForInstruction(instruction, image);
-    logger.debug(
-      `Cache entry found: ${cacheEntry !== undefined}`,
-    );
+    const cacheKey = this.encodeKey(instruction, customElements);
+    const cacheEntry = await this.getValidCacheEntry(cacheKey, image);
     if (cacheEntry === undefined) {
-      logger.debug(`Cache miss for instruction: '${instruction}'`);
       return undefined;
     }
-    logger.debug(`Cache hit for instruction: '${instruction}', AlwaysValid: ${cacheEntry.alwaysValid}`);
     return cacheEntry.controlCommand;
   }
 
-  private getCacheEntriesForInstruction(instruction: string): CacheEntry[] {
-    logger.debug(`Getting cache entries for instruction: '${instruction}'`);
-    if (this.relevantData[instruction] === undefined) {
-      logger.debug(`No cache entries found for instruction: '${instruction}'`);
+  // eslint-disable-next-line class-methods-use-this
+  private encodeKey(instruction: string, customElements: CustomElement[]): string {
+    let key = instruction;
+    if (customElements.length > 0) {
+      key += ` with CustomElements:${customElements.map((element, index) => `${index}:${element.asString()}`).join(',')}`;
+    }
+    return key;
+  }
+
+  private getCacheEntriesByKey(key: string): CacheEntry[] {
+    if (this.relevantData[key] === undefined) {
       return [] as CacheEntry[];
     }
-    logger.debug(`Cache entries found: ${this.relevantData[instruction].length}`);
-    const entries = this.relevantData[instruction];
+    const entries = this.relevantData[key];
     if (entries === undefined) {
       return [] as CacheEntry[];
     }
     return entries;
   }
 
-  private async getValidCacheEntryForInstruction(
-    instruction: string,
+  private async getValidCacheEntry(
+    key: string,
     screenshot?: string,
   ): Promise<CacheEntry | undefined> {
-    logger.debug(`Getting valid cache entry for instruction: '${instruction}'`);
-    const cacheEntries = this.getCacheEntriesForInstruction(instruction);
-    logger.debug(`Cache entries found: ${cacheEntries.length}`);
-    logger.debug(
-      `Found ${cacheEntries.length} cache entries for instruction: '${instruction}'`,
-    );
+    const cacheEntries = this.getCacheEntriesByKey(key);
     if (cacheEntries.length === 0) {
       return undefined;
     }
     if (this.validationType === 'PixelPerfect') {
-      logger.debug(
-        `Validating ${cacheEntries.length} cache entries using PixelPerfect validation`,
-      );
       /* eslint-disable no-restricted-syntax, no-await-in-loop */
       for (const cacheEntry of cacheEntries) {
+        if (cacheEntry.alwaysValid) {
+          return cacheEntry;
+        }
+
         const isValid = await this.validateAccordingToPixelPerfect(cacheEntry, screenshot);
-        logger.debug(`Cache entry validation result: ${isValid}`);
         if (isValid) {
-          logger.debug(`Valid cache entry found for instruction: '${instruction}'`);
           /* eslint-enable no-restricted-syntax, no-await-in-loop */
           return cacheEntry;
         }
       }
       /* eslint-enable no-restricted-syntax, no-await-in-loop */
-      logger.debug(`No valid cache entry found after validating all ${cacheEntries.length} entries for instruction: '${instruction}'`);
     }
     return undefined;
   }
@@ -171,26 +160,14 @@ export class CacheManager implements CacheInterface {
     cacheEntry: CacheEntry,
     screenshot?: string,
   ): Promise<boolean> {
-    if (cacheEntry.alwaysValid) {
-      logger.debug('Cache entry is AlwaysValid, skipping pixel validation');
-      return true;
-    }
-
     if (screenshot === undefined) {
-      logger.debug('Pixel validation failed: screenshot is undefined');
       return false;
     }
     if (cacheEntry.reference?.image === undefined) {
-      logger.debug('Pixel validation failed: cache entry has no image reference');
       return false;
     }
 
     try {
-      logger.debug(
-        `Performing pixel-perfect validation at position (${cacheEntry.reference.image.xTopLeft}, `
-        + `${cacheEntry.reference.image.yTopLeft}) with size ${cacheEntry.reference.image.width}`
-        + `x${cacheEntry.reference.image.height}`,
-      );
       const referenceImage = await Base64Image.fromString(screenshot);
       const croppedScreenshot = await referenceImage.cropRegion(
         cacheEntry.reference.image.xTopLeft,
@@ -200,10 +177,8 @@ export class CacheManager implements CacheInterface {
       );
       const croppedReferenceImageString = croppedScreenshot.toString(true);
       const isValid = croppedReferenceImageString === cacheEntry.reference.image.base64Image;
-      logger.debug(`Pixel-perfect validation result: ${isValid}`);
       return isValid;
     } catch (error) {
-      logger.debug(`Pixel validation error: ${error instanceof Error ? error.message : String(error)}`);
       return false;
     }
   }
