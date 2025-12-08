@@ -16,8 +16,8 @@ export class Action {
     return new Action(
       InputEvent[action.inputEvent],
       {
-        x: action.position.x * resizeRatio,
-        y: action.position.y * resizeRatio,
+        x: Math.round(action.position.x * resizeRatio),
+        y: Math.round(action.position.y * resizeRatio),
       },
       action.text,
       action.parameters ? action.parameters : {},
