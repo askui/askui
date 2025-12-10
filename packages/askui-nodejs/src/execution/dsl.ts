@@ -8,6 +8,7 @@
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { ControlCommandError } from './control-command-error';
 
 function isStackTraceCodeline(line: string): boolean {
   return /[ \t]+at .+/.test(line);
@@ -20,7 +21,8 @@ function splitStackTrace(stacktrace: string): { head: string[], codelines: strin
   return { head: errorStacktraceHead, codelines: errorStacktraceCodeLines };
 }
 function rewriteStackTraceForError(error: Error, newStackTrace: string) {
-  const errorCopy = new Error(error.message);
+  const errorCopy = error instanceof ControlCommandError ? new ControlCommandError(error.message) : new Error(error.message);
+  errorCopy.name = error.name;
 
   if (!error.stack) {
     errorCopy.stack = newStackTrace;
