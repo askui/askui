@@ -525,33 +525,33 @@ export class UiControlClient extends ApiCommands {
    */
   async waitUntil(AskUICommand: Executable, maxTry = 5, waitTime = 2000) {
     logger.debug(`waitUntil: Starting with maxTry=${maxTry}, waitTime=${waitTime}ms, retryStrategy=${this.executionRuntime.retryStrategy.constructor.name}`);
+
     const userDefinedStrategy = this.executionRuntime.retryStrategy;
     this.executionRuntime.retryStrategy = new NoRetryStrategy();
-    for (let i = maxTry - 1; i >= 0; i -= 1) {
-      const attemptNumber = maxTry - i;
-      logger.debug(`waitUntil: Attempt ${attemptNumber}/${maxTry} (${i} retries remaining)`);
+
+    const attempt = async (retriesLeft: number, attemptNumber: number): Promise<void> => {
+      logger.debug(`waitUntil: Attempt ${attemptNumber}/${maxTry} (${retriesLeft} retries remaining)`);
       try {
-        // eslint-disable-next-line no-await-in-loop
         await AskUICommand.exec();
         logger.debug(`waitUntil: Command succeeded on attempt ${attemptNumber}/${maxTry}`);
-        this.executionRuntime.retryStrategy = userDefinedStrategy;
-        return;
       } catch (error: unknown) {
-        if (error instanceof ControlCommandError && i > 0) {
-          logger.debug(`waitUntil: ControlCommandError on attempt ${attemptNumber}/${maxTry}, waiting ${waitTime}ms before retry. Error: ${error.message}`);
-          // eslint-disable-next-line no-await-in-loop
+        if (error instanceof ControlCommandError && retriesLeft > 0) {
+          logger.debug(`waitUntil: ControlCommandError on attempt ${attemptNumber}/${maxTry}, waiting ${waitTime}ms before retry.`, error);
           await this.waitFor(waitTime).exec();
-          // eslint-disable-next-line no-continue
-          continue;
+          return attempt(retriesLeft - 1, attemptNumber + 1);
         }
-        const errorMessage = error instanceof Error ? error.message : String(error);
         const errorName = error instanceof Error ? error.name : 'Error';
-        logger.debug(`waitUntil: ${errorName} on final attempt ${attemptNumber}/${maxTry}, no retries remaining. Error: ${errorMessage}`);
-        this.executionRuntime.retryStrategy = userDefinedStrategy;
+        logger.debug(`waitUntil: ${errorName} on attempt ${attemptNumber}/${maxTry}, no retries remaining.`, error);
         throw error;
       }
+      return undefined;
+    };
+
+    try {
+      await attempt(maxTry - 1, 1);
+    } finally {
+      this.executionRuntime.retryStrategy = userDefinedStrategy;
     }
-    throw Error('WaitUntilError: Should be never reached!');
   }
 
   private evaluateRelation(
