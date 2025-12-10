@@ -8,7 +8,6 @@
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ModelCompositionBranch } from './model-composition-branch';
-import { ControlCommandError } from './control-command-error';
 
 function isStackTraceCodeline(line: string): boolean {
   return /[ \t]+at .+/.test(line);
@@ -21,24 +20,18 @@ function splitStackTrace(stacktrace: string): { head: string[], codelines: strin
   return { head: errorStacktraceHead, codelines: errorStacktraceCodeLines };
 }
 function rewriteStackTraceForError(error: Error, newStackTrace: string) {
-  const errorCopy = error instanceof ControlCommandError ? new ControlCommandError(error.message) : new Error(error.message);
-  errorCopy.name = error.name;
-
-  if (!error.stack) {
-    errorCopy.stack = newStackTrace;
-    return errorCopy;
-  }
-  const errorStacktraceSplit = splitStackTrace(error.stack);
+  const errorStacktraceSplit = splitStackTrace(error.stack ?? '');
   const newStacktraceSplit = splitStackTrace(newStackTrace);
 
-  errorCopy.stack = [
+  // eslint-disable-next-line no-param-reassign
+  error.stack = [
     ...errorStacktraceSplit.head,
     ...newStacktraceSplit.codelines,
     ' ',
     ...errorStacktraceSplit.head,
     ...errorStacktraceSplit.codelines,
   ].join('\n');
-  return errorCopy;
+  return error;
 }
 
 export enum Separators {
