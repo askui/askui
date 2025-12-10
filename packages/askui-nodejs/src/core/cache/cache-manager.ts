@@ -1,4 +1,4 @@
-import { ControlCommand } from '../ui-control-commands';
+import { ControlCommand, ControlCommandCode } from '../ui-control-commands';
 import { InputEvent } from '../ui-control-commands/input-event';
 import { Base64Image } from '../../utils/base_64_image/base-64-image';
 import { CacheInterface } from './cache-interface';
@@ -103,7 +103,7 @@ export class CacheManager implements CacheInterface {
   ): Promise<ControlCommand | undefined> {
     const cacheKey = this.encodeKey(instruction, customElements);
     const cacheEntry = await this.getValidCacheEntry(cacheKey, image);
-    if (cacheEntry === undefined) {
+    if (cacheEntry === undefined || cacheEntry.controlCommand.code !== ControlCommandCode.OK) {
       return undefined;
     }
     return cacheEntry.controlCommand;

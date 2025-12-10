@@ -14,6 +14,7 @@ import { InferenceResponseBody, VQAInferenceResponseBody } from '../core/inferen
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { CacheInterface } from '../core/cache';
+import { ControlCommandCode } from '../core/ui-control-commands/control-command-code';
 
 interface InferenceClientUrls {
   actEndpoint: string;
@@ -162,7 +163,7 @@ export class InferenceClient {
         'Internal Error. Can not execute command',
       );
     }
-    if (!skipCache) {
+    if (!skipCache && inferenceResponse.code === ControlCommandCode.OK) {
       await this.cacheManager.addCacheEntryFromControlCommand(
         instruction,
         inferenceResponse,
