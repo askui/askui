@@ -25,7 +25,7 @@ import { Instruction, StepReporter } from '../core/reporting';
 import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
-import { NoRetryStrategy } from './retry-strategies';
+import { FixedRetryStrategy, RetryStrategy } from './retry-strategies';
 import { AskUIAgent, AgentHistory, ActOptions } from '../core/models/anthropic';
 import { AskUIGetAskUIElementTool, AskUIListAIElementTool } from '../core/models/anthropic/tools/askui-api-tools';
 
@@ -215,6 +215,7 @@ export class UiControlClient extends ApiCommands {
     modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
     skipCache = false,
+    retryStrategy?: RetryStrategy,
   ): Promise<void> {
     const aiElements = await this.getAIElementsByNames(context.aiElementNames);
     const instruction = await this.buildInstruction(
@@ -227,7 +228,12 @@ export class UiControlClient extends ApiCommands {
     logger.debug(instruction);
     try {
       this.stepReporter.resetStep(instruction);
-      await this.executionRuntime.executeInstruction(instruction, modelComposition, skipCache);
+      await this.executionRuntime.executeInstruction(
+        instruction,
+        modelComposition,
+        skipCache,
+        retryStrategy,
+      );
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {
@@ -522,19 +528,11 @@ export class UiControlClient extends ApiCommands {
    * @param {number} maxTry - Number of maximum retries
    * @param {number} waitTime - Time in milliseconds
    */
+  // eslint-disable-next-line class-methods-use-this
   async waitUntil(AskUICommand: Executable, maxTry = 5, waitTime = 2000) {
-    const userDefinedStrategy = this.executionRuntime.retryStrategy;
-    try {
-      this.executionRuntime.retryStrategy = new NoRetryStrategy();
-      await AskUICommand.exec();
-      this.executionRuntime.retryStrategy = userDefinedStrategy;
-    } catch (error) {
-      if (maxTry === 0) {
-        throw error;
-      }
-      await this.waitFor(waitTime).exec();
-      await this.waitUntil(AskUICommand, maxTry - 1, waitTime);
-    }
+    await AskUICommand.exec({
+      retryStrategy: new FixedRetryStrategy(waitTime, maxTry),
+    });
   }
 
   private evaluateRelation(
