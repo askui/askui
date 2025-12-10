@@ -19,10 +19,10 @@ export class BoundingBox {
 
   static fromJson(boundinBox: BoundingBox, resizeRatio = 1) {
     return new BoundingBox(
-      boundinBox.xmin * resizeRatio,
-      boundinBox.ymin * resizeRatio,
-      boundinBox.xmax * resizeRatio,
-      boundinBox.ymax * resizeRatio,
+      Math.round(boundinBox.xmin * resizeRatio),
+      Math.round(boundinBox.ymin * resizeRatio),
+      Math.round(boundinBox.xmax * resizeRatio),
+      Math.round(boundinBox.ymax * resizeRatio),
 
     );
   }

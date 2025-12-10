@@ -214,6 +214,7 @@ export class UiControlClient extends ApiCommands {
     instructionString: string,
     modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
+    skipCache = false,
   ): Promise<void> {
     const aiElements = await this.getAIElementsByNames(context.aiElementNames);
     const instruction = await this.buildInstruction(
@@ -226,7 +227,7 @@ export class UiControlClient extends ApiCommands {
     logger.debug(instruction);
     try {
       this.stepReporter.resetStep(instruction);
-      await this.executionRuntime.executeInstruction(instruction, modelComposition);
+      await this.executionRuntime.executeInstruction(instruction, modelComposition, skipCache);
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {

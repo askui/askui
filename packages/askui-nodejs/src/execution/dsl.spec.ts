@@ -7,6 +7,7 @@ class TestCommand extends FluentCommand {
     _instruction: string,
     _modelComposition: ModelCompositionBranch[],
     _context: CommandExecutorContext,
+    _skipCache: boolean,
   ): Promise<void> {
     return Promise.resolve();
   }
@@ -19,7 +20,7 @@ describe('DSL', () => {
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().button().exec();
-      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', [], { aiElementNames: [], customElementsJson: [] });
+      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', [], { aiElementNames: [], customElementsJson: [] }, false);
     });
 
     test('should call exec function with one custom element', async () => {
@@ -50,6 +51,7 @@ describe('DSL', () => {
             },
           ],
         },
+        false,
       );
     });
 
@@ -93,6 +95,7 @@ describe('DSL', () => {
             },
           ],
         },
+        false,
       );
     });
 
@@ -125,6 +128,7 @@ describe('DSL', () => {
             },
           ],
         },
+        false,
       );
     });
 
@@ -147,6 +151,7 @@ describe('DSL', () => {
           aiElementNames: ['ai element', 'ai element 2'],
           customElementsJson: [],
         },
+        false,
       );
     });
   });

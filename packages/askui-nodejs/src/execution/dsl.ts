@@ -59,6 +59,11 @@ export interface CommandExecutorContext {
   aiElementNames: string[];
 }
 
+export interface ExecOptions {
+  modelComposition?: ModelCompositionBranch[];
+  skipCache?: boolean;
+}
+
 abstract class FluentBase {
   constructor(protected prev?: FluentBase) { }
 
@@ -80,7 +85,8 @@ abstract class FluentBase {
   }
 
   protected fluentCommandStringBuilder(
-    modelComposition: ModelCompositionBranch[],
+    modelComposition: ModelCompositionBranch[] = [],
+    skipCache = false,
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<void> {
@@ -97,6 +103,7 @@ abstract class FluentBase {
           customElementsJson: customElements,
           aiElementNames,
         },
+        skipCache,
       );
     }
     if (!this.prev) {
@@ -104,6 +111,7 @@ abstract class FluentBase {
     }
     return this.prev.fluentCommandStringBuilder(
       modelComposition,
+      skipCache,
       newCurrentInstruction,
       newParamsList,
     );
@@ -146,10 +154,10 @@ export interface Executable {
 }
 
 export class Exec extends FluentBase implements Executable {
-  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
+  exec(execOptions?: ExecOptions): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -1231,10 +1239,10 @@ export class FluentFiltersOrRelations extends FluentFilters {
     return new FluentFilters(this);
   }
 
-  exec(modelComposition: ModelCompositionBranch[] = []): Promise<void> {
+  exec(execOptions?: ExecOptions): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder(modelComposition).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -2380,7 +2388,15 @@ export class FluentFiltersOrRelationsCondition extends FluentFiltersCondition {
   }
 }
 
-class ExecCondition extends Exec { }
+class ExecCondition extends Exec {
+  override async exec(execOptions?: ExecOptions): Promise<void> {
+    const options = {
+      ...execOptions,
+      skipCache: true,
+    } as ExecOptions;
+    return super.exec(options);
+  }
+}
 
 // Commands
 export abstract class FluentCommand extends FluentBase {
@@ -3130,6 +3146,7 @@ export abstract class FluentCommand extends FluentBase {
     instruction: string,
     modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext,
+    skipCache : boolean,
   ): Promise<void>;
 }
 

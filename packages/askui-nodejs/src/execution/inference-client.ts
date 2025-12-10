@@ -13,6 +13,8 @@ import { ConfigurationError } from './config-error';
 import { InferenceResponseBody, VQAInferenceResponseBody } from '../core/inference-response/inference-response';
 import { logger } from '../lib/logger';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { CacheInterface } from '../core/cache';
+import { ControlCommandCode } from '../core/ui-control-commands/control-command-code';
 
 interface InferenceClientUrls {
   actEndpoint: string;
@@ -27,6 +29,7 @@ export class InferenceClient {
   constructor(
     private readonly baseUrl: string,
     private readonly httpClient: HttpClientGot,
+    public readonly cacheManager: CacheInterface,
     private readonly resize?: number,
     readonly workspaceId?: string,
     readonly modelComposition?: ModelCompositionBranch[],
@@ -51,7 +54,12 @@ export class InferenceClient {
     this.resize = this.resize ? Math.ceil(this.resize) : this.resize;
   }
 
-  async isImageRequired(instruction: string): Promise<boolean> {
+  async isImageRequired(instruction: string, customElements: CustomElement[]): Promise<boolean> {
+    const cachedImageRequired = this.cacheManager.isImageRequired(instruction, customElements);
+    if (cachedImageRequired !== undefined) {
+      logger.debug(`Cache hit for image required: '${instruction}'.`);
+      return Promise.resolve(cachedImageRequired);
+    }
     const response = await this.httpClient.post<IsImageRequired>(
       this.urls.isImageRequired,
       {
@@ -130,7 +138,20 @@ export class InferenceClient {
     modelComposition: ModelCompositionBranch[],
     customElements: CustomElement[] = [],
     image?: string,
+    skipCache = false,
   ): Promise<ControlCommand> {
+    if (!skipCache) {
+      const cachedControlCommand = await this.cacheManager.getCachedControlCommand(
+        instruction,
+        customElements,
+        image,
+      );
+      if (cachedControlCommand !== undefined) {
+        logger.debug(`Cache hit for instruction: '${instruction}'.`);
+        return Promise.resolve(cachedControlCommand);
+      }
+      logger.debug(`Cache miss for instruction: '${instruction}'.`);
+    }
     const inferenceResponse = await this.inference(
       customElements,
       image,
@@ -141,6 +162,15 @@ export class InferenceClient {
       throw new InferenceResponseError(
         'Internal Error. Can not execute command',
       );
+    }
+    if (!skipCache && inferenceResponse.code === ControlCommandCode.OK) {
+      await this.cacheManager.addCacheEntryFromControlCommand(
+        instruction,
+        inferenceResponse,
+        customElements,
+        image,
+      );
+      logger.debug(`Cache added for instruction: '${instruction}'`);
     }
     return inferenceResponse;
   }

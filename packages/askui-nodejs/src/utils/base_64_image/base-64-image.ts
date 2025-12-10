@@ -8,7 +8,7 @@ export class Base64Image {
 
   private _sharp?: sharp.Sharp;
 
-  private constructor(private buffer: Buffer) {}
+  private constructor(private buffer: Buffer) { }
 
   static async fromPathOrString(pathOrStr: string): Promise<Base64Image> {
     if (pathOrStr.startsWith(Base64Image.strPrefix)) {
@@ -50,22 +50,46 @@ export class Base64Image {
 
   async resizeToFitInto(dimension: number): Promise<Base64Image> {
     const { width, height } = await this.getInfo();
+    const roundedDimension = Math.round(dimension);
     const buffer = await (await this.getSharp())
       .resize({
         fit: 'contain',
-        height: height > width ? dimension : undefined,
-        width: width >= height ? dimension : undefined,
+        height: height > width ? roundedDimension : undefined,
+        width: width >= height ? roundedDimension : undefined,
       })
       .toBuffer();
     return Base64Image.fromBuffer(buffer);
   }
 
   async resizeWithSameAspectRatio(width: number, height: number): Promise<Base64Image> {
+    const roundedWidth = Math.round(width);
+    const roundedHeight = Math.round(height);
     const buffer = await (await this.getSharp())
       .resize({
         fit: 'contain',
-        height,
-        width,
+        height: roundedHeight,
+        width: roundedWidth,
+      })
+      .toBuffer();
+    return Base64Image.fromBuffer(buffer);
+  }
+
+  async cropRegion(
+    x: number,
+    y: number,
+    croppedWidth: number,
+    croppedHeight: number,
+  ): Promise<Base64Image> {
+    const roundedX = Math.round(x);
+    const roundedY = Math.round(y);
+    const roundedCroppedWidth = Math.round(croppedWidth);
+    const roundedCroppedHeight = Math.round(croppedHeight);
+    const buffer = await (await this.getSharp())
+      .extract({
+        height: roundedCroppedHeight,
+        left: roundedX,
+        top: roundedY,
+        width: roundedCroppedWidth,
       })
       .toBuffer();
     return Base64Image.fromBuffer(buffer);
@@ -76,5 +100,9 @@ export class Base64Image {
       return `${Base64Image.strPrefix}${this.buffer.toString('base64')}`;
     }
     return this.buffer.toString('base64');
+  }
+
+  toBuffer(): Buffer {
+    return this.buffer;
   }
 }
