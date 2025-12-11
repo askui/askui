@@ -157,7 +157,7 @@ export class Exec extends FluentBase implements Executable {
   exec(execOptions?: ExecOptions): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache, execOptions?.retryStrategy).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
