@@ -57,11 +57,13 @@ export class ExecutionRuntime {
     instruction: Instruction,
     modelComposition: ModelCompositionBranch[],
     skipCache = false,
+    retryStrategy?: RetryStrategy,
   ): Promise<void> {
     const controlCommand = await this.predictCommandWithRetry(
       instruction,
       modelComposition,
       skipCache,
+      retryStrategy,
     );
     if (controlCommand.code === ControlCommandCode.OK) {
       return this.requestControl(controlCommand);
@@ -114,15 +116,17 @@ export class ExecutionRuntime {
     instruction: Instruction,
     modelComposition: ModelCompositionBranch[],
     skipCache = false,
+    retryStrategy?: RetryStrategy,
   ): Promise<ControlCommand> {
+    const strategy = retryStrategy ?? this.retryStrategy;
     let command = await this.predictCommand(instruction, modelComposition, skipCache);
     /* eslint-disable no-await-in-loop */
-    for (let k = 0; k < this.retryStrategy.retryCount; k += 1) {
+    for (let k = 0; k < strategy.retryCount; k += 1) {
       if (command.code === ControlCommandCode.OK) {
         return command;
       }
-      const msUntilRetry = this.retryStrategy.getDelay(k + 1);
-      logger.debug(`Wait ${msUntilRetry} and retry predicting command...`);
+      const msUntilRetry = strategy.getDelay(k + 1);
+      logger.debug(`Wait ${msUntilRetry} and retry ${k + 1}/${strategy.retryCount} predicting command...`);
       await delay(msUntilRetry);
       command = await this.predictCommand(instruction, modelComposition, skipCache, new ControlCommandError(command.actions?.[0]?.text ?? ''));
     }

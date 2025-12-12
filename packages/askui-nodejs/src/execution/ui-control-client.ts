@@ -25,7 +25,8 @@ import { Instruction, StepReporter } from '../core/reporting';
 import { AIElementCollection } from '../core/ai-element/ai-element-collection';
 import { ModelCompositionBranch } from './model-composition-branch';
 import { AIElementArgs } from '../core/ai-element/ai-elements-args';
-import { NoRetryStrategy } from './retry-strategies';
+import { NoRetryStrategy, RetryStrategy } from './retry-strategies';
+import { ControlCommandError } from './control-command-error';
 import { AskUIAgent, AgentHistory, ActOptions } from '../core/models/anthropic';
 import { AskUIGetAskUIElementTool, AskUIListAIElementTool } from '../core/models/anthropic/tools/askui-api-tools';
 
@@ -215,6 +216,7 @@ export class UiControlClient extends ApiCommands {
     modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext = { customElementsJson: [], aiElementNames: [] },
     skipCache = false,
+    retryStrategy?: RetryStrategy,
   ): Promise<void> {
     const aiElements = await this.getAIElementsByNames(context.aiElementNames);
     const instruction = await this.buildInstruction(
@@ -227,7 +229,12 @@ export class UiControlClient extends ApiCommands {
     logger.debug(instruction);
     try {
       this.stepReporter.resetStep(instruction);
-      await this.executionRuntime.executeInstruction(instruction, modelComposition, skipCache);
+      await this.executionRuntime.executeInstruction(
+        instruction,
+        modelComposition,
+        skipCache,
+        retryStrategy,
+      );
       await this.afterCommandExecution(instruction);
       return await Promise.resolve();
     } catch (error) {
@@ -523,17 +530,35 @@ export class UiControlClient extends ApiCommands {
    * @param {number} waitTime - Time in milliseconds
    */
   async waitUntil(AskUICommand: Executable, maxTry = 5, waitTime = 2000) {
+    logger.debug(`waitUntil: Starting with maxTry=${maxTry}, waitTime=${waitTime}ms, retryStrategy=${this.executionRuntime.retryStrategy.constructor.name}`);
+
     const userDefinedStrategy = this.executionRuntime.retryStrategy;
-    try {
-      this.executionRuntime.retryStrategy = new NoRetryStrategy();
-      await AskUICommand.exec();
-      this.executionRuntime.retryStrategy = userDefinedStrategy;
-    } catch (error) {
-      if (maxTry === 0) {
+    this.executionRuntime.retryStrategy = new NoRetryStrategy();
+
+    const attempt = async (retriesLeft: number): Promise<void> => {
+      const attemptNumber = maxTry - retriesLeft;
+      logger.debug(`waitUntil: Attempt ${attemptNumber}/${maxTry} (${retriesLeft} retries remaining)`);
+      try {
+        await AskUICommand.exec();
+        logger.debug(`waitUntil: Command succeeded on attempt ${attemptNumber}/${maxTry}`);
+        return;
+      } catch (error: unknown) {
+        if (error instanceof ControlCommandError && retriesLeft > 0) {
+          logger.debug(`waitUntil: ControlCommandError on attempt ${attemptNumber}/${maxTry}, waiting ${waitTime}ms before retry.`, error);
+          await this.waitFor(waitTime).exec();
+          await attempt(retriesLeft - 1);
+          return;
+        }
+        const errorName = error instanceof Error ? error.name : 'Error';
+        logger.debug(`waitUntil: ${errorName} on attempt ${attemptNumber}/${maxTry}, no retries remaining.`, error);
         throw error;
       }
-      await this.waitFor(waitTime).exec();
-      await this.waitUntil(AskUICommand, maxTry - 1, waitTime);
+    };
+
+    try {
+      await attempt(maxTry - 1);
+    } finally {
+      this.executionRuntime.retryStrategy = userDefinedStrategy;
     }
   }
 

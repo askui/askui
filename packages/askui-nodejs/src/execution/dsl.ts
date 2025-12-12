@@ -8,6 +8,7 @@
 import { CustomElementJson } from '../core/model/custom-element-json';
 import { DetectedElement } from '../core/model/annotation-result/detected-element';
 import { ModelCompositionBranch } from './model-composition-branch';
+import { RetryStrategy } from './retry-strategies/retry-strategy';
 
 function isStackTraceCodeline(line: string): boolean {
   return /[ \t]+at .+/.test(line);
@@ -20,23 +21,18 @@ function splitStackTrace(stacktrace: string): { head: string[], codelines: strin
   return { head: errorStacktraceHead, codelines: errorStacktraceCodeLines };
 }
 function rewriteStackTraceForError(error: Error, newStackTrace: string) {
-  const errorCopy = new Error(error.message);
-
-  if (!error.stack) {
-    errorCopy.stack = newStackTrace;
-    return errorCopy;
-  }
-  const errorStacktraceSplit = splitStackTrace(error.stack);
+  const errorStacktraceSplit = splitStackTrace(error.stack ?? '');
   const newStacktraceSplit = splitStackTrace(newStackTrace);
 
-  errorCopy.stack = [
+  // eslint-disable-next-line no-param-reassign
+  error.stack = [
     ...errorStacktraceSplit.head,
     ...newStacktraceSplit.codelines,
     ' ',
     ...errorStacktraceSplit.head,
     ...errorStacktraceSplit.codelines,
   ].join('\n');
-  return errorCopy;
+  return error;
 }
 
 export enum Separators {
@@ -62,6 +58,7 @@ export interface CommandExecutorContext {
 export interface ExecOptions {
   modelComposition?: ModelCompositionBranch[];
   skipCache?: boolean;
+  retryStrategy?: RetryStrategy;
 }
 
 abstract class FluentBase {
@@ -87,6 +84,7 @@ abstract class FluentBase {
   protected fluentCommandStringBuilder(
     modelComposition: ModelCompositionBranch[] = [],
     skipCache = false,
+    retryStrategy?: RetryStrategy,
     currentInstruction = '',
     paramsList: Map<string, unknown[]> = new Map<string, unknown[]>(),
   ): Promise<void> {
@@ -104,6 +102,7 @@ abstract class FluentBase {
           aiElementNames,
         },
         skipCache,
+        retryStrategy,
       );
     }
     if (!this.prev) {
@@ -112,6 +111,7 @@ abstract class FluentBase {
     return this.prev.fluentCommandStringBuilder(
       modelComposition,
       skipCache,
+      retryStrategy,
       newCurrentInstruction,
       newParamsList,
     );
@@ -150,14 +150,14 @@ abstract class FluentBase {
 }
 
 export interface Executable {
-  exec(): Promise<void>
+  exec(execOptions?: ExecOptions): Promise<void>
 }
 
 export class Exec extends FluentBase implements Executable {
   exec(execOptions?: ExecOptions): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache, execOptions?.retryStrategy).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -1242,7 +1242,7 @@ export class FluentFiltersOrRelations extends FluentFilters {
   exec(execOptions?: ExecOptions): Promise<void> {
     const originStacktrace = { stack: '' };
     Error.captureStackTrace(originStacktrace, this.exec);
-    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
+    return this.fluentCommandStringBuilder(execOptions?.modelComposition, execOptions?.skipCache, execOptions?.retryStrategy).catch((err: Error) => Promise.reject(rewriteStackTraceForError(err, originStacktrace.stack)));
   }
 }
 
@@ -3147,6 +3147,7 @@ export abstract class FluentCommand extends FluentBase {
     modelComposition: ModelCompositionBranch[],
     context: CommandExecutorContext,
     skipCache : boolean,
+    retryStrategy?: RetryStrategy,
   ): Promise<void>;
 }
 

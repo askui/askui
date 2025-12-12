@@ -20,7 +20,7 @@ describe('DSL', () => {
       const testCommandSpy = jest.spyOn(underTest, 'fluentCommandExecutor');
 
       await underTest.click().button().exec();
-      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', [], { aiElementNames: [], customElementsJson: [] }, false);
+      expect(testCommandSpy).toHaveBeenCalledWith('Click on button', [], { aiElementNames: [], customElementsJson: [] }, false, undefined);
     });
 
     test('should call exec function with one custom element', async () => {
@@ -52,6 +52,7 @@ describe('DSL', () => {
           ],
         },
         false,
+        undefined,
       );
     });
 
@@ -96,6 +97,7 @@ describe('DSL', () => {
           ],
         },
         false,
+        undefined,
       );
     });
 
@@ -129,6 +131,7 @@ describe('DSL', () => {
           ],
         },
         false,
+        undefined,
       );
     });
 
@@ -152,6 +155,7 @@ describe('DSL', () => {
           customElementsJson: [],
         },
         false,
+        undefined,
       );
     });
   });
