@@ -1,5 +1,54 @@
 # Changelog
 
+## [0.31.0](https://github.com/askui/askui/compare/v0.30.0...v0.31.0) (2025-12-12)
+
+
+### Features
+
+* **Inference API Cache**: Add inference API cache for improved performance. The cache stores successful control commands to reduce redundant API calls and speed up test execution. Cache entries are stored on disk and can be configured with validation types. Only successful commands (code OK) are cached, and Expect commands are automatically skipped from caching.
+
+  To enable caching, configure it when initializing the UiControlClient:
+  ```typescript
+  import { UiControlClient } from 'askui';
+
+  const aui = await UiControlClient.build({
+    cacheConfig: {
+      cacheFilePath: './askui-cache.json',
+      validationType: 'PixelPerfect'
+    }
+  });
+  ```
+
+  You can also skip caching for specific commands using the `skipCache` option:
+  ```typescript
+  await aui.exec().click().button().withText('Submit').exec({ skipCache: true });
+  ```
+
+* **Configurable Retry Strategy**: Add configurable retry strategy per execution. You can now customize retry behavior for individual commands or set a default retry strategy for all commands. Available retry strategies include:
+  - `ExponentialRetryStrategy`: Exponential backoff (default: baseDelayMs=1000, retryCount=3)
+  - `LinearRetryStrategy`: Linear backoff (default: baseDelayMs=1000, retryCount=3)
+  - `FixedRetryStrategy`: Constant delay between retries (default: baseDelayMs=1000, retryCount=3)
+  - `NoRetryStrategy`: No retries
+
+  Example usage:
+  ```typescript
+  import { UiControlClient, ExponentialRetryStrategy } from 'askui';
+
+  const aui = await UiControlClient.build({
+    retryStrategy: new ExponentialRetryStrategy(2000, 5) // 2s base delay, 5 retries
+  });
+
+  // Or override for a specific command:
+  await aui.exec().click().button().withText('Submit').exec({
+    retryStrategy: new FixedRetryStrategy(500, 10)
+  });
+  ```
+
+### Bug Fixes
+
+* refactor(waituntil): Fix waituntil function.
+
+
 ## [0.30.0](https://github.com/askui/askui/compare/v0.29.0...v0.30.0) (2025-11-20)
 
 
