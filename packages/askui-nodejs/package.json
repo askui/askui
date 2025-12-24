@@ -42,7 +42,9 @@
         "test": "cross-env NODE_EXTRA_CA_CERTS='test/proxy/certs/unit_test.pem' jest '/src'",
         "postinstall": "node -e \"require('./bin/askui-postinstall')\"",
         "release:prerelease": "cross-env HUSKY=0 release-it --preRelease=next",
-        "release": "cross-env HUSKY=0 release-it"
+        "release": "cross-env HUSKY=0 release-it",
+        "generate:SBOM": "cyclonedx-npm package.json --omit dev --gather-license-texts --output-file bom.json --output-format JSON"
+
     },
     "files": [
         "dist/cjs/",
@@ -73,6 +75,7 @@
         "yup": "1.4.0"
     },
     "devDependencies": {
+        "@cyclonedx/cyclonedx-npm": "^4.1.2",
         "@release-it/bumper": "6.0.1",
         "@release-it/conventional-changelog": "8.0.2",
         "@types/fs-extra": "11.0.4",
