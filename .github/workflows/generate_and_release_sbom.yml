@@ -1,5 +1,6 @@
 name: Generate and Release SBOM of the AskUI NodeJS SDK
 on:
+  workflow_dispatch:
   release:
     types: [published]
   
